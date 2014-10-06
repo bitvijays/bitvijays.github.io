@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://bitvijays.github.io/sitemap.xml 
