@@ -2,17 +2,25 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   
+  <url>
+    <loc>http://bitvijays.github.io/blog/2014/10/07/linux-essentials/</loc>
+    
+    <lastmod>2014-10-07T23:07:48+01:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
   
   <url>
     <loc>http://bitvijays.github.io/blog/archives/</loc>
-    <lastmod>2014-10-06T18:43:59+01:00</lastmod>
+    <lastmod>2014-10-08T00:21:41+01:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://bitvijays.github.io/</loc>
-    <lastmod>2014-10-06T18:43:59+01:00</lastmod>
+    <lastmod>2014-10-08T00:21:41+01:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
