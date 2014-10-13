@@ -130,7 +130,7 @@ Two configurations files which are important:
 PS: Both files are present in user home directory.   
 <br>
 <br>
-sed - stream editor in Vi is really very useful.
+sed - stream editor in Vi is really very useful. It is also a standalone application.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -140,19 +140,7 @@ sed - stream editor in Vi is really very useful.
 </span><span class='line'>:s/test/learn/gi  - would replace test (all cases) to learn in current line all the instance.
 </span><span class='line'>:%s/test/learn/gi - would replace test to learn in the file (all lines)</span></code></pre></td></tr></table></div></figure>
 </li>
-<li>Few Different Commands:</li>
-<ol type="i">
-<li> whatis&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Provides a one line description of the commands.</li>
-<li> su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Change users or become superuser: The difference between su - <username> and su <username> is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.</li>
-<li> touch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  - Create zero byte files, mainly used for changing the timestamps of the file.</li>
-<li> make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it&#8217;s a faster way.</li>
-<li> cal/date&nbsp;&nbsp;&nbsp;&nbsp; - Display calendar and date. Date command provides multiples options for displaying day and time, very helpful in creating backups with name having time and date.</lis>
-<li> tr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Converts from smaller to uppercase. -d delete characters in the text. tr stands for translate.</li>
-<li> tee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - saves output in file as well as forward it.</li>
-</ol>
-<br>
-<li>Bash configuration files
-<br>
+<li>Bash configuration files - For Debian/Ubuntu based Systems.
 <ol type="i">
 <li>~/.bash_profile - Stores user environment variables.</li>
 <li>~/.bash_history - contains all the history of the commands.</li>
@@ -183,10 +171,10 @@ Few Important Variables
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get update                 - Sync with Repository
-</span><span class='line'>apt-get upgrade                - Upgrade installed packages
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get update                 - Sync with Repository.
+</span><span class='line'>apt-get upgrade                - Upgrade installed packages.
 </span><span class='line'>apt-get dist-upgrade           - Upgrade distribution packages.
-</span><span class='line'>apt-get install "Package Name" - Install the package
+</span><span class='line'>apt-get install "Package Name" - Install the package.
 </span><span class='line'>apt-get remove  "Package Name" - Uninstall the package.
 </span><span class='line'>apt-get purge   "Package Name" - Removes the package as well as the configurations files.
 </span><span class='line'>apt-cache show  "Package name" - Shows what package is used for.
@@ -205,7 +193,7 @@ poweroff would shutdown the system after everything is updated.
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>dpkg -i &lt;Package>.deb          - install package
+</pre></td><td class='code'><pre><code class=''><span class='line'>dpkg -i &lt;Package>.deb          - install package.
 </span><span class='line'>dpkg -r &lt;Package>              - Removes everything except configuration files.
 </span><span class='line'>dpkg -P &lt;Package>              - Removes configurations files too.
 </span><span class='line'>dpkg -l                        - Shows the list of all installed packages.
@@ -232,7 +220,7 @@ poweroff would shutdown the system after everything is updated.
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>adduser &lt;username> : Add a user
+</pre></td><td class='code'><pre><code class=''><span class='line'>adduser &lt;username> : Add a user.
 </span><span class='line'>   --gecos GECOS   : adduser won't ask for finger information.
 </span><span class='line'>   --system        : Create a system user.
 </span><span class='line'>   --quiet         : Suppress informational messages, only show warnings and errors.
@@ -282,15 +270,15 @@ poweroff would shutdown the system after everything is updated.
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/home                             - users home directories
-</span><span class='line'>/etc                              - system-wide configuration files
-</span><span class='line'>/bin, /usr/bin, /usr/local/bin    - directories with executable files.
-</span><span class='line'>/lib, /usr/lib, /usr/local/lib    - shared libraries needed to support the applications
-</span><span class='line'>/sbin, /usr/sbin, /usr/local/sbin - directories with executables supposed to be run by the Superuser
-</span><span class='line'>/tmp, /var/tmp                    - temporary directories, watch out as /tmp is, by default, cleaned out on each reboot
-</span><span class='line'>/usr/share/doc, /usr/share/man    - complete system documentation
-</span><span class='line'>/dev                              - system device files. In Unix, hardware devices are represented as files
-</span><span class='line'>/proc                             - "virtual" directory containing files through which you can query or tune Linux kernel settings</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/home                             : users home directories.
+</span><span class='line'>/etc                              : system-wide configuration files.
+</span><span class='line'>/bin, /usr/bin, /usr/local/bin    : directories with executable files.
+</span><span class='line'>/lib, /usr/lib, /usr/local/lib    : shared libraries needed to support the applications.
+</span><span class='line'>/sbin, /usr/sbin, /usr/local/sbin : directories with executables supposed to be run by the Superuser.
+</span><span class='line'>/tmp, /var/tmp                    : temporary directories, watch out as /tmp is, by default, cleaned out on each reboot.
+</span><span class='line'>/usr/share/doc, /usr/share/man    : complete system documentation.
+</span><span class='line'>/dev                              : system device files. In Unix, hardware devices are represented as files.
+</span><span class='line'>/proc                             : "virtual" directory containing files through which you can query or tune Linux kernel settings.</span></code></pre></td></tr></table></div></figure>
 </li>
 
 <li>Runlevels and Kernel Configurations
@@ -362,11 +350,11 @@ poweroff would shutdown the system after everything is updated.
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>lsmod      - list all loaded modules
-</span><span class='line'>modprobe   - load kernel modules
-</span><span class='line'>lspci      - list all pci devices
-</span><span class='line'>lsusb      - list all usb devices
-</span><span class='line'>hal-device - list all the Hardware Abstraction layer devices</span></code></pre></td></tr></table></div></figure></li>
+</pre></td><td class='code'><pre><code class=''><span class='line'>lsmod      : list all loaded modules
+</span><span class='line'>modprobe   : load kernel modules
+</span><span class='line'>lspci      : list all pci devices
+</span><span class='line'>lsusb      : list all usb devices
+</span><span class='line'>hal-device : list all the Hardware Abstraction layer devices</span></code></pre></td></tr></table></div></figure></li>
 <li>Debian GNU provides a convenient tool to manage runlevels (to control when services are started and shut down); it&#8217;s called update-rc.d and there are two commonly used invocation methods:
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -429,15 +417,15 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>last     : shows all the login attempts and the reboot occurred.
-</span><span class='line'>lastb    : shows all the bad login attempts. 
-</span><span class='line'>lastlog  : shows the list of all the users and when did they login.
-</span><span class='line'>id       : print real and effective user and group IDs.
-</span><span class='line'>whoami   : whoami - print effective userid.
-</span><span class='line'>uname    : print system information.
-</span><span class='line'>      -a : print all the information (Kernel name, nodename, kernel-release, kernel-version, machine, processor, hardware-platform)
-</span><span class='line'>pstree   : display a tree of processes.
-</span><span class='line'>hostname : prints out the hostname of the machine which is stored in /etc/hostname.</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>last      : shows all the login attempts and the reboot occurred.
+</span><span class='line'>lastb     : shows all the bad login attempts. 
+</span><span class='line'>lastlog   : shows the list of all the users and when did they login.
+</span><span class='line'>id        : print real and effective user and group IDs.
+</span><span class='line'>whoami    : whoami - print effective userid.
+</span><span class='line'>uname     : print system information.
+</span><span class='line'>      -a  : print all the information (Kernel name, nodename, kernel-release, kernel-version, machine, processor, hardware-platform)
+</span><span class='line'>pstree    : display a tree of processes.
+</span><span class='line'>hostname  : prints out the hostname of the machine which is stored in /etc/hostname.</span></code></pre></td></tr></table></div></figure>
 </li>
 </ul>
 </li>
@@ -451,25 +439,25 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp &lt;SOURCE> &lt;DIRECTORY>
-</span><span class='line'>-r
-</span><span class='line'>-a similar to preserve,
-</span><span class='line'>-p preserve
-</span><span class='line'>-v verbose.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>-r        : recursive.
+</span><span class='line'>-a        :similar to preserve,
+</span><span class='line'>-p        :preserve
+</span><span class='line'>-v        :verbose.</span></code></pre></td></tr></table></div></figure>
 </li>
 <li>cut - remove sections from each line of files.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>-d : use DELIM instead of TAB for field delimiter.
-</span><span class='line'>-f : select only these fields.</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-d        : use DELIM instead of TAB for field delimiter.
+</span><span class='line'>-f        : select only these fields.</span></code></pre></td></tr></table></div></figure>
 </li>
 
 <li>Pipes
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>\>    : direct normal output.
-</span><span class='line'>2>    : direct error output.
-</span><span class='line'>&>    : direct all output.</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\>        : direct normal output.
+</span><span class='line'>2>        : direct error output.
+</span><span class='line'>&>        : direct all output.</span></code></pre></td></tr></table></div></figure>
 </li>
 
 <li>tar - Archiving utility
@@ -478,11 +466,11 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>-c   : create archive
-</span><span class='line'>-t   : list the content of the file
-</span><span class='line'>-x   : extract the files
-</span><span class='line'>-j   : bzip2 format
-</span><span class='line'>-z   : gzip format</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-c        : create archive
+</span><span class='line'>-t        : list the content of the file
+</span><span class='line'>-x        : extract the files
+</span><span class='line'>-j        : bzip2 format
+</span><span class='line'>-z        : gzip format</span></code></pre></td></tr></table></div></figure>
 </li>
 
 
@@ -498,7 +486,18 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>nm-applet : Just a applet for network manager.
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nm-applet : a applet for network manager.
 </span><span class='line'>wc        : print newline, word, and byte counts for each file.
 </span><span class='line'>   -c     : print the bytes count.
 </span><span class='line'>   -l     : print the lines count.
@@ -508,11 +507,27 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 </span><span class='line'>less      : print information one per page.
 </span><span class='line'>more      : prints information one per page.
 </span><span class='line'>head      : prints first 10 lines
-</span><span class='line'>tail      : prints last 10 lines.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>tail      : prints last 10 lines.
+</span><span class='line'>whatis    : Provides a one line description of the commands.
+</span><span class='line'>which     : locate a command.
+</span><span class='line'>whereis   : locate the binary, source, and manual page files for a command.
+</span><span class='line'>locate    : find files by name
+</span><span class='line'>cal       : Display calendar
+</span><span class='line'>date      : Display date. Date command provides multiples options for displaying day and time, very helpful in creating backups with name having time and date.
+</span><span class='line'>tr        : Converts from smaller to uppercase. tr stands for translate.
+</span><span class='line'>   -d     : delete characters in the text.
+</span><span class='line'>tee       : saves output in file as well as forward it.
+</span><span class='line'>touch     : Create zero byte files, mainly used for changing the timestamps of the file.
+</span><span class='line'>make      : If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it's a faster way.</span></code></pre></td></tr></table></div></figure>
 </li>
 </ul>
 </li>
-
+<li>Few Important Differences in Commands:
+<ol type="i">
+<li> su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; Change users or become superuser. The difference between su - <username> and su <username> is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.</li>
+<li>sudo&nbsp;&nbsp; :&nbsp; execute a command as another user. The difference between su and sudo is &#8216;su&#8217; forces you to share your root password to other users whereas &#8216;sudo&#8217; makes it possible to execute system commands without root password. &#8216;sudo&#8217; lets you use your own password to execute system commands i.e. delegates system responsibility without root password.</li>
+</ol></li>
+<br>
 <li>Tips and Tricks
 <ul>
 <li>Scan files for a text present in them
@@ -524,13 +539,23 @@ Find a way to scan my entire linux system for all files containing a specific st
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>grep -rnw 'directory' -e "pattern" --include={*.c,*.h} --exclude=*.o
 </span><span class='line'>-r                    : search recursively
 </span><span class='line'>-n                    : print line number
 </span><span class='line'>-w                    : match the whole word. 
 </span><span class='line'>--include={*.c,*.h}   : Only search through the files which have .c or .h extensions.
 </span><span class='line'>--exclude=*.o         : Exclude searching in files with .o extensions.
-</span><span class='line'>PS: --exclude or --include parameter could be used for efficient searching.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>PS: --exclude or --include parameter could be used for efficient searching. 
+</span><span class='line'>
+</span><span class='line'>-i, --ignore-case     : 'it DoesNt MatTTer WhaT thE CAse Is'
+</span><span class='line'>-v, --invert-match    : 'everything , BUT that text'
+</span><span class='line'>-A &lt;NUM>              : Print NUM lines of trailing context after matching lines.
+</span><span class='line'>-B &lt;NUM>              : Print NUM lines of trailing context before matching lines.</span></code></pre></td></tr></table></div></figure>
 </li>
 <li>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some neccessary packages.
 <br>
@@ -623,17 +648,17 @@ Checks equality between numbers:
 <span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>x -eq y         : Check is x is equals to y
 </span><span class='line'>x -ne y         : Check if x is not equals to y
-</span><span class='line'>x -gt y         : Check ifx is greater than y
+</span><span class='line'>x -gt y         : Check if x is greater than y
 </span><span class='line'>x -lt y         : Check if x is less than y</span></code></pre></td></tr></table></div></figure></li>
 <li>Checks equality between strings:
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>x = y        : Check if x is the same as y
-</span><span class='line'>x != y       : Check if x is not the same as y
-</span><span class='line'>-n x         : Evaluates to true if x is not null
-</span><span class='line'>-z x         : Evaluates to true if x is null.</span></code></pre></td></tr></table></div></figure></li>
+</pre></td><td class='code'><pre><code class=''><span class='line'>x = y           : Check if x is the same as y
+</span><span class='line'>x != y          : Check if x is not the same as y
+</span><span class='line'>-n x            : Evaluates to true if x is not null
+</span><span class='line'>-z x            : Evaluates to true if x is null.</span></code></pre></td></tr></table></div></figure></li>
 </ul>
 </li>
 
