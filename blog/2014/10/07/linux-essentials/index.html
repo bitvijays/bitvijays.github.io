@@ -150,8 +150,8 @@ sed - stream editor in Vi is really very useful. It is also a standalone applica
 Few Important Variables
 <ol type="i">
 <li>HISTSIZE&nbsp;&nbsp;&nbsp;&nbsp; - Controls the number of commands to remember in the history command. The default value is 500.</li>
-<li>HISTFILE&nbsp;&nbsp;&nbsp;&nbsp; - Defines the file in which all commands will be logged to. Normally the value for this variable is set to ~/.bash_history. This means that whatever you type in bash will be stored into the value of HISTFILE. It is advisable to leave it undefined, or pipe the output to /dev/null (For Privacy reasons).</li>
-<li>HISTFILESIZE - Defines the maximum number of commands ~/.bash_history.</li>
+<li>HISTFILE&nbsp;&nbsp;&nbsp;&nbsp; - Defines the file in which all commands will be logged to. Normally the value for this variable is set to ~/.bash_history. This means that whatever you type in bash will be stored into the value of HISTFILE. It is advisable to leave it undefined, or pipe the output to /dev/null (For privacy reasons).</li>
+<li>HISTFILESIZE - Defines the maximum number of commands in ~/.bash_history.</li>
 </ol>
 </li>
 <br>
@@ -168,7 +168,7 @@ Few Important Variables
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get update                 - Sync with Repository.
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get update                 - Sync with Repositories.
 </span><span class='line'>apt-get upgrade                - Upgrade installed packages.
 </span><span class='line'>apt-get dist-upgrade           - Upgrade distribution packages.
 </span><span class='line'>apt-get install "Package Name" - Install the package.
@@ -371,7 +371,7 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>To Comile: gcc -Wall -pedantic -g &lt;C source file> -o &lt;Executable file>
+</pre></td><td class='code'><pre><code class=''><span class='line'>To Compile: gcc -Wall -pedantic -g &lt;C source file> -o &lt;Executable file>
 </span><span class='line'>-Wall -pedantic : to check for all the warnings and errors if any.
 </span><span class='line'>-g              : to create the symbol file to be used by gdb 
 </span><span class='line'>-o              : to create the executable file.</span></code></pre></td></tr></table></div></figure></li>
@@ -400,8 +400,8 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>/etc/issue     : Contains the message which is displayed on terminal before login. 
 </span><span class='line'>/etc/motd      : Contains the message which is displayed on terminal after login.
-</span><span class='line'>/proc/cpuinfo  : provides information about cpu
-</span><span class='line'>/proc/meminfo  : provides information about memory/ RAM
+</span><span class='line'>/proc/cpuinfo  : provides information about cpu.
+</span><span class='line'>/proc/meminfo  : provides information about memory/ RAM.
 </span><span class='line'>/proc/version  : provides information about the version of your system.</span></code></pre></td></tr></table></div></figure>
 </li>
 <li>From Commands
@@ -437,9 +437,9 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp &lt;SOURCE> &lt;DIRECTORY>
 </span><span class='line'>-r        : recursive.
-</span><span class='line'>-a        :similar to preserve,
-</span><span class='line'>-p        :preserve
-</span><span class='line'>-v        :verbose.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>-a        : similar to preserve,
+</span><span class='line'>-p        : preserve
+</span><span class='line'>-v        : verbose.</span></code></pre></td></tr></table></div></figure>
 </li>
 <li>cut - remove sections from each line of files.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -566,7 +566,7 @@ To reinstall these packages you just need the package name such as
 </pre></td><td class='code'><pre><code class=''><span class='line'>libapt-inst1.5, apt-utils.</span></code></pre></td></tr></table></div></figure>
 
 <ul>
-<li>Step1: Use sed to search for pattern &#8220;), &#8221; and replace it with &#8220;)&#8217; \n&#8221;. This would separate the packages by new line. Within vi &#8220;:%s/), /\n/g&#8221;</li>
+<li>Step1: Use sed to search for pattern &#8220;), &#8221; and replace it with &#8220;), \n&#8221;. This would separate the packages by new line. Within vi &#8220;:%s/), /\n/g&#8221;</li>
 <li>Step2: Use cut -d &#8220;:&#8221; -f 1 to remove :amd64 and anything after that.</li>
 <li>Step3: Now we have to get them back in one line rather than multiple lines. Within vi &#8220;:%s/\n/ /g&#8221;</li>
 </ul>
@@ -671,8 +671,8 @@ Checks equality between numbers:
 <li>To Learn Programming, Debugging and Git
 <ul>
 <li> To learn git, would suggest to do a 15 min tutorial on <a href="try.github.com">try.github.com</a>.</li>
-<li> Create a small program using vi with syntax on, compile it using gcc using make</li>
-<li> Debug it using gdb.-tui option to see the source code, experiment with breakpoints, and printing values</li>
+<li> Create a small program using vi with syntax on, compile it using gcc using make.</li>
+<li> Debug it using gdb -tui option to see the source code, experiment with breakpoints, and printing values.</li>
 <li> Track that program using git, upload them to a remote server, then pull your code, check if its the same.</li>
 </ul>
 </li>
@@ -710,7 +710,7 @@ HINT: man pages would help you.</li>
 <li>Download the index.html page of microsoft.com</li>
 <li>Every link in html is referred by href. Filter all the href (which would contain the link to different domains for Microsoft)</li>
 <li>Sort and find unique list. Get their ip addresses</li>
-<li>HINT: Tools such as cut, grep, wget, ssort, uniq, host and little bit of bash scripting would be used.</li>
+<li>HINT: Tools such as cut, grep, wget, sort, uniq, host and little bit of bash scripting would be used.</li>
 </ul></li>
 </ul>
 </li>
