@@ -54,8 +54,8 @@ sed - stream editor in Vi is really very useful. It is also a standalone applica
 Few Important Variables
 <ol type="i">
 <li>HISTSIZE&nbsp;&nbsp;&nbsp;&nbsp; - Controls the number of commands to remember in the history command. The default value is 500.</li>
-<li>HISTFILE&nbsp;&nbsp;&nbsp;&nbsp; - Defines the file in which all commands will be logged to. Normally the value for this variable is set to ~/.bash_history. This means that whatever you type in bash will be stored into the value of HISTFILE. It is advisable to leave it undefined, or pipe the output to /dev/null (For Privacy reasons).</li>
-<li>HISTFILESIZE - Defines the maximum number of commands ~/.bash_history.</li>
+<li>HISTFILE&nbsp;&nbsp;&nbsp;&nbsp; - Defines the file in which all commands will be logged to. Normally the value for this variable is set to ~/.bash_history. This means that whatever you type in bash will be stored into the value of HISTFILE. It is advisable to leave it undefined, or pipe the output to /dev/null (For privacy reasons).</li>
+<li>HISTFILESIZE - Defines the maximum number of commands in ~/.bash_history.</li>
 </ol>
 </li>
 <br>
@@ -65,7 +65,7 @@ Few Important Variables
 <ul>
 <li>Using apt-get
 {% codeblock %}
-apt-get update                 - Sync with Repository.
+apt-get update                 - Sync with Repositories.
 apt-get upgrade                - Upgrade installed packages.
 apt-get dist-upgrade           - Upgrade distribution packages.
 apt-get install "Package Name" - Install the package.
@@ -232,7 +232,7 @@ update-rc.d <service name> defaults  : Insert links using defaults, start in run
 TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <li>gcc - GNU Compile Collection:
 {% codeblock %}
-To Comile: gcc -Wall -pedantic -g <C source file> -o <Executable file>
+To Compile: gcc -Wall -pedantic -g <C source file> -o <Executable file>
 -Wall -pedantic : to check for all the warnings and errors if any.
 -g              : to create the symbol file to be used by gdb 
 -o              : to create the executable file.
@@ -255,8 +255,8 @@ bt                : to print the stack call, mainly useful to find segmentation 
 {% codeblock %}
 /etc/issue     : Contains the message which is displayed on terminal before login. 
 /etc/motd      : Contains the message which is displayed on terminal after login.
-/proc/cpuinfo  : provides information about cpu
-/proc/meminfo  : provides information about memory/ RAM
+/proc/cpuinfo  : provides information about cpu.
+/proc/meminfo  : provides information about memory/ RAM.
 /proc/version  : provides information about the version of your system.
 {% endcodeblock %}
 </li>
@@ -282,9 +282,9 @@ hostname  : prints out the hostname of the machine which is stored in /etc/hostn
 {% codeblock %}
 cp <SOURCE> <DIRECTORY>
 -r        : recursive.
--a        :similar to preserve,
--p        :preserve
--v        :verbose.
+-a        : similar to preserve,
+-p        : preserve
+-v        : verbose.
 {% endcodeblock %}
 </li>
 <li>cut - remove sections from each line of files.
@@ -380,7 +380,7 @@ libapt-inst1.5, apt-utils.
 {% endcodeblock %}
 
 <ul>
-<li>Step1: Use sed to search for pattern "), " and replace it with ")' \n". This would separate the packages by new line. Within vi ":%s/), /\n/g"</li>
+<li>Step1: Use sed to search for pattern "), " and replace it with "), \n". This would separate the packages by new line. Within vi ":%s/), /\n/g"</li>
 <li>Step2: Use cut -d ":" -f 1 to remove :amd64 and anything after that.</li>
 <li>Step3: Now we have to get them back in one line rather than multiple lines. Within vi ":%s/\n/ /g"</li>
 </ul>
@@ -465,8 +465,8 @@ That was most probably a lot of information, to practice all the it's always bet
 <li>To Learn Programming, Debugging and Git
 <ul>
 <li> To learn git, would suggest to do a 15 min tutorial on <a href="try.github.com">try.github.com</a>.</li>
-<li> Create a small program using vi with syntax on, compile it using gcc using make</li>
-<li> Debug it using gdb.-tui option to see the source code, experiment with breakpoints, and printing values</li>
+<li> Create a small program using vi with syntax on, compile it using gcc using make.</li>
+<li> Debug it using gdb -tui option to see the source code, experiment with breakpoints, and printing values.</li>
 <li> Track that program using git, upload them to a remote server, then pull your code, check if its the same.</li>
 </ul>
 </li>
@@ -504,7 +504,7 @@ HINT: man pages would help you.</li>
 <li>Download the index.html page of microsoft.com</li>
 <li>Every link in html is referred by href. Filter all the href (which would contain the link to different domains for Microsoft)</li>
 <li>Sort and find unique list. Get their ip addresses</li>
-<li>HINT: Tools such as cut, grep, wget, ssort, uniq, host and little bit of bash scripting would be used.</li>
+<li>HINT: Tools such as cut, grep, wget, sort, uniq, host and little bit of bash scripting would be used.</li>
 </ul></li>
 </ul>
 </li>
