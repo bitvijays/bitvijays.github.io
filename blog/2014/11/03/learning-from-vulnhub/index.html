@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Learning From VulnHub - tech.bitvijays.com</title>
+  <meta name="author" content="Vijay Kumar">
+
+  
+  <meta name="description" content="This post (Work in Progress) mark downs the learning gathered by doing the vulnerable machines provided by the VulnHub. Once you download the virtual &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://bitvijays.github.io/blog/2014/11/03/learning-from-vulnhub">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="tech.bitvijays.com" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">tech.bitvijays.com</a></h1>
+  
+    <h2>The Magic of Learning.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:bitvijays.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About Me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Learning From VulnHub</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-03T16:40:21+00:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>4:40 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This post (Work in Progress) mark downs the learning gathered by doing the vulnerable machines provided by the VulnHub. Once you download the virtual machine from the website and run it in VMware or Virtual Box, below steps could be followed to find the vulnerabilties.</p>
+
+<!-- more -->
+
+
+<ol>
+
+<li>Finding the IP address:
+
+<ul>
+<li>Netdiscover:  an active/passive arp reconnaissance tool
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>netdiscover [options] 
+</span><span class='line'>-i interface : The network interface to sniff and inject packets.
+</span><span class='line'>-r range     : Scan a given range instead of auto scan.
+</span><span class='line'>
+</span><span class='line'>Example: netdiscover -i eth0/wlan0/vboxnet0/vmnet1 -r 192.168.1.0/24</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span>Interface name for Virtualization Software</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Virtualbox   : vboxnet
+</span><span class='line'>Vmware       : vmnet</span></code></pre></td></tr></table></div></figure>
+</li>
+
+<li>Nmap: Network exploration tool and security / port scanner
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nmap [Scan Type] [Options] {target specification}
+</span><span class='line'>-sP/-sn Ping Scan - disable port scan 
+</span><span class='line'>Example: nmap -sP/-sn 192.168.1.0/24</span></code></pre></td></tr></table></div></figure>
+</li>
+</ul>
+</li>
+
+
+
+<li>Port Scanning the system:
+<br>
+Port scanning provides a large amount of information on open services and possible exploits that target these services.
+Two options
+<ul>
+<li>Unicornscan:  port scanner that utilizes it’s own userland TCP/IP stack, which allows it to run a asynchronous scans. Faster than nmap and can scan 65,535 ports in a relatively shorter time frame.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>unicornscan [options] X.X.X.X/YY:S-E
+</span><span class='line'>-i, --interface      : interface name, like eth0 or fxp1, not normally required
+</span><span class='line'>-m, --mode           : scan mode, tcp (syn) scan is default, U for udp T for tcp `sf' for tcp connect scan and A for arp
+</span><span class='line'>                 for -mT you can also specify tcp flags following the T like -mTsFpU for example that would send tcp syn packets with (NO Syn|FIN|NO Push|URG)
+</span><span class='line'>
+</span><span class='line'>Address ranges are cidr like 1.2.3.4/8 for all of 1.?.?.?, if you omit the cidr mask then /32 is implied.
+</span><span class='line'>Port ranges are like 1-4096 with 53 only scanning one port, a for all 65k and p for 1-1024
+</span><span class='line'>
+</span><span class='line'>example: unicornscan 192.168.1.5:1-4000 gateway:a would scan port 1 - 4000 for 192.168.1.5 and all 65K ports for gateway.</span></code></pre></td></tr></table></div></figure>
+</li>
+
+<li>Nmap: Network exploration tool and security / port scanner
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nmap [Scan Type] [Options] {target specification}
+</span><span class='line'>HOST DISCOVERY:
+</span><span class='line'>-sL: List Scan - simply list targets to scan
+</span><span class='line'>-sn: Ping Scan - disable port scan
+</span><span class='line'>-Pn: Treat all hosts as online -- skip host discovery
+</span><span class='line'>
+</span><span class='line'>SCAN TECHNIQUES:
+</span><span class='line'>-sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
+</span><span class='line'>-sU: UDP Scan
+</span><span class='line'>-sN/sF/sX: TCP Null, FIN, and Xmas scans
+</span><span class='line'>
+</span><span class='line'>PORT SPECIFICATION:
+</span><span class='line'>-p &lt;port ranges>: Only scan specified ports
+</span><span class='line'>Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9
+</span><span class='line'>
+</span><span class='line'>SERVICE/VERSION DETECTION:
+</span><span class='line'>-sV: Probe open ports to determine service/version info
+</span><span class='line'>
+</span><span class='line'>OUTPUT:
+</span><span class='line'>-oN/-oX/-oS/-oG &lt;file>: Output scan in normal, XML, s|&lt;rIpt kIddi3, and Grepable format, respectively, to the given filename.
+</span><span class='line'>-oA &lt;basename>: Output in the three major formats at once
+</span><span class='line'>-v: Increase verbosity level (use -vv or more for greater effect)
+</span><span class='line'>
+</span><span class='line'>MISC:
+</span><span class='line'>-6: Enable IPv6 scanning
+</span><span class='line'>-A: Enable OS detection, version detection, script scanning, and tracerout</span></code></pre></td></tr></table></div></figure>
+</li>
+</ul>
+
+As unicornscan is so fast, it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. <a href="https://twitter.com/superkojiman">superkojiman</a> has written a script for this available at <a href="https://github.com/superkojiman/onetwopunch">GitHub</a>.
+</li>
+<br>
+
+<li>Probing it further: 
+<br>
+At this point, you would have an idea about the different services and service version running on the system.
+
+<ol>
+<li>searchsploit: Exploit Database Archive Search.
+<br>
+First, we need to check if the operating system is using any services which are vulnerable or the exploit is already available in the internet.
+For example, A vulnerable service webmin is present in <a href="http://vulnhub.com/entry/pwnos-10,33/">pWnOS 1.0</a> which can be exploited to extract information from the system.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@kali:~# nmap -sV -A 172.16.73.128
+</span><span class='line'>**********Trimmed**************
+</span><span class='line'>10000/tcp open  http        MiniServ 0.01 (Webmin httpd)
+</span><span class='line'>|_http-methods: No Allow or Public header in OPTIONS response (status code 200)
+</span><span class='line'>|_http-title: Site doesn't have a title (text/html; Charset=iso-8859-1).
+</span><span class='line'>| ndmp-version: 
+</span><span class='line'>|_  ERROR: Failed to get host information from server
+</span><span class='line'>**********Trimmed**************</span></code></pre></td></tr></table></div></figure>
+
+If you search for webmin in searchsploit, you would find different exploits available for it and you would just have to use the correct one based on the utility and the version matching.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@kali:~# searchsploit webmin
+</span><span class='line'>**********Trimmed**************
+</span><span class='line'> Description                                                                            Path
+</span><span class='line'>----------------------------------------------------------------------------------------------------------------
+</span><span class='line'>Webmin &lt; 1.290 / Usermin &lt; 1.220 Arbitrary File Disclosure Exploit                   | /multiple/remote/1997.php
+</span><span class='line'>Webmin &lt; 1.290 / Usermin &lt; 1.220 Arbitrary File Disclosure Exploit (perl)            | /multiple/remote/2017.pl
+</span><span class='line'>Webmin 1.x HTML Email Command Execution Vulnerability                                | /cgi/webapps/24574.txt
+</span><span class='line'>**********Trimmed**************</span></code></pre></td></tr></table></div></figure>
+</li>
+<li>Webserver Opportunities?:
+<br>
+<ul>
+<li>Names? Possible Usernames? Possible Passwords?:
+<br>
+Sometimes, on visiting the webpage of the webserver (If Vulnerable machine is running any http/https webserver), you would found possible names of the employees working in the company. Now, it is common practise to have username based on your first/last name. It can be based on different combinations such as firstname.lastname or first letter of first name + lastname etc. <a href="https://twitter.com/superkojiman">superkojiman</a> has written a python script named &#8220;namemash.py&#8221; available at <a href="https://gist.githubusercontent.com/superkojiman/11076951/raw/namemash.py">here</a> which could be used to create possible usernames.
+<br><br>
+However, we still have a large amount of usernames to bruteforce with passwords. Further, if the vulnerable machine is running a SMTP mail server, we can verify if the particular username exists or not and modify namemash.py to generate usernames for that pattern.
+<ol>
+<li>Using metasploit smtp_enum module:
+<br>
+Once msfconsole is running, use auxiliary/scanner/smtp/smtp_enum, enter the RHOSTS (target address) and USER FILE containing the list of probable user accounts.
+</li>
+<li>Using VRFY command:</li>
+<li>Using RCPT TO command:</li>
+</ol>
+
+</li>
+</ul>
+</li>
+<br>
+<li>FTP Opportunities:
+<br>
+If ftp anonymous login is provided or you have login details, you can download the contents by wget, (For anonymous login user password are not required)
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget -rq ftp://&lt;IP address> 
+</span><span class='line'>--ftp-user=username
+</span><span class='line'>--ftp-password=password</span></code></pre></td></tr></table></div></figure>
+</li>
+
+</ol>
+</li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Vijay Kumar</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-11-03T16:40:21+00:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>4:40 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/07/linux-essentials/" title="Previous Post: Linux Essentials">&laquo; Linux Essentials</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/03/learning-from-vulnhub/">Learning From VulnHub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/07/linux-essentials/">Linux Essentials</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Vijay Kumar -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -9,7 +9,7 @@
   <meta name="author" content="Vijay Kumar">
 
   
-  <meta name="description" content="This post lists essential commands and concepts which would be helpful to a Linux user. We would cover tools required for programming, system &hellip;">
+  <meta name="description" content="This post (Work in Progress) mark downs the learning gathered by doing the vulnerable machines provided by the VulnHub. Once you download the virtual &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,40 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/11/03/learning-from-vulnhub/">Learning From VulnHub</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-03T16:40:21+00:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>4:40 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post (Work in Progress) mark downs the learning gathered by doing the vulnerable machines provided by the VulnHub. Once you download the virtual machine from the website and run it in VMware or Virtual Box, below steps could be followed to find the vulnerabilties.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/11/03/learning-from-vulnhub/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/10/07/linux-essentials/">Linux Essentials</a></h1>
     
     
@@ -91,636 +125,12 @@
 
   <div class="entry-content"><p>This post lists essential commands and concepts which would be helpful to a Linux user. We would cover tools required for programming, system administration. Also, provide some useful tips, tricks and TODO which would help you learn and practice.</p>
 
-<ol>
-<li>Vi : Powerful Editor:
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vi &lt;filename>           - Open a file to edit in Vi editor.
-</span><span class='line'>Two modes               - Command and Insert Mode. All commands below are in command mode.
-</span><span class='line'>:q                      - Quit.
-</span><span class='line'>:wq                     - Save and close.
-</span><span class='line'>:syntax on              - Turn on Syntax highlighting for C programming and other languages.
-</span><span class='line'>:set number             - Turn on the line numbers.
-</span><span class='line'>:set nonumber           - Turn off the line numbers.
-</span><span class='line'>:u                      - Undo one change.
-</span><span class='line'>dd                      - Delete current line. 
-</span><span class='line'>d$                      - Delete the text from where your cursor is to the end of the line.
-</span><span class='line'>dnd                     - Delete n lines.
-</span><span class='line'>yy                      - Yank or copy current line.
-</span><span class='line'>y$, yny                 - Similar to delete lines.
-</span><span class='line'>p                       - Paste the line in the buffer in to text after the current line.</span></code></pre></td></tr></table></div></figure>
-Two configurations files which are important:
-<ul>
-<li>.vimrc&nbsp;&nbsp;&nbsp;&nbsp;   - Contains optional runtime configuration settings to initialize Vim when it starts. Example: If you want Vim to have syntax on and line numbers on, whenever you open vi, enter syntax on and set number in this file.</li>
-<li>.viminfo - Viminfo file stores command-line, search string, input-line history and other stuff. Useful if you want to find out what user has been doing in vi.</li>
-</ul> 
-<br>  
-PS: Both files are present in user home directory.   
-<br>
-<br>
-sed - stream editor in Vi is really very useful. It is also a standalone application.
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>:s/test/learn     - would replace test to learn in current line but only first instance.
-</span><span class='line'>:s/test/learn/g   - would replace test to learn in current line all the instance.
-</span><span class='line'>:s/test/learn/gi  - would replace test (all cases) to learn in current line all the instance.
-</span><span class='line'>:%s/test/learn/gi - would replace test to learn in the file (all lines)</span></code></pre></td></tr></table></div></figure>
-</li>
-<li>Bash configuration files - For Debian/Ubuntu based Systems.
-<ol type="i">
-<li>~/.bash_profile - Stores user environment variables.</li>
-<li>~/.bash_history - contains all the history of the commands.</li>
-<li>~/.bash_logout&nbsp;  - contains the command which are executed when bash is exited.</li>
-<li>~/.bashrc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       - setting of variables for bash.</li>
-<li>/etc/profile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Global system configuration for bash which controls the environmental variables and programs that are to be run when bash is executed. Setting of PATH variable and PS1.</li>
-<li>/etc/bashrc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     - Global system configuration for bash which controls the aliases and functions to be run when bash is executed.</li>
-</ol>
-<br>
-Few Important Variables
-<ol type="i">
-<li>HISTSIZE&nbsp;&nbsp;&nbsp;&nbsp; - Controls the number of commands to remember in the history command. The default value is 500.</li>
-<li>HISTFILE&nbsp;&nbsp;&nbsp;&nbsp; - Defines the file in which all commands will be logged to. Normally the value for this variable is set to ~/.bash_history. This means that whatever you type in bash will be stored into the value of HISTFILE. It is advisable to leave it undefined, or pipe the output to /dev/null (For privacy reasons).</li>
-<li>HISTFILESIZE - Defines the maximum number of commands in ~/.bash_history.</li>
-</ol>
-</li>
-<br>
-<li>System Administration
-<ul>
-<li>Updating Debian Linux System
-<ul>
-<li>Using apt-get
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get update                 - Sync with Repositories.
-</span><span class='line'>apt-get upgrade                - Upgrade installed packages.
-</span><span class='line'>apt-get dist-upgrade           - Upgrade distribution packages.
-</span><span class='line'>apt-get install "Package Name" - Install the package.
-</span><span class='line'>apt-get remove  "Package Name" - Uninstall the package.
-</span><span class='line'>apt-get purge   "Package Name" - Removes the package as well as the configurations files.
-</span><span class='line'>apt-cache show  "Package name" - Shows what package is used for.
-</span><span class='line'>apt-cache search "Keywords"    - Search package name based on keywords.</span></code></pre></td></tr></table></div></figure>
-Tip: As mostly, updating takes time, you can club all the commands like &#8220;apt-get update && apt-get upgrade && apt-get dist-upgrade && poweroff&#8221;. 
-<br>
-<br>
-poweroff would shutdown the system after everything is updated.
-<br>
-<br>
-</li>
-<li>Using Debian Package Manager dpkg
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>dpkg -i &lt;Package>.deb          - install package.
-</span><span class='line'>dpkg -r &lt;Package>              - Removes everything except configuration files.
-</span><span class='line'>dpkg -P &lt;Package>              - Removes configurations files too.
-</span><span class='line'>dpkg -l                        - Shows the list of all installed packages.
-</span><span class='line'>dpkg -L "Package name"         - Shows a list of files installed by specific packages.
-</span><span class='line'>dpkg -S "File path"            - Shows the package to which a file belong to.</span></code></pre></td></tr></table></div></figure>
-</li>
-</ul>
-</li>
-
-<li>Adding/Deleting/Modifying Users/Groups
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>adduser &lt;username> : Add a user.
-</span><span class='line'>   --gecos GECOS   : adduser won't ask for finger information.
-</span><span class='line'>   --system        : Create a system user.
-</span><span class='line'>   --quiet         : Suppress informational messages, only show warnings and errors.
-</span><span class='line'>   --disabled-login: Do not run passwd to set the password.
-</span><span class='line'>deluser &lt;username> : Delete a user.
-</span><span class='line'> --remove-home     : Remove the home directory of the user and its mailspool.
-</span><span class='line'> --remove-all-files: Remove all files from the system owned by this user. 
-</span><span class='line'> --backup          : Backup all files contained in the userhome and the mailspool-file to a file named /$user.tar.bz2 or /$user.tar.gz.
-</span><span class='line'>usermod            : Modify a user account.
-</span><span class='line'> -e EXPIREDATE     : The date on which the user account will be disabled. The date is specified in the format YYYY-MM-DD.
-</span><span class='line'> -L, --lock        : Lock a user's password.
-</span><span class='line'> -U, --unlock      : Unlock a user's password.
-</span><span class='line'>groupadd           : Create a new group.
-</span><span class='line'>groupdel           : Delete a group.
-</span><span class='line'>groupmod           : Modify a group definition on the system.</span></code></pre></td></tr></table></div></figure>
-</li>
-<li>Changing Group/Owner/Permission
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chown              : Change file owner and group.
-</span><span class='line'>-reference=RFILE   : use RFILE's owner and group rather than specifying OWNER:GROUP values.
-</span><span class='line'>-R, --recursive    : operate on files and directories recursively.
-</span><span class='line'>chmod              : change file mode bits.
-</span><span class='line'>chgrp              : change group ownership.</span></code></pre></td></tr></table></div></figure>
-</li>
-
-<li>Mounting/Unmounting
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mount &lt;device> &lt;dir> : Mount a filesystem.
-</span><span class='line'>-r, --read-only      : Mount the filesystem read-only.
-</span><span class='line'>unmount {dir|device} : Umount file systems.</span></code></pre></td></tr></table></div></figure>
-</li>
-</ul>
-
-<li>Linux Directories
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/home                             : users home directories.
-</span><span class='line'>/etc                              : system-wide configuration files.
-</span><span class='line'>/bin, /usr/bin, /usr/local/bin    : directories with executable files.
-</span><span class='line'>/lib, /usr/lib, /usr/local/lib    : shared libraries needed to support the applications.
-</span><span class='line'>/sbin, /usr/sbin, /usr/local/sbin : directories with executables supposed to be run by the Superuser.
-</span><span class='line'>/tmp, /var/tmp                    : temporary directories, watch out as /tmp is, by default, cleaned out on each reboot.
-</span><span class='line'>/usr/share/doc, /usr/share/man    : complete system documentation.
-</span><span class='line'>/dev                              : system device files. In Unix, hardware devices are represented as files.
-</span><span class='line'>/proc                             : "virtual" directory containing files through which you can query or tune Linux kernel settings.</span></code></pre></td></tr></table></div></figure>
-</li>
-
-<li>Runlevels and Kernel Configurations
-
-<ul type="i">
-<li>Linux has six runlevels 0-6. Scripts are contained in /etc/rc[0-6,S].d/. Each folder contains the scripts which are followed by either K or S. If the first letter is K that script is not executed. If S, that script is executed. /etc/inittab contains the default run level.
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:4px 4px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:4px 4px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-</style><table class="tg">
-  <tr>
-    <th class="tg-031e">ID</th>
-    <th class="tg-031e">Name</th>
-    <th class="tg-031e">Description</th>
-  </tr>
-  <tr>
-    <td class="tg-031e">0</td>
-    <td class="tg-031e">Halt</td>
-    <td class="tg-031e">Shuts down the system.</td>
-  </tr>
-  <tr>
-    <td class="tg-031e">1</td>
-    <td class="tg-031e">Single-user Mode</td>
-    <td class="tg-031e">Mode for administrative tasks.</td>
-  </tr>
-  <tr>
-    <td class="tg-031e">2</td>
-    <td class="tg-031e">Multi-user Mode</td>
-    <td class="tg-031e">Does not configure network interfaces and does not export networks services.</td>
-  </tr>
-  <tr>
-    <td class="tg-031e">3</td>
-    <td class="tg-031e">Multi-user Mode with Networking</td>
-    <td class="tg-031e">Starts the system normally.</td>
-  </tr>
-  <tr>
-    <td class="tg-031e">4</td>
-    <td class="tg-031e">Not used/User-definable</td>
-    <td class="tg-031e">For special purposes.</td>
-  </tr>
-  <tr>
-    <td class="tg-031e">5</td>
-    <td class="tg-031e">Start system normally with display manager. ( with GUI )</td>
-    <td class="tg-031e">Same as runlevel 3 + display manager.</td>
-  </tr>
-  <tr>
-    <td class="tg-031e">6</td>
-    <td class="tg-031e">Reboot</td>
-    <td class="tg-031e">Reboot the system.</td>
-  </tr>
-</table>
-</li>
-
-
-<li>Sysctl - configure kernel parameters
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/sysctl.conf                : Contains the variables for kernel parameters.
-</span><span class='line'>sysctl -a                       : Display all the kernel parameters
-</span><span class='line'>sysctl -w &lt;kernel parameter>    : Change a sysctl setting.
-</span><span class='line'>PS: To make permanent changes to the kernel, edit the /etc/sysctl.conf file.</span></code></pre></td></tr></table></div></figure>
-</li>
-<li> Kernel Modules contained in /lib/modules/$(uname -r)/
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>lsmod      : list all loaded modules
-</span><span class='line'>modprobe   : load kernel modules
-</span><span class='line'>lspci      : list all pci devices
-</span><span class='line'>lsusb      : list all usb devices
-</span><span class='line'>hal-device : list all the Hardware Abstraction layer devices</span></code></pre></td></tr></table></div></figure></li>
-<li>Debian GNU provides a convenient tool to manage runlevels (to control when services are started and shut down); it&#8217;s called update-rc.d and there are two commonly used invocation methods:
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>update-rc.d -f &lt;service name> remove : Disabling a service
-</span><span class='line'>update-rc.d &lt;service name> defaults  : Insert links using defaults, start in runlevel 2-5 and stop in runlevels 0,1 and 6.</span></code></pre></td></tr></table></div></figure>
-</li>
-</ul>
-</li>
-
-<li>Programming Related
-<ul>
-<li>GIT: Version Control System, really useful for tracking your changes.
-<br>
-TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
-<li>gcc - GNU Compile Collection:
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>To Compile: gcc -Wall -pedantic -g &lt;C source file> -o &lt;Executable file>
-</span><span class='line'>-Wall -pedantic : to check for all the warnings and errors if any.
-</span><span class='line'>-g              : to create the symbol file to be used by gdb 
-</span><span class='line'>-o              : to create the executable file.</span></code></pre></td></tr></table></div></figure></li>
-<li>GDB: GNU debugger
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gdb -tui &lt;Program name>
-</span><span class='line'>-tui              : for listing the source while debugging
-</span><span class='line'>b &lt;linenumber>    : to set the break point
-</span><span class='line'>p &lt;variable name> : to print the value of the variable
-</span><span class='line'>bt                : to print the stack call, mainly useful to find segmentation fault when multiple functions are called.</span></code></pre></td></tr></table></div></figure>
-</li>
-</ul>
-</li>
-
-<li>Gathering Information
-<ul>
-<li>From Files
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/issue     : Contains the message which is displayed on terminal before login. 
-</span><span class='line'>/etc/motd      : Contains the message which is displayed on terminal after login.
-</span><span class='line'>/proc/cpuinfo  : provides information about cpu.
-</span><span class='line'>/proc/meminfo  : provides information about memory/ RAM.
-</span><span class='line'>/proc/version  : provides information about the version of your system.</span></code></pre></td></tr></table></div></figure>
-</li>
-<li>From Commands
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>last      : shows all the login attempts and the reboot occurred.
-</span><span class='line'>lastb     : shows all the bad login attempts. 
-</span><span class='line'>lastlog   : shows the list of all the users and when did they login.
-</span><span class='line'>id        : print real and effective user and group IDs.
-</span><span class='line'>whoami    : whoami - print effective userid.
-</span><span class='line'>uname     : print system information.
-</span><span class='line'>      -a  : print all the information (Kernel name, nodename, kernel-release, kernel-version, machine, processor, hardware-platform)
-</span><span class='line'>pstree    : display a tree of processes.
-</span><span class='line'>hostname  : prints out the hostname of the machine which is stored in /etc/hostname.</span></code></pre></td></tr></table></div></figure>
-</li>
-</ul>
-</li>
-
-<li>Useful Utilites/Commands
-<ul>
-<li>Copy - Copy files and directories.
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp &lt;SOURCE> &lt;DIRECTORY>
-</span><span class='line'>-r        : recursive.
-</span><span class='line'>-a        : similar to preserve,
-</span><span class='line'>-p        : preserve
-</span><span class='line'>-v        : verbose.</span></code></pre></td></tr></table></div></figure>
-</li>
-<li>cut - remove sections from each line of files.
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>-d        : use DELIM instead of TAB for field delimiter.
-</span><span class='line'>-f        : select only these fields.</span></code></pre></td></tr></table></div></figure>
-</li>
-
-<li>Pipes
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>\>        : direct normal output.
-</span><span class='line'>2>        : direct error output.
-</span><span class='line'>&>        : direct all output.</span></code></pre></td></tr></table></div></figure>
-</li>
-
-<li>tar - Archiving utility
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>-c        : create archive
-</span><span class='line'>-t        : list the content of the file
-</span><span class='line'>-x        : extract the files
-</span><span class='line'>-j        : bzip2 format
-</span><span class='line'>-z        : gzip format</span></code></pre></td></tr></table></div></figure>
-</li>
-
-
-<li>Some other
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>nm-applet : a applet for network manager.
-</span><span class='line'>wc        : print newline, word, and byte counts for each file.
-</span><span class='line'>   -c     : print the bytes count.
-</span><span class='line'>   -l     : print the lines count.
-</span><span class='line'>   -w     : print the word count.
-</span><span class='line'>sort      : sort lines of text files.
-</span><span class='line'>diff      : compare files line by line.
-</span><span class='line'>less      : print information one per page.
-</span><span class='line'>more      : prints information one per page.
-</span><span class='line'>head      : prints first 10 lines
-</span><span class='line'>tail      : prints last 10 lines.
-</span><span class='line'>whatis    : Provides a one line description of the commands.
-</span><span class='line'>which     : locate a command.
-</span><span class='line'>whereis   : locate the binary, source, and manual page files for a command.
-</span><span class='line'>locate    : find files by name
-</span><span class='line'>cal       : Display calendar
-</span><span class='line'>date      : Display date. Date command provides multiples options for displaying day and time, very helpful in creating backups with name having time and date.
-</span><span class='line'>tr        : Converts from smaller to uppercase. tr stands for translate.
-</span><span class='line'>   -d     : delete characters in the text.
-</span><span class='line'>tee       : saves output in file as well as forward it.
-</span><span class='line'>touch     : Create zero byte files, mainly used for changing the timestamps of the file.
-</span><span class='line'>make      : If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it's a faster way.</span></code></pre></td></tr></table></div></figure>
-</li>
-</ul>
-</li>
-<li>Few Important Differences in Commands:
-<ol type="i">
-<li> su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; Change users or become superuser. The difference between su - <username> and su <username> is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.</li>
-<li>sudo&nbsp;&nbsp; :&nbsp; execute a command as another user. The difference between su and sudo is &#8216;su&#8217; forces you to share your root password to other users whereas &#8216;sudo&#8217; makes it possible to execute system commands without root password. &#8216;sudo&#8217; lets you use your own password to execute system commands i.e. delegates system responsibility without root password.</li>
-</ol></li>
-<br>
-<li>Tips and Tricks
-<ul>
-<li>Scan files for a text present in them
-Find a way to scan my entire linux system for all files containing a specific string of text. Just to clarify, I&#8217;m looking for text within the file, not in the file name.
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>grep -rnw 'directory' -e "pattern" --include={*.c,*.h} --exclude=*.o
-</span><span class='line'>-r                    : search recursively
-</span><span class='line'>-n                    : print line number
-</span><span class='line'>-w                    : match the whole word. 
-</span><span class='line'>--include={*.c,*.h}   : Only search through the files which have .c or .h extensions.
-</span><span class='line'>--exclude=*.o         : Exclude searching in files with .o extensions.
-</span><span class='line'>PS: --exclude or --include parameter could be used for efficient searching. 
-</span><span class='line'>
-</span><span class='line'>-i, --ignore-case     : 'it DoesNt MatTTer WhaT thE CAse Is'
-</span><span class='line'>-v, --invert-match    : 'everything , BUT that text'
-</span><span class='line'>-A &lt;NUM>              : Print NUM lines of trailing context after matching lines.
-</span><span class='line'>-B &lt;NUM>              : Print NUM lines of trailing context before matching lines.</span></code></pre></td></tr></table></div></figure>
-</li>
-<li>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some neccessary packages.
-<br>
-<br>
-In this case, look for /var/log/apt/history.log, look for the time around which your system was broken. Copy the removed packages
-which would be in the format of 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>libapt-inst1.5:amd64 (0.9.7.9+deb7u5, 0.9.7.9+deb7u6), apt-utils:amd64 (0.9.7.9+deb7u5, 0.9.7.9+deb7u6).</span></code></pre></td></tr></table></div></figure>
-To reinstall these packages you just need the package name such as 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>libapt-inst1.5, apt-utils.</span></code></pre></td></tr></table></div></figure>
-
-<ul>
-<li>Step1: Use sed to search for pattern &#8220;), &#8221; and replace it with &#8220;), \n&#8221;. This would separate the packages by new line. Within vi &#8220;:%s/), /\n/g&#8221;</li>
-<li>Step2: Use cut -d &#8220;:&#8221; -f 1 to remove :amd64 and anything after that.</li>
-<li>Step3: Now we have to get them back in one line rather than multiple lines. Within vi &#8220;:%s/\n/ /g&#8221;</li>
-</ul>
-</li>
-<li>Want to keep track of etc directory? 
-<br>
-Etckeeper may be a bit more advanced, and it is used to put your whole /etc directory under revision control. 
-To install and initialize it,
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install etckeeper
-</span><span class='line'>etckeeper init
-</span><span class='line'>cd /etc
-</span><span class='line'>git commit -am Initial</span></code></pre></td></tr></table></div></figure> 
-After that, you can see pending changes in /etc by cd-ing into it and running 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git status or git diff</span></code></pre></td></tr></table></div></figure> at any time, and you can see previous, committed changes by running 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git log or git log -p</span></code></pre></td></tr></table></div></figure> You can override pending changes to any file with the last committed version with 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout FILENAME</span></code></pre></td></tr></table></div></figure>
-</li>
-
-</ul>
-</li>
-
-<li>Bash equality Tests
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>test       : checks file types and compare values
-</span><span class='line'>   -d      : check if the file is a directory
-</span><span class='line'>   -e      : check if the file exists
-</span><span class='line'>   -f      : check if the file is a regular file
-</span><span class='line'>   -g      : check if the file has SGID permissions
-</span><span class='line'>   -r      : check if the file is readable
-</span><span class='line'>   -s      : check if the file's size is not 0
-</span><span class='line'>   -u      : check if the file has SUID permissions
-</span><span class='line'>   -w      : check if the file is writeable
-</span><span class='line'>   -x      : check if the file is executable</span></code></pre></td></tr></table></div></figure>
-Example:
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>if test -f /etc/foo.txt
-</span><span class='line'>then
-</span><span class='line'>
-</span><span class='line'>It can also be written as 
-</span><span class='line'>
-</span><span class='line'>if [ -f /etc/foo.txt ]; then
-</span><span class='line'>
-</span><span class='line'>--square brackets [] form test.
-</span><span class='line'>-- There has to be white space surrounding both square bracket</span></code></pre></td></tr></table></div></figure>
-List of equality tests:
-<ul>
-<li>
-Checks equality between numbers:
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>x -eq y         : Check is x is equals to y
-</span><span class='line'>x -ne y         : Check if x is not equals to y
-</span><span class='line'>x -gt y         : Check if x is greater than y
-</span><span class='line'>x -lt y         : Check if x is less than y</span></code></pre></td></tr></table></div></figure></li>
-<li>Checks equality between strings:
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>x = y           : Check if x is the same as y
-</span><span class='line'>x != y          : Check if x is not the same as y
-</span><span class='line'>-n x            : Evaluates to true if x is not null
-</span><span class='line'>-z x            : Evaluates to true if x is null.</span></code></pre></td></tr></table></div></figure></li>
-</ul>
-</li>
-
-</ol>
-
-
-<p><strong>TODO</strong></p>
-
-<p>That was most probably a lot of information, to practice all the it&rsquo;s always better to do some hands on.</p>
-
-<ol>
-
-<li>To Learn Programming, Debugging and Git
-<ul>
-<li> To learn git, would suggest to do a 15 min tutorial on <a href="try.github.com">try.github.com</a>.</li>
-<li> Create a small program using vi with syntax on, compile it using gcc using make.</li>
-<li> Debug it using gdb -tui option to see the source code, experiment with breakpoints, and printing values.</li>
-<li> Track that program using git, upload them to a remote server, then pull your code, check if its the same.</li>
-</ul>
-</li>
-
-<li>To learn System administration
-<ul>
-<li> Change the messages before login, after login. Remember the escapes sequences used in the /etc/issue.  man agetty lists them.</li>
-<li> Supposed you got access via shell to a linux system and extract some information from it. Create a script
-<ul>
-<li>Create a alice, bob, eve with the password &#8220;password&#8221; HINT: set password using chpasswd, look some examples in google to change from cmdline.</li>
-<li>Login from eve.</li>
-<li>Copy and preserve all the configuration files from /etc and save it in eve home directory in the folder etc-backup-YYYYMMDD, direct all errors to cp.err</li>
-<li>Change the owner of all the files in the folder just created to bob and the group of all the files to alice and change the permission of all the files to 440 i.e r&#8211;r&#8212;&#8211;
-HINT: would have to be logined as root</li>
-<li>Provide me all the unique shells used by the user present in the system in CAPS. HINT: /etc/passwd file contains all the shells, three four commands would be used.</li>
-<li>Cover your tracks, clear out the /var/log/auth.log (Have a look at this file and create a backup before clearing), clean your terminal history
-HINT: man pages would help you.</li>
-<li>Delete all the user bob, alice, eve. Make sure you delete there files too.</li>
-</ul>
-</li>
-<li> Turn off the ping responses for your system permanently and turn on the Syn-cookies protection mechanism. {Search on Google}</li>
-<li> Use your previous script to create three users alice, bob, eve. 
-<ul>
-<li>-create a folder dept inside it two folder hr, web. </li>
-<li>create two group hr and web.</li>
-<li>change group of web folder to web and hr to hr.</li>
-<li>add alice and bob user to web group</li>
-<li>add alice to hr group.</li>
-<li>check that bob is not able to enter in the hr folder and alice is able to enter in both hr and web folder</li>
-<li>-add user bob to sudo group and check if it is able to run sudo ifconfig ?</li>
-</ul>
-</li>
-<li>Objective to get few IP addresses of Microsoft.com Domains.
-<ul>
-<li>Download the index.html page of microsoft.com</li>
-<li>Every link in html is referred by href. Filter all the href (which would contain the link to different domains for Microsoft)</li>
-<li>Sort and find unique list. Get their ip addresses</li>
-<li>HINT: Tools such as cut, grep, wget, sort, uniq, host and little bit of bash scripting would be used.</li>
-</ul></li>
-</ul>
-</li>
-</ol>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/10/07/linux-essentials/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -737,6 +147,10 @@ HINT: man pages would help you.</li>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/03/learning-from-vulnhub/">Learning From VulnHub</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/07/linux-essentials/">Linux Essentials</a>
