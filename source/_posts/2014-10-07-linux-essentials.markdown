@@ -5,7 +5,8 @@ date: 2014-10-07 23:07:48 +0100
 comments: true
 categories: 
 ---
-This post lists essential commands and concepts which would be helpful to a Linux user. We would cover tools required for programming, system administration. Also, provide some useful tips, tricks and TODO which would help you learn and practice.  
+This post lists essential commands and concepts which would be helpful to a Linux user. We would cover tools required for programming, system administration. Also, provide some useful tips, tricks and TODO which would help you learn and practice.
+<!-- more -->  
 <ol>
 <li>Vi : Powerful Editor:
 {% codeblock %}
