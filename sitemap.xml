@@ -3,6 +3,38 @@
   
   
   <url>
+    <loc>http://bitvijays.github.io/blog/2014/11/09/learning-from-ctf-binary-exploitation/</loc>
+    
+    <lastmod>2014-11-09T20:42:01+00:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-forensics/</loc>
+    
+    <lastmod>2014-11-07T22:07:09+00:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-cryptography/</loc>
+    
+    <lastmod>2014-11-07T19:25:31+00:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://bitvijays.github.io/blog/2014/11/06/learning-from-ctf-web-exploitation/</loc>
+    
+    <lastmod>2014-11-06T19:02:50+00:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://bitvijays.github.io/blog/2014/11/03/learning-from-vulnhub/</loc>
     
     <lastmod>2014-11-03T16:40:21+00:00</lastmod>
@@ -21,21 +53,21 @@
   
   <url>
     <loc>http://bitvijays.github.io/blog/archives/</loc>
-    <lastmod>2014-11-06T18:43:55+00:00</lastmod>
+    <lastmod>2014-11-30T11:16:29+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://bitvijays.github.io/</loc>
-    <lastmod>2014-11-06T18:43:55+00:00</lastmod>
+    <lastmod>2014-11-30T11:16:29+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://bitvijays.github.io/about/</loc>
-    <lastmod>2014-11-06T18:43:55+00:00</lastmod>
+    <lastmod>2014-11-30T11:16:29+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

