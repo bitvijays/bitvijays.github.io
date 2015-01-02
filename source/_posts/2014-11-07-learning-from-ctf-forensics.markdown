@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Learning from CTF: Forensics"
+title: "Learning from CTF : Forensics"
 date: 2014-11-07 22:07:09 +0000
 comments: true
 categories: 
@@ -74,6 +74,25 @@ apktool converts the apk file in to smali format. smali/baksmali is an assembler
 ls -lb might be of help.
 -b, --escape :   print C-style escapes for nongraphic characters
 
+``` 
+
+How to open a filename named "-"
+
+We can create a file named "-" by 
+```
+echo hello > -
+```
+and this file can be opened by
+```
+cat ./-
+```
+This is needed because lot of programs use "-" to mean stdin/stdout.
+</li>
+
+<li>If you have a hex dump of something and you want to create the binary version of the data?
+```
+xxd -r <data>
+<data> is the hexdump of the binary file.
 ``` </li>
 
 

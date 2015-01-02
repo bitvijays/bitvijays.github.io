@@ -168,4 +168,10 @@ wget -rq ftp://<IP address>
 
 </ol>
 </li>
+
+<li>Tips:
+<ul>
+<li>Wheel group typically has special(higer) privileges such as ability to become root, or the ability to bypass certain security restrictions.</li>
+</ul>
+</li>
 </ol>

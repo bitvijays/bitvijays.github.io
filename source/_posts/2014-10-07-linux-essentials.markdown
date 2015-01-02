@@ -122,6 +122,9 @@ chown              : Change file owner and group.
 -R, --recursive    : operate on files and directories recursively.
 chmod              : change file mode bits.
 chgrp              : change group ownership.
+SUID bit           : SetUID bit specfies that an executable should run as its owner instead of the user executing it.
+                   : SUID is mostly commonly used to run an executable as root, allowing users to perform tasks such as changing their passwords.
+		   : If there is a flaw in a SUID root executable, you can run arbitrary code as root.
 {% endcodeblock %}
 </li>
 
@@ -151,6 +154,13 @@ unmount {dir|device} : Umount file systems.
 <li>Runlevels and Kernel Configurations
 
 <ul type="i">
+<li>Linux Boot Process:
+<ol>
+<li>BIOS starts the boot loader.</li>
+<li>Boot loader loads the kernel into memory.</li>
+<li>The Kernel mounts disks/partitions and starts the init daemon.</li>
+<li>The init daemon starts services based on the runlevel.</li>
+</ol></li>
 <li>Linux has six runlevels 0-6. Scripts are contained in /etc/rc[0-6,S].d/. Each folder contains the scripts which are followed by either K or S. If the first letter is K that script is not executed. If S, that script is executed. /etc/inittab contains the default run level.
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
@@ -313,6 +323,14 @@ cp <SOURCE> <DIRECTORY>
 {% endcodeblock %}
 </li>
 
+<li>find - Searching files
+{% codeblock %}
+-user       : File is owned by user uname (numeric user ID allowed).
+-group      : File belongs to group gname (numeric group ID allowed).
+-size       : File uses n units of space. c/k/M/G: bytes/Kilobytes/Megabytes/Gigabytes.
+-name       :
+{% endcodeblock %}
+</li>
 
 <li>Some other
 {% codeblock %}
@@ -338,13 +356,29 @@ tr        : Converts from smaller to uppercase. tr stands for translate.
 tee       : saves output in file as well as forward it.
 touch     : Create zero byte files, mainly used for changing the timestamps of the file.
 make      : If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it's a faster way.
+stat      : View detailed information about a file, including its name,size, last modified date, and permissons.
+uniq      : Report or omit repeated lines.
+   -c     : prefix lines by the number of occurrences. (--count)
 {% endcodeblock %}
 </li>
 </ul>
 </li>
+
+<li>Special Characters:
+{% codeblock %}
+*(asterik)          : A wildcard used to represent zero or more characters in a filename. For example: ls *.txt will list all the names ending in ".txt" such as "file1.txt" and "file23.txt".
+?(question mark)    : A wildcard used to represent a single character in a filename. For example ls pic?.jpg would match "pic1.jpg" and "pic2.jpg" but not "pic24.jpg" or "pic.jpg".
+[](square brackets) : These are used to specify a range of values to match. For example, "[0-9]" and "[a-z]".
+;(semi colon)       : Command separator that can be used to run multiple commands on a single line unconditionally.
+&&(double ampersand): Command separator which will only run the second command if the first one is successful (does not return an error.)
+||(double pipe)     : Command separator which will only run the second command if the first command failed (had errors). Commonly used to terminate the script if an important command fails.
+{% endcodeblock %}</li>
 <li>Few Important Differences in Commands:
 <ol type="i">
-<li> su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; Change users or become superuser. The difference between su - <username> and su <username> is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.</li>
+<li> su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; Change users or become superuser. The difference between su - <username> and su <username> is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.
+{% codeblock %}
+su -c "command" : Specify a command that will be invoked by the shell using its -c.
+{% endcodeblock %}</li>
 <li>sudo&nbsp;&nbsp; :&nbsp; execute a command as another user. The difference between su and sudo is 'su' forces you to share your root password to other users whereas 'sudo' makes it possible to execute system commands without root password. 'sudo' lets you use your own password to execute system commands i.e. delegates system responsibility without root password.</li>
 </ol></li>
 <br>
@@ -365,6 +399,7 @@ PS: --exclude or --include parameter could be used for efficient searching.
 -v, --invert-match    : 'everything , BUT that text'
 -A <NUM>              : Print NUM lines of trailing context after matching lines.
 -B <NUM>              : Print NUM lines of trailing context before matching lines.
+-a, --text            : Process a binary file as if it were text; this is equivalent to the --binary-files=text option.
 {% endcodeblock %}
 </li>
 <li>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some neccessary packages.
@@ -455,6 +490,17 @@ x != y          : Check if x is not the same as y
 {% endcodeblock %}</li>
 </ul>
 </li>
+
+<li>Some Important Definitions:
+<br>
+We want our information to:
+<ul>
+<li>be read by only the right people (confidentiality)</li>
+<li>only be changed by authorised people or processes (integrity)</li>
+<li>be available to read and use whenever we want (availability).</li>
+</ul>
+<br>
+Non-repudiation is about ensuring that users cannot deny knowledge of sending a message or performing some online activity at some later point in time. For example, in an online banking system the user cannot be allowed to claim that they didn’t send a payment to a recipient after the bank has transferred the funds to the recipient’s account.</li>
 
 </ol>
 

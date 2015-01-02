@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Learning from CTF: Cryptography"
+title: "Learning from CTF : Cryptography"
 date: 2014-11-07 19:25:31 +0000
 comments: true
 categories: 
