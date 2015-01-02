@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Learning From CTF: Forensics - tech.bitvijays.com</title>
+  <title>Learning From CTF : Forensics - tech.bitvijays.com</title>
   <meta name="author" content="Vijay Kumar">
 
   
@@ -70,7 +70,7 @@
   
   <header>
     
-      <h1 class="entry-title">Learning From CTF: Forensics</h1>
+      <h1 class="entry-title">Learning From CTF : Forensics</h1>
     
     
       <p class="meta">
@@ -168,7 +168,24 @@ apktool converts the apk file in to smali format. smali/baksmali is an assembler
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ls -lb might be of help.
 </span><span class='line'>-b, --escape :   print C-style escapes for nongraphic characters
-</span></code></pre></td></tr></table></div></figure> </li>
+</span></code></pre></td></tr></table></div></figure> 
+
+How to open a filename named &#8220;-&#8221;
+
+We can create a file named &#8220;-&#8221; by 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo hello &gt; -</span></code></pre></td></tr></table></div></figure>
+and this file can be opened by
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat ./-</span></code></pre></td></tr></table></div></figure>
+This is needed because lot of programs use &#8220;-&#8221; to mean stdin/stdout.
+</li>
+
+<li>If you have a hex dump of something and you want to create the binary version of the data?
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>xxd -r &lt;data&gt;
+</span><span class='line'>&lt;data&gt; is the hexdump of the binary file.</span></code></pre></td></tr></table></div></figure> </li>
 
 
 </ol>
@@ -205,10 +222,10 @@ apktool converts the apk file in to smali format. smali/baksmali is an assembler
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/11/07/learning-from-ctf-cryptography/" title="Previous Post: Learning from CTF: Cryptography">&laquo; Learning from CTF: Cryptography</a>
+        <a class="basic-alignment left" href="/blog/2014/11/07/learning-from-ctf-cryptography/" title="Previous Post: Learning from CTF : Cryptography">&laquo; Learning from CTF : Cryptography</a>
       
       
-        <a class="basic-alignment right" href="/blog/2014/11/09/learning-from-ctf-binary-exploitation/" title="Next Post: Learning from CTF: Binary Exploitation">Learning from CTF: Binary Exploitation &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2014/11/09/learning-from-ctf-binary-exploitation/" title="Next Post: Learning from CTF : Binary Exploitation">Learning from CTF : Binary Exploitation &raquo;</a>
       
     </p>
   </footer>
@@ -223,23 +240,23 @@ apktool converts the apk file in to smali format. smali/baksmali is an assembler
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/11/09/learning-from-ctf-binary-exploitation/">Learning From CTF: Binary Exploitation</a>
+        <a href="/blog/2015/01/02/learning-from-ctf-reverse-engineering/">Learning From CTF : Reverse Engineering</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/11/07/learning-from-ctf-forensics/">Learning From CTF: Forensics</a>
+        <a href="/blog/2014/11/09/learning-from-ctf-binary-exploitation/">Learning From CTF : Binary Exploitation</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/11/07/learning-from-ctf-cryptography/">Learning From CTF: Cryptography</a>
+        <a href="/blog/2014/11/07/learning-from-ctf-forensics/">Learning From CTF : Forensics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/07/learning-from-ctf-cryptography/">Learning From CTF : Cryptography</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/11/06/learning-from-ctf-web-exploitation/">Learning From CTF : Web Exploitation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/03/learning-from-vulnhub/">Learning From VulnHub</a>
       </li>
     
   </ul>
@@ -256,7 +273,7 @@ apktool converts the apk file in to smali format. smali/baksmali is an assembler
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Vijay Kumar -
+  Copyright &copy; 2015 - Vijay Kumar -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

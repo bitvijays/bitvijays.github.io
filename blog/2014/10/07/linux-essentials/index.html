@@ -245,11 +245,17 @@ poweroff would shutdown the system after everything is updated.
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chown              : Change file owner and group.
 </span><span class='line'>-reference=RFILE   : use RFILE's owner and group rather than specifying OWNER:GROUP values.
 </span><span class='line'>-R, --recursive    : operate on files and directories recursively.
 </span><span class='line'>chmod              : change file mode bits.
-</span><span class='line'>chgrp              : change group ownership.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>chgrp              : change group ownership.
+</span><span class='line'>SUID bit           : SetUID bit specfies that an executable should run as its owner instead of the user executing it.
+</span><span class='line'>                   : SUID is mostly commonly used to run an executable as root, allowing users to perform tasks such as changing their passwords.
+</span><span class='line'>         : If there is a flaw in a SUID root executable, you can run arbitrary code as root.</span></code></pre></td></tr></table></div></figure>
 </li>
 
 <li>Mounting/Unmounting
@@ -286,6 +292,13 @@ poweroff would shutdown the system after everything is updated.
 <li>Runlevels and Kernel Configurations
 
 <ul type="i">
+<li>Linux Boot Process:
+<ol>
+<li>BIOS starts the boot loader.</li>
+<li>Boot loader loads the kernel into memory.</li>
+<li>The Kernel mounts disks/partitions and starts the init daemon.</li>
+<li>The init daemon starts services based on the runlevel.</li>
+</ol></li>
 <li>Linux has six runlevels 0-6. Scripts are contained in /etc/rc[0-6,S].d/. Each folder contains the scripts which are followed by either K or S. If the first letter is K that script is not executed. If S, that script is executed. /etc/inittab contains the default run level.
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
@@ -475,6 +488,16 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 </span><span class='line'>-z        : gzip format</span></code></pre></td></tr></table></div></figure>
 </li>
 
+<li>find - Searching files
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-user       : File is owned by user uname (numeric user ID allowed).
+</span><span class='line'>-group      : File belongs to group gname (numeric group ID allowed).
+</span><span class='line'>-size       : File uses n units of space. c/k/M/G: bytes/Kilobytes/Megabytes/Gigabytes.
+</span><span class='line'>-name       :</span></code></pre></td></tr></table></div></figure>
+</li>
 
 <li>Some other
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -499,6 +522,9 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>20</span>
 <span class='line-number'>21</span>
 <span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nm-applet : a applet for network manager.
 </span><span class='line'>wc        : print newline, word, and byte counts for each file.
 </span><span class='line'>   -c     : print the bytes count.
@@ -520,13 +546,32 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 </span><span class='line'>   -d     : delete characters in the text.
 </span><span class='line'>tee       : saves output in file as well as forward it.
 </span><span class='line'>touch     : Create zero byte files, mainly used for changing the timestamps of the file.
-</span><span class='line'>make      : If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it's a faster way.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>make      : If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it's a faster way.
+</span><span class='line'>stat      : View detailed information about a file, including its name,size, last modified date, and permissons.
+</span><span class='line'>uniq      : Report or omit repeated lines.
+</span><span class='line'>   -c     : prefix lines by the number of occurrences. (--count)</span></code></pre></td></tr></table></div></figure>
 </li>
 </ul>
 </li>
+
+<li>Special Characters:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*(asterik)          : A wildcard used to represent zero or more characters in a filename. For example: ls *.txt will list all the names ending in ".txt" such as "file1.txt" and "file23.txt".
+</span><span class='line'>?(question mark)    : A wildcard used to represent a single character in a filename. For example ls pic?.jpg would match "pic1.jpg" and "pic2.jpg" but not "pic24.jpg" or "pic.jpg".
+</span><span class='line'>[](square brackets) : These are used to specify a range of values to match. For example, "[0-9]" and "[a-z]".
+</span><span class='line'>;(semi colon)       : Command separator that can be used to run multiple commands on a single line unconditionally.
+</span><span class='line'>&&(double ampersand): Command separator which will only run the second command if the first one is successful (does not return an error.)
+</span><span class='line'>||(double pipe)     : Command separator which will only run the second command if the first command failed (had errors). Commonly used to terminate the script if an important command fails.</span></code></pre></td></tr></table></div></figure></li>
 <li>Few Important Differences in Commands:
 <ol type="i">
-<li> su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; Change users or become superuser. The difference between su - <username> and su <username> is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.</li>
+<li> su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; Change users or become superuser. The difference between su - <username> and su <username> is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>su -c "command" : Specify a command that will be invoked by the shell using its -c.</span></code></pre></td></tr></table></div></figure></li>
 <li>sudo&nbsp;&nbsp; :&nbsp; execute a command as another user. The difference between su and sudo is &#8216;su&#8217; forces you to share your root password to other users whereas &#8216;sudo&#8217; makes it possible to execute system commands without root password. &#8216;sudo&#8217; lets you use your own password to execute system commands i.e. delegates system responsibility without root password.</li>
 </ol></li>
 <br>
@@ -546,6 +591,7 @@ Find a way to scan my entire linux system for all files containing a specific st
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
+<span class='line-number'>13</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>grep -rnw 'directory' -e "pattern" --include={*.c,*.h} --exclude=*.o
 </span><span class='line'>-r                    : search recursively
 </span><span class='line'>-n                    : print line number
@@ -557,7 +603,8 @@ Find a way to scan my entire linux system for all files containing a specific st
 </span><span class='line'>-i, --ignore-case     : 'it DoesNt MatTTer WhaT thE CAse Is'
 </span><span class='line'>-v, --invert-match    : 'everything , BUT that text'
 </span><span class='line'>-A &lt;NUM>              : Print NUM lines of trailing context after matching lines.
-</span><span class='line'>-B &lt;NUM>              : Print NUM lines of trailing context before matching lines.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>-B &lt;NUM>              : Print NUM lines of trailing context before matching lines.
+</span><span class='line'>-a, --text            : Process a binary file as if it were text; this is equivalent to the --binary-files=text option.</span></code></pre></td></tr></table></div></figure>
 </li>
 <li>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some neccessary packages.
 <br>
@@ -664,6 +711,17 @@ Checks equality between numbers:
 </ul>
 </li>
 
+<li>Some Important Definitions:
+<br>
+We want our information to:
+<ul>
+<li>be read by only the right people (confidentiality)</li>
+<li>only be changed by authorised people or processes (integrity)</li>
+<li>be available to read and use whenever we want (availability).</li>
+</ul>
+<br>
+Non-repudiation is about ensuring that users cannot deny knowledge of sending a message or performing some online activity at some later point in time. For example, in an online banking system the user cannot be allowed to claim that they didn’t send a payment to a recipient after the bank has transferred the funds to the recipient’s account.</li>
+
 </ol>
 
 
@@ -767,23 +825,23 @@ HINT: man pages would help you.</li>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/11/09/learning-from-ctf-binary-exploitation/">Learning From CTF: Binary Exploitation</a>
+        <a href="/blog/2015/01/02/learning-from-ctf-reverse-engineering/">Learning From CTF : Reverse Engineering</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/11/07/learning-from-ctf-forensics/">Learning From CTF: Forensics</a>
+        <a href="/blog/2014/11/09/learning-from-ctf-binary-exploitation/">Learning From CTF : Binary Exploitation</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/11/07/learning-from-ctf-cryptography/">Learning From CTF: Cryptography</a>
+        <a href="/blog/2014/11/07/learning-from-ctf-forensics/">Learning From CTF : Forensics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/07/learning-from-ctf-cryptography/">Learning From CTF : Cryptography</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/11/06/learning-from-ctf-web-exploitation/">Learning From CTF : Web Exploitation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/03/learning-from-vulnhub/">Learning From VulnHub</a>
       </li>
     
   </ul>
@@ -800,7 +858,7 @@ HINT: man pages would help you.</li>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Vijay Kumar -
+  Copyright &copy; 2015 - Vijay Kumar -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
