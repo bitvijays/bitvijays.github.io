@@ -329,6 +329,13 @@ cp <SOURCE> <DIRECTORY>
 -group      : File belongs to group gname (numeric group ID allowed).
 -size       : File uses n units of space. c/k/M/G: bytes/Kilobytes/Megabytes/Gigabytes.
 -name       :
+
+#Delete empty file and directories:
+find -empty -type d -delete
+find -empty -type f -delete
+
+#Find each file in the current directory and tell it's type and grep JPEG files.
+find . -type f -exec file {} + | grep JPEG
 {% endcodeblock %}
 </li>
 

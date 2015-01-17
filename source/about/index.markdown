@@ -14,12 +14,13 @@ Currently, I am trying to learn penetration testing using <a href="http://vulnhu
 
 ###Completed
 1. Introduction to Cyber Security by FutureLearn.
-2. Over The Wire: Bandit, Leviathan
+2. Over The Wire: Bandit, Leviathan, Narnia
 
 ###TODO
 1. Over the Wire: Other games
 2. Cryptopals
 3. VulnHub Images
+4. Exploit-exercises
 
 If you have any suggestion, I would be happy to receive your email at bitvijays@gmail.com or ping me on <a href="http://twitter.com/bitvijays">Twitter</a>.
 
