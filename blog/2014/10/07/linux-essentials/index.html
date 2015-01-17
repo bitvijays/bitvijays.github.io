@@ -493,10 +493,24 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>-user       : File is owned by user uname (numeric user ID allowed).
 </span><span class='line'>-group      : File belongs to group gname (numeric group ID allowed).
 </span><span class='line'>-size       : File uses n units of space. c/k/M/G: bytes/Kilobytes/Megabytes/Gigabytes.
-</span><span class='line'>-name       :</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>-name       :
+</span><span class='line'>
+</span><span class='line'>#Delete empty file and directories:
+</span><span class='line'>find -empty -type d -delete
+</span><span class='line'>find -empty -type f -delete
+</span><span class='line'>
+</span><span class='line'>#Find each file in the current directory and tell it's type and grep JPEG files.
+</span><span class='line'>find . -type f -exec file {} + | grep JPEG</span></code></pre></td></tr></table></div></figure>
 </li>
 
 <li>Some other
