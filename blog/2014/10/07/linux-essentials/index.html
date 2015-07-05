@@ -265,6 +265,11 @@ poweroff would shutdown the system after everything is updated.
 </pre></td><td class='code'><pre><code class=''><span class='line'>mount &lt;device> &lt;dir> : Mount a filesystem.
 </span><span class='line'>-r, --read-only      : Mount the filesystem read-only.
 </span><span class='line'>unmount {dir|device} : Umount file systems.</span></code></pre></td></tr></table></div></figure>
+
+Mounting Windows share on Linux
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mount -t cifs -o username=&lt;share user&gt;,password=&lt;share password&gt;,domain=example.com //WIN_PC_IP/&lt;share name&gt; /mnt</span></code></pre></td></tr></table></div></figure>
 </li>
 </ul>
 
@@ -658,6 +663,55 @@ After that, you can see pending changes in /etc by cd-ing into it and running
 </pre></td><td class='code'><pre><code class=''><span class='line'>git checkout FILENAME</span></code></pre></td></tr></table></div></figure>
 </li>
 
+<li>ls showing full path
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -R /path | awk '
+</span><span class='line'>/:$/&&f{s=$0;f=0}
+</span><span class='line'>/:$/&&!f{sub(/:$/,"");s=$0;f=1;next}
+</span><span class='line'>NF&&f{ print s"/"$0 }</span></code></pre></td></tr></table></div></figure>
+</li>
+
+<li>
+Keyboard shortcuts
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Move to the start of line. Ctrl + a
+</span><span class='line'>Move to the end of line. Ctrl + e
+</span><span class='line'>Cut from cursor to previous whitespace. Ctrl + w
+</span><span class='line'>Cut from cursor to the end of line. Ctrl + k
+</span><span class='line'>Paste the last cut text. Ctrl + y</span></code></pre></td></tr></table></div></figure>
+Searching history
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Search as you type. Ctrl + r and type the search term;</span></code></pre></td></tr></table></div></figure>
+Read http://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing
+</li>
+
+<li>Awk converting to normal output to csv
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>A B --&gt; "A","B"
+</span><span class='line'>
+</span><span class='line'>awk '{print "\"" $1 "\",\"" $2"\""}'</span></code></pre></td></tr></table></div></figure>
+</li>
+<li>
+Finding most open ports in nmap scan
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grep "^[0-9]\+" &lt;nmap file .nmap extension&gt; | grep "\ open\ " | sort | uniq -c | sort -rn | awk '{print "\""$1"\",\""$2"\",\""$3"\",\""$4"\",\""$5" "$6" "$7" "$8" "$9" "$10" "$11" "$12" "$13"\""}' &gt; test.csv</span></code></pre></td></tr></table></div></figure></li>
+
+<li>
+xml parsing
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>xmlstarlet sel -t -m "//host[status[@state='up']]" -v "address/@addr" -o " : " -v "status/@reason_ttl" -o " : " -v "hostnames/hostname/@name" -n soudi_ping.xml</span></code></pre></td></tr></table></div></figure>
+</li>
 </ul>
 </li>
 
@@ -839,6 +893,10 @@ HINT: man pages would help you.</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/11/learning-from-field-wireless-pentesting/">Learning From Field : Wireless Pentesting</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/02/learning-from-ctf-reverse-engineering/">Learning From CTF : Reverse Engineering</a>
       </li>
     
@@ -852,10 +910,6 @@ HINT: man pages would help you.</li>
     
       <li class="post">
         <a href="/blog/2014/11/07/learning-from-ctf-cryptography/">Learning From CTF : Cryptography</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/06/learning-from-ctf-web-exploitation/">Learning From CTF : Web Exploitation</a>
       </li>
     
   </ul>
