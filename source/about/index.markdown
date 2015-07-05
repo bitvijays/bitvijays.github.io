@@ -14,7 +14,7 @@ Currently, I am trying to learn penetration testing using <a href="http://vulnhu
 
 ###Completed
 1. Introduction to Cyber Security by FutureLearn.
-2. Over The Wire: Bandit, Leviathan, Narnia
+2. Over The Wire: Bandit, Leviathan, Narnia, Behemoth.
 
 ###TODO
 1. Over the Wire: Other games

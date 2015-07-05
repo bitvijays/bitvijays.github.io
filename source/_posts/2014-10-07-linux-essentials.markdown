@@ -134,6 +134,12 @@ mount <device> <dir> : Mount a filesystem.
 -r, --read-only      : Mount the filesystem read-only.
 unmount {dir|device} : Umount file systems.	
 {% endcodeblock %}
+
+Mounting Windows share on Linux
+
+```
+mount -t cifs -o username=<share user>,password=<share password>,domain=example.com //WIN_PC_IP/<share name> /mnt
+```
 </li>
 </ul>
 
@@ -450,6 +456,52 @@ git checkout FILENAME
 {% endcodeblock %}
 </li>
 
+<li>ls showing full path
+
+```
+ls -R /path | awk '
+/:$/&&f{s=$0;f=0}
+/:$/&&!f{sub(/:$/,"");s=$0;f=1;next}
+NF&&f{ print s"/"$0 }
+```
+</li>
+
+<li>
+Keyboard shortcuts
+```
+Move to the start of line. Ctrl + a
+Move to the end of line. Ctrl + e
+Cut from cursor to previous whitespace. Ctrl + w
+Cut from cursor to the end of line. Ctrl + k
+Paste the last cut text. Ctrl + y
+```
+Searching history
+```
+Search as you type. Ctrl + r and type the search term;
+```
+Read http://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing
+</li>
+
+<li>Awk converting to normal output to csv
+```
+A B --> "A","B"
+
+awk '{print "\"" $1 "\",\"" $2"\""}'
+```
+</li>
+<li>
+Finding most open ports in nmap scan
+
+```
+grep "^[0-9]\+" <nmap file .nmap extension> | grep "\ open\ " | sort | uniq -c | sort -rn | awk '{print "\""$1"\",\""$2"\",\""$3"\",\""$4"\",\""$5" "$6" "$7" "$8" "$9" "$10" "$11" "$12" "$13"\""}' > test.csv
+```</li>
+
+<li>
+xml parsing
+```
+xmlstarlet sel -t -m "//host[status[@state='up']]" -v "address/@addr" -o " : " -v "status/@reason_ttl" -o " : " -v "hostnames/hostname/@name" -n soudi_ping.xml
+```
+</li>
 </ul>
 </li>
 
