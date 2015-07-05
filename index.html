@@ -9,7 +9,7 @@
   <meta name="author" content="Vijay Kumar">
 
   
-  <meta name="description" content="Special thanks to Girish Nemade Recently, We got a chance to do some penetration testing. This post would cover the basics and approach. Basic &hellip;">
+  <meta name="description" content="Recently, We got a chance to do some penetration testing. This post would cover the basics and approach. ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,65 +89,14 @@
   </header>
 
 
-  <div class="entry-content"><h3>Special thanks to Girish Nemade</h3>
+  <div class="entry-content"><p>Recently, We got a chance to do some penetration testing. This post would cover the basics and approach.</p>
 
-<p>Recently, We got a chance to do some penetration testing. This post would cover the basics and approach.</p>
-
-<p>Basic wireless network tests could be performed by using your wireless adapter installed in your laptop. However, few external USB cards are suggested by Offsec such as</p>
-
-<ol type=i>
-<li>Netgear WN111v2 USB</li>
-<li>ALFA Networks AWUS036H USB 500mW</li>
-</ol>
-
-
-<p>which provide a better area coverage.</p>
-
-<p><strong>Basics:</strong></p>
-
-<ol>
-<li>Set the wireless interface in the monitor mode.
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>airmon-ng &lt;start|stop&gt; &lt;interface&gt; [channel] : Enable monitor mode on an interface (and specify a channel).
-</span><span class='line'>airmon-ng &lt;check&gt; [kill]                     : List all possible programs that could interfere with the wireless card. If 'kill' is specified, it will try to kill all of them.</span></code></pre></td></tr></table></div></figure>
-</li>
-<li>Use airodump
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>airodump &lt;monitor interface&gt;
-</span><span class='line'>-N, --essid                 : Filter APs by ESSID.                                  ##Name of the Access Point
-</span><span class='line'>-d &lt;bssid&gt;, --bssid &lt;bssid&gt; : It will only show networks, matching the given bssid. ##MAC Address of Access Point
-</span><span class='line'>-a                          : It will only show associated clients.
-</span><span class='line'> -t &lt;OPN|WEP|WPA|WPA1|WPA2&gt;, --encrypt &lt;OPN|WEP|WPA|WPA1|WPA2&gt; : It will only show networks matching the given encryption.
-</span></code></pre></td></tr></table></div></figure>
-</li>   
-</ol>
-
-
-<p><strong>WEP</strong></p>
-
-<p>Abbrev:</p>
-
-<p><strong><strong><strong><strong>ENC</strong></strong></strong></strong>*
-WEP: Wired Equivalent Privacy
-WPA: Wi-Fi Protected Access
-WPA: i-Fi Protected Access II</p>
-
-<p><strong><strong><strong>**Cipher</strong></strong></strong>
-TKIP: Temporal Key Integrity Protocol
-CCMP: Counter Mode CBC-MAC Protocol</p>
-
-<p><strong><strong><strong><em>AUTH</em></strong></strong></strong>**
-PSK: Pre-Shared Key
-MGT:
-SKA: Shared Key Authentication</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/03/11/learning-from-field-wireless-pentesting/">Read on &rarr;</a>
+    </footer>
   
 
 

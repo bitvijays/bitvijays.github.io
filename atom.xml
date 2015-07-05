@@ -4,7 +4,7 @@
   <title><![CDATA[tech.bitvijays.com]]></title>
   <link href="http://bitvijays.github.io/atom.xml" rel="self"/>
   <link href="http://bitvijays.github.io/"/>
-  <updated>2015-07-05T20:29:32+01:00</updated>
+  <updated>2015-07-05T20:58:37+01:00</updated>
   <id>http://bitvijays.github.io/</id>
   <author>
     <name><![CDATA[Vijay Kumar]]></name>
@@ -18,9 +18,14 @@
     <link href="http://bitvijays.github.io/blog/2015/03/11/learning-from-field-wireless-pentesting/"/>
     <updated>2015-03-11T09:58:34+00:00</updated>
     <id>http://bitvijays.github.io/blog/2015/03/11/learning-from-field-wireless-pentesting</id>
-    <content type="html"><![CDATA[<h3>Special thanks to Girish Nemade</h3>
+    <content type="html"><![CDATA[<p>Recently, We got a chance to do some penetration testing. This post would cover the basics and approach.</p>
 
-<p>Recently, We got a chance to do some penetration testing. This post would cover the basics and approach.</p>
+<!-- more -->
+
+
+<p></p>
+
+<h3>Thanks to Girish Nemade</h3>
 
 <p>Basic wireless network tests could be performed by using your wireless adapter installed in your laptop. However, few external USB cards are suggested by Offsec such as</p>
 
