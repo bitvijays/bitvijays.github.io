@@ -58,7 +58,7 @@ apktool converts the apk file in to smali format. smali/baksmali is an assembler
 ```
 </li>
 
-<li>Use online services such as [http://www.decompileandroid.com/](http://www.decompileandroid.com). Once it's decompiled, we can download the decompiled files and unpack them. </li>
+<li>Use online services such as <a href="http://www.decompileandroid.com/">Decompile Android</a>. Once it's decompiled, we can download the decompiled files and unpack them. </li>
 
 </ul>
 </li>
