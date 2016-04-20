@@ -5,8 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Learning From the Field: Intelligence Gathering - tech.bitvijays.com</title>
-  <meta name="author" content="Vijay Kumar">
+  <title>Learning From the Field: Intelligence Gathering - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
 
   
   <meta name="description" content="This post (always Work in Progress) would list the technical steps which might be important while doing the intelligence gathering of an organization &hellip;">
@@ -18,14 +18,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://bitvijays.github.io/blog/2015/04/09/learning-from-the-field-intelligence-gathering">
+  <link rel="canonical" href="http://bitvijays.github.io/blog/2015/04/09/learning-from-the-field-intelligence-gathering/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
-  <link href="/atom.xml" rel="alternate" title="tech.bitvijays.com" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -37,9 +36,9 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">tech.bitvijays.com</a></h1>
+  <h1><a href="/">My Octopress Blog</a></h1>
   
-    <h2>The Magic of Learning.</h2>
+    <h2>A blogging framework for hackers.</h2>
   
 </hgroup>
 
@@ -51,7 +50,7 @@
   
 <form action="https://www.google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:bitvijays.github.io" />
+    <input type="hidden" name="sitesearch" value="bitvijays.github.io">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -59,7 +58,6 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About Me</a></li>
 </ul>
 
 </nav>
@@ -79,7 +77,7 @@
 
 
 
-<time class='entry-date' datetime='2015-04-09T05:53:38+01:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:53 am</span></time>
+<time class='entry-date' datetime='2015-04-09T10:23:38+05:30'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:23 am</span></time>
         
       </p>
     
@@ -91,19 +89,54 @@
 <!-- more -->
 
 
-<h3>Thanks to Vulnhub-ctf team, bonsaiviking, Rajesh and Tanoy.</h3>
+<h3>Thanks to Vulnhub-ctf team, bonsaiviking, recrudesce, Rajesh and Tanoy.</h3>
 
-<p>Suppose, we have to do a external/internal pentest of a big organization with DMZ, Data Centers, Telecom Network etc.</p>
+<p>Suppose, we have to do a external/ internal pentest of a big organization with DMZ, Data centers, Telecom network etc. We can either do <strong>Passive fingerprinting</strong> ( method to learn more about the enemy, without them knowing it ) or <strong>Active fingerprinting</strong> ( process of transmitting packets to a remote host and analysing corresponding replies ).
+<br>
+<br>
+<strong>Passive fingerprinting</strong> and <strong>Active fingerprinting</strong> can be done by using various methods such as</p>
+
+
+
+<table class="tg">
+  <tr>
+    <th class="tg-e3zv">Passive Fingerprinting              </th>
+    <th class="tg-e3zv">Active Fingerprintering</th>
+  </tr>
+  <tr>
+    <td class="tg-031e">- whois</td>
+    <td class="tg-031e">- Finding DNS, MX, AAAA, A</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">- ASN Number</td>
+    <td class="tg-031e">- DNS Zone Transfer</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">- Enumeration with Domain Name</td>
+    <td class="tg-031e">- SRV Records</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">- Publicly available scans of IP Addresses         </td>
+    <td class="tg-yw4l">- Port Scanning</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">- Reverse DNS Lookup using External Websites         </td>
+    <td class="tg-yw4l">-</td>
+  </tr>
+</table>
+
+
+<p><br></p>
 
 <ol>
 <li><strong>Passive Fingerprinting:</strong>
 <ol>
-<li><strong>Whois</strong>: provide information about the registered users or assignees of an Internet Resource, such as Domain name, an IP address block, or an autonomous system.
+<li><strong>Whois</strong>: provide information about the registered users or assignees of an Internet resource, such as Domain name, an IP address block, or an autonomous system.
 <br><br>
 whois command acts differently for ip address and domain name. 
 <ul>
-<li>In Domain name it just provides registar name etc</li> 
-<li>In IP address it provides the netblock ASN Number etc.</li>
+<li>In Domain name it just provides registrar name etc.</li> 
+<li>In IP address it provides the net-block ASN Number etc.</li>
 </ul>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -115,14 +148,15 @@ ASN Number and information could be found by using Team CMRU whois service
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>whois -h whois.cymru.com " -v 216.90.108.31"</span></code></pre></td></tr></table></div></figure>
 If you want to do bulk queries refer @ <a href="http://www.team-cymru.org/IP-ASN-mapping.html">IP-ASN-Mapping-Team-CYMRU</a>
+<br>
+<br>
+Hurricane Electric Internet Services also provide a website <a href="http://bgp.he.net">BGP Toolkit</a> which provides your IP Address ASN or search function by Name, IP address etc. It also provides AS Peers which might help in gathering more information about the company in terms of it's neighbors. 
 <br><br>
 TODO: Commandline checking of subnet and making whois query efficient.<br>
 </li>
-</ol>
- </li>
-<li><strong>Active Fingerprintering:</strong>
-<ol>
-<li>If you have domain name you could use
+<br>
+<br>
+<li><strong>Enumeration with Domain Name (e.g example.com) using external websites</strong>: If you have domain name you could use
 <ul>
 <li><strong>DNS Dumpster API</strong> to know the various sub-domain related to that domain.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -157,15 +191,19 @@ and the various dns queries by
 <ul>
 <li> use recon/domains-hosts/bing_domain_web : Harvests hosts from Bing.com by using the site search operator.</li>
 <li> use recon/domains-hosts/google_site_web : Harvests hosts from google.com by using the site search operator.</li>
+<li> use recon/domains-hosts/brute_hosts     : Brute forces host names using DNS.</li>
 <li> use recon/hosts-hosts/resolve           : Resolves the IP address for a host.</li>
 <li> use reporting/csv                       : Creates a CSV file containing the specified harvested data.</li>
 </ul>
 <br>
+Jason Haddix has created a dynamic resource script for sub-domain discovery which is available <a href="https://github.com/jhaddix/domain">here</a>. Simply put the domain name and it runs the necessary modules, creates a new workspace and save the report. 
+<br>
+<br>
 TODO: Check API option too, why google_site_web is failing, add a module to add ASN Info and Location Info too.
 </li>
-
-<li><strong>The Harvestor:</strong>
-<br>The harvestor provides a email address, virtual hosts different domains, shodan results for the domain. Provides really good results, especially if you combine with shodan results as it may provide server versions and what&#8217;s OS is running on the IP address.
+<br> 
+<li><strong>The Harvester:</strong>
+<br>The harvester provides a email address, virtual hosts, different domains, shodan results for the domain. Provides really good results, especially if you combine with shodan results as it may provide server versions and what's OS is running on the IP address.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -193,6 +231,7 @@ TODO: Check API option too, why google_site_web is failing, add a module to add 
 
 TODO: Combine these results with recon-ng and DNS Dumpsters and create one csv with all results.
 </li>
+<br>
 <li><strong>Google search operators</strong>
 <ul>
 <li><strong>site</strong>: Get results from certain sites or domains.</li>
@@ -201,19 +240,80 @@ TODO: Combine these results with recon-ng and DNS Dumpsters and create one csv w
 <li><strong>allintitle/intitle</strong>:Restricts results to those containing all the query terms you specify in the title.</li>
 </ul>
 Three good places to refer are <a href="https://support.google.com/websearch/answer/2466433">Search Operators</a>, <a href="https://sites.google.com/site/gwebsearcheducation/advanced-operators">Advanced Operators</a> and <a href="https://www.exploit-db.com/google-hacking-database/">Google Hacking Database</a>.
+<br>
+<br>
+Another two important tools are 
+<ul>
+<li><a href="http://www.mcafee.com/in/downloads/free-tools/sitedigger.aspx">Mcafee Site Digger</a> which searches Google’s cache to look for vulnerabilities, errors, configuration issues, proprietary information, and interesting security nuggets on web sites.</li>
+<li><a href="http://www.bishopfox.com/resources/tools/google-hacking-diggity/attack-tools/"><strong>SearchDiggity v3</strong></a>: It is Bishop Fox’s MS Windows GUI application that serves as a front-end to the most recent versions of our Diggity tools: GoogleDiggity, BingDiggity, Bing LinkFromDomainDiggity, CodeSearchDiggity, DLPDiggity, FlashDiggity, MalwareDiggity, PortScanDiggity, SHODANDiggity, BingBinaryMalwareSearch, and NotInMyBackYard Diggity.</a></li>
+</ul>
 </li>
+<br>
 <li><strong>Publicly available scans of IP Addresses</strong>
 <ul>
 <li><a href="https://exfiltrated.com/"><strong>Exfiltrated</strong></a>: It provides the scans from the 2012 Internet Census. It would provide the IP address and the port number running at the time of scan in the year 2012.</li>
 <li><a href="https://www.shodan.io/"><strong>Shodan</strong></a>: Shodan provides the same results may be with recent scans. You need to be logined. Shodan CLI is available at <a href="https://cli.shodan.io/">Shodan Command-Line Interface</a></li>
+<br>
+Shodan Queries
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>title: Search the content scraped from the HTML tag
+</span><span class='line'>html: Search the full HTML content of the returned page
+</span><span class='line'>product: Search the name of the software or product identified in the banner
+</span><span class='line'>net: Search a given netblock (example: 204.51.94.79/18)
+</span><span class='line'>version: Search the version of the product
+</span><span class='line'>port: Search for a specific port or ports
+</span><span class='line'>os: Search for a specific operating system name
+</span><span class='line'>country: Search for results in a given country (2-letter code)
+</span><span class='line'>city: Search for results in a given city</span></code></pre></td></tr></table></div></figure>
 TODO: Learn how to access Shodan with API.
-<li><a href="http://www.netmux.com/"><strong>Netmux</strong></a>: NETMUX is the all-source information hub about every IP address, device, IOT, or domain on the internet.All with a single query</li>
+<li><a href="http://www.netmux.com/"><strong>Netmux</strong></a>: NETMUX is the all-source information hub about every IP address, device, IOT, or domain on the internet. All with a single query.</li>
+<li><a href="https://censys.io/"><strong>Censys</strong></a>: Censys is a search engine that allows computer scientists to ask questions about the devices and networks that compose the Internet. Driven by Internet-wide scanning, Censys lets researchers find specific hosts and create aggregate reports on how devices, websites, and certificates are configured and deployed. A good feature is the Query metadata which tells the number of Http,https and other protocols found in the IP network range.
+<br>
+Censys.io queries
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ip:192.168.0.0/24 -- CIDR notation</span></code></pre></td></tr></table></div></figure></li>
 </ul>
 </li>
 </ul>
 </li>
+<li><strong>Reverse DNS Lookup using External Websites:</strong> Even after doing the above, sometimes we miss few of the domain name. Example: Recenlty, In one of our engagement, the domain name was example.com and the asn netblock was 192.168.0.0/24. We did recon-ng, theharvester, DNS reverse-lookup via nmap. Still, we missed few of the websites hosted on same netblock but with different domain such as exam.in. We can find such entries by using ReverseIP lookup by 
+<ul>
+<li><a href="http://reverseip.domaintools.com">Reverse IP Lookup by Domaintools</a>: Domain name search tool that allows a wildcard search, monitoring of WHOIS record changes and history caching, as well as Reverse IP queries.</li>
+<li><a href="https://www.passivetotal.org/">Passive Total</a> : A threat-analysis platform created for analysts, by analysts.</li>
+<li><a href="http://serversniff.net.ipaddress.com/">Server Sniff</a> :  A website providing IP Lookup, Reverse IP services.</li>
+<li><a href="https://www.robtex.com/">Robtex</a> : Robtex is one of the world's largest network tools. At robtex.com, you will find everything you need to know about domains, DNS, IP, Routes, Autonomous Systems, etc.
+
+There's a nmap nse <a href="https://nmap.org/nsedoc/scripts/http-robtex-reverse-ip.html">http-robtex-reverse-ip</a> which can be used to find the domain/website hosted on that ip.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nmap --script http-robtex-reverse-ip --script-args http-robtex-reverse-ip.host='XX.XX.78.214'
+</span><span class='line'>
+</span><span class='line'>Starting Nmap 7.01 ( https://nmap.org ) at 2016-04-20 21:39 IST
+</span><span class='line'>Pre-scan script results:
+</span><span class='line'>| http-robtex-reverse-ip: 
+</span><span class='line'>|   xxxxxxindian.com
+</span><span class='line'>|_  www.xxxxxindian.com</span></code></pre></td></tr></table></div></figure>
+ </li>
+</ul></li>
+</ol>
+ </li>
+<li><strong>Active Fingerprinting:</strong>
+<ol>
 Above all methods, would help you to provide information without actually interacting with the client infrastructure.
-<li>Most probably by now we have gathered all the public available information without interacting with client infrastructure. Next, we can use <strong>DNS enumeration</strong> to gather more information about the client. The below information could gather externally as well as internally. However, amount of information gathered from internal network would definately be more than when done externally.
+<li>Most probably by now we have gathered all the public available information without interacting with client infrastructure. Next, we can use <strong>DNS enumeration</strong> to gather more information about the client. The below information could gather externally as well as internally. However, amount of information gathered from internal network would definitely be more than when done externally.
 <br>
 <br>
 <strong>Finding DNS, MX, AAAA, A using</strong> 
@@ -257,11 +357,11 @@ Using
 <li><strong>host:</strong>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>host -l &lt;Domain Name&gt; &lt;DNS Server&gt;</span></code></pre></td></tr></table></div></figure>
-Try zonetransfer using host for zonetransfer.me using their nameservers. </li>
+Try zonetransfer using host for zonetransfer.me using their name servers. </li>
 <li><strong>Dig:</strong>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>dig axfr &lt;domain_name&gt; @nameserver</span></code></pre></td></tr></table></div></figure>
-Try zonetransfer using dig for zonetransfer.me using their nameservers.</li>
+Try zonetransfer using dig for zonetransfer.me using their name servers.</li>
 <li><strong>dnsrecon</strong>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>dnsrecon -d &lt;domain&gt; -t axfr</span></code></pre></td></tr></table></div></figure>
@@ -273,7 +373,11 @@ dnsrecon could also be used for other purposes such as finding nameservers, mail
 </span><span class='line'>-r, --range       &lt;range&gt;           IP Range for reverse look-up brute force in formats (first-last) or in (range/bitmask).
 </span><span class='line'>-n, --name_server &lt;name&gt;            Domain server to use, if none is given the SOA of the target will be used</span></code></pre></td></tr></table></div></figure>
 </li>
-Ideally, we should try every DNS server to do a zone transfer because there might be a probablity of one mis-configured dns server. Also, DigiNinja a well known security researcher has made the domain zonetransfer.me available for testing and learning, so you can test the online zone transfer and other queries with the deliberately configured zone transfer capable domain.
+<li><strong>DNSEnum: </strong>DNS Enumeration tool
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dnsenum &lt;domain&gt;</span></code></pre></td></tr></table></div></figure></li>
+Ideally, we should try every DNS server to do a zone transfer because there might be a probability of one mis-configured dns server. Also, DigiNinja a well known security researcher has made the domain zonetransfer.me available for testing and learning, so you can test the online zone transfer and other queries with the deliberately configured zone transfer capable domain.
+
 <br><br>
 </ul></li>
 <li><strong>SRV Records:</strong><br>
@@ -353,19 +457,16 @@ SRV records are used by the below standardized communication protocols.
 </span><span class='line'>Libravatar uses SRV records to locate avatar image servers
 </span><span class='line'>Microsoft Lync
 </span><span class='line'>Citrix Receiver</span></code></pre></td></tr></table></div></figure>
-
 Checkout the brute_srv function in the dnsrecon tool script to get familar with the different SRV names and services.
 </li>
-
-<li><strong>DNSEnum: </strong>DNS Enumaration tool
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>dnsenum &lt;domain&gt;</span></code></pre></td></tr></table></div></figure></li>
 </ul>
 </li>
 </ol>
+<br>
+<br>
 <li><strong>Internal Infrastructure Mapping:</strong>
 <br>
-All the steps in 2.b which are DNS related recon could also be performed in the internal penetration testing provided we have the access to the internal DNS Server. After, we have gathered all the information from DNS enumeration, still we haven&#8217;t enumerated internal infrastructure. We apply the below methods to enumerate further.
+All the steps in 2.a which are DNS related recon could also be performed in the internal penetration testing provided we have the access to the internal DNS Server. After, we have gathered all the information from DNS enumeration, still we haven't enumerated internal infrastructure. We apply the below methods to enumerate further.
 <br>
 <ol>
 <li>
@@ -406,12 +507,12 @@ Nmap provides a List scan option which does the reverse lookup. It provides the 
 <li><strong>Identifying Alive IP Addresses:</strong><br>
 Nmap by default provides a -sn Ping scan option. The default host discovery done with -sn consists of an ICMP echo request, TCP SYN to port 443, TCP ACK to port 80, and an ICMP timestamp request by default. This works as if ICMP echo request is blocked, nmap would know if a host is alive if it receives any response from port 443 or 80 or timestamp reply.
 <br><br>
-Let&#8217;s see what the nmap does when do a ping scan.
+Let's see what the nmap does when do a ping scan.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nmap -sn -n 10.0.0.230
 </span><span class='line'>#My IP is 10.0.0.1</span></code></pre></td></tr></table></div></figure>
-It is very important to mention that -n option (No DNS resolution) should be used going forward as we have already did DNS resolution while using List scan. Since DNS can be slow even with Nmap&#8217;s built-in parallel stub resolver, this option can slash scanning times.
+It is very important to mention that -n option (No DNS resolution) should be used going forward as we have already did DNS resolution while using List scan. Since DNS can be slow even with Nmap's built-in parallel stub resolver, this option can slash scanning times.
 <br><br>
 TCP Dump output is presented here. As both the IP address are in the same subnet, nmap would use ARP Ping scan to find the alive IP Address.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -419,7 +520,7 @@ TCP Dump output is presented here. As both the IP address are in the same subnet
 </pre></td><td class='code'><pre><code class=''><span class='line'>22:11:27.292054 ARP, Request who-has 10.0.0.230 (Broadcast) tell 10.0.0.1, length 28
 </span><span class='line'>22:11:27.361100 ARP, Reply 10.0.0.230 is-at 8c:64:22:3b:2b:2d (oui Unknown), length 28</span></code></pre></td></tr></table></div></figure>
 
-However, this behavior can be changed using &#8211;disable-arp-ping
+However, this behavior can be changed using --disable-arp-ping
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nmap -sn 10.0.0.230 --disable-arp-ping</span></code></pre></td></tr></table></div></figure>
 TCPdump output is as below: One ICMP Echo Request, SYN to Port 443, ACK to Port 80 and a time stamp request.
@@ -440,7 +541,7 @@ TCPdump output is as below: One ICMP Echo Request, SYN to Port 443, ACK to Port 
 </span><span class='line'>22:14:02.805083 IP 10.0.0.230.http &gt; 10.0.0.1.59246: Flags [R], seq 3994420539, win 0, length 0
 </span><span class='line'>22:14:02.805930 IP 10.0.0.230 &gt; 10.0.0.1: ICMP time stamp reply id 38635 seq 0: org 00:00:00.000, recv 16:40:52.731, xmit 16:40:52.731, length 20</span></code></pre></td></tr></table></div></figure>
 
-If you use &#8211;reason option, nmap would tell why it thinks the host is alive. In the below case (received echo-reply).
+If you use --reason option, nmap would tell why it thinks the host is alive. In the below case (received echo-reply).
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>Nmap scan report for 10.0.0.230
@@ -457,7 +558,7 @@ TCP Dump output:
 
 Please note, this ICMP scan would miss all the host which are alive but the firewall is dropping the ICMP echo request packet. However, if you want to find more hosts, it would be advisable to separate the list of IPs which responded to ICMP from the IP address scan range and run the scan again may be with SYN to 443 and ACK to 80 using PA, PS options.
 <br><br>
-Please also note Nmap&#8217;s ICMP ping, by default, sends zero data as part of the ping. Nmap typically pings the host via icmp if the user has root privileges, and uses a tcp-ping otherwise. This is easily detected by the Snort IDS Rule 1-469 <a href="https://www.snort.org/rule_docs/1-469">SID 1-469</a>.
+Please also note Nmap's ICMP ping, by default, sends zero data as part of the ping. Nmap typically pings the host via icmp if the user has root privileges, and uses a tcp-ping otherwise. This is easily detected by the Snort IDS Rule 1-469 <a href="https://www.snort.org/rule_docs/1-469">SID 1-469</a>.
 <br><br>
 This could be evaded by using 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -488,14 +589,14 @@ Once you have the list of IP Addresses which are alive, we can do port scan on t
 </span><span class='line'>-sU UDP Scan 
 </span><span class='line'>-sA ACK Scan : Ack scan is generally used to map out firewall rulesets. Whether firewall is stateful or not.</span></code></pre></td></tr></table></div></figure> 
 
-Please note p0f recognizes Nmap&#8217;s SYN scan because of the TCP Options such as TCP window size a multiple of 1024, and only the MSS option supported with a value of 1460 (Check the tcpdump output of Ping scan above, SYN Packet). Recently, a IRC user was getting filtered port while using SYN Scan whereas was getting OPN ports which using telnet or TCP Connect Scan.
+Please note p0f recognizes Nmap's SYN scan because of the TCP Options such as TCP window size a multiple of 1024, and only the MSS option supported with a value of 1460 (Check the tcpdump output of Ping scan above, SYN Packet). Recently, a IRC user was getting filtered port while using SYN Scan whereas was getting OPN ports which using telnet or TCP Connect Scan.
 
 Also, A patch to allow a user to override the TCP Window size in SYN scan was just posted to the <a href="http://seclists.org/nmap-dev/2015/q3/52">Nmap Development List</a>.
 
 <br><br>
-By default, nmap scans the 1000 most popular ports of each protocol ( gathered by scanning million of IP address). Scanning 1000 ports in an unknown environment with 16 million IP Address could be challenging. Nmap also provides -F Fast scan option which scans the 100 most common ports in each protocol. Otherwise it also provides &#8211;top-ports to specify an arbitary number of ports.
+By default, nmap scans the 1000 most popular ports of each protocol ( gathered by scanning million of IP address). Scanning 1000 ports in an unknown environment with 16 million IP Address could be challenging. Nmap also provides -F Fast scan option which scans the 100 most common ports in each protocol. Otherwise it also provides --top-ports to specify an arbitrary number of ports.
 <br><br>
-So, How do we know what are the ports scanned with &#8211;top-ports option. This could be found by
+So, How do we know what are the ports scanned with --top-ports option. This could be found by
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nmap -sT -oG - -v | grep '^# Ports'</span></code></pre></td></tr></table></div></figure>
 or
@@ -511,17 +612,17 @@ We could provide ports to nmap by using -p option also, for example
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>-p 22 : Scan single port
-</span><span class='line'>-p 22,25,80 : Scan multiple ports with comma separated values. If -sS is specfied TCP ports would be scanned. If -sU UDP Scan is specified, UDP Ports would be scanned.
+</span><span class='line'>-p 22,25,80 : Scan multiple ports with comma separated values. If -sS is specified TCP ports would be scanned. If -sU UDP Scan is specified, UDP Ports would be scanned.
 </span><span class='line'>-p80-85, 443, 8000-8005 : Scan port with ranges.
 </span><span class='line'>-p- : Scan all the ports excluding 0.
-</span><span class='line'>-pT:21,22,25,U:53,111,161 : Scan TCP 21,22,25 and UDP Ports 53,111,161. -sU must also be specfied.
-</span><span class='line'>-p http* : wildcards may be used for ports with similar names. This would match nine ports including 80,280,443,591,593,8000,8008,8080,8443.</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>-pT:21,22,25,U:53,111,161 : Scan TCP 21,22,25 and UDP Ports 53,111,161. -sU must also be specified.
+</span><span class='line'>-p http* : wild cards may be used for ports with similar names. This would match nine ports including 80,280,443,591,593,8000,8008,8080,8443.</span></code></pre></td></tr></table></div></figure>
 
 <strong>Identifying service versions:</strong>
 <br>
 Ideally, we can use -sV to probe the ports to find the version running. When performing a version scan (-sV), Nmap sends a series of probes, each of which is assigned a rarity value between one and nine.  The higher the number, the more likely it is the service will be correctly identified. However, high intensity scans take longer. The intensity must be between 0 and 9. The default is 7.
 <br><br>
-Ideally, to avoid the IDS Detection, we should avoid using -sV option. However, we can keep the noise less by using &#8211;version intensity by which we can control the number of probes sent to determine the service. Setting this option to 0 will send only the Null probe (connect and wait for banner) and any probes that have been specifically listed as pertaining to the scanned port in nmap-service-probes. The other options available are below:
+Ideally, to avoid the IDS Detection, we should avoid using -sV option. However, we can keep the noise less by using --version intensity by which we can control the number of probes sent to determine the service. Setting this option to 0 will send only the Null probe (connect and wait for banner) and any probes that have been specifically listed as pertaining to the scanned port in nmap-service-probes. The other options available are below:
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -529,14 +630,14 @@ Ideally, to avoid the IDS Detection, we should avoid using -sV option. However, 
 </span><span class='line'>--version-all (Try every single probe) : An alias for --version-intensity 9
 </span><span class='line'>--version-trace (Trace version scan activity) : Print debugging information.</span></code></pre></td></tr></table></div></figure>
 
-Also, when -sV is specified apart from the probes, all the scripts in the <a href="https://nmap.org/nsedoc/categories/version.html">Version</a> category are executed. These scripts could be prevented from running by removing them from the script.db catalog or by building Nmap without NSE support (./configure &#8211;without-liblua). However, if &#8211;version-intensity option is less than 7, those scripts won&#8217;t be executed ( I might be a little wrong here).
+Also, when -sV is specified apart from the probes, all the scripts in the <a href="https://nmap.org/nsedoc/categories/version.html">Version</a> category are executed. These scripts could be prevented from running by removing them from the script.db catalog or by building Nmap without NSE support (./configure --without-liblua). However, if --version-intensity option is less than 7, those scripts won't be executed ( I might be a little wrong here).
 <br>
 So our scan would become approx
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nmap &lt;IP_Address_Range&gt; -n --top-ports &lt;number&gt;/-p &lt;Custom Port List&gt; -sV --version-intensity 0/ (No -sV)</span></code></pre></td></tr></table></div></figure>
 
 <strong>Performance:</strong>
-So, How can we improve the performance of our nmap scan, so that result could be achieved faster. However, as always we will have Time Vs Accuracy Tradeoff.
+So, How can we improve the performance of our nmap scan, so that result could be achieved faster. However, as always we will have Time Vs Accuracy Trade off.
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -554,18 +655,18 @@ So, How can we improve the performance of our nmap scan, so that result could be
 
 T0,T1,T2 is specifically for IDS Evasion. T3 is the default.<br>
 
-We can set max-retries to a lower value such as 2. Currently it&#8217;s 10 for T0,T1,T2,T3; 6 for T4 and 2 for T5.
+We can set max-retries to a lower value such as 2. Currently it's 10 for T0,T1,T2,T3; 6 for T4 and 2 for T5.
 <br><br>
 <strong>Nmap Scripts:</strong>
 <br>
 As bonsaiviking says <a href="http://blog.bonsaiviking.com/2015/07/they-see-me-scannin-part-2.html">Here</a>:<br>
-If you are wild enough to try NSE scripts against an IDS-protected target, you should know how to read Lua, since the script sources are the final authority on what data is sent. But if you&#8217;re just looking to get a little better at blending in, these tips should help:
+If you are wild enough to try NSE scripts against an IDS-protected target, you should know how to read Lua, since the script sources are the final authority on what data is sent. But if you're just looking to get a little better at blending in, these tips should help:
 <ul>
-<li>Use &#8211;script-args-file to pass script arguments to Nmap from a file. This will keep your command line clean and make it harder to accidentally miss one of the options you choose</li>
+<li>Use --script-args-file to pass script arguments to Nmap from a file. This will keep your command line clean and make it harder to accidentally miss one of the options you choose</li>
 <li>Obviously avoid dos, intrusive, and exploit category scripts.</li>
 <li>Use scripts by name instead of by category, so that you know exactly what will be run.</li>
 <li>Thoroughly read the documentation for each script you intend to use.</li>
-<li>Set http.useragent to something believable that blends in. Currently, The HTTP scripts all use a User-Agent header that identifies as &#8220;Nmap Scripting Engine.&#8221;</li>
+<li>Set http.useragent to something believable that blends in. Currently, The HTTP scripts all use a User-Agent header that identifies as "Nmap Scripting Engine."</li>
 </ul>
 <br>
 <strong>Output Options:</strong>
@@ -582,27 +683,38 @@ If you are wild enough to try NSE scripts against an IDS-protected target, you s
 </span><span class='line'>--packet-trace: Show all packets sent and received
 </span><span class='line'>--resume &lt;filename&gt;: Resume an aborted scan : Filename should be .nmap or .gnmap</span></code></pre></td></tr></table></div></figure>
 
-At this point, it&#8217;s good to find what are the most common ports open in the scan we just performed by
+At this point, it's good to find what are the most common ports open in the scan we just performed by
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>grep "^[0-9]\+" &lt;nmap file .nmap extension&gt; | grep "\ open\ " | sort | uniq -c | sort -rn | awk '{print "\""$1"\",\""$2"\",\""$3"\",\""$4"\",\""$5" "$6" "$7" "$8" "$9" "$10" "$11" "$12" "$13"\""}' &gt; test.csv</span></code></pre></td></tr></table></div></figure>
 </li>
 <li><strong>Exploring the Network Further:</strong><br>
 By now, we would have information about what ports are open and possibly what services are running on them. Further, we need to explore the various options by which we can get more information.<br>
 <ul>
+<br>
 <strong>Gathering Screenshots for http* services:</strong><br>
 
-There are three ways (in my knowledge to do this)
-<li>http-screenshot NSE:<br> Nmap has a NSE script <a href="https://github.com/SpiderLabs/Nmap-Tools/blob/master/NSE/http-screenshot.nse">http-screenshot</a> This could be executed while running nmap. It uses wkhtml2image tool in the script. Sometimes, you may find that running this script takes a long time. It might be a good idea to gather all the http* running IP, Port and provide this information to wkhtml2image directly via scripting. You do have to install wkhtml2image and test with disable javascript and other options available.</li>
-<li>httpscreenshot from breenmachine: <a href="https://github.com/breenmachine/httpscreenshot">httpscreenshot</a>  is a tool for grabbing screenshots and HTML of large numbers of websites. The goal is for it to be both thorough and fast which can sometimes oppose each other.</li>
+There are four ways (in my knowledge to do this)
+<li><strong>http-screenshot NSE</strong>:<br> Nmap has a NSE script <a href="https://github.com/SpiderLabs/Nmap-Tools/blob/master/NSE/http-screenshot.nse">http-screenshot</a> This could be executed while running nmap. It uses wkhtml2image tool in the script. Sometimes, you may find that running this script takes a long time. It might be a good idea to gather all the http* running IP, Port and provide this information to wkhtml2image directly via scripting. You do have to install wkhtml2image and test with disable javascript and other options available.</li>
+<li><strong>httpscreenshot</strong> from breenmachine: <a href="https://github.com/breenmachine/httpscreenshot">httpscreenshot</a>  is a tool for grabbing screenshots and HTML of large numbers of websites. The goal is for it to be both thorough and fast which can sometimes oppose each other.</li>
+<li><strong>Eyewitness</strong> from Chris Truncer: <a href="https://github.com/ChrisTruncer/EyeWitness">EyeWitness</a>  is designed to take screenshots of websites, provide some server header info, and identify default credentials if possible.</li>
 <li>Another method is to use <a href="https://code.google.com/p/java-html2image/">html2image</a> which is a simple Java library converts plain HTML markup to image and provides client-side image-map using HTML <map> element.</li>
 
+<br>
+<strong>Information gathering for http* services:</strong><br>
+<br>
+<li><strong>RAWR: Rapid Assesment of Web Resourses</strong>:<br> <a href="https://bitbucket.org/al14s/rawr/wiki/Home">RAWR</a> provides with a customizable CSV containing ordered information gathered for each host, with a field for making notes/etc.; An elegant, searchable, JQuery-driven HTML report that shows screenshots, diagrams, and other information. A report on relevent security headers. In short, it provides a landscape of your webapplications. It takes input from multiple formats such as Nmap, Nessus, OpenVAS etc.</li>
+<li> <a href="http://www.morningstarsecurity.com/research/whatweb"><strong>WhatWeb</strong></a> recognises web technologies including content management systems (CMS), blogging platforms, statistic/analytics packages, JavaScript libraries, web servers, and embedded device.  <a href="https://www.aldeid.com/wiki/Tellmeweb">Tellmeweb</a> is a ruby script to read Nmap Gnmap file and run whatweb on all of them. A <a href="https://github.com/stevecoward/whatweb-parser">WhatWeb Result Parser</a>  also has been written  which converts the results to CSV format. More information about advance usage can be found <a href="https://github.com/urbanadventurer/WhatWeb/wiki/Advanced-Usage">here</a>.</li>
+<li><a href="http://wappalyzer.com"><strong>Wapplyzer</strong></a> is a Firefox plug-in. It works only on regular expression matching and doesn't need anything other than the page to be loaded on browser. It works completely at the browser level and gives results in the form of icons.</li>
+<li><a href="http://w3techs.com/"><strong>W3Tech</strong></a> is another Chrome plug-in which provides information about the usage of various types of technologies on the web. It tells the web technologies based on the crawling it has done. So example.com, x1.example.com, x2.example.com will show the same technologies as the domain is same (which is not correct).</li>
+<li><a href="https://github.com/justjavac/ChromeSnifferPlus"><strong>ChromeSnifferPlus</strong></a> is another chrome extension to sniff about the different web-technologies used by the website.</li>
+<li><a href="http://builtwith.com/"><strong>BuiltWith</strong></a> is another website which provides a good amount of information about the different technologies used by website.</li>
 </ul>
 </li>
 <li><strong>NetBIOS Service:</strong> 
 <br>
 Netbios listens on TCP Port 139, 445 and UDP Port 137.
 <br><br>
-How do we machines on which these three ports or a combination are open and feed that IP information to nbtscan and enum4linum.
+How do we machines on which these three ports or a combination are open and feed that IP information to nbtscan and enum4linux.
 We can do this by using grep such as
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -730,20 +842,22 @@ Script In Progress
       
   
 
-<span class="byline author vcard">Posted by <span class="fn">Vijay Kumar</span></span>
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
 
       
 
 
 
 
-<time class='entry-date' datetime='2015-04-09T05:53:38+01:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:53 am</span></time>
+<time class='entry-date' datetime='2015-04-09T10:23:38+05:30'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:23 am</span></time>
       
 
 
     </p>
     
       <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://bitvijays.github.io/blog/2015/04/09/learning-from-the-field-intelligence-gathering/" data-via="" data-counturl="http://bitvijays.github.io/blog/2015/04/09/learning-from-the-field-intelligence-gathering/" >Tweet</a>
   
   
   
@@ -763,37 +877,7 @@ Script In Progress
 
 <aside class="sidebar">
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
     
-      <li class="post">
-        <a href="/blog/2015/04/09/learning-from-the-field-intelligence-gathering/">Learning From the Field: Intelligence Gathering</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/11/learning-from-field-wireless-pentesting/">Learning From Field : Wireless Pentesting</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/02/learning-from-ctf-reverse-engineering/">Learning From CTF : Reverse Engineering</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/09/learning-from-ctf-binary-exploitation/">Learning From CTF : Binary Exploitation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/07/learning-from-ctf-forensics/">Learning From CTF : Forensics</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
   
 </aside>
 
@@ -801,7 +885,7 @@ Script In Progress
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Vijay Kumar -
+  Copyright &copy; 2016 - Your Name -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -813,6 +897,16 @@ Script In Progress
 
 
 
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
 
 
 
