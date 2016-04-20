@@ -52,7 +52,11 @@ strace: trace system calls and signals
 ltrace: A library call tracer
 </li>
 
-
+<li>GDB Commands:
+```
+info file: Tell us about the entry points:
+info functions: Tell us about the functions in the binary.
+```</li>
 </ol>
 
 ###Examples

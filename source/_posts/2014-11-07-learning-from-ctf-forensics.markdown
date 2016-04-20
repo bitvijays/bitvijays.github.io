@@ -28,10 +28,12 @@ The jar-file argument is the filename (or path and filename) of the JAR file fro
 ```
 tshark -T fields -e ip.src -r < pcap file> | sort | uniq
 
--T             : Set the format of the output when viewing decoded packet data.
--e <field>     : Add a field to the list of fields to display if -T fields is selected.
--r <pcap file> : Read packet data from infile, can be any supported capture file format (including gzipped files). 
+-T fields|pdml|ps|psml|text : Set the format of the output when viewing decoded packet data.
+-e <field>     		    : Add a field to the list of fields to display if -T fields is selected.
+-r <pcap file> 		    : Read packet data from infile, can be any supported capture file format (including gzipped files).
+-R <Read filter>            : Cause the specified filter (which uses the syntax of read/display filters, rather than that of capture filters) to be applied
 ```</li>
+<li>wireshark can not reassamble HTTP fragmented packets to generate the RAW data,we can use Dshell to reassemble http partial contents. A blog mentioning how to do it is <a href="https://github.com/naijim/blog/blob/master/writeups/asis-quals-ctf-2015_broken_heart_writeup.md">here</a></li>
 </ul>
 </li>
 <br>
@@ -95,7 +97,32 @@ xxd -r <data>
 <data> is the hexdump of the binary file.
 ``` </li>
 
+<li>Excel Document: You may try unzipping it and check VBA macros in it. There are tools to extract VBA from excel listed here <a href="http://www.decalage.info/vba_tools">ools to extract VBA Macro source code from MS Office Documents
+</a> </li>
+<li> Correct Headers:
+SQLite3
+```
+0000000: 5351 4c69 7465 2066 6f72 6d61 7420 3300  SQLite format 3.
+0000010: 0400 0101 0040 2020 0000 000b 0000 000b  .....@  ........
+0000020: 0000 0000 0000 0000 0000 0002 0000 0004  ................
+```
 
+</li>
+
+<li>GIF to JPG
+```
+convert animation.gif target.png
+```</li>
+<li>If the pdf-parser contains
+```
+        /ProcSet [/PDF/Text/ImageC/ImageI]
+        /ProcSet [/PDF/Text/ImageC/ImageI]
+```
+It means it will contain text which can be extracted by using
+```
+pdf2txt Untitled-1_1a110935ec70b63ad09fec68c89dfacb.pdf 
+PCTF{how_2_pdf_yo}
+```</li>
 </ol>
 
 

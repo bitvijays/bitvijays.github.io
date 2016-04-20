@@ -10,20 +10,23 @@ This post lists essential commands and concepts which would be helpful to a Linu
 <ol>
 <li>Vi : Powerful Editor:
 {% codeblock %}
-vi <filename>           - Open a file to edit in Vi editor.
-Two modes               - Command and Insert Mode. All commands below are in command mode.
-:q                      - Quit.
-:wq                     - Save and close.
-:syntax on              - Turn on Syntax highlighting for C programming and other languages.
-:set number             - Turn on the line numbers.
-:set nonumber           - Turn off the line numbers.
-:u                      - Undo one change.
-dd                      - Delete current line. 
-d$                      - Delete the text from where your cursor is to the end of the line.
-dnd                     - Delete n lines.
-yy                      - Yank or copy current line.
-y$, yny                 - Similar to delete lines.
-p                       - Paste the line in the buffer in to text after the current line.
+vi <filename>              - Open a file to edit in Vi editor.
+Two modes                  - Command and Insert Mode. All commands below are in command mode.
+:q                         - Quit.
+:wq                        - Save and close.
+:syntax on                 - Turn on Syntax highlighting for C programming and other languages.
+:set number                - Turn on the line numbers.
+:set nonumber              - Turn off the line numbers.
+:set spell spelllang=en_us - Turn spell checking on with spell language as "en_us"
+:set nospell               - Turn spell checking off
+:u                         - Undo one change.
+z=                         - If the cursor is on the word ( which is highlighted with spell check), Vim will suggest a list of alternatives that it thinks may be correct.
+dd                         - Delete current line. 
+d$                         - Delete the text from where your cursor is to the end of the line.
+dnd                        - Delete n lines.
+yy                         - Yank or copy current line.
+y$, yny                    - Similar to delete lines.
+p                          - Paste the line in the buffer in to text after the current line.
 {% endcodeblock %}
 Two configurations files which are important:
 <ul>
@@ -52,7 +55,7 @@ sed - stream editor in Vi is really very useful. It is also a standalone applica
 <li>/etc/bashrc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     - Global system configuration for bash which controls the aliases and functions to be run when bash is executed.</li>
 </ol>
 <br>
-Few Important Variables
+Few important variables
 <ol type="i">
 <li>HISTSIZE&nbsp;&nbsp;&nbsp;&nbsp; - Controls the number of commands to remember in the history command. The default value is 500.</li>
 <li>HISTFILE&nbsp;&nbsp;&nbsp;&nbsp; - Defines the file in which all commands will be logged to. Normally the value for this variable is set to ~/.bash_history. This means that whatever you type in bash will be stored into the value of HISTFILE. It is advisable to leave it undefined, or pipe the output to /dev/null (For privacy reasons).</li>
@@ -84,7 +87,7 @@ poweroff would shutdown the system after everything is updated.
 </li>
 <li>Using Debian Package Manager dpkg
 {% codeblock %}
-dpkg -i <Package>.deb          - install package.
+dpkg -i <Package>.deb          - Install package.
 dpkg -r <Package>              - Removes everything except configuration files.
 dpkg -P <Package>              - Removes configurations files too.
 dpkg -l                        - Shows the list of all installed packages.
@@ -122,7 +125,7 @@ chown              : Change file owner and group.
 -R, --recursive    : operate on files and directories recursively.
 chmod              : change file mode bits.
 chgrp              : change group ownership.
-SUID bit           : SetUID bit specfies that an executable should run as its owner instead of the user executing it.
+SUID bit           : SetUID bit specifies that an executable should run as its owner instead of the user executing it.
                    : SUID is mostly commonly used to run an executable as root, allowing users to perform tasks such as changing their passwords.
 		   : If there is a flaw in a SUID root executable, you can run arbitrary code as root.
 {% endcodeblock %}
@@ -132,7 +135,7 @@ SUID bit           : SetUID bit specfies that an executable should run as its ow
 {% codeblock %}
 mount <device> <dir> : Mount a filesystem.
 -r, --read-only      : Mount the filesystem read-only.
-unmount {dir|device} : Umount file systems.	
+unmount {dir|device} : Unmount file systems.	
 {% endcodeblock %}
 
 Mounting Windows share on Linux
@@ -272,7 +275,7 @@ bt                : to print the stack call, mainly useful to find segmentation 
 {% codeblock %}
 /etc/issue     : Contains the message which is displayed on terminal before login. 
 /etc/motd      : Contains the message which is displayed on terminal after login.
-/proc/cpuinfo  : provides information about cpu.
+/proc/cpuinfo  : provides information about CPU.
 /proc/meminfo  : provides information about memory/ RAM.
 /proc/version  : provides information about the version of your system.
 {% endcodeblock %}
@@ -369,7 +372,7 @@ tr        : Converts from smaller to uppercase. tr stands for translate.
 tee       : saves output in file as well as forward it.
 touch     : Create zero byte files, mainly used for changing the timestamps of the file.
 make      : If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it's a faster way.
-stat      : View detailed information about a file, including its name,size, last modified date, and permissons.
+stat      : View detailed information about a file, including its name,size, last modified date, and permissions.
 uniq      : Report or omit repeated lines.
    -c     : prefix lines by the number of occurrences. (--count)
 {% endcodeblock %}
@@ -415,7 +418,7 @@ PS: --exclude or --include parameter could be used for efficient searching.
 -a, --text            : Process a binary file as if it were text; this is equivalent to the --binary-files=text option.
 {% endcodeblock %}
 </li>
-<li>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some neccessary packages.
+<li>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some necessary packages.
 <br>
 <br>
 In this case, look for /var/log/apt/history.log, look for the time around which your system was broken. Copy the removed packages
@@ -479,7 +482,8 @@ Searching history
 ```
 Search as you type. Ctrl + r and type the search term;
 ```
-Read http://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing
+Read here more for <a href="http://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing">Command Line Editing</a>
+
 </li>
 
 <li>Awk converting to normal output to csv
