@@ -143,6 +143,12 @@ whois command acts differently for ip address and domain name.
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>whois &lt;Domain Name/ IP Address&gt;
 </span><span class='line'>-H Do not display the legal disclaimers some registries like to show you.</span></code></pre></td></tr></table></div></figure>
+Googling for 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>"Registrant Organization" inurl:domaintools</span></code></pre></td></tr></table></div></figure>
+also helps for to search for new domains registered by the same organization. "Registrant Organization" is present in the output of whois. This technique was used by person who compromised FinFisher in the <a href="http://pastebin.com/raw/cRYvK4jb">writeup</a>.
+<br>
+<br>
 <li><strong>ASN Number</strong>: We could find AS Number that participates in Border Gateway Protocol (BGP) used by particular organization which could further inform about the IP address ranges used by the organization.
 
 ASN Number and information could be found by using Team CMRU whois service
@@ -155,7 +161,6 @@ Hurricane Electric Internet Services also provide a website <a href="http://bgp.
 <br><br>
 TODO: Commandline checking of subnet and making whois query efficient.<br>
 </li>
-<br>
 <br>
 <li><strong>Enumeration with Domain Name (e.g example.com) using external websites</strong>: If you have domain name you could use
 <ul>
@@ -285,7 +290,7 @@ Censys.io queries
 </li>
 </ul>
 </li>
-<li><strong>Reverse DNS Lookup using External Websites:</strong> Even after doing the above, sometimes we miss few of the domain name. Example: Recenlty, In one of our engagement, the domain name was example.com and the asn netblock was 192.168.0.0/24. We did recon-ng, theharvester, DNS reverse-lookup via nmap. Still, we missed few of the websites hosted on same netblock but with different domain such as exam.in. We can find such entries by using ReverseIP lookup by 
+<li><strong>Reverse DNS Lookup using External Websites:</strong> Even after doing the above, sometimes we miss few of the domain name. Example: Recently, In one of our engagement, the domain name was example.com and the asn netblock was 192.168.0.0/24. We did recon-ng, theharvester, DNS reverse-lookup via nmap. Still, we missed few of the websites hosted on same netblock but with different domain such as exam.in. We can find such entries by using ReverseIP lookup by 
 <ul>
 <li><a href="http://reverseip.domaintools.com">Reverse IP Lookup by Domaintools</a>: Domain name search tool that allows a wildcard search, monitoring of WHOIS record changes and history caching, as well as Reverse IP queries.</li>
 <li><a href="https://www.passivetotal.org/">Passive Total</a> : A threat-analysis platform created for analysts, by analysts.</li>
@@ -619,6 +624,25 @@ We could provide ports to nmap by using -p option also, for example
 </span><span class='line'>-pT:21,22,25,U:53,111,161 : Scan TCP 21,22,25 and UDP Ports 53,111,161. -sU must also be specified.
 </span><span class='line'>-p http* : wild cards may be used for ports with similar names. This would match nine ports including 80,280,443,591,593,8000,8008,8080,8443.</span></code></pre></td></tr></table></div></figure>
 
+Port scanning via <strong>netcat</strong>: Netcat might not be the best tool to use for port scanning, but can be used quickly. netcat scans TCP ports by default, but we can perform UDP scans as well.
+<br>
+<br>
+For a TCP scan, the format is 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nc -vvn -z xxx.xxx.xxx.xxx startport-endport
+</span><span class='line'>
+</span><span class='line'>-z flag is Zero-I/O mode ( used for scannng )
+</span><span class='line'>-vv will provide verbose information about the results
+</span><span class='line'>-n flag allows to skip the DNS lookup</span></code></pre></td></tr></table></div></figure>
+
+For a UDP Port Scan, we need to add -u flag which makes the format
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nc -vvn -u -z xxx.xxx.xxx.xxx startport-endport</span></code></pre></td></tr></table></div></figure>
+
 <strong>Identifying service versions:</strong>
 <br>
 Ideally, we can use -sV to probe the ports to find the version running. When performing a version scan (-sV), Nmap sends a series of probes, each of which is assigned a rarity value between one and nine.  The higher the number, the more likely it is the service will be correctly identified. However, high intensity scans take longer. The intensity must be between 0 and 9. The default is 7.
@@ -789,52 +813,6 @@ onesixtyone allows you to brute force the community strings, you could onesixty 
 </li>
 </ol>
 
-
-<h3>Notes</h3>
-
-<ol>
-<li>If your team in non-techie and you see that ipconfig, ping, whoami, cmd.exe, netsh is not needed. You could disable them using (Software Restriction Policies, Applocker, Access Control List, Process Auditing). This would reduce the attack surface area largely.</li>
-<li>
-TODO: Gather all the IP, ports for all the ports running http* services for wkhtml2image.<br>
-Before, this how do we find ports which are running are running http services, continuing with the test.csv which we created above
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cat test.csv | grep http | cut -d , -f2-4 | sort | uniq | cut -d , -f1 | sort | uniq</span></code></pre></td></tr></table></div></figure>
-A sample results should look like
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>"10000/tcp"
-</span><span class='line'>"1025/tcp"
-</span><span class='line'>"1027/tcp"
-</span><span class='line'>"2000/tcp"
-</span><span class='line'>"32768/tcp"
-</span><span class='line'>"443/tcp"
-</span><span class='line'>"6001/tcp"
-</span><span class='line'>"8000/tcp"
-</span><span class='line'>"8008/tcp"
-</span><span class='line'>"8080/tcp"
-</span><span class='line'>"80/tcp"
-</span><span class='line'>"81/tcp"
-</span><span class='line'>"8443/tcp"
-</span><span class='line'>"8888/tcp"</span></code></pre></td></tr></table></div></figure>
-Script In Progress
-<br></li>
-<li>Automate this whole process: In Progress</li>
-</ol>
-
-
-
 </div>
 
 
@@ -870,9 +848,17 @@ Script In Progress
         <a class="basic-alignment left" href="/blog/2015/03/11/learning-from-field-wireless-pentesting/" title="Previous Post: Learning from field : Wireless Pentesting">&laquo; Learning from field : Wireless Pentesting</a>
       
       
+        <a class="basic-alignment right" href="/blog/2016/03/03/learning-from-the-field-basic-network-hygiene/" title="Next Post: Learning from the field: Basic Network Hygiene">Learning from the field: Basic Network Hygiene &raquo;</a>
+      
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -892,6 +878,22 @@ Script In Progress
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'tech_bitvijays';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://bitvijays.github.io/blog/2015/04/09/learning-from-the-field-intelligence-gathering/';
+        var disqus_url = 'http://bitvijays.github.io/blog/2015/04/09/learning-from-the-field-intelligence-gathering/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
