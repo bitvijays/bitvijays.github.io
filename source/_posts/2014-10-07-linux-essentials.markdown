@@ -565,6 +565,65 @@ We want our information to:
 <br>
 Non-repudiation is about ensuring that users cannot deny knowledge of sending a message or performing some online activity at some later point in time. For example, in an online banking system the user cannot be allowed to claim that they didn’t send a payment to a recipient after the bank has transferred the funds to the recipient’s account.</li>
 
+<ul>Important File Formats:
+<li>The <strong>/etc/passwd</strong> file is a colon-separated file that contains the following information:
+<ul>
+<li>User name</li>
+<li>Encrypted password</li>
+<li>User ID number (UID)</li>
+<li>User's group ID number (GID)</li>
+<li>Full name of the user (GECOS)</li>
+<li>User home directory</li>
+<li>Login shell</li>
+</ul>
+```
+root:!:0:0::/:/usr/bin/ksh
+daemon:!:1:1::/etc:
+bin:!:2:2::/bin:
+sys:!:3:3::/usr/sys: 
+adm:!:4:4::/var/adm:
+uucp:!:5:5::/usr/lib/uucp: 
+guest:!:100:100::/home/guest:
+nobody:!:4294967294:4294967294::/:
+lpd:!:9:4294967294::/:
+lp:*:11:11::/var/spool/lp:/bin/false 
+invscout:*:200:1::/var/adm/invscout:/usr/bin/ksh
+nuucp:*:6:5:uucp login user:/var/spool/uucppublic:/usr/sbin/uucp/uucico
+paul:!:201:1::/home/paul:/usr/bin/ksh
+jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh 
+```</li>
+<li>The <strong>/etc/shadow</strong> file contains password and account expiration information for users, and looks like this:
+```
+
+smithj:Ep6mckrOLChF.:10063:0:99999:7::
+```
+As with the passwd file, each field in the shadow file is also separated with ":" colon characters, and are as follows:
+<ul>
+<li>Username, up to 8 characters. Case-sensitive, usually all lowercase. A direct match to the username in the /etc/passwd file.</li>
+<li>Password, 13 character encrypted. A blank entry (eg. ::) indicates a password is not required to log in (usually a bad idea), and a ``*'' entry (eg. :*:) indicates the account has been disabled.</li>
+<li>The number of days (since January 1, 1970) since the password was last changed.</li>
+<li>The number of days before password may be changed (0 indicates it may be changed at any time)</li>
+<li>The number of days after which password must be changed (99999 indicates user can keep his or her password unchanged for many, many years)</li>
+<li>The number of days to warn user of an expiring password (7 for a full week)</li>
+<li>The number of days after password expires that account is disabled</li>
+<li>The number of days since January 1, 1970 that an account has been disabled</li>
+<li>A reserved field for possible future use</li>
+</ul>
+</li>
+<li>The <strong>/etc/group</strong> file stores group information or defines the user groups. There is one entry per line, and each line has the following format (all fields are separated by a colon (:)
+```
+cdrom:x:24:john,mike,yummy
+```
+Where,
+<ul>
+<li>group_name: Name of group.</li>
+<li>Password: Generally password is not used, hence it is empty/blank. It can store encrypted password. This is useful to implement privileged groups.
+Group ID (GID): Each user must be assigned a group ID. You can see this number in your /etc/passwd file.
+Group List: It is a list of user names of users who are members of the group. The user names, must be separated by commas.
+</ul>
+</li>
+</ul>
+</li>
 </ol>
 
 **TODO**   

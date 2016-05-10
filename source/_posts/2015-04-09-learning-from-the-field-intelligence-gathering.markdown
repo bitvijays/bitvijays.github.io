@@ -65,6 +65,13 @@ whois command acts differently for ip address and domain name.
 whois <Domain Name/ IP Address>
 -H Do not display the legal disclaimers some registries like to show you.
 ```
+Googling for 
+```
+"Registrant Organization" inurl:domaintools
+```
+also helps for to search for new domains registered by the same organization. "Registrant Organization" is present in the output of whois. This technique was used by person who compromised FinFisher in the <a href="http://pastebin.com/raw/cRYvK4jb">writeup</a>.
+<br>
+<br>
 <li><strong>ASN Number</strong>: We could find AS Number that participates in Border Gateway Protocol (BGP) used by particular organization which could further inform about the IP address ranges used by the organization.
 
 ASN Number and information could be found by using Team CMRU whois service
@@ -78,7 +85,6 @@ Hurricane Electric Internet Services also provide a website <a href="http://bgp.
 <br><br>
 TODO: Commandline checking of subnet and making whois query efficient.<br>
 </li>
-<br>
 <br>
 <li><strong>Enumeration with Domain Name (e.g example.com) using external websites</strong>: If you have domain name you could use
 <ul>
@@ -183,7 +189,7 @@ ip:192.168.0.0/24 -- CIDR notation
 </li>
 </ul>
 </li>
-<li><strong>Reverse DNS Lookup using External Websites:</strong> Even after doing the above, sometimes we miss few of the domain name. Example: Recenlty, In one of our engagement, the domain name was example.com and the asn netblock was 192.168.0.0/24. We did recon-ng, theharvester, DNS reverse-lookup via nmap. Still, we missed few of the websites hosted on same netblock but with different domain such as exam.in. We can find such entries by using ReverseIP lookup by 
+<li><strong>Reverse DNS Lookup using External Websites:</strong> Even after doing the above, sometimes we miss few of the domain name. Example: Recently, In one of our engagement, the domain name was example.com and the asn netblock was 192.168.0.0/24. We did recon-ng, theharvester, DNS reverse-lookup via nmap. Still, we missed few of the websites hosted on same netblock but with different domain such as exam.in. We can find such entries by using ReverseIP lookup by 
 <ul>
 <li><a href="http://reverseip.domaintools.com">Reverse IP Lookup by Domaintools</a>: Domain name search tool that allows a wildcard search, monitoring of WHOIS record changes and history caching, as well as Reverse IP queries.</li>
 <li><a href="https://www.passivetotal.org/">Passive Total</a> : A threat-analysis platform created for analysts, by analysts.</li>
@@ -468,6 +474,23 @@ We could provide ports to nmap by using -p option also, for example
 -p http* : wild cards may be used for ports with similar names. This would match nine ports including 80,280,443,591,593,8000,8008,8080,8443.
 ```
 
+Port scanning via <strong>netcat</strong>: Netcat might not be the best tool to use for port scanning, but can be used quickly. netcat scans TCP ports by default, but we can perform UDP scans as well.
+<br>
+<br>
+For a TCP scan, the format is 
+```
+nc -vvn -z xxx.xxx.xxx.xxx startport-endport
+
+-z flag is Zero-I/O mode ( used for scannng )
+-vv will provide verbose information about the results
+-n flag allows to skip the DNS lookup
+```
+
+For a UDP Port Scan, we need to add -u flag which makes the format
+```
+nc -vvn -u -z xxx.xxx.xxx.xxx startport-endport
+```
+
 <strong>Identifying service versions:</strong>
 <br>
 Ideally, we can use -sV to probe the ports to find the version running. When performing a version scan (-sV), Nmap sends a series of probes, each of which is assigned a rarity value between one and nine.  The higher the number, the more likely it is the service will be correctly identified. However, high intensity scans take longer. The intensity must be between 0 and 9. The default is 7.
@@ -619,35 +642,3 @@ onesixtyone [options] <host> <community>
 </li>
 </li>
 </ol>
-
-###Notes
-<ol>
-<li>If your team in non-techie and you see that ipconfig, ping, whoami, cmd.exe, netsh is not needed. You could disable them using (Software Restriction Policies, Applocker, Access Control List, Process Auditing). This would reduce the attack surface area largely.</li>
-<li>
-TODO: Gather all the IP, ports for all the ports running http* services for wkhtml2image.<br>
-Before, this how do we find ports which are running are running http services, continuing with the test.csv which we created above
-```
-cat test.csv | grep http | cut -d , -f2-4 | sort | uniq | cut -d , -f1 | sort | uniq
-```
-A sample results should look like
-```
-"10000/tcp"
-"1025/tcp"
-"1027/tcp"
-"2000/tcp"
-"32768/tcp"
-"443/tcp"
-"6001/tcp"
-"8000/tcp"
-"8008/tcp"
-"8080/tcp"
-"80/tcp"
-"81/tcp"
-"8443/tcp"
-"8888/tcp"
-```
-Script In Progress
-<br></li>
-<li>Automate this whole process: In Progress</li>
-</ol>
-
