@@ -19,6 +19,7 @@ Two modes                  - Command and Insert Mode. All commands below are in 
 :set nonumber              - Turn off the line numbers.
 :set spell spelllang=en_us - Turn spell checking on with spell language as "en_us"
 :set nospell               - Turn spell checking off
+:set list		   - If 'list' is on, whitespace characters are made visible. The default displays "^I" for each tab, and "$" at each EOL (end of line, so trailing whitespace can be seen)
 :u                         - Undo one change.
 z=                         - If the cursor is on the word ( which is highlighted with spell check), Vim will suggest a list of alternatives that it thinks may be correct.
 dd                         - Delete current line. 
@@ -509,7 +510,7 @@ xmlstarlet sel -t -m "//host[status[@state='up']]" -v "address/@addr" -o " : " -
 </ul>
 </li>
 
-<li>Bash equality Tests
+<li><strong>Bash equality Tests</strong>
 {% codeblock %}
 test       : checks file types and compare values
    -d      : check if the file is a directory
@@ -550,11 +551,80 @@ x = y           : Check if x is the same as y
 x != y          : Check if x is not the same as y
 -n x            : Evaluates to true if x is not null
 -z x            : Evaluates to true if x is null.
+##Check in the following way --> if [ -z "$VAR" ];
 {% endcodeblock %}</li>
+<br>
 </ul>
-</li>
+<strong>Bash Command Substitution</strong>:
+<br>
+Command substitution allows the output of a command to replace the command itself. Command substitution occurs when a command is enclosed as follows:
+```
+$(command)
+```
+or
+```
+`command`
+```
+Bash performs the expansion by executing command and replacing the command substitution with the standard output of the command, with any trailing newlines deleted.
+<br>
+<strong>Bash For Loop</strong>:
+```
+for i in $( ls ); do
+    echo item: $i
+done
+```
+<br>
+<strong>Bash If Statement</strong>:
+```
+if [ "foo" = "foo" ]; then
+     echo expression evaluated as true
+else
+     echo expression evaluated as false
+fi
+```
+<br>
+<strong>Bash loop thru array of strings</strong>
+```
+## declare an array variable
+declare -a arr=("element1" "element2" "element3")
 
-<li>Some Important Definitions:
+## now loop through the above array
+for i in "${arr[@]}"
+do
+   echo "$i"
+   # or do whatever with individual element of the array
+done
+```
+The value of the variable whose name is in this variable can be found by
+```
+echo ${!n}
+```
+For example:
+```
+eth0="$(ip -o -4 address | grep eth0 | awk '{print $4}')"
+wlan0="$(ip -o -4 address | grep wlan0 | awk '{print $4}')"
+##eth0 and wlan0 contains the subnet of the eth0 and wlan0.
+
+for interfaces in "eth0" "wlan0"
+do
+##var would actually get the value of that variable
+	var="${!interfaces}"
+done
+```
+Sample Output with ${!interfaces}:
+```
+
+10.233.113.136/23
+```
+Sample Output with ${interfaces}:
+```
+eth0
+wlan0
+```
+</li>
+</li>
+<br>
+<li><strong>Some Important Definitions</strong>:
 <br>
 We want our information to:
 <ul>

