@@ -111,6 +111,7 @@
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
+<span class='line-number'>18</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vi &lt;filename>              - Open a file to edit in Vi editor.
 </span><span class='line'>Two modes                  - Command and Insert Mode. All commands below are in command mode.
 </span><span class='line'>:q                         - Quit.
@@ -120,6 +121,7 @@
 </span><span class='line'>:set nonumber              - Turn off the line numbers.
 </span><span class='line'>:set spell spelllang=en_us - Turn spell checking on with spell language as "en_us"
 </span><span class='line'>:set nospell               - Turn spell checking off
+</span><span class='line'>:set list        - If 'list' is on, whitespace characters are made visible. The default displays "^I" for each tab, and "$" at each EOL (end of line, so trailing whitespace can be seen)
 </span><span class='line'>:u                         - Undo one change.
 </span><span class='line'>z=                         - If the cursor is on the word ( which is highlighted with spell check), Vim will suggest a list of alternatives that it thinks may be correct.
 </span><span class='line'>dd                         - Delete current line. 
@@ -721,7 +723,7 @@ xml parsing
 </ul>
 </li>
 
-<li>Bash equality Tests
+<li><strong>Bash equality Tests</strong>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -778,14 +780,99 @@ Checks equality between numbers:
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
+<span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>x = y           : Check if x is the same as y
 </span><span class='line'>x != y          : Check if x is not the same as y
 </span><span class='line'>-n x            : Evaluates to true if x is not null
-</span><span class='line'>-z x            : Evaluates to true if x is null.</span></code></pre></td></tr></table></div></figure></li>
+</span><span class='line'>-z x            : Evaluates to true if x is null.
+</span><span class='line'>##Check in the following way --> if [ -z "$VAR" ];</span></code></pre></td></tr></table></div></figure></li>
+<br>
 </ul>
+<strong>Bash Command Substitution</strong>:
+<br>
+Command substitution allows the output of a command to replace the command itself. Command substitution occurs when a command is enclosed as follows:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$(command)</span></code></pre></td></tr></table></div></figure>
+or
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>`command`</span></code></pre></td></tr></table></div></figure>
+Bash performs the expansion by executing command and replacing the command substitution with the standard output of the command, with any trailing newlines deleted.
+<br>
+<strong>Bash For Loop</strong>:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>for i in $( ls ); do
+</span><span class='line'>    echo item: $i
+</span><span class='line'>done</span></code></pre></td></tr></table></div></figure>
+<br>
+<strong>Bash If Statement</strong>:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if [ "foo" = "foo" ]; then
+</span><span class='line'>     echo expression evaluated as true
+</span><span class='line'>else
+</span><span class='line'>     echo expression evaluated as false
+</span><span class='line'>fi</span></code></pre></td></tr></table></div></figure>
+<br>
+<strong>Bash loop thru array of strings</strong>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>## declare an array variable
+</span><span class='line'>declare -a arr=("element1" "element2" "element3")
+</span><span class='line'>
+</span><span class='line'>## now loop through the above array
+</span><span class='line'>for i in "${arr[@]}"
+</span><span class='line'>do
+</span><span class='line'>   echo "$i"
+</span><span class='line'>   # or do whatever with individual element of the array
+</span><span class='line'>done</span></code></pre></td></tr></table></div></figure>
+The value of the variable whose name is in this variable can be found by
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo ${!n}</span></code></pre></td></tr></table></div></figure>
+For example:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>eth0="$(ip -o -4 address | grep eth0 | awk '{print $4}')"
+</span><span class='line'>wlan0="$(ip -o -4 address | grep wlan0 | awk '{print $4}')"
+</span><span class='line'>##eth0 and wlan0 contains the subnet of the eth0 and wlan0.
+</span><span class='line'>
+</span><span class='line'>for interfaces in "eth0" "wlan0"
+</span><span class='line'>do
+</span><span class='line'>##var would actually get the value of that variable
+</span><span class='line'>  var="${!interfaces}"
+</span><span class='line'>done</span></code></pre></td></tr></table></div></figure>
+Sample Output with ${!interfaces}:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>10.233.113.136/23</span></code></pre></td></tr></table></div></figure>
+Sample Output with ${interfaces}:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>eth0
+</span><span class='line'>wlan0</span></code></pre></td></tr></table></div></figure>
 </li>
-
-<li>Some Important Definitions:
+</li>
+<br>
+<li><strong>Some Important Definitions</strong>:
 <br>
 We want our information to:
 <ul>
@@ -980,7 +1067,7 @@ HINT: man pages would help you.</li>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - Vijay Kumar -
+  Copyright &copy; 2017 - Vijay Kumar -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
