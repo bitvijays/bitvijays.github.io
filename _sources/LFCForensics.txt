@@ -4,6 +4,7 @@ Learning from the CTF : Forensics
 This post (Work in Progress) lists the tips and tricks while doing Forensics challenges during various CTF's.
 
 * If you are provided a jar file in the challenge, JAR (Java ARchive) is a package file format typically used to aggregate many Java class files and associated metadata and resources (text, images, etc.) into one file to distribute application software or libraries on the Java platform. It can be extracted using
+
  :: 
 
    jar xf jar-file
@@ -14,6 +15,7 @@ This post (Work in Progress) lists the tips and tricks while doing Forensics cha
 * Wireshark - Searching for answers in pcap file?
 
  * Searching passwords in HTTP Web traffic in wireshark?
+
   ::
 
     http.request.method == "POST" filter might help, based on concept that server is asking for LOGIN prompt and user is POSTing his password in cleartext.
