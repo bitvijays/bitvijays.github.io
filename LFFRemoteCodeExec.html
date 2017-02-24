@@ -19,7 +19,7 @@
     </script>
     <title>Learning from the field : Active Directory Recon and Administrative shells &#8212; tech.bitvijays.com</title>
     
-    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -37,14 +37,9 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="tech.bitvijays.com" href="index.html" />
     <link rel="next" title="Learning from the field : Securing your Debian" href="LFFSecuringDebian.html" />
-    <link rel="prev" title="The Magic of Learning" href="index.html" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
-
+    <link rel="prev" title="The Magic of Learning" href="index.html" /> 
   </head>
   <body role="document">
-
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -56,7 +51,78 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
       </ul>
-    </div>  
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Learning from the field : Active Directory Recon and Administrative shells</a><ul>
+<li><a class="reference internal" href="#recon-active-directory">Recon Active Directory:</a><ul>
+<li><a class="reference internal" href="#rpclient">rpclient</a></li>
+<li><a class="reference internal" href="#enum4linux">Enum4linux</a></li>
+<li><a class="reference internal" href="#active-directory-explorer-adexplorer">Active Directory Explorer ADExplorer</a></li>
+<li><a class="reference internal" href="#jxplorer">JXplorer</a></li>
+<li><a class="reference internal" href="#netdom">netdom</a></li>
+<li><a class="reference internal" href="#get-sessions-of-remote-machines">Get sessions of remote machines</a></li>
+<li><a class="reference internal" href="#view-users-in-domain-workgroup">View users in Domain / Workgroup</a></li>
+<li><a class="reference internal" href="#view-machines-in-domain-workgroup">View machines in Domain/ Workgroup</a></li>
+<li><a class="reference internal" href="#view-group-in-domain-workgroup">View group in Domain / Workgroup</a></li>
+<li><a class="reference internal" href="#hunting-for-a-particular-user">Hunting for a particular User?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#remote-code-execution-methods">Remote Code Execution Methods:</a><ul>
+<li><a class="reference internal" href="#winexe">Winexe</a></li>
+<li><a class="reference internal" href="#crackmapexec">crackmapexec</a></li>
+<li><a class="reference internal" href="#impacket-psexec-smbexe-wmiexec">Impacket psexec/ smbexe/ wmiexec</a></li>
+<li><a class="reference internal" href="#metasploit-psexec">Metasploit psexec</a></li>
+<li><a class="reference internal" href="#sysinternals-psexec">Sysinternals psexec</a></li>
+<li><a class="reference internal" href="#task-scheduler">Task Scheduler</a></li>
+<li><a class="reference internal" href="#remote-registry">Remote Registry</a></li>
+<li><a class="reference internal" href="#remote-file-access">Remote File Access</a></li>
+<li><a class="reference internal" href="#winrm">WinRM</a></li>
+<li><a class="reference internal" href="#wmi">WMI</a></li>
+<li><a class="reference internal" href="#dcom">DCOM</a></li>
+<li><a class="reference internal" href="#xfreerdp-remote-desktop">xfreerdp/ Remote Desktop</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#useful-stuff">Useful Stuff:</a><ul>
+<li><a class="reference internal" href="#add-remove-a-local-user">Add/ remove/ a local user</a></li>
+<li><a class="reference internal" href="#add-a-domain-user">Add a domain user</a></li>
+<li><a class="reference internal" href="#add-remove-a-local-user-to-administrator-group">Add / remove a local user to administrator group</a></li>
+<li><a class="reference internal" href="#accessing-remote-machines">Accessing Remote machines:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">The Magic of Learning</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="LFFSecuringDebian.html"
+                        title="next chapter">Learning from the field : Securing your Debian</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/LFFRemoteCodeExec.txt"
+           rel="nofollow">Show Source</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFFRemoteCodeExec.rst"
+           rel="nofollow">Show on GitHub</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFFRemoteCodeExec.rst"
+           rel="nofollow">Edit on GitHub</a></li>
+  </ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -460,10 +526,10 @@ TRUST: Queries the domain for the list of its trusts.
 <blockquote>
 <div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wmic</span><span class="p">:</span><span class="n">root</span>\<span class="n">cli</span><span class="o">&gt;</span> <span class="o">/</span><span class="n">node</span><span class="p">:</span><span class="s2">&quot;computername&quot;</span> <span class="n">path</span> <span class="n">win32_loggeduser</span> <span class="n">get</span> <span class="n">antecedent</span>
 
-\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;ABCROOT&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;adm.xxxxx&quot;</span>
+\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;ABCROOT&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;axx.xxxxx&quot;</span>
 \\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;ABCROOT&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;srv.xxxxx&quot;</span>
-\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;ABCROOT&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;adm.xxxxx&quot;</span>
-\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;EA&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;admd.xxxxx&quot;</span>
+\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;ABCROOT&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;axx.xxxxx&quot;</span>
+\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;MA&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;axxd.xxxxx&quot;</span>
 \\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;DC&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;ANONYMOUS LOGON&quot;</span>
 </pre></div>
 </div>
@@ -544,9 +610,9 @@ TRUST: Queries the domain for the list of its trusts.
 <p>Example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="o">.</span>\<span class="k">global</span><span class="o">.</span><span class="n">exe</span> <span class="s2">&quot;Domain Admins&quot;</span> \\<span class="n">domainname</span>
 <span class="n">Uraxxxx</span>
-<span class="n">adm</span><span class="o">.</span><span class="n">xxxxx</span>
-<span class="n">adm</span><span class="o">.</span><span class="n">xxxxx2</span>
-<span class="n">adm</span><span class="o">.</span><span class="n">xxxxxx3</span>
+<span class="n">axx</span><span class="o">.</span><span class="n">xxxxx</span>
+<span class="n">axx</span><span class="o">.</span><span class="n">xxxxx2</span>
+<span class="n">axx</span><span class="o">.</span><span class="n">xxxxxx3</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -564,6 +630,16 @@ TRUST: Queries the domain for the list of its trusts.
 </pre></div>
 </div>
 </div></blockquote>
+</div>
+<div class="section" id="hunting-for-a-particular-user">
+<h3>Hunting for a particular User?<a class="headerlink" href="#hunting-for-a-particular-user" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Powerview Invoke-UserHunter</li>
+<li>BH users_sessions</li>
+<li>EventLog AD? How? Not yet successful!</li>
+<li>Finding which machine belong to which user? Any other way than above?</li>
+<li>Machine belongs to which user AD Properties &#8211; GETADObject (Tanoy)</li>
+</ul>
 </div>
 </div>
 <div class="section" id="remote-code-execution-methods">
@@ -919,10 +995,6 @@ meterpreter &gt;
 </pre></div>
 </div>
 </div>
-<div class="section" id="smbclient">
-<h3>smbclient:<a class="headerlink" href="#smbclient" title="Permalink to this headline">¶</a></h3>
-<p>Yet to run:</p>
-</div>
 <div class="section" id="task-scheduler">
 <h3>Task Scheduler<a class="headerlink" href="#task-scheduler" title="Permalink to this headline">¶</a></h3>
 <p>If you are the administrator of the remote machine and using runas /netonly, we can utilize AT to run commands remotely. Using AT, a command to be run at designated time(s) as SYSTEM.</p>
@@ -971,7 +1043,76 @@ meterpreter &gt;
 </div>
 <div class="section" id="winrm">
 <h3>WinRM<a class="headerlink" href="#winrm" title="Permalink to this headline">¶</a></h3>
-<p>Yet to run</p>
+<p>Windows Remote Management (WinRM) is a Microsoft protocol that allows remote management of Windows machines over HTTP(S) using SOAP. On the backend it&#8217;s utilizing WMI, it can be thought of as an HTTP based API for WMI. WinRM will listen on one of two ports: 5985/tcp (HTTP) and 5986/tcp (HTTPS)</p>
+<p>If one of these ports is open, WinRM is configured and you can try entering a remote session.</p>
+<ul class="simple">
+<li>Enabling PS-Remoting:</li>
+</ul>
+<blockquote>
+<div><p>Configure the remote machine to work with WinRM. We need to run the below command from elevated powershell prompt</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Windows</span>\<span class="n">system32</span><span class="o">&gt;</span> <span class="n">Enable</span><span class="o">-</span><span class="n">PSRemoting</span> <span class="o">-</span><span class="n">Force</span>
+<span class="n">WinRM</span> <span class="n">already</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">up</span> <span class="n">to</span> <span class="n">receive</span> <span class="n">requests</span> <span class="n">on</span> <span class="n">this</span> <span class="n">machine</span><span class="o">.</span>
+<span class="n">WinRM</span> <span class="n">has</span> <span class="n">been</span> <span class="n">updated</span> <span class="k">for</span> <span class="n">remote</span> <span class="n">management</span><span class="o">.</span>
+<span class="n">Created</span> <span class="n">a</span> <span class="n">WinRM</span> <span class="n">listener</span> <span class="n">on</span> <span class="n">HTTP</span><span class="p">:</span><span class="o">//*</span> <span class="n">to</span> <span class="n">accept</span> <span class="n">WS</span><span class="o">-</span><span class="n">Man</span> <span class="n">requests</span> <span class="n">to</span> <span class="nb">any</span> <span class="n">IP</span> <span class="n">on</span> <span class="n">this</span> <span class="n">machine</span><span class="o">.</span>
+<span class="n">WinRM</span> <span class="n">firewall</span> <span class="n">exception</span> <span class="n">enabled</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Testing the WinRM Connection : We can use the Test-WSMan function to check if target is configured for WinRM. It should return information returned about the protocol version and wsmid</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">Test</span><span class="o">-</span><span class="n">WSMan</span> <span class="n">XXXX</span><span class="o">-</span><span class="n">APPS03</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="n">wsmid</span>           <span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">schemas</span><span class="o">.</span><span class="n">dmtf</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">wbem</span><span class="o">/</span><span class="n">wsman</span><span class="o">/</span><span class="n">identity</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">wsmanidentity</span><span class="o">.</span><span class="n">xsd</span>
+<span class="n">ProtocolVersion</span> <span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">schemas</span><span class="o">.</span><span class="n">dmtf</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">wbem</span><span class="o">/</span><span class="n">wsman</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">wsman</span><span class="o">.</span><span class="n">xsd</span>
+<span class="n">ProductVendor</span>   <span class="p">:</span> <span class="n">Microsoft</span> <span class="n">Corporation</span>
+<span class="n">ProductVersion</span>  <span class="p">:</span> <span class="n">OS</span><span class="p">:</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span> <span class="n">SP</span><span class="p">:</span> <span class="mf">0.0</span> <span class="n">Stack</span><span class="p">:</span> <span class="mf">2.0</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Execute commands using PowerShell Invoke-Command on the target over WinRM.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">Invoke</span><span class="o">-</span><span class="n">Command</span> <span class="o">-</span><span class="n">ComputerName</span> <span class="n">XXXX</span><span class="o">-</span><span class="n">APPS03</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span> <span class="o">-</span><span class="n">ScriptBlock</span> <span class="p">{</span><span class="n">ipconfig</span> <span class="o">/</span><span class="nb">all</span><span class="p">}</span>
+
+<span class="n">Windows</span> <span class="n">IP</span> <span class="n">Configuration</span>
+
+ <span class="n">Host</span> <span class="n">Name</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="p">:</span> <span class="n">XXXX</span><span class="o">-</span><span class="n">Apps03</span>
+ <span class="n">Primary</span> <span class="n">Dns</span> <span class="n">Suffix</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="p">:</span> <span class="n">xxx</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+ <span class="n">Node</span> <span class="n">Type</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="p">:</span> <span class="n">Hybrid</span>
+ <span class="n">IP</span> <span class="n">Routing</span> <span class="n">Enabled</span><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="p">:</span> <span class="n">No</span>
+ <span class="n">WINS</span> <span class="n">Proxy</span> <span class="n">Enabled</span><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="p">:</span> <span class="n">No</span>
+ <span class="n">DNS</span> <span class="n">Suffix</span> <span class="n">Search</span> <span class="n">List</span><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="p">:</span> <span class="n">xxx</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+                                     <span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Interactive PowerShell session:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">Enter</span><span class="o">-</span><span class="n">PSSession</span> <span class="o">-</span><span class="n">ComputerName</span> <span class="n">XXXX</span><span class="o">-</span><span class="n">APPS03</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="p">[</span><span class="n">XXXX</span><span class="o">-</span><span class="n">APPS03</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="p">]:</span> <span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">dummyuser</span>\<span class="n">Documents</span><span class="o">&gt;</span> <span class="n">whoami</span>
+<span class="n">example</span><span class="o">.</span><span class="n">com</span>\<span class="n">dummyuser</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The above commands are executed using runas /netonly if you want to run it with the credentials we can use</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">credential</span> <span class="n">domainname</span>\<span class="n">username</span> <span class="n">switch</span>
+</pre></div>
+</div>
+<p>Also, if you want to disable the psremoting/ WinRM, you can utilize <a class="reference external" href="https://msdn.microsoft.com/en-us/powershell/reference/4.0/microsoft.powershell.core/disable-psremoting">Disable-PSRemoting</a> . However, if you get</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Windows</span>\<span class="n">system32</span><span class="o">&gt;</span> <span class="n">Disable</span><span class="o">-</span><span class="n">PSRemoting</span>
+<span class="n">WARNING</span><span class="p">:</span> <span class="n">Disabling</span> <span class="n">the</span> <span class="n">session</span> <span class="n">configurations</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">undo</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">changes</span> <span class="n">made</span> <span class="n">by</span> <span class="n">the</span> <span class="n">Enable</span><span class="o">-</span><span class="n">PSRemoting</span> <span class="ow">or</span>
+<span class="n">Enable</span><span class="o">-</span><span class="n">PSSessionConfiguration</span> <span class="n">cmdlet</span><span class="o">.</span> <span class="n">You</span> <span class="n">might</span> <span class="n">have</span> <span class="n">to</span> <span class="n">manually</span> <span class="n">undo</span> <span class="n">the</span> <span class="n">changes</span> <span class="n">by</span> <span class="n">following</span> <span class="n">these</span> <span class="n">steps</span><span class="o">.</span>
+    <span class="mf">1.</span> <span class="n">Stop</span> <span class="ow">and</span> <span class="n">disable</span> <span class="n">the</span> <span class="n">WinRM</span> <span class="n">service</span><span class="o">.</span>
+    <span class="mf">2.</span> <span class="n">Delete</span> <span class="n">the</span> <span class="n">listener</span> <span class="n">that</span> <span class="n">accepts</span> <span class="n">requests</span> <span class="n">on</span> <span class="nb">any</span> <span class="n">IP</span> <span class="n">address</span><span class="o">.</span>
+    <span class="mf">3.</span> <span class="n">Disable</span> <span class="n">the</span> <span class="n">firewall</span> <span class="n">exceptions</span> <span class="k">for</span> <span class="n">WS</span><span class="o">-</span><span class="n">Management</span> <span class="n">communications</span><span class="o">.</span>
+    <span class="mf">4.</span> <span class="n">Restore</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">LocalAccountTokenFilterPolicy</span> <span class="n">to</span> <span class="mi">0</span><span class="p">,</span> <span class="n">which</span> <span class="n">restricts</span> <span class="n">remote</span> <span class="n">access</span> <span class="n">to</span> <span class="n">members</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Administrators</span> <span class="n">group</span> <span class="n">on</span> <span class="n">the</span> <span class="n">computer</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>then follow the <a class="reference external" href="https://blogs.technet.microsoft.com/bshukla/2011/04/27/how-to-revert-changes-made-by-enable-psremoting/">How to revert changes made by Enable-PSRemoting?</a></p>
 </div>
 <div class="section" id="wmi">
 <h3>WMI<a class="headerlink" href="#wmi" title="Permalink to this headline">¶</a></h3>
@@ -1036,20 +1177,10 @@ meterpreter &gt;
 <p>More information refer <a class="reference external" href="https://www.kali.org/penetration-testing/passing-hash-remote-desktop/">Passing the Hash with Remote Desktop</a></p>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
-<p class="last">&#8212;-dsquery !! SubMSI ? &#8211; Twitter one &#8211; who publishes a lot of stuff ? MSUtil to use RCE? / smbexec?
+<p class="last">&#8212;-dsquery !! SubMSI ? MSUtil to use RCE?
 &#8212;-Any commands if net, or powershell is blocked? or PV/ BH is caught?</p>
 </div>
 </div></blockquote>
-</div>
-<div class="section" id="hunting-for-a-particular-user">
-<h3>Hunting for a particular User?<a class="headerlink" href="#hunting-for-a-particular-user" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Powerview Invoke-UserHunter</li>
-<li>BH users_sessions</li>
-<li>EventLog AD? How? Not yet successful!</li>
-<li>Finding which machine belong to which user? Any other way than above?</li>
-<li>Machine belongs to which user AD Properties &#8211; GETADObject (Tanoy)</li>
-</ul>
 </div>
 </div>
 <div class="section" id="useful-stuff">
@@ -1082,7 +1213,11 @@ meterpreter &gt;
 </div>
 <div class="section" id="accessing-remote-machines">
 <h3>Accessing Remote machines:<a class="headerlink" href="#accessing-remote-machines" title="Permalink to this headline">¶</a></h3>
-<p>Setup an SMB connection with a host</p>
+<ul class="simple">
+<li>Windows</li>
+</ul>
+<blockquote>
+<div><p>Setup an SMB connection with a host</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">net</span> <span class="n">use</span> \\<span class="n">DC</span><span class="o">.</span><span class="n">xxxxxxxx</span><span class="o">.</span><span class="n">net</span>
 <span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
 </pre></div>
@@ -1095,7 +1230,7 @@ Directory: \\DC.xxxxxxxx.net\C$\Users
 
 Mode                LastWriteTime     Length Name
 ----                -------------     ------ ----
-d----        20.11.2016     09:35            adm.xxxxxx
+d----        20.11.2016     09:35            axx.xxxxxx
 d----        21.11.2010     06:47            Administrator
 d-r--        14.07.2009     06:57            Public
 </pre></div>
@@ -1109,7 +1244,6 @@ Access is denied.
 <div class="highlight-default"><div class="highlight"><pre><span></span>PS C:&gt; net use
 New connections will be remembered.
 
-
 Status       Local     Remote                    Network
 
 -------------------------------------------------------------------------------
@@ -1121,82 +1255,56 @@ The command completed successfully.
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">use</span> <span class="o">/</span><span class="n">delete</span> <span class="o">*</span>
 </pre></div>
 </div>
-<p>Learning from the field: The post-exploitation</p>
+<p>On windows, after running this, if we execute</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>//IPAddress/C$
+</pre></div>
+</div>
+<p>we should be able to view the directory via windows explorer.</p>
+</div></blockquote>
 <ul class="simple">
-<li>MSF Webcam - Photo-Video/ Recorder modules</li>
-<li>The Email- Mailbox Post exploitation &#8211; Also the check if someone has exploited this (check logs) &#8211; which is also connected to Domain?</li>
-<li>How does google email works?</li>
-<li>File Hunting &#8211; Better ways!! Faster ways!!</li>
+<li>Linux</li>
 </ul>
+<blockquote>
+<div><p>smbclient: We can use smbclient to access the remote computer file-system.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">smbclient</span> <span class="o">-</span><span class="n">L</span> <span class="n">hostname</span> <span class="o">-</span><span class="n">U</span> <span class="n">domainname</span>\\<span class="n">username</span>
+
+<span class="o">-</span><span class="n">L</span><span class="o">|--</span><span class="nb">list</span> <span class="n">This</span> <span class="n">option</span> <span class="n">allows</span> <span class="n">you</span> <span class="n">to</span> <span class="n">look</span> <span class="n">at</span> <span class="n">what</span> <span class="n">services</span> <span class="n">are</span> <span class="n">available</span> <span class="n">on</span> <span class="n">a</span> <span class="n">server</span><span class="o">.</span> <span class="n">You</span> <span class="n">use</span> <span class="n">it</span> <span class="k">as</span> <span class="n">smbclient</span> <span class="o">-</span><span class="n">L</span> <span class="n">host</span> <span class="ow">and</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">should</span> <span class="n">appear</span><span class="o">.</span> <span class="n">The</span> <span class="o">-</span><span class="n">I</span> <span class="n">option</span> <span class="n">may</span> <span class="n">be</span> <span class="n">useful</span> <span class="k">if</span> <span class="n">your</span> <span class="n">NetBIOS</span> <span class="n">names</span> <span class="n">don</span><span class="s1">&#39;t match your TCP/IP DNS host names or if you are trying to reach a host on another network.</span>
+</pre></div>
+</div>
+<p>The below will drop you in to command line</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>smbclient \\\\hostname\\C$ -U domainname\\username
+(After entering the password)
+smb: \&gt; ls
+smb: \&gt; ls
+$Recycle.Bin                      DHS        0  Wed Nov 30 20:00:40 2016
+.rnd                                A     1024  Mon Jul 27 13:51:24 2015
+Boot                              DHS        0  Mon Jul 27 14:16:53 2015
+bootmgr                          AHSR   333257  Sat Apr 11 21:42:12 2009
+BOOTSECT.BAK                      ASR     8192  Wed Jul 21 09:01:52 2010
+Certificate                         D        0  Sun Jun 23 17:20:48 2013
+Config.Msi                        DHS        0  Thu Feb 16 01:49:59 2017
+cpqsprt.trace                       A     8004  Wed Jul 21 08:59:57 2010
+cpqsystem                           D        0  Wed Jul 21 08:32:58 2010
+csv.err                             A       90  Sun May 20 15:35:38 2012
+csv.log                             A      278  Sun May 20 15:35:38 2012
+Documents and Settings            DHS        0  Sat Jan 19 19:53:20 2008
+Program Files                      DR        0  Thu Sep  8 16:24:36 2016
+Program Files (x86)                DR        0  Tue Nov 22 21:28:01 2016
+ProgramData                        DH        0  Thu Feb  9 16:51:52 2017
+Rename.bat                          A     1406  Wed Oct 26 15:11:19 2011
+System Volume Information         DHS        0  Thu Feb 16 01:49:56 2017
+temp                                D        0  Fri Aug  9 17:16:55 2013
+Users                              DR        0  Wed Nov 30 20:00:08 2016
+Windows                             D        0  Wed Feb 15 23:18:12 2017
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 </div>
 </div>
 
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Learning from the field : Active Directory Recon and Administrative shells</a><ul>
-<li><a class="reference internal" href="#recon-active-directory">Recon Active Directory:</a><ul>
-<li><a class="reference internal" href="#rpclient">rpclient</a></li>
-<li><a class="reference internal" href="#enum4linux">Enum4linux</a></li>
-<li><a class="reference internal" href="#active-directory-explorer-adexplorer">Active Directory Explorer ADExplorer</a></li>
-<li><a class="reference internal" href="#jxplorer">JXplorer</a></li>
-<li><a class="reference internal" href="#netdom">netdom</a></li>
-<li><a class="reference internal" href="#get-sessions-of-remote-machines">Get sessions of remote machines</a></li>
-<li><a class="reference internal" href="#view-users-in-domain-workgroup">View users in Domain / Workgroup</a></li>
-<li><a class="reference internal" href="#view-machines-in-domain-workgroup">View machines in Domain/ Workgroup</a></li>
-<li><a class="reference internal" href="#view-group-in-domain-workgroup">View group in Domain / Workgroup</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#remote-code-execution-methods">Remote Code Execution Methods:</a><ul>
-<li><a class="reference internal" href="#winexe">Winexe</a></li>
-<li><a class="reference internal" href="#crackmapexec">crackmapexec</a></li>
-<li><a class="reference internal" href="#impacket-psexec-smbexe-wmiexec">Impacket psexec/ smbexe/ wmiexec</a></li>
-<li><a class="reference internal" href="#metasploit-psexec">Metasploit psexec</a></li>
-<li><a class="reference internal" href="#sysinternals-psexec">Sysinternals psexec</a></li>
-<li><a class="reference internal" href="#smbclient">smbclient:</a></li>
-<li><a class="reference internal" href="#task-scheduler">Task Scheduler</a></li>
-<li><a class="reference internal" href="#remote-registry">Remote Registry</a></li>
-<li><a class="reference internal" href="#remote-file-access">Remote File Access</a></li>
-<li><a class="reference internal" href="#winrm">WinRM</a></li>
-<li><a class="reference internal" href="#wmi">WMI</a></li>
-<li><a class="reference internal" href="#dcom">DCOM</a></li>
-<li><a class="reference internal" href="#xfreerdp-remote-desktop">xfreerdp/ Remote Desktop</a></li>
-<li><a class="reference internal" href="#hunting-for-a-particular-user">Hunting for a particular User?</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#useful-stuff">Useful Stuff:</a><ul>
-<li><a class="reference internal" href="#add-remove-a-local-user">Add/ remove/ a local user</a></li>
-<li><a class="reference internal" href="#add-a-domain-user">Add a domain user</a></li>
-<li><a class="reference internal" href="#add-remove-a-local-user-to-administrator-group">Add / remove a local user to administrator group</a></li>
-<li><a class="reference internal" href="#accessing-remote-machines">Accessing Remote machines:</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">The Magic of Learning</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="LFFSecuringDebian.html"
-                        title="next chapter">Learning from the field : Securing your Debian</a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>

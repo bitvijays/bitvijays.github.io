@@ -19,7 +19,7 @@
     </script>
     <title>Learning from the field : Reconnaissance - Information Gathering &#8212; tech.bitvijays.com</title>
     
-    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -37,14 +37,9 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="tech.bitvijays.com" href="index.html" />
     <link rel="next" title="Learning from the field : Wireless Pentesting" href="LFFWirelessPentesting.html" />
-    <link rel="prev" title="Learning from the field : Enumeration - Basic Network Hygiene" href="LFFBasicNetworkHygiene.html" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
-
+    <link rel="prev" title="Learning from the field : Enumeration - Basic Network Hygiene" href="LFFBasicNetworkHygiene.html" /> 
   </head>
   <body role="document">
-
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -56,7 +51,99 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
       </ul>
-    </div>  
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Learning from the field : Reconnaissance - Information Gathering</a><ul>
+<li><a class="reference internal" href="#passive-fingerprinting">Passive Fingerprinting:</a><ul>
+<li><a class="reference internal" href="#whois">Whois</a></li>
+<li><a class="reference internal" href="#asn-number">ASN Number</a></li>
+<li><a class="reference internal" href="#enumeration-with-domain-name-e-g-example-com-using-external-websites">Enumeration with Domain Name (e.g example.com) using external websites</a><ul>
+<li><a class="reference internal" href="#dns-dumpster-api">DNS Dumpster API</a></li>
+<li><a class="reference internal" href="#recon-ng">Recon-ng</a></li>
+<li><a class="reference internal" href="#the-harvester">The Harvester</a></li>
+<li><a class="reference internal" href="#google-search-operators">Google search operators</a></li>
+<li><a class="reference internal" href="#publicly-available-scans-of-ip-addresses">Publicly available scans of IP Addresses</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#reverse-dns-lookup-using-external-websites">Reverse DNS Lookup using External Websites</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#active-fingerprinting">Active Fingerprinting</a><ul>
+<li><a class="reference internal" href="#finding-dns-mx-aaaa-a-using">Finding DNS, MX, AAAA, A using</a><ul>
+<li><a class="reference internal" href="#host">host</a></li>
+<li><a class="reference internal" href="#nslookup">nslookup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dns-zone-transfer-using">DNS Zone Transfer: Using</a><ul>
+<li><a class="reference internal" href="#id1">host</a></li>
+<li><a class="reference internal" href="#dig">Dig</a></li>
+<li><a class="reference internal" href="#dnsrecon">dnsrecon</a></li>
+<li><a class="reference internal" href="#dnsenum">DNSEnum</a></li>
+<li><a class="reference internal" href="#srv-records">SRV Records</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#internal-infrastructure-mapping">Internal Infrastructure Mapping</a><ul>
+<li><a class="reference internal" href="#internal-range-identification">Internal range identification</a><ul>
+<li><a class="reference internal" href="#dns-enumeration">DNS Enumeration</a></li>
+<li><a class="reference internal" href="#internal-portal-links">Internal Portal Links</a></li>
+<li><a class="reference internal" href="#reverse-dns-lookup">Reverse DNS Lookup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#identifying-alive-ip-addresses">Identifying Alive IP Addresses</a></li>
+<li><a class="reference internal" href="#port-scanning">Port Scanning</a><ul>
+<li><a class="reference internal" href="#identifying-service-versions">Identifying service versions</a></li>
+<li><a class="reference internal" href="#performance">Performance</a></li>
+<li><a class="reference internal" href="#nmap-scripts">Nmap Scripts</a></li>
+<li><a class="reference internal" href="#output-options">Output Options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exploring-the-network-further">Exploring the Network Further</a><ul>
+<li><a class="reference internal" href="#gathering-screenshots-for-http-services">Gathering Screenshots for http* services</a></li>
+<li><a class="reference internal" href="#information-gathering-for-http-services">Information Gathering for http* Services</a></li>
+<li><a class="reference internal" href="#netbios-service">NetBIOS Service</a></li>
+<li><a class="reference internal" href="#nbtscan">NBTSCAN</a></li>
+<li><a class="reference internal" href="#enum4linux">enum4linux</a></li>
+<li><a class="reference internal" href="#snmp-enumeration">SNMP Enumeration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="LFFBasicNetworkHygiene.html"
+                        title="previous chapter">Learning from the field : Enumeration - Basic Network Hygiene</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="LFFWirelessPentesting.html"
+                        title="next chapter">Learning from the field : Wireless Pentesting</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/LFFInformationGathering.txt"
+           rel="nofollow">Show Source</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFFInformationGathering.rst"
+           rel="nofollow">Show on GitHub</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFFInformationGathering.rst"
+           rel="nofollow">Edit on GitHub</a></li>
+  </ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -667,89 +754,6 @@ snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  &lt;MIB Tree Number&gt; : Enume
 
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Learning from the field : Reconnaissance - Information Gathering</a><ul>
-<li><a class="reference internal" href="#passive-fingerprinting">Passive Fingerprinting:</a><ul>
-<li><a class="reference internal" href="#whois">Whois</a></li>
-<li><a class="reference internal" href="#asn-number">ASN Number</a></li>
-<li><a class="reference internal" href="#enumeration-with-domain-name-e-g-example-com-using-external-websites">Enumeration with Domain Name (e.g example.com) using external websites</a><ul>
-<li><a class="reference internal" href="#dns-dumpster-api">DNS Dumpster API</a></li>
-<li><a class="reference internal" href="#recon-ng">Recon-ng</a></li>
-<li><a class="reference internal" href="#the-harvester">The Harvester</a></li>
-<li><a class="reference internal" href="#google-search-operators">Google search operators</a></li>
-<li><a class="reference internal" href="#publicly-available-scans-of-ip-addresses">Publicly available scans of IP Addresses</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#reverse-dns-lookup-using-external-websites">Reverse DNS Lookup using External Websites</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#active-fingerprinting">Active Fingerprinting</a><ul>
-<li><a class="reference internal" href="#finding-dns-mx-aaaa-a-using">Finding DNS, MX, AAAA, A using</a><ul>
-<li><a class="reference internal" href="#host">host</a></li>
-<li><a class="reference internal" href="#nslookup">nslookup</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#dns-zone-transfer-using">DNS Zone Transfer: Using</a><ul>
-<li><a class="reference internal" href="#id1">host</a></li>
-<li><a class="reference internal" href="#dig">Dig</a></li>
-<li><a class="reference internal" href="#dnsrecon">dnsrecon</a></li>
-<li><a class="reference internal" href="#dnsenum">DNSEnum</a></li>
-<li><a class="reference internal" href="#srv-records">SRV Records</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#internal-infrastructure-mapping">Internal Infrastructure Mapping</a><ul>
-<li><a class="reference internal" href="#internal-range-identification">Internal range identification</a><ul>
-<li><a class="reference internal" href="#dns-enumeration">DNS Enumeration</a></li>
-<li><a class="reference internal" href="#internal-portal-links">Internal Portal Links</a></li>
-<li><a class="reference internal" href="#reverse-dns-lookup">Reverse DNS Lookup</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#identifying-alive-ip-addresses">Identifying Alive IP Addresses</a></li>
-<li><a class="reference internal" href="#port-scanning">Port Scanning</a><ul>
-<li><a class="reference internal" href="#identifying-service-versions">Identifying service versions</a></li>
-<li><a class="reference internal" href="#performance">Performance</a></li>
-<li><a class="reference internal" href="#nmap-scripts">Nmap Scripts</a></li>
-<li><a class="reference internal" href="#output-options">Output Options</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#exploring-the-network-further">Exploring the Network Further</a><ul>
-<li><a class="reference internal" href="#gathering-screenshots-for-http-services">Gathering Screenshots for http* services</a></li>
-<li><a class="reference internal" href="#information-gathering-for-http-services">Information Gathering for http* Services</a></li>
-<li><a class="reference internal" href="#netbios-service">NetBIOS Service</a></li>
-<li><a class="reference internal" href="#nbtscan">NBTSCAN</a></li>
-<li><a class="reference internal" href="#enum4linux">enum4linux</a></li>
-<li><a class="reference internal" href="#snmp-enumeration">SNMP Enumeration</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="LFFBasicNetworkHygiene.html"
-                        title="previous chapter">Learning from the field : Enumeration - Basic Network Hygiene</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="LFFWirelessPentesting.html"
-                        title="next chapter">Learning from the field : Wireless Pentesting</a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>

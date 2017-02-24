@@ -378,10 +378,10 @@ Get sessions of remote machines
 
   wmic:root\cli> /node:"computername" path win32_loggeduser get antecedent
   
-  \\.\root\cimv2:Win32_Account.Domain="ABCROOT",Name="adm.xxxxx"
+  \\.\root\cimv2:Win32_Account.Domain="ABCROOT",Name="axx.xxxxx"
   \\.\root\cimv2:Win32_Account.Domain="ABCROOT",Name="srv.xxxxx"
-  \\.\root\cimv2:Win32_Account.Domain="ABCROOT",Name="adm.xxxxx"
-  \\.\root\cimv2:Win32_Account.Domain="EA",Name="admd.xxxxx"
+  \\.\root\cimv2:Win32_Account.Domain="ABCROOT",Name="axx.xxxxx"
+  \\.\root\cimv2:Win32_Account.Domain="MA",Name="axxd.xxxxx"
   \\.\root\cimv2:Win32_Account.Domain="DC",Name="ANONYMOUS LOGON"
 
 
@@ -471,9 +471,9 @@ View group in Domain / Workgroup
 
    PS C:\> .\global.exe "Domain Admins" \\domainname
    Uraxxxx
-   adm.xxxxx
-   adm.xxxxx2
-   adm.xxxxxx3
+   axx.xxxxx
+   axx.xxxxx2
+   axx.xxxxxx3
 
 
 * BloodHound Group Memberships
@@ -488,6 +488,19 @@ View group in Domain / Workgroup
   ABCD\VPN Users            ABCD          VPN Users                                                 S-1-5-21-XXXXXXXXX-XXXXXXXXX-XXXXXXXXX-9229
   ABCD\XXX - OER Users      ABCD          XXX - OER Users                                           S-1-5-21-XXXXXXXXX-XXXXXXXXX-XXXXXXXXX-5095
 
+
+Hunting for a particular User?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Powerview Invoke-UserHunter
+
+* BH users_sessions
+
+* EventLog AD? How? Not yet successful!
+
+* Finding which machine belong to which user? Any other way than above?
+
+* Machine belongs to which user AD Properties -- GETADObject (Tanoy)
 
 
 Remote Code Execution Methods:
@@ -871,11 +884,6 @@ Microsoft Sysinternal tool psexec can be downloaded from `PsExec <https://techne
  psexec.exe \\Computername -u DomainName\username -p password <command>
  command can be cmd.exe/ ipconfig etc.
 
-smbclient:
-^^^^^^^^^^^
-
-Yet to run:
-
 Task Scheduler
 ^^^^^^^^^^^^^^
 If you are the administrator of the remote machine and using runas /netonly, we can utilize AT to run commands remotely. Using AT, a command to be run at designated time(s) as SYSTEM.
@@ -942,7 +950,76 @@ Example:
 
 WinRM
 ^^^^^
-Yet to run
+
+Windows Remote Management (WinRM) is a Microsoft protocol that allows remote management of Windows machines over HTTP(S) using SOAP. On the backend it's utilizing WMI, it can be thought of as an HTTP based API for WMI. WinRM will listen on one of two ports: 5985/tcp (HTTP) and 5986/tcp (HTTPS)
+
+If one of these ports is open, WinRM is configured and you can try entering a remote session.
+
+* Enabling PS-Remoting:
+ 
+ Configure the remote machine to work with WinRM. We need to run the below command from elevated powershell prompt 
+ ::
+
+  PS C:\Windows\system32> Enable-PSRemoting -Force
+  WinRM already is set up to receive requests on this machine.
+  WinRM has been updated for remote management.
+  Created a WinRM listener on HTTP://* to accept WS-Man requests to any IP on this machine.
+  WinRM firewall exception enabled.
+
+* Testing the WinRM Connection : We can use the Test-WSMan function to check if target is configured for WinRM. It should return information returned about the protocol version and wsmid
+
+ :: 
+
+  
+  PS C:\> Test-WSMan XXXX-APPS03.example.com
+  wsmid           : http://schemas.dmtf.org/wbem/wsman/identity/1/wsmanidentity.xsd
+  ProtocolVersion : http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd
+  ProductVendor   : Microsoft Corporation
+  ProductVersion  : OS: 0.0.0 SP: 0.0 Stack: 2.0
+
+* Execute commands using PowerShell Invoke-Command on the target over WinRM. 
+
+ :: 
+
+  PS C:\> Invoke-Command -ComputerName XXXX-APPS03.xxx.example.com -ScriptBlock {ipconfig /all}
+
+  Windows IP Configuration
+
+   Host Name . . . . . . . . . . . . : XXXX-Apps03
+   Primary Dns Suffix  . . . . . . . : xxx.example.com
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+   DNS Suffix Search List. . . . . . : xxx.example.com
+                                       example.com
+* Interactive PowerShell session:
+
+ ::
+
+  PS C:\> Enter-PSSession -ComputerName XXXX-APPS03.xxx.example.com
+  [XXXX-APPS03.xxx.example.com]: PS C:\Users\dummyuser\Documents> whoami
+  example.com\dummyuser
+
+The above commands are executed using runas /netonly if you want to run it with the credentials we can use 
+
+:: 
+
+ -credential domainname\username switch
+
+Also, if you want to disable the psremoting/ WinRM, you can utilize `Disable-PSRemoting <https://msdn.microsoft.com/en-us/powershell/reference/4.0/microsoft.powershell.core/disable-psremoting>`_ . However, if you get
+
+::
+
+ PS C:\Windows\system32> Disable-PSRemoting
+ WARNING: Disabling the session configurations does not undo all the changes made by the Enable-PSRemoting or
+ Enable-PSSessionConfiguration cmdlet. You might have to manually undo the changes by following these steps.
+     1. Stop and disable the WinRM service.
+     2. Delete the listener that accepts requests on any IP address.
+     3. Disable the firewall exceptions for WS-Management communications.
+     4. Restore the value of the LocalAccountTokenFilterPolicy to 0, which restricts remote access to members of the Administrators group on the computer.
+
+then follow the `How to revert changes made by Enable-PSRemoting? <https://blogs.technet.microsoft.com/bshukla/2011/04/27/how-to-revert-changes-made-by-enable-psremoting/>`_
+
 
 WMI
 ^^^
@@ -1007,22 +1084,9 @@ xfreerdp/ Remote Desktop
 
  .. Todo ::
 
-   ----dsquery !! SubMSI ? -- Twitter one -- who publishes a lot of stuff ? MSUtil to use RCE? / smbexec? 
+   ----dsquery !! SubMSI ? MSUtil to use RCE?
    ----Any commands if net, or powershell is blocked? or PV/ BH is caught? 
 
-
-Hunting for a particular User?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-* Powerview Invoke-UserHunter
-
-* BH users_sessions
-
-* EventLog AD? How? Not yet successful!
-
-* Finding which machine belong to which user? Any other way than above?
-
-* Machine belongs to which user AD Properties -- GETADObject (Tanoy)
 
 Useful Stuff:
 --------------
@@ -1061,67 +1125,99 @@ Add / remove a local user to administrator group
 Accessing Remote machines:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Setup an SMB connection with a host
-::
+* Windows 
+
+ Setup an SMB connection with a host
+ ::
  
- PS C:\> net use \\DC.xxxxxxxx.net
- The command completed successfully.
+  PS C:\> net use \\DC.xxxxxxxx.net
+  The command completed successfully.
 
-Check for access to admin shares ("C$", or "ADMIN$"), if we are admin:
+ Check for access to admin shares ("C$", or "ADMIN$"), if we are admin:
 
-::
+ ::
 
- PS C:\> dir \\DC.xxxxxxxxxx.net\C$\Users
+  PS C:\> dir \\DC.xxxxxxxxxx.net\C$\Users
 
- Directory: \\DC.xxxxxxxx.net\C$\Users
-
-
- Mode                LastWriteTime     Length Name
- ----                -------------     ------ ----
- d----        20.11.2016     09:35            adm.xxxxxx
- d----        21.11.2010     06:47            Administrator
- d-r--        14.07.2009     06:57            Public
-
-
-If we are not admin, we might get a access denied:
-
-::
-
- PS C:\> dir \\DC.xxxxxxxxxx.net\C$\Users
- Access is denied.
+  Directory: \\DC.xxxxxxxx.net\C$\Users 
+  
  
-Check your net connections:
+  Mode                LastWriteTime     Length Name
+  ----                -------------     ------ ----
+  d----        20.11.2016     09:35            axx.xxxxxx
+  d----        21.11.2010     06:47            Administrator
+  d-r--        14.07.2009     06:57            Public  
 
-::
 
- PS C:> net use
- New connections will be remembered.
+ If we are not admin, we might get a access denied:
 
+ ::
 
- Status       Local     Remote                    Network 
+  PS C:\> dir \\DC.xxxxxxxxxx.net\C$\Users
+  Access is denied.
+  
+ Check your net connections: 
+
+ ::
  
- -------------------------------------------------------------------------------
- OK                     \\DC.xxxxxxxx.net\IPC$   Microsoft Windows Network
- The command completed successfully.
+  PS C:> net use
+  New connections will be remembered.  
+  
+  Status       Local     Remote                    Network 
+  
+  -------------------------------------------------------------------------------
+  OK                     \\DC.xxxxxxxx.net\IPC$   Microsoft Windows Network
+  The command completed successfully.
  
-However, if administrator on DC.xxxxx.net runs a net session command, the connections would be detected. For that issue 
-::
+ However, if administrator on DC.xxxxx.net runs a net session command, the connections would be detected. For that issue 
+ ::
+ 
+  net use /delete *
+ 
+ On windows, after running this, if we execute
+ 
+ ::
+ 
+  //IPAddress/C$
 
- net use /delete *
+ we should be able to view the directory via windows explorer.
+
+* Linux
+
+ smbclient: We can use smbclient to access the remote computer file-system.
+
+ :: 
+   
+   smbclient -L hostname -U domainname\\username
+
+   -L|--list This option allows you to look at what services are available on a server. You use it as smbclient -L host and a list should appear. The -I option may be useful if your NetBIOS names don't match your TCP/IP DNS host names or if you are trying to reach a host on another network.
 
 
-Learning from the field: The post-exploitation 
+ The below will drop you in to command line
+ ::
 
-
-
-* MSF Webcam - Photo-Video/ Recorder modules
-
-* The Email- Mailbox Post exploitation -- Also the check if someone has exploited this (check logs) -- which is also connected to Domain? 
-
-* How does google email works?
-
-* File Hunting -- Better ways!! Faster ways!!
-
-
-
+  smbclient \\\\hostname\\C$ -U domainname\\username
+  (After entering the password)
+  smb: \> ls
+  smb: \> ls
+  $Recycle.Bin                      DHS        0  Wed Nov 30 20:00:40 2016
+  .rnd                                A     1024  Mon Jul 27 13:51:24 2015
+  Boot                              DHS        0  Mon Jul 27 14:16:53 2015
+  bootmgr                          AHSR   333257  Sat Apr 11 21:42:12 2009
+  BOOTSECT.BAK                      ASR     8192  Wed Jul 21 09:01:52 2010
+  Certificate                         D        0  Sun Jun 23 17:20:48 2013
+  Config.Msi                        DHS        0  Thu Feb 16 01:49:59 2017
+  cpqsprt.trace                       A     8004  Wed Jul 21 08:59:57 2010
+  cpqsystem                           D        0  Wed Jul 21 08:32:58 2010
+  csv.err                             A       90  Sun May 20 15:35:38 2012
+  csv.log                             A      278  Sun May 20 15:35:38 2012
+  Documents and Settings            DHS        0  Sat Jan 19 19:53:20 2008
+  Program Files                      DR        0  Thu Sep  8 16:24:36 2016
+  Program Files (x86)                DR        0  Tue Nov 22 21:28:01 2016
+  ProgramData                        DH        0  Thu Feb  9 16:51:52 2017
+  Rename.bat                          A     1406  Wed Oct 26 15:11:19 2011
+  System Volume Information         DHS        0  Thu Feb 16 01:49:56 2017
+  temp                                D        0  Fri Aug  9 17:16:55 2013
+  Users                              DR        0  Wed Nov 30 20:00:08 2016
+  Windows                             D        0  Wed Feb 15 23:18:12 2017
 
