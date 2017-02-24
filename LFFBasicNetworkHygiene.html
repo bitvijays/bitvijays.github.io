@@ -19,7 +19,7 @@
     </script>
     <title>Learning from the field : Enumeration - Basic Network Hygiene &#8212; tech.bitvijays.com</title>
     
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -37,9 +37,14 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="tech.bitvijays.com" href="index.html" />
     <link rel="next" title="Learning from the field : Reconnaissance - Information Gathering" href="LFFInformationGathering.html" />
-    <link rel="prev" title="Learning from the field : Securing your Debian" href="LFFSecuringDebian.html" /> 
+    <link rel="prev" title="Learning from the field : Securing your Debian" href="LFFSecuringDebian.html" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
   </head>
   <body role="document">
+
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -51,84 +56,7 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
       </ul>
-    </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Learning from the field : Enumeration - Basic Network Hygiene</a><ul>
-<li><a class="reference internal" href="#ftp-port-21">FTP - Port 21</a></li>
-<li><a class="reference internal" href="#ssh-port-22">SSH - Port 22</a></li>
-<li><a class="reference internal" href="#telnet-port-23">Telnet - Port 23</a></li>
-<li><a class="reference internal" href="#smtp-port-25-and-submission-port-587">SMTP | Port 25 and Submission Port 587</a></li>
-<li><a class="reference internal" href="#dns-port-53">DNS - Port 53</a></li>
-<li><a class="reference internal" href="#finger-port-79">Finger - Port 79</a></li>
-<li><a class="reference internal" href="#http">HTTP</a></li>
-<li><a class="reference internal" href="#kerberos-port-88">Kerberos - Port 88</a></li>
-<li><a class="reference internal" href="#pop3-port-110">POP3 - Port 110</a></li>
-<li><a class="reference internal" href="#rpcinfo-port-111">RPCInfo - Port 111</a></li>
-<li><a class="reference internal" href="#ident-port-113">Ident - Port 113</a></li>
-<li><a class="reference internal" href="#netbios">NetBios</a></li>
-<li><a class="reference internal" href="#snmp-port-161">SNMP - Port 161</a></li>
-<li><a class="reference internal" href="#check-point-firewall-1-topology-port-264">Check Point FireWall-1 Topology - Port 264</a></li>
-<li><a class="reference internal" href="#ldap-port-389">LDAP - Port 389</a></li>
-<li><a class="reference internal" href="#smb-port-445">SMB - Port 445</a></li>
-<li><a class="reference internal" href="#rexec-port-512">rexec - Port 512</a></li>
-<li><a class="reference internal" href="#rlogin-port-513">rlogin - Port 513</a></li>
-<li><a class="reference internal" href="#rsh-port-514">RSH - port 514</a></li>
-<li><a class="reference internal" href="#afp-apple-filing-protocol-port-548">AFP - Apple Filing Protocol - Port 548</a></li>
-<li><a class="reference internal" href="#microsoft-windows-rpc-services-port-135-and-microsoft-rpc-services-over-http-port-593">Microsoft Windows RPC Services | Port 135 and Microsoft RPC Services over HTTP | Port 593</a></li>
-<li><a class="reference internal" href="#https-port-443-and-8443">HTTPS - Port 443 and 8443</a></li>
-<li><a class="reference internal" href="#rtsp-port-554-and-8554">RTSP - Port 554 and 8554</a></li>
-<li><a class="reference internal" href="#rsync-port-873">Rsync - Port 873</a></li>
-<li><a class="reference internal" href="#java-rmi-port-1099">Java RMI - Port 1099</a></li>
-<li><a class="reference internal" href="#ms-sql-port-1433">MS-SQL | Port 1433</a></li>
-<li><a class="reference internal" href="#oracle-port-1521">Oracle - Port 1521</a></li>
-<li><a class="reference internal" href="#nfs-port-2049">NFS - Port 2049</a></li>
-<li><a class="reference internal" href="#iscsi-port-3260">ISCSI - Port 3260</a></li>
-<li><a class="reference internal" href="#mysql-port-3306">MySQL | Port 3306</a></li>
-<li><a class="reference internal" href="#postgresql-port-5432">Postgresql - Port 5432</a></li>
-<li><a class="reference internal" href="#vnc-port-5900">VNC - Port 5900</a></li>
-<li><a class="reference internal" href="#x11-port-6000">X11 - Port 6000</a></li>
-<li><a class="reference internal" href="#redis-port-6379">Redis - Port 6379</a></li>
-<li><a class="reference internal" href="#pjl-port-9100">PJL - Port 9100</a></li>
-<li><a class="reference internal" href="#apache-cassandra-port-9160">Apache Cassandra - Port 9160</a></li>
-<li><a class="reference internal" href="#network-data-management-protocol-ndmp-port-10000">Network Data Management Protocol (ndmp) - Port 10000</a></li>
-<li><a class="reference internal" href="#memcache-port-11211">Memcache - Port 11211</a></li>
-<li><a class="reference internal" href="#mongodb-port-27017-and-port-27018">MongoDB - Port 27017 and Port 27018</a></li>
-<li><a class="reference internal" href="#ethernetip-tcp-udp-port-44818">EthernetIP-TCP-UDP - Port 44818</a></li>
-<li><a class="reference internal" href="#udp-bacnet-port-47808">UDP BACNet - Port 47808</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="LFFSecuringDebian.html"
-                        title="previous chapter">Learning from the field : Securing your Debian</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="LFFInformationGathering.html"
-                        title="next chapter">Learning from the field : Reconnaissance - Information Gathering</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/LFFBasicNetworkHygiene.txt"
-           rel="nofollow">Show Source</a></li>
-    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFFBasicNetworkHygiene.rst"
-           rel="nofollow">Show on GitHub</a></li>
-    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFFBasicNetworkHygiene.rst"
-           rel="nofollow">Edit on GitHub</a></li>
-  </ul>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -4263,6 +4191,74 @@ www-data
 
 
           </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Learning from the field : Enumeration - Basic Network Hygiene</a><ul>
+<li><a class="reference internal" href="#ftp-port-21">FTP - Port 21</a></li>
+<li><a class="reference internal" href="#ssh-port-22">SSH - Port 22</a></li>
+<li><a class="reference internal" href="#telnet-port-23">Telnet - Port 23</a></li>
+<li><a class="reference internal" href="#smtp-port-25-and-submission-port-587">SMTP | Port 25 and Submission Port 587</a></li>
+<li><a class="reference internal" href="#dns-port-53">DNS - Port 53</a></li>
+<li><a class="reference internal" href="#finger-port-79">Finger - Port 79</a></li>
+<li><a class="reference internal" href="#http">HTTP</a></li>
+<li><a class="reference internal" href="#kerberos-port-88">Kerberos - Port 88</a></li>
+<li><a class="reference internal" href="#pop3-port-110">POP3 - Port 110</a></li>
+<li><a class="reference internal" href="#rpcinfo-port-111">RPCInfo - Port 111</a></li>
+<li><a class="reference internal" href="#ident-port-113">Ident - Port 113</a></li>
+<li><a class="reference internal" href="#netbios">NetBios</a></li>
+<li><a class="reference internal" href="#snmp-port-161">SNMP - Port 161</a></li>
+<li><a class="reference internal" href="#check-point-firewall-1-topology-port-264">Check Point FireWall-1 Topology - Port 264</a></li>
+<li><a class="reference internal" href="#ldap-port-389">LDAP - Port 389</a></li>
+<li><a class="reference internal" href="#smb-port-445">SMB - Port 445</a></li>
+<li><a class="reference internal" href="#rexec-port-512">rexec - Port 512</a></li>
+<li><a class="reference internal" href="#rlogin-port-513">rlogin - Port 513</a></li>
+<li><a class="reference internal" href="#rsh-port-514">RSH - port 514</a></li>
+<li><a class="reference internal" href="#afp-apple-filing-protocol-port-548">AFP - Apple Filing Protocol - Port 548</a></li>
+<li><a class="reference internal" href="#microsoft-windows-rpc-services-port-135-and-microsoft-rpc-services-over-http-port-593">Microsoft Windows RPC Services | Port 135 and Microsoft RPC Services over HTTP | Port 593</a></li>
+<li><a class="reference internal" href="#https-port-443-and-8443">HTTPS - Port 443 and 8443</a></li>
+<li><a class="reference internal" href="#rtsp-port-554-and-8554">RTSP - Port 554 and 8554</a></li>
+<li><a class="reference internal" href="#rsync-port-873">Rsync - Port 873</a></li>
+<li><a class="reference internal" href="#java-rmi-port-1099">Java RMI - Port 1099</a></li>
+<li><a class="reference internal" href="#ms-sql-port-1433">MS-SQL | Port 1433</a></li>
+<li><a class="reference internal" href="#oracle-port-1521">Oracle - Port 1521</a></li>
+<li><a class="reference internal" href="#nfs-port-2049">NFS - Port 2049</a></li>
+<li><a class="reference internal" href="#iscsi-port-3260">ISCSI - Port 3260</a></li>
+<li><a class="reference internal" href="#mysql-port-3306">MySQL | Port 3306</a></li>
+<li><a class="reference internal" href="#postgresql-port-5432">Postgresql - Port 5432</a></li>
+<li><a class="reference internal" href="#vnc-port-5900">VNC - Port 5900</a></li>
+<li><a class="reference internal" href="#x11-port-6000">X11 - Port 6000</a></li>
+<li><a class="reference internal" href="#redis-port-6379">Redis - Port 6379</a></li>
+<li><a class="reference internal" href="#pjl-port-9100">PJL - Port 9100</a></li>
+<li><a class="reference internal" href="#apache-cassandra-port-9160">Apache Cassandra - Port 9160</a></li>
+<li><a class="reference internal" href="#network-data-management-protocol-ndmp-port-10000">Network Data Management Protocol (ndmp) - Port 10000</a></li>
+<li><a class="reference internal" href="#memcache-port-11211">Memcache - Port 11211</a></li>
+<li><a class="reference internal" href="#mongodb-port-27017-and-port-27018">MongoDB - Port 27017 and Port 27018</a></li>
+<li><a class="reference internal" href="#ethernetip-tcp-udp-port-44818">EthernetIP-TCP-UDP - Port 44818</a></li>
+<li><a class="reference internal" href="#udp-bacnet-port-47808">UDP BACNet - Port 47808</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="LFFSecuringDebian.html"
+                        title="previous chapter">Learning from the field : Securing your Debian</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="LFFInformationGathering.html"
+                        title="next chapter">Learning from the field : Reconnaissance - Information Gathering</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>

