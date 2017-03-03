@@ -428,7 +428,33 @@ View machines in Domain/ Workgroup
 
  Get-NetSite function, which returns the current sites for a domain, also accepts the -GUID filtering flag. This information has been taken from harmj0y blog `gpp and powerview <http://www.harmj0y.net/blog/powershell/gpp-and-powerview/>`_ 
 
+ More information about GPP should be read from Sean Metcalf blog `Using Group Policy Preferences for Password Management = Bad Idea <https://adsecurity.org/?p=384>`_ and `Finding Passwords in SYSVOL & Exploiting Group Policy Preferences <https://adsecurity.org/?p=2288>`_ 
 
+ There are various methods to figure out the GPP Password if it's set.
+
+ * `Get-GPPPassword.ps1 <https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Get-GPPPassword.ps1>`_ :  PowerShell script that can identify and extract the password(s) stored in Group Policy Preferences using the MSDN AES key. 
+
+ * If you have a domain user credentials we can use metasploit auxilary module - SMB Group Policy Preference Saved Passwords Enumeration : This module enumerates files from target domain controllers and connects to them via SMB. It then looks for Group Policy Preference XML files containing local/domain user accounts and passwords and decrypts them using Microsofts public AES key. This module has been tested successfully on a Win2k8 R2 Domain Controller.
+
+  ::
+
+   use auxiliary/scanner/smb/smb_enum_gpp
+   set smbdomain example.com
+   set smbuser user
+   set smbpass pass
+   set rhosts 192.168.56.2
+
+
+  Thanks to Tanoy Bose for informing about this!. Previously, we used to manually search the SYSVOL location! ( When for some reason Get-GPPPassword doesn't work! )
+
+ * If you have a meterpreter session, we can use metasploit post module - Windows Gather Group Policy Preference Saved Passwords : This module enumerates the victim machine's domain controller and connects to it via SMB. It then looks for Group Policy Preference XML files containing local user accounts and passwords and decrypts them using Microsofts public AES key. Cached Group Policy files may be found on end-user devices if the group policy object is deleted rather than unlinked. 
+
+  :: 
+
+   use post/windows/gather/credentials/gpp
+   set session <Session_Number>
+
+ * Reading Group Policies manually stored here: \\<DOMAIN>\SYSVOL\<DOMAIN>\Policies\
 
 View group in Domain / Workgroup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
