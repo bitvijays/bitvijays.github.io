@@ -454,7 +454,7 @@ View machines in Domain/ Workgroup
    use post/windows/gather/credentials/gpp
    set session <Session_Number>
 
- * Reading Group Policies manually stored here: \\<DOMAIN>\SYSVOL\<DOMAIN>\Policies\
+ * Reading Group Policies manually stored here: \\\<DOMAIN>\\SYSVOL\\<DOMAIN>\\Policies\\
 
 View group in Domain / Workgroup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
