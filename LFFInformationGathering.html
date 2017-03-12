@@ -727,22 +727,26 @@ $ nslookup
 <ul class="simple">
 <li><strong>snmpcheck:</strong></li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">snmpcheck</span> <span class="o">-</span><span class="n">t</span> <span class="o">&lt;</span><span class="n">IP</span> <span class="n">address</span><span class="o">&gt;</span>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">snmpcheck</span> <span class="o">-</span><span class="n">t</span> <span class="o">&lt;</span><span class="n">IP</span> <span class="n">address</span><span class="o">&gt;</span>
      <span class="o">-</span><span class="n">c</span> <span class="p">:</span> <span class="n">SNMP</span> <span class="n">community</span><span class="p">;</span> <span class="n">default</span> <span class="ow">is</span> <span class="n">public</span>
      <span class="o">-</span><span class="n">v</span> <span class="p">:</span> <span class="n">SNMP</span> <span class="n">version</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span> <span class="n">default</span> <span class="ow">is</span> <span class="mi">1</span>
      <span class="o">-</span><span class="n">w</span> <span class="p">:</span> <span class="n">detect</span> <span class="n">write</span> <span class="n">access</span> <span class="p">(</span><span class="n">separate</span> <span class="n">action</span> <span class="n">by</span> <span class="n">enumeration</span><span class="p">)</span>
 </pre></div>
 </div>
+</div></blockquote>
 <ul class="simple">
 <li><strong>snmpwalk:</strong></li>
 </ul>
 <p>It also allows us to interact with the SNMP version 3. It also allows to extract particular nodes of a MIB tree.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  : Enumerating  the  Entire  MIB  Tree
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  : Enumerating  the  Entire  MIB  Tree
 snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  &lt;MIB Tree Number&gt; : Enumerate particular node
     -v 1|2c|3     specifies SNMP version to use
     -c COMMUNITY      set the community string
 </pre></div>
 </div>
+</div></blockquote>
 <ul class="simple">
 <li><strong>OneSixtyOne:</strong></li>
 </ul>

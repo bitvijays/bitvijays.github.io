@@ -640,7 +640,8 @@ SNMP Enumeration
 For SNMP Enumeration, UDP Port 161 should be open. If the port 161 is open we can use
 
 * **snmpcheck:**
-:: 
+
+ :: 
     
   snmpcheck -t <IP address>
        -c : SNMP community; default is public
@@ -651,7 +652,7 @@ For SNMP Enumeration, UDP Port 161 should be open. If the port 161 is open we ca
 
 It also allows us to interact with the SNMP version 3. It also allows to extract particular nodes of a MIB tree.
 
-:: 
+ :: 
  
   snmpwalk -­c public ­‐v1 <IP Address>  : Enumerating  the  Entire  MIB  Tree
   snmpwalk -­c public ­‐v1 <IP Address>  <MIB Tree Number> : Enumerate particular node

