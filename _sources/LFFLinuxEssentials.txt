@@ -6,7 +6,7 @@
 Learning from the field : Linux Essentials
 ============================================
 
-This post lists essential commands and concepts which would be helpful to a Linux user. We would cover tools required for programming, system administration. Also, provide some useful tips, tricks and TODO which would help you learn and practice.
+This post lists essential commands and concepts which would be helpful to a Linux user. We would cover tools required for programming ( Vi, git ), system administration ( Bash configuration files, Updating Debian Linux System, Adding/Deleting/Modifying Users/Groups, Changing Group/Owner/Permission, Mounting/Unmounting, Linux Directories, Runlevels and Kernel Configurations ). Also, provide some useful tips, tricks and TODO which would help you learn and practice.
 
 Vi : Powerful Editor :
 ************************
