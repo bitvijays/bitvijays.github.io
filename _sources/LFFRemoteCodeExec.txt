@@ -1,6 +1,6 @@
-===========================================================================
-Learning from the field : Active Directory Recon and Administrative shells 
-===========================================================================
+==============================================================================
+Learning from the field : Infrastruture PenTest Series : Part 3 - Exploitation
+==============================================================================
 
 Once, we have access to **credentials of a domain user of windows domain**, we can utilize the credentials to do windows **active directory enumeration** such as figuring out the domain controllers, users, machines, trust etc. This post looks into the various methods which are available to do the enumeration such as rpclient, enum4linux, nltest, netdom, powerview, bloodhound, adexplorer, Jexplorer, Remote Server Administration Tools, Microsoft Active Diretory Topology Diagrammer etc.
 

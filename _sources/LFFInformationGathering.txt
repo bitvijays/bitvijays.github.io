@@ -1,6 +1,6 @@
-================================================================
-Learning from the field : Reconnaissance - Information Gathering
-================================================================
+========================================================================================
+Learning from the field : Infrastruture PenTest Series : Part 1 - Intelligence Gathering
+========================================================================================
 
 
 This post (always Work in Progress) would list the technical steps which might be important while doing the information gathering of an organization and we only know the company name or it’s domain name such as example.com.

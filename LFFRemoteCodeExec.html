@@ -17,7 +17,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>Learning from the field : Active Directory Recon and Administrative shells &#8212; tech.bitvijays.com</title>
+    <title>Learning from the field : Infrastruture PenTest Series : Part 3 - Exploitation &#8212; tech.bitvijays.com</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -56,7 +56,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Learning from the field : Active Directory Recon and Administrative shells</a><ul>
+<li><a class="reference internal" href="#">Learning from the field : Infrastruture PenTest Series : Part 3 - Exploitation</a><ul>
 <li><a class="reference internal" href="#recon-active-directory">Recon Active Directory:</a><ul>
 <li><a class="reference internal" href="#rpclient">rpclient</a></li>
 <li><a class="reference internal" href="#enum4linux">Enum4linux</a></li>
@@ -135,8 +135,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="learning-from-the-field-active-directory-recon-and-administrative-shells">
-<h1>Learning from the field : Active Directory Recon and Administrative shells<a class="headerlink" href="#learning-from-the-field-active-directory-recon-and-administrative-shells" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="learning-from-the-field-infrastruture-pentest-series-part-3-exploitation">
+<h1>Learning from the field : Infrastruture PenTest Series : Part 3 - Exploitation<a class="headerlink" href="#learning-from-the-field-infrastruture-pentest-series-part-3-exploitation" title="Permalink to this headline">¶</a></h1>
 <p>Once, we have access to <strong>credentials of a domain user of windows domain</strong>, we can utilize the credentials to do windows <strong>active directory enumeration</strong> such as figuring out the domain controllers, users, machines, trust etc. This post looks into the various methods which are available to do the enumeration such as rpclient, enum4linux, nltest, netdom, powerview, bloodhound, adexplorer, Jexplorer, Remote Server Administration Tools, Microsoft Active Diretory Topology Diagrammer etc.</p>
 <p>Also, once we have <strong>administrative credentials</strong> there are multiple ways to get a <strong>execute remote commands</strong> on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, scheduled tasks, service controller (sc), remote registry, WinRM, WMI, DCOM, Mimikatz Pass the hash/ Pass the ticket, remote desktop etc. We have a look over all the methods with possible examples.</p>
 <p>Did we missed something? please send us a pull request and we will add it.</p>

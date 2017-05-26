@@ -13,6 +13,7 @@ The Magic of Learning
    :maxdepth: 1
    :caption: Blog Archive:
 
+   LFFPostExploitation
    LFFRemoteCodeExec
    LFFSecuringDebian
    LFFBasicNetworkHygiene

