@@ -4,13 +4,6 @@ About Me
 
 **Hello :)**
 
-.. image:: ./Images/bitvijays.jpg
-         :height: 500px
-         :width: 500 px
-         :scale: 50 %
-         :alt: alternate text
-         :align: right
-
 I’m programmer and computer security enthusiast. This blog was started to document all the cool things I learn and to share it with the people who might find it useful and helpful. Also, to streamline things, make the process of pentesting clear Umm... sort of. I have converted the blog in to Sphinx, so if you want to collaborate, correct/ add / modify some content i.e add knowledge. Please submit a pull request. :)
 
 Currently, I am trying to learn penetration testing using VulHub Machines, next in plan is to read tutorials on Cyberaces.org and enroll in OSCP.

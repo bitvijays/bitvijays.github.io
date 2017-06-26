@@ -1,8 +1,8 @@
-var disqus_shortname;
+var disqus_shortname='techbitvijays'
 var disqus_identifier;
 (function() {{
-    var disqus_thread1 = $("#disqus_thread");
-    disqus_shortname = disqus_thread.data('disqus-shortname');
+    var disqus_thread = $("#disqus_thread");
+//    disqus_shortname = disqus_thread.data('disqus-shortname');
     disqus_identifier = disqus_thread.data('disqus-identifier');
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
