@@ -1,0 +1,432 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-92365403-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>Learning from the field : Securing your Debian &#8212; tech.bitvijays.com</title>
+    
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <script type="text/javascript" src="_static/collapse.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Learning from the field : Securing your Debian</a><ul>
+<li><a class="reference internal" href="#set-up-a-grub-password">Set up a GRUB password</a></li>
+<li><a class="reference internal" href="#providing-secure-user-access">Providing secure user access</a><ul>
+<li><a class="reference internal" href="#password-security-in-pam">Password security in PAM</a></li>
+<li><a class="reference internal" href="#control-of-su-in-pam">Control of su in PAM</a></li>
+<li><a class="reference internal" href="#temporary-directories-in-pam">Temporary directories in PAM</a></li>
+<li><a class="reference internal" href="#configuration-for-undefined-pam-applications">Configuration for undefined PAM applications</a></li>
+<li><a class="reference internal" href="#setting-users-umasks">Setting users umasks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#user-login-actions">User login actions</a></li>
+<li><a class="reference internal" href="#log-files-permissions">Log files Permissions</a></li>
+<li><a class="reference internal" href="#useful-packages">Useful packages</a></li>
+<li><a class="reference internal" href="#kernel-hardening-sysctl-values">Kernel Hardening: Sysctl Values</a></li>
+<li><a class="reference internal" href="#legal-banner">Legal Banner</a></li>
+<li><a class="reference internal" href="#harden-compilers">Harden compilers</a></li>
+<li><a class="reference internal" href="#disable-drivers">Disable drivers</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/LFFSecuringDebian.rst.txt"
+           rel="nofollow">Show Source</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFFSecuringDebian.rst"
+           rel="nofollow">Show on GitHub</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFFSecuringDebian.rst"
+           rel="nofollow">Edit on GitHub</a></li>
+  </ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="learning-from-the-field-securing-your-debian">
+<h1>Learning from the field : Securing your Debian<a class="headerlink" href="#learning-from-the-field-securing-your-debian" title="Permalink to this headline">¶</a></h1>
+<p>Recently, we got an extra laptop with decent configuration to host as a server. We decided to host Kali-Linux on it and make available multiple vulnerable OS from vulnhub.com on it for practice to our teams.</p>
+<p>After installing Kali-Linux and running lynis audit tool, linux hardening index was 55. As we are opening this server to public/ people capable of hacking, we need to make sure our server doesn&#8217;t get hacked.</p>
+<p>This source is mainly compiled from <a class="reference external" href="https://www.debian.org/doc/manuals/securing-debian-howto/">Securing Debian Manual</a>.</p>
+<div class="section" id="set-up-a-grub-password">
+<h2>Set up a GRUB password<a class="headerlink" href="#set-up-a-grub-password" title="Permalink to this headline">¶</a></h2>
+<p>This is mainly done to prevent any unauthorized person to change the grub to get a root shell. Anybody can easily get a root-shell and change your passwords by entering init=/bin/sh at the boot prompt. After changing the passwords and rebooting the system, the person has unlimited root-access and can do anything he/she wants to the system.</p>
+<ul class="simple">
+<li>Generate an encrypted password, open a terminal and run the following command:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grub</span><span class="o">-</span><span class="n">mkpasswd</span><span class="o">-</span><span class="n">pbkdf2</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>grub-mkpasswd-pbkdf2
+Enter password:
+Reenter password:
+PBKDF2 hash of your password is  grub.pbkdf2.sha512.10000.A56BEB30E27FE2F7D119E8DEFD6A8049E4300734BB139A5DD08E668BA434792B8AB45A285AC88B95DD16658AC7EC0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX``
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Insert the hash in /etc/grub.d/40_custom</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>set superusers=&quot;root&quot;
+password_pbkdf2 root grub.pbkdf2.sha512.10000.A56BEB30E27FE2F7D119E8DEFD6A8049E4300734BB139A5DD08E668BA434792B8AB45A285AC88B95DD16658AC7EC0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+export superusers``
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Execute update-grub</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">update</span><span class="o">-</span><span class="n">grub</span>
+<span class="n">Generating</span> <span class="n">grub</span> <span class="n">configuration</span> <span class="n">file</span> <span class="o">...</span>
+<span class="n">Found</span> <span class="n">background</span> <span class="n">image</span><span class="p">:</span> <span class="o">.</span><span class="n">background_cache</span><span class="o">.</span><span class="n">png</span>
+<span class="n">Found</span> <span class="n">linux</span> <span class="n">image</span><span class="p">:</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">4.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">kali1</span><span class="o">-</span><span class="n">amd64</span>
+<span class="n">Found</span> <span class="n">initrd</span> <span class="n">image</span><span class="p">:</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">4.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">kali1</span><span class="o">-</span><span class="n">amd64</span>
+<span class="n">done</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="providing-secure-user-access">
+<h2>Providing secure user access<a class="headerlink" href="#providing-secure-user-access" title="Permalink to this headline">¶</a></h2>
+<p>PAM (Pluggable Authentication Modules)allows system administrators to choose how applications authenticate users:</p>
+<div class="section" id="password-security-in-pam">
+<h3>Password security in PAM<a class="headerlink" href="#password-security-in-pam" title="Permalink to this headline">¶</a></h3>
+<p>Install libpam-passwdqc which is a PAM module for password strength policy enforcement. Insert the below line in /etc/pam.d/common-password</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">password</span>    <span class="n">requisite</span>           <span class="n">pam_passwdqc</span><span class="o">.</span><span class="n">so</span> <span class="nb">min</span><span class="o">=</span><span class="n">disabled</span><span class="p">,</span><span class="n">disabled</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span>
+
+<span class="n">Format</span> <span class="ow">is</span> <span class="nb">min</span><span class="o">=</span><span class="n">N0</span><span class="p">,</span><span class="n">N1</span><span class="p">,</span><span class="n">N2</span><span class="p">,</span><span class="n">N3</span><span class="p">,</span><span class="n">N4</span> <span class="p">[</span><span class="nb">min</span><span class="o">=</span><span class="n">disabled</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span> <span class="n">where</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>N0 is used for passwords consisting of characters from one character class only. The character classes are: digits, lower-case letters, upper-case letters, and other characters. There is also a special class for non-ASCII characters, which could not be classified, but are assumed to be non-digits.</li>
+<li>N1 is used for passwords consisting of characters from two character classes that do not meet the requirements for a passphrase.</li>
+<li>N2 is used for passphrases. Note that besides meeting this length requirement, a passphrase must also consist of a sufficient number of words.</li>
+<li>N3 and N4 are used for passwords consisting of characters from three and four character classes, respectively.</li>
+</ul>
+</div>
+<div class="section" id="control-of-su-in-pam">
+<h3>Control of su in PAM<a class="headerlink" href="#control-of-su-in-pam" title="Permalink to this headline">¶</a></h3>
+<p>If you want to protect su, so that only some people can use it to become root on your system, you need to  add a new group &#8220;wheel&#8221; to your system. Add root and the other users that should be able to su to the root user to this group. This makes sure that only people from the group &#8220;wheel&#8221; can use su to become root. Other users will not be able to become root. In fact they will get a denied message if they try to become root.`Wheel PAM &lt;<a class="reference external" href="https://wiki.debian.org/WHEEL/PAM">https://wiki.debian.org/WHEEL/PAM</a>&gt;`_ provides a quick tutorial how to set this up.</p>
+<ul class="simple">
+<li>With root privileges uncomment the following line in /etc/pam.d/su, by removing the leading &#8216;#&#8217;:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#auth       required pam_wheel.so</span>
+</pre></div>
+</div>
+<p>That&#8217;s all for the file and no user can execute su anymore. This is the most secure configuration.</p>
+</div></blockquote>
+<ul class="simple">
+<li>Allow a user to execute su: After having restricted the execution of su,create the group wheel with root privileges:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">groupadd</span> <span class="n">wheel</span>
+</pre></div>
+</div>
+<p>And then add user_name to that group:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">usermod</span> <span class="o">-</span><span class="n">aG</span> <span class="n">wheel</span> <span class="n">user_name</span>
+</pre></div>
+</div>
+<p>From now user_name can execute su.</p>
+</div></blockquote>
+</div>
+<div class="section" id="temporary-directories-in-pam">
+<h3>Temporary directories in PAM<a class="headerlink" href="#temporary-directories-in-pam" title="Permalink to this headline">¶</a></h3>
+<p>Since there have been a number of so called insecure tempfile vulnerabilities, thttpd is one example,the libpam-tmpdir is a good package to install. All you have to do is add the following to /etc/pam.d/common   -  session:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">session</span>    <span class="n">optional</span>     <span class="n">pam_tmpdir</span><span class="o">.</span><span class="n">so</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration-for-undefined-pam-applications">
+<h3>Configuration for undefined PAM applications<a class="headerlink" href="#configuration-for-undefined-pam-applications" title="Permalink to this headline">¶</a></h3>
+<p>Finally, but not least, create /etc/pam.d/other and enter the followinglines:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">auth</span>     <span class="n">required</span>       <span class="n">pam_securetty</span><span class="o">.</span><span class="n">so</span>
+<span class="n">auth</span>     <span class="n">required</span>       <span class="n">pam_unix_auth</span><span class="o">.</span><span class="n">so</span>
+<span class="n">auth</span>     <span class="n">required</span>       <span class="n">pam_warn</span><span class="o">.</span><span class="n">so</span>
+<span class="n">auth</span>     <span class="n">required</span>       <span class="n">pam_deny</span><span class="o">.</span><span class="n">so</span>
+<span class="n">account</span>  <span class="n">required</span>       <span class="n">pam_unix_acct</span><span class="o">.</span><span class="n">so</span>
+<span class="n">account</span>  <span class="n">required</span>       <span class="n">pam_warn</span><span class="o">.</span><span class="n">so</span>
+<span class="n">account</span>  <span class="n">required</span>       <span class="n">pam_deny</span><span class="o">.</span><span class="n">so</span>
+<span class="n">password</span> <span class="n">required</span>       <span class="n">pam_unix_passwd</span><span class="o">.</span><span class="n">so</span>
+<span class="n">password</span> <span class="n">required</span>       <span class="n">pam_warn</span><span class="o">.</span><span class="n">so</span>
+<span class="n">password</span> <span class="n">required</span>       <span class="n">pam_deny</span><span class="o">.</span><span class="n">so</span>
+<span class="n">session</span>  <span class="n">required</span>       <span class="n">pam_unix_session</span><span class="o">.</span><span class="n">so</span>
+<span class="n">session</span>  <span class="n">required</span>       <span class="n">pam_warn</span><span class="o">.</span><span class="n">so</span>
+<span class="n">session</span>  <span class="n">required</span>       <span class="n">pam_deny</span><span class="o">.</span><span class="n">so</span>
+</pre></div>
+</div>
+<p>These lines will provide a good default configuration for all applications that support PAM     (access is denied by default).20400086134</p>
+</div>
+<div class="section" id="setting-users-umasks">
+<h3>Setting users umasks<a class="headerlink" href="#setting-users-umasks" title="Permalink to this headline">¶</a></h3>
+<p>Debian&#8217;s default umask setting is 022 this means that files (and directories) can be read and accessed by the user&#8217;s group and by any other users in the system. More restrictive umask settings include 027  (no access is allowed to new files for the other group, i.e. to other users in the system) or 077 (no access is allowed to new files to the members the user&#8217;s group). This change is set by defining a proper umask setting for all users</p>
+<ul class="simple">
+<li>introducing an umask call in the shell configuration files /etc/profile (source by all Bourne-compatible shells), /etc/csh.cshrc, /etc/csh.login, /etc/zshrc and probably some others (depending on the shells you have installed on your system)</li>
+<li>change the UMASK setting in /etc/login.defs, Of all of these the last one that gets loaded by the shell takes precedence. The order is: the default system configuration for the user&#8217;s shell (i.e. /etc/profile and other system-wide configuration files) and then the user&#8217;s shell (his ~/.profile, ~/.bash_profile, etc...).</li>
+<li>Install libpam-umask package adjusts the users&#8217; default umask using PAM. Add the following, after installing the package, to /etc/pam.d/common-session:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">session</span>    <span class="n">optional</span>     <span class="n">pam_umask</span><span class="o">.</span><span class="n">so</span> <span class="n">umask</span><span class="o">=</span><span class="mi">077</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>you should consider changing root&#8217;s default 022 umask (as defined in/root/.bashrc) to a more strict umask. That will prevent the system administrator from inadvertenly dropping sensitive files when working as root to world-readable directories (such as /tmp) and having them available for your average user.</li>
+<li>Limiting access to other user&#8217;s information: However, users&#8217; $HOME directories are created with 0755 permissions (group-readable and world-readable). The group permissions is not an issue since only the user belongs to the group, however the world permissions might (or might not) be an issue depending on your local policy. You can change this behavior so that user creation provides different $HOME permissions. To change the behavior for new users when they get created, change DIR_MODE in the configuration file /etc/adduser.conf to 0750 (no world-readable access).</li>
+</ul>
+</div>
+</div>
+<div class="section" id="user-login-actions">
+<h2>User login actions<a class="headerlink" href="#user-login-actions" title="Permalink to this headline">¶</a></h2>
+<p>Edit /etc/login.defs The next step is to edit the basic configuration and action upon user login. Note that this file is not part of the PAM configuration, it&#8217;s a configuration file honored by login and su programs, so it doesn&#8217;t make sense tuning it for cases where neither of the two programs are at least indirectly called (the getty program which sits on the consoles and offers the initial login prompt does invoke login).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">FAILLOG_ENAB</span>        <span class="n">yes</span>
+</pre></div>
+</div>
+<p>If you enable this variable, failed logins will be logged. It is important to keep track of them to catch someone who tries a brute force attack.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">LOG_UNKFAIL_ENAB</span>    <span class="n">no</span>
+</pre></div>
+</div>
+<p>If you set this variable to &#8216;yes&#8217; it will record unknown usernames if the login failed. It is best if you use &#8216;no&#8217; (the default) since, otherwise, user passwords might be inadvertenly logged here (if a user mistypes and they enter their password as the username). If you set it to &#8216;yes&#8217;, make sure the logs have the proper permissions (640 for example, with an appropriate group setting such as adm).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SYSLOG_SU_ENAB</span>      <span class="n">yes</span>
+</pre></div>
+</div>
+<p>This one enables logging of su attempts to syslog. Quite important on serious machines but note that this       can create privacy issues as well.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SYSLOG_SG_ENAB</span>      <span class="n">yes</span>
+</pre></div>
+</div>
+<p>The same as SYSLOG_SU_ENAB but applies to the sg program.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ENCRYPT_METHOD</span>  <span class="n">SHA512</span>
+</pre></div>
+</div>
+<p>As stated above, encrypted passwords greatly reduce the problem of dictionary attacks, since you can use longer passwords. This definition has to be consistent with the value defined in /etc/pam.d/common-password.</p>
+</div>
+<div class="section" id="log-files-permissions">
+<h2>Log files Permissions<a class="headerlink" href="#log-files-permissions" title="Permalink to this headline">¶</a></h2>
+<p>It is not only important to decide how alerts are used, but also who has read/modify access to the log files (if not using a remote loghost. First /var/log/lastlog and /var/log/faillog do not need to be readable by normal users. In the lastlog file you can see who logged in recently, and in the faillog you see a summary of failed logins. The author recommends chmod 660 for both.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#  find /var/log -type f -exec ls -l {} \; | cut -c 17-35 |sort -u</span>
+<span class="p">(</span><span class="n">see</span> <span class="n">to</span> <span class="n">what</span> <span class="n">users</span> <span class="n">do</span> <span class="n">files</span> <span class="ow">in</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span> <span class="n">belong</span><span class="p">)</span>
+<span class="c1">#  find /var/log -type f -exec ls -l {} \; | cut -c 26-34 |sort -u</span>
+<span class="p">(</span><span class="n">see</span> <span class="n">to</span> <span class="n">what</span> <span class="n">groups</span> <span class="n">do</span> <span class="n">files</span> <span class="ow">in</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span> <span class="n">belong</span><span class="p">)</span>
+<span class="c1"># find /var/log -perm +004        (files which are readable by any user)</span>
+<span class="c1">#  find /var/log \! -group root \! -group adm -exec ls -ld {} \;</span>
+<span class="p">(</span><span class="n">files</span> <span class="n">which</span> <span class="n">belong</span> <span class="n">to</span> <span class="n">groups</span> <span class="ow">not</span> <span class="n">root</span> <span class="ow">or</span> <span class="n">adm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="useful-packages">
+<h2>Useful packages<a class="headerlink" href="#useful-packages" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>sysstat:  The sysstat utilities are a collection of performance monitoring tools for Linux. These include sar, sadf, mpstat, iostat,tapestat, pidstat, cifsiostat and sa tools.</li>
+<li>apt-listbugs: apt-listbugs is a tool which retrieves bug reports from the Debian Bug Tracking System and lists them. Especially, it is intended to be invoked before each installation/upgrade by APT in order to check whether the installation/upgrade is safe.</li>
+<li>Debian-goodies: It is a package that includes toolbox-style utilities used to manage Debian and its derivative systems such as Ubuntu, Kali Linux.</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>dglob – Produce a list of package names which match a pattern</li>
+<li>dgrep – Search all files in given packages for a regex</li>
+<li>dpigs – Display which installed packages taken the most disk space</li>
+<li>debget – Obtain a .deb for a package in APT’s database</li>
+<li>debmany – Choose manpages of installed or removed packages</li>
+<li>checkrestart – Finds and restart processes which are using outdated versions of upgraded files</li>
+<li>popbugs – Show a customized release-critical bug report based on packages you use</li>
+<li>which-pkg-broke – Catch which package might have broken another</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>debscan: The debsecan program evaluates the security status of a host running the Debian operation system. It reports missing security updates and known vulnerabilities in the programs which are installed on the host.</li>
+<li>Install fail2ban: Fail2ban scans log files (e.g. /var/log/apache/error_log) and bans IPs that show the malicious signs &#8211; too many password failures, seeking for exploits, etc. Generally Fail2Ban is then used to update firewall rules to reject the IP addresses for a specified amount of time, although any arbitrary other action (e.g. sending an email) could also be configured.</li>
+</ul>
+<blockquote>
+<div><p>Configure</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-debian-7">SSH with fail2ban</a>.</li>
+<li><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-modsecurity-with-apache-on-ubuntu-14-04-and-debian-8">Modsecurtiy</a>.is a free web application firewall (WAF) that works with Apache, Nginx and IIS. It supports a flexible rule engine to perform simple and complex operations and comes with a Core Rule Set (CRS) which has rules for SQL injection, cross site scripting, Trojans, bad user agents, session hijacking and a lot of other exploits.</li>
+<li><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-use-tripwire-to-detect-server-intrusions-on-an-ubuntu-vps">Tripwire</a>. Open Source Tripwire® software is a security and data integrity tool useful for monitoring and alerting on specific file change(s) on a range of systems.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="kernel-hardening-sysctl-values">
+<h2>Kernel Hardening: Sysctl Values<a class="headerlink" href="#kernel-hardening-sysctl-values" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><em>kernel.core_uses_pid (expected 1)</em> : If the /proc/sys/kernel/core_uses_pid file contains the value 0, then a core dump file is simply named core. If this file contains a nonzero value, then the core dump file includes the process ID in a name of the form core.PID.</li>
+<li><em>kptr_restrict (expected 1)</em> : This toggle indicates whether restrictions are placed on exposing kernel addresses via /proc and other interfaces.</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>When kptr_restrict is set to (0), the default, there are no restrictions.</li>
+<li>When kptr_restrict is set to (1), kernel pointers printed using the %pK format specifier will be replaced with 0&#8217;s unless the user has CAP_SYSLOG and effective user and group ids are equal to the real ids. This is because %pK checks are done at read() time rather than open() time, so if permissions are elevated between the open() and the read() (e.g via a setuid binary) then %pK will not leak kernel pointers to unprivileged users. Note, this is a temporary solution only. The correct long-term solution is to do the permission checks at open() time. Consider removing world read permissions from files that use %pK, and using dmesg_restrict to protect against uses of %pK in dmesg (8) if leaking kernel pointer values to unprivileged users is a concern.</li>
+<li>When kptr_restrict is set to (2), kernel pointers printed using %pK will be replaced with 0&#8217;s regardless of privileges.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><em>kernel.sysrq (expected 0)</em> : It is a &#8216;magical&#8217; key combo you can hit which the kernel will respond to regardless of whatever else it is doing, unless it is completely locked up. Here is the list of possible values in /proc/sys/kernel/sysrq:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>0 - disable sysrq completely</li>
+<li>1 - enable all functions of sysrq</li>
+<li>&gt;1 - bitmask of allowed sysrq functions (see below for detailed function description):</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">2</span>   <span class="o">=</span>   <span class="mh">0x2</span> <span class="o">-</span> <span class="n">enable</span> <span class="n">control</span> <span class="n">of</span> <span class="n">console</span> <span class="n">logging</span> <span class="n">level</span>
+<span class="mi">4</span>   <span class="o">=</span>   <span class="mh">0x4</span> <span class="o">-</span> <span class="n">enable</span> <span class="n">control</span> <span class="n">of</span> <span class="n">keyboard</span> <span class="p">(</span><span class="n">SAK</span><span class="p">,</span> <span class="n">unraw</span><span class="p">)</span>
+<span class="mi">8</span>   <span class="o">=</span>   <span class="mh">0x8</span> <span class="o">-</span> <span class="n">enable</span> <span class="n">debugging</span> <span class="n">dumps</span> <span class="n">of</span> <span class="n">processes</span> <span class="n">etc</span><span class="o">.</span>
+<span class="mi">16</span>  <span class="o">=</span>  <span class="mh">0x10</span> <span class="o">-</span> <span class="n">enable</span> <span class="n">sync</span> <span class="n">command</span>
+<span class="mi">32</span>  <span class="o">=</span>  <span class="mh">0x20</span> <span class="o">-</span> <span class="n">enable</span> <span class="n">remount</span> <span class="n">read</span><span class="o">-</span><span class="n">only</span>
+<span class="mi">64</span>  <span class="o">=</span>  <span class="mh">0x40</span> <span class="o">-</span> <span class="n">enable</span> <span class="n">signalling</span> <span class="n">of</span> <span class="n">processes</span> <span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">kill</span><span class="p">,</span> <span class="n">oom</span><span class="o">-</span><span class="n">kill</span><span class="p">)</span>
+<span class="mi">128</span> <span class="o">=</span>  <span class="mh">0x80</span> <span class="o">-</span> <span class="n">allow</span> <span class="n">reboot</span><span class="o">/</span><span class="n">poweroff</span>
+<span class="mi">256</span> <span class="o">=</span> <span class="mh">0x100</span> <span class="o">-</span> <span class="n">allow</span> <span class="n">nicing</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">RT</span> <span class="n">tasks</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li><em>net.ipv4.conf.all.log_martians (expected 1) or *net.ipv4.conf.default.log_martians</em> : Log packets with impossible addresses to kernel log. log_martians for the interface will be enabled if at least one of conf/{all,interface}/log_martians is set to TRUE, it will be disabled otherwise</li>
+<li><em>net.ipv4.conf.all.rp_filter (expected 1): rp_filter - INTEGER</em> :</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>0 - No source validation.</li>
+<li>1 - Strict mode as defined in RFC3704 Strict Reverse Path Each incoming packet is tested against the FIB and if the interface is not the best reverse path the packet check will fail. By default failed packets are discarded.</li>
+<li>2 - Loose mode as defined in RFC3704 Loose Reverse Path Each incoming packet&#8217;s source address is also tested against the FIB and if the source address is not reachable via any interface the packet check will fail.</li>
+<li>Current recommended practice in RFC3704 is to enable strict mode to prevent IP spoofing from DDos attacks. If using asymmetric routing or other complicated routing, then loose mode is recommended. The max value from conf/{all,interface}/rp_filter is used when doing source validation on the {interface}.Default value is 0. Note that some distributions enable it in startup scripts.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><em>net.ipv4.conf.all.send_redirects (expected 0)</em> : send_redirects - BOOLEAN Send redirects, if router. send_redirects for the interface will be enabled if at least one of conf/{all,interface}/send_redirects is set to TRUE, it will be disabled otherwise Default: TRUE</li>
+<li><em>net.ipv4.conf.all.accept_redirects (expected 0) or net.ipv6.conf.all.accept_redirects or net.ipv4.conf.default.accept_redirects (expected 0)</em> : Disable acceptance of all ICMP redirected packets on all interfaces. Accept ICMP redirect messages. accept_redirects for the interface will be enabled if: - both conf/{all,interface}/accept_redirects are TRUE in the case forwarding for the interface is enabled or - at least one of conf/{all,interface}/accept_redirects is TRUE in the case forwarding for the interface is disabled accept_redirects for the  interface will be disabled otherwise default TRUE (host) FALSE (router)</li>
+<li><em>nnet.ipv4.conf.default.accept_source_route (expected 0)</em> :  The accept_source_route option causes network interfaces to accept packets with the Strict Source Route (SSR) or Loose Source Routing (LSR) option set.</li>
+<li><em>net.ipv4.tcp_timestamps (Expected 0)</em></li>
+</ul>
+</div>
+<div class="section" id="legal-banner">
+<h2>Legal Banner<a class="headerlink" href="#legal-banner" title="Permalink to this headline">¶</a></h2>
+<p>Add legal banner to:</p>
+<ul class="simple">
+<li>/etc/motd</li>
+<li>/etc/issue</li>
+<li>/etc/issue.net</li>
+</ul>
+</div>
+<div class="section" id="harden-compilers">
+<h2>Harden compilers<a class="headerlink" href="#harden-compilers" title="Permalink to this headline">¶</a></h2>
+<p>Harden compilers like restricting access to root user only: Use grep to found out the compilers installed from the /var/log/lynis.log file.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="n">known</span> <span class="n">binary</span><span class="p">:</span> <span class="k">as</span> <span class="p">(</span><span class="n">compiler</span><span class="p">)</span> <span class="o">-</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="k">as</span>
+<span class="n">Found</span> <span class="n">known</span> <span class="n">binary</span><span class="p">:</span> <span class="n">g</span><span class="o">++</span> <span class="p">(</span><span class="n">compiler</span><span class="p">)</span> <span class="o">-</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">g</span><span class="o">++</span>
+<span class="n">Found</span> <span class="n">known</span> <span class="n">binary</span><span class="p">:</span> <span class="n">gcc</span> <span class="p">(</span><span class="n">compiler</span><span class="p">)</span> <span class="o">-</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gcc</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">-</span><span class="n">lah</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="k">as</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">g</span><span class="o">++</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gcc</span>
+<span class="n">lrwxrwxrwx</span> <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span> <span class="mi">19</span> <span class="n">May</span> <span class="mi">12</span> <span class="mi">20</span><span class="p">:</span><span class="mi">29</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="k">as</span> <span class="o">-&gt;</span> <span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">-</span><span class="k">as</span>
+<span class="n">lrwxrwxrwx</span> <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span>  <span class="mi">7</span> <span class="n">Sep</span>  <span class="mi">9</span>  <span class="mi">2015</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">g</span><span class="o">++</span> <span class="o">-&gt;</span> <span class="n">g</span><span class="o">++-</span><span class="mf">4.9</span>
+<span class="n">lrwxrwxrwx</span> <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span>  <span class="mi">7</span> <span class="n">Sep</span>  <span class="mi">9</span>  <span class="mi">2015</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gcc</span> <span class="o">-&gt;</span> <span class="n">gcc</span><span class="o">-</span><span class="mf">4.9</span>
+</pre></div>
+</div>
+<p>Remove permissions of read, write, execute from others:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>chmod o-x /usr/bin/as /usr/bin/g++ /usr/bin/gcc
+chmod o-r /usr/bin/as /usr/bin/g++ /usr/bin/gcc
+chmod o-w /usr/bin/as /usr/bin/g++ /usr/bin/gcc``
+</pre></div>
+</div>
+</div>
+<div class="section" id="disable-drivers">
+<h2>Disable drivers<a class="headerlink" href="#disable-drivers" title="Permalink to this headline">¶</a></h2>
+<p>Disable drivers like USB Mass storage / firewire storage (if not used) to prevent unauthorized storage or data-theft.</p>
+<ul class="simple">
+<li>USB Mass storage: Add the below line in /etc/modprobe.d/blacklist-usbstorage</li>
+</ul>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#Disabling USB Storage</span>
+<span class="n">blacklist</span> <span class="n">usb</span><span class="o">-</span><span class="n">storage</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Firewire storage: Add the below line in /etc/modprobe.d/blacklist-firewire</li>
+</ul>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#Disabling Firewire Storage</span>
+<span class="n">blacklist</span> <span class="n">firewire_core</span>
+<span class="n">blacklist</span> <span class="n">firewire_ohci</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Vijay Kumar.
+    </div>
+  </body>
+</html>

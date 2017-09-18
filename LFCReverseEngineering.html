@@ -1,0 +1,201 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-92365403-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>Learning from the CTF : Reverse Engineering &#8212; tech.bitvijays.com</title>
+    
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <script type="text/javascript" src="_static/collapse.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Learning from the CTF : Reverse Engineering</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/LFCReverseEngineering.rst.txt"
+           rel="nofollow">Show Source</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFCReverseEngineering.rst"
+           rel="nofollow">Show on GitHub</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFCReverseEngineering.rst"
+           rel="nofollow">Edit on GitHub</a></li>
+  </ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="learning-from-the-ctf-reverse-engineering">
+<h1>Learning from the CTF : Reverse Engineering<a class="headerlink" href="#learning-from-the-ctf-reverse-engineering" title="Permalink to this headline">¶</a></h1>
+<p>This post lists the learnings from the CTF while doing Reverse Engineering.</p>
+<p>If we are provided with a binary to reverse engineer, for example asking for password.</p>
+<ul class="simple">
+<li>file: The first step is to run file command on the binary which would tell us whether it is 32/64 bit or statically/dynamically linked etc.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>bitvijays@kali:~/Desktop/CTF/31C3$ file cfy
+cfy: ELF <span class="m">64</span>-bit LSB executable, x86-64, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span>, dynamically linked <span class="o">(</span>uses shared libs<span class="o">)</span>, <span class="k">for</span> GNU/Linux <span class="m">2</span>.6.24, BuildID<span class="o">[</span>sha1<span class="o">]=</span>0x9bc623f046535fba50a2124909fb871e5daf198e, not stripped
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>The second step could be running strings or &#8220;hexdump -C&#8221; on it, specially in the case of very simple re challenges like asking for password and stored in an array.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>bitvijays@kali:~$ strings check
+/lib/ld-linux.so.2
+D$,1
+D$%secrf
+D$<span class="o">)</span>et
+D$ love
+T$,e3
+<span class="o">[</span>^_<span class="o">]</span>
+password:
+/bin/sh
+Wrong password, Good Bye ...
+<span class="p">;</span>*2$<span class="s2">&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>hexdump -C check <span class="p">|</span> more
+<span class="m">00000540</span>  <span class="m">31</span> c0 c7 <span class="m">44</span> <span class="m">24</span> <span class="m">18</span> <span class="m">73</span> <span class="m">65</span>  <span class="m">78</span> <span class="m">00</span> c7 <span class="m">44</span> <span class="m">24</span> <span class="m">25</span> <span class="m">73</span> <span class="m">65</span>  <span class="p">|</span><span class="m">1</span>..D$.sec..D$%se<span class="p">|</span>
+<span class="m">00000550</span>  <span class="m">63</span> <span class="m">72</span> <span class="m">66</span> c7 <span class="m">44</span> <span class="m">24</span> <span class="m">29</span> <span class="m">65</span>  <span class="m">74</span> c6 <span class="m">44</span> <span class="m">24</span> 2b <span class="m">00</span> c7 <span class="m">44</span>  <span class="p">|</span>crf.D$<span class="o">)</span>et.D$+..D<span class="p">|</span>
+<span class="m">00000560</span>  <span class="m">24</span> 1c <span class="m">67</span> 6f <span class="m">64</span> <span class="m">00</span> c7 <span class="m">44</span>  <span class="m">24</span> <span class="m">20</span> 6c 6f <span class="m">76</span> <span class="m">65</span> c6 <span class="m">44</span>  <span class="p">|</span>$.god..D$ love.D<span class="p">|</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>The next step could be running strace or ltrace on the binary. strace: trace system calls and signals ltrace: A library call tracer</li>
+<li>GDB Commands:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>info file: Tell us about the entry points:
+info functions: Tell us about the functions in the binary.
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Consider a binary which is setuid and used to read files.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>leviathan2@melinda:~$ ./printfile
+*** File Printer ***
+Usage: ./printfile filename
+
+leviathan2@melinda:~$ ls -la
+-r-sr-x---   <span class="m">1</span> leviathan3 leviathan2 <span class="m">7498</span> Nov <span class="m">14</span> <span class="m">10</span>:32 printfile
+</pre></div>
+</div>
+<p>We need to read</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>leviathan2@melinda:~$ ls -l /etc/leviathan_pass/leviathan3
+-r-------- <span class="m">1</span> leviathan3 leviathan3 <span class="m">11</span> Nov <span class="m">14</span> <span class="m">10</span>:32 /etc/leviathan_pass/leviathan3
+</pre></div>
+</div>
+<p>Let&#8217;s see the ltrace of the binary while accessing a file which we are allowed to read</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>leviathan2@melinda:~$ ltrace ./printfile /etc/leviathan_pass/leviathan2
+__libc_start_main<span class="o">(</span>0x804852d, <span class="m">2</span>, 0xffffd774, 0x8048600 &lt;unfinished ...&gt;
+access<span class="o">(</span><span class="s2">&quot;/etc/leviathan_pass/leviathan2&quot;</span>, <span class="m">4</span><span class="o">)</span>                                                                            <span class="o">=</span> <span class="m">0</span>
+snprintf<span class="o">(</span><span class="s2">&quot;/bin/cat /etc/leviathan_pass/lev&quot;</span>..., <span class="m">511</span>, <span class="s2">&quot;/bin/cat %s&quot;</span>, <span class="s2">&quot;/etc/leviathan_pass/leviathan2&quot;</span><span class="o">)</span>                  <span class="o">=</span> <span class="m">39</span>
+system<span class="o">(</span><span class="s2">&quot;/bin/cat /etc/leviathan_pass/lev&quot;</span>...ougahZi8Ta
+&lt;no <span class="k">return</span> ...&gt;
+--- SIGCHLD <span class="o">(</span>Child exited<span class="o">)</span> ---
+&lt;... system resumed&gt; <span class="o">)</span>                                                                                                 <span class="o">=</span> <span class="m">0</span>
++++ exited <span class="o">(</span>status <span class="m">0</span><span class="o">)</span> +++
+</pre></div>
+</div>
+<p>So it&#8217;s a matter of tricking access(), if the call to access() succeeds then it calls system(&#8220;cat file&#8221;), so if pass the argument printfile / etc/issue, then it works. We can get around it by using a space in our file name. Eg: touch foobar. then we create a symlink to the password file and call it foo. ln -s /etc/leviathanpass/leviathan3 foo</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>leviathan2@melinda:~$ mkdir /tmp/levi
+leviathan2@melinda:~$ <span class="nb">cd</span> /tmp/levi
+leviathan2@melinda:/tmp/levi$ ls
+leviathan2@melinda:/tmp/levi$ ln -s /etc/leviathan_pass/leviathan3 ./foo
+leviathan2@melinda:/tmp/levi$ touch foo<span class="se">\ </span>bar
+leviathan2@melinda:/tmp/levi$ ~/printfile foo<span class="se">\ </span>bar
+Ahdiemoo1j
+/bin/cat: bar: No such file or directory
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Vijay Kumar.
+    </div>
+  </body>
+</html>

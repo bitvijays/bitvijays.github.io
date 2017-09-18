@@ -18,7 +18,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>Infrastruture PenTest Series : Part 1 - Intelligence Gathering &#8212; tech.bitvijays.com</title>
+    <title>Infrastructure PenTest Series : Part 1 - Intelligence Gathering &#8212; tech.bitvijays.com</title>
     
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -29,7 +29,8 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -37,8 +38,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/disqus.js"></script>
     <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <script type="text/javascript" src="_static/collapse.js"></script>
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="tech.bitvijays.com" href="index.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
@@ -55,13 +56,14 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Infrastruture PenTest Series : Part 1 - Intelligence Gathering</a><ul>
+<li><a class="reference internal" href="#">Infrastructure PenTest Series : Part 1 - Intelligence Gathering</a><ul>
 <li><a class="reference internal" href="#scenarios">Scenarios</a><ul>
 <li><a class="reference internal" href="#outside-external">Outside - External</a></li>
 <li><a class="reference internal" href="#inside-internal">Inside - Internal</a><ul>
 <li><a class="reference internal" href="#wired-lan">Wired LAN</a></li>
 <li><a class="reference internal" href="#wireless-lan">Wireless LAN</a></li>
 <li><a class="reference internal" href="#responder-inveigh">Responder/ Inveigh</a></li>
+<li><a class="reference internal" href="#ntlm-ntlmv1-v2-net-ntlmv1-v2">NTLM/ NTLMv1/v2 / Net-NTLMv1/v2</a></li>
 </ul>
 </li>
 </ul>
@@ -74,7 +76,7 @@
 <li><a class="reference internal" href="#the-harvester">The Harvester</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#enumeration-with-domain-name-e-g-example-com-using-external-websites">Enumeration with Domain Name (e.g example.com) using external websites</a><ul>
+<li><a class="reference internal" href="#enumeration-with-domain-name-e-g-example-com-using-external-websites">Enumeration with Domain Name (e.g. example.com) using external websites</a><ul>
 <li><a class="reference internal" href="#dns-dumpster-api">DNS Dumpster API</a></li>
 <li><a class="reference internal" href="#google-search-operators">Google search operators</a></li>
 <li><a class="reference internal" href="#other-tools">Other Tools</a></li>
@@ -107,11 +109,11 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#internal-infrastructure-mapping">Internal Infrastructure Mapping</a><ul>
-<li><a class="reference internal" href="#internal-range-identification">Internal range identification</a><ul>
+<li><a class="reference internal" href="#internal-network-range-identification">Internal Network Range Identification</a><ul>
+<li><a class="reference internal" href="#ping-gateway-ip-addresses">Ping Gateway IP Addresses</a></li>
 <li><a class="reference internal" href="#dns-enumeration">DNS Enumeration</a></li>
 <li><a class="reference internal" href="#internal-portal-links">Internal Portal Links</a></li>
 <li><a class="reference internal" href="#reverse-dns-lookup">Reverse DNS Lookup</a></li>
-<li><a class="reference internal" href="#ping-gateway-ip-addresses">Ping Gateway IP Addresses</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#identifying-alive-ip-addresses">Identifying Alive IP Addresses</a></li>
@@ -133,11 +135,15 @@
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#attack-surface-area-reconnaisnce-tools">Attack Surface Area - Reconnaisnce Tools</a><ul>
+<li><a class="reference internal" href="#attack-surface-area-reconnaissance-tools">Attack Surface Area - Reconnaissance Tools</a><ul>
 <li><a class="reference internal" href="#aquatone-a-tool-for-domain-flyovers">Aquatone: A tool for domain flyovers</a></li>
 <li><a class="reference internal" href="#datasploit">DataSploit</a></li>
 <li><a class="reference internal" href="#spiderfoot">Spiderfoot</a></li>
 <li><a class="reference internal" href="#intrigue-io">Intrigue.io</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#appendix-i-interesting-stories">Appendix-I : Interesting Stories</a><ul>
+<li><a class="reference internal" href="#initial-compromise">Initial Compromise</a></li>
 </ul>
 </li>
 </ul>
@@ -146,7 +152,7 @@
 
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/LFF-IPS-P1-IntelligenceGathering.txt"
+    <li><a href="_sources/LFF-IPS-P1-IntelligenceGathering.rst.txt"
            rel="nofollow">Show Source</a></li>
     <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFF-IPS-P1-IntelligenceGathering.rst"
            rel="nofollow">Show on GitHub</a></li>
@@ -171,82 +177,109 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="infrastruture-pentest-series-part-1-intelligence-gathering">
-<h1>Infrastruture PenTest Series : Part 1 - Intelligence Gathering<a class="headerlink" href="#infrastruture-pentest-series-part-1-intelligence-gathering" title="Permalink to this headline">¶</a></h1>
-<p>This post (always Work in Progress) would list the technical steps which might be important while doing the information gathering of an organization and we only know the company name or it’s domain name such as example.com.</p>
+  <div class="section" id="infrastructure-pentest-series-part-1-intelligence-gathering">
+<h1>Infrastructure PenTest Series : Part 1 - Intelligence Gathering<a class="headerlink" href="#infrastructure-pentest-series-part-1-intelligence-gathering" title="Permalink to this headline">¶</a></h1>
+<p>This post (always Work in Progress) would list the technical steps which might be important while doing the information gathering of an organization when we only know the company name or it’s domain name such as example.com.</p>
 <p><strong>Thanks to Vulnhub-ctf team, bonsaiviking, recrudesce, Rajesh and Tanoy</strong></p>
-<p>Suppose, we have to do a external/ internal pentest of a big organization with DMZ, Data centers, Telecom network etc.</p>
+<p>Suppose, we have to do a external/ internal penetration test of a big organization with DMZ, Data centers, Telecom network etc.</p>
 <div class="section" id="scenarios">
 <h2>Scenarios<a class="headerlink" href="#scenarios" title="Permalink to this headline">¶</a></h2>
-<p>Mostly, there are only two scenarios either we are outside / inside the organization.</p>
+<p>Mostly, there are only two scenarios either we are outside/ inside the organization.</p>
 <div class="section" id="outside-external">
 <h3>Outside - External<a class="headerlink" href="#outside-external" title="Permalink to this headline">¶</a></h3>
 <p>If we are outside or doing external pentest. Probably, we need to figure out the attack surface area first</p>
 <p>Example:</p>
 <p>What are the</p>
 <ul class="simple">
-<li>Different domain/ subdomains present? ( like example.com &#8211; domain; ftp.example.com &#8211; subdomain )</li>
-<li>Different IP Address/ Network ranges / ASN Number assigned ?</li>
-<li>Different Services/ Ports running on those IP Addresses ?</li>
+<li>Different domain/ subdomains present? (like example.com &#8211; domain; ftp.example.com &#8211; subdomain)</li>
+<li>Different IP Address/ Network ranges/ ASN Number assigned?</li>
+<li>Different Services/ Ports running on those IP Addresses?</li>
 <li>Email addresses or People working in the organization?</li>
-<li>What are the different Operating Systems/ Software used ?</li>
+<li>What are the different Operating Systems/ Software used?</li>
 <li>Any breaches which happened in the organization?</li>
 </ul>
 <p>Possibly, we would be able to compromise a user credential or vulnerable service running and get inside the internal network of the organization.</p>
 </div>
 <div class="section" id="inside-internal">
 <h3>Inside - Internal<a class="headerlink" href="#inside-internal" title="Permalink to this headline">¶</a></h3>
-<p>When we are inside the organization (Let&#8217;s say physically), probably, posing as internal employee ( already have access to the internal network ) or external consultant ( with no internal network access as of now ). Let&#8217;s explore what are the options we have as external consultant sitting in a conference room.</p>
+<p>When we are inside the organization (Let&#8217;s say physically), probably, posing as internal employee (already have access to the internal network) or external consultant (with no internal network access as of now). Let&#8217;s explore what are the options we have as external consultant sitting in a conference room.</p>
 <div class="section" id="wired-lan">
 <h4>Wired LAN<a class="headerlink" href="#wired-lan" title="Permalink to this headline">¶</a></h4>
 <p>If there&#8217;s a LAN cable around and we plug it in our computer, there might be few possibilities</p>
 <ul class="simple">
-<li>DHCP ( Dynamic Host Configuration Protocol ) is enabled and your machine is provided with an IP Address.</li>
-<li>DHCP is disabled, however, LAN cable is working. In this case, probably, we could sniff the network and figure out the near-by IP Address, netmask and default gateway.</li>
-<li>Network Access Control is enabled, then probably we would need to search for a Printer attached to network ( clone it&#8217;s MAC address and try ) or IP Phones or any Hub.</li>
-<li>LAN port is disabled ( Here you can&#8217;t much! Can you? ).</li>
+<li>DHCP (Dynamic Host Configuration Protocol) is enabled and your machine is provided with an IP Address.</li>
+<li>DHCP is disabled; however, LAN cable is working. In this case, probably, we could sniff the network and figure out the near-by IP Address, netmask and default gateway.</li>
+<li>Network Access Control is enabled, then probably we would need to search for a Printer attached to network (clone it&#8217;s MAC address and try) or IP Phones or any Hub.</li>
+<li>LAN port is disabled (Here you can&#8217;t much! Can you?).</li>
 </ul>
 </div>
 <div class="section" id="wireless-lan">
 <h4>Wireless LAN<a class="headerlink" href="#wireless-lan" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Check for Open / Guest Wi-Fi - If you are connected somehow, probably try to internal network ranges. Most probably, the organization would have segregated the network well. However, sometimes DNS Name can be resolved.</li>
+<li>Check for Open/ Guest Wi-Fi - If you are connected somehow, probably try to internal network ranges. Most probably, the organization would have segregated the network well. However, sometimes DNS Name can be resolved.</li>
 <li>Check if any WEP/ WPA2 networks are present. If so, probably, can try to crack them.</li>
 </ul>
-<p>Once you are inside, we need to find answer to the above questions ( Outside - External section ).</p>
+<p>Once you are inside, we need to find answer to the above questions (Outside - External section).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">We can do fingerprinting from both Internal / External of the organization</p>
+<p class="last">We can do fingerprinting from both Internal/ External of the organization</p>
 </div>
 </div>
 <div class="section" id="responder-inveigh">
 <h4>Responder/ Inveigh<a class="headerlink" href="#responder-inveigh" title="Permalink to this headline">¶</a></h4>
-<p>Once, you are inside, probably the first thing would be utilize Responder or Inveigh in the Analyze mode.</p>
+<p>Once, you are inside, probably the first thing would be utilize <strong>Responder</strong> or <strong>Inveigh</strong> in the <strong>Analyze mode</strong>.</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/SpiderLabs/Responder">Responder</a> : Responder is a LLMNR, NBT-NS and MDNS poisoner, with built-in HTTP/SMB/MSSQL/FTP/LDAP rogue authentication server supporting NTLMv1/NTLMv2/LMv2, Extended Security NTLMSSP and Basic HTTP authentication. It is very important to understand LLMNR, NBT-NS. Understand the basics by reading the <a class="reference external" href="https://www.sternsecurity.com/blog/local-network-attacks-llmnr-and-nbt-ns-poisoning">Local Network Attacks: LLMNR and NBT-NS Poisoning</a>, <a class="reference external" href="https://pentest.blog/what-is-llmnr-wpad-and-how-to-abuse-them-during-pentest/">What is LLMNR &amp; WPAD and How to Abuse Them During Pentest ?</a>  and <a class="reference external" href="https://www.pentestpartners.com/security-blog/how-to-get-windows-to-give-you-credentials-through-llmnr/">How to get Windows to give you credentials through LLMNR</a></li>
+<li><a class="reference external" href="https://github.com/SpiderLabs/Responder">Responder</a> : Responder is a LLMNR, NBT-NS and MDNS poisoner, with built-in HTTP/ SMB/ MSSQL/ FTP/ LDAP rogue authentication server supporting NTLMv1/ NTLMv2/ LMv2, Extended Security NTLMSSP and Basic HTTP authentication. It is very important to understand LLMNR, NBT-NS. Understand the basics by reading the <a class="reference external" href="https://www.sternsecurity.com/blog/local-network-attacks-llmnr-and-nbt-ns-poisoning">Local Network Attacks: LLMNR and NBT-NS Poisoning</a>, <a class="reference external" href="https://pentest.blog/what-is-llmnr-wpad-and-how-to-abuse-them-during-pentest/">What is LLMNR &amp; WPAD and How to Abuse Them During Pentest ?</a>  and <a class="reference external" href="https://www.pentestpartners.com/security-blog/how-to-get-windows-to-give-you-credentials-through-llmnr/">How to get Windows to give you credentials through LLMNR</a></li>
 </ul>
 <blockquote>
 <div><p>Basically it&#8217;s like this</p>
 <ul class="simple">
-<li>Let&#8217;s say a user wants to access a file server named &#8220;NAS001&#8221; by \NAS001, however, mistakenly types in \NAS01.</li>
+<li>Let&#8217;s say a user wants to access a file server named &#8220;NAS001&#8221; by \\NAS001, however, mistakenly types in \\NAS01.</li>
 <li>The query goes to the DNS server to resolve the IP of NAS01. However, as it&#8217;s not a valid hostname, DNS Server responds to the user saying that it doesn’t know that host.</li>
-<li>The user then broadcasts on the local network if anyone knows who is \NAS01</li>
-<li>The attacker ( if on the same network ) seeing the opportunity says &#8220;I am NAS01 here is my IP Address&#8221;</li>
+<li>The user then broadcasts on the local network if anyone knows who is \\NAS01</li>
+<li>The attacker (if on the same network) seeing the opportunity says &#8220;I am NAS01 here is my IP Address&#8221;</li>
 <li>The user believes the attacker and sends its own username and NTMLv2 hash to the attacker.</li>
 <li>The attacker gathers all the hashes and then crack the hash to discover the password offline.</li>
 </ul>
-<p>Recently, the Responder also have the functionality of Multi-relay, which allows you to relay the NTLMv1/2 authentication to a specific target and possibly execute the code (during a successful attack) on the target node. NoSoSecure has written a detailed blog on <a class="reference external" href="https://www.notsosecure.com/pwning-with-responder-a-pentesters-guide/">Pwning with Responder – A Pentester’s Guide</a></p>
+<p>Recently, the Responder also have the functionality of Multi-relay, which allows you to relay the NTLMv1/2 authentication to a specific target and possibly execute the code (during a successful attack) on the target node. NotSoSecure has written a detailed blog on <a class="reference external" href="https://www.notsosecure.com/pwning-with-responder-a-pentesters-guide/">Pwning with Responder – A Pentester’s Guide</a></p>
 <p>Similar to Python Responder, there&#8217;s inveigh</p>
 </div></blockquote>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/Kevin-Robertson/Inveigh">Inveigh</a> is a PowerShell LLMNR/mDNS/NBNS spoofer and man-in-the-middle tool designed to assist penetration testers/red teamers that find themselves limited to a Windows system.</li>
+<li><a class="reference external" href="https://github.com/Kevin-Robertson/Inveigh">Inveigh</a> is a PowerShell LLMNR/ mDNS/ NBNS spoofer and man-in-the-middle tool designed to assist penetration testers/ red teamers that find themselves limited to a Windows system.</li>
 </ul>
+</div>
+<div class="section" id="ntlm-ntlmv1-v2-net-ntlmv1-v2">
+<h4>NTLM/ NTLMv1/v2 / Net-NTLMv1/v2<a class="headerlink" href="#ntlm-ntlmv1-v2-net-ntlmv1-v2" title="Permalink to this headline">¶</a></h4>
+<p><em>Probably, We should cover this in Exploitation. However as we have mentioned Responder/ Inveigh here, it makes sense to include this</em></p>
+<ul class="simple">
+<li>NTLM: NTLM hashes are stored in the Security Account Manager (SAM) database and in Domain Controller&#8217;s NTDS.dit database.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aad3b435b51404eeaad3b435b51404ee</span><span class="p">:</span><span class="n">e19ccf75ee54e06b06a5907af13cef42</span>
+</pre></div>
+</div>
+<p>The LM hash is the one before the semicolon and the NT hash is the one after the semicolon. Starting with Windows Vista and Windows Server 2008, by default, only the NT hash is stored.</p>
+</div></blockquote>
+<ul class="simple">
+<li>NTLMv1/v2 / Net-NTLMv1/v2 : Net-NTLM hashes are used for network authentication (they are derived from a challenge/response algorithm and are based on the user&#8217;s NT hash). Here&#8217;s an example of a Net-NTLMv2 (a.k.a NTLMv2) hash</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">admin</span><span class="p">::</span><span class="n">N46iSNekpT</span><span class="p">:</span><span class="mi">08</span><span class="n">ca45b7d7ea58ee</span><span class="p">:</span><span class="mi">88</span><span class="n">dcbe4446168966a153a0064958dac6</span><span class="p">:</span><span class="mi">5</span><span class="n">c7830315c7830310000000000000b45c67103d07d7b95acd12ffa11230e0000000052920b85f78d013c31cdb3b92f5d765c783030</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>From a pentesting perspective:</p>
+<ul class="simple">
+<li>You CAN perform Pass-The-Hash attacks with NTLM hashes.</li>
+<li>You CANNOT perform Pass-The-Hash attacks with Net-NTLM hashes</li>
+</ul>
+<p>The above has been taken from <a class="reference external" href="https://byt3bl33d3r.github.io/practical-guide-to-ntlm-relaying-in-2017-aka-getting-a-foothold-in-under-5-minutes.html">Practical guide to NTLM Relaying in 2017 (A.K.A getting a foothold in under 5 minutes)</a> He has explained it very well and also showed how to own the network using relaying the hashes from Responder to get a system shell. Another good blog to understand this is <a class="reference external" href="https://pen-testing.sans.org/blog/pen-testing/2013/04/25/smb-relay-demystified-and-ntlmv2-pwnage-with-python">SMB Relay Demystified and NTLMv2 Pwnage with Python</a></p>
 </div>
 </div>
 </div>
 <div class="section" id="fingerprinting">
 <h2>Fingerprinting<a class="headerlink" href="#fingerprinting" title="Permalink to this headline">¶</a></h2>
-<p>We can either do <strong>Passive fingerprinting</strong> (method to learn more about the enemy, without them knowing it ) or <strong>Active fingerprinting</strong> ( process of transmitting packets to a remote host and analysing corresponding replies ). <strong>Passive fingerprinting</strong> and <strong>Active fingerprinting</strong> can be done by using various methods such as</p>
+<p>We can either do <strong>Passive fingerprinting</strong> (method to learn more about the enemy, without them knowing it) or <strong>Active fingerprinting</strong> (process of transmitting packets to a remote host and analyzing corresponding replies). <strong>Passive fingerprinting</strong> and <strong>Active fingerprinting</strong> can be done by using various methods such as</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="56%" />
@@ -298,10 +331,43 @@
 <li>Reverse DNS Lookup using External Websites</li>
 </ul>
 </td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
+<p>Do you remember, We need to find answers to</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Questions (What are the)</th>
+<th class="head">Answer</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Different domain/ subdomains present?</td>
+<td>whois, DNS-MX/AAAA/A/SRV, Enumeration with Domain Name</td>
+</tr>
+<tr class="row-odd"><td>Different IP Address/ Network ranges/ ASN Number assigned?</td>
+<td>DNS, ASN-Number, DNS-Zone-Transfer</td>
+</tr>
+<tr class="row-even"><td>Different Services/ Ports running on those IP Addresses?</td>
+<td>Public Scans of IP/ Port Scanning</td>
+</tr>
+<tr class="row-odd"><td>Email addresses or People working in the organization?</td>
+<td>harvestor, LinkedIn</td>
+</tr>
+<tr class="row-even"><td>What are the different Operating Systems/ Software used?</td>
+<td>FOCA</td>
+</tr>
+<tr class="row-odd"><td>Any breaches which happened in the organization?</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>The active and passive fingerprinting would help us to get those answers!</p>
 </div>
 <div class="section" id="passive-fingerprinting">
 <h2>Passive Fingerprinting:<a class="headerlink" href="#passive-fingerprinting" title="Permalink to this headline">¶</a></h2>
@@ -310,8 +376,8 @@
 <p>Whois provide information about the registered users or assignees of an Internet resource, such as Domain name, an IP address block, or an autonomous system.</p>
 <p>whois command acts differently for ip address and domain name.</p>
 <ul class="simple">
-<li>In Domain name it just provides registrar name etc.</li>
-<li>In IP address it provides the net-block ASN Number etc.</li>
+<li>In Domain name, it just provides registrar name etc.</li>
+<li>In IP address, it provides the net-block, ASN Number etc.</li>
 </ul>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">whois</span> <span class="o">&lt;</span><span class="n">Domain</span> <span class="n">Name</span><span class="o">/</span> <span class="n">IP</span> <span class="n">Address</span><span class="o">&gt;</span>
 <span class="o">-</span><span class="n">H</span> <span class="n">Do</span> <span class="ow">not</span> <span class="n">display</span> <span class="n">the</span> <span class="n">legal</span> <span class="n">disclaimers</span> <span class="n">some</span> <span class="n">registries</span> <span class="n">like</span> <span class="n">to</span> <span class="n">show</span> <span class="n">you</span><span class="o">.</span>
@@ -325,12 +391,12 @@
 </div>
 <div class="section" id="asn-number">
 <h3>ASN Number<a class="headerlink" href="#asn-number" title="Permalink to this headline">¶</a></h3>
-<p>We could find AS Number that participates in Border Gateway Protocol (BGP) used by particular organization which could further inform about the IP address ranges used by the organization.ASN Number and information could be found by using Team CMRU whois service</p>
+<p>We could find AS Number that participates in Border Gateway Protocol (BGP) used by particular organization which could further inform about the IP address ranges used by the organization. ASN Number could be found by using Team CMRU whois service</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">whois</span> <span class="o">-</span><span class="n">h</span> <span class="n">whois</span><span class="o">.</span><span class="n">cymru</span><span class="o">.</span><span class="n">com</span> <span class="s2">&quot; -v 216.90.108.31&quot;</span>                         <span class="o">|</span>
 </pre></div>
 </div>
-<p>If you want to do bulk queries refer &#64;`IP-ASN-Mapping-Team-CYMRU &lt;<a class="reference external" href="http://www.team-cymru.org/IP-ASN-mapping.html">http://www.team-cymru.org/IP-ASN-mapping.html</a>&gt;`__</p>
-<p>Hurricane Electric Internet Services also provide a website <a class="reference external" href="http://bgp.he.net">BGPToolkit</a> which provides your IP Address ASN or search function by Name, IP address etc. It also provides AS Peers which might help in gathering more information about the company in terms of it&#8217;s neighbors.</p>
+<p>If you want to do bulk queries refer &#64; <a class="reference external" href="http://www.team-cymru.org/IP-ASN-mapping.html">IP-ASN-Mapping-Team-CYMRU</a></p>
+<p>Hurricane Electric Internet Services also provide a website <a class="reference external" href="http://bgp.he.net">BGPToolkit</a> which provides your IP Address ASN or search function by Name, IP address etc. It also provides AS Peers which might help in gathering more information about the company in terms of its neighbors.</p>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <p class="last">Commandline checking of subnet and making whois query efficient.</p>
@@ -373,27 +439,16 @@
 </div>
 </div>
 <div class="section" id="enumeration-with-domain-name-e-g-example-com-using-external-websites">
-<h3>Enumeration with Domain Name (e.g example.com) using external websites<a class="headerlink" href="#enumeration-with-domain-name-e-g-example-com-using-external-websites" title="Permalink to this headline">¶</a></h3>
+<h3>Enumeration with Domain Name (e.g. example.com) using external websites<a class="headerlink" href="#enumeration-with-domain-name-e-g-example-com-using-external-websites" title="Permalink to this headline">¶</a></h3>
 <p>If you have domain name you could use</p>
 <div class="section" id="dns-dumpster-api">
 <h4>DNS Dumpster API<a class="headerlink" href="#dns-dumpster-api" title="Permalink to this headline">¶</a></h4>
 <p>We can utilize DNS Dumpster API to know the various sub-domain related to that domain.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>#Script connects to the API and convert the required output to a CSV ready format.
-#!/bin/bash
-#$1 is the first argument to script
-curl -s http://api.hackertarget.com/hostsearch/?q=$1 &gt; hostsearch
-cat hostsearch | awk -F , &#39;{print &quot;\&quot;&quot;$1&quot;\&quot;&quot;&quot;,&quot;&quot;\&quot;&quot;$2&quot;\&quot;&quot;}&#39; &gt; temp.csv
+<div class="highlight-default"><div class="highlight"><pre><span></span>curl -s http://api.hackertarget.com/hostsearch/?q=example.com &gt; hostsearch
 </pre></div>
 </div>
 <p>and the various dns queries by</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>#Script connects to the API and greps only the Name Servers.
-#!/bin/bash
-#$1 is the first argument to the script
-curl -s http://api.hackertarget.com/dnslookup/?q=$1 &gt; dnslookup
-cat dnslookup | grep -v RRSIG | grep -v DNSKEY | grep -v SOA | grep NS &gt; temp
-cat -T temp &gt; temp2
-cat temp2 | cut -d &quot;I&quot; -f7 | rev | cut -c 2- | rev
-#rm temp temp2
+<div class="highlight-default"><div class="highlight"><pre><span></span>curl -s http://api.hackertarget.com/dnslookup/?q=example.com &gt; dnslookup
 </pre></div>
 </div>
 </div>
@@ -402,23 +457,23 @@ cat temp2 | cut -d &quot;I&quot; -f7 | rev | cut -c 2- | rev
 <ul class="simple">
 <li><strong>site</strong>: Get results from certain sites or domains.</li>
 <li><strong>filetype:suffix</strong>: Limits results to pages whose names end in suffix. The suffix is anything following the last period in the file name of the web page. For example: filetype:pdf</li>
-<li><strong>allinurl/inurl</strong>: Restricts results to those containing all the query terms you specify in the URL. For example, [ allinurl: google faq ] will return only documents that contain the words “google” and “faq” in the URL, such as “www.google.com/help/faq.html”.</li>
-<li><strong>allintitle/intitle</strong>:Restricts results to those containing all the query terms you specify in the title.</li>
+<li><strong>allinurl/ inurl</strong>: Restricts results to those containing all the query terms you specify in the URL. For example, [ allinurl: google faq ] will return only documents that contain the words “google” and “faq” in the URL, such as “www.google.com/help/faq.html”.</li>
+<li><strong>allintitle/ intitle</strong>:Restricts results to those containing all the query terms you specify in the title.</li>
 </ul>
 <p>Three good places to refer are <a class="reference external" href="https://support.google.com/websearch/answer/2466433">Search Operators</a>, <a class="reference external" href="https://sites.google.com/site/gwebsearcheducation/advanced-operators">Advanced Operators</a> and <a class="reference external" href="https://www.exploit-db.com/google-hacking-database/">Google Hacking Database</a>.</p>
 </div>
 <div class="section" id="other-tools">
 <h4>Other Tools<a class="headerlink" href="#other-tools" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><a class="reference external" href="http://www.mcafee.com/in/downloads/free-tools/sitedigger.aspx">Mcafee Site Digger</a> which searches Google’s cache to look for vulnerabilities, errors, configuration issues,proprietary information, and interesting security nuggets on web sites.</li>
-<li><a class="reference external" href="http://www.bishopfox.com/resources/tools/google-hacking-diggity/attack-tools/">SearchDiggityv3</a> It is Bishop Fox’s MS Windows GUI application that serves as a front-end to the most recent versions of our Diggity tools: GoogleDiggity, BingDiggity, Bing, LinkFromDomainDiggity, CodeSearchDiggity, DLPDiggity, FlashDiggity, MalwareDiggity, PortScanDiggity, SHODANDiggity, BingBinaryMalwareSearch, and NotInMyBackYard Diggity.</li>
+<li><a class="reference external" href="http://www.mcafee.com/in/downloads/free-tools/sitedigger.aspx">Mcafee Site Digger</a> searches Google’s cache to look for vulnerabilities, errors, configuration issues,proprietary information, and interesting security nuggets on web sites.</li>
+<li><a class="reference external" href="http://www.bishopfox.com/resources/tools/google-hacking-diggity/attack-tools/">SearchDiggityv3</a> is Bishop Fox’s MS Windows GUI application that serves as a front-end to the most recent versions of our Diggity tools: GoogleDiggity, BingDiggity, Bing, LinkFromDomainDiggity, CodeSearchDiggity, DLPDiggity, FlashDiggity, MalwareDiggity, PortScanDiggity, SHODANDiggity, BingBinaryMalwareSearch, and NotInMyBackYard Diggity.</li>
 </ul>
 </div>
 <div class="section" id="publicly-available-scans-of-ip-addresses">
 <h4>Publicly available scans of IP Addresses<a class="headerlink" href="#publicly-available-scans-of-ip-addresses" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><a class="reference external" href="https://exfiltrated.com/">Exfiltrated</a>  It provides the scans from the 2012 Internet Census. It would provide the IP address and the port number running at the time of scan in the year 2012.</li>
-<li><a class="reference external" href="https://www.shodan.io/">Shodan</a>: Shodan provides the same results may be with recent scans. You need to be logged-in. Shodan CLI is available at <a class="reference external" href="https://cli.shodan.io/">Shodan Command-Line Interface</a></li>
+<li><a class="reference external" href="https://exfiltrated.com/">Exfiltrated</a> provides the scans from the 2012 Internet Census. It would provide the IP address and the port number running at the time of scan in the year 2012.</li>
+<li><a class="reference external" href="https://www.shodan.io/">Shodan</a>: provides the same results may be with recent scans. You need to be logged-in. Shodan CLI is available at <a class="reference external" href="https://cli.shodan.io/">Shodan Command-Line Interface</a></li>
 </ul>
 <p>Shodan Queries</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">title</span>   <span class="p">:</span> <span class="n">Search</span> <span class="n">the</span> <span class="n">content</span> <span class="n">scraped</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">HTML</span> <span class="n">tag</span>
@@ -437,18 +492,19 @@ cat temp2 | cut -d &quot;I&quot; -f7 | rev | cut -c 2- | rev
 <p class="last">Learn how to access Shodan with API</p>
 </div>
 <ul class="simple">
-<li><a class="reference external" href="http://www.netmux.com/">Netmux</a>: NETMUX is the all-source information hub about every IP address, device, IOT, or domain on the internet. All with a single query.</li>
-<li><a class="reference external" href="https://censys.io/">Censys</a>: Censys is a search engine that allows computer scientists to ask questions about the devices and networks that compose the Internet.Driven by Internet-wide scanning, Censys lets researchers find specific hosts and create aggregate reports on how devices, websites, and certificates are configured and deployed. A good feature is the Query metadata which tells the number of Http,https and other protocols found in the IP network range.</li>
+<li><a class="reference external" href="https://censys.io/">Censys</a>: Censys is a search engine that allows computer scientists to ask questions about the devices and networks that compose the Internet. Driven by Internet-wide scanning, Censys lets researchers find specific hosts and create aggregate reports on how devices, websites, and certificates are configured and deployed. A good feature is the Query metadata which tells the number of Http, https and other protocols found in the IP network range.</li>
 </ul>
-<p>Censys.io queries</p>
+<blockquote>
+<div><p>Censys.io queries</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span><span class="p">:</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="o">--</span> <span class="n">CIDR</span> <span class="n">notation</span>
 </pre></div>
 </div>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="reverse-dns-lookup-using-external-websites">
 <h3>Reverse DNS Lookup using External Websites<a class="headerlink" href="#reverse-dns-lookup-using-external-websites" title="Permalink to this headline">¶</a></h3>
-<p>Even after doing the above, sometimes we miss few of the domain name. Example: Recently, In  one of our engagement, the domain name was example.com and the asn netblock was 192.168.0.0/24. We did recon-ng, theharvester, DNS reverse-lookup via nmap. Still, we missed few of the websites hosted on same netblock but with different domain such as exam.in. We can find such entries by using ReverseIP lookup by</p>
+<p>Even after doing the above, sometimes we miss few of the domain name. Example: Recently, In  one of our engagement, the domain name was example.com and the asn netblock was 192.168.0.0/24. We did recon-ng, theharvester, DNS reverse-lookup via nmap. Still, we missed few of the websites hosted on same netblock but with different domain such as example.in. We can find such entries by using ReverseIP lookup by</p>
 <div class="section" id="domaintools-reverse-ip-lookup">
 <h4>DomainTools Reverse IP Lookup<a class="headerlink" href="#domaintools-reverse-ip-lookup" title="Permalink to this headline">¶</a></h4>
 <p><a class="reference external" href="http://reverseip.domaintools.com">Reverse IP Lookup by Domaintools</a>: Domain name search tool that allows a wildcard search, monitoring of WHOIS record changes and history caching, as well as Reverse IP queries.</p>
@@ -459,11 +515,11 @@ cat temp2 | cut -d &quot;I&quot; -f7 | rev | cut -c 2- | rev
 </div>
 <div class="section" id="server-sniff">
 <h4>Server-Sniff<a class="headerlink" href="#server-sniff" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="http://serversniff.net.ipaddress.com/">Server Sniff</a> : A website providing IP Lookup,Reverse IP services.</p>
+<p><a class="reference external" href="http://serversniff.net.ipaddress.com/">Server Sniff</a> : A website providing IP Lookup, Reverse IP services.</p>
 </div>
 <div class="section" id="robtex">
 <h4>Robtex<a class="headerlink" href="#robtex" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="https://www.robtex.com/">Robtex</a> : Robtex is one of the world&#8217;s largest network tools. At robtex.com, you will find everything you need to know about domains, DNS, IP, Routes, Autonomous Systems, etc. There&#8217;s a nmap nse <a class="reference external" href="https://nmap.org/nsedoc/scripts/http-robtex-reverse-ip.html">http-robtex-reverse-ip</a> which can be used to find the domain/website hosted on that ip.</p>
+<p><a class="reference external" href="https://www.robtex.com/">Robtex</a> : Robtex is one of the world&#8217;s largest network tools. At robtex.com, you will find everything you need to know about domains, DNS, IP, Routes, Autonomous Systems, etc. There&#8217;s a nmap nse <a class="reference external" href="https://nmap.org/nsedoc/scripts/http-robtex-reverse-ip.html">http-robtex-reverse-ip</a> which can be used to find the domain/ website hosted on that ip.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">--</span><span class="n">script</span> <span class="n">http</span><span class="o">-</span><span class="n">robtex</span><span class="o">-</span><span class="n">reverse</span><span class="o">-</span><span class="n">ip</span> <span class="o">--</span><span class="n">script</span><span class="o">-</span><span class="n">args</span> <span class="n">http</span><span class="o">-</span><span class="n">robtex</span><span class="o">-</span><span class="n">reverse</span><span class="o">-</span><span class="n">ip</span><span class="o">.</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;XX.XX.78.214&#39;</span>
 <span class="n">Starting</span> <span class="n">Nmap</span> <span class="mf">7.01</span> <span class="p">(</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">nmap</span><span class="o">.</span><span class="n">org</span> <span class="p">)</span> <span class="n">at</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">20</span> <span class="mi">21</span><span class="p">:</span><span class="mi">39</span> <span class="n">IST</span>
 <span class="n">Pre</span><span class="o">-</span><span class="n">scan</span> <span class="n">script</span> <span class="n">results</span><span class="p">:</span>
@@ -477,7 +533,7 @@ cat temp2 | cut -d &quot;I&quot; -f7 | rev | cut -c 2- | rev
 </div>
 <div class="section" id="active-fingerprinting">
 <h2>Active Fingerprinting<a class="headerlink" href="#active-fingerprinting" title="Permalink to this headline">¶</a></h2>
-<p>Most probably by now we have gathered all the public available information without interacting with client infrastructure. Next, we can use <strong>DNS enumeration</strong> to  gather more information about the client. The below information could gather externally as well as internally. However, amount of information gathered from internal network would definitely be more than when done externally.</p>
+<p>Most probably by now we have gathered all the public available information without interacting with client infrastructure. Next, we can use <strong>DNS enumeration</strong> to gather more information about the client. The below information could gather externally as well as internally. However, amount of information gathered from internal network would definitely be more than when done externally.</p>
 <div class="section" id="finding-dns-mx-aaaa-a-using">
 <h3>Finding DNS, MX, AAAA, A using<a class="headerlink" href="#finding-dns-mx-aaaa-a-using" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="host">
@@ -566,7 +622,7 @@ $ nslookup
 </ul>
 <blockquote>
 <div><p>SRV records are used by the below standardized communication protocols.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Teamspeak</span> <span class="mi">3</span> <span class="p">(</span><span class="n">since</span> <span class="n">version</span> <span class="mf">3.0</span><span class="o">.</span><span class="mi">8</span> <span class="o">-</span> <span class="n">Neither</span> <span class="n">priority</span> <span class="n">nor</span> <span class="n">weight</span> <span class="ow">is</span> <span class="n">taken</span> <span class="n">into</span> <span class="n">consideration</span><span class="o">.</span><span class="n">The</span> <span class="n">client</span> <span class="n">appears</span> <span class="n">to</span> <span class="n">choose</span> <span class="n">an</span> <span class="n">SRV</span> <span class="n">record</span> <span class="n">at</span> <span class="n">random</span> <span class="k">for</span> <span class="n">a</span> <span class="n">connection</span> <span class="n">attempt</span><span class="o">.</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Teamspeak</span> <span class="mi">3</span> <span class="p">(</span><span class="n">since</span> <span class="n">version</span> <span class="mf">3.0</span><span class="o">.</span><span class="mi">8</span> <span class="o">-</span> <span class="n">Neither</span> <span class="n">priority</span> <span class="n">nor</span> <span class="n">weight</span> <span class="ow">is</span> <span class="n">taken</span> <span class="n">into</span> <span class="n">consideration</span><span class="o">.</span> <span class="n">The</span> <span class="n">client</span> <span class="n">appears</span> <span class="n">to</span> <span class="n">choose</span> <span class="n">an</span> <span class="n">SRV</span> <span class="n">record</span> <span class="n">at</span> <span class="n">random</span> <span class="k">for</span> <span class="n">a</span> <span class="n">connection</span> <span class="n">attempt</span><span class="o">.</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">Minecraft</span> <span class="p">(</span><span class="n">since</span> <span class="n">version</span> <span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">_minecraft</span><span class="o">.</span><span class="n">_tcp</span><span class="p">)</span>
 <span class="n">CalDAV</span> <span class="ow">and</span> <span class="n">CardDAV</span>
 <span class="n">Client</span> <span class="n">SMTP</span> <span class="n">Authorization</span>
@@ -583,7 +639,7 @@ $ nslookup
 <span class="n">Citrix</span> <span class="n">Receiver</span>
 </pre></div>
 </div>
-<p>Checkout the brute_srv function in the dnsrecon tool script to get familar with the different SRV names and services.</p>
+<p>Checkout the brute_srv function in the dnsrecon tool script to get familiar with the different SRV names and services.</p>
 </div></blockquote>
 </div>
 </div>
@@ -591,9 +647,16 @@ $ nslookup
 <div class="section" id="internal-infrastructure-mapping">
 <h2>Internal Infrastructure Mapping<a class="headerlink" href="#internal-infrastructure-mapping" title="Permalink to this headline">¶</a></h2>
 <p>All the steps in 2.a which are DNS related recon could also be performed in the internal penetration testing provided we have the access to the internal DNS Server. After, we have gathered all the information from DNS enumeration, still we haven&#8217;t enumerated internal infrastructure. We apply the below methods to enumerate further.</p>
-<div class="section" id="internal-range-identification">
-<h3>Internal range identification<a class="headerlink" href="#internal-range-identification" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="internal-network-range-identification">
+<h3>Internal Network Range Identification<a class="headerlink" href="#internal-network-range-identification" title="Permalink to this headline">¶</a></h3>
 <p>In many instances, we are provided or expected to find vulnerabilities in a 10.0.0.0/8 network which would contain around 16 million IP Addresses. Scanning 16 million IP address in a considerable time is difficult. In which case, we need faster and targeted result. So, how do we find out the ranges?</p>
+<div class="section" id="ping-gateway-ip-addresses">
+<h4>Ping Gateway IP Addresses<a class="headerlink" href="#ping-gateway-ip-addresses" title="Permalink to this headline">¶</a></h4>
+<p>Let&#8217;s say internally, we got an IP address 192.168.56.101 netmask 255.255.255.0 with a default gateway of 192.168.56.1. It is a high probability that rest of network rangers would have been defined as /24 CIDR. In that case, a ping scan to 192.168.*.1 with a watch on the TTL would possibly reveal what are the other network ranges.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">sn</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">PE</span> <span class="mf">192.168</span><span class="o">.*.</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="dns-enumeration">
 <h4>DNS Enumeration<a class="headerlink" href="#dns-enumeration" title="Permalink to this headline">¶</a></h4>
 <p>If you are connected to a internal dns server, you may query it with</p>
@@ -608,7 +671,7 @@ $ nslookup
 </div>
 <div class="section" id="internal-portal-links">
 <h4>Internal Portal Links<a class="headerlink" href="#internal-portal-links" title="Permalink to this headline">¶</a></h4>
-<p>Most of the organization have one internal portals which serves has a one-stop links to every possible portal link. This could also result in some internal range exposure.</p>
+<p>Most of the organizations have one internal portals which serves has a one-stop links to every possible portal link. This could also result in some internal range exposure.</p>
 <div class="admonition-todo admonition" id="index-5">
 <p class="first admonition-title">Todo</p>
 <p class="last">Write the script for grep and printing host and IP address and combine it with DNS Enumeration.</p>
@@ -626,13 +689,6 @@ $ nslookup
 </pre></div>
 </div>
 </div>
-<div class="section" id="ping-gateway-ip-addresses">
-<h4>Ping Gateway IP Addresses<a class="headerlink" href="#ping-gateway-ip-addresses" title="Permalink to this headline">¶</a></h4>
-<p>Let&#8217;s say internally, we got an IP address 192.168.56.101 netmask 255.255.255.0 with a default gateway of 192.168.56.1. It is a high probability that rest of network rangers would have been defined as /24 CIDR. In that case, a ping scan to 192.168.*.1 with a watch on the TTL would possibly reveal what are the other network ranges.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">sn</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">PE</span> <span class="mf">192.168</span><span class="o">.*.</span><span class="mi">1</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="section" id="identifying-alive-ip-addresses">
 <h3>Identifying Alive IP Addresses<a class="headerlink" href="#identifying-alive-ip-addresses" title="Permalink to this headline">¶</a></h3>
@@ -642,7 +698,7 @@ $ nslookup
 <span class="c1">#My IP is 10.0.0.1</span>
 </pre></div>
 </div>
-<p>It is very important to mention that -n option (No DNS resolution) should be used going forward as we have already did DNS resolution while using List scan. Since DNS can be slow even with Nmap&#8217;s built-in parallel stub resolver, this option can slash scanning times. TCP Dump output is presented here. As both the IP address are in the same subnet, nmap would use ARP Ping scan to find the alive IP Address.</p>
+<p>It is very important to mention that -n option (No DNS resolution) should be used going forward as we have already did DNS resolution while using List scan. Since DNS can be slow even with Nmap&#8217;s built-in parallel stub resolver, this option can slash scanning times. TCP Dump output is presented here. As both the IP addresses are in the same subnet, nmap would use ARP Ping scan to find the alive IP Address.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">22</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mf">27.292054</span> <span class="n">ARP</span><span class="p">,</span> <span class="n">Request</span> <span class="n">who</span><span class="o">-</span><span class="n">has</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span> <span class="p">(</span><span class="n">Broadcast</span><span class="p">)</span> <span class="n">tell</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">length</span> <span class="mi">28</span>
 <span class="mi">22</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mf">27.361100</span> <span class="n">ARP</span><span class="p">,</span> <span class="n">Reply</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span> <span class="ow">is</span><span class="o">-</span><span class="n">at</span> <span class="mi">8</span><span class="n">c</span><span class="p">:</span><span class="mi">64</span><span class="p">:</span><span class="mi">22</span><span class="p">:</span><span class="mi">3</span><span class="n">b</span><span class="p">:</span><span class="mi">2</span><span class="n">b</span><span class="p">:</span><span class="mi">2</span><span class="n">d</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">),</span> <span class="n">length</span> <span class="mi">28</span>
 </pre></div>
@@ -667,7 +723,7 @@ $ nslookup
 <span class="n">Host</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">received</span> <span class="n">echo</span><span class="o">-</span><span class="n">reply</span> <span class="p">(</span><span class="mf">0.073</span><span class="n">s</span> <span class="n">latency</span><span class="p">)</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>If we only want to send ICMP Ping query ( as if the host replies to it, the other three packets (SYN 443, ACK 80 and Timestamp )are extra burden. ( I may be wrong here). We can use</p>
+<p>If we only want to send ICMP Ping query (as if the host replies to it, the other three packets (SYN 443, ACK 80 and Timestamp) are extra burden. (I may be wrong here). We can use</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">sn</span> <span class="o">-</span><span class="n">PE</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">arp</span><span class="o">-</span><span class="n">ping</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span>
 </pre></div>
 </div>
@@ -684,12 +740,12 @@ $ nslookup
 <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">length</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">Append</span> <span class="n">random</span> <span class="n">data</span> <span class="n">to</span> <span class="n">sent</span> <span class="n">packets</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Please note that you should use this options only on ICMP Echo Request for IDS Evasion as the data gets appended to every packet (ex. port scan packets). Designing the ideal combinations of probes as suggested in the Nmap Book is</p>
+<p>Please note that you should use these options only on ICMP Echo Request for IDS Evasion as the data gets appended to every packet (ex. port scan packets). Designing the ideal combinations of probes as suggested in the Nmap Book is</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">PE</span> <span class="o">-</span><span class="n">PA</span> <span class="o">-</span><span class="n">PS</span> <span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">31339</span> <span class="o">-</span><span class="n">PA</span> <span class="mi">80</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">443</span><span class="p">,</span><span class="mi">10042</span>
  <span class="n">Adding</span> <span class="o">--</span><span class="n">source</span><span class="o">-</span><span class="n">port</span> <span class="mi">53</span> <span class="n">might</span> <span class="n">also</span> <span class="n">help</span>
 </pre></div>
 </div>
-<p>The above combination would find more hosts than just the ping scan, however it also gonna cost a decent amount of time. Normal Time vs Accuracy trade off.</p>
+<p>The above combination would find more hosts than just the ping scan, however it also gonna cost a decent amount of time. Normal Time vs. Accuracy trade off.</p>
 </div>
 <div class="section" id="port-scanning">
 <h3>Port Scanning<a class="headerlink" href="#port-scanning" title="Permalink to this headline">¶</a></h3>
@@ -697,11 +753,11 @@ $ nslookup
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">sS</span> <span class="n">TCP</span> <span class="n">SYN</span> <span class="n">Stealth</span> <span class="p">:</span> <span class="n">Half</span> <span class="n">Open</span> <span class="n">SYN</span> <span class="n">Scan</span> <span class="p">:</span> <span class="n">Nmap</span> <span class="n">sends</span> <span class="n">the</span> <span class="n">SYN</span> <span class="n">packet</span><span class="p">,</span> <span class="n">Server</span> <span class="n">would</span> <span class="n">send</span> <span class="n">SYN</span><span class="o">/</span><span class="n">ACK</span><span class="p">,</span> <span class="n">System</span> <span class="n">would</span> <span class="n">send</span> <span class="n">RST</span><span class="o">.</span>
 <span class="o">-</span><span class="n">sT</span> <span class="n">TCP</span> <span class="n">Connect</span> <span class="n">Scan</span> <span class="p">:</span> <span class="n">Nmap</span> <span class="n">uses</span> <span class="n">system</span> <span class="n">to</span> <span class="n">send</span> <span class="n">the</span> <span class="n">SYN</span> <span class="n">scan</span> <span class="p">:</span> <span class="n">Connect</span> <span class="n">full</span> <span class="n">TCP</span> <span class="n">Handshake</span>
 <span class="o">-</span><span class="n">sU</span> <span class="n">UDP</span> <span class="n">Scan</span>
-<span class="o">-</span><span class="n">sA</span> <span class="n">ACK</span> <span class="n">Scan</span> <span class="p">:</span> <span class="n">Ack</span> <span class="n">scan</span> <span class="ow">is</span> <span class="n">generally</span> <span class="n">used</span> <span class="n">to</span> <span class="nb">map</span> <span class="n">out</span> <span class="n">firewall</span> <span class="n">rulesets</span><span class="o">.</span> <span class="n">Whether</span> <span class="n">firewall</span> <span class="ow">is</span> <span class="n">stateful</span> <span class="ow">or</span> <span class="ow">not</span><span class="o">.</span>
+<span class="o">-</span><span class="n">sA</span> <span class="n">ACK</span> <span class="n">Scan</span> <span class="p">:</span> <span class="n">Ack</span> <span class="n">scan</span> <span class="ow">is</span> <span class="n">generally</span> <span class="n">used</span> <span class="n">to</span> <span class="nb">map</span> <span class="n">out</span> <span class="n">firewall</span> <span class="n">rule</span> <span class="n">sets</span><span class="o">.</span> <span class="n">Whether</span> <span class="n">firewall</span> <span class="ow">is</span> <span class="n">stateful</span> <span class="ow">or</span> <span class="ow">not</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>Please note p0f recognizes Nmap&#8217;s SYN scan because of the TCP Options such as TCP window size a multiple of 1024, and only the MSS option supported with a value of 1460 (Check the tcpdump output of Ping scan above, SYN Packet). Recently, a IRC user was getting filtered port while using SYN Scan whereas was getting OPN ports which using telnet or TCP Connect Scan. Also, A patch to allow a user to override the TCP Window size in SYN scan was just posted to the <a class="reference external" href="http://seclists.org/nmap-dev/2015/q3/52">Nmap DevelopmentList</a>.</p>
-<p>By default, nmap scans the 1000 most popular ports of eachprotocol ( gathered by scanning million of IP address ). Scanning 1000 ports in an unknown environment with 16 million IP Address could be challenging. Nmap also provides -F Fast scan option which scans the 100 most common ports in each protocol. Otherwise it also provides &#8211;top-ports to specify an arbitrary number of ports. So, How do we know what are the ports scanned with &#8211;top-portsoption. This could be found by</p>
+<p>By default, nmap scans the 1000 most popular ports of each protocol (gathered by scanning million of IP address). Scanning 1000 ports in an unknown environment with 16 million IP Address could be challenging. Nmap also provides -F Fast scan option which scans the 100 most common ports in each protocol. Otherwise it also provides &#8211;top-ports to specify an arbitrary number of ports. So, How do we know what are the ports scanned with &#8211;top-ports option. This could be found by</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">sT</span> <span class="o">-</span><span class="n">oG</span> <span class="o">-</span> <span class="o">-</span><span class="n">v</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;^# Ports&#39;</span>
 </pre></div>
 </div>
@@ -709,7 +765,7 @@ $ nslookup
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="n">localhost</span> <span class="o">-</span><span class="n">F</span> <span class="o">-</span><span class="n">oX</span> <span class="o">-</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;^&lt;scaninfo&#39;</span>
 </pre></div>
 </div>
-<p>Nmap needs an nmap-services file with frequency information in order to know which ports are the most common. See the sectioncalled <a class="reference external" href="http://seclists.org/nmap-dev/2015/q3/52">Well Known Port List: nmap-services</a> : for more information about port frequencies. We could provide ports to nmap by using -p option also, for example</p>
+<p>Nmap needs an nmap-services file with frequency information in order to know which ports are the most common. See the section called <a class="reference external" href="http://seclists.org/nmap-dev/2015/q3/52">Well Known Port List: nmap-services</a> : for more information about port frequencies. We could provide ports to nmap by using -p option also, for example</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">p</span> <span class="mi">22</span> <span class="p">:</span> <span class="n">Scan</span> <span class="n">single</span> <span class="n">port</span>
 <span class="o">-</span><span class="n">p</span> <span class="mi">22</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">80</span> <span class="p">:</span> <span class="n">Scan</span> <span class="n">multiple</span> <span class="n">ports</span> <span class="k">with</span> <span class="n">comma</span> <span class="n">separated</span> <span class="n">values</span><span class="o">.</span> <span class="n">If</span> <span class="o">-</span><span class="n">sS</span> <span class="ow">is</span> <span class="n">specified</span> <span class="n">TCP</span> <span class="n">ports</span> <span class="n">would</span> <span class="n">be</span> <span class="n">scanned</span><span class="o">.</span> <span class="n">If</span> <span class="o">-</span><span class="n">sU</span> <span class="n">UDP</span> <span class="n">Scan</span> <span class="ow">is</span> <span class="n">specified</span><span class="p">,</span> <span class="n">UDP</span> <span class="n">Ports</span> <span class="n">would</span> <span class="n">be</span> <span class="n">scanned</span><span class="o">.</span>
 <span class="o">-</span><span class="n">p80</span><span class="o">-</span><span class="mi">85</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="mi">8000</span><span class="o">-</span><span class="mi">8005</span> <span class="p">:</span> <span class="n">Scan</span> <span class="n">port</span> <span class="k">with</span> <span class="n">ranges</span><span class="o">.</span>
@@ -721,7 +777,7 @@ $ nslookup
 <p>Port scanning via <strong>netcat</strong>: Netcat might not be the best tool to use for port scanning, but can be used quickly. netcat scans TCP ports by default, but we can perform UDP scans as well.</p>
 <p>For a TCP scan, the format is</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nc</span> <span class="o">-</span><span class="n">vvn</span> <span class="o">-</span><span class="n">z</span> <span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span> <span class="n">startport</span><span class="o">-</span><span class="n">endport</span>
-   <span class="o">-</span><span class="n">z</span> <span class="n">flag</span> <span class="ow">is</span> <span class="n">Zero</span><span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">mode</span> <span class="p">(</span> <span class="n">used</span> <span class="k">for</span> <span class="n">scannng</span> <span class="p">)</span>
+   <span class="o">-</span><span class="n">z</span> <span class="n">flag</span> <span class="ow">is</span> <span class="n">Zero</span><span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">mode</span> <span class="p">(</span><span class="n">used</span> <span class="k">for</span> <span class="n">scanning</span><span class="p">)</span>
    <span class="o">-</span><span class="n">vv</span> <span class="n">will</span> <span class="n">provide</span> <span class="n">verbose</span> <span class="n">information</span> <span class="n">about</span> <span class="n">the</span> <span class="n">results</span>
    <span class="o">-</span><span class="n">n</span> <span class="n">flag</span> <span class="n">allows</span> <span class="n">to</span> <span class="n">skip</span> <span class="n">the</span> <span class="n">DNS</span> <span class="n">lookup</span>
 </pre></div>
@@ -730,6 +786,7 @@ $ nslookup
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nc</span> <span class="o">-</span><span class="n">vvn</span> <span class="o">-</span><span class="n">u</span> <span class="o">-</span><span class="n">z</span> <span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span> <span class="n">startport</span><span class="o">-</span><span class="n">endport</span>
 </pre></div>
 </div>
+<p>If we have windows machine without nmap, we can use <a class="reference external" href="https://www.powershellgallery.com/packages/PSnmap/">PSnmap</a></p>
 <div class="section" id="identifying-service-versions">
 <h4>Identifying service versions<a class="headerlink" href="#identifying-service-versions" title="Permalink to this headline">¶</a></h4>
 <p>Ideally, we can use -sV to probe the ports to find the version running. When performing a version scan (-sV), Nmap sends a series of probes, each of which is assigned a rarity value correctly identified. However, high intensity scans takes longer. The intensity must be between 0 and 9. The default is 7.</p>
@@ -739,7 +796,7 @@ $ nslookup
 <span class="o">--</span><span class="n">version</span><span class="o">-</span><span class="n">trace</span> <span class="p">(</span><span class="n">Trace</span> <span class="n">version</span> <span class="n">scan</span> <span class="n">activity</span><span class="p">)</span> <span class="p">:</span> <span class="n">Print</span> <span class="n">debugging</span> <span class="n">information</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>Also, when -sV is specified apart from the probes, all the scripts in the <a class="reference external" href="https://nmap.org/nsedoc/categories/version.html">Version</a> category are executed. These scripts could be prevented from running by removing them from the script.db catalog or by building Nmap without NSE support (./configure &#8211;without-liblua). However,if &#8211;version-intensity option is less than 7, those scripts won&#8217;t be executed ( I might be a little wrong here).</p>
+<p>Also, when -sV is specified apart from the probes, all the scripts in the <a class="reference external" href="https://nmap.org/nsedoc/categories/version.html">Version</a> category are executed. These scripts could be prevented from running by removing them from the script.db catalog or by building Nmap without NSE support (./configure &#8211;without-liblua). However, if &#8211;version-intensity option is less than 7, those scripts won&#8217;t be executed (I might be a little wrong here).</p>
 <p>So our scan would become approx</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">&lt;</span><span class="n">IP_Address_Range</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">n</span> <span class="o">--</span><span class="n">top</span><span class="o">-</span><span class="n">ports</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;/-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">Custom</span> <span class="n">Port</span> <span class="n">List</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">sV</span> <span class="o">--</span><span class="n">version</span><span class="o">-</span><span class="n">intensity</span> <span class="mi">0</span><span class="o">/</span> <span class="p">(</span><span class="n">No</span> <span class="o">-</span><span class="n">sV</span><span class="p">)</span>
 </pre></div>
@@ -747,7 +804,7 @@ $ nslookup
 </div>
 <div class="section" id="performance">
 <h4>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h4>
-<p>So, How can we improve the performance of our nmap scan, so that result could be  achieved faster. However, as always we will have Time Vs Accuracy Trade off.</p>
+<p>So, How can we improve the performance of our nmap scan, so that result could be achieved faster. However, as always we will have Time Vs Accuracy Trade off.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">T</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">-</span><span class="mi">5</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Set</span> <span class="n">timing</span> <span class="n">template</span> <span class="p">(</span><span class="n">higher</span> <span class="ow">is</span> <span class="n">faster</span><span class="p">)</span>
 <span class="o">--</span><span class="nb">min</span><span class="o">-</span><span class="n">rtt</span><span class="o">-</span><span class="n">timeout</span><span class="o">/</span><span class="nb">max</span><span class="o">-</span><span class="n">rtt</span><span class="o">-</span><span class="n">timeout</span><span class="o">/</span><span class="n">initial</span><span class="o">-</span><span class="n">rtt</span><span class="o">-</span><span class="n">timeout</span> <span class="o">&lt;</span><span class="n">time</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Specifies</span> <span class="n">probe</span> <span class="nb">round</span> <span class="n">trip</span> <span class="n">time</span><span class="o">.</span>
 <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">retries</span> <span class="o">&lt;</span><span class="n">tries</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Caps</span> <span class="n">number</span> <span class="n">of</span> <span class="n">port</span> <span class="n">scan</span> <span class="n">probe</span> <span class="n">retransmissions</span><span class="o">.</span>
@@ -757,11 +814,11 @@ $ nslookup
 <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">rate</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Send</span> <span class="n">packets</span> <span class="n">no</span> <span class="n">faster</span> <span class="n">than</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span> <span class="n">per</span> <span class="n">second</span>
 </pre></div>
 </div>
-<p>T0,T1,T2 is specifically for IDS Evasion. T3 is the default. We can set max-retries to a lower value such as 2. Currently it&#8217;s 10 for T0,T1,T2,T3; 6 for T4 and 2 for T5.</p>
+<p>T0, T1, T2 is specifically for IDS Evasion. T3 is the default. We can set max-retries to a lower value such as 2. Currently it&#8217;s 10 for T0, T1, T2, T3; 6 for T4 and 2 for T5.</p>
 </div>
 <div class="section" id="nmap-scripts">
 <h4>Nmap Scripts<a class="headerlink" href="#nmap-scripts" title="Permalink to this headline">¶</a></h4>
-<p>As bonsaiviking says <a class="reference external" href="http://blog.bonsaiviking.com/2015/07/they-see-me-scannin-part-2.html">Here</a>: If you are wild enough to try NSE scripts against an IDS-protected target, you should know how to read Lua, since the script sources are the final authority on what data is sent. But if you&#8217;re just looking to get a little better at blending in, these tips should help:</p>
+<p>As bonsaiviking says in <a class="reference external" href="http://blog.bonsaiviking.com/2015/07/they-see-me-scannin-part-2.html">They See Me Scanning Part 2</a> If you are wild enough to try NSE scripts against an IDS-protected target, you should know how to read Lua, since the script sources are the final authority on what data is sent. But if you&#8217;re just looking to get a little better at blending in, these tips should help:</p>
 <ul class="simple">
 <li>Use &#8211;script-args-file to pass script arguments to Nmap from a file. This will keep your command line clean and make it harder to accidentally miss one of the options you choose</li>
 <li>Obviously avoid dos, intrusive, and exploit category scripts.</li>
@@ -796,14 +853,14 @@ $ nslookup
 <li><strong>httpscreenshot</strong> from breenmachine: <a class="reference external" href="https://github.com/breenmachine/httpscreenshot">httpscreenshot</a> is a tool for grabbing screenshots and HTML of large numbers of websites. The goal is for it to be both thorough and fast which can sometimes oppose each other.</li>
 <li><strong>Eyewitness</strong> from Chris Truncer: <a class="reference external" href="https://github.com/ChrisTruncer/EyeWitness">EyeWitness</a> is designed to take screenshots of websites, provide some server header info, and identify default credentials if possible.</li>
 <li>Another method is to use <a class="reference external" href="https://code.google.com/p/java-html2image/">html2image</a> which is a simple Java library converts plain HTML markup to image and provides client-side image-map using html element.</li>
-<li><strong>RAWR: Rapid Assesment of Web Resourses</strong>: <a class="reference external" href="https://bitbucket.org/al14s/rawr/wiki/Home">RAWR</a> provides with a customizable CSV containing ordered information gathered for each host, with a field for making notes/etc.; An elegant, searchable, JQuery-driven HTML report that shows screenshots, diagrams, and other information. A report on relevent security headers. In short, it provides a landscape of your  webapplications. It takes input from multiple formats such as Nmap, Nessus, OpenVAS etc.</li>
+<li><strong>RAWR: Rapid Assessment of Web Resources</strong>: <a class="reference external" href="https://bitbucket.org/al14s/rawr/wiki/Home">RAWR</a> provides with a customizable CSV containing ordered information gathered for each host, with a field for making notes/etc.; An elegant, searchable, JQuery-driven HTML report that shows screenshots, diagrams, and other information. A report on relevant security headers. In short, it provides a landscape of your webapplications. It takes input from multiple formats such as Nmap, Nessus, OpenVAS etc.</li>
 </ul>
 </div>
 <div class="section" id="information-gathering-for-http-services">
 <h4>Information Gathering for http* Services<a class="headerlink" href="#information-gathering-for-http-services" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><a class="reference external" href="http://www.morningstarsecurity.com/research/whatweb">WhatWeb</a> recognises web technologies including content management systems (CMS), blogging platforms, statistic/analytics packages, JavaScript libraries, web servers, and embedded device. <a class="reference external" href="https://www.aldeid.com/wiki/Tellmeweb">Tellmeweb</a> is a ruby script to read Nmap Gnmap file and run whatweb on all of them. A <a class="reference external" href="https://github.com/stevecoward/whatweb-parser">WhatWeb Result Parser</a> also has been written which converts the results to CSV format. More information about advance usage can be found <a class="reference external" href="https://github.com/urbanadventurer/WhatWeb/wiki/Advanced-Usage">here</a>.</li>
-<li>Wapplyzer &lt;<a class="reference external" href="http://wappalyzer.com">http://wappalyzer.com</a>&gt;`__ is a Firefox plug-in. There are four ways (in my knowledge to do this)be loaded on browser. It works completely at the browser level and gives results in the form of icons.</li>
+<li><a class="reference external" href="http://www.morningstarsecurity.com/research/whatweb">WhatWeb</a> recognises web technologies including content management systems (CMS), blogging platforms, statistic/analytics packages, JavaScript libraries, web servers, and embedded device. <a class="reference external" href="https://www.aldeid.com/wiki/Tellmeweb">Tellmeweb</a> is a ruby script to read Nmap Gnmap file and run whatweb on all of them. A <a class="reference external" href="https://github.com/stevecoward/whatweb-parser">WhatWeb Result Parser</a> also has been written which converts the results to CSV format. More information about advance usage can be found <a class="reference external" href="https://github.com/urbanadventurer/WhatWeb/wiki/Advanced-Usage">Whatweb Advance Usage</a>.</li>
+<li><a class="reference external" href="http://wappalyzer.com">Wapplyzer</a> is a Firefox plug-in. There are four ways (in my knowledge to do this)be loaded on browser. It works completely at the browser level and gives results in the form of icons.</li>
 <li><a class="reference external" href="http://w3techs.com/">W3Tech</a> is another Chrome plug-in which provides information about the usage of various types technologies on the web. It tells the web technologies based on the crawling it has done. So example.com, x1.example.com, x2.example.com will show the same technologies as the domain is same (which is not correct).</li>
 <li><a class="reference external" href="https://github.com/justjavac/ChromeSnifferPlus">ChromeSnifferPlus</a> is another chrome extension to sniff about the different web-technologies used by the website.</li>
 <li><a class="reference external" href="http://builtwith.com/">BuiltWith</a> is another website which provides a good amount of information about the different technologies used by website.</li>
@@ -831,7 +888,7 @@ $ nslookup
 </div>
 <div class="section" id="enum4linux">
 <h4>enum4linux<a class="headerlink" href="#enum4linux" title="Permalink to this headline">¶</a></h4>
-<p>A Linux alternative to enum.exe for enumerating data from Windows and Samba hosts. It is is basically a wrapper around the Samba tools smbclient, rpclient, net and nmblookup.A very good usage guide is`here &lt;<a class="reference external" href="https://labs.portcullis.co.uk/tools/enum4linux/">https://labs.portcullis.co.uk/tools/enum4linux/</a>&gt;`__</p>
+<p>A Linux alternative to enum.exe for enumerating data from Windows and Samba hosts. It is is basically a wrapper around the Samba tools smbclient, rpclient, net and nmblookup. A very good usage guide is <a class="reference external" href="https://labs.portcullis.co.uk/tools/enum4linux/">enum4linx</a></p>
 </div>
 <div class="section" id="snmp-enumeration">
 <h4>SNMP Enumeration<a class="headerlink" href="#snmp-enumeration" title="Permalink to this headline">¶</a></h4>
@@ -866,8 +923,8 @@ snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  &lt;MIB Tree Number&gt; : Enume
 </div>
 </div>
 </div>
-<div class="section" id="attack-surface-area-reconnaisnce-tools">
-<h2>Attack Surface Area - Reconnaisnce Tools<a class="headerlink" href="#attack-surface-area-reconnaisnce-tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="attack-surface-area-reconnaissance-tools">
+<h2>Attack Surface Area - Reconnaissance Tools<a class="headerlink" href="#attack-surface-area-reconnaissance-tools" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="aquatone-a-tool-for-domain-flyovers">
 <h3>Aquatone: A tool for domain flyovers<a class="headerlink" href="#aquatone-a-tool-for-domain-flyovers" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://github.com/michenriksen/aquatone">Aquatone</a> is a set of tools for performing reconnaissance on domain names. It can discover subdomains on a given domain by using open sources as well as the more common subdomain dictionary brute force approach. After subdomain discovery, AQUATONE can then scan the hosts for common web ports and HTTP headers, HTML bodies and screenshots can be gathered and consolidated into a report for easy analysis of the attack surface. Detailed blog at <a class="reference external" href="http://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/">AQUATONE: A tool for domain flyovers</a></p>
@@ -887,12 +944,28 @@ snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  &lt;MIB Tree Number&gt; : Enume
 </div>
 <div class="section" id="spiderfoot">
 <h3>Spiderfoot<a class="headerlink" href="#spiderfoot" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="http://www.spiderfoot.net/">SpiderFoot</a> SpiderFoot is an open source intelligence automation tool. Its goal is to automate the process of gathering intelligence about a given target, which may be an IP address, domain name, hostname or network subnet. SpiderFoot can be used offensively, i.e. as part of a black-box penetration test to gather information about the target or defensively to identify what information your organisation is freely providing for attackers to use against you.</p>
+<p><a class="reference external" href="http://www.spiderfoot.net/">SpiderFoot</a> is an open source intelligence automation tool. Its goal is to automate the process of gathering intelligence about a given target, which may be an IP address, domain name, hostname or network subnet. SpiderFoot can be used offensively, i.e. as part of a black-box penetration test to gather information about the target or defensively to identify what information your organization is freely providing for attackers to use against you.</p>
 </div>
 <div class="section" id="intrigue-io">
 <h3>Intrigue.io<a class="headerlink" href="#intrigue-io" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://github.com/intrigueio/intrigue-core">Intrigue</a> makes it easy to discover information about attack surface connected to the Internet. Intrigue utilizes common sources of OSINT via “tasks” to create “entities”. Each discovered entity can be used to discover more information, either automatically or manually.</p>
-<div data-disqus-identifier="Infrastruture PenTest Series : Part 1 - Intelligence Gathering" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
+</div>
+</div>
+<div class="section" id="appendix-i-interesting-stories">
+<h2>Appendix-I : Interesting Stories<a class="headerlink" href="#appendix-i-interesting-stories" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="initial-compromise">
+<h3>Initial Compromise<a class="headerlink" href="#initial-compromise" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="http://threat.tevora.com/apache-and-java-information-disclosures-lead-to-shells/">Apache and Java Information Disclosures Lead to Shells</a> : Richard De La Cruz talks about a recent Red-Team engagement, where they discovered a series of information disclosures on a site allowing the team to go from zero access to full compromise in a matter of hours.</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Information disclosures in Apache HTTP servers with mod_status enabled allowed our team to discover.jar files, hosted on the site.</li>
+<li>Static values within exposed .jar files allowed our team to extract the client’s code signing certificate and sign malicious Java executables as the client.</li>
+<li>These malicious .jar files were used in a successful social engineering campaign against the client.</li>
+</ul>
+</div></blockquote>
+<div disqus-identifier="Infrastructure PenTest Series : Part 1 - Intelligence Gathering" disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>
 </div>
 

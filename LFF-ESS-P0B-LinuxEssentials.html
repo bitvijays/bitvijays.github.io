@@ -29,7 +29,8 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -37,8 +38,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/disqus.js"></script>
     <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <script type="text/javascript" src="_static/collapse.js"></script>
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="tech.bitvijays.com" href="index.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
@@ -64,7 +65,10 @@
 <li><a class="reference internal" href="#viminfo">.viminfo</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#replace-text-in-vi">Replace text in Vi</a></li>
+<li><a class="reference internal" href="#replace-text-in-vi">Replace text in Vi</a><ul>
+<li><a class="reference internal" href="#other-info">Other Info:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#bash-configuration-files-for-debian-ubuntu-based-systems">Bash configuration files - For Debian/Ubuntu based Systems</a><ul>
@@ -100,12 +104,12 @@
 <li><a class="reference internal" href="#gdb-gnu-debugger">GDB: GNU debugger</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#gathering-information">Gathering information</a><ul>
+<li><a class="reference internal" href="#gathering-information">Gathering Information</a><ul>
 <li><a class="reference internal" href="#from-files">From Files</a></li>
 <li><a class="reference internal" href="#from-commands">From Commands</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#useful-utilites-commands">Useful Utilites/ Commands</a><ul>
+<li><a class="reference internal" href="#useful-utilities-commands">Useful Utilities/ Commands</a><ul>
 <li><a class="reference internal" href="#copy-copy-files-and-directories">Copy - Copy files and directories</a></li>
 <li><a class="reference internal" href="#cut-remove-sections-from-each-line-of-files">cut - remove sections from each line of files</a></li>
 <li><a class="reference internal" href="#pipes">Pipes</a></li>
@@ -142,6 +146,7 @@
 </li>
 <li><a class="reference internal" href="#difference-between-su-and-sudo">Difference between su and sudo</a><ul>
 <li><a class="reference internal" href="#su">su</a></li>
+<li><a class="reference internal" href="#su-c">su -c</a></li>
 <li><a class="reference internal" href="#sudo">sudo</a></li>
 </ul>
 </li>
@@ -183,13 +188,14 @@
 </li>
 </ul>
 </li>
+<li><a class="reference internal" href="#interesting-stuff">Interesting Stuff</a></li>
 </ul>
 </li>
 </ul>
 
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/LFF-ESS-P0B-LinuxEssentials.txt"
+    <li><a href="_sources/LFF-ESS-P0B-LinuxEssentials.rst.txt"
            rel="nofollow">Show Source</a></li>
     <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFF-ESS-P0B-LinuxEssentials.rst"
            rel="nofollow">Show on GitHub</a></li>
@@ -216,7 +222,7 @@
             
   <div class="section" id="the-essentials-linux-basics">
 <h1>The Essentials : Linux Basics<a class="headerlink" href="#the-essentials-linux-basics" title="Permalink to this headline">¶</a></h1>
-<p>This post lists essential commands and concepts which would be helpful to a Linux user. We would cover tools required for programming ( Vi, git ), system administration ( Bash configuration files, Updating Debian Linux System, Adding/ Deleting/ Modifying Users/ Groups, Changing Group/ Owner/ Permission, Mounting/ Unmounting, Linux Directories, Runlevels and Kernel Configurations ). Also, provide some useful tips, tricks and TODO which would help you learn and practice.</p>
+<p>This post lists essential commands and concepts which would be helpful to a Linux user. We would cover tools required for programming (Vi, git), system administration (Bash configuration files, Updating Debian Linux System, Adding/ Deleting/ Modifying Users/ Groups, Changing Group/ Owner/ Permission, Mounting/ Unmounting, Linux Directories, Runlevels and Kernel Configurations). Also, provide some useful tips, tricks and TODO which would help you learn and practice.</p>
 <div class="section" id="vi-powerful-editor">
 <h2>Vi : Powerful Editor<a class="headerlink" href="#vi-powerful-editor" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="open-file-with-vi">
@@ -234,17 +240,17 @@ e                           - Move to the end of the word.
 b                           - Move to the beginning of the word.
 3w                          - 3w is similar to pressing w 3 times, moves to the start of the third word.
 30i-&#39;EscKey&#39;                - 30&lt;insert&gt;-&lt;EscapeKey&gt; : Inserts 30 - at once.
-f                           - find and move to the next ( or previous ) occurence of a character. fo find next o.
-3fo                         - find third occurence of o
+f                           - find and move to the next (or previous) occurrence of a character. fo find next o.
+3fo                         - find third occurrence of o
 %                           - In text that is structured with parentheses or brackets, ( or { or [, use % to jump to the matching parenthesis or bracket.
 0 (Zero)                    - Reach beginning of the line
 $                           - Reach end of the line.
-*                           - Find the next occurence of the word under cursor
-#                           - Find the previous occurence of the word under cursor
+*                           - Find the next occurrence of the word under cursor
+#                           - Find the previous occurrence of the word under cursor
 gg                          - Reach beginning of the file
 G                           - Reach end of the file
 30G                         - Reach the 30th line in the file
-/&lt;text&gt;                     - Search for the text. Utilize n, N for next and previous occurences.
+/&lt;text&gt;                     - Search for the text. Utilize n, N for next and previous occurrences.
 o                           - Insert a new line below the cursor
 O                           - Insert a new line above the cursor
 x                           - Delete the character
@@ -264,7 +270,7 @@ dnd                         - Delete n lines.
 :set nospell                - Turn spell checking off
 :set list                   - If &#39;list&#39; is on, whitespace characters are made visible. The default displays &quot;^I&quot; for each tab, and &quot;$&quot; at each EOL (end of line, so trailing whitespace can be seen)
 :u                          - Undo one change.
-z=                          - If the cursor is on the word ( which is highlighted with spell check), Vim will suggest a list of alternatives thatit thinks may be correct.
+z=                          - If the cursor is on the word ( which is highlighted with spell check), Vim will suggest a list of alternatives that it thinks may be correct.
 yy                          - Yank or copy current line.
 y$, yny                     - Similar to delete lines.
 p                           - Paste the line in the buffer in to text after the currentline.
@@ -277,16 +283,17 @@ p                           - Paste the line in the buffer in to text after the 
 <div class="section" id="vimrc">
 <h4>.vimrc<a class="headerlink" href="#vimrc" title="Permalink to this headline">¶</a></h4>
 <p>Contains optional runtime configuration settings to initialize Vim when it starts. Example: If you want Vim to have syntax on and line numbers on, whenever you open vi, enter syntax on and set number in this file.</p>
-</div>
-<div class="section" id="viminfo">
-<h4>.viminfo<a class="headerlink" href="#viminfo" title="Permalink to this headline">¶</a></h4>
-<p>Viminfo file stores command-line, search string, input-line history and other stuff.Useful if you want to find out what user has been doing in vi.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">##Sample contents of .vimrc</span>
 
 <span class="n">syntax</span> <span class="n">on</span>
 <span class="nb">set</span> <span class="n">number</span>
 </pre></div>
 </div>
+<p>A good details about various options which can be set in vimrc can be found at <a class="reference external" href="https://dougblack.io/words/a-good-vimrc.html">A Good Vimrc</a></p>
+</div>
+<div class="section" id="viminfo">
+<h4>.viminfo<a class="headerlink" href="#viminfo" title="Permalink to this headline">¶</a></h4>
+<p>Viminfo file stores command-line, search string, input-line history and other stuff. Useful if you want to find out what user has been doing in vi.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">Both files are present in user home directory.</p>
@@ -300,6 +307,19 @@ p                           - Paste the line in the buffer in to text after the 
 <span class="p">:</span><span class="n">s</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">learn</span><span class="o">/</span><span class="n">gi</span>  <span class="o">-</span> <span class="n">would</span> <span class="n">replace</span> <span class="n">test</span> <span class="p">(</span><span class="nb">all</span> <span class="n">cases</span><span class="p">)</span> <span class="n">to</span> <span class="n">learn</span> <span class="ow">in</span> <span class="n">current</span> <span class="n">line</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">instance</span><span class="o">.</span>
 <span class="p">:</span><span class="o">%</span><span class="n">s</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">learn</span><span class="o">/</span><span class="n">gi</span> <span class="o">-</span> <span class="n">would</span> <span class="n">replace</span> <span class="n">test</span> <span class="n">to</span> <span class="n">learn</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">file</span> <span class="p">(</span><span class="nb">all</span> <span class="n">lines</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="section" id="other-info">
+<h4>Other Info:<a class="headerlink" href="#other-info" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference external" href="https://vimawesome.com/">Vim Awesome</a> provides Awesome VIM plugins from across the universe. Few good one are</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>The NERD tree : A tree explorer plugin for vim</li>
+<li>Syntastic : Syntax checking hacks for vim</li>
+<li>Youcompleteme : A code-completion engine for Vim</li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 </div>
@@ -343,8 +363,7 @@ p                           - Paste the line in the buffer in to text after the 
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p>As mostly, updating takes time, you can club all the commands like &#8220;apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgrade &amp;&amp;  poweroff&#8221;.</p>
-<p class="last">poweroff would shutdown the system after everything is updated.</p>
+<p class="last">As mostly, updating takes time, you can club all the commands like &#8220;apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgrade &amp;&amp;  poweroff&#8221;. poweroff would shutdown the system after everything is updated.</p>
 </div>
 </div>
 <div class="section" id="using-debian-package-manager-dpkg">
@@ -388,8 +407,8 @@ groupmod           : Modify a group definition on the system.
 <span class="n">chmod</span>              <span class="p">:</span> <span class="n">change</span> <span class="n">file</span> <span class="n">mode</span> <span class="n">bits</span><span class="o">.</span>
 <span class="n">chgrp</span>              <span class="p">:</span> <span class="n">change</span> <span class="n">group</span> <span class="n">ownership</span><span class="o">.</span>
 <span class="n">SUID</span> <span class="n">bit</span>           <span class="p">:</span> <span class="n">SetUID</span> <span class="n">bit</span> <span class="n">specifies</span> <span class="n">that</span> <span class="n">an</span> <span class="n">executable</span> <span class="n">should</span> <span class="n">run</span> <span class="k">as</span> <span class="n">its</span> <span class="n">owner</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">the</span> <span class="n">user</span> <span class="n">executing</span> <span class="n">it</span><span class="o">.</span>
-                     <span class="p">:</span> <span class="n">SUID</span> <span class="ow">is</span> <span class="n">mostly</span> <span class="n">commonly</span> <span class="n">used</span> <span class="n">to</span> <span class="n">run</span> <span class="n">an</span> <span class="n">executable</span> <span class="k">as</span> <span class="n">root</span><span class="p">,</span> <span class="n">allowing</span> <span class="n">users</span> <span class="n">to</span> <span class="n">perform</span> <span class="n">tasks</span> <span class="n">such</span> <span class="k">as</span> <span class="n">changing</span> <span class="n">their</span> <span class="n">passwords</span><span class="o">.</span>
-                     <span class="p">:</span><span class="n">If</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">flaw</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">SUID</span> <span class="n">root</span> <span class="n">executable</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">run</span> <span class="n">arbitrary</span> <span class="n">code</span> <span class="k">as</span> <span class="n">root</span><span class="o">.</span>
+                   <span class="p">:</span> <span class="n">SUID</span> <span class="ow">is</span> <span class="n">mostly</span> <span class="n">commonly</span> <span class="n">used</span> <span class="n">to</span> <span class="n">run</span> <span class="n">an</span> <span class="n">executable</span> <span class="k">as</span> <span class="n">root</span><span class="p">,</span> <span class="n">allowing</span> <span class="n">users</span> <span class="n">to</span> <span class="n">perform</span> <span class="n">tasks</span> <span class="n">such</span> <span class="k">as</span> <span class="n">changing</span> <span class="n">their</span> <span class="n">passwords</span><span class="o">.</span>
+                   <span class="p">:</span> <span class="n">If</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">flaw</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">SUID</span> <span class="n">root</span> <span class="n">executable</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">run</span> <span class="n">arbitrary</span> <span class="n">code</span> <span class="k">as</span> <span class="n">root</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -425,9 +444,9 @@ groupmod           : Modify a group definition on the system.
 <h3>Runlevels and Kernel Configurations<a class="headerlink" href="#runlevels-and-kernel-configurations" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="linux-boot-process">
 <h4>Linux Boot Process<a class="headerlink" href="#linux-boot-process" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">BIOS</span> <span class="n">starts</span> <span class="n">the</span> <span class="n">boot</span> <span class="n">loader</span>
-<span class="mf">2.</span> <span class="n">Boot</span> <span class="n">loader</span> <span class="n">loads</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">into</span> <span class="n">memory</span>
-<span class="mf">3.</span> <span class="n">The</span> <span class="n">Kernel</span> <span class="n">mounts</span> <span class="n">disks</span><span class="o">/</span><span class="n">partitions</span> <span class="ow">and</span> <span class="n">starts</span> <span class="n">the</span> <span class="n">init</span> <span class="n">daemon</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">BIOS</span> <span class="n">start</span> <span class="n">the</span> <span class="n">boot</span> <span class="n">loader</span><span class="o">.</span>
+<span class="mf">2.</span> <span class="n">Boot</span> <span class="n">loader</span> <span class="n">loads</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">into</span> <span class="n">memory</span><span class="o">.</span>
+<span class="mf">3.</span> <span class="n">The</span> <span class="n">Kernel</span> <span class="n">mounts</span> <span class="n">disks</span><span class="o">/</span><span class="n">partitions</span> <span class="ow">and</span> <span class="n">starts</span> <span class="n">the</span> <span class="n">init</span> <span class="n">daemon</span><span class="o">.</span>
 <span class="mf">4.</span> <span class="n">The</span> <span class="n">init</span> <span class="n">daemon</span> <span class="n">starts</span> <span class="n">services</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">runlevel</span><span class="o">.</span>
 </pre></div>
 </div>
@@ -466,7 +485,7 @@ groupmod           : Modify a group definition on the system.
 <td>For special purposes.</td>
 </tr>
 <tr class="row-odd"><td>5</td>
-<td>Start system normally with display manager. ( with GUI )</td>
+<td>Start system normally with display manager (with GUI).</td>
 <td>Same as runlevel 3 + display manager</td>
 </tr>
 <tr class="row-even"><td>6</td>
@@ -506,7 +525,7 @@ groupmod           : Modify a group definition on the system.
 <li>update-rc.d and there are two commonly used invocation methods:</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">update</span><span class="o">-</span><span class="n">rc</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">service</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">remove</span> <span class="p">:</span> <span class="n">Disabling</span> <span class="n">a</span> <span class="n">service</span>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">update</span><span class="o">-</span><span class="n">rc</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">service</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">remove</span> <span class="p">:</span> <span class="n">Disabling</span> <span class="n">a</span> <span class="n">service</span><span class="o">.</span>
 <span class="n">update</span><span class="o">-</span><span class="n">rc</span><span class="o">.</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">service</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">defaults</span>  <span class="p">:</span> <span class="n">Insert</span> <span class="n">links</span> <span class="n">using</span> <span class="n">defaults</span><span class="p">,</span> <span class="n">start</span> <span class="ow">in</span> <span class="n">runlevel</span> <span class="mi">2</span><span class="o">-</span><span class="mi">5</span> <span class="ow">and</span> <span class="n">stop</span> <span class="ow">in</span> <span class="n">runlevels</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span> <span class="ow">and</span> <span class="mf">6.</span>
 </pre></div>
 </div>
@@ -515,7 +534,12 @@ groupmod           : Modify a group definition on the system.
 <li>Systemctl : Control the systemd system and service manager. systemctl may be used to introspect and control the state of the &#8220;systemd&#8221; system and service manager.</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="p">:</span> <span class="n">Present</span> <span class="n">a</span> <span class="n">detailed</span> <span class="n">output</span> <span class="n">about</span> <span class="n">the</span> <span class="n">different</span> <span class="n">services</span> <span class="n">running</span>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="p">:</span> <span class="n">Present</span> <span class="n">a</span> <span class="n">detailed</span> <span class="n">output</span> <span class="n">about</span> <span class="n">the</span> <span class="n">different</span> <span class="n">services</span> <span class="n">running</span><span class="o">.</span>
+
+<span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span>
+
+<span class="n">systemctl</span> <span class="n">status</span> <span class="o">&lt;</span><span class="n">service_name</span><span class="o">&gt;</span> <span class="o">-</span> <span class="n">Status</span> <span class="n">of</span> <span class="n">the</span> <span class="n">service</span><span class="o">.</span>
+<span class="n">systemctl</span> <span class="n">start</span> <span class="o">&lt;</span><span class="n">service_name</span><span class="o">&gt;</span>  <span class="o">-</span> <span class="n">Start</span> <span class="n">the</span> <span class="n">service</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -554,7 +578,7 @@ groupmod           : Modify a group definition on the system.
 </div>
 </div>
 <div class="section" id="gathering-information">
-<h2>Gathering information<a class="headerlink" href="#gathering-information" title="Permalink to this headline">¶</a></h2>
+<h2>Gathering Information<a class="headerlink" href="#gathering-information" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="from-files">
 <h3>From Files<a class="headerlink" href="#from-files" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">issue</span>     <span class="p">:</span> <span class="n">Contains</span> <span class="n">the</span> <span class="n">message</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">displayed</span> <span class="n">on</span> <span class="n">terminal</span> <span class="n">before</span> <span class="n">login</span><span class="o">.</span>
@@ -580,8 +604,8 @@ groupmod           : Modify a group definition on the system.
 </div>
 </div>
 </div>
-<div class="section" id="useful-utilites-commands">
-<h2>Useful Utilites/ Commands<a class="headerlink" href="#useful-utilites-commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="useful-utilities-commands">
+<h2>Useful Utilities/ Commands<a class="headerlink" href="#useful-utilities-commands" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="copy-copy-files-and-directories">
 <h3>Copy - Copy files and directories<a class="headerlink" href="#copy-copy-files-and-directories" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">&lt;</span><span class="n">SOURCE</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">DIRECTORY</span><span class="o">&gt;</span>
@@ -594,14 +618,15 @@ groupmod           : Modify a group definition on the system.
 </div>
 <div class="section" id="cut-remove-sections-from-each-line-of-files">
 <h3>cut - remove sections from each line of files<a class="headerlink" href="#cut-remove-sections-from-each-line-of-files" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">d</span>        <span class="p">:</span> <span class="n">use</span> <span class="n">DELIM</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">TAB</span> <span class="k">for</span> <span class="n">field</span> <span class="n">delimiter</span><span class="o">.</span>
-<span class="o">-</span><span class="n">f</span>        <span class="p">:</span> <span class="n">select</span> <span class="n">only</span> <span class="n">these</span> <span class="n">fields</span><span class="o">.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cut</span> <span class="n">OPTION</span><span class="o">...</span> <span class="p">[</span><span class="n">FILE</span><span class="p">]</span><span class="o">...</span>
+ <span class="o">-</span><span class="n">d</span>        <span class="p">:</span> <span class="n">use</span> <span class="n">DELIM</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">TAB</span> <span class="k">for</span> <span class="n">field</span> <span class="n">delimiter</span><span class="o">.</span>
+ <span class="o">-</span><span class="n">f</span>        <span class="p">:</span> <span class="n">select</span> <span class="n">only</span> <span class="n">these</span> <span class="n">fields</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="pipes">
 <h3>Pipes<a class="headerlink" href="#pipes" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span>        <span class="p">:</span> <span class="n">direct</span> <span class="n">normal</span> <span class="n">output</span><span class="o">.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span>         <span class="p">:</span> <span class="n">direct</span> <span class="n">normal</span> <span class="n">output</span><span class="o">.</span>
 <span class="mi">2</span><span class="o">&gt;</span>        <span class="p">:</span> <span class="n">direct</span> <span class="n">error</span> <span class="n">output</span><span class="o">.</span>
 <span class="o">&amp;&gt;</span>        <span class="p">:</span> <span class="n">direct</span> <span class="nb">all</span> <span class="n">output</span><span class="o">.</span>
 </pre></div>
@@ -625,7 +650,7 @@ groupmod           : Modify a group definition on the system.
 <span class="o">-</span><span class="n">user</span>       <span class="p">:</span> <span class="n">File</span> <span class="ow">is</span> <span class="n">owned</span> <span class="n">by</span> <span class="n">user</span> <span class="n">uname</span> <span class="p">(</span><span class="n">numeric</span> <span class="n">user</span> <span class="n">ID</span> <span class="n">allowed</span><span class="p">)</span><span class="o">.</span>
 <span class="o">-</span><span class="n">group</span>      <span class="p">:</span> <span class="n">File</span> <span class="n">belongs</span> <span class="n">to</span> <span class="n">group</span> <span class="n">gname</span> <span class="p">(</span><span class="n">numeric</span> <span class="n">group</span> <span class="n">ID</span> <span class="n">allowed</span><span class="p">)</span><span class="o">.</span>
 <span class="o">-</span><span class="n">size</span>       <span class="p">:</span> <span class="n">File</span> <span class="n">uses</span> <span class="n">n</span> <span class="n">units</span> <span class="n">of</span> <span class="n">space</span><span class="o">.</span> <span class="n">c</span><span class="o">/</span><span class="n">k</span><span class="o">/</span><span class="n">M</span><span class="o">/</span><span class="n">G</span><span class="p">:</span> <span class="nb">bytes</span><span class="o">/</span><span class="n">Kilobytes</span><span class="o">/</span><span class="n">Megabytes</span><span class="o">/</span><span class="n">Gigabytes</span><span class="o">.</span>
-<span class="o">-</span><span class="n">name</span>       <span class="p">:</span>
+<span class="o">-</span><span class="n">name</span>       <span class="p">:</span> <span class="n">Base</span>  <span class="n">of</span>  <span class="n">file</span>  <span class="n">name</span>
 </pre></div>
 </div>
 <div class="section" id="delete-empty-file-and-directories">
@@ -664,7 +689,7 @@ groupmod           : Modify a group definition on the system.
 <span class="n">tee</span>       <span class="p">:</span> <span class="n">saves</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">file</span> <span class="k">as</span> <span class="n">well</span> <span class="k">as</span> <span class="n">forward</span> <span class="n">it</span><span class="o">.</span>
 <span class="n">touch</span>     <span class="p">:</span> <span class="n">Create</span> <span class="n">zero</span> <span class="n">byte</span> <span class="n">files</span><span class="p">,</span> <span class="n">mainly</span> <span class="n">used</span> <span class="k">for</span> <span class="n">changing</span> <span class="n">the</span> <span class="n">timestamps</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span><span class="o">.</span>
 <span class="n">make</span>      <span class="p">:</span> <span class="n">If</span> <span class="n">your</span> <span class="n">program</span> <span class="n">source</span> <span class="n">file</span> <span class="n">name</span> <span class="ow">is</span> <span class="n">test</span><span class="o">.</span><span class="n">c</span><span class="o">/</span><span class="n">cpp</span><span class="p">,</span> <span class="n">then</span> <span class="n">you</span> <span class="n">can</span> <span class="n">directly</span> <span class="n">write</span> <span class="n">make</span> <span class="n">test</span><span class="p">,</span> <span class="n">this</span> <span class="n">would</span> <span class="nb">compile</span> <span class="n">the</span> <span class="n">test</span><span class="o">.</span><span class="n">c</span><span class="o">/</span><span class="n">cpp</span> <span class="n">program</span><span class="o">.</span> <span class="n">Remember</span> <span class="n">this</span> <span class="n">it</span><span class="s1">&#39;s a faster way.</span>
-<span class="n">stat</span>      <span class="p">:</span> <span class="n">View</span> <span class="n">detailed</span> <span class="n">information</span> <span class="n">about</span> <span class="n">a</span> <span class="n">file</span><span class="p">,</span> <span class="n">including</span> <span class="n">its</span> <span class="n">name</span><span class="p">,</span><span class="n">size</span><span class="p">,</span> <span class="n">last</span> <span class="n">modified</span> <span class="n">date</span><span class="p">,</span> <span class="ow">and</span> <span class="n">permissions</span><span class="o">.</span>
+<span class="n">stat</span>      <span class="p">:</span> <span class="n">View</span> <span class="n">detailed</span> <span class="n">information</span> <span class="n">about</span> <span class="n">a</span> <span class="n">file</span><span class="p">,</span> <span class="n">including</span> <span class="n">its</span> <span class="n">name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">last</span> <span class="n">modified</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">permissions</span><span class="o">.</span>
 <span class="n">uniq</span>      <span class="p">:</span> <span class="n">Report</span> <span class="ow">or</span> <span class="n">omit</span> <span class="n">repeated</span> <span class="n">lines</span><span class="o">.</span>
   <span class="o">-</span><span class="n">c</span>      <span class="p">:</span> <span class="n">prefix</span> <span class="n">lines</span> <span class="n">by</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">occurrences</span><span class="o">.</span> <span class="p">(</span><span class="o">--</span><span class="n">count</span><span class="p">)</span>
 </pre></div>
@@ -815,7 +840,7 @@ wlan0
 <p>We want our information to</p>
 <ul class="simple">
 <li>be read by only the right people (confidentiality).</li>
-<li>only be changed by authorised people or processes (integrity)</li>
+<li>only be changed by authorized people or processes (integrity)</li>
 <li>be available to read and use whenever we want (availability).</li>
 </ul>
 </div>
@@ -828,8 +853,29 @@ wlan0
 <h3>Difference between su and sudo<a class="headerlink" href="#difference-between-su-and-sudo" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="su">
 <h4>su<a class="headerlink" href="#su" title="Permalink to this headline">¶</a></h4>
-<p>Change users or become superuser. The difference between su - and su is that former su - would switch to the new user directory. It would also change the environment variable according to the changed user.</p>
+<p>Change users or become superuser. The difference between &#8220;su -&#8221; and &#8220;su&#8221; is that former &#8220;su -&#8221; would switch to the new user directory. It would also change the environment variable according to the changed user. Whereas &#8220;su&#8221; would only change the user but will stay in the same directory.</p>
+<p>Example: &#8220;su -&#8220;</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>root@Kali-Home:~# su - bitvijays
+bitvijays@Kali-Home:~$ pwd
+/home/bitvijays
+</pre></div>
+</div>
+<p>Example: &#8220;su&#8221;</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>root@Kali-Home:~# su bitvijays
+bitvijays@Kali-Home:/root$ pwd
+/root
+</pre></div>
+</div>
+</div>
+<div class="section" id="su-c">
+<h4>su -c<a class="headerlink" href="#su-c" title="Permalink to this headline">¶</a></h4>
+<p>Executing command as another user</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">su</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;command&quot;</span> <span class="p">:</span> <span class="n">Specify</span> <span class="n">a</span> <span class="n">command</span> <span class="n">that</span> <span class="n">will</span> <span class="n">be</span> <span class="n">invoked</span> <span class="n">by</span> <span class="n">the</span> <span class="n">shell</span> <span class="n">using</span> <span class="n">its</span> <span class="o">-</span><span class="n">c</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">su</span> <span class="n">bitvijays</span> <span class="o">-</span><span class="n">c</span> <span class="nb">id</span>
+<span class="n">uid</span><span class="o">=</span><span class="mi">1000</span><span class="p">(</span><span class="n">bitvijays</span><span class="p">)</span> <span class="n">gid</span><span class="o">=</span><span class="mi">1001</span><span class="p">(</span><span class="n">bitvijays</span><span class="p">)</span> <span class="n">groups</span><span class="o">=</span><span class="mi">1001</span><span class="p">(</span><span class="n">bitvijays</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -909,20 +955,22 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <div class="section" id="grep">
 <h3>Grep<a class="headerlink" href="#grep" title="Permalink to this headline">¶</a></h3>
 <p>Scan files for a text present in them Find a way to scan my entire linux system for all files containing a specific string of text. Just to clarify, I&#8217;m looking for text within the file, not in the file name.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="n">grep</span> <span class="o">-</span><span class="n">rnw</span> <span class="s1">&#39;directory&#39;</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;pattern&quot;</span> <span class="o">--</span><span class="n">include</span><span class="o">=</span><span class="p">{</span><span class="o">*.</span><span class="n">c</span><span class="p">,</span><span class="o">*.</span><span class="n">h</span><span class="p">}</span> <span class="o">--</span><span class="n">exclude</span><span class="o">=*.</span><span class="n">o</span>
-   <span class="o">-</span><span class="n">r</span>                    <span class="p">:</span> <span class="n">search</span> <span class="n">recursively</span>
-   <span class="o">-</span><span class="n">n</span>                    <span class="p">:</span> <span class="nb">print</span> <span class="n">line</span> <span class="n">number</span>
-   <span class="o">-</span><span class="n">w</span>                    <span class="p">:</span> <span class="n">match</span> <span class="n">the</span> <span class="n">whole</span> <span class="n">word</span><span class="o">.</span>
-   <span class="o">--</span><span class="n">include</span><span class="o">=</span><span class="p">{</span><span class="o">*.</span><span class="n">c</span><span class="p">,</span><span class="o">*.</span><span class="n">h</span><span class="p">}</span>   <span class="p">:</span> <span class="n">Only</span> <span class="n">search</span> <span class="n">through</span> <span class="n">the</span> <span class="n">files</span> <span class="n">which</span> <span class="n">have</span> <span class="o">.</span><span class="n">c</span> <span class="ow">or</span> <span class="o">.</span><span class="n">h</span> <span class="n">extensions</span><span class="o">.</span>
-   <span class="o">--</span><span class="n">exclude</span><span class="o">=*.</span><span class="n">o</span>         <span class="p">:</span> <span class="n">Exclude</span> <span class="n">searching</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">with</span> <span class="o">.</span><span class="n">o</span> <span class="n">extensions</span><span class="o">.</span>
-   <span class="o">-</span><span class="n">i</span><span class="p">,</span> <span class="o">--</span><span class="n">ignore</span><span class="o">-</span><span class="n">case</span>     <span class="p">:</span> <span class="s1">&#39;it DoesNt MatTTer WhaT thE CAse Is&#39;</span>
-   <span class="o">-</span><span class="n">v</span><span class="p">,</span> <span class="o">--</span><span class="n">invert</span><span class="o">-</span><span class="n">match</span>    <span class="p">:</span> <span class="s1">&#39;everything , BUT that text&#39;</span>
-   <span class="o">-</span><span class="n">A</span> <span class="o">&lt;</span><span class="n">NUM</span><span class="o">&gt;</span>              <span class="p">:</span> <span class="n">Print</span> <span class="n">NUM</span> <span class="n">lines</span> <span class="n">of</span> <span class="n">trailing</span> <span class="n">context</span> <span class="n">after</span> <span class="n">matching</span> <span class="n">lines</span><span class="o">.</span>
-   <span class="o">-</span><span class="n">B</span> <span class="o">&lt;</span><span class="n">NUM</span><span class="o">&gt;</span>              <span class="p">:</span> <span class="n">Print</span> <span class="n">NUM</span> <span class="n">lines</span> <span class="n">of</span> <span class="n">trailing</span> <span class="n">context</span> <span class="n">before</span> <span class="n">matching</span> <span class="n">lines</span><span class="o">.</span>
-   <span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="o">--</span><span class="n">text</span>            <span class="p">:</span> <span class="n">Process</span> <span class="n">a</span> <span class="n">binary</span> <span class="n">file</span> <span class="k">as</span> <span class="k">if</span> <span class="n">it</span> <span class="n">were</span> <span class="n">text</span><span class="p">;</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">equivalent</span> <span class="n">to</span> <span class="n">the</span> <span class="o">--</span><span class="n">binary</span><span class="o">-</span><span class="n">files</span><span class="o">=</span><span class="n">text</span> <span class="n">option</span><span class="o">.</span>
-
-<span class="o">..</span> <span class="n">Note</span> <span class="p">::</span> <span class="o">--</span><span class="n">exclude</span> <span class="ow">or</span> <span class="o">--</span><span class="n">include</span> <span class="n">parameter</span> <span class="n">could</span> <span class="n">be</span> <span class="n">used</span> <span class="k">for</span> <span class="n">efficient</span> <span class="n">searching</span><span class="o">.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="o">-</span><span class="n">rnw</span> <span class="s1">&#39;directory&#39;</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;pattern&quot;</span> <span class="o">--</span><span class="n">include</span><span class="o">=</span><span class="p">{</span><span class="o">*.</span><span class="n">c</span><span class="p">,</span><span class="o">*.</span><span class="n">h</span><span class="p">}</span> <span class="o">--</span><span class="n">exclude</span><span class="o">=*.</span><span class="n">o</span>
+  <span class="o">-</span><span class="n">r</span>                    <span class="p">:</span> <span class="n">search</span> <span class="n">recursively</span>
+  <span class="o">-</span><span class="n">n</span>                    <span class="p">:</span> <span class="nb">print</span> <span class="n">line</span> <span class="n">number</span>
+  <span class="o">-</span><span class="n">w</span>                    <span class="p">:</span> <span class="n">match</span> <span class="n">the</span> <span class="n">whole</span> <span class="n">word</span><span class="o">.</span>
+  <span class="o">--</span><span class="n">include</span><span class="o">=</span><span class="p">{</span><span class="o">*.</span><span class="n">c</span><span class="p">,</span><span class="o">*.</span><span class="n">h</span><span class="p">}</span>   <span class="p">:</span> <span class="n">Only</span> <span class="n">search</span> <span class="n">through</span> <span class="n">the</span> <span class="n">files</span> <span class="n">which</span> <span class="n">have</span> <span class="o">.</span><span class="n">c</span> <span class="ow">or</span> <span class="o">.</span><span class="n">h</span> <span class="n">extensions</span><span class="o">.</span>
+  <span class="o">--</span><span class="n">exclude</span><span class="o">=*.</span><span class="n">o</span>         <span class="p">:</span> <span class="n">Exclude</span> <span class="n">searching</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">with</span> <span class="o">.</span><span class="n">o</span> <span class="n">extensions</span><span class="o">.</span>
+  <span class="o">-</span><span class="n">i</span><span class="p">,</span> <span class="o">--</span><span class="n">ignore</span><span class="o">-</span><span class="n">case</span>     <span class="p">:</span> <span class="s1">&#39;it DoesNt MatTTer WhaT thE CAse Is&#39;</span>
+  <span class="o">-</span><span class="n">v</span><span class="p">,</span> <span class="o">--</span><span class="n">invert</span><span class="o">-</span><span class="n">match</span>    <span class="p">:</span> <span class="s1">&#39;everything , BUT that text&#39;</span>
+  <span class="o">-</span><span class="n">A</span> <span class="o">&lt;</span><span class="n">NUM</span><span class="o">&gt;</span>              <span class="p">:</span> <span class="n">Print</span> <span class="n">NUM</span> <span class="n">lines</span> <span class="n">of</span> <span class="n">trailing</span> <span class="n">context</span> <span class="n">after</span> <span class="n">matching</span> <span class="n">lines</span><span class="o">.</span>
+  <span class="o">-</span><span class="n">B</span> <span class="o">&lt;</span><span class="n">NUM</span><span class="o">&gt;</span>              <span class="p">:</span> <span class="n">Print</span> <span class="n">NUM</span> <span class="n">lines</span> <span class="n">of</span> <span class="n">trailing</span> <span class="n">context</span> <span class="n">before</span> <span class="n">matching</span> <span class="n">lines</span><span class="o">.</span>
+  <span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="o">--</span><span class="n">text</span>            <span class="p">:</span> <span class="n">Process</span> <span class="n">a</span> <span class="n">binary</span> <span class="n">file</span> <span class="k">as</span> <span class="k">if</span> <span class="n">it</span> <span class="n">were</span> <span class="n">text</span><span class="p">;</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">equivalent</span> <span class="n">to</span> <span class="n">the</span> <span class="o">--</span><span class="n">binary</span><span class="o">-</span><span class="n">files</span><span class="o">=</span><span class="n">text</span> <span class="n">option</span><span class="o">.</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">&#8211;exclude or &#8211;include parameter could be used for efficient searching.</p>
 </div>
 </div>
 <div class="section" id="apt-get-error">
@@ -971,11 +1019,11 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 </div>
 <div class="section" id="keyboard-shortcuts">
 <h3>Keyboard shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Move</span> <span class="n">to</span> <span class="n">the</span> <span class="n">start</span> <span class="n">of</span> <span class="n">line</span><span class="o">.</span> <span class="n">Ctrl</span> <span class="o">+</span> <span class="n">a</span>
-<span class="n">Move</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">line</span><span class="o">.</span> <span class="n">Ctrl</span> <span class="o">+</span> <span class="n">e</span>
-<span class="n">Cut</span> <span class="kn">from</span> <span class="nn">cursor</span> <span class="n">to</span> <span class="n">previous</span> <span class="n">whitespace</span><span class="o">.</span> <span class="n">Ctrl</span> <span class="o">+</span> <span class="n">w</span>
-<span class="n">Cut</span> <span class="kn">from</span> <span class="nn">cursor</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">line</span><span class="o">.</span> <span class="n">Ctrl</span> <span class="o">+</span> <span class="n">k</span>
-<span class="n">Paste</span> <span class="n">the</span> <span class="n">last</span> <span class="n">cut</span> <span class="n">text</span><span class="o">.</span> <span class="n">Ctrl</span> <span class="o">+</span> <span class="n">y</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Ctrl</span> <span class="o">+</span> <span class="n">a</span> <span class="p">:</span> <span class="n">Move</span> <span class="n">to</span> <span class="n">the</span> <span class="n">start</span> <span class="n">of</span> <span class="n">line</span><span class="o">.</span>
+<span class="n">Ctrl</span> <span class="o">+</span> <span class="n">e</span> <span class="p">:</span> <span class="n">Move</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">line</span><span class="o">.</span>
+<span class="n">Ctrl</span> <span class="o">+</span> <span class="n">w</span> <span class="p">:</span> <span class="n">Cut</span> <span class="kn">from</span> <span class="nn">cursor</span> <span class="n">to</span> <span class="n">previous</span> <span class="n">whitespace</span><span class="o">.</span>
+<span class="n">Ctrl</span> <span class="o">+</span> <span class="n">k</span> <span class="p">:</span> <span class="n">Cut</span> <span class="kn">from</span> <span class="nn">cursor</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">line</span><span class="o">.</span>
+<span class="n">Ctrl</span> <span class="o">+</span> <span class="n">y</span> <span class="p">:</span> <span class="n">Paste</span> <span class="n">the</span> <span class="n">last</span> <span class="n">cut</span> <span class="n">text</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -984,7 +1032,7 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Search</span> <span class="k">as</span> <span class="n">you</span> <span class="nb">type</span><span class="o">.</span> <span class="n">Ctrl</span> <span class="o">+</span> <span class="n">r</span> <span class="ow">and</span> <span class="nb">type</span> <span class="n">the</span> <span class="n">search</span> <span class="n">term</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>Read <a class="reference external" href="http://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing">here</a>. more for Command Line Editing.</p>
+<p>Read <a class="reference external" href="http://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing">Command Line Editing</a> for more information.</p>
 </div>
 <div class="section" id="awk-converting-to-normal-output-to-csv">
 <h3>Awk converting to normal output to csv<a class="headerlink" href="#awk-converting-to-normal-output-to-csv" title="Permalink to this headline">¶</a></h3>
@@ -1035,31 +1083,31 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <div class="section" id="task-3-add-user">
 <h4>Task 3 : Add User<a class="headerlink" href="#task-3-add-user" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Create a alice, bob, eve with the password &#8220;password&#8221; HINT: set password using chpasswd, look some examples in google to change from cmdline.</li>
+<li>Create a Alice, Bob, eve with the password &#8220;password&#8221; HINT: set password using chpasswd, look some examples in google to change from cmdline.</li>
 <li>Login from eve</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
 <li>Copy and preserve all the configuration files from /etc and save it in eve home directory in the folder etc-backup-YYYYMMDD, direct all errors to cp.err</li>
-<li>Change the owner of all the files in the folder just created to bob and the group of all the files to alice and change the permission of all the files to 440 i.e r&#8211;r&#8212;&#8211; HINT: would have to be logined as root</li>
+<li>Change the owner of all the files in the folder just created to Bob and the group of all the files to Alice and change the permission of all the files to 440 i.e r&#8211;r&#8212;&#8211; HINT: would have to be logined as root</li>
 <li>Provide me all the unique shells used by the user present in the system in CAPS. HINT: /etc/passwd file contains all the shells, three four commands would be used.</li>
 <li>Cover your tracks, clear out the /var/log/auth.log (Have a look at this file and create a backup before clearing), clean your terminal history HINT: man pages would help you.</li>
-<li>Delete all the user bob, alice, eve. Make sure you delete there files too.</li>
+<li>Delete all the user Bob, Alice, eve. Make sure you delete their files too.</li>
 <li>Turn off the ping responses for your system permanently and turn on the Syn-cookies protection mechanism. {Search on Google}</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Use your previous script to create three users alice, bob, eve.</li>
+<li>Use your previous script to create three users Alice, Bob, eve.</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
 <li>create a folder dept inside it two folder hr, web.</li>
 <li>create two group hr and web.</li>
 <li>change group of web folder to web and hr to hr.</li>
-<li>add alice and bob user to web group</li>
-<li>add alice to hr group.</li>
-<li>check that bob is not able to enter in the hr folder and alice is able to enter in both hr and web folder</li>
-<li>add user bob to sudo group and check if it is able to run sudo ifconfig ?</li>
+<li>add Alice and Bob user to web group</li>
+<li>add Alice to hr group.</li>
+<li>check that Bob is not able to enter in the hr folder and Alice is able to enter in both hr and web folder</li>
+<li>add user Bob to sudo group and check if it is able to run sudo ifconfig ?</li>
 </ul>
 </div></blockquote>
 </div>
@@ -1075,9 +1123,16 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <li>Sort and find unique list. Get their ip addresses</li>
 <li>HINT: Tools such as cut, grep, wget, sort, uniq, host and little bit of bash scripting would be used.</li>
 </ul>
-<div data-disqus-identifier="The Essentials : Linux Basics" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>
 </div>
+</div>
+<div class="section" id="interesting-stuff">
+<h2>Interesting Stuff<a class="headerlink" href="#interesting-stuff" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Linux Monitoring Tools : Server density has written most comprehensive list of <a class="reference external" href="https://www.serverdensity.com/monitor/linux/how-to/">80 Linux Monitoring Tools</a></li>
+<li>Windows Monitoring Tools : Server density has written similar list for Windows too <a class="reference external" href="https://www.serverdensity.com/monitor/windows/how-to/">60+ Windows Monitoring Tools</a></li>
+</ul>
+<div disqus-identifier="The Essentials : Linux Basics" disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>
 
 
