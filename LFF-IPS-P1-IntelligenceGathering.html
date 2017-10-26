@@ -2,11 +2,9 @@
 
 <!doctype html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
 
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-92365403-1']);
@@ -19,10 +17,8 @@
       })();
     </script>
     <title>Infrastructure PenTest Series : Part 1 - Intelligence Gathering &#8212; tech.bitvijays.com</title>
-    
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -36,16 +32,14 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/disqus.js"></script>
     <script type="text/javascript" src="_static/bizstyle.js"></script>
-    <script type="text/javascript" src="_static/collapse.js"></script>
     <link rel="search" title="Search" href="search.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -191,7 +185,7 @@
 <p>Example:</p>
 <p>What are the</p>
 <ul class="simple">
-<li>Different domain/ subdomains present? (like example.com &#8211; domain; ftp.example.com &#8211; subdomain)</li>
+<li>Different domain/ subdomains present? (like example.com – domain; ftp.example.com – subdomain)</li>
 <li>Different IP Address/ Network ranges/ ASN Number assigned?</li>
 <li>Different Services/ Ports running on those IP Addresses?</li>
 <li>Email addresses or People working in the organization?</li>
@@ -202,15 +196,15 @@
 </div>
 <div class="section" id="inside-internal">
 <h3>Inside - Internal<a class="headerlink" href="#inside-internal" title="Permalink to this headline">¶</a></h3>
-<p>When we are inside the organization (Let&#8217;s say physically), probably, posing as internal employee (already have access to the internal network) or external consultant (with no internal network access as of now). Let&#8217;s explore what are the options we have as external consultant sitting in a conference room.</p>
+<p>When we are inside the organization (Let’s say physically), probably, posing as internal employee (already have access to the internal network) or external consultant (with no internal network access as of now). Let’s explore what are the options we have as external consultant sitting in a conference room.</p>
 <div class="section" id="wired-lan">
 <h4>Wired LAN<a class="headerlink" href="#wired-lan" title="Permalink to this headline">¶</a></h4>
-<p>If there&#8217;s a LAN cable around and we plug it in our computer, there might be few possibilities</p>
+<p>If there’s a LAN cable around and we plug it in our computer, there might be few possibilities</p>
 <ul class="simple">
 <li>DHCP (Dynamic Host Configuration Protocol) is enabled and your machine is provided with an IP Address.</li>
 <li>DHCP is disabled; however, LAN cable is working. In this case, probably, we could sniff the network and figure out the near-by IP Address, netmask and default gateway.</li>
-<li>Network Access Control is enabled, then probably we would need to search for a Printer attached to network (clone it&#8217;s MAC address and try) or IP Phones or any Hub.</li>
-<li>LAN port is disabled (Here you can&#8217;t much! Can you?).</li>
+<li>Network Access Control is enabled, then probably we would need to search for a Printer attached to network (clone it’s MAC address and try) or IP Phones or any Hub.</li>
+<li>LAN port is disabled (Here you can’t much! Can you?).</li>
 </ul>
 </div>
 <div class="section" id="wireless-lan">
@@ -232,17 +226,17 @@
 <li><a class="reference external" href="https://github.com/SpiderLabs/Responder">Responder</a> : Responder is a LLMNR, NBT-NS and MDNS poisoner, with built-in HTTP/ SMB/ MSSQL/ FTP/ LDAP rogue authentication server supporting NTLMv1/ NTLMv2/ LMv2, Extended Security NTLMSSP and Basic HTTP authentication. It is very important to understand LLMNR, NBT-NS. Understand the basics by reading the <a class="reference external" href="https://www.sternsecurity.com/blog/local-network-attacks-llmnr-and-nbt-ns-poisoning">Local Network Attacks: LLMNR and NBT-NS Poisoning</a>, <a class="reference external" href="https://pentest.blog/what-is-llmnr-wpad-and-how-to-abuse-them-during-pentest/">What is LLMNR &amp; WPAD and How to Abuse Them During Pentest ?</a>  and <a class="reference external" href="https://www.pentestpartners.com/security-blog/how-to-get-windows-to-give-you-credentials-through-llmnr/">How to get Windows to give you credentials through LLMNR</a></li>
 </ul>
 <blockquote>
-<div><p>Basically it&#8217;s like this</p>
+<div><p>Basically it’s like this</p>
 <ul class="simple">
-<li>Let&#8217;s say a user wants to access a file server named &#8220;NAS001&#8221; by \\NAS001, however, mistakenly types in \\NAS01.</li>
-<li>The query goes to the DNS server to resolve the IP of NAS01. However, as it&#8217;s not a valid hostname, DNS Server responds to the user saying that it doesn’t know that host.</li>
-<li>The user then broadcasts on the local network if anyone knows who is \\NAS01</li>
-<li>The attacker (if on the same network) seeing the opportunity says &#8220;I am NAS01 here is my IP Address&#8221;</li>
+<li>Let’s say a user wants to access a file server named “NAS001” by \NAS001, however, mistakenly types in \NAS01.</li>
+<li>The query goes to the DNS server to resolve the IP of NAS01. However, as it’s not a valid hostname, DNS Server responds to the user saying that it doesn’t know that host.</li>
+<li>The user then broadcasts on the local network if anyone knows who is \NAS01</li>
+<li>The attacker (if on the same network) seeing the opportunity says “I am NAS01 here is my IP Address”</li>
 <li>The user believes the attacker and sends its own username and NTMLv2 hash to the attacker.</li>
 <li>The attacker gathers all the hashes and then crack the hash to discover the password offline.</li>
 </ul>
 <p>Recently, the Responder also have the functionality of Multi-relay, which allows you to relay the NTLMv1/2 authentication to a specific target and possibly execute the code (during a successful attack) on the target node. NotSoSecure has written a detailed blog on <a class="reference external" href="https://www.notsosecure.com/pwning-with-responder-a-pentesters-guide/">Pwning with Responder – A Pentester’s Guide</a></p>
-<p>Similar to Python Responder, there&#8217;s inveigh</p>
+<p>Similar to Python Responder, there’s inveigh</p>
 </div></blockquote>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/Kevin-Robertson/Inveigh">Inveigh</a> is a PowerShell LLMNR/ mDNS/ NBNS spoofer and man-in-the-middle tool designed to assist penetration testers/ red teamers that find themselves limited to a Windows system.</li>
@@ -252,19 +246,19 @@
 <h4>NTLM/ NTLMv1/v2 / Net-NTLMv1/v2<a class="headerlink" href="#ntlm-ntlmv1-v2-net-ntlmv1-v2" title="Permalink to this headline">¶</a></h4>
 <p><em>Probably, We should cover this in Exploitation. However as we have mentioned Responder/ Inveigh here, it makes sense to include this</em></p>
 <ul class="simple">
-<li>NTLM: NTLM hashes are stored in the Security Account Manager (SAM) database and in Domain Controller&#8217;s NTDS.dit database.</li>
+<li>NTLM: NTLM hashes are stored in the Security Account Manager (SAM) database and in Domain Controller’s NTDS.dit database.</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aad3b435b51404eeaad3b435b51404ee</span><span class="p">:</span><span class="n">e19ccf75ee54e06b06a5907af13cef42</span>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>aad3b435b51404eeaad3b435b51404ee:e19ccf75ee54e06b06a5907af13cef42
 </pre></div>
 </div>
 <p>The LM hash is the one before the semicolon and the NT hash is the one after the semicolon. Starting with Windows Vista and Windows Server 2008, by default, only the NT hash is stored.</p>
 </div></blockquote>
 <ul class="simple">
-<li>NTLMv1/v2 / Net-NTLMv1/v2 : Net-NTLM hashes are used for network authentication (they are derived from a challenge/response algorithm and are based on the user&#8217;s NT hash). Here&#8217;s an example of a Net-NTLMv2 (a.k.a NTLMv2) hash</li>
+<li>NTLMv1/v2 / Net-NTLMv1/v2 : Net-NTLM hashes are used for network authentication (they are derived from a challenge/response algorithm and are based on the user’s NT hash). Here’s an example of a Net-NTLMv2 (a.k.a NTLMv2) hash</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">admin</span><span class="p">::</span><span class="n">N46iSNekpT</span><span class="p">:</span><span class="mi">08</span><span class="n">ca45b7d7ea58ee</span><span class="p">:</span><span class="mi">88</span><span class="n">dcbe4446168966a153a0064958dac6</span><span class="p">:</span><span class="mi">5</span><span class="n">c7830315c7830310000000000000b45c67103d07d7b95acd12ffa11230e0000000052920b85f78d013c31cdb3b92f5d765c783030</span>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>admin::N46iSNekpT:08ca45b7d7ea58ee:88dcbe4446168966a153a0064958dac6:5c7830315c7830310000000000000b45c67103d07d7b95acd12ffa11230e0000000052920b85f78d013c31cdb3b92f5d765c783030
 </pre></div>
 </div>
 </div></blockquote>
@@ -379,20 +373,20 @@
 <li>In Domain name, it just provides registrar name etc.</li>
 <li>In IP address, it provides the net-block, ASN Number etc.</li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">whois</span> <span class="o">&lt;</span><span class="n">Domain</span> <span class="n">Name</span><span class="o">/</span> <span class="n">IP</span> <span class="n">Address</span><span class="o">&gt;</span>
-<span class="o">-</span><span class="n">H</span> <span class="n">Do</span> <span class="ow">not</span> <span class="n">display</span> <span class="n">the</span> <span class="n">legal</span> <span class="n">disclaimers</span> <span class="n">some</span> <span class="n">registries</span> <span class="n">like</span> <span class="n">to</span> <span class="n">show</span> <span class="n">you</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>whois &lt;Domain Name/ IP Address&gt;
+-H Do not display the legal disclaimers some registries like to show you.
 </pre></div>
 </div>
 <p>Googling for</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;Registrant Organization&quot;</span> <span class="n">inurl</span><span class="p">:</span> <span class="n">domaintools</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&quot;Registrant Organization&quot; inurl: domaintools
 </pre></div>
 </div>
-<p>also helps for to search for new domains registered by the same organization. &#8220;Registrant Organization&#8221; is present in the output of whois. This technique was used by person who compromised FinFisher in the <a class="reference external" href="http://pastebin.com/raw/cRYvK4jb">writeup</a>.</p>
+<p>also helps for to search for new domains registered by the same organization. “Registrant Organization” is present in the output of whois. This technique was used by person who compromised FinFisher in the <a class="reference external" href="http://pastebin.com/raw/cRYvK4jb">writeup</a>.</p>
 </div>
 <div class="section" id="asn-number">
 <h3>ASN Number<a class="headerlink" href="#asn-number" title="Permalink to this headline">¶</a></h3>
 <p>We could find AS Number that participates in Border Gateway Protocol (BGP) used by particular organization which could further inform about the IP address ranges used by the organization. ASN Number could be found by using Team CMRU whois service</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">whois</span> <span class="o">-</span><span class="n">h</span> <span class="n">whois</span><span class="o">.</span><span class="n">cymru</span><span class="o">.</span><span class="n">com</span> <span class="s2">&quot; -v 216.90.108.31&quot;</span>                         <span class="o">|</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>whois -h whois.cymru.com &quot; -v 216.90.108.31&quot;                         |
 </pre></div>
 </div>
 <p>If you want to do bulk queries refer &#64; <a class="reference external" href="http://www.team-cymru.org/IP-ASN-mapping.html">IP-ASN-Mapping-Team-CYMRU</a></p>
@@ -418,18 +412,18 @@
 </div>
 <div class="section" id="the-harvester">
 <h4>The Harvester<a class="headerlink" href="#the-harvester" title="Permalink to this headline">¶</a></h4>
-<p>The harvester provides a email address, virtual hosts, different domains, shodan results for the domain. Provides really good results, especially if you combine with shodan results as it may provide server versions and what&#8217;s OS is running on the IP address.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span> <span class="n">theharvester</span> <span class="n">options</span>
-   <span class="o">-</span><span class="n">d</span><span class="p">:</span> <span class="n">Domain</span> <span class="n">to</span> <span class="n">search</span> <span class="ow">or</span> <span class="n">company</span> <span class="n">name</span>
-   <span class="o">-</span><span class="n">b</span><span class="p">:</span> <span class="n">data</span> <span class="n">source</span><span class="p">:</span> <span class="n">google</span><span class="p">,</span> <span class="n">googleCSE</span><span class="p">,</span> <span class="n">bing</span><span class="p">,</span> <span class="n">bingapi</span><span class="p">,</span> <span class="n">pgp</span>
-                    <span class="n">linkedin</span><span class="p">,</span> <span class="n">google</span><span class="o">-</span><span class="n">profiles</span><span class="p">,</span> <span class="n">people123</span><span class="p">,</span> <span class="n">jigsaw</span><span class="p">,</span>
-                    <span class="n">twitter</span><span class="p">,</span> <span class="n">googleplus</span><span class="p">,</span> <span class="nb">all</span>
-   <span class="o">-</span><span class="n">v</span><span class="p">:</span> <span class="n">Verify</span> <span class="n">host</span> <span class="n">name</span> <span class="n">via</span> <span class="n">dns</span> <span class="n">resolution</span> <span class="ow">and</span> <span class="n">search</span> <span class="k">for</span> <span class="n">virtual</span> <span class="n">hosts</span>                              <span class="o">|</span>
-   <span class="o">-</span><span class="n">f</span><span class="p">:</span> <span class="n">Save</span> <span class="n">the</span> <span class="n">results</span> <span class="n">into</span> <span class="n">an</span> <span class="n">HTML</span> <span class="ow">and</span> <span class="n">XML</span> <span class="n">file</span>
-   <span class="o">-</span><span class="n">c</span><span class="p">:</span> <span class="n">Perform</span> <span class="n">a</span> <span class="n">DNS</span> <span class="n">brute</span> <span class="n">force</span> <span class="k">for</span> <span class="n">the</span> <span class="n">domain</span> <span class="n">name</span>
-   <span class="o">-</span><span class="n">t</span><span class="p">:</span> <span class="n">Perform</span> <span class="n">a</span> <span class="n">DNS</span> <span class="n">TLD</span> <span class="n">expansion</span> <span class="n">discovery</span>
-   <span class="o">-</span><span class="n">e</span><span class="p">:</span> <span class="n">Use</span> <span class="n">this</span> <span class="n">DNS</span> <span class="n">server</span>
-   <span class="o">-</span><span class="n">h</span><span class="p">:</span> <span class="n">use</span> <span class="n">SHODAN</span> <span class="n">database</span> <span class="n">to</span> <span class="n">query</span> <span class="n">discovered</span> <span class="n">hosts</span>             <span class="o">|</span>
+<p>The harvester provides a email address, virtual hosts, different domains, shodan results for the domain. Provides really good results, especially if you combine with shodan results as it may provide server versions and what’s OS is running on the IP address.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Usage: theharvester options
+   -d: Domain to search or company name
+   -b: data source: google, googleCSE, bing, bingapi, pgp
+                    linkedin, google-profiles, people123, jigsaw,
+                    twitter, googleplus, all
+   -v: Verify host name via dns resolution and search for virtual hosts                              |
+   -f: Save the results into an HTML and XML file
+   -c: Perform a DNS brute force for the domain name
+   -t: Perform a DNS TLD expansion discovery
+   -e: Use this DNS server
+   -h: use SHODAN database to query discovered hosts             |
 </pre></div>
 </div>
 <div class="admonition-todo admonition" id="index-2">
@@ -444,11 +438,11 @@
 <div class="section" id="dns-dumpster-api">
 <h4>DNS Dumpster API<a class="headerlink" href="#dns-dumpster-api" title="Permalink to this headline">¶</a></h4>
 <p>We can utilize DNS Dumpster API to know the various sub-domain related to that domain.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>curl -s http://api.hackertarget.com/hostsearch/?q=example.com &gt; hostsearch
+<div class="highlight-None"><div class="highlight"><pre><span></span>curl -s http://api.hackertarget.com/hostsearch/?q=example.com &gt; hostsearch
 </pre></div>
 </div>
 <p>and the various dns queries by</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>curl -s http://api.hackertarget.com/dnslookup/?q=example.com &gt; dnslookup
+<div class="highlight-None"><div class="highlight"><pre><span></span>curl -s http://api.hackertarget.com/dnslookup/?q=example.com &gt; dnslookup
 </pre></div>
 </div>
 </div>
@@ -476,15 +470,15 @@
 <li><a class="reference external" href="https://www.shodan.io/">Shodan</a>: provides the same results may be with recent scans. You need to be logged-in. Shodan CLI is available at <a class="reference external" href="https://cli.shodan.io/">Shodan Command-Line Interface</a></li>
 </ul>
 <p>Shodan Queries</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">title</span>   <span class="p">:</span> <span class="n">Search</span> <span class="n">the</span> <span class="n">content</span> <span class="n">scraped</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">HTML</span> <span class="n">tag</span>
-<span class="n">html</span>    <span class="p">:</span> <span class="n">Search</span> <span class="n">the</span> <span class="n">full</span> <span class="n">HTML</span> <span class="n">content</span> <span class="n">of</span> <span class="n">the</span> <span class="n">returned</span> <span class="n">page</span>
-<span class="n">product</span> <span class="p">:</span> <span class="n">Search</span> <span class="n">the</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">software</span> <span class="ow">or</span> <span class="n">product</span> <span class="n">identified</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">banner</span>
-<span class="n">net</span>     <span class="p">:</span> <span class="n">Search</span> <span class="n">a</span> <span class="n">given</span> <span class="n">netblock</span> <span class="p">(</span><span class="n">example</span><span class="p">:</span> <span class="mf">204.51</span><span class="o">.</span><span class="mf">94.79</span><span class="o">/</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">version</span> <span class="p">:</span> <span class="n">Search</span> <span class="n">the</span> <span class="n">version</span> <span class="n">of</span> <span class="n">the</span> <span class="n">product</span>
-<span class="n">port</span>    <span class="p">:</span> <span class="n">Search</span> <span class="k">for</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">port</span> <span class="ow">or</span> <span class="n">ports</span>
-<span class="n">os</span>      <span class="p">:</span> <span class="n">Search</span> <span class="k">for</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">operating</span> <span class="n">system</span> <span class="n">name</span>
-<span class="n">country</span> <span class="p">:</span> <span class="n">Search</span> <span class="k">for</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">given</span> <span class="n">country</span> <span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">letter</span> <span class="n">code</span><span class="p">)</span>
-<span class="n">city</span>    <span class="p">:</span> <span class="n">Search</span> <span class="k">for</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">given</span> <span class="n">city</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>title   : Search the content scraped from the HTML tag
+html    : Search the full HTML content of the returned page
+product : Search the name of the software or product identified in the banner
+net     : Search a given netblock (example: 204.51.94.79/18)
+version : Search the version of the product
+port    : Search for a specific port or ports
+os      : Search for a specific operating system name
+country : Search for results in a given country (2-letter code)
+city    : Search for results in a given city
 </pre></div>
 </div>
 <div class="admonition-todo admonition" id="index-3">
@@ -496,7 +490,7 @@
 </ul>
 <blockquote>
 <div><p>Censys.io queries</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span><span class="p">:</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="o">--</span> <span class="n">CIDR</span> <span class="n">notation</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ip:192.168.0.0/24 -- CIDR notation
 </pre></div>
 </div>
 </div></blockquote>
@@ -519,13 +513,13 @@
 </div>
 <div class="section" id="robtex">
 <h4>Robtex<a class="headerlink" href="#robtex" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="https://www.robtex.com/">Robtex</a> : Robtex is one of the world&#8217;s largest network tools. At robtex.com, you will find everything you need to know about domains, DNS, IP, Routes, Autonomous Systems, etc. There&#8217;s a nmap nse <a class="reference external" href="https://nmap.org/nsedoc/scripts/http-robtex-reverse-ip.html">http-robtex-reverse-ip</a> which can be used to find the domain/ website hosted on that ip.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">--</span><span class="n">script</span> <span class="n">http</span><span class="o">-</span><span class="n">robtex</span><span class="o">-</span><span class="n">reverse</span><span class="o">-</span><span class="n">ip</span> <span class="o">--</span><span class="n">script</span><span class="o">-</span><span class="n">args</span> <span class="n">http</span><span class="o">-</span><span class="n">robtex</span><span class="o">-</span><span class="n">reverse</span><span class="o">-</span><span class="n">ip</span><span class="o">.</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;XX.XX.78.214&#39;</span>
-<span class="n">Starting</span> <span class="n">Nmap</span> <span class="mf">7.01</span> <span class="p">(</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">nmap</span><span class="o">.</span><span class="n">org</span> <span class="p">)</span> <span class="n">at</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">20</span> <span class="mi">21</span><span class="p">:</span><span class="mi">39</span> <span class="n">IST</span>
-<span class="n">Pre</span><span class="o">-</span><span class="n">scan</span> <span class="n">script</span> <span class="n">results</span><span class="p">:</span>
-<span class="o">|</span> <span class="n">http</span><span class="o">-</span><span class="n">robtex</span><span class="o">-</span><span class="n">reverse</span><span class="o">-</span><span class="n">ip</span><span class="p">:</span>
-<span class="o">|</span>   <span class="n">xxxxxxindian</span><span class="o">.</span><span class="n">com</span>
-<span class="o">|</span><span class="n">_</span>  <span class="n">www</span><span class="o">.</span><span class="n">xxxxxindian</span><span class="o">.</span><span class="n">com</span>
+<p><a class="reference external" href="https://www.robtex.com/">Robtex</a> : Robtex is one of the world’s largest network tools. At robtex.com, you will find everything you need to know about domains, DNS, IP, Routes, Autonomous Systems, etc. There’s a nmap nse <a class="reference external" href="https://nmap.org/nsedoc/scripts/http-robtex-reverse-ip.html">http-robtex-reverse-ip</a> which can be used to find the domain/ website hosted on that ip.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nmap --script http-robtex-reverse-ip --script-args http-robtex-reverse-ip.host=&#39;XX.XX.78.214&#39;
+Starting Nmap 7.01 ( https://nmap.org ) at 2016-04-20 21:39 IST
+Pre-scan script results:
+| http-robtex-reverse-ip:
+|   xxxxxxindian.com
+|_  www.xxxxxindian.com
 </pre></div>
 </div>
 </div>
@@ -538,27 +532,27 @@
 <h3>Finding DNS, MX, AAAA, A using<a class="headerlink" href="#finding-dns-mx-aaaa-a-using" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="host">
 <h4>host<a class="headerlink" href="#host" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">optional_name_server</span><span class="o">&gt;</span>
-<span class="n">host</span> <span class="o">-</span><span class="n">t</span> <span class="n">ns</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span>           <span class="o">--</span> <span class="n">Name</span> <span class="n">Servers</span>
-<span class="n">host</span> <span class="o">-</span><span class="n">t</span> <span class="n">a</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span>            <span class="o">--</span> <span class="n">Address</span>
-<span class="n">host</span> <span class="o">-</span><span class="n">t</span> <span class="n">aaaa</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span>         <span class="o">--</span> <span class="n">AAAA</span> <span class="n">record</span> <span class="n">points</span> <span class="n">a</span> <span class="n">domain</span> <span class="ow">or</span> <span class="n">subdomain</span> <span class="n">to</span> <span class="n">an</span> <span class="n">IPv6</span> <span class="n">address</span>
-<span class="n">host</span> <span class="o">-</span><span class="n">t</span> <span class="n">mx</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span>           <span class="o">--</span> <span class="n">Mail</span> <span class="n">Servers</span>
-<span class="n">host</span> <span class="o">-</span><span class="n">t</span> <span class="n">soa</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span>          <span class="o">--</span> <span class="n">Start</span> <span class="n">of</span> <span class="n">Authority</span>
-<span class="n">host</span> <span class="o">&lt;</span><span class="n">IP</span><span class="o">&gt;</span>                     <span class="o">--</span> <span class="n">Reverse</span> <span class="n">Lookup</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>host &lt;domain&gt; &lt;optional_name_server&gt;
+host -t ns &lt;domain&gt;           -- Name Servers
+host -t a &lt;domain&gt;            -- Address
+host -t aaaa &lt;domain&gt;         -- AAAA record points a domain or subdomain to an IPv6 address
+host -t mx &lt;domain&gt;           -- Mail Servers
+host -t soa &lt;domain&gt;          -- Start of Authority
+host &lt;IP&gt;                     -- Reverse Lookup
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="o">-</span><span class="n">t</span> <span class="n">ns</span> <span class="n">zonetransfer</span><span class="o">.</span><span class="n">me</span>
-<span class="n">zonetransfer</span><span class="o">.</span><span class="n">me</span> <span class="n">name</span> <span class="n">server</span> <span class="n">nsztm1</span><span class="o">.</span><span class="n">digi</span><span class="o">.</span><span class="n">ninja</span><span class="o">.</span>
-<span class="n">zonetransfer</span><span class="o">.</span><span class="n">me</span> <span class="n">name</span> <span class="n">server</span> <span class="n">nsztm2</span><span class="o">.</span><span class="n">digi</span><span class="o">.</span><span class="n">ninja</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>host -t ns zonetransfer.me
+zonetransfer.me name server nsztm1.digi.ninja.
+zonetransfer.me name server nsztm2.digi.ninja.
 </pre></div>
 </div>
 </div>
 <div class="section" id="nslookup">
 <h4>nslookup<a class="headerlink" href="#nslookup" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nslookup</span> <span class="o">-</span> <span class="o">&lt;</span><span class="n">optional_name_server</span><span class="o">&gt;</span>
-<span class="nb">set</span> <span class="nb">type</span><span class="o">=</span><span class="n">mx</span>
-<span class="nb">set</span> <span class="nb">type</span><span class="o">=</span><span class="n">ns</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nslookup - &lt;optional_name_server&gt;
+set type=mx
+set type=ns
 </pre></div>
 </div>
 </div>
@@ -567,34 +561,34 @@
 <h3>DNS Zone Transfer: Using<a class="headerlink" href="#dns-zone-transfer-using" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="id1">
 <h4>host<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="o">-</span><span class="n">l</span> <span class="o">&lt;</span><span class="n">Domain</span> <span class="n">Name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">DNS</span> <span class="n">Server</span><span class="o">&gt;</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>host -l &lt;Domain Name&gt; &lt;DNS Server&gt;
 </pre></div>
 </div>
 <p>Try zonetransfer using host for zonetransfer.me using their name servers.</p>
 </div>
 <div class="section" id="dig">
 <h4>Dig<a class="headerlink" href="#dig" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dig</span> <span class="n">axfr</span> <span class="o">&lt;</span><span class="n">domain_name</span><span class="o">&gt;</span> <span class="nd">@nameserver</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>dig axfr &lt;domain_name&gt; @nameserver
 </pre></div>
 </div>
 <p>Try zonetransfer using dig for zonetransfer.me using their name servers.</p>
 </div>
 <div class="section" id="dnsrecon">
 <h4>dnsrecon<a class="headerlink" href="#dnsrecon" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dnsrecon</span> <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">t</span> <span class="n">axfr</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>dnsrecon -d &lt;domain&gt; -t axfr
 </pre></div>
 </div>
 <p>dnsrecon could also be used for other purposes such as finding nameservers, mailserver, forward reverse lookup</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">--</span><span class="n">domain</span>      <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span>          <span class="n">Domain</span> <span class="n">to</span> <span class="n">Target</span> <span class="k">for</span> <span class="n">enumeration</span><span class="o">.</span>
-<span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="o">--</span><span class="nb">range</span>       <span class="o">&lt;</span><span class="nb">range</span><span class="o">&gt;</span>           <span class="n">IP</span> <span class="n">Range</span> <span class="k">for</span> <span class="n">reverse</span> <span class="n">look</span><span class="o">-</span><span class="n">up</span> <span class="n">brute</span> <span class="n">force</span> <span class="ow">in</span> <span class="n">formats</span> <span class="p">(</span><span class="n">first</span><span class="o">-</span><span class="n">last</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="o">/</span><span class="n">bitmask</span><span class="p">)</span><span class="o">.</span>
-<span class="o">-</span><span class="n">n</span><span class="p">,</span> <span class="o">--</span><span class="n">name_server</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>            <span class="n">Domain</span> <span class="n">server</span> <span class="n">to</span> <span class="n">use</span><span class="p">,</span> <span class="k">if</span> <span class="n">none</span> <span class="ow">is</span> <span class="n">given</span> <span class="n">the</span> <span class="n">SOA</span> <span class="n">of</span> <span class="n">the</span> <span class="n">target</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>-d, --domain      &lt;domain&gt;          Domain to Target for enumeration.
+-r, --range       &lt;range&gt;           IP Range for reverse look-up brute force in formats (first-last) or in (range/bitmask).
+-n, --name_server &lt;name&gt;            Domain server to use, if none is given the SOA of the target will be used
 </pre></div>
 </div>
 </div>
 <div class="section" id="dnsenum">
 <h4>DNSEnum<a class="headerlink" href="#dnsenum" title="Permalink to this headline">¶</a></h4>
 <p>DNS Enumeration tool</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dnsenum</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>dnsenum &lt;domain&gt;
 </pre></div>
 </div>
 </div>
@@ -605,7 +599,7 @@
 <li><strong>Retrieving an SRV record:</strong></li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ dig _sip._tls.example.com SRV
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>$ dig _sip._tls.example.com SRV
 
 $ host -t SRV _sip._tls.example.com
 
@@ -622,21 +616,21 @@ $ nslookup
 </ul>
 <blockquote>
 <div><p>SRV records are used by the below standardized communication protocols.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Teamspeak</span> <span class="mi">3</span> <span class="p">(</span><span class="n">since</span> <span class="n">version</span> <span class="mf">3.0</span><span class="o">.</span><span class="mi">8</span> <span class="o">-</span> <span class="n">Neither</span> <span class="n">priority</span> <span class="n">nor</span> <span class="n">weight</span> <span class="ow">is</span> <span class="n">taken</span> <span class="n">into</span> <span class="n">consideration</span><span class="o">.</span> <span class="n">The</span> <span class="n">client</span> <span class="n">appears</span> <span class="n">to</span> <span class="n">choose</span> <span class="n">an</span> <span class="n">SRV</span> <span class="n">record</span> <span class="n">at</span> <span class="n">random</span> <span class="k">for</span> <span class="n">a</span> <span class="n">connection</span> <span class="n">attempt</span><span class="o">.</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">Minecraft</span> <span class="p">(</span><span class="n">since</span> <span class="n">version</span> <span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">_minecraft</span><span class="o">.</span><span class="n">_tcp</span><span class="p">)</span>
-<span class="n">CalDAV</span> <span class="ow">and</span> <span class="n">CardDAV</span>
-<span class="n">Client</span> <span class="n">SMTP</span> <span class="n">Authorization</span>
-<span class="n">DNS</span> <span class="n">Service</span> <span class="n">Discovery</span> <span class="p">(</span><span class="n">DNS</span><span class="o">-</span><span class="n">SD</span><span class="p">)</span>
-<span class="n">IMPS</span>
-<span class="n">Kerberos</span>
-<span class="n">LDAP</span>
-<span class="n">Puppet</span>
-<span class="n">SIP</span>
-<span class="n">XMPP</span>
-<span class="n">Mail</span> <span class="n">submission</span><span class="p">,</span> <span class="n">Post</span> <span class="n">Office</span> <span class="n">Protocol</span><span class="p">,</span> <span class="ow">and</span> <span class="n">Internet</span> <span class="n">Message</span> <span class="n">Access</span> <span class="n">Protocol</span>
-<span class="n">Libravatar</span> <span class="n">uses</span> <span class="n">SRV</span> <span class="n">records</span> <span class="n">to</span> <span class="n">locate</span> <span class="n">avatar</span> <span class="n">image</span> <span class="n">servers</span>
-<span class="n">Microsoft</span> <span class="n">Lync</span>
-<span class="n">Citrix</span> <span class="n">Receiver</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Teamspeak 3 (since version 3.0.8 - Neither priority nor weight is taken into consideration. The client appears to choose an SRV record at random for a connection attempt.[1])
+Minecraft (since version 1.3.1, _minecraft._tcp)
+CalDAV and CardDAV
+Client SMTP Authorization
+DNS Service Discovery (DNS-SD)
+IMPS
+Kerberos
+LDAP
+Puppet
+SIP
+XMPP
+Mail submission, Post Office Protocol, and Internet Message Access Protocol
+Libravatar uses SRV records to locate avatar image servers
+Microsoft Lync
+Citrix Receiver
 </pre></div>
 </div>
 <p>Checkout the brute_srv function in the dnsrecon tool script to get familiar with the different SRV names and services.</p>
@@ -646,21 +640,21 @@ $ nslookup
 </div>
 <div class="section" id="internal-infrastructure-mapping">
 <h2>Internal Infrastructure Mapping<a class="headerlink" href="#internal-infrastructure-mapping" title="Permalink to this headline">¶</a></h2>
-<p>All the steps in 2.a which are DNS related recon could also be performed in the internal penetration testing provided we have the access to the internal DNS Server. After, we have gathered all the information from DNS enumeration, still we haven&#8217;t enumerated internal infrastructure. We apply the below methods to enumerate further.</p>
+<p>All the steps in 2.a which are DNS related recon could also be performed in the internal penetration testing provided we have the access to the internal DNS Server. After, we have gathered all the information from DNS enumeration, still we haven’t enumerated internal infrastructure. We apply the below methods to enumerate further.</p>
 <div class="section" id="internal-network-range-identification">
 <h3>Internal Network Range Identification<a class="headerlink" href="#internal-network-range-identification" title="Permalink to this headline">¶</a></h3>
 <p>In many instances, we are provided or expected to find vulnerabilities in a 10.0.0.0/8 network which would contain around 16 million IP Addresses. Scanning 16 million IP address in a considerable time is difficult. In which case, we need faster and targeted result. So, how do we find out the ranges?</p>
 <div class="section" id="ping-gateway-ip-addresses">
 <h4>Ping Gateway IP Addresses<a class="headerlink" href="#ping-gateway-ip-addresses" title="Permalink to this headline">¶</a></h4>
-<p>Let&#8217;s say internally, we got an IP address 192.168.56.101 netmask 255.255.255.0 with a default gateway of 192.168.56.1. It is a high probability that rest of network rangers would have been defined as /24 CIDR. In that case, a ping scan to 192.168.*.1 with a watch on the TTL would possibly reveal what are the other network ranges.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">sn</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">PE</span> <span class="mf">192.168</span><span class="o">.*.</span><span class="mi">1</span>
+<p>Let’s say internally, we got an IP address 192.168.56.101 netmask 255.255.255.0 with a default gateway of 192.168.56.1. It is a high probability that rest of network rangers would have been defined as /24 CIDR. In that case, a ping scan to 192.168.*.1 with a watch on the TTL would possibly reveal what are the other network ranges.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sn -v -PE 192.168.*.1
 </pre></div>
 </div>
 </div>
 <div class="section" id="dns-enumeration">
 <h4>DNS Enumeration<a class="headerlink" href="#dns-enumeration" title="Permalink to this headline">¶</a></h4>
 <p>If you are connected to a internal dns server, you may query it with</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dig</span> <span class="o">-</span><span class="n">t</span> <span class="nb">any</span> <span class="o">&lt;</span><span class="n">domainname</span><span class="o">&gt;</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>dig -t any &lt;domainname&gt;
 </pre></div>
 </div>
 <p>which should result in outputting different name servers, mail servers, A, AAAA, SOA records which would possibly give you a inner scenario how the network has been designed as there can be different nameservers, domain controllers for different locations, internal departments etc.</p>
@@ -680,12 +674,12 @@ $ nslookup
 <div class="section" id="reverse-dns-lookup">
 <h4>Reverse DNS Lookup<a class="headerlink" href="#reverse-dns-lookup" title="Permalink to this headline">¶</a></h4>
 <p>Nmap provides a List scan option which does the reverse lookup. It provides the hostnames of the IP Address</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">sL</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">8</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sL 10.0.0.0/8
 </pre></div>
 </div>
 <p>It can also be used with the below options:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">randomize</span><span class="o">-</span><span class="n">hosts</span>  <span class="p">:</span> <span class="n">make</span> <span class="n">the</span> <span class="n">scans</span> <span class="n">less</span> <span class="n">obvious</span> <span class="n">to</span> <span class="n">various</span> <span class="n">network</span> <span class="n">monitoring</span> <span class="n">systems</span>
-<span class="o">--</span><span class="n">dns</span><span class="o">-</span><span class="n">servers</span> <span class="n">server1</span><span class="p">,</span><span class="n">server2</span> <span class="p">:</span> <span class="n">By</span> <span class="n">default</span><span class="p">,</span> <span class="n">it</span> <span class="n">would</span> <span class="n">use</span> <span class="n">the</span> <span class="n">dns</span> <span class="n">servers</span> <span class="n">which</span> <span class="n">are</span> <span class="n">listed</span> <span class="ow">in</span> <span class="n">resolve</span><span class="o">.</span><span class="n">conf</span> <span class="p">(</span><span class="k">if</span> <span class="n">you</span> <span class="n">haven</span><span class="s1">&#39;t used --system-dns option). We can also list custom servers using these options.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>--randomize-hosts  : make the scans less obvious to various network monitoring systems
+--dns-servers server1,server2 : By default, it would use the dns servers which are listed in resolve.conf (if you haven&#39;t used --system-dns option). We can also list custom servers using these options.
 </pre></div>
 </div>
 </div>
@@ -693,56 +687,56 @@ $ nslookup
 <div class="section" id="identifying-alive-ip-addresses">
 <h3>Identifying Alive IP Addresses<a class="headerlink" href="#identifying-alive-ip-addresses" title="Permalink to this headline">¶</a></h3>
 <p>Nmap by default provides a -sn Ping scan option. The default host discovery done with -sn consists of an ICMP echo request, TCP SYN to port 443, TCP ACK to port 80, and an ICMP timestamp request by default. This works as if ICMP echo request is blocked, nmap would know if a host is alive if it receives any response from port 443 or 80 or timestamp reply.</p>
-<p>Let&#8217;s see what the nmap does when do a ping scan.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">sn</span> <span class="o">-</span><span class="n">n</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span>
-<span class="c1">#My IP is 10.0.0.1</span>
+<p>Let’s see what the nmap does when do a ping scan.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sn -n 10.0.0.230
+#My IP is 10.0.0.1
 </pre></div>
 </div>
-<p>It is very important to mention that -n option (No DNS resolution) should be used going forward as we have already did DNS resolution while using List scan. Since DNS can be slow even with Nmap&#8217;s built-in parallel stub resolver, this option can slash scanning times. TCP Dump output is presented here. As both the IP addresses are in the same subnet, nmap would use ARP Ping scan to find the alive IP Address.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">22</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mf">27.292054</span> <span class="n">ARP</span><span class="p">,</span> <span class="n">Request</span> <span class="n">who</span><span class="o">-</span><span class="n">has</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span> <span class="p">(</span><span class="n">Broadcast</span><span class="p">)</span> <span class="n">tell</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">length</span> <span class="mi">28</span>
-<span class="mi">22</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mf">27.361100</span> <span class="n">ARP</span><span class="p">,</span> <span class="n">Reply</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span> <span class="ow">is</span><span class="o">-</span><span class="n">at</span> <span class="mi">8</span><span class="n">c</span><span class="p">:</span><span class="mi">64</span><span class="p">:</span><span class="mi">22</span><span class="p">:</span><span class="mi">3</span><span class="n">b</span><span class="p">:</span><span class="mi">2</span><span class="n">b</span><span class="p">:</span><span class="mi">2</span><span class="n">d</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">),</span> <span class="n">length</span> <span class="mi">28</span>
+<p>It is very important to mention that -n option (No DNS resolution) should be used going forward as we have already did DNS resolution while using List scan. Since DNS can be slow even with Nmap’s built-in parallel stub resolver, this option can slash scanning times. TCP Dump output is presented here. As both the IP addresses are in the same subnet, nmap would use ARP Ping scan to find the alive IP Address.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>22:11:27.292054 ARP, Request who-has 10.0.0.230 (Broadcast) tell 10.0.0.1, length 28
+22:11:27.361100 ARP, Reply 10.0.0.230 is-at 8c:64:22:3b:2b:2d (oui Unknown), length 28
 </pre></div>
 </div>
-<p>However, this behavior can be changed using &#8211;disable-arp-ping</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">sn</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">arp</span><span class="o">-</span><span class="n">ping</span>
+<p>However, this behavior can be changed using –disable-arp-ping</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sn 10.0.0.230 --disable-arp-ping
 </pre></div>
 </div>
 <p>TCPdump output is as below One ICMP Echo Request, SYN to Port 443, ACK to Port 80 and a time stamp request.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">22</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">02.742180</span> <span class="n">IP</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">request</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">45066</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="mi">8</span>
-<span class="mi">22</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">02.742222</span> <span class="n">IP</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">59246</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span><span class="o">.</span><span class="n">https</span><span class="p">:</span> <span class="n">Flags</span> <span class="p">[</span><span class="n">S</span><span class="p">],</span> <span class="n">seq</span> <span class="mi">3994420539</span><span class="p">,</span> <span class="n">win</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">options</span> <span class="p">[</span><span class="n">mss</span> <span class="mi">1460</span><span class="p">],</span> <span class="n">length</span> <span class="mi">0</span>
-<span class="mi">22</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">02.742234</span> <span class="n">IP</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">59246</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span><span class="o">.</span><span class="n">http</span><span class="p">:</span> <span class="n">Flags</span> <span class="p">[</span><span class="o">.</span><span class="p">],</span> <span class="n">ack</span> <span class="mi">3994420539</span><span class="p">,</span> <span class="n">win</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">length</span> <span class="mi">0</span>
-<span class="mi">22</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">02.742241</span> <span class="n">IP</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">time</span> <span class="n">stamp</span> <span class="n">query</span> <span class="nb">id</span> <span class="mi">38635</span> <span class="n">seq</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="mi">20</span>
-<span class="mi">22</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">02.801243</span> <span class="n">IP</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">reply</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">45066</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="mi">8</span>
-<span class="mi">22</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">02.801930</span> <span class="n">IP</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span><span class="o">.</span><span class="n">https</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">59246</span><span class="p">:</span> <span class="n">Flags</span> <span class="p">[</span><span class="n">R</span><span class="o">.</span><span class="p">],</span> <span class="n">seq</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ack</span> <span class="mi">3994420540</span><span class="p">,</span> <span class="n">win</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="mi">0</span>
-<span class="mi">22</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">02.805083</span> <span class="n">IP</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span><span class="o">.</span><span class="n">http</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">59246</span><span class="p">:</span> <span class="n">Flags</span> <span class="p">[</span><span class="n">R</span><span class="p">],</span> <span class="n">seq</span> <span class="mi">3994420539</span><span class="p">,</span> <span class="n">win</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="mi">0</span>
-<span class="mi">22</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">02.805930</span> <span class="n">IP</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">time</span> <span class="n">stamp</span> <span class="n">reply</span> <span class="nb">id</span> <span class="mi">38635</span> <span class="n">seq</span> <span class="mi">0</span><span class="p">:</span> <span class="n">org</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span><span class="p">,</span> <span class="n">recv</span> <span class="mi">16</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">52.731</span><span class="p">,</span> <span class="n">xmit</span> <span class="mi">16</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">52.731</span><span class="p">,</span> <span class="n">length</span> <span class="mi">20</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>22:14:02.742180 IP 10.0.0.1 &gt; 10.0.0.230: ICMP echo request, id 45066, seq 0, length 8
+22:14:02.742222 IP 10.0.0.1.59246 &gt; 10.0.0.230.https: Flags [S], seq 3994420539, win 1024, options [mss 1460], length 0
+22:14:02.742234 IP 10.0.0.1.59246 &gt; 10.0.0.230.http: Flags [.], ack 3994420539, win 1024, length 0
+22:14:02.742241 IP 10.0.0.1 &gt; 10.0.0.230: ICMP time stamp query id 38635 seq 0, length 20
+22:14:02.801243 IP 10.0.0.230 &gt; 10.0.0.1: ICMP echo reply, id 45066, seq 0, length 8
+22:14:02.801930 IP 10.0.0.230.https &gt; 10.0.0.1.59246: Flags [R.], seq 0, ack 3994420540, win 0, length 0
+22:14:02.805083 IP 10.0.0.230.http &gt; 10.0.0.1.59246: Flags [R], seq 3994420539, win 0, length 0
+22:14:02.805930 IP 10.0.0.230 &gt; 10.0.0.1: ICMP time stamp reply id 38635 seq 0: org 00:00:00.000, recv 16:40:52.731, xmit 16:40:52.731, length 20
 </pre></div>
 </div>
-<p>If you use &#8211;reason option, nmap would tell why it thinks the host is alive. In the below case (received echo-reply).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Nmap</span> <span class="n">scan</span> <span class="n">report</span> <span class="k">for</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span>
-<span class="n">Host</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">received</span> <span class="n">echo</span><span class="o">-</span><span class="n">reply</span> <span class="p">(</span><span class="mf">0.073</span><span class="n">s</span> <span class="n">latency</span><span class="p">)</span><span class="o">.</span>
+<p>If you use –reason option, nmap would tell why it thinks the host is alive. In the below case (received echo-reply).</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Nmap scan report for 10.0.0.230
+Host is up, received echo-reply (0.073s latency).
 </pre></div>
 </div>
 <p>If we only want to send ICMP Ping query (as if the host replies to it, the other three packets (SYN 443, ACK 80 and Timestamp) are extra burden. (I may be wrong here). We can use</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">sn</span> <span class="o">-</span><span class="n">PE</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">arp</span><span class="o">-</span><span class="n">ping</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -n -sn -PE --disable-arp-ping 10.0.0.230
 </pre></div>
 </div>
 <p>TCP Dump output:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">22</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mf">20.768525</span> <span class="n">IP</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">request</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">39366</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="mi">8</span>
-<span class="mi">22</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mf">20.826098</span> <span class="n">IP</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.230</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">reply</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">39366</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="mi">8</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>22:30:20.768525 IP 10.0.0.1 &gt; 10.0.0.230: ICMP echo request, id 39366, seq 0, length 8
+22:30:20.826098 IP 10.0.0.230 &gt; 10.0.0.1: ICMP echo reply, id 39366, seq 0, length 8
 </pre></div>
 </div>
 <p>Please note, this ICMP scan would miss all the host which are alive but the firewall is dropping the ICMP echo request packet. However, if you want to find more hosts, it would be advisable to separate the list of IPs which responded to ICMP from the IP address scan range and run the scan again may be with SYN to 443 and ACK to 80 using PA, PS options.</p>
-<p>Please also note Nmap&#8217;s ICMP ping, by default, sends zero data as part of the ping. Nmap typically pings the host via icmp if the user has root privileges, and uses a tcp-ping otherwise. This is easily detected by the Snort IDS Rule 1-469 <a class="reference external" href="https://www.snort.org/rule_docs/1-469">SID 1-469</a>.</p>
+<p>Please also note Nmap’s ICMP ping, by default, sends zero data as part of the ping. Nmap typically pings the host via icmp if the user has root privileges, and uses a tcp-ping otherwise. This is easily detected by the Snort IDS Rule 1-469 <a class="reference external" href="https://www.snort.org/rule_docs/1-469">SID 1-469</a>.</p>
 <p>This could be evaded by using</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">data</span> <span class="o">&lt;</span><span class="nb">hex</span> <span class="n">string</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">Append</span> <span class="n">custom</span> <span class="n">binary</span> <span class="n">data</span> <span class="n">to</span> <span class="n">sent</span> <span class="n">packets</span><span class="p">)</span>
-<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">string</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">Append</span> <span class="n">custom</span> <span class="n">string</span> <span class="n">to</span> <span class="n">sent</span> <span class="n">packets</span><span class="p">)</span>
-<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">length</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">Append</span> <span class="n">random</span> <span class="n">data</span> <span class="n">to</span> <span class="n">sent</span> <span class="n">packets</span><span class="p">)</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>--data &lt;hex string&gt; (Append custom binary data to sent packets)
+--data-string &lt;string&gt; (Append custom string to sent packets)
+--data-length &lt;number&gt; (Append random data to sent packets)
 </pre></div>
 </div>
 <p>Please note that you should use these options only on ICMP Echo Request for IDS Evasion as the data gets appended to every packet (ex. port scan packets). Designing the ideal combinations of probes as suggested in the Nmap Book is</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">PE</span> <span class="o">-</span><span class="n">PA</span> <span class="o">-</span><span class="n">PS</span> <span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">31339</span> <span class="o">-</span><span class="n">PA</span> <span class="mi">80</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">443</span><span class="p">,</span><span class="mi">10042</span>
- <span class="n">Adding</span> <span class="o">--</span><span class="n">source</span><span class="o">-</span><span class="n">port</span> <span class="mi">53</span> <span class="n">might</span> <span class="n">also</span> <span class="n">help</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>-PE -PA -PS 21,22,23,25,80,113,31339 -PA 80,113,443,10042
+ Adding --source-port 53 might also help
 </pre></div>
 </div>
 <p>The above combination would find more hosts than just the ping scan, however it also gonna cost a decent amount of time. Normal Time vs. Accuracy trade off.</p>
@@ -750,94 +744,94 @@ $ nslookup
 <div class="section" id="port-scanning">
 <h3>Port Scanning<a class="headerlink" href="#port-scanning" title="Permalink to this headline">¶</a></h3>
 <p>Once you have the list of IP Addresses which are alive, we can do port scan on them. Nmap provides multiple options such as</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">sS</span> <span class="n">TCP</span> <span class="n">SYN</span> <span class="n">Stealth</span> <span class="p">:</span> <span class="n">Half</span> <span class="n">Open</span> <span class="n">SYN</span> <span class="n">Scan</span> <span class="p">:</span> <span class="n">Nmap</span> <span class="n">sends</span> <span class="n">the</span> <span class="n">SYN</span> <span class="n">packet</span><span class="p">,</span> <span class="n">Server</span> <span class="n">would</span> <span class="n">send</span> <span class="n">SYN</span><span class="o">/</span><span class="n">ACK</span><span class="p">,</span> <span class="n">System</span> <span class="n">would</span> <span class="n">send</span> <span class="n">RST</span><span class="o">.</span>
-<span class="o">-</span><span class="n">sT</span> <span class="n">TCP</span> <span class="n">Connect</span> <span class="n">Scan</span> <span class="p">:</span> <span class="n">Nmap</span> <span class="n">uses</span> <span class="n">system</span> <span class="n">to</span> <span class="n">send</span> <span class="n">the</span> <span class="n">SYN</span> <span class="n">scan</span> <span class="p">:</span> <span class="n">Connect</span> <span class="n">full</span> <span class="n">TCP</span> <span class="n">Handshake</span>
-<span class="o">-</span><span class="n">sU</span> <span class="n">UDP</span> <span class="n">Scan</span>
-<span class="o">-</span><span class="n">sA</span> <span class="n">ACK</span> <span class="n">Scan</span> <span class="p">:</span> <span class="n">Ack</span> <span class="n">scan</span> <span class="ow">is</span> <span class="n">generally</span> <span class="n">used</span> <span class="n">to</span> <span class="nb">map</span> <span class="n">out</span> <span class="n">firewall</span> <span class="n">rule</span> <span class="n">sets</span><span class="o">.</span> <span class="n">Whether</span> <span class="n">firewall</span> <span class="ow">is</span> <span class="n">stateful</span> <span class="ow">or</span> <span class="ow">not</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>-sS TCP SYN Stealth : Half Open SYN Scan : Nmap sends the SYN packet, Server would send SYN/ACK, System would send RST.
+-sT TCP Connect Scan : Nmap uses system to send the SYN scan : Connect full TCP Handshake
+-sU UDP Scan
+-sA ACK Scan : Ack scan is generally used to map out firewall rule sets. Whether firewall is stateful or not.
 </pre></div>
 </div>
-<p>Please note p0f recognizes Nmap&#8217;s SYN scan because of the TCP Options such as TCP window size a multiple of 1024, and only the MSS option supported with a value of 1460 (Check the tcpdump output of Ping scan above, SYN Packet). Recently, a IRC user was getting filtered port while using SYN Scan whereas was getting OPN ports which using telnet or TCP Connect Scan. Also, A patch to allow a user to override the TCP Window size in SYN scan was just posted to the <a class="reference external" href="http://seclists.org/nmap-dev/2015/q3/52">Nmap DevelopmentList</a>.</p>
-<p>By default, nmap scans the 1000 most popular ports of each protocol (gathered by scanning million of IP address). Scanning 1000 ports in an unknown environment with 16 million IP Address could be challenging. Nmap also provides -F Fast scan option which scans the 100 most common ports in each protocol. Otherwise it also provides &#8211;top-ports to specify an arbitrary number of ports. So, How do we know what are the ports scanned with &#8211;top-ports option. This could be found by</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">sT</span> <span class="o">-</span><span class="n">oG</span> <span class="o">-</span> <span class="o">-</span><span class="n">v</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;^# Ports&#39;</span>
+<p>Please note p0f recognizes Nmap’s SYN scan because of the TCP Options such as TCP window size a multiple of 1024, and only the MSS option supported with a value of 1460 (Check the tcpdump output of Ping scan above, SYN Packet). Recently, a IRC user was getting filtered port while using SYN Scan whereas was getting OPN ports which using telnet or TCP Connect Scan. Also, A patch to allow a user to override the TCP Window size in SYN scan was just posted to the <a class="reference external" href="http://seclists.org/nmap-dev/2015/q3/52">Nmap DevelopmentList</a>.</p>
+<p>By default, nmap scans the 1000 most popular ports of each protocol (gathered by scanning million of IP address). Scanning 1000 ports in an unknown environment with 16 million IP Address could be challenging. Nmap also provides -F Fast scan option which scans the 100 most common ports in each protocol. Otherwise it also provides –top-ports to specify an arbitrary number of ports. So, How do we know what are the ports scanned with –top-ports option. This could be found by</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sT -oG - -v | grep &#39;^# Ports&#39;
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="n">localhost</span> <span class="o">-</span><span class="n">F</span> <span class="o">-</span><span class="n">oX</span> <span class="o">-</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;^&lt;scaninfo&#39;</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nmap localhost -F -oX - | grep &#39;^&lt;scaninfo&#39;
 </pre></div>
 </div>
 <p>Nmap needs an nmap-services file with frequency information in order to know which ports are the most common. See the section called <a class="reference external" href="http://seclists.org/nmap-dev/2015/q3/52">Well Known Port List: nmap-services</a> : for more information about port frequencies. We could provide ports to nmap by using -p option also, for example</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">p</span> <span class="mi">22</span> <span class="p">:</span> <span class="n">Scan</span> <span class="n">single</span> <span class="n">port</span>
-<span class="o">-</span><span class="n">p</span> <span class="mi">22</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">80</span> <span class="p">:</span> <span class="n">Scan</span> <span class="n">multiple</span> <span class="n">ports</span> <span class="k">with</span> <span class="n">comma</span> <span class="n">separated</span> <span class="n">values</span><span class="o">.</span> <span class="n">If</span> <span class="o">-</span><span class="n">sS</span> <span class="ow">is</span> <span class="n">specified</span> <span class="n">TCP</span> <span class="n">ports</span> <span class="n">would</span> <span class="n">be</span> <span class="n">scanned</span><span class="o">.</span> <span class="n">If</span> <span class="o">-</span><span class="n">sU</span> <span class="n">UDP</span> <span class="n">Scan</span> <span class="ow">is</span> <span class="n">specified</span><span class="p">,</span> <span class="n">UDP</span> <span class="n">Ports</span> <span class="n">would</span> <span class="n">be</span> <span class="n">scanned</span><span class="o">.</span>
-<span class="o">-</span><span class="n">p80</span><span class="o">-</span><span class="mi">85</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="mi">8000</span><span class="o">-</span><span class="mi">8005</span> <span class="p">:</span> <span class="n">Scan</span> <span class="n">port</span> <span class="k">with</span> <span class="n">ranges</span><span class="o">.</span>
-<span class="o">-</span><span class="n">p</span><span class="o">-</span> <span class="p">:</span> <span class="n">Scan</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">ports</span> <span class="n">excluding</span> <span class="mf">0.</span>
-<span class="o">-</span><span class="n">pT</span><span class="p">:</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="n">U</span><span class="p">:</span><span class="mi">53</span><span class="p">,</span><span class="mi">111</span><span class="p">,</span><span class="mi">161</span> <span class="p">:</span> <span class="n">Scan</span> <span class="n">TCP</span> <span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">25</span> <span class="ow">and</span> <span class="n">UDP</span> <span class="n">Ports</span> <span class="mi">53</span><span class="p">,</span><span class="mi">111</span><span class="p">,</span><span class="mf">161.</span> <span class="o">-</span><span class="n">sU</span> <span class="n">must</span> <span class="n">also</span> <span class="n">be</span> <span class="n">specified</span><span class="o">.</span>
-<span class="o">-</span><span class="n">p</span> <span class="n">http</span><span class="o">*</span> <span class="p">:</span> <span class="n">wild</span> <span class="n">cards</span> <span class="n">may</span> <span class="n">be</span> <span class="n">used</span> <span class="k">for</span> <span class="n">ports</span> <span class="k">with</span> <span class="n">similar</span> <span class="n">names</span><span class="o">.</span> <span class="n">This</span> <span class="n">would</span> <span class="n">match</span> <span class="n">nine</span> <span class="n">ports</span> <span class="n">including</span> <span class="mi">80</span><span class="p">,</span><span class="mi">280</span><span class="p">,</span><span class="mi">443</span><span class="p">,</span><span class="mi">591</span><span class="p">,</span><span class="mi">593</span><span class="p">,</span><span class="mi">8000</span><span class="p">,</span><span class="mi">8008</span><span class="p">,</span><span class="mi">8080</span><span class="p">,</span><span class="mf">8443.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>-p 22 : Scan single port
+-p 22,25,80 : Scan multiple ports with comma separated values. If -sS is specified TCP ports would be scanned. If -sU UDP Scan is specified, UDP Ports would be scanned.
+-p80-85, 443, 8000-8005 : Scan port with ranges.
+-p- : Scan all the ports excluding 0.
+-pT:21,22,25,U:53,111,161 : Scan TCP 21,22,25 and UDP Ports 53,111,161. -sU must also be specified.
+-p http* : wild cards may be used for ports with similar names. This would match nine ports including 80,280,443,591,593,8000,8008,8080,8443.
 </pre></div>
 </div>
 <p>Port scanning via <strong>netcat</strong>: Netcat might not be the best tool to use for port scanning, but can be used quickly. netcat scans TCP ports by default, but we can perform UDP scans as well.</p>
 <p>For a TCP scan, the format is</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nc</span> <span class="o">-</span><span class="n">vvn</span> <span class="o">-</span><span class="n">z</span> <span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span> <span class="n">startport</span><span class="o">-</span><span class="n">endport</span>
-   <span class="o">-</span><span class="n">z</span> <span class="n">flag</span> <span class="ow">is</span> <span class="n">Zero</span><span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">mode</span> <span class="p">(</span><span class="n">used</span> <span class="k">for</span> <span class="n">scanning</span><span class="p">)</span>
-   <span class="o">-</span><span class="n">vv</span> <span class="n">will</span> <span class="n">provide</span> <span class="n">verbose</span> <span class="n">information</span> <span class="n">about</span> <span class="n">the</span> <span class="n">results</span>
-   <span class="o">-</span><span class="n">n</span> <span class="n">flag</span> <span class="n">allows</span> <span class="n">to</span> <span class="n">skip</span> <span class="n">the</span> <span class="n">DNS</span> <span class="n">lookup</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nc -vvn -z xxx.xxx.xxx.xxx startport-endport
+   -z flag is Zero-I/O mode (used for scanning)
+   -vv will provide verbose information about the results
+   -n flag allows to skip the DNS lookup
 </pre></div>
 </div>
 <p>For a UDP Port Scan, we need to add -u flag which makes the format</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nc</span> <span class="o">-</span><span class="n">vvn</span> <span class="o">-</span><span class="n">u</span> <span class="o">-</span><span class="n">z</span> <span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span> <span class="n">startport</span><span class="o">-</span><span class="n">endport</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nc -vvn -u -z xxx.xxx.xxx.xxx startport-endport
 </pre></div>
 </div>
 <p>If we have windows machine without nmap, we can use <a class="reference external" href="https://www.powershellgallery.com/packages/PSnmap/">PSnmap</a></p>
 <div class="section" id="identifying-service-versions">
 <h4>Identifying service versions<a class="headerlink" href="#identifying-service-versions" title="Permalink to this headline">¶</a></h4>
 <p>Ideally, we can use -sV to probe the ports to find the version running. When performing a version scan (-sV), Nmap sends a series of probes, each of which is assigned a rarity value correctly identified. However, high intensity scans takes longer. The intensity must be between 0 and 9. The default is 7.</p>
-<p>Ideally, to avoid the IDS Detection, we should avoid using -sV option. However, we can keep the noise less by using &#8211;version intensity by which we can control the number of probes sent to determine the service. Setting this option to 0 will send only the Null probe (connect and wait for banner) and any probes that have been specifically listed as pertaining to the scanned port in nmap-service-probes. The other options available are below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">version</span><span class="o">-</span><span class="n">light</span> <span class="p">(</span><span class="n">Enable</span> <span class="n">light</span> <span class="n">mode</span><span class="p">)</span> <span class="p">:</span> <span class="n">Alias</span> <span class="k">for</span> <span class="o">--</span><span class="n">version</span><span class="o">-</span><span class="n">intensity</span> <span class="mf">2.</span>
-<span class="o">--</span><span class="n">version</span><span class="o">-</span><span class="nb">all</span> <span class="p">(</span><span class="n">Try</span> <span class="n">every</span> <span class="n">single</span> <span class="n">probe</span><span class="p">)</span> <span class="p">:</span> <span class="n">An</span> <span class="n">alias</span> <span class="k">for</span> <span class="o">--</span><span class="n">version</span><span class="o">-</span><span class="n">intensity</span> <span class="mi">9</span>
-<span class="o">--</span><span class="n">version</span><span class="o">-</span><span class="n">trace</span> <span class="p">(</span><span class="n">Trace</span> <span class="n">version</span> <span class="n">scan</span> <span class="n">activity</span><span class="p">)</span> <span class="p">:</span> <span class="n">Print</span> <span class="n">debugging</span> <span class="n">information</span><span class="o">.</span>
+<p>Ideally, to avoid the IDS Detection, we should avoid using -sV option. However, we can keep the noise less by using –version intensity by which we can control the number of probes sent to determine the service. Setting this option to 0 will send only the Null probe (connect and wait for banner) and any probes that have been specifically listed as pertaining to the scanned port in nmap-service-probes. The other options available are below:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>--version-light (Enable light mode) : Alias for --version-intensity 2.
+--version-all (Try every single probe) : An alias for --version-intensity 9
+--version-trace (Trace version scan activity) : Print debugging information.
 </pre></div>
 </div>
-<p>Also, when -sV is specified apart from the probes, all the scripts in the <a class="reference external" href="https://nmap.org/nsedoc/categories/version.html">Version</a> category are executed. These scripts could be prevented from running by removing them from the script.db catalog or by building Nmap without NSE support (./configure &#8211;without-liblua). However, if &#8211;version-intensity option is less than 7, those scripts won&#8217;t be executed (I might be a little wrong here).</p>
+<p>Also, when -sV is specified apart from the probes, all the scripts in the <a class="reference external" href="https://nmap.org/nsedoc/categories/version.html">Version</a> category are executed. These scripts could be prevented from running by removing them from the script.db catalog or by building Nmap without NSE support (./configure –without-liblua). However, if –version-intensity option is less than 7, those scripts won’t be executed (I might be a little wrong here).</p>
 <p>So our scan would become approx</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">&lt;</span><span class="n">IP_Address_Range</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">n</span> <span class="o">--</span><span class="n">top</span><span class="o">-</span><span class="n">ports</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;/-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">Custom</span> <span class="n">Port</span> <span class="n">List</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">sV</span> <span class="o">--</span><span class="n">version</span><span class="o">-</span><span class="n">intensity</span> <span class="mi">0</span><span class="o">/</span> <span class="p">(</span><span class="n">No</span> <span class="o">-</span><span class="n">sV</span><span class="p">)</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nmap &lt;IP_Address_Range&gt; -n --top-ports &lt;number&gt;/-p &lt;Custom Port List&gt; -sV --version-intensity 0/ (No -sV)
 </pre></div>
 </div>
 </div>
 <div class="section" id="performance">
 <h4>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h4>
 <p>So, How can we improve the performance of our nmap scan, so that result could be achieved faster. However, as always we will have Time Vs Accuracy Trade off.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">T</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">-</span><span class="mi">5</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Set</span> <span class="n">timing</span> <span class="n">template</span> <span class="p">(</span><span class="n">higher</span> <span class="ow">is</span> <span class="n">faster</span><span class="p">)</span>
-<span class="o">--</span><span class="nb">min</span><span class="o">-</span><span class="n">rtt</span><span class="o">-</span><span class="n">timeout</span><span class="o">/</span><span class="nb">max</span><span class="o">-</span><span class="n">rtt</span><span class="o">-</span><span class="n">timeout</span><span class="o">/</span><span class="n">initial</span><span class="o">-</span><span class="n">rtt</span><span class="o">-</span><span class="n">timeout</span> <span class="o">&lt;</span><span class="n">time</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Specifies</span> <span class="n">probe</span> <span class="nb">round</span> <span class="n">trip</span> <span class="n">time</span><span class="o">.</span>
-<span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">retries</span> <span class="o">&lt;</span><span class="n">tries</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Caps</span> <span class="n">number</span> <span class="n">of</span> <span class="n">port</span> <span class="n">scan</span> <span class="n">probe</span> <span class="n">retransmissions</span><span class="o">.</span>
-<span class="o">--</span><span class="n">host</span><span class="o">-</span><span class="n">timeout</span> <span class="o">&lt;</span><span class="n">time</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Give</span> <span class="n">up</span> <span class="n">on</span> <span class="n">target</span> <span class="n">after</span> <span class="n">this</span> <span class="n">long</span>
-<span class="o">--</span><span class="n">scan</span><span class="o">-</span><span class="n">delay</span><span class="o">/--</span><span class="nb">max</span><span class="o">-</span><span class="n">scan</span><span class="o">-</span><span class="n">delay</span> <span class="o">&lt;</span><span class="n">time</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Adjust</span> <span class="n">delay</span> <span class="n">between</span> <span class="n">probes</span>
-<span class="o">--</span><span class="nb">min</span><span class="o">-</span><span class="n">rate</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Send</span> <span class="n">packets</span> <span class="n">no</span> <span class="n">slower</span> <span class="n">than</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span> <span class="n">per</span> <span class="n">second</span>
-<span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">rate</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Send</span> <span class="n">packets</span> <span class="n">no</span> <span class="n">faster</span> <span class="n">than</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span> <span class="n">per</span> <span class="n">second</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>-T&lt;0-5&gt;: Set timing template (higher is faster)
+--min-rtt-timeout/max-rtt-timeout/initial-rtt-timeout &lt;time&gt;: Specifies probe round trip time.
+--max-retries &lt;tries&gt;: Caps number of port scan probe retransmissions.
+--host-timeout &lt;time&gt;: Give up on target after this long
+--scan-delay/--max-scan-delay &lt;time&gt;: Adjust delay between probes
+--min-rate &lt;number&gt;: Send packets no slower than &lt;number&gt; per second
+--max-rate &lt;number&gt;: Send packets no faster than &lt;number&gt; per second
 </pre></div>
 </div>
-<p>T0, T1, T2 is specifically for IDS Evasion. T3 is the default. We can set max-retries to a lower value such as 2. Currently it&#8217;s 10 for T0, T1, T2, T3; 6 for T4 and 2 for T5.</p>
+<p>T0, T1, T2 is specifically for IDS Evasion. T3 is the default. We can set max-retries to a lower value such as 2. Currently it’s 10 for T0, T1, T2, T3; 6 for T4 and 2 for T5.</p>
 </div>
 <div class="section" id="nmap-scripts">
 <h4>Nmap Scripts<a class="headerlink" href="#nmap-scripts" title="Permalink to this headline">¶</a></h4>
-<p>As bonsaiviking says in <a class="reference external" href="http://blog.bonsaiviking.com/2015/07/they-see-me-scannin-part-2.html">They See Me Scanning Part 2</a> If you are wild enough to try NSE scripts against an IDS-protected target, you should know how to read Lua, since the script sources are the final authority on what data is sent. But if you&#8217;re just looking to get a little better at blending in, these tips should help:</p>
+<p>As bonsaiviking says in <a class="reference external" href="http://blog.bonsaiviking.com/2015/07/they-see-me-scannin-part-2.html">They See Me Scanning Part 2</a> If you are wild enough to try NSE scripts against an IDS-protected target, you should know how to read Lua, since the script sources are the final authority on what data is sent. But if you’re just looking to get a little better at blending in, these tips should help:</p>
 <ul class="simple">
-<li>Use &#8211;script-args-file to pass script arguments to Nmap from a file. This will keep your command line clean and make it harder to accidentally miss one of the options you choose</li>
+<li>Use –script-args-file to pass script arguments to Nmap from a file. This will keep your command line clean and make it harder to accidentally miss one of the options you choose</li>
 <li>Obviously avoid dos, intrusive, and exploit category scripts.</li>
 <li>Use scripts by name instead of by category, so that you know exactly what will be run.</li>
-<li>Thoroughly read the documentation for each script you intend to use. Set http.useragent to something believable that blends in. Currently, The HTTP scripts all use a User-Agent header that identifies as &#8220;Nmap Scripting Engine.&#8221;</li>
+<li>Thoroughly read the documentation for each script you intend to use. Set http.useragent to something believable that blends in. Currently, The HTTP scripts all use a User-Agent header that identifies as “Nmap Scripting Engine.”</li>
 </ul>
 </div>
 <div class="section" id="output-options">
 <h4>Output Options<a class="headerlink" href="#output-options" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">oN</span><span class="o">/-</span><span class="n">oX</span><span class="o">/-</span><span class="n">oS</span><span class="o">/-</span><span class="n">oG</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Output</span> <span class="n">scan</span> <span class="ow">in</span> <span class="n">normal</span><span class="p">,</span> <span class="n">XML</span><span class="p">,</span> <span class="n">s</span><span class="o">|&lt;</span><span class="n">rIpt</span> <span class="n">kIddi3</span><span class="p">,</span> <span class="ow">and</span> <span class="n">Grepable</span> <span class="nb">format</span><span class="p">,</span> <span class="n">respectively</span><span class="p">,</span> <span class="n">to</span> <span class="n">t</span><span class="o">.</span>
-<span class="o">-</span><span class="n">oA</span> <span class="o">&lt;</span><span class="n">basename</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Output</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">three</span> <span class="n">major</span> <span class="n">formats</span> <span class="n">at</span> <span class="n">once</span>
-<span class="o">--</span><span class="n">reason</span><span class="p">:</span> <span class="n">Display</span> <span class="n">the</span> <span class="n">reason</span> <span class="n">a</span> <span class="n">port</span> <span class="ow">is</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">particular</span> <span class="n">state</span>
-<span class="o">--</span><span class="nb">open</span><span class="p">:</span> <span class="n">Only</span> <span class="n">show</span> <span class="nb">open</span> <span class="p">(</span><span class="ow">or</span> <span class="n">possibly</span> <span class="nb">open</span><span class="p">)</span> <span class="n">ports</span>
-<span class="o">--</span><span class="n">packet</span><span class="o">-</span><span class="n">trace</span><span class="p">:</span> <span class="n">Show</span> <span class="nb">all</span> <span class="n">packets</span> <span class="n">sent</span> <span class="ow">and</span> <span class="n">received</span>
-<span class="o">--</span><span class="n">resume</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Resume</span> <span class="n">an</span> <span class="n">aborted</span> <span class="n">scan</span> <span class="p">:</span> <span class="n">Filename</span> <span class="n">should</span> <span class="n">be</span> <span class="o">.</span><span class="n">nmap</span> <span class="ow">or</span> <span class="o">.</span><span class="n">gnmap</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>-oN/-oX/-oS/-oG &lt;file&gt;: Output scan in normal, XML, s|&lt;rIpt kIddi3, and Grepable format, respectively, to t.
+-oA &lt;basename&gt;: Output in the three major formats at once
+--reason: Display the reason a port is in a particular state
+--open: Only show open (or possibly open) ports
+--packet-trace: Show all packets sent and received
+--resume &lt;filename&gt;: Resume an aborted scan : Filename should be .nmap or .gnmap
 </pre></div>
 </div>
-<p>At this point, it&#8217;s good to find what are the most common ports open in the scan we just performed by</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="s2">&quot;^[0-9]\+&quot;</span> <span class="o">&lt;</span><span class="n">nmap</span> <span class="n">file</span> <span class="o">.</span><span class="n">nmap</span> <span class="n">extension</span><span class="o">&gt;</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;\ open\ &quot;</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">|</span> <span class="n">uniq</span> <span class="o">-</span><span class="n">c</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">rn</span> <span class="o">|</span> <span class="n">awk</span> <span class="s1">&#39;{print &quot;</span><span class="se">\&quot;</span><span class="s1">&quot;$1&quot;</span><span class="se">\&quot;</span><span class="s1">,</span><span class="se">\&quot;</span><span class="s1">&quot;$2&quot;</span><span class="se">\&quot;</span><span class="s1">,</span><span class="se">\&quot;</span><span class="s1">&quot;$3&quot;</span><span class="se">\&quot;</span><span class="s1">,</span><span class="se">\&quot;</span><span class="s1">&quot;$4&quot;</span><span class="se">\&quot;</span><span class="s1">,</span><span class="se">\&quot;</span><span class="s1">&quot;$5&quot; &quot;$6&quot; &quot;$7&quot; &quot;$8&quot; &quot;$9&quot; &quot;$10&quot; &quot;$11&quot; &quot;$12&quot; &quot;$13&quot;</span><span class="se">\&quot;</span><span class="s1">&quot;}&#39;</span> <span class="o">&gt;</span> <span class="n">test</span><span class="o">.</span><span class="n">csv</span>
+<p>At this point, it’s good to find what are the most common ports open in the scan we just performed by</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>grep &quot;^[0-9]\+&quot; &lt;nmap file .nmap extension&gt; | grep &quot;\ open\ &quot; | sort | uniq -c | sort -rn | awk &#39;{print &quot;\&quot;&quot;$1&quot;\&quot;,\&quot;&quot;$2&quot;\&quot;,\&quot;&quot;$3&quot;\&quot;,\&quot;&quot;$4&quot;\&quot;,\&quot;&quot;$5&quot; &quot;$6&quot; &quot;$7&quot; &quot;$8&quot; &quot;$9&quot; &quot;$10&quot; &quot;$11&quot; &quot;$12&quot; &quot;$13&quot;\&quot;&quot;}&#39; &gt; test.csv
 </pre></div>
 </div>
 </div>
@@ -869,20 +863,20 @@ $ nslookup
 <div class="section" id="netbios-service">
 <h4>NetBIOS Service<a class="headerlink" href="#netbios-service" title="Permalink to this headline">¶</a></h4>
 <p>Netbios listens on TCP Port 139, 445 and UDP Port 137. How do we machines on which these three ports or a combination are open and feed that IP information to nbtscan and enum4linux. We can do this by using grep such as</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="o">-</span><span class="n">E</span> <span class="s2">&quot;^Host.*[ ]137/open/udp&quot;</span> <span class="o">&lt;</span><span class="n">Nmap</span> <span class="o">.</span><span class="n">gnmap</span> <span class="n">file</span><span class="o">&gt;</span>     <span class="p">:</span> <span class="n">Grep</span> <span class="mi">137</span> <span class="n">UDP</span> <span class="n">Ports</span> <span class="n">to</span> <span class="n">run</span> <span class="n">nbtscan</span>
-<span class="n">grep</span> <span class="o">-</span><span class="n">E</span> <span class="s2">&quot;^Host.*[ ]139/open/tcp&quot;</span> <span class="o">&lt;</span><span class="n">Nmap</span> <span class="o">.</span><span class="n">gnmap</span> <span class="n">file</span><span class="o">&gt;</span>
-<span class="c1">#If we want that tcp port 139 and 445 both must be open</span>
-<span class="n">grep</span> <span class="o">-</span><span class="n">E</span> <span class="s2">&quot;^Host.*[ ]139/open/tcp&quot;</span> <span class="o">&lt;</span><span class="n">Nmap</span> <span class="o">.</span><span class="n">gnmap</span> <span class="n">file</span><span class="o">&gt;</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">E</span> <span class="s2">&quot;^Host.*[ ]445/open/tcp&quot;</span>                 <span class="o">&lt;</span><span class="n">Nmap</span> <span class="o">.</span><span class="n">gnmap</span> <span class="n">file</span><span class="o">&gt;</span> <span class="p">:</span> <span class="n">Grep</span> <span class="n">TCP</span> <span class="mi">135</span> <span class="ow">and</span> <span class="mi">445</span> <span class="n">port</span> <span class="n">to</span> <span class="n">run</span> <span class="n">enum4linux</span>
-<span class="c1">#If we want that tcp port 139 or 445 must be open</span>
-<span class="n">grep</span> <span class="o">-</span><span class="n">E</span> <span class="s2">&quot;^Host.*[ ]139/open/tcp|[ ]443/open/tcp&quot;</span> <span class="o">&lt;</span><span class="n">Nmap</span> <span class="o">.</span><span class="n">gnmap</span> <span class="n">file</span><span class="o">&gt;</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>grep -E &quot;^Host.*[ ]137/open/udp&quot; &lt;Nmap .gnmap file&gt;     : Grep 137 UDP Ports to run nbtscan
+grep -E &quot;^Host.*[ ]139/open/tcp&quot; &lt;Nmap .gnmap file&gt;
+#If we want that tcp port 139 and 445 both must be open
+grep -E &quot;^Host.*[ ]139/open/tcp&quot; &lt;Nmap .gnmap file&gt; | grep -E &quot;^Host.*[ ]445/open/tcp&quot;                 &lt;Nmap .gnmap file&gt; : Grep TCP 135 and 445 port to run enum4linux
+#If we want that tcp port 139 or 445 must be open
+grep -E &quot;^Host.*[ ]139/open/tcp|[ ]443/open/tcp&quot; &lt;Nmap .gnmap file&gt;
 </pre></div>
 </div>
 </div>
 <div class="section" id="nbtscan">
 <h4>NBTSCAN<a class="headerlink" href="#nbtscan" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nbtscan</span>
-    <span class="o">-</span><span class="n">v</span>        <span class="n">Verbose</span> <span class="n">output</span><span class="o">.</span> <span class="n">Print</span> <span class="nb">all</span> <span class="n">names</span> <span class="n">received</span> <span class="kn">from</span> <span class="nn">each</span> <span class="n">host</span><span class="o">.</span>
-    <span class="o">-</span><span class="n">f</span> <span class="n">filename</span>     <span class="n">Take</span> <span class="n">IP</span> <span class="n">addresses</span> <span class="n">to</span> <span class="n">scan</span> <span class="kn">from</span> <span class="nn">file</span> <span class="s2">&quot;filename&quot;</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nbtscan
+    -v        Verbose output. Print all names received from each host.
+    -f filename     Take IP addresses to scan from file &quot;filename&quot;
 </pre></div>
 </div>
 </div>
@@ -897,10 +891,10 @@ $ nslookup
 <li><strong>snmpcheck:</strong></li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">snmpcheck</span> <span class="o">-</span><span class="n">t</span> <span class="o">&lt;</span><span class="n">IP</span> <span class="n">address</span><span class="o">&gt;</span>
-     <span class="o">-</span><span class="n">c</span> <span class="p">:</span> <span class="n">SNMP</span> <span class="n">community</span><span class="p">;</span> <span class="n">default</span> <span class="ow">is</span> <span class="n">public</span>
-     <span class="o">-</span><span class="n">v</span> <span class="p">:</span> <span class="n">SNMP</span> <span class="n">version</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span> <span class="n">default</span> <span class="ow">is</span> <span class="mi">1</span>
-     <span class="o">-</span><span class="n">w</span> <span class="p">:</span> <span class="n">detect</span> <span class="n">write</span> <span class="n">access</span> <span class="p">(</span><span class="n">separate</span> <span class="n">action</span> <span class="n">by</span> <span class="n">enumeration</span><span class="p">)</span>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>snmpcheck -t &lt;IP address&gt;
+     -c : SNMP community; default is public
+     -v : SNMP version (1,2); default is 1
+     -w : detect write access (separate action by enumeration)
 </pre></div>
 </div>
 </div></blockquote>
@@ -909,7 +903,7 @@ $ nslookup
 </ul>
 <p>It also allows us to interact with the SNMP version 3. It also allows to extract particular nodes of a MIB tree.</p>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span>snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  : Enumerating  the  Entire  MIB  Tree
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  : Enumerating  the  Entire  MIB  Tree
 snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  &lt;MIB Tree Number&gt; : Enumerate particular node
     -v 1|2c|3     specifies SNMP version to use
     -c COMMUNITY      set the community string
@@ -965,7 +959,7 @@ snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  &lt;MIB Tree Number&gt; : Enume
 <li>These malicious .jar files were used in a successful social engineering campaign against the client.</li>
 </ul>
 </div></blockquote>
-<div disqus-identifier="Infrastructure PenTest Series : Part 1 - Intelligence Gathering" disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
+</div>
 </div>
 </div>
 

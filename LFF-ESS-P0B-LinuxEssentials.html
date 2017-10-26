@@ -2,11 +2,9 @@
 
 <!doctype html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
 
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-92365403-1']);
@@ -19,10 +17,8 @@
       })();
     </script>
     <title>The Essentials : Linux Basics &#8212; tech.bitvijays.com</title>
-    
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -36,16 +32,14 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/disqus.js"></script>
     <script type="text/javascript" src="_static/bizstyle.js"></script>
-    <script type="text/javascript" src="_static/collapse.js"></script>
     <link rel="search" title="Search" href="search.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -66,7 +60,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#replace-text-in-vi">Replace text in Vi</a><ul>
-<li><a class="reference internal" href="#other-info">Other Info:</a></li>
+<li><a class="reference internal" href="#other-info">Other Info</a></li>
 </ul>
 </li>
 </ul>
@@ -110,6 +104,14 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#useful-utilities-commands">Useful Utilities/ Commands</a><ul>
+<li><a class="reference internal" href="#grep-global-regular-expression-print">Grep - Global Regular Expression Print</a><ul>
+<li><a class="reference internal" href="#syntax">Syntax</a></li>
+<li><a class="reference internal" href="#using-regular-expressions">Using regular expressions</a></li>
+<li><a class="reference internal" href="#search-a-specific-string">Search a specific string</a></li>
+<li><a class="reference internal" href="#line-and-word-anchors">Line and word anchors</a></li>
+<li><a class="reference internal" href="#shell-expansions-input-to-grep">Shell expansions - input to Grep</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#copy-copy-files-and-directories">Copy - Copy files and directories</a></li>
 <li><a class="reference internal" href="#cut-remove-sections-from-each-line-of-files">cut - remove sections from each line of files</a></li>
 <li><a class="reference internal" href="#pipes">Pipes</a></li>
@@ -159,7 +161,6 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#tips-and-tricks">Tips and tricks</a><ul>
-<li><a class="reference internal" href="#grep">Grep</a></li>
 <li><a class="reference internal" href="#apt-get-error">Apt-get error?</a></li>
 <li><a class="reference internal" href="#track-etc-directory">Track /etc directory</a></li>
 <li><a class="reference internal" href="#ls-showing-full-path">ls showing full path</a></li>
@@ -167,6 +168,7 @@
 <li><a class="reference internal" href="#searching-history">Searching History</a></li>
 <li><a class="reference internal" href="#awk-converting-to-normal-output-to-csv">Awk converting to normal output to csv</a></li>
 <li><a class="reference internal" href="#finding-most-open-ports-in-nmap-scan">Finding most open ports in nmap scan</a></li>
+<li><a class="reference internal" href="#cat">cat</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#practice">Practice</a><ul>
@@ -227,14 +229,14 @@
 <h2>Vi : Powerful Editor<a class="headerlink" href="#vi-powerful-editor" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="open-file-with-vi">
 <h3>Open file with vi<a class="headerlink" href="#open-file-with-vi" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">vi</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span>               <span class="o">-</span> <span class="n">Open</span> <span class="n">a</span> <span class="n">file</span> <span class="n">to</span> <span class="n">edit</span> <span class="ow">in</span> <span class="n">Vi</span> <span class="n">editor</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>vi &lt;filename&gt;               - Open a file to edit in Vi editor.
 </pre></div>
 </div>
 </div>
 <div class="section" id="vi-modes">
 <h3>Vi Modes<a class="headerlink" href="#vi-modes" title="Permalink to this headline">¶</a></h3>
 <p>Two modes - Command and Insert Mode. All commands below are in command mode.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>h,l,j,k                     - Move left, right, down, up
+<div class="highlight-None"><div class="highlight"><pre><span></span>h,l,j,k                     - Move left, right, down, up
 w                           - Move to the start of the next word.
 e                           - Move to the end of the word.
 b                           - Move to the beginning of the word.
@@ -283,10 +285,10 @@ p                           - Paste the line in the buffer in to text after the 
 <div class="section" id="vimrc">
 <h4>.vimrc<a class="headerlink" href="#vimrc" title="Permalink to this headline">¶</a></h4>
 <p>Contains optional runtime configuration settings to initialize Vim when it starts. Example: If you want Vim to have syntax on and line numbers on, whenever you open vi, enter syntax on and set number in this file.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">##Sample contents of .vimrc</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>##Sample contents of .vimrc
 
-<span class="n">syntax</span> <span class="n">on</span>
-<span class="nb">set</span> <span class="n">number</span>
+syntax on
+set number
 </pre></div>
 </div>
 <p>A good details about various options which can be set in vimrc can be found at <a class="reference external" href="https://dougblack.io/words/a-good-vimrc.html">A Good Vimrc</a></p>
@@ -302,22 +304,22 @@ p                           - Paste the line in the buffer in to text after the 
 </div>
 <div class="section" id="replace-text-in-vi">
 <h3>Replace text in Vi<a class="headerlink" href="#replace-text-in-vi" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">s</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">learn</span>     <span class="o">-</span> <span class="n">would</span> <span class="n">replace</span> <span class="n">test</span> <span class="n">to</span> <span class="n">learn</span> <span class="ow">in</span> <span class="n">current</span> <span class="n">line</span> <span class="n">but</span> <span class="n">only</span> <span class="n">first</span> <span class="n">instance</span><span class="o">.</span>
-<span class="p">:</span><span class="n">s</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">learn</span><span class="o">/</span><span class="n">g</span>   <span class="o">-</span> <span class="n">would</span> <span class="n">replace</span> <span class="n">test</span> <span class="n">to</span> <span class="n">learn</span> <span class="ow">in</span> <span class="n">current</span> <span class="n">line</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">instance</span><span class="o">.</span>
-<span class="p">:</span><span class="n">s</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">learn</span><span class="o">/</span><span class="n">gi</span>  <span class="o">-</span> <span class="n">would</span> <span class="n">replace</span> <span class="n">test</span> <span class="p">(</span><span class="nb">all</span> <span class="n">cases</span><span class="p">)</span> <span class="n">to</span> <span class="n">learn</span> <span class="ow">in</span> <span class="n">current</span> <span class="n">line</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">instance</span><span class="o">.</span>
-<span class="p">:</span><span class="o">%</span><span class="n">s</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">learn</span><span class="o">/</span><span class="n">gi</span> <span class="o">-</span> <span class="n">would</span> <span class="n">replace</span> <span class="n">test</span> <span class="n">to</span> <span class="n">learn</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">file</span> <span class="p">(</span><span class="nb">all</span> <span class="n">lines</span><span class="p">)</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>:s/test/learn     - would replace test to learn in current line but only first instance.
+:s/test/learn/g   - would replace test to learn in current line all the instance.
+:s/test/learn/gi  - would replace test (all cases) to learn in current line all the instance.
+:%s/test/learn/gi - would replace test to learn in the file (all lines)
 </pre></div>
 </div>
 <div class="section" id="other-info">
-<h4>Other Info:<a class="headerlink" href="#other-info" title="Permalink to this headline">¶</a></h4>
+<h4>Other Info<a class="headerlink" href="#other-info" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><a class="reference external" href="https://vimawesome.com/">Vim Awesome</a> provides Awesome VIM plugins from across the universe. Few good one are</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>The NERD tree : A tree explorer plugin for vim</li>
-<li>Syntastic : Syntax checking hacks for vim</li>
-<li>Youcompleteme : A code-completion engine for Vim</li>
+<li>The NERD tree : Tree explorer plugin for vim</li>
+<li>Syntastic     : Syntax checking hacks for vim</li>
+<li>Youcompleteme : Code-completion engine for Vim</li>
 </ul>
 </div></blockquote>
 </div>
@@ -351,36 +353,36 @@ p                           - Paste the line in the buffer in to text after the 
 <h3>Updating Debian Linux System<a class="headerlink" href="#updating-debian-linux-system" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="using-apt-get">
 <h4>Using apt-get<a class="headerlink" href="#using-apt-get" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>                 <span class="o">-</span> <span class="n">Sync</span> <span class="k">with</span> <span class="n">Repositories</span><span class="o">.</span>
-<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span>                <span class="o">-</span> <span class="n">Upgrade</span> <span class="n">installed</span> <span class="n">packages</span><span class="o">.</span>
-<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">dist</span><span class="o">-</span><span class="n">upgrade</span>           <span class="o">-</span> <span class="n">Upgrade</span> <span class="n">distribution</span> <span class="n">packages</span><span class="o">.</span>
-<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="s2">&quot;Package Name&quot;</span> <span class="o">-</span> <span class="n">Install</span> <span class="n">the</span> <span class="n">package</span><span class="o">.</span>
-<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">remove</span>  <span class="s2">&quot;Package Name&quot;</span> <span class="o">-</span> <span class="n">Uninstall</span> <span class="n">the</span> <span class="n">package</span><span class="o">.</span>
-<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">purge</span>   <span class="s2">&quot;Package Name&quot;</span> <span class="o">-</span> <span class="n">Removes</span> <span class="n">the</span> <span class="n">package</span> <span class="k">as</span> <span class="n">well</span> <span class="k">as</span> <span class="n">the</span> <span class="n">configuration</span> <span class="n">files</span><span class="o">.</span>
-<span class="n">apt</span><span class="o">-</span><span class="n">cache</span> <span class="n">show</span>  <span class="s2">&quot;Package name&quot;</span> <span class="o">-</span> <span class="n">Shows</span> <span class="n">what</span> <span class="n">package</span> <span class="ow">is</span> <span class="n">used</span> <span class="k">for</span><span class="o">.</span>
-<span class="n">apt</span><span class="o">-</span><span class="n">cache</span> <span class="n">search</span> <span class="s2">&quot;Keywords&quot;</span>    <span class="o">-</span> <span class="n">Search</span> <span class="n">package</span> <span class="n">name</span> <span class="n">based</span> <span class="n">on</span> <span class="n">keywords</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>apt-get update                 - Sync with Repositories.
+apt-get upgrade                - Upgrade installed packages.
+apt-get dist-upgrade           - Upgrade distribution packages.
+apt-get install &quot;Package Name&quot; - Install the package.
+apt-get remove  &quot;Package Name&quot; - Uninstall the package.
+apt-get purge   &quot;Package Name&quot; - Removes the package as well as the configuration files.
+apt-cache show  &quot;Package name&quot; - Shows what package is used for.
+apt-cache search &quot;Keywords&quot;    - Search package name based on keywords.
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">As mostly, updating takes time, you can club all the commands like &#8220;apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgrade &amp;&amp;  poweroff&#8221;. poweroff would shutdown the system after everything is updated.</p>
+<p class="last">As mostly, updating takes time, you can club all the commands like “apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgrade &amp;&amp;  poweroff”. poweroff would shutdown the system after everything is updated.</p>
 </div>
 </div>
 <div class="section" id="using-debian-package-manager-dpkg">
 <h4>Using Debian Package Manager dpkg<a class="headerlink" href="#using-debian-package-manager-dpkg" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dpkg</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">Package</span><span class="o">&gt;.</span><span class="n">deb</span>          <span class="o">-</span> <span class="n">Install</span> <span class="n">package</span><span class="o">.</span>
-<span class="n">dpkg</span> <span class="o">-</span><span class="n">r</span> <span class="o">&lt;</span><span class="n">Package</span><span class="o">&gt;</span>              <span class="o">-</span> <span class="n">Removes</span> <span class="n">everything</span> <span class="k">except</span> <span class="n">configuration</span> <span class="n">files</span><span class="o">.</span>
-<span class="n">dpkg</span> <span class="o">-</span><span class="n">P</span> <span class="o">&lt;</span><span class="n">Package</span><span class="o">&gt;</span>              <span class="o">-</span> <span class="n">Removes</span> <span class="n">configurations</span> <span class="n">files</span> <span class="n">too</span><span class="o">.</span>
-<span class="n">dpkg</span> <span class="o">-</span><span class="n">l</span>                        <span class="o">-</span> <span class="n">Shows</span> <span class="n">the</span> <span class="nb">list</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">installed</span> <span class="n">packages</span><span class="o">.</span>
-<span class="n">dpkg</span> <span class="o">-</span><span class="n">L</span> <span class="s2">&quot;Package name&quot;</span>         <span class="o">-</span> <span class="n">Shows</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">files</span> <span class="n">installed</span> <span class="n">by</span> <span class="n">specific</span> <span class="n">packages</span><span class="o">.</span>
-<span class="n">dpkg</span> <span class="o">-</span><span class="n">S</span> <span class="s2">&quot;File path&quot;</span>            <span class="o">-</span> <span class="n">Shows</span> <span class="n">the</span> <span class="n">package</span> <span class="n">to</span> <span class="n">which</span> <span class="n">a</span> <span class="n">file</span> <span class="n">belong</span> <span class="n">to</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>dpkg -i &lt;Package&gt;.deb          - Install package.
+dpkg -r &lt;Package&gt;              - Removes everything except configuration files.
+dpkg -P &lt;Package&gt;              - Removes configurations files too.
+dpkg -l                        - Shows the list of all installed packages.
+dpkg -L &quot;Package name&quot;         - Shows a list of files installed by specific packages.
+dpkg -S &quot;File path&quot;            - Shows the package to which a file belong to.
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="adding-deleting-modifying-users-groups">
 <h3>Adding/Deleting/Modifying Users/Groups<a class="headerlink" href="#adding-deleting-modifying-users-groups" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>adduser &lt;username&gt; : Add a user.
+<div class="highlight-None"><div class="highlight"><pre><span></span>adduser &lt;username&gt; : Add a user.
  --gecos GECOS     : adduser won&#39;t ask for finger information.
  --system          : Create a system user.
  --quiet           : Suppress informational messages, only show warnings and errors.
@@ -401,42 +403,42 @@ groupmod           : Modify a group definition on the system.
 </div>
 <div class="section" id="changing-group-owner-permission">
 <h3>Changing Group/Owner/Permission<a class="headerlink" href="#changing-group-owner-permission" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">chown</span>              <span class="p">:</span> <span class="n">Change</span> <span class="n">file</span> <span class="n">owner</span> <span class="ow">and</span> <span class="n">group</span><span class="o">.</span>
- <span class="o">-</span><span class="n">reference</span><span class="o">=</span><span class="n">RFILE</span>  <span class="p">:</span> <span class="n">use</span> <span class="n">RFILE</span><span class="s1">&#39;s owner and group rather than specifying OWNER:GROUP values.</span>
- <span class="o">-</span><span class="n">R</span><span class="p">,</span> <span class="o">--</span><span class="n">recursive</span>   <span class="p">:</span> <span class="n">operate</span> <span class="n">on</span> <span class="n">files</span> <span class="ow">and</span> <span class="n">directories</span> <span class="n">recursively</span><span class="o">.</span>
-<span class="n">chmod</span>              <span class="p">:</span> <span class="n">change</span> <span class="n">file</span> <span class="n">mode</span> <span class="n">bits</span><span class="o">.</span>
-<span class="n">chgrp</span>              <span class="p">:</span> <span class="n">change</span> <span class="n">group</span> <span class="n">ownership</span><span class="o">.</span>
-<span class="n">SUID</span> <span class="n">bit</span>           <span class="p">:</span> <span class="n">SetUID</span> <span class="n">bit</span> <span class="n">specifies</span> <span class="n">that</span> <span class="n">an</span> <span class="n">executable</span> <span class="n">should</span> <span class="n">run</span> <span class="k">as</span> <span class="n">its</span> <span class="n">owner</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">the</span> <span class="n">user</span> <span class="n">executing</span> <span class="n">it</span><span class="o">.</span>
-                   <span class="p">:</span> <span class="n">SUID</span> <span class="ow">is</span> <span class="n">mostly</span> <span class="n">commonly</span> <span class="n">used</span> <span class="n">to</span> <span class="n">run</span> <span class="n">an</span> <span class="n">executable</span> <span class="k">as</span> <span class="n">root</span><span class="p">,</span> <span class="n">allowing</span> <span class="n">users</span> <span class="n">to</span> <span class="n">perform</span> <span class="n">tasks</span> <span class="n">such</span> <span class="k">as</span> <span class="n">changing</span> <span class="n">their</span> <span class="n">passwords</span><span class="o">.</span>
-                   <span class="p">:</span> <span class="n">If</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">flaw</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">SUID</span> <span class="n">root</span> <span class="n">executable</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">run</span> <span class="n">arbitrary</span> <span class="n">code</span> <span class="k">as</span> <span class="n">root</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>chown              : Change file owner and group.
+ -reference=RFILE  : use RFILE&#39;s owner and group rather than specifying OWNER:GROUP values.
+ -R, --recursive   : operate on files and directories recursively.
+chmod              : change file mode bits.
+chgrp              : change group ownership.
+SUID bit           : SetUID bit specifies that an executable should run as its owner instead of the user executing it.
+                   : SUID is mostly commonly used to run an executable as root, allowing users to perform tasks such as changing their passwords.
+                   : If there is a flaw in a SUID root executable, you can run arbitrary code as root.
 </pre></div>
 </div>
 </div>
 <div class="section" id="mounting-unmounting">
 <h3>Mounting/ Unmounting<a class="headerlink" href="#mounting-unmounting" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mount</span> <span class="o">&lt;</span><span class="n">device</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nb">dir</span><span class="o">&gt;</span> <span class="p">:</span> <span class="n">Mount</span> <span class="n">a</span> <span class="n">filesystem</span><span class="o">.</span>
-   <span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="o">--</span><span class="n">read</span><span class="o">-</span><span class="n">only</span>   <span class="p">:</span> <span class="n">Mount</span> <span class="n">the</span> <span class="n">filesystem</span> <span class="n">read</span><span class="o">-</span><span class="n">only</span><span class="o">.</span>
-<span class="n">unmount</span> <span class="p">{</span><span class="nb">dir</span><span class="o">|</span><span class="n">device</span><span class="p">}</span> <span class="p">:</span> <span class="n">Unmount</span> <span class="n">file</span> <span class="n">systems</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>mount &lt;device&gt; &lt;dir&gt; : Mount a filesystem.
+   -r, --read-only   : Mount the filesystem read-only.
+unmount {dir|device} : Unmount file systems.
 </pre></div>
 </div>
 <div class="section" id="mounting-windows-share-on-linux">
 <h4>Mounting Windows share on Linux<a class="headerlink" href="#mounting-windows-share-on-linux" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mount</span> <span class="o">-</span><span class="n">t</span> <span class="n">cifs</span> <span class="o">-</span><span class="n">o</span> <span class="n">username</span><span class="o">=&lt;</span><span class="n">share</span> <span class="n">user</span><span class="o">&gt;</span><span class="p">,</span><span class="n">password</span><span class="o">=&lt;</span><span class="n">share</span> <span class="n">password</span><span class="o">&gt;</span><span class="p">,</span><span class="n">domain</span><span class="o">=</span><span class="n">example</span><span class="o">.</span><span class="n">com</span> <span class="o">//</span><span class="n">WIN_PC_IP</span><span class="o">/&lt;</span><span class="n">share</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">/</span><span class="n">mnt</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>mount -t cifs -o username=&lt;share user&gt;,password=&lt;share password&gt;,domain=example.com //WIN_PC_IP/&lt;share name&gt; /mnt
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="linux-directories">
 <h3>Linux Directories<a class="headerlink" href="#linux-directories" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span>                             <span class="p">:</span> <span class="n">users</span> <span class="n">home</span> <span class="n">directories</span><span class="o">.</span>
-<span class="o">/</span><span class="n">etc</span>                              <span class="p">:</span> <span class="n">system</span><span class="o">-</span><span class="n">wide</span> <span class="n">configuration</span> <span class="n">files</span><span class="o">.</span>
-<span class="o">/</span><span class="nb">bin</span><span class="p">,</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="p">,</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span>    <span class="p">:</span> <span class="n">directories</span> <span class="k">with</span> <span class="n">executable</span> <span class="n">files</span><span class="o">.</span>
-<span class="o">/</span><span class="n">lib</span><span class="p">,</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="p">,</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span>    <span class="p">:</span> <span class="n">shared</span> <span class="n">libraries</span> <span class="n">needed</span> <span class="n">to</span> <span class="n">upport</span> <span class="n">the</span> <span class="n">applications</span><span class="o">.</span>
-<span class="o">/</span><span class="n">sbin</span><span class="p">,</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="p">,</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">sbin</span> <span class="p">:</span> <span class="n">directories</span> <span class="k">with</span> <span class="n">executables</span> <span class="n">supposed</span> <span class="n">to</span> <span class="n">be</span> <span class="n">run</span> <span class="n">by</span> <span class="n">the</span> <span class="n">Superuser</span><span class="o">.</span>
-<span class="o">/</span><span class="n">tmp</span><span class="p">,</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">tmp</span>                    <span class="p">:</span> <span class="n">temporary</span> <span class="n">directories</span><span class="p">,</span> <span class="n">watch</span> <span class="n">out</span> <span class="k">as</span> <span class="o">/</span><span class="n">tmp</span> <span class="ow">is</span><span class="p">,</span> <span class="n">by</span> <span class="n">default</span><span class="p">,</span> <span class="n">cleaned</span> <span class="n">out</span> <span class="n">on</span> <span class="n">each</span> <span class="n">reboot</span><span class="o">.</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">doc</span><span class="p">,</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span>    <span class="p">:</span> <span class="n">complete</span> <span class="n">system</span> <span class="n">documentation</span><span class="o">.</span>
-<span class="o">/</span><span class="n">dev</span>                              <span class="p">:</span> <span class="n">system</span> <span class="n">device</span> <span class="n">files</span><span class="o">.</span> <span class="n">In</span> <span class="n">Unix</span><span class="p">,</span> <span class="n">hardware</span> <span class="n">devices</span> <span class="n">are</span> <span class="n">represented</span> <span class="k">as</span> <span class="n">files</span><span class="o">.</span>
-<span class="o">/</span><span class="n">proc</span>                             <span class="p">:</span> <span class="s2">&quot;virtual&quot;</span> <span class="n">directory</span> <span class="n">containing</span> <span class="n">files</span> <span class="n">through</span> <span class="n">which</span> <span class="n">you</span> <span class="n">can</span> <span class="n">query</span> <span class="ow">or</span> <span class="n">tune</span> <span class="n">Linux</span> <span class="n">kernel</span> <span class="n">settings</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>/home                             : users home directories.
+/etc                              : system-wide configuration files.
+/bin, /usr/bin, /usr/local/bin    : directories with executable files.
+/lib, /usr/lib, /usr/local/lib    : shared libraries needed to upport the applications.
+/sbin, /usr/sbin, /usr/local/sbin : directories with executables supposed to be run by the Superuser.
+/tmp, /var/tmp                    : temporary directories, watch out as /tmp is, by default, cleaned out on each reboot.
+/usr/share/doc, /usr/share/man    : complete system documentation.
+/dev                              : system device files. In Unix, hardware devices are represented as files.
+/proc                             : &quot;virtual&quot; directory containing files through which you can query or tune Linux kernel settings.
 </pre></div>
 </div>
 </div>
@@ -444,10 +446,10 @@ groupmod           : Modify a group definition on the system.
 <h3>Runlevels and Kernel Configurations<a class="headerlink" href="#runlevels-and-kernel-configurations" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="linux-boot-process">
 <h4>Linux Boot Process<a class="headerlink" href="#linux-boot-process" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">BIOS</span> <span class="n">start</span> <span class="n">the</span> <span class="n">boot</span> <span class="n">loader</span><span class="o">.</span>
-<span class="mf">2.</span> <span class="n">Boot</span> <span class="n">loader</span> <span class="n">loads</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">into</span> <span class="n">memory</span><span class="o">.</span>
-<span class="mf">3.</span> <span class="n">The</span> <span class="n">Kernel</span> <span class="n">mounts</span> <span class="n">disks</span><span class="o">/</span><span class="n">partitions</span> <span class="ow">and</span> <span class="n">starts</span> <span class="n">the</span> <span class="n">init</span> <span class="n">daemon</span><span class="o">.</span>
-<span class="mf">4.</span> <span class="n">The</span> <span class="n">init</span> <span class="n">daemon</span> <span class="n">starts</span> <span class="n">services</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">runlevel</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>1. BIOS start the boot loader.
+2. Boot loader loads the kernel into memory.
+3. The Kernel mounts disks/partitions and starts the init daemon.
+4. The init daemon starts services based on the runlevel.
 </pre></div>
 </div>
 <p>Linux has six runlevels 0-6. Scripts are contained in /etc/rc[0-6,S].d/. Each folder contains the scripts which are followed by either K or S. If the first letter is K that script is not executed. If S, that script is executed. /etc/inittab contains the default run level.</p>
@@ -497,9 +499,9 @@ groupmod           : Modify a group definition on the system.
 </div>
 <div class="section" id="sysctl-configure-kernel-parameters">
 <h4>Sysctl - configure kernel parameters<a class="headerlink" href="#sysctl-configure-kernel-parameters" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">sysctl</span><span class="o">.</span><span class="n">conf</span>                <span class="p">:</span> <span class="n">Contains</span> <span class="n">the</span> <span class="n">variables</span> <span class="k">for</span> <span class="n">kernel</span> <span class="n">parameters</span><span class="o">.</span>
-<span class="n">sysctl</span> <span class="o">-</span><span class="n">a</span>                       <span class="p">:</span> <span class="n">Display</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">parameters</span>
-<span class="n">sysctl</span> <span class="o">-</span><span class="n">w</span> <span class="o">&lt;</span><span class="n">kernel</span> <span class="n">parameter</span><span class="o">&gt;</span>    <span class="p">:</span> <span class="n">Change</span> <span class="n">a</span> <span class="n">sysctl</span> <span class="n">setting</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>/etc/sysctl.conf                : Contains the variables for kernel parameters.
+sysctl -a                       : Display all the kernel parameters
+sysctl -w &lt;kernel parameter&gt;    : Change a sysctl setting.
 </pre></div>
 </div>
 <div class="admonition note">
@@ -510,11 +512,11 @@ groupmod           : Modify a group definition on the system.
 <div class="section" id="kernel-modules">
 <h4>Kernel Modules<a class="headerlink" href="#kernel-modules" title="Permalink to this headline">¶</a></h4>
 <p>Kernel modules are contained in /lib/modules/$(uname -r)/</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">lsmod</span>      <span class="p">:</span> <span class="nb">list</span> <span class="nb">all</span> <span class="n">loaded</span> <span class="n">modules</span>
-<span class="n">modprobe</span>   <span class="p">:</span> <span class="n">load</span> <span class="n">kernel</span> <span class="n">modules</span>
-<span class="n">lspci</span>      <span class="p">:</span> <span class="nb">list</span> <span class="nb">all</span> <span class="n">pci</span> <span class="n">devices</span>
-<span class="n">lsusb</span>      <span class="p">:</span> <span class="nb">list</span> <span class="nb">all</span> <span class="n">usb</span> <span class="n">devices</span>
-<span class="n">hal</span><span class="o">-</span><span class="n">device</span> <span class="p">:</span> <span class="nb">list</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">Hardware</span> <span class="n">Abstraction</span> <span class="n">layer</span> <span class="n">devices</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>lsmod      : list all loaded modules
+modprobe   : load kernel modules
+lspci      : list all pci devices
+lsusb      : list all usb devices
+hal-device : list all the Hardware Abstraction layer devices
 </pre></div>
 </div>
 </div>
@@ -525,21 +527,21 @@ groupmod           : Modify a group definition on the system.
 <li>update-rc.d and there are two commonly used invocation methods:</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">update</span><span class="o">-</span><span class="n">rc</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">service</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">remove</span> <span class="p">:</span> <span class="n">Disabling</span> <span class="n">a</span> <span class="n">service</span><span class="o">.</span>
-<span class="n">update</span><span class="o">-</span><span class="n">rc</span><span class="o">.</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">service</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">defaults</span>  <span class="p">:</span> <span class="n">Insert</span> <span class="n">links</span> <span class="n">using</span> <span class="n">defaults</span><span class="p">,</span> <span class="n">start</span> <span class="ow">in</span> <span class="n">runlevel</span> <span class="mi">2</span><span class="o">-</span><span class="mi">5</span> <span class="ow">and</span> <span class="n">stop</span> <span class="ow">in</span> <span class="n">runlevels</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span> <span class="ow">and</span> <span class="mf">6.</span>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>update-rc.d -f &lt;service name&gt; remove : Disabling a service.
+update-rc.d &lt;service name&gt; defaults  : Insert links using defaults, start in runlevel 2-5 and stop in runlevels 0,1 and 6.
 </pre></div>
 </div>
 </div></blockquote>
 <ul class="simple">
-<li>Systemctl : Control the systemd system and service manager. systemctl may be used to introspect and control the state of the &#8220;systemd&#8221; system and service manager.</li>
+<li>Systemctl : Control the systemd system and service manager. systemctl may be used to introspect and control the state of the “systemd” system and service manager.</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="p">:</span> <span class="n">Present</span> <span class="n">a</span> <span class="n">detailed</span> <span class="n">output</span> <span class="n">about</span> <span class="n">the</span> <span class="n">different</span> <span class="n">services</span> <span class="n">running</span><span class="o">.</span>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>systemctl : Present a detailed output about the different services running.
 
-<span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span>
+e.g.
 
-<span class="n">systemctl</span> <span class="n">status</span> <span class="o">&lt;</span><span class="n">service_name</span><span class="o">&gt;</span> <span class="o">-</span> <span class="n">Status</span> <span class="n">of</span> <span class="n">the</span> <span class="n">service</span><span class="o">.</span>
-<span class="n">systemctl</span> <span class="n">start</span> <span class="o">&lt;</span><span class="n">service_name</span><span class="o">&gt;</span>  <span class="o">-</span> <span class="n">Start</span> <span class="n">the</span> <span class="n">service</span>
+systemctl status &lt;service_name&gt; - Status of the service.
+systemctl start &lt;service_name&gt;  - Start the service
 </pre></div>
 </div>
 </div></blockquote>
@@ -558,21 +560,21 @@ groupmod           : Modify a group definition on the system.
 </div>
 <div class="section" id="cc-gnu-compile-collection">
 <h3>cc - GNU Compile Collection<a class="headerlink" href="#cc-gnu-compile-collection" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">Compile</span><span class="p">:</span> <span class="n">gcc</span> <span class="o">-</span><span class="n">Wall</span> <span class="o">-</span><span class="n">pedantic</span> <span class="o">-</span><span class="n">g</span> <span class="o">&lt;</span><span class="n">C</span> <span class="n">source</span> <span class="n">file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">Executable</span> <span class="n">file</span><span class="o">&gt;</span>
-<span class="o">-</span><span class="n">Wall</span> <span class="o">-</span><span class="n">pedantic</span> <span class="p">:</span> <span class="n">to</span> <span class="n">check</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">warnings</span> <span class="ow">and</span> <span class="n">errors</span> <span class="k">if</span> <span class="nb">any</span><span class="o">.</span>
-<span class="o">-</span><span class="n">g</span>              <span class="p">:</span> <span class="n">to</span> <span class="n">create</span> <span class="n">the</span> <span class="n">symbol</span> <span class="n">file</span> <span class="n">to</span> <span class="n">be</span> <span class="n">used</span> <span class="n">by</span> <span class="n">gdb</span>
-<span class="o">-</span><span class="n">o</span>              <span class="p">:</span> <span class="n">to</span> <span class="n">create</span> <span class="n">the</span> <span class="n">executable</span> <span class="n">file</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>To Compile: gcc -Wall -pedantic -g &lt;C source file&gt; -o &lt;Executable file&gt;
+-Wall -pedantic : to check for all the warnings and errors if any.
+-g              : to create the symbol file to be used by gdb
+-o              : to create the executable file.
 </pre></div>
 </div>
 </div>
 <div class="section" id="gdb-gnu-debugger">
 <h3>GDB: GNU debugger<a class="headerlink" href="#gdb-gnu-debugger" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gdb</span> <span class="o">-</span><span class="n">tui</span> <span class="o">&lt;</span><span class="n">Program</span> <span class="n">name</span><span class="o">&gt;</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>gdb -tui &lt;Program name&gt;
 
-<span class="n">tui</span>               <span class="p">:</span> <span class="k">for</span> <span class="n">listing</span> <span class="n">the</span> <span class="n">source</span> <span class="k">while</span> <span class="n">debugging</span>
-<span class="o">&lt;</span><span class="n">linenumber</span><span class="o">&gt;</span>      <span class="p">:</span> <span class="n">to</span> <span class="nb">set</span> <span class="n">the</span> <span class="k">break</span> <span class="n">point</span>
-<span class="n">p</span> <span class="o">&lt;</span><span class="n">variable</span> <span class="n">name</span><span class="o">&gt;</span> <span class="p">:</span> <span class="n">to</span> <span class="nb">print</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">variable</span>
-<span class="n">bt</span>                <span class="p">:</span> <span class="n">to</span> <span class="nb">print</span> <span class="n">the</span> <span class="n">stack</span> <span class="n">call</span><span class="p">,</span> <span class="n">mainly</span> <span class="n">useful</span> <span class="n">to</span> <span class="n">find</span> <span class="n">segmentation</span> <span class="n">fault</span> <span class="n">when</span> <span class="n">multiple</span> <span class="n">functions</span> <span class="n">are</span> <span class="n">called</span><span class="o">.</span>
+tui               : for listing the source while debugging
+&lt;linenumber&gt;      : to set the break point
+p &lt;variable name&gt; : to print the value of the variable
+bt                : to print the stack call, mainly useful to find segmentation fault when multiple functions are called.
 </pre></div>
 </div>
 </div>
@@ -581,128 +583,272 @@ groupmod           : Modify a group definition on the system.
 <h2>Gathering Information<a class="headerlink" href="#gathering-information" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="from-files">
 <h3>From Files<a class="headerlink" href="#from-files" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">issue</span>     <span class="p">:</span> <span class="n">Contains</span> <span class="n">the</span> <span class="n">message</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">displayed</span> <span class="n">on</span> <span class="n">terminal</span> <span class="n">before</span> <span class="n">login</span><span class="o">.</span>
-<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">motd</span>      <span class="p">:</span> <span class="n">Contains</span> <span class="n">the</span> <span class="n">message</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">displayed</span> <span class="n">on</span> <span class="n">terminal</span> <span class="n">after</span> <span class="n">login</span><span class="o">.</span>
-<span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">cpuinfo</span>  <span class="p">:</span> <span class="n">provides</span> <span class="n">information</span> <span class="n">about</span> <span class="n">CPU</span><span class="o">.</span>
-<span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">meminfo</span>  <span class="p">:</span> <span class="n">provides</span> <span class="n">information</span> <span class="n">about</span> <span class="n">memory</span><span class="o">/</span> <span class="n">RAM</span><span class="o">.</span>
-<span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">version</span>  <span class="p">:</span> <span class="n">provides</span> <span class="n">information</span> <span class="n">about</span> <span class="n">the</span> <span class="n">version</span> <span class="n">of</span> <span class="n">your</span> <span class="n">system</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>/etc/issue     : Contains the message which is displayed on terminal before login.
+/etc/motd      : Contains the message which is displayed on terminal after login.
+/proc/cpuinfo  : provides information about CPU.
+/proc/meminfo  : provides information about memory/ RAM.
+/proc/version  : provides information about the version of your system.
 </pre></div>
 </div>
 </div>
 <div class="section" id="from-commands">
 <h3>From Commands<a class="headerlink" href="#from-commands" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">last</span>      <span class="p">:</span> <span class="n">shows</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">login</span> <span class="n">attempts</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">reboot</span> <span class="n">occurred</span><span class="o">.</span>
-<span class="n">lastb</span>     <span class="p">:</span> <span class="n">shows</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">bad</span> <span class="n">login</span> <span class="n">attempts</span><span class="o">.</span>
-<span class="n">lastlog</span>   <span class="p">:</span> <span class="n">shows</span> <span class="n">the</span> <span class="nb">list</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">users</span> <span class="ow">and</span> <span class="n">when</span> <span class="n">did</span> <span class="n">they</span> <span class="n">login</span><span class="o">.</span>
-<span class="nb">id</span>        <span class="p">:</span> <span class="nb">print</span> <span class="n">real</span> <span class="ow">and</span> <span class="n">effective</span> <span class="n">user</span> <span class="ow">and</span> <span class="n">group</span> <span class="n">IDs</span><span class="o">.</span>
-<span class="n">whoami</span>    <span class="p">:</span> <span class="n">whoami</span> <span class="o">-</span> <span class="nb">print</span> <span class="n">effective</span> <span class="n">userid</span><span class="o">.</span>
-<span class="n">uname</span>     <span class="p">:</span> <span class="nb">print</span> <span class="n">system</span> <span class="n">information</span><span class="o">.</span>
-  <span class="o">-</span><span class="n">a</span>      <span class="p">:</span> <span class="nb">print</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">information</span> <span class="p">(</span><span class="n">Kernel</span> <span class="n">name</span><span class="p">,</span> <span class="n">nodename</span><span class="p">,</span> <span class="n">kernel</span><span class="o">-</span><span class="n">release</span><span class="p">,</span> <span class="n">kernel</span><span class="o">-</span><span class="n">version</span><span class="p">,</span> <span class="n">machine</span><span class="p">,</span> <span class="n">processor</span><span class="p">,</span> <span class="n">hardware</span><span class="o">-</span><span class="n">platform</span><span class="p">)</span>
-<span class="n">pstree</span>    <span class="p">:</span> <span class="n">display</span> <span class="n">a</span> <span class="n">tree</span> <span class="n">of</span> <span class="n">processes</span><span class="o">.</span>
-<span class="n">hostname</span>  <span class="p">:</span> <span class="n">prints</span> <span class="n">out</span> <span class="n">the</span> <span class="n">hostname</span> <span class="n">of</span> <span class="n">the</span> <span class="n">machine</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">stored</span> <span class="ow">in</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">hostname</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>last      : shows all the login attempts and the reboot occurred.
+lastb     : shows all the bad login attempts.
+lastlog   : shows the list of all the users and when did they login.
+id        : print real and effective user and group IDs.
+whoami    : whoami - print effective userid.
+uname     : print system information.
+  -a      : print all the information (Kernel name, nodename, kernel-release, kernel-version, machine, processor, hardware-platform)
+pstree    : display a tree of processes.
+hostname  : prints out the hostname of the machine which is stored in /etc/hostname.
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="useful-utilities-commands">
 <h2>Useful Utilities/ Commands<a class="headerlink" href="#useful-utilities-commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="grep-global-regular-expression-print">
+<h3>Grep - Global Regular Expression Print<a class="headerlink" href="#grep-global-regular-expression-print" title="Permalink to this headline">¶</a></h3>
+<p>Two ways to provide input to Grep:</p>
+<ul class="simple">
+<li>search a given file or files on a system (including a recursive search through sub-folders).</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep bitvijays /etc/passwd
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Grep also accepts inputs (usually via a pipe) from another command or series of commands.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>cat /etc/passwd | grep bitvijays
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="syntax">
+<h4>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>grep [options] [regexp] [filename]
+
+   -i, --ignore-case     : &#39;it DoesNt MatTTer WhaT thE CAse Is&#39;
+   -v, --invert-match    : &#39;everything , BUT that text&#39;
+   -A &lt;NUM&gt;              : Print NUM lines of trailing context after matching lines.
+   -B &lt;NUM&gt;              : Print NUM lines of trailing context before matching lines.
+   -C &lt;NUM&gt;              : Print additional (leading and trailing) context lines before and after the match.
+   -a, --text            : Process a binary file as if it were text; this is equivalent to the --binary-files=text option.
+   -w                    : Whole-word search
+   -L --files-without-match : which outputs the names of files that do NOT contain matches for your search pattern.
+   -l --files-with-matches  : which prints out (only) the names of files that do contain matches for your search pattern.
+
+   -H &lt;pattern&gt; filename    : Print the filename for each match.
+       example: grep -H &#39;a&#39; testfile
+                testfile:carry out few cyber-crime investigations
+
+       Now, let’s run the search a bit differently:
+               cat testfile | grep -H &#39;a&#39;
+               (standard input):carry out few cyber-crime investigations
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Regular expression should be enclosed in single quotation marks or double quotes (allows environment variables to be used), to prevent the shell (Bash or others) from trying to interpret and expand the expression before launching the grep process.</p>
+</div>
+</div>
+<div class="section" id="using-regular-expressions">
+<h4>Using regular expressions<a class="headerlink" href="#using-regular-expressions" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>grep &#39;v.r&#39; testfile
+thank you very much
+</pre></div>
+</div>
+<p>In the search above, . is used to match any single character - matches “ver” in “very”.</p>
+<p>A regular expression may be followed by one of several repetition operators:</p>
+<ul class="simple">
+<li>The period (.) matches any single character.</li>
+<li>? means that the preceding item is optional, and if found, will be matched at the most, once.</li>
+<li>* means that the preceding item will be matched zero or more times.</li>
+<li>+ means the preceding item will be matched one or more times.</li>
+<li>{n} means the preceding item is matched exactly n times, while {n,} means the item is matched n or more times. {n,m} means that the preceding item is matched at least n times, but not more than m times. {,m} means that the preceding item is matched, at the most, m times.</li>
+</ul>
+</div>
+<div class="section" id="search-a-specific-string">
+<h4>Search a specific string<a class="headerlink" href="#search-a-specific-string" title="Permalink to this headline">¶</a></h4>
+<p>Scan files for a text present in them Find a way to scan my entire linux system for all files containing a specific string of text. Just to clarify, I’m looking for text within the file, not in the file name.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>grep -rnw &#39;directory&#39; -e &quot;pattern&quot; --include={*.c,*.h} --exclude=*.o
+
+  -r                    : search recursively
+  -n                    : print line number
+  -w                    : match the whole word.
+  --include={*.c,*.h}   : Only search through the files which have .c or .h extensions.
+  --exclude=*.o         : Exclude searching in files with .o extensions.
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">–exclude or –include parameter could be used for efficient searching.</p>
+</div>
+</div>
+<div class="section" id="line-and-word-anchors">
+<h4>Line and word anchors<a class="headerlink" href="#line-and-word-anchors" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>The ^ anchor specifies that the pattern following it should be at the start of the line:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep &#39;^th&#39; testfile
+this
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>The $ anchor specifies that the pattern before it should be at the end of the line.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep &#39;i$&#39; testfile
+Hi
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>The operator &lt; anchors the pattern to the start of a word.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep &#39;\&lt;fe&#39; testfile
+carry out few cyber-crime investigations
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>&gt; anchors the pattern to the end of a word.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep &#39;le\&gt;&#39; testfile
+is test file
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>The b (word boundary) anchor can be used in place of &lt; and &gt; to signify the beginning or end of a word:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep -e &#39;\binve&#39; testfile
+carry out few cyber-crime investigations
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="shell-expansions-input-to-grep">
+<h4>Shell expansions - input to Grep<a class="headerlink" href="#shell-expansions-input-to-grep" title="Permalink to this headline">¶</a></h4>
+<p>If we don’t single-quote the pattern passed to Grep, the shell could perform shell expansion on the pattern and actually feed a changed pattern to Grep.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>grep &quot;$HOME&quot; /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+</pre></div>
+</div>
+<p>We used double quotes to make the Bash shell replace the environment variable $HOME with the actual value of the variable (in this case, /root). Thus, Grep searches the /etc/passwd file for the text /root, yielding the two lines that match.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>grep `whoami` /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+</pre></div>
+</div>
+<p>Here, back-tick expansion is done by the shell, replacing <cite>whoami</cite> with the user name (root) that is returned by the whoami command.</p>
+</div>
+</div>
 <div class="section" id="copy-copy-files-and-directories">
 <h3>Copy - Copy files and directories<a class="headerlink" href="#copy-copy-files-and-directories" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">&lt;</span><span class="n">SOURCE</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">DIRECTORY</span><span class="o">&gt;</span>
-  <span class="o">-</span><span class="n">r</span>        <span class="p">:</span> <span class="n">recursive</span><span class="o">.</span>
-  <span class="o">-</span><span class="n">a</span>        <span class="p">:</span> <span class="n">similar</span> <span class="n">to</span> <span class="n">preserve</span><span class="p">,</span>
-  <span class="o">-</span><span class="n">p</span>        <span class="p">:</span> <span class="n">preserve</span>
-  <span class="o">-</span><span class="n">v</span>        <span class="p">:</span> <span class="n">verbose</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>cp &lt;SOURCE&gt; &lt;DIRECTORY&gt;
+  -r        : recursive.
+  -a        : similar to preserve,
+  -p        : preserve
+  -v        : verbose.
 </pre></div>
 </div>
 </div>
 <div class="section" id="cut-remove-sections-from-each-line-of-files">
 <h3>cut - remove sections from each line of files<a class="headerlink" href="#cut-remove-sections-from-each-line-of-files" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cut</span> <span class="n">OPTION</span><span class="o">...</span> <span class="p">[</span><span class="n">FILE</span><span class="p">]</span><span class="o">...</span>
- <span class="o">-</span><span class="n">d</span>        <span class="p">:</span> <span class="n">use</span> <span class="n">DELIM</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">TAB</span> <span class="k">for</span> <span class="n">field</span> <span class="n">delimiter</span><span class="o">.</span>
- <span class="o">-</span><span class="n">f</span>        <span class="p">:</span> <span class="n">select</span> <span class="n">only</span> <span class="n">these</span> <span class="n">fields</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>cut OPTION... [FILE]...
+ -d        : use DELIM instead of TAB for field delimiter.
+ -f        : select only these fields.
 </pre></div>
 </div>
 </div>
 <div class="section" id="pipes">
 <h3>Pipes<a class="headerlink" href="#pipes" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span>         <span class="p">:</span> <span class="n">direct</span> <span class="n">normal</span> <span class="n">output</span><span class="o">.</span>
-<span class="mi">2</span><span class="o">&gt;</span>        <span class="p">:</span> <span class="n">direct</span> <span class="n">error</span> <span class="n">output</span><span class="o">.</span>
-<span class="o">&amp;&gt;</span>        <span class="p">:</span> <span class="n">direct</span> <span class="nb">all</span> <span class="n">output</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&gt;         : direct normal output.
+2&gt;        : direct error output.
+&amp;&gt;        : direct all output.
 </pre></div>
 </div>
 </div>
 <div class="section" id="tar-archiving-utility">
 <h3>tar - Archiving utility<a class="headerlink" href="#tar-archiving-utility" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tar</span>
- <span class="o">-</span><span class="n">c</span>        <span class="p">:</span> <span class="n">create</span> <span class="n">archive</span>
- <span class="o">-</span><span class="n">t</span>        <span class="p">:</span> <span class="nb">list</span> <span class="n">the</span> <span class="n">content</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span>
- <span class="o">-</span><span class="n">x</span>        <span class="p">:</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">files</span>
- <span class="o">-</span><span class="n">j</span>        <span class="p">:</span> <span class="n">bzip2</span> <span class="nb">format</span>
- <span class="o">-</span><span class="n">z</span>        <span class="p">:</span> <span class="n">gzip</span> <span class="nb">format</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>tar
+ -c        : create archive
+ -t        : list the content of the file
+ -x        : extract the files
+ -j        : bzip2 format
+ -z        : gzip format
 </pre></div>
 </div>
 </div>
 <div class="section" id="find-searching-files">
 <h3>find - Searching files<a class="headerlink" href="#find-searching-files" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">name</span> <span class="n">somename</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>find / -name somename
 
-<span class="o">-</span><span class="n">user</span>       <span class="p">:</span> <span class="n">File</span> <span class="ow">is</span> <span class="n">owned</span> <span class="n">by</span> <span class="n">user</span> <span class="n">uname</span> <span class="p">(</span><span class="n">numeric</span> <span class="n">user</span> <span class="n">ID</span> <span class="n">allowed</span><span class="p">)</span><span class="o">.</span>
-<span class="o">-</span><span class="n">group</span>      <span class="p">:</span> <span class="n">File</span> <span class="n">belongs</span> <span class="n">to</span> <span class="n">group</span> <span class="n">gname</span> <span class="p">(</span><span class="n">numeric</span> <span class="n">group</span> <span class="n">ID</span> <span class="n">allowed</span><span class="p">)</span><span class="o">.</span>
-<span class="o">-</span><span class="n">size</span>       <span class="p">:</span> <span class="n">File</span> <span class="n">uses</span> <span class="n">n</span> <span class="n">units</span> <span class="n">of</span> <span class="n">space</span><span class="o">.</span> <span class="n">c</span><span class="o">/</span><span class="n">k</span><span class="o">/</span><span class="n">M</span><span class="o">/</span><span class="n">G</span><span class="p">:</span> <span class="nb">bytes</span><span class="o">/</span><span class="n">Kilobytes</span><span class="o">/</span><span class="n">Megabytes</span><span class="o">/</span><span class="n">Gigabytes</span><span class="o">.</span>
-<span class="o">-</span><span class="n">name</span>       <span class="p">:</span> <span class="n">Base</span>  <span class="n">of</span>  <span class="n">file</span>  <span class="n">name</span>
+-user       : File is owned by user uname (numeric user ID allowed).
+-group      : File belongs to group gname (numeric group ID allowed).
+-size       : File uses n units of space. c/k/M/G: bytes/Kilobytes/Megabytes/Gigabytes.
+-name       : Base  of  file  name
 </pre></div>
 </div>
 <div class="section" id="delete-empty-file-and-directories">
 <h4>Delete empty file and directories<a class="headerlink" href="#delete-empty-file-and-directories" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">-</span><span class="n">empty</span> <span class="o">-</span><span class="nb">type</span> <span class="n">d</span> <span class="o">-</span><span class="n">delete</span>
-<span class="n">find</span> <span class="o">-</span><span class="n">empty</span> <span class="o">-</span><span class="nb">type</span> <span class="n">f</span> <span class="o">-</span><span class="n">delete</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>find -empty -type d -delete
+find -empty -type f -delete
 </pre></div>
 </div>
-<p>Find each file in the current directory and tell it&#8217;s type and grep JPEG files.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">.</span> <span class="o">-</span><span class="nb">type</span> <span class="n">f</span> <span class="o">-</span><span class="n">exec</span> <span class="n">file</span> <span class="p">{}</span> <span class="o">+</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">JPEG</span>
+<p>Find each file in the current directory and tell it’s type and grep JPEG files.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>find . -type f -exec file {} + | grep JPEG
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="other-commands">
 <h3>Other commands<a class="headerlink" href="#other-commands" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nm</span><span class="o">-</span><span class="n">applet</span> <span class="p">:</span> <span class="n">a</span> <span class="n">applet</span> <span class="k">for</span> <span class="n">network</span> <span class="n">manager</span><span class="o">.</span>
-<span class="n">wc</span>        <span class="p">:</span> <span class="nb">print</span> <span class="n">newline</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="ow">and</span> <span class="n">byte</span> <span class="n">counts</span> <span class="k">for</span> <span class="n">each</span> <span class="n">file</span><span class="o">.</span>
- <span class="o">-</span><span class="n">c</span>       <span class="p">:</span> <span class="nb">print</span> <span class="n">the</span> <span class="nb">bytes</span> <span class="n">count</span><span class="o">.</span>
- <span class="o">-</span><span class="n">l</span>       <span class="p">:</span> <span class="nb">print</span> <span class="n">the</span> <span class="n">lines</span> <span class="n">count</span><span class="o">.</span>
- <span class="o">-</span><span class="n">w</span>       <span class="p">:</span> <span class="nb">print</span> <span class="n">the</span> <span class="n">word</span> <span class="n">count</span><span class="o">.</span>
-<span class="n">sort</span>      <span class="p">:</span> <span class="n">sort</span> <span class="n">lines</span> <span class="n">of</span> <span class="n">text</span> <span class="n">files</span><span class="o">.</span>
-<span class="n">diff</span>      <span class="p">:</span> <span class="n">compare</span> <span class="n">files</span> <span class="n">line</span> <span class="n">by</span> <span class="n">line</span><span class="o">.</span>
-<span class="n">less</span>      <span class="p">:</span> <span class="nb">print</span> <span class="n">information</span> <span class="n">one</span> <span class="n">per</span> <span class="n">page</span><span class="o">.</span>
-<span class="n">more</span>      <span class="p">:</span> <span class="n">prints</span> <span class="n">information</span> <span class="n">one</span> <span class="n">per</span> <span class="n">page</span><span class="o">.</span>
-<span class="n">head</span>      <span class="p">:</span> <span class="n">prints</span> <span class="n">first</span> <span class="mi">10</span> <span class="n">lines</span>
-<span class="n">tail</span>      <span class="p">:</span> <span class="n">prints</span> <span class="n">last</span> <span class="mi">10</span> <span class="n">lines</span><span class="o">.</span>
-<span class="n">whatis</span>    <span class="p">:</span> <span class="n">Provides</span> <span class="n">a</span> <span class="n">one</span> <span class="n">line</span> <span class="n">description</span> <span class="n">of</span> <span class="n">the</span> <span class="n">commands</span><span class="o">.</span>
-<span class="n">which</span>     <span class="p">:</span> <span class="n">locate</span> <span class="n">a</span> <span class="n">command</span><span class="o">.</span>
-<span class="n">whereis</span>   <span class="p">:</span> <span class="n">locate</span> <span class="n">the</span> <span class="n">binary</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="ow">and</span> <span class="n">manual</span> <span class="n">page</span> <span class="n">files</span> <span class="k">for</span> <span class="n">a</span> <span class="n">command</span><span class="o">.</span>
-<span class="n">locate</span>    <span class="p">:</span> <span class="n">find</span> <span class="n">files</span> <span class="n">by</span> <span class="n">name</span>
-<span class="n">cal</span>       <span class="p">:</span> <span class="n">Display</span> <span class="n">calendar</span>
-<span class="n">date</span>      <span class="p">:</span> <span class="n">Display</span> <span class="n">date</span><span class="o">.</span> <span class="n">Date</span> <span class="n">command</span> <span class="n">provides</span> <span class="n">multiples</span> <span class="n">options</span> <span class="k">for</span> <span class="n">displaying</span> <span class="n">day</span> <span class="ow">and</span> <span class="n">time</span><span class="p">,</span> <span class="n">very</span> <span class="n">helpful</span> <span class="ow">in</span> <span class="n">creating</span> <span class="n">backups</span> <span class="k">with</span> <span class="n">name</span> <span class="n">having</span> <span class="n">time</span> <span class="ow">and</span> <span class="n">date</span><span class="o">.</span>
-<span class="n">tr</span>        <span class="p">:</span> <span class="n">Converts</span> <span class="kn">from</span> <span class="nn">smaller</span> <span class="n">to</span> <span class="n">uppercase</span><span class="o">.</span> <span class="n">tr</span> <span class="n">stands</span> <span class="k">for</span> <span class="n">translate</span><span class="o">.</span>
- <span class="o">-</span><span class="n">d</span>       <span class="p">:</span> <span class="n">delete</span> <span class="n">characters</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">text</span><span class="o">.</span>
-<span class="n">tee</span>       <span class="p">:</span> <span class="n">saves</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">file</span> <span class="k">as</span> <span class="n">well</span> <span class="k">as</span> <span class="n">forward</span> <span class="n">it</span><span class="o">.</span>
-<span class="n">touch</span>     <span class="p">:</span> <span class="n">Create</span> <span class="n">zero</span> <span class="n">byte</span> <span class="n">files</span><span class="p">,</span> <span class="n">mainly</span> <span class="n">used</span> <span class="k">for</span> <span class="n">changing</span> <span class="n">the</span> <span class="n">timestamps</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span><span class="o">.</span>
-<span class="n">make</span>      <span class="p">:</span> <span class="n">If</span> <span class="n">your</span> <span class="n">program</span> <span class="n">source</span> <span class="n">file</span> <span class="n">name</span> <span class="ow">is</span> <span class="n">test</span><span class="o">.</span><span class="n">c</span><span class="o">/</span><span class="n">cpp</span><span class="p">,</span> <span class="n">then</span> <span class="n">you</span> <span class="n">can</span> <span class="n">directly</span> <span class="n">write</span> <span class="n">make</span> <span class="n">test</span><span class="p">,</span> <span class="n">this</span> <span class="n">would</span> <span class="nb">compile</span> <span class="n">the</span> <span class="n">test</span><span class="o">.</span><span class="n">c</span><span class="o">/</span><span class="n">cpp</span> <span class="n">program</span><span class="o">.</span> <span class="n">Remember</span> <span class="n">this</span> <span class="n">it</span><span class="s1">&#39;s a faster way.</span>
-<span class="n">stat</span>      <span class="p">:</span> <span class="n">View</span> <span class="n">detailed</span> <span class="n">information</span> <span class="n">about</span> <span class="n">a</span> <span class="n">file</span><span class="p">,</span> <span class="n">including</span> <span class="n">its</span> <span class="n">name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">last</span> <span class="n">modified</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">permissions</span><span class="o">.</span>
-<span class="n">uniq</span>      <span class="p">:</span> <span class="n">Report</span> <span class="ow">or</span> <span class="n">omit</span> <span class="n">repeated</span> <span class="n">lines</span><span class="o">.</span>
-  <span class="o">-</span><span class="n">c</span>      <span class="p">:</span> <span class="n">prefix</span> <span class="n">lines</span> <span class="n">by</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">occurrences</span><span class="o">.</span> <span class="p">(</span><span class="o">--</span><span class="n">count</span><span class="p">)</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>nm-applet : a applet for network manager.
+wc        : print newline, word, and byte counts for each file.
+ -c       : print the bytes count.
+ -l       : print the lines count.
+ -w       : print the word count.
+sort      : sort lines of text files.
+diff      : compare files line by line.
+less      : print information one per page.
+more      : prints information one per page.
+head      : prints first 10 lines
+tail      : prints last 10 lines.
+whatis    : Provides a one line description of the commands.
+which     : locate a command.
+whereis   : locate the binary, source, and manual page files for a command.
+locate    : find files by name
+cal       : Display calendar
+date      : Display date. Date command provides multiples options for displaying day and time, very helpful in creating backups with name having time and date.
+tr        : Converts from smaller to uppercase. tr stands for translate.
+ -d       : delete characters in the text.
+tee       : saves output in file as well as forward it.
+touch     : Create zero byte files, mainly used for changing the timestamps of the file.
+make      : If your program source file name is test.c/cpp, then you can directly write make test, this would compile the test.c/cpp program. Remember this it&#39;s a faster way.
+stat      : View detailed information about a file, including its name, size, last modified date and permissions.
+uniq      : Report or omit repeated lines.
+  -c      : prefix lines by the number of occurrences. (--count)
 </pre></div>
 </div>
 </div>
 <div class="section" id="special-characters">
 <h3>Special Characters<a class="headerlink" href="#special-characters" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>*(asterik)          : A wildcard used to represent zero or more characters in a filename. For example: ls *.txt will list all the names ending in &quot;.txt&quot; such as &quot;file1.txt&quot; and &quot;file23.txt&quot;.
+<div class="highlight-None"><div class="highlight"><pre><span></span>*(asterik)          : A wildcard used to represent zero or more characters in a filename. For example: ls *.txt will list all the names ending in &quot;.txt&quot; such as &quot;file1.txt&quot; and &quot;file23.txt&quot;.
 ?(question mark)    : A wildcard used to represent a single character in a filename. For example ls pic?.jpg would match &quot;pic1.jpg&quot; and &quot;pic2.jpg&quot; but not &quot;pic24.jpg&quot; or &quot;pic.jpg&quot;.
 [](square brackets) : These are used to specify a range of values to match. For example, &quot;[0-9]&quot; and &quot;[a-z]&quot;.
 ;(semi colon)       : Command separator that can be used to run multiple commands on a single line unconditionally.
 &amp;&amp;(double ampersand): Command separator which will only run the second command if the first one is successful (does not return an error.)
 ||(double pipe)     : Command separator which will only run the second command if the first command failed (had errors). Commonly used to terminate the script if an important command fails.
+# (Comments)        : Lines beginning with a # (with the exception of #!) are comments and will not be executed.
 </pre></div>
 </div>
 </div>
@@ -711,28 +857,28 @@ groupmod           : Modify a group definition on the system.
 <h2>Bash<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="equality-tests">
 <h3>Equality Tests<a class="headerlink" href="#equality-tests" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">test</span>      <span class="p">:</span> <span class="n">checks</span> <span class="n">file</span> <span class="n">types</span> <span class="ow">and</span> <span class="n">compare</span> <span class="n">values</span>
-  <span class="o">-</span><span class="n">d</span>      <span class="p">:</span> <span class="n">check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">file</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">directory</span>
-  <span class="o">-</span><span class="n">e</span>      <span class="p">:</span> <span class="n">check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">file</span> <span class="n">exists</span>
-  <span class="o">-</span><span class="n">f</span>      <span class="p">:</span> <span class="n">check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">file</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">regular</span> <span class="n">file</span>
-  <span class="o">-</span><span class="n">g</span>      <span class="p">:</span> <span class="n">check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">file</span> <span class="n">has</span> <span class="n">SGID</span> <span class="n">permissions</span>
-  <span class="o">-</span><span class="n">r</span>      <span class="p">:</span> <span class="n">check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">file</span> <span class="ow">is</span> <span class="n">readable</span>
-  <span class="o">-</span><span class="n">s</span>      <span class="p">:</span> <span class="n">check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">file</span><span class="s1">&#39;s size is not 0</span>
-  <span class="o">-</span><span class="n">u</span>      <span class="p">:</span> <span class="n">check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">file</span> <span class="n">has</span> <span class="n">SUID</span> <span class="n">permissions</span>
-  <span class="o">-</span><span class="n">w</span>      <span class="p">:</span> <span class="n">check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">file</span> <span class="ow">is</span> <span class="n">writeable</span>
-  <span class="o">-</span><span class="n">x</span>      <span class="p">:</span> <span class="n">check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">file</span> <span class="ow">is</span> <span class="n">executable</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>test      : checks file types and compare values
+  -d      : check if the file is a directory
+  -e      : check if the file exists
+  -f      : check if the file is a regular file
+  -g      : check if the file has SGID permissions
+  -r      : check if the file is readable
+  -s      : check if the file&#39;s size is not 0
+  -u      : check if the file has SUID permissions
+  -w      : check if the file is writeable
+  -x      : check if the file is executable
 </pre></div>
 </div>
 <p>Example</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">test</span> <span class="o">-</span><span class="n">f</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">foo</span><span class="o">.</span><span class="n">txt</span>
-<span class="n">then</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>if test -f /etc/foo.txt
+then
 </pre></div>
 </div>
 <p>It can also be written as</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">foo</span><span class="o">.</span><span class="n">txt</span> <span class="p">];</span> <span class="n">then</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>if [ -f /etc/foo.txt ]; then
 
-<span class="o">--</span><span class="n">square</span> <span class="n">brackets</span> <span class="p">[]</span> <span class="n">form</span> <span class="n">test</span><span class="o">.</span>
-<span class="o">--</span> <span class="n">There</span> <span class="n">has</span> <span class="n">to</span> <span class="n">be</span> <span class="n">white</span> <span class="n">space</span> <span class="n">surrounding</span> <span class="n">both</span> <span class="n">square</span> <span class="n">bracket</span>
+--square brackets [] form test.
+-- There has to be white space surrounding both square bracket
 </pre></div>
 </div>
 </div>
@@ -740,20 +886,20 @@ groupmod           : Modify a group definition on the system.
 <h3>List of equality tests<a class="headerlink" href="#list-of-equality-tests" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="checks-equality-between-numbers">
 <h4>Checks equality between numbers<a class="headerlink" href="#checks-equality-between-numbers" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">-</span><span class="n">eq</span> <span class="n">y</span>         <span class="p">:</span> <span class="n">Check</span> <span class="ow">is</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">equals</span> <span class="n">to</span> <span class="n">y</span>
-<span class="n">x</span> <span class="o">-</span><span class="n">ne</span> <span class="n">y</span>         <span class="p">:</span> <span class="n">Check</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">equals</span> <span class="n">to</span> <span class="n">y</span>
-<span class="n">x</span> <span class="o">-</span><span class="n">gt</span> <span class="n">y</span>         <span class="p">:</span> <span class="n">Check</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">greater</span> <span class="n">than</span> <span class="n">y</span>
-<span class="n">x</span> <span class="o">-</span><span class="n">lt</span> <span class="n">y</span>         <span class="p">:</span> <span class="n">Check</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">less</span> <span class="n">than</span> <span class="n">y</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>x -eq y         : Check is x is equals to y
+x -ne y         : Check if x is not equals to y
+x -gt y         : Check if x is greater than y
+x -lt y         : Check if x is less than y
 </pre></div>
 </div>
 </div>
 <div class="section" id="checks-equality-between-strings">
 <h4>Checks equality between strings<a class="headerlink" href="#checks-equality-between-strings" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">y</span>           <span class="p">:</span> <span class="n">Check</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">same</span> <span class="k">as</span> <span class="n">y</span>
-<span class="n">x</span> <span class="o">!=</span> <span class="n">y</span>          <span class="p">:</span> <span class="n">Check</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">the</span> <span class="n">same</span> <span class="k">as</span> <span class="n">y</span>
-<span class="o">-</span><span class="n">n</span> <span class="n">x</span>            <span class="p">:</span> <span class="n">Evaluates</span> <span class="n">to</span> <span class="n">true</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">null</span>
-<span class="o">-</span><span class="n">z</span> <span class="n">x</span>            <span class="p">:</span> <span class="n">Evaluates</span> <span class="n">to</span> <span class="n">true</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">null</span><span class="o">.</span>
-<span class="c1">##Check in the following way --&gt; if [ -z &quot;$VAR&quot; ];</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>x = y           : Check if x is the same as y
+x != y          : Check if x is not the same as y
+-n x            : Evaluates to true if x is not null
+-z x            : Evaluates to true if x is null.
+##Check in the following way --&gt; if [ -z &quot;$VAR&quot; ];
 </pre></div>
 </div>
 </div>
@@ -853,15 +999,15 @@ wlan0
 <h3>Difference between su and sudo<a class="headerlink" href="#difference-between-su-and-sudo" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="su">
 <h4>su<a class="headerlink" href="#su" title="Permalink to this headline">¶</a></h4>
-<p>Change users or become superuser. The difference between &#8220;su -&#8221; and &#8220;su&#8221; is that former &#8220;su -&#8221; would switch to the new user directory. It would also change the environment variable according to the changed user. Whereas &#8220;su&#8221; would only change the user but will stay in the same directory.</p>
-<p>Example: &#8220;su -&#8220;</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>root@Kali-Home:~# su - bitvijays
+<p>Change users or become superuser. The difference between “su -” and “su” is that former “su -” would switch to the new user directory. It would also change the environment variable according to the changed user. Whereas “su” would only change the user but will stay in the same directory.</p>
+<p>Example: “su -“</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>root@Kali-Home:~# su - bitvijays
 bitvijays@Kali-Home:~$ pwd
 /home/bitvijays
 </pre></div>
 </div>
-<p>Example: &#8220;su&#8221;</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>root@Kali-Home:~# su bitvijays
+<p>Example: “su”</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>root@Kali-Home:~# su bitvijays
 bitvijays@Kali-Home:/root$ pwd
 /root
 </pre></div>
@@ -870,18 +1016,18 @@ bitvijays@Kali-Home:/root$ pwd
 <div class="section" id="su-c">
 <h4>su -c<a class="headerlink" href="#su-c" title="Permalink to this headline">¶</a></h4>
 <p>Executing command as another user</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">su</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;command&quot;</span> <span class="p">:</span> <span class="n">Specify</span> <span class="n">a</span> <span class="n">command</span> <span class="n">that</span> <span class="n">will</span> <span class="n">be</span> <span class="n">invoked</span> <span class="n">by</span> <span class="n">the</span> <span class="n">shell</span> <span class="n">using</span> <span class="n">its</span> <span class="o">-</span><span class="n">c</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>su -c &quot;command&quot; : Specify a command that will be invoked by the shell using its -c.
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">su</span> <span class="n">bitvijays</span> <span class="o">-</span><span class="n">c</span> <span class="nb">id</span>
-<span class="n">uid</span><span class="o">=</span><span class="mi">1000</span><span class="p">(</span><span class="n">bitvijays</span><span class="p">)</span> <span class="n">gid</span><span class="o">=</span><span class="mi">1001</span><span class="p">(</span><span class="n">bitvijays</span><span class="p">)</span> <span class="n">groups</span><span class="o">=</span><span class="mi">1001</span><span class="p">(</span><span class="n">bitvijays</span><span class="p">)</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>su bitvijays -c id
+uid=1000(bitvijays) gid=1001(bitvijays) groups=1001(bitvijays)
 </pre></div>
 </div>
 </div>
 <div class="section" id="sudo">
 <h4>sudo<a class="headerlink" href="#sudo" title="Permalink to this headline">¶</a></h4>
-<p>Execute a command as another user. The difference between su and sudo is &#8216;su&#8217; forces you to share your root password to other users whereas &#8216;sudo&#8217; makes it possible to execute system commands without root password. &#8216;sudo&#8217; lets you use your own password to execute system commands i.e. delegates system responsibility without root password.</p>
+<p>Execute a command as another user. The difference between su and sudo is ‘su’ forces you to share your root password to other users whereas ‘sudo’ makes it possible to execute system commands without root password. ‘sudo’ lets you use your own password to execute system commands i.e. delegates system responsibility without root password.</p>
 </div>
 </div>
 <div class="section" id="important-file-formats">
@@ -893,12 +1039,12 @@ bitvijays@Kali-Home:/root$ pwd
 <li>User name</li>
 <li>Encrypted password</li>
 <li>User ID number (UID)</li>
-<li>User&#8217;s group ID number (GID)</li>
+<li>User’s group ID number (GID)</li>
 <li>Full name of the user (GECOS)</li>
 <li>User home directory</li>
 <li>Login shell</li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span>root:!:0:0::/:/usr/bin/ksh
+<div class="highlight-None"><div class="highlight"><pre><span></span>root:!:0:0::/:/usr/bin/ksh
 daemon:!:1:1::/etc:
 bin:!:2:2::/bin:
 sys:!:3:3::/usr/sys:
@@ -918,10 +1064,10 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <div class="section" id="etc-shadow">
 <h4>/etc/shadow<a class="headerlink" href="#etc-shadow" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>/etc/shadow</strong> file contains password and account expiration information for users, and looks like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">smithj</span><span class="p">:</span><span class="n">Ep6mckrOLChF</span><span class="o">.</span><span class="p">:</span><span class="mi">10063</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="mi">99999</span><span class="p">:</span><span class="mi">7</span><span class="p">:</span><span class="n">xx</span><span class="p">:</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>smithj:Ep6mckrOLChF.:10063:0:99999:7:xx:
 </pre></div>
 </div>
-<p>As with the passwd file, each field in the shadow file is also separated with &#8221;:&#8221; colon characters, and are as follows:</p>
+<p>As with the passwd file, each field in the shadow file is also separated with “:” colon characters, and are as follows:</p>
 <ul class="simple">
 <li>Username, up to 8 characters. Case-sensitive, usually all lowercase. A direct match to the username in the /etc/passwd file.</li>
 <li>Password, 13 character encrypted. A blank entry (eg. ::) indicates a password is not required to log in (usually a bad idea), and a * entry (eg. :*:) indicates the account has been disabled.</li>
@@ -937,7 +1083,7 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <div class="section" id="etc-group">
 <h4>/etc/group<a class="headerlink" href="#etc-group" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>/etc/group</strong> file stores group information or defines the user groups. There is one entry per line, and each line has the following format (all fields are separated by a colon (:)</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cdrom</span><span class="p">:</span><span class="n">x</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="n">john</span><span class="p">,</span><span class="n">mike</span><span class="p">,</span><span class="n">yummy</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>cdrom:x:24:john,mike,yummy
 </pre></div>
 </div>
 <p>Where,</p>
@@ -952,100 +1098,83 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 </div>
 <div class="section" id="tips-and-tricks">
 <h2>Tips and tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="grep">
-<h3>Grep<a class="headerlink" href="#grep" title="Permalink to this headline">¶</a></h3>
-<p>Scan files for a text present in them Find a way to scan my entire linux system for all files containing a specific string of text. Just to clarify, I&#8217;m looking for text within the file, not in the file name.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="o">-</span><span class="n">rnw</span> <span class="s1">&#39;directory&#39;</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;pattern&quot;</span> <span class="o">--</span><span class="n">include</span><span class="o">=</span><span class="p">{</span><span class="o">*.</span><span class="n">c</span><span class="p">,</span><span class="o">*.</span><span class="n">h</span><span class="p">}</span> <span class="o">--</span><span class="n">exclude</span><span class="o">=*.</span><span class="n">o</span>
-  <span class="o">-</span><span class="n">r</span>                    <span class="p">:</span> <span class="n">search</span> <span class="n">recursively</span>
-  <span class="o">-</span><span class="n">n</span>                    <span class="p">:</span> <span class="nb">print</span> <span class="n">line</span> <span class="n">number</span>
-  <span class="o">-</span><span class="n">w</span>                    <span class="p">:</span> <span class="n">match</span> <span class="n">the</span> <span class="n">whole</span> <span class="n">word</span><span class="o">.</span>
-  <span class="o">--</span><span class="n">include</span><span class="o">=</span><span class="p">{</span><span class="o">*.</span><span class="n">c</span><span class="p">,</span><span class="o">*.</span><span class="n">h</span><span class="p">}</span>   <span class="p">:</span> <span class="n">Only</span> <span class="n">search</span> <span class="n">through</span> <span class="n">the</span> <span class="n">files</span> <span class="n">which</span> <span class="n">have</span> <span class="o">.</span><span class="n">c</span> <span class="ow">or</span> <span class="o">.</span><span class="n">h</span> <span class="n">extensions</span><span class="o">.</span>
-  <span class="o">--</span><span class="n">exclude</span><span class="o">=*.</span><span class="n">o</span>         <span class="p">:</span> <span class="n">Exclude</span> <span class="n">searching</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">with</span> <span class="o">.</span><span class="n">o</span> <span class="n">extensions</span><span class="o">.</span>
-  <span class="o">-</span><span class="n">i</span><span class="p">,</span> <span class="o">--</span><span class="n">ignore</span><span class="o">-</span><span class="n">case</span>     <span class="p">:</span> <span class="s1">&#39;it DoesNt MatTTer WhaT thE CAse Is&#39;</span>
-  <span class="o">-</span><span class="n">v</span><span class="p">,</span> <span class="o">--</span><span class="n">invert</span><span class="o">-</span><span class="n">match</span>    <span class="p">:</span> <span class="s1">&#39;everything , BUT that text&#39;</span>
-  <span class="o">-</span><span class="n">A</span> <span class="o">&lt;</span><span class="n">NUM</span><span class="o">&gt;</span>              <span class="p">:</span> <span class="n">Print</span> <span class="n">NUM</span> <span class="n">lines</span> <span class="n">of</span> <span class="n">trailing</span> <span class="n">context</span> <span class="n">after</span> <span class="n">matching</span> <span class="n">lines</span><span class="o">.</span>
-  <span class="o">-</span><span class="n">B</span> <span class="o">&lt;</span><span class="n">NUM</span><span class="o">&gt;</span>              <span class="p">:</span> <span class="n">Print</span> <span class="n">NUM</span> <span class="n">lines</span> <span class="n">of</span> <span class="n">trailing</span> <span class="n">context</span> <span class="n">before</span> <span class="n">matching</span> <span class="n">lines</span><span class="o">.</span>
-  <span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="o">--</span><span class="n">text</span>            <span class="p">:</span> <span class="n">Process</span> <span class="n">a</span> <span class="n">binary</span> <span class="n">file</span> <span class="k">as</span> <span class="k">if</span> <span class="n">it</span> <span class="n">were</span> <span class="n">text</span><span class="p">;</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">equivalent</span> <span class="n">to</span> <span class="n">the</span> <span class="o">--</span><span class="n">binary</span><span class="o">-</span><span class="n">files</span><span class="o">=</span><span class="n">text</span> <span class="n">option</span><span class="o">.</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">&#8211;exclude or &#8211;include parameter could be used for efficient searching.</p>
-</div>
-</div>
 <div class="section" id="apt-get-error">
 <h3>Apt-get error?<a class="headerlink" href="#apt-get-error" title="Permalink to this headline">¶</a></h3>
 <p>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some necessary packages.</p>
 <p>In this case, look for /var/log/apt/history.log, look for the time around which your system was broken. Copy the removed packages which would be in the format of</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">libapt</span><span class="o">-</span><span class="n">inst1</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="n">amd64</span> <span class="p">(</span><span class="mf">0.9</span><span class="o">.</span><span class="mf">7.9</span><span class="o">+</span><span class="n">deb7u5</span><span class="p">,</span> <span class="mf">0.9</span><span class="o">.</span><span class="mf">7.9</span><span class="o">+</span><span class="n">deb7u6</span><span class="p">),</span> <span class="n">apt</span><span class="o">-</span><span class="n">utils</span><span class="p">:</span><span class="n">amd64</span> <span class="p">(</span><span class="mf">0.9</span><span class="o">.</span><span class="mf">7.9</span><span class="o">+</span><span class="n">deb7u5</span><span class="p">,</span> <span class="mf">0.9</span><span class="o">.</span><span class="mf">7.9</span><span class="o">+</span><span class="n">deb7u6</span><span class="p">)</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>libapt-inst1.5:amd64 (0.9.7.9+deb7u5, 0.9.7.9+deb7u6), apt-utils:amd64 (0.9.7.9+deb7u5, 0.9.7.9+deb7u6).
 </pre></div>
 </div>
 <p>To reinstall these packages you just need the package name such as</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">libapt</span><span class="o">-</span><span class="n">inst1</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="n">apt</span><span class="o">-</span><span class="n">utils</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>libapt-inst1.5, apt-utils.
 
-<span class="o">*</span><span class="n">Step1</span><span class="o">*</span> <span class="p">:</span> <span class="n">Use</span> <span class="n">sed</span> <span class="n">to</span> <span class="n">search</span> <span class="k">for</span> <span class="n">pattern</span> <span class="s2">&quot;), &quot;</span> <span class="ow">and</span> <span class="n">replace</span> <span class="n">it</span> <span class="k">with</span> <span class="s2">&quot;), </span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span> <span class="n">This</span> <span class="n">would</span> <span class="n">separate</span> <span class="n">the</span> <span class="n">packages</span> <span class="n">by</span> <span class="n">new</span> <span class="n">line</span><span class="o">.</span> <span class="n">Within</span> <span class="n">vi</span> <span class="s2">&quot;:</span><span class="si">%s</span><span class="s2">/), /</span><span class="se">\n</span><span class="s2">/g&quot;</span>
-<span class="o">*</span><span class="n">Step2</span><span class="o">*</span> <span class="p">:</span> <span class="n">Use</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span> <span class="s2">&quot;:&quot;</span> <span class="o">-</span><span class="n">f</span> <span class="mi">1</span> <span class="n">to</span> <span class="n">remove</span> <span class="p">:</span><span class="n">amd64</span> <span class="ow">and</span> <span class="n">anything</span> <span class="n">after</span> <span class="n">that</span><span class="o">.</span>
-<span class="o">*</span><span class="n">Step3</span><span class="o">*</span> <span class="p">:</span> <span class="n">Now</span> <span class="n">we</span> <span class="n">have</span> <span class="n">to</span> <span class="n">get</span> <span class="n">them</span> <span class="n">back</span> <span class="ow">in</span> <span class="n">one</span> <span class="n">line</span> <span class="n">rather</span> <span class="n">than</span> <span class="n">multiple</span> <span class="n">lines</span><span class="o">.</span> <span class="n">Within</span> <span class="n">vi</span> <span class="s2">&quot;:</span><span class="si">%s</span><span class="s2">/</span><span class="se">\n</span><span class="s2">/ /g&quot;</span>
+*Step1* : Use sed to search for pattern &quot;), &quot; and replace it with &quot;), \n&quot;. This would separate the packages by new line. Within vi &quot;:%s/), /\n/g&quot;
+*Step2* : Use cut -d &quot;:&quot; -f 1 to remove :amd64 and anything after that.
+*Step3* : Now we have to get them back in one line rather than multiple lines. Within vi &quot;:%s/\n/ /g&quot;
 </pre></div>
 </div>
 </div>
 <div class="section" id="track-etc-directory">
 <h3>Track /etc directory<a class="headerlink" href="#track-etc-directory" title="Permalink to this headline">¶</a></h3>
 <p>Etckeeper may be a bit more advanced, and it is used to put your whole /etc directory under revision control. To install and initialize it,</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">etckeeper</span>
-<span class="n">etckeeper</span> <span class="n">init</span>
-<span class="n">cd</span> <span class="o">/</span><span class="n">etc</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">am</span> <span class="n">Initial</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>apt-get install etckeeper
+etckeeper init
+cd /etc
+git commit -am Initial
 </pre></div>
 </div>
 <p>After that, you can see pending changes in /etc by cd-ing into it and running</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">status</span> <span class="ow">or</span> <span class="n">git</span> <span class="n">diff</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>git status or git diff
 </pre></div>
 </div>
 <p>at any time, and you can see previous, committed changes by running</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">log</span> <span class="ow">or</span> <span class="n">git</span> <span class="n">log</span> <span class="o">-</span><span class="n">p</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>git log or git log -p
 </pre></div>
 </div>
 <p>You can override pending changes to any file with the last committed version with</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">FILENAME</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>git checkout FILENAME
 </pre></div>
 </div>
 </div>
 <div class="section" id="ls-showing-full-path">
 <h3>ls showing full path<a class="headerlink" href="#ls-showing-full-path" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">-</span><span class="n">R</span> <span class="o">/</span><span class="n">path</span> <span class="o">|</span> <span class="n">awk</span> <span class="s1">&#39;/:$/&amp;&amp;f{s=$0;f=0} /:$/&amp;&amp;!f{sub(/:$/,&quot;&quot;);s=$0;f=1;next} NF&amp;&amp;f{ print s&quot;/&quot;$0 }&#39;</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ls -R /path | awk &#39;/:$/&amp;&amp;f{s=$0;f=0} /:$/&amp;&amp;!f{sub(/:$/,&quot;&quot;);s=$0;f=1;next} NF&amp;&amp;f{ print s&quot;/&quot;$0 }&#39;
 </pre></div>
 </div>
 </div>
 <div class="section" id="keyboard-shortcuts">
 <h3>Keyboard shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Ctrl</span> <span class="o">+</span> <span class="n">a</span> <span class="p">:</span> <span class="n">Move</span> <span class="n">to</span> <span class="n">the</span> <span class="n">start</span> <span class="n">of</span> <span class="n">line</span><span class="o">.</span>
-<span class="n">Ctrl</span> <span class="o">+</span> <span class="n">e</span> <span class="p">:</span> <span class="n">Move</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">line</span><span class="o">.</span>
-<span class="n">Ctrl</span> <span class="o">+</span> <span class="n">w</span> <span class="p">:</span> <span class="n">Cut</span> <span class="kn">from</span> <span class="nn">cursor</span> <span class="n">to</span> <span class="n">previous</span> <span class="n">whitespace</span><span class="o">.</span>
-<span class="n">Ctrl</span> <span class="o">+</span> <span class="n">k</span> <span class="p">:</span> <span class="n">Cut</span> <span class="kn">from</span> <span class="nn">cursor</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">line</span><span class="o">.</span>
-<span class="n">Ctrl</span> <span class="o">+</span> <span class="n">y</span> <span class="p">:</span> <span class="n">Paste</span> <span class="n">the</span> <span class="n">last</span> <span class="n">cut</span> <span class="n">text</span><span class="o">.</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Ctrl + a : Move to the start of line.
+Ctrl + e : Move to the end of line.
+Ctrl + w : Cut from cursor to previous whitespace.
+Ctrl + k : Cut from cursor to the end of line.
+Ctrl + y : Paste the last cut text.
 </pre></div>
 </div>
 </div>
 <div class="section" id="searching-history">
 <h3>Searching History<a class="headerlink" href="#searching-history" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Search</span> <span class="k">as</span> <span class="n">you</span> <span class="nb">type</span><span class="o">.</span> <span class="n">Ctrl</span> <span class="o">+</span> <span class="n">r</span> <span class="ow">and</span> <span class="nb">type</span> <span class="n">the</span> <span class="n">search</span> <span class="n">term</span><span class="p">;</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Search as you type. Ctrl + r and type the search term;
 </pre></div>
 </div>
 <p>Read <a class="reference external" href="http://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing">Command Line Editing</a> for more information.</p>
 </div>
 <div class="section" id="awk-converting-to-normal-output-to-csv">
 <h3>Awk converting to normal output to csv<a class="headerlink" href="#awk-converting-to-normal-output-to-csv" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">B</span> <span class="o">--&gt;</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="s2">&quot;B&quot;</span>
-<span class="n">awk</span> <span class="s1">&#39;{print &quot;</span><span class="se">\&quot;</span><span class="s1">&quot; $1 &quot;</span><span class="se">\&quot;</span><span class="s1">,</span><span class="se">\&quot;</span><span class="s1">&quot; $2&quot;</span><span class="se">\&quot;</span><span class="s1">&quot;}&#39;</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>A B --&gt; &quot;A&quot;,&quot;B&quot;
+awk &#39;{print &quot;\&quot;&quot; $1 &quot;\&quot;,\&quot;&quot; $2&quot;\&quot;&quot;}&#39;
 </pre></div>
 </div>
 </div>
 <div class="section" id="finding-most-open-ports-in-nmap-scan">
 <h3>Finding most open ports in nmap scan<a class="headerlink" href="#finding-most-open-ports-in-nmap-scan" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="s2">&quot;^[0-9]\+&quot;</span> <span class="o">&lt;</span><span class="n">nmap</span> <span class="n">file</span> <span class="o">.</span><span class="n">nmap</span> <span class="n">extension</span><span class="o">&gt;</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;\ open\ &quot;</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">|</span> <span class="n">uniq</span> <span class="o">-</span><span class="n">c</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">rn</span> <span class="o">|</span> <span class="n">awk</span> <span class="s1">&#39;{print &quot;</span><span class="se">\&quot;</span><span class="s1">&quot;$1&quot;</span><span class="se">\&quot;</span><span class="s1">,</span><span class="se">\&quot;</span><span class="s1">&quot;$2&quot;</span><span class="se">\&quot;</span><span class="s1">,</span><span class="se">\&quot;</span><span class="s1">&quot;$3&quot;</span><span class="se">\&quot;</span><span class="s1">,</span><span class="se">\&quot;</span><span class="s1">&quot;$4&quot;</span><span class="se">\&quot;</span><span class="s1">,</span><span class="se">\&quot;</span><span class="s1">&quot;$5&quot; &quot;$6&quot; &quot;$7&quot; &quot;$8&quot; &quot;$9&quot; &quot;$10&quot; &quot;$11&quot; &quot;$12&quot; &quot;$13&quot;</span><span class="se">\&quot;</span><span class="s1">&quot;}&#39;</span> <span class="o">&gt;</span> <span class="n">test</span><span class="o">.</span><span class="n">csv</span>
+<div class="highlight-None"><div class="highlight"><pre><span></span>grep &quot;^[0-9]\+&quot; &lt;nmap file .nmap extension&gt; | grep &quot;\ open\ &quot; | sort | uniq -c | sort -rn | awk &#39;{print &quot;\&quot;&quot;$1&quot;\&quot;,\&quot;&quot;$2&quot;\&quot;,\&quot;&quot;$3&quot;\&quot;,\&quot;&quot;$4&quot;\&quot;,\&quot;&quot;$5&quot; &quot;$6&quot; &quot;$7&quot; &quot;$8&quot; &quot;$9&quot; &quot;$10&quot; &quot;$11&quot; &quot;$12&quot; &quot;$13&quot;\&quot;&quot;}&#39; &gt; test.csv
 </pre></div>
 </div>
+</div>
+<div class="section" id="cat">
+<h3>cat<a class="headerlink" href="#cat" title="Permalink to this headline">¶</a></h3>
+<p>When cat sees the string - as a filename, it treats it as a synonym for stdin. To get around this, we need to alter the string that cat sees in such a way that it still refers to a file called -. The usual way of doing this is to prefix the filename with a path - ./-, or /home/Tim/-. This technique is also used to get around similar issues where command line options clash with filenames, so a file referred to as ./-e does not appear as the -e command line option to a program.</p>
 </div>
 </div>
 <div class="section" id="practice">
@@ -1083,13 +1212,13 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <div class="section" id="task-3-add-user">
 <h4>Task 3 : Add User<a class="headerlink" href="#task-3-add-user" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Create a Alice, Bob, eve with the password &#8220;password&#8221; HINT: set password using chpasswd, look some examples in google to change from cmdline.</li>
+<li>Create a Alice, Bob, eve with the password “password” HINT: set password using chpasswd, look some examples in google to change from cmdline.</li>
 <li>Login from eve</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
 <li>Copy and preserve all the configuration files from /etc and save it in eve home directory in the folder etc-backup-YYYYMMDD, direct all errors to cp.err</li>
-<li>Change the owner of all the files in the folder just created to Bob and the group of all the files to Alice and change the permission of all the files to 440 i.e r&#8211;r&#8212;&#8211; HINT: would have to be logined as root</li>
+<li>Change the owner of all the files in the folder just created to Bob and the group of all the files to Alice and change the permission of all the files to 440 i.e r–r—– HINT: would have to be logined as root</li>
 <li>Provide me all the unique shells used by the user present in the system in CAPS. HINT: /etc/passwd file contains all the shells, three four commands would be used.</li>
 <li>Cover your tracks, clear out the /var/log/auth.log (Have a look at this file and create a backup before clearing), clean your terminal history HINT: man pages would help you.</li>
 <li>Delete all the user Bob, Alice, eve. Make sure you delete their files too.</li>
@@ -1132,7 +1261,7 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <li>Linux Monitoring Tools : Server density has written most comprehensive list of <a class="reference external" href="https://www.serverdensity.com/monitor/linux/how-to/">80 Linux Monitoring Tools</a></li>
 <li>Windows Monitoring Tools : Server density has written similar list for Windows too <a class="reference external" href="https://www.serverdensity.com/monitor/windows/how-to/">60+ Windows Monitoring Tools</a></li>
 </ul>
-<div disqus-identifier="The Essentials : Linux Basics" disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
+</div>
 </div>
 
 

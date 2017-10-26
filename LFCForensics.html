@@ -2,11 +2,9 @@
 
 <!doctype html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
 
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-92365403-1']);
@@ -19,10 +17,8 @@
       })();
     </script>
     <title>Learning from the CTF : Forensics &#8212; tech.bitvijays.com</title>
-    
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -37,14 +33,13 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/bizstyle.js"></script>
-    <script type="text/javascript" src="_static/collapse.js"></script>
     <link rel="search" title="Search" href="search.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -82,15 +77,15 @@
             
   <div class="section" id="learning-from-the-ctf-forensics">
 <h1>Learning from the CTF : Forensics<a class="headerlink" href="#learning-from-the-ctf-forensics" title="Permalink to this headline">¶</a></h1>
-<p>This post (Work in Progress) lists the tips and tricks while doing Forensics challenges during various CTF&#8217;s.</p>
+<p>This post (Work in Progress) lists the tips and tricks while doing Forensics challenges during various CTF’s.</p>
 <ul class="simple">
 <li>If you are provided a jar file in the challenge, JAR (Java ARchive) is a package file format typically used to aggregate many Java class files and associated metadata and resources (text, images, etc.) into one file to distribute application software or libraries on the Java platform. It can be extracted using</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jar</span> <span class="n">xf</span> <span class="n">jar</span><span class="o">-</span><span class="n">file</span>
-<span class="n">x</span> <span class="p">:</span> <span class="n">extract</span> <span class="n">files</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">JAR</span> <span class="n">archive</span><span class="o">.</span>
-<span class="n">f</span> <span class="p">:</span> <span class="n">JAR</span> <span class="n">file</span> <span class="kn">from</span> <span class="nn">which</span> <span class="n">files</span> <span class="n">are</span> <span class="n">to</span> <span class="n">be</span> <span class="n">extracted</span> <span class="ow">is</span> <span class="n">specified</span> <span class="n">on</span> <span class="n">the</span> <span class="n">command</span> <span class="n">line</span><span class="p">,</span> <span class="n">rather</span> <span class="n">than</span> <span class="n">through</span> <span class="n">stdin</span><span class="o">.</span>
-<span class="n">The</span> <span class="n">jar</span><span class="o">-</span><span class="n">file</span> <span class="n">argument</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">filename</span> <span class="p">(</span><span class="ow">or</span> <span class="n">path</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">)</span> <span class="n">of</span> <span class="n">the</span> <span class="n">JAR</span> <span class="n">file</span> <span class="kn">from</span> <span class="nn">which</span> <span class="n">to</span> <span class="n">extract</span> <span class="n">files</span><span class="o">.</span>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>jar xf jar-file
+x : extract files from the JAR archive.
+f : JAR file from which files are to be extracted is specified on the command line, rather than through stdin.
+The jar-file argument is the filename (or path and filename) of the JAR file from which to extract files.
 </pre></div>
 </div>
 </div></blockquote>
@@ -102,13 +97,13 @@
 <li>Searching passwords in HTTP Web traffic in wireshark?</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span> <span class="nb">filter</span> <span class="n">might</span> <span class="n">help</span><span class="p">,</span> <span class="n">based</span> <span class="n">on</span> <span class="n">concept</span> <span class="n">that</span> <span class="n">server</span> <span class="ow">is</span> <span class="n">asking</span> <span class="k">for</span> <span class="n">LOGIN</span> <span class="n">prompt</span> <span class="ow">and</span> <span class="n">user</span> <span class="ow">is</span> <span class="n">POSTing</span> <span class="n">his</span> <span class="n">password</span> <span class="ow">in</span> <span class="n">cleartext</span><span class="o">.</span>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>http.request.method == &quot;POST&quot; filter might help, based on concept that server is asking for LOGIN prompt and user is POSTing his password in cleartext.
 </pre></div>
 </div>
 </div></blockquote>
 <ul class="simple">
-<li>If the challenge says IP address has been spoofed, then you should look for MAC address as it wouldn&#8217;t have changed. You would find packets with two different IP address having same MAC address. In another scenario, if the MAC address has been spoofed, IP address might be the same. In both cases display filter &#8220;arp&#8221; (to only show arp requests) and &#8220;ip.addr==&#8221; (to show only packets with either source or destination being the IP address). might be helpful.</li>
-<li>Sometimes, it is better to check which objects we are able to export, (File &#8211;&gt; Export Objects &#8211;&gt; HTTP/DICOM/SMB/SMB2) export the http/DICOM/SMB/SMB2 object</li>
+<li>If the challenge says IP address has been spoofed, then you should look for MAC address as it wouldn’t have changed. You would find packets with two different IP address having same MAC address. In another scenario, if the MAC address has been spoofed, IP address might be the same. In both cases display filter “arp” (to only show arp requests) and “ip.addr==” (to show only packets with either source or destination being the IP address). might be helpful.</li>
+<li>Sometimes, it is better to check which objects we are able to export, (File –&gt; Export Objects –&gt; HTTP/DICOM/SMB/SMB2) export the http/DICOM/SMB/SMB2 object</li>
 <li>Sometimes, you need to find all the unique ip address in the network capture, for that you can use</li>
 </ul>
 <blockquote>
@@ -131,7 +126,7 @@
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>Apktool: It is used to decode resources to nearly original form (including resources.arsc, XMLs and 9.png files) and rebuilding them. Also, used for smali debugging. apktool converts the apk file in to smali format. smali/baksmali is an assembler/disassembler for the dex format used by dalvik, Android&#8217;s Java VM implementation.</li>
+<li>Apktool: It is used to decode resources to nearly original form (including resources.arsc, XMLs and 9.png files) and rebuilding them. Also, used for smali debugging. apktool converts the apk file in to smali format. smali/baksmali is an assembler/disassembler for the dex format used by dalvik, Android’s Java VM implementation.</li>
 </ul>
 <blockquote>
 <div><div class="highlight-bash"><div class="highlight"><pre><span></span>apktool d file.apk output-dir
@@ -153,14 +148,14 @@ d : decode to output-dir
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Use online services such as Decompile Android. Once it&#8217;s decompiled, we can download the decompiled files and unpack them.</li>
+<li>Use online services such as Decompile Android. Once it’s decompiled, we can download the decompiled files and unpack them.</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
 <li>If you are provided a disk.img file, from which files have to recovered, you could use foremost tool used to recover files using their headers, footers, and data structures.</li>
 <li>If you are having a source code of evil program, check the source code of the real program, do a comparision and find the added evil code.</li>
 <li>If you are looking for hidden flag in an image first check with file, exiftool command, and make sure the extension is correctly displayed. After that check the image file with hexdump -C and look for interesting pattern may be? If you get 7z or PK they represent Zipped files. If so, you can extract those file with 7z x . If somehow, you get a passphrase for the image, then you might have to use steghide tool as it allows to hide data with a passphrase.</li>
-<li>Sometimes, if you extract some files, if you wuld see a blank name, you know there is some file but can&#8217;t see a name, like file name could be spaces?, then</li>
+<li>Sometimes, if you extract some files, if you wuld see a blank name, you know there is some file but can’t see a name, like file name could be spaces?, then</li>
 </ul>
 <blockquote>
 <div><div class="highlight-bash"><div class="highlight"><pre><span></span>ls -lb might be of help.
@@ -169,7 +164,7 @@ d : decode to output-dir
 </div>
 </div></blockquote>
 <ul class="simple">
-<li>How to open a filename named &#8220;-&#8221; : We can create a file named &#8220;-&#8221; by</li>
+<li>How to open a filename named “-” : We can create a file named “-” by</li>
 </ul>
 <blockquote>
 <div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">echo</span> hello &gt; -
@@ -179,7 +174,7 @@ d : decode to output-dir
 <div class="highlight-bash"><div class="highlight"><pre><span></span>cat ./-
 </pre></div>
 </div>
-<p>This is needed because lot of programs use &#8220;-&#8221; to mean stdin/stdout.</p>
+<p>This is needed because lot of programs use “-” to mean stdin/stdout.</p>
 </div></blockquote>
 <ul class="simple">
 <li>If you have a hex dump of something and you want to create the binary version of the data?</li>
@@ -195,9 +190,9 @@ data is the hexdump of the binary file.
 <li>Correct Headers: SQLite3</li>
 </ul>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">0000000</span><span class="p">:</span> <span class="mi">5351</span> <span class="mi">4</span><span class="n">c69</span> <span class="mi">7465</span> <span class="mi">2066</span> <span class="mi">6</span><span class="n">f72</span> <span class="mi">6</span><span class="n">d61</span> <span class="mi">7420</span> <span class="mi">3300</span>  <span class="n">SQLite</span> <span class="nb">format</span> <span class="mf">3.</span>
-<span class="mi">0000010</span><span class="p">:</span> <span class="mi">0400</span> <span class="mi">0101</span> <span class="mi">0040</span> <span class="mi">2020</span> <span class="mi">0000</span> <span class="mi">000</span><span class="n">b</span> <span class="mi">0000</span> <span class="mi">000</span><span class="n">b</span>  <span class="o">.....@</span>  <span class="o">........</span>
-<span class="mi">0000020</span><span class="p">:</span> <span class="mi">0000</span> <span class="mi">0000</span> <span class="mi">0000</span> <span class="mi">0000</span> <span class="mi">0000</span> <span class="mi">0002</span> <span class="mi">0000</span> <span class="mi">0004</span>  <span class="o">................</span>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>0000000: 5351 4c69 7465 2066 6f72 6d61 7420 3300  SQLite format 3.
+0000010: 0400 0101 0040 2020 0000 000b 0000 000b  .....@  ........
+0000020: 0000 0000 0000 0000 0000 0002 0000 0004  ................
 </pre></div>
 </div>
 </div></blockquote>
