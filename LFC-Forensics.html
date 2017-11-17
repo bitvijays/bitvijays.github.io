@@ -1,0 +1,292 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-92365403-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>CTF Series : Forensics &#8212; tech.bitvijays.com</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CTF Series : Forensics</a><ul>
+<li><a class="reference internal" href="#steganography">Steganography</a><ul>
+<li><a class="reference internal" href="#images">Images</a></li>
+<li><a class="reference internal" href="#sound-files">Sound Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/LFC-Forensics.rst.txt"
+           rel="nofollow">Show Source</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFC-Forensics.rst"
+           rel="nofollow">Show on GitHub</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFC-Forensics.rst"
+           rel="nofollow">Edit on GitHub</a></li>
+  </ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ctf-series-forensics">
+<h1>CTF Series : Forensics<a class="headerlink" href="#ctf-series-forensics" title="Permalink to this headline">¶</a></h1>
+<p>This post (Work in Progress) lists the tips and tricks while doing Forensics challenges during various CTF’s.</p>
+<div class="section" id="steganography">
+<h2>Steganography<a class="headerlink" href="#steganography" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="images">
+<h3>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h3>
+<p>If you are looking for hidden flag in an image first check with</p>
+<ul class="simple">
+<li>file, exiftool command, and make sure the extension is correctly displayed.</li>
+<li>strings</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Sometimes, it is better to see lines only greater than x length.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>strings RainingBlood.mp3 | awk &#39;length($0)&gt;20&#39; | sort -u
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li>binwalk the file, just to make sure, there’s nothing extra stored in that image.</li>
+<li>hexdump -C and look for interesting pattern may be? If you get 7z or PK they represent Zipped files. If so, you can extract those file with 7z x . If somehow, you get a passphrase for the image, then you might have to use steghide tool as it allows to hide data with a passphrase.</li>
+<li>stegsolve - check all the planes. There’s a data-extracter, we may try to extract all the values of RGB and see if there’s any flag in that.</li>
+<li>stegosuite</li>
+<li>steghide : If there’s any text present in the Image file or the filename of the image or any link ( maybe to youtube video; video name can be the password ) that can be a passphrase to steghide. Sometimes, you may have to try all lowercase/ uppercase combinations.</li>
+</ul>
+</div>
+<div class="section" id="sound-files">
+<h3>Sound Files<a class="headerlink" href="#sound-files" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Open the file in Audacity or <a class="reference external" href="https://academo.org/demos/spectrum-analyzer/">Spectrum Analyzer</a> and probably analyze the Spectogram</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Arrow next to the track name to switch from waveform (top) to logarithmic spectrogram (bottom).</li>
+<li>Morse code possible? As all the morse data appears to be below 100 Hz, we can use a low pass filter (effects menu, cutoff 100 Hz) to ease transcription</li>
+<li><a class="reference external" href="https://github.com/tcolgate/mp3">Golang mp3 Frame Parser</a></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>If you are provided a jar file in the challenge, JAR (Java ARchive) is a package file format typically used to aggregate many Java class files and associated metadata and resources (text, images, etc.) into one file to distribute application software or libraries on the Java platform. It can be extracted using</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>jar xf jar-file
+x : extract files from the JAR archive.
+f : JAR file from which files are to be extracted is specified on the command line, rather than through stdin.
+The jar-file argument is the filename (or path and filename) of the JAR file from which to extract files.
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Wireshark - Searching for answers in pcap file?</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Searching passwords in HTTP Web traffic in wireshark?</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>http.request.method == &quot;POST&quot; filter might help, based on concept that server is asking for LOGIN prompt and user is POSTing his password in cleartext.
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>If the challenge says IP address has been spoofed, then you should look for MAC address as it wouldn’t have changed. You would find packets with two different IP address having same MAC address. In another scenario, if the MAC address has been spoofed, IP address might be the same. In both cases display filter “arp” (to only show arp requests) and “ip.addr==” (to show only packets with either source or destination being the IP address). might be helpful.</li>
+<li>Sometimes, it is better to check which objects we are able to export, (File –&gt; Export Objects –&gt; HTTP/DICOM/SMB/SMB2) export the http/DICOM/SMB/SMB2 object</li>
+<li>Sometimes, you need to find all the unique ip address in the network capture, for that you can use</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>tshark -T fields -e ip.src -r &lt;pcap file&gt; <span class="se">\|</span> sort <span class="se">\|</span> uniq
+
+-T fields<span class="se">\|</span>pdml<span class="se">\|</span>ps<span class="se">\|</span>psml<span class="se">\|</span>text : Set the format of the output when viewing decoded packet data.
+-e : Add a field to the list of fields to display <span class="k">if</span> -T fields is selected.
+-r : Read packet data from infile, can be any supported capture file format <span class="o">(</span>including gzipped files<span class="o">)</span>.
+-R : Cause the specified filter <span class="o">(</span>which uses the syntax of read/displayfilters, rather than that of capture filters<span class="o">)</span> to be applied
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Wireshark can not reassamble HTTP fragmented packets to generate the RAW data,we can use Dshell to reassemble http partial contents. A blog mentioning how to do it is <a class="reference external" href="https://github.com/naijim/blog/blob/master/writeups/asis-quals-ctf-2015_broken_heart_writeup.md">here</a>.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>If in a challenge, you are provided a setgid program which is able to read a certain extension files and flag is present in some other extension, create a symbolic link to the flag with the extension which can be read by the program. For example: In picoCTF 2014 Supercow challenge, a program named supercow was able to read files with .cow extension only and flag was present with flag.txt. So we created a symbolic link like ln -s flag.txt flag.cow</li>
+<li>If in a challenge, you are provided with a <strong>APK</strong> file. There are three ways to decompile it as described below:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Apktool: It is used to decode resources to nearly original form (including resources.arsc, XMLs and 9.png files) and rebuilding them. Also, used for smali debugging. apktool converts the apk file in to smali format. smali/baksmali is an assembler/disassembler for the dex format used by dalvik, Android’s Java VM implementation.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>apktool d file.apk output-dir
+d : decode to output-dir
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Dex2jar: To see the java code (approx)</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Change the extension of file.apk from .apk to .zip</li>
+<li>Unzip the file.zip</li>
+<li>After unzip, you would get classes.dex file.</li>
+<li>Use dex2jar classes.dex (It would create classes_dex2jar.jar file)</li>
+<li>Extract jar file by jar xf classes_dex2jar.jar</li>
+<li>This would provide you with .class files which could be open by jd-gui (Java Decompiler) tool.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Use online services such as Decompile Android. Once it’s decompiled, we can download the decompiled files and unpack them.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>If you are provided a disk.img file, from which files have to recovered, you could use foremost tool used to recover files using their headers, footers, and data structures.</li>
+<li>If you are having a source code of evil program, check the source code of the real program, do a comparision and find the added evil code.</li>
+<li>If you are looking for hidden flag in an image first check with file, exiftool command, and make sure the extension is correctly displayed. After that check the image file with hexdump -C and look for interesting pattern may be? If you get 7z or PK they represent Zipped files. If so, you can extract those file with 7z x . If somehow, you get a passphrase for the image, then you might have to use steghide tool as it allows to hide data with a passphrase.</li>
+<li>Sometimes, if you extract some files, if you wuld see a blank name, you know there is some file but can’t see a name, like file name could be spaces?, then</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>ls -lb might be of help.
+-b, --escape :   print C-style escapes <span class="k">for</span> nongraphic characters
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>How to open a filename named “-” : We can create a file named “-” by</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">echo</span> hello &gt; -
+</pre></div>
+</div>
+<p>and this file can be opened by</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cat ./-
+</pre></div>
+</div>
+<p>This is needed because lot of programs use “-” to mean stdin/stdout.</p>
+</div></blockquote>
+<ul class="simple">
+<li>If you have a hex dump of something and you want to create the binary version of the data?</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>xxd r data
+data is the hexdump of the binary file.
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Excel Document: You may try unzipping it and check VBA macros in it. There are tools to extract VBA from excel listed here ools to extract VBA Macro source code from MS Office Documents</li>
+<li>Correct Headers: SQLite3</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>0000000: 5351 4c69 7465 2066 6f72 6d61 7420 3300  SQLite format 3.
+0000010: 0400 0101 0040 2020 0000 000b 0000 000b  .....@  ........
+0000020: 0000 0000 0000 0000 0000 0002 0000 0004  ................
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>GIF to JPG</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>convert animation.gif target.png
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>If the pdf-parser contains</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>/ProcSet <span class="o">[</span>/PDF/Text/ImageC/ImageI<span class="o">]</span>
+/ProcSet <span class="o">[</span>/PDF/Text/ImageC/ImageI<span class="o">]</span>
+</pre></div>
+</div>
+<p>It means it will contain text which can be extracted by using</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>*pdf2txt Untitled-1_1a110935ec70b63ad09fec68c89dfacb.pdf
+ PCTF<span class="o">{</span>how_2_pdf_yo<span class="o">}</span>*
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Vijay Kumar.
+    </div>
+  </body>
+</html>
