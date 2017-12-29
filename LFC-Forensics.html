@@ -56,6 +56,18 @@
 <li><a class="reference internal" href="#sound-files">Sound Files</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#usb-forensics">USB Forensics</a><ul>
+<li><a class="reference internal" href="#usb-keyboard">USB-Keyboard</a><ul>
+<li><a class="reference internal" href="#keyboard-report-format">Keyboard Report Format</a></li>
+<li><a class="reference internal" href="#usb-hid-keyboard-scan-codes">USB HID Keyboard Scan Codes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usb-mouse">USB-Mouse</a></li>
+<li><a class="reference internal" href="#usb-storage-device">USB-Storage-Device</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#esoteric-languages">Esoteric Languages</a></li>
+<li><a class="reference internal" href="#volatility">Volatility</a></li>
 </ul>
 </li>
 </ul>
@@ -90,6 +102,7 @@
   <div class="section" id="ctf-series-forensics">
 <h1>CTF Series : Forensics<a class="headerlink" href="#ctf-series-forensics" title="Permalink to this headline">¶</a></h1>
 <p>This post (Work in Progress) lists the tips and tricks while doing Forensics challenges during various CTF’s.</p>
+<p>This might be a good reference <a class="reference external" href="http://g33kinfo.com/info/archives/6261">Useful tools for CTF</a></p>
 <div class="section" id="steganography">
 <h2>Steganography<a class="headerlink" href="#steganography" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="images">
@@ -115,6 +128,9 @@
 <li>stegsolve - check all the planes. There’s a data-extracter, we may try to extract all the values of RGB and see if there’s any flag in that.</li>
 <li>stegosuite</li>
 <li>steghide : If there’s any text present in the Image file or the filename of the image or any link ( maybe to youtube video; video name can be the password ) that can be a passphrase to steghide. Sometimes, you may have to try all lowercase/ uppercase combinations.</li>
+<li><a class="reference external" href="https://github.com/zed-0xff/zsteg">zsteg</a> : detect stegano-hidden data in PNG &amp; BMP</li>
+<li><a class="reference external" href="http://www.libpng.org/pub/png/apps/pngcheck.html">pngcheck</a> : pngcheck verifies the integrity of PNG, JNG and MNG files (by checking the internal 32-bit CRCs [checksums] and decompressing the image data); it can optionally dump almost all of the chunk-level information in the image in human-readable form.</li>
+<li><a class="reference external" href="https://github.com/panzi/mediaextract">Mediaextract</a> : Extracts media files (AVI, Ogg, Wave, PNG, …) that are embedded within other files.</li>
 </ul>
 </div>
 <div class="section" id="sound-files">
@@ -129,6 +145,132 @@
 <li><a class="reference external" href="https://github.com/tcolgate/mp3">Golang mp3 Frame Parser</a></li>
 </ul>
 </div></blockquote>
+</div>
+</div>
+<div class="section" id="usb-forensics">
+<h2>USB Forensics<a class="headerlink" href="#usb-forensics" title="Permalink to this headline">¶</a></h2>
+<p>Probably, we would be provided with the USB-based PCAP file, now as there are USB-Mouse/ Keyboard and Storage devices. There would be data related to that. Now, to figure what device is connected. Check the below packets in the wireshark</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>1      0.000000        host    1.12.0  USB     36      GET DESCRIPTOR Request DEVICE
+2      0.000306        1.12.0  host    USB     46      GET DESCRIPTOR Response DEVICE
+</pre></div>
+</div>
+<p>In the GET DESCRIPTOR Response packet, there would be a idVendor and idProduct, searching for that. We can figure out that whether it’s a Keyboard, mouse or storage device.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>DEVICE DESCRIPTOR
+   bLength: 18
+   bDescriptorType: 0x01 (DEVICE)
+   bcdUSB: 0x0200
+   bDeviceClass: Device (0x00)
+   bDeviceSubClass: 0
+   bDeviceProtocol: 0 (Use class code info from Interface Descriptors)
+   bMaxPacketSize0: 8
+   idVendor: Razer USA, Ltd (0x1532)
+   idProduct: BlackWidow Ultimate 2013 (0x011a)
+   bcdDevice: 0x0200
+   iManufacturer: 1
+   iProduct: 2
+   iSerialNumber: 0
+   bNumConfigurations: 1
+</pre></div>
+</div>
+<div class="section" id="usb-keyboard">
+<h3>USB-Keyboard<a class="headerlink" href="#usb-keyboard" title="Permalink to this headline">¶</a></h3>
+<p>If the device connected is the keyboard, we can actually, check for the “interrupt in” message</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>51     8.808610        1.12.1  host    USB     35      URB_INTERRUPT in
+</pre></div>
+</div>
+<p>and check for the Leftover Capture Data field</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Frame 159: 35 bytes on wire (280 bits), 35 bytes captured (280 bits)
+USB URB
+   [Source: 1.12.1]
+   [Destination: host]
+   USBPcap pseudoheader length: 27
+   IRP ID: 0xffffa5045d1653c0
+   IRP USBD_STATUS: USBD_STATUS_SUCCESS (0x00000000)
+   URB Function: URB_FUNCTION_BULK_OR_INTERRUPT_TRANSFER (0x0009)
+   IRP information: 0x01, Direction: PDO -&gt; FDO
+   URB bus id: 1
+   Device address: 12
+   Endpoint: 0x81, Direction: IN
+   URB transfer type: URB_INTERRUPT (0x01)
+   Packet Data Length: 8
+   [bInterfaceClass: HID (0x03)]
+Leftover Capture Data: 0000500000000000
+</pre></div>
+</div>
+<p>Now, we can use tshark to take out, usb.capdata out</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>tshark -r usb-keyboard-data.pcap -T fields -e usb.capdata
+00:00:08:00:00:00:00:00
+00:00:00:00:00:00:00:00
+00:00:0e:00:00:00:00:00
+00:00:00:00:00:00:00:00
+00:00:16:00:00:00:00:00
+</pre></div>
+</div>
+<p>Here there are 8 bytes</p>
+<div class="section" id="keyboard-report-format">
+<h4>Keyboard Report Format<a class="headerlink" href="#keyboard-report-format" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Byte 0: Keyboard modifier bits (SHIFT, ALT, CTRL etc)</li>
+<li>Byte 1: reserved</li>
+<li>Byte 2-7: Up to six keyboard usage indexes representing the keys that are currently “pressed”. Order is not important, a key is either pressed (present in the  buffer) or not pressed.</li>
+</ul>
+</div>
+<div class="section" id="usb-hid-keyboard-scan-codes">
+<h4>USB HID Keyboard Scan Codes<a class="headerlink" href="#usb-hid-keyboard-scan-codes" title="Permalink to this headline">¶</a></h4>
+<p>MightyPork has created a gist mentioning USB HID Keyboard scan codes as per USB spec 1.11 at <a class="reference external" href="https://gist.github.com/MightyPork/6da26e382a7ad91b5496ee55fdc73db2">usb_hid_keys.h</a></p>
+<p>The above can be referred and utilized to convert the usb.capdata to know what was the user typing using the USB Keyboard!</p>
+</div>
+</div>
+<div class="section" id="usb-mouse">
+<h3>USB-Mouse<a class="headerlink" href="#usb-mouse" title="Permalink to this headline">¶</a></h3>
+<p>If we take the USB-Mouse Leftover Capture data, we have around four bytes</p>
+<p>Format of First 3 Packet Bytes</p>
+<p>Even if your mouse is sending 4 byte packets, the first 3 bytes always have the same format.
+* The first byte has a bunch of bit flags.</p>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>byte 1:
+Y overflow    X overflow      Y sign bit      X sign bit      Always 1        Middle Btn      Right Btn       Left Btn
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>The second byte is the “delta X” value – that is, it measures horizontal mouse movement, with left being negative.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>byte 2:
+X movement
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>The third byte is “delta Y”, with down (toward the user) being negative. Typical values for deltaX and deltaY are one or two for slow movement, and perhaps 20 for very fast movement. Maximum possible values are +255 to -256 (they are 9-bit quantities, two’s complement).</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>byte 3:
+Y movement
+</pre></div>
+</div>
+</div></blockquote>
+<p>Let’s say we capture this data into a file, we can eventually capture the mouse movements,</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>tshark -r challenge.pcapng usb.capdata and usb.device_address==12 -T fields -e usb.capdata &gt; mouse_data.txt
+</pre></div>
+</div>
+<p>This can be plotted using GNUplot as shown in a writeup of <a class="reference external" href="https://github.com/ctfs/write-ups-2015/tree/master/boston-key-party-2015/school-bus/riverside">Riverside</a></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>awk -F: &#39;function comp(v){if(v&gt;127)v-=256;return v}{x+=comp(strtonum(&quot;0x&quot;$2));y+=comp(strtonum(&quot;0x&quot;$3))}$1==&quot;01&quot;{print x,y}&#39; mouse_data.txt &gt; click_coordinates.txt
+</pre></div>
+</div>
+<p>GNUplot</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>gnuplot -e &quot;plot &#39;click_coordinates.txt&#39;&quot;
+</pre></div>
+</div>
+<p>If the mouse movement shows a on-screen keyboard, probably, we can use</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>awk &#39;BEGIN{split(&quot;          zxcvbnm  asdfghjkl qwertyuiop&quot;,key,//)}{r=int(($2-20)/-100);c=int(($1 - 117 + (r % 2 * 40)) / 85);k=r*10+c;printf &quot;%s&quot;,key[k]}END{print&quot;&quot;}&#39; click_coordinates.txt
+</pre></div>
+</div>
+</div>
+<div class="section" id="usb-storage-device">
+<h3>USB-Storage-Device<a class="headerlink" href="#usb-storage-device" title="Permalink to this headline">¶</a></h3>
+<p>If the device found in the PCAP is a USB-Storage-Device, check for the packets having size greater than 1000 bytes with flags URB_BULK out/in. Select the stream and press Ctrl + h or you can use File-&gt;Export Packet Bytes.</p>
 <ul class="simple">
 <li>If you are provided a jar file in the challenge, JAR (Java ARchive) is a package file format typically used to aggregate many Java class files and associated metadata and resources (text, images, etc.) into one file to distribute application software or libraries on the Java platform. It can be extracted using</li>
 </ul>
@@ -140,7 +282,32 @@ The jar-file argument is the filename (or path and filename) of the JAR file fro
 </pre></div>
 </div>
 </div></blockquote>
+</div>
+</div>
+<div class="section" id="esoteric-languages">
+<h2>Esoteric Languages<a class="headerlink" href="#esoteric-languages" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Malbolge">Malbolge</a> : Malbolge is a public domain esoteric programming language invented by Ben Olmstead in 1998, named after the eighth circle of hell in Dante’s Inferno, the Malebolge.</li>
+</ul>
+</div>
+<div class="section" id="volatility">
+<h2>Volatility<a class="headerlink" href="#volatility" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/volatilityfoundation/volatility/wiki/Command-Reference">Command Reference</a></p>
+<p>Important commands to try</p>
+<ul class="simple">
+<li>imageinfo/ pslist / cmdscan/ consoles/ consoles/ memdump/ procdump/ filescan/ connscan/</li>
+<li>Extract files using filescan and <a class="reference external" href="https://github.com/volatilityfoundation/volatility/wiki/Command-Reference#dumpfiles">dumpfiles</a></li>
+</ul>
+<p><a class="reference external" href="https://w00tsec.blogspot.in/2015/02/extracting-raw-pictures-from-memory.html">Extracting RAW pictures from Memory Dumps</a></p>
+<p>Probably, dump the process running MSRDP, MSPAINT</p>
+<ul class="simple">
+<li>Rename the file extensions from <a href="#id1"><span class="problematic" id="id2">*</span></a>.dmp to <a href="#id3"><span class="problematic" id="id4">*</span></a>.data, download/install GIMP and open them as “RAW Image Data”:</li>
+<li>We can use GIMP to navigate within the memory dump and analyse the rendered pixels/bitmaps on their corresponding offsets</li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/ctfs/write-ups-2015/tree/master/camp-ctf-2015/forensics/APT-incident-response-400">APT-Incident-Response</a></li>
+<li><a class="reference external" href="https://dubell.io/securityfest-ctf-coresec-challenge-writeup/">Securityfest CTF - Coresec challenge writeup</a></li>
+<li><a class="reference external" href="http://dann.com.br/shx7-for300-go_deeper/">SHX7 - for300</a></li>
 <li>Wireshark - Searching for answers in pcap file?</li>
 </ul>
 <blockquote>
@@ -155,6 +322,7 @@ The jar-file argument is the filename (or path and filename) of the JAR file fro
 <ul class="simple">
 <li>If the challenge says IP address has been spoofed, then you should look for MAC address as it wouldn’t have changed. You would find packets with two different IP address having same MAC address. In another scenario, if the MAC address has been spoofed, IP address might be the same. In both cases display filter “arp” (to only show arp requests) and “ip.addr==” (to show only packets with either source or destination being the IP address). might be helpful.</li>
 <li>Sometimes, it is better to check which objects we are able to export, (File –&gt; Export Objects –&gt; HTTP/DICOM/SMB/SMB2) export the http/DICOM/SMB/SMB2 object</li>
+<li>SSL Traffic? and have a key? Visit Wireshark-&gt;Edit-&gt;Preferences-&gt;Protocols-&gt;SSL-&gt;RSA Key List. SSL Traffic with forward secretcy -&gt;SSL-&gt;Pre-Master-Secret-Log filename</li>
 <li>Sometimes, you need to find all the unique ip address in the network capture, for that you can use</li>
 </ul>
 <blockquote>
@@ -205,7 +373,7 @@ d : decode to output-dir
 <ul class="simple">
 <li>If you are provided a disk.img file, from which files have to recovered, you could use foremost tool used to recover files using their headers, footers, and data structures.</li>
 <li>If you are having a source code of evil program, check the source code of the real program, do a comparision and find the added evil code.</li>
-<li>If you are looking for hidden flag in an image first check with file, exiftool command, and make sure the extension is correctly displayed. After that check the image file with hexdump -C and look for interesting pattern may be? If you get 7z or PK they represent Zipped files. If so, you can extract those file with 7z x . If somehow, you get a passphrase for the image, then you might have to use steghide tool as it allows to hide data with a passphrase.</li>
+<li>Morse code, utilize <a class="reference external" href="https://morsecode.scphillips.com/translator.html">Transator</a></li>
 <li>Sometimes, if you extract some files, if you wuld see a blank name, you know there is some file but can’t see a name, like file name could be spaces?, then</li>
 </ul>
 <blockquote>
@@ -269,7 +437,6 @@ data is the hexdump of the binary file.
 </pre></div>
 </div>
 </div></blockquote>
-</div>
 </div>
 </div>
 

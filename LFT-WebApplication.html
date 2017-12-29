@@ -1,0 +1,194 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-92365403-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>Analyzing the Web application &#8212; tech.bitvijays.com</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Analyzing the Web application</a><ul>
+<li><a class="reference internal" href="#identifying-entry-points-for-user-input">Identifying Entry Points for User Input</a></li>
+<li><a class="reference internal" href="#identifying-server-side-technologies">Identifying Server-Side Technologies</a><ul>
+<li><a class="reference internal" href="#file-extensions">File Extensions</a></li>
+<li><a class="reference internal" href="#directory-names">Directory Names</a></li>
+<li><a class="reference internal" href="#session-tokens">Session Tokens</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mapping-the-attack-surface">Mapping the Attack Surface</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/LFT-WebApplication.rst.txt"
+           rel="nofollow">Show Source</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFT-WebApplication.rst"
+           rel="nofollow">Show on GitHub</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFT-WebApplication.rst"
+           rel="nofollow">Edit on GitHub</a></li>
+  </ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="analyzing-the-web-application">
+<h1>Analyzing the Web application<a class="headerlink" href="#analyzing-the-web-application" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="identifying-entry-points-for-user-input">
+<h2>Identifying Entry Points for User Input<a class="headerlink" href="#identifying-entry-points-for-user-input" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Every URL string up to the query string marker</li>
+<li>Every parameter submitted within the URL query string</li>
+<li>Every parameter submitted within the body of a POST request</li>
+<li>Every cookie</li>
+<li>Every other HTTP header that the application might process — in particu-lar, the User-Agent , Referer , Accept , Accept-Language , and Host headers</li>
+<li>Out of band channels</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>A web mail application that processes and renders e-mail messages received via SMTP</li>
+<li>A publishing application that contains a function to retrieve content via HTTP from another server</li>
+<li>An intrusion detection application that gathers data using a network sniffer and presents this using a web application interface</li>
+<li>Any kind of application that provides an API interface for use by non-browser user agents, such as cell phone apps, if the data processed via this interface is shared with the primary web application</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="identifying-server-side-technologies">
+<h2>Identifying Server-Side Technologies<a class="headerlink" href="#identifying-server-side-technologies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="file-extensions">
+<h3>File Extensions<a class="headerlink" href="#file-extensions" title="Permalink to this headline">¶</a></h3>
+<p>File extensions used within URLs often disclose the platform or programming language used to implement the relevant functionality. For example:
+* asp — Microsoft Active Server Pages
+* aspx — Microsoft ASP.NET
+* jsp — Java Server Pages
+n cfm — Cold Fusion
+n php — The PHP language
+n d2w — WebSphere
+n pl — The Perl language
+n py — The Python language
+n dll — Usually compiled native code (C or C++)
+n nsf or ntf — Lotus Domino</p>
+</div>
+<div class="section" id="directory-names">
+<h3>Directory Names<a class="headerlink" href="#directory-names" title="Permalink to this headline">¶</a></h3>
+<p>It is common to encounter subdirectory names that indicate the presence of an
+associated technology. For example:
+n servlet — Java servlets
+n pls — Oracle Application Server PL/SQL gateway
+n cfdocs or cfide — Cold Fusion
+n SilverStream — The SilverStream web server
+n WebObjects or {function}.woa — Apple WebObjects
+n rails — Ruby on Rails</p>
+</div>
+<div class="section" id="session-tokens">
+<h3>Session Tokens<a class="headerlink" href="#session-tokens" title="Permalink to this headline">¶</a></h3>
+<p>Many web servers and web application platforms generate session tokens by default
+with names that provide information about the technology in use. For example:
+n JSESSIONID — The Java Platform
+n ASPSESSIONID — Microsoft IIS server
+n ASP.NET_SessionId — Microsoft ASP.NET
+n CFID / CFTOKEN — Cold Fusion
+n PHPSESSID — PHP</p>
+</div>
+</div>
+<div class="section" id="mapping-the-attack-surface">
+<h2>Mapping the Attack Surface<a class="headerlink" href="#mapping-the-attack-surface" title="Permalink to this headline">¶</a></h2>
+<p>The final stage of the mapping process is to identify the various attack surfaces exposed by the application and the potential vulnerabilities that are commonly associated with each one. The following is a rough guide to some key types of behavior and functionality that you may identify, and the kinds of vulner-
+abilities that are most commonly found within each one. The remainder of this book is concerned with the practical details of how you can detect and exploit each of these problems:
+* Client-side validation — Checks may not be replicated on the server
+* Database interaction — SQL injection
+* File uploading and downloading — Path traversal vulnerabilities, stored cross-site scripting
+* Display of user-supplied data — Cross-site scripting
+* Dynamic redirects — Redirection and header injection attacks
+* Social networking features — username enumeration, stored cross-site scripting
+* Login — Username enumeration, weak passwords, ability to use bruteforce
+* Multistage login — Logic fl aws
+* Session state — Predictable tokens, insecure handling of tokens
+* Access controls — Horizontal and vertical privilege escalation
+* User impersonation functions — Privilege escalation
+* Use of cleartext communications — Session hijacking, capture of credentials and other sensitive data
+* Off-site links — Leakage of query string parameters in the Referer header
+* Interfaces to external systems — Shortcuts in the handling of sessions and/or access controls
+* Error messages — Information leakage
+* E-mail interaction — E-mail and/or command injection
+* Native code components or interaction — Buffer overfl ows
+* Use of third-party application components — Known vulnerabilities
+* Identifiable web server software — Common configuration weaknesses, known software bugs</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Vijay Kumar.
+    </div>
+  </body>
+</html>
