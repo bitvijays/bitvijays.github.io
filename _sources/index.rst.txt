@@ -39,8 +39,9 @@ Capture the flag Series
 
 Series covers the learning obtained by solving the Capture the flag (CTF) challenges
 
-- :doc:`Vulnerable Machines <LFC-VulnerableMachines>`                         : Knowledge gained by solving/ reading write-ups of vulnerable machines provided by the `VulnHub Website <https://www.vulnhub.com/>`_, `Hack the Box <https://www.hackthebox.eu/en>`_ etc. 
+- :doc:`Vulnerable Machines <LFC-VulnerableMachines>` : Knowledge gained by solving/ reading write-ups of vulnerable machines provided by the `VulnHub Website <https://www.vulnhub.com/>`_, `Hack the Box <https://www.hackthebox.eu/en>`_ etc. 
 - :doc:`Binary Exploitation <LFC-BinaryExploitation>` : Knowledge gained by solving/ reading write-ups of binary exploitation challenges.
+- :doc:`Forensics <LFC-Forensics>` : Knowledge gained by solving/ reading write-ups of Forensics challenges.
 
 #######################################
 Contributors, Blog Archive and About Me
@@ -49,3 +50,9 @@ Contributors, Blog Archive and About Me
 - :doc:`Contributors <contrib>`
 - :doc:`Blog Archive <content>`
 - :doc:`About Me <aboutme>`
+
+##########
+Disclaimer
+##########
+
+This blog is purely intended for educational purposes. We do not want anyone to use this information (or any information on this blog) to actually hack into computers or do other illegal things. So, we cannot be held responsible for the acts of other people who took parts of this document and used it for illegal purposes. If you don’t agree, then you are not allowed to continue to access this website, Kindly leave this website immediately.

