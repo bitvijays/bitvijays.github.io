@@ -16,6 +16,6 @@ Completed
 
 .. Todo :: Over the Wire, Other games,  Cryptopals, VulnHub Images, Exploit-exercises
 
-If you have any suggestion, I would be happy to receive your email at bitvijays@gmail.com or ping me on Twitter.
+If you have any suggestion, I would be happy to receive your email at bitvijays@gmail.com or ping me on `Twitter <https://twitter.com/bitvijays>`_ 
 
 **Vijay Kumar**

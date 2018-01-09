@@ -196,6 +196,10 @@ If the device found in the PCAP is a USB-Storage-Device, check for the packets h
 Esoteric Languages
 ==================
 
+This would be the best page to refer `Esoteric programming language <https://en.wikipedia.org/wiki/Esoteric_programming_language>`_ 
+
+* Piet : Piet is a language designed by David Morgan-Mar, whose programs are bitmaps that look like abstract art. (Steganography - Challenges)
+
 * `Malbolge <https://en.wikipedia.org/wiki/Malbolge>`_ : Malbolge is a public domain esoteric programming language invented by Ben Olmstead in 1998, named after the eighth circle of hell in Dante's Inferno, the Malebolge.
 
 Volatility
