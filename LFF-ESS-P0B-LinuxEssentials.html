@@ -32,6 +32,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/disqus.js"></script>
     <script type="text/javascript" src="_static/bizstyle.js"></script>
     <link rel="search" title="Search" href="search.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -132,6 +133,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#bash-command-substitution">Bash Command Substitution</a></li>
+<li><a class="reference internal" href="#bash-case-modification">Bash Case modification</a></li>
 <li><a class="reference internal" href="#bash-programming">Bash Programming</a><ul>
 <li><a class="reference internal" href="#bash-for-loop">Bash For Loop</a></li>
 <li><a class="reference internal" href="#bash-if-statement">Bash If Statement</a></li>
@@ -164,7 +166,12 @@
 <li><a class="reference internal" href="#apt-get-error">Apt-get error?</a></li>
 <li><a class="reference internal" href="#track-etc-directory">Track /etc directory</a></li>
 <li><a class="reference internal" href="#ls-showing-full-path">ls showing full path</a></li>
-<li><a class="reference internal" href="#keyboard-shortcuts">Keyboard shortcuts</a></li>
+<li><a class="reference internal" href="#keyboard-shortcuts">Keyboard shortcuts</a><ul>
+<li><a class="reference internal" href="#moving">Moving</a></li>
+<li><a class="reference internal" href="#erasing">Erasing</a></li>
+<li><a class="reference internal" href="#window">Window</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#searching-history">Searching History</a></li>
 <li><a class="reference internal" href="#awk-converting-to-normal-output-to-csv">Awk converting to normal output to csv</a></li>
 <li><a class="reference internal" href="#finding-most-open-ports-in-nmap-scan">Finding most open ports in nmap scan</a></li>
@@ -916,6 +923,21 @@ x != y          : Check if x is not the same as y
 </div>
 <p>Bash performs the expansion by executing command and replacing the command substitution with the standard output of the command, with any trailing newlines deleted.</p>
 </div>
+<div class="section" id="bash-case-modification">
+<h3>Bash Case modification<a class="headerlink" href="#bash-case-modification" title="Permalink to this headline">¶</a></h3>
+<p>Taken from <a class="reference external" href="http://wiki.bash-hackers.org/syntax/pe#case_modification">Case Modification</a></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>${PARAMETER^}
+${PARAMETER^^}
+${PARAMETER,}
+${PARAMETER,,}
+${PARAMETER~}
+${PARAMETER~~}
+</pre></div>
+</div>
+<p>These expansion operators modify the case of the letters in the expanded text.</p>
+<p>The ^ operator modifies the first character to uppercase, the , operator to lowercase. When using the double-form (^^ and ,,), all characters are converted.</p>
+<p>The operators ~ and ~~ reverse the case of the given text (in PARAMETER).~ reverses the case of first letter of words in the variable while ~~ reverses case for all.</p>
+</div>
 <div class="section" id="bash-programming">
 <h3>Bash Programming<a class="headerlink" href="#bash-programming" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="bash-for-loop">
@@ -1144,12 +1166,31 @@ git commit -am Initial
 </div>
 <div class="section" id="keyboard-shortcuts">
 <h3>Keyboard shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="moving">
+<h4>Moving<a class="headerlink" href="#moving" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-None"><div class="highlight"><pre><span></span>Ctrl + a : Move to the start of line.
 Ctrl + e : Move to the end of line.
-Ctrl + w : Cut from cursor to previous whitespace.
+Alt  + b : Move to the start of the current word
+Alft + f : Move to the end of the current word
+</pre></div>
+</div>
+</div>
+<div class="section" id="erasing">
+<h4>Erasing<a class="headerlink" href="#erasing" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Ctrl + w : Cut from cursor to previous whitespace.
+Ctrl + u : Cut from cursor to the start of line.
 Ctrl + k : Cut from cursor to the end of line.
 Ctrl + y : Paste the last cut text.
 </pre></div>
+</div>
+</div>
+<div class="section" id="window">
+<h4>Window<a class="headerlink" href="#window" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>WinKey + H : Minimize/ Hide the Window
+WinKey + Up Arrow Key : Maximize the current windows
+WinKey + Down Arrow Key : Return to original
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="searching-history">
@@ -1261,7 +1302,7 @@ awk &#39;{print &quot;\&quot;&quot; $1 &quot;\&quot;,\&quot;&quot; $2&quot;\&quo
 <li>Linux Monitoring Tools : Server density has written most comprehensive list of <a class="reference external" href="https://www.serverdensity.com/monitor/linux/how-to/">80 Linux Monitoring Tools</a></li>
 <li>Windows Monitoring Tools : Server density has written similar list for Windows too <a class="reference external" href="https://www.serverdensity.com/monitor/windows/how-to/">60+ Windows Monitoring Tools</a></li>
 </ul>
-</div>
+<div data-disqus-identifier="The Essentials : Linux Basics" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>
 
 

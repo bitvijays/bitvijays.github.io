@@ -29,6 +29,41 @@ If you are looking for hidden flag in an image first check with
 * `zsteg <https://github.com/zed-0xff/zsteg>`_ : detect stegano-hidden data in PNG & BMP
 * `pngcheck <http://www.libpng.org/pub/png/apps/pngcheck.html>`_ : pngcheck verifies the integrity of PNG, JNG and MNG files (by checking the internal 32-bit CRCs [checksums] and decompressing the image data); it can optionally dump almost all of the chunk-level information in the image in human-readable form. 
 * `Mediaextract <https://github.com/panzi/mediaextract>`_ : Extracts media files (AVI, Ogg, Wave, PNG, ...) that are embedded within other files.
+* Comparing two similar images to find the difference
+
+ ::
+
+  compare hint.png stego100.png -compose src diff.png
+
+* `Image Arithmetic <http://homepages.inf.ed.ac.uk/rbf/HIPR2/arthops.htm>`_ We can do image addition, subtraction, multiplication, division, blending, logical AND/NAND, logical OR/NOR, logical XOR/XNOR, Invert/ Logical NOT, Bitshift Operators. 
+
+* We can use `gmic <http://gmic.eu/>`_ to perform XOR of the images.
+
+ ::
+
+   gmic a.png b.png -blend xor -o result.png
+
+
+
+
+QRCodes?
+^^^^^^^^
+
+Install `zbarimg <http://manpages.ubuntu.com/manpages/wily/man1/zbarimg.1.html>`_
+
+::
+
+ apt-get install zbar-tools
+
+Usage
+
+Read a QR-Code
+
+::
+
+ zbarimg <imagefile>
+
+Got a QR-Code in Binary 0101?, convert it into QR-Code by `QR Code Generator <https://bahamas10.github.io/binary-to-qrcode/>`_
 
 Sound Files
 -----------
@@ -125,6 +160,46 @@ USB HID Keyboard Scan Codes
 MightyPork has created a gist mentioning USB HID Keyboard scan codes as per USB spec 1.11 at `usb_hid_keys.h <https://gist.github.com/MightyPork/6da26e382a7ad91b5496ee55fdc73db2>`_
 
 The above can be referred and utilized to convert the usb.capdata to know what was the user typing using the USB Keyboard!
+
+whoami has written a script to figure out the keyboard strokes
+
+::
+
+ usb_codes = {
+    0x04:"aA", 0x05:"bB", 0x06:"cC", 0x07:"dD", 0x08:"eE", 0x09:"fF",
+    0x0A:"gG", 0x0B:"hH", 0x0C:"iI", 0x0D:"jJ", 0x0E:"kK", 0x0F:"lL",
+    0x10:"mM", 0x11:"nN", 0x12:"oO", 0x13:"pP", 0x14:"qQ", 0x15:"rR",
+    0x16:"sS", 0x17:"tT", 0x18:"uU", 0x19:"vV", 0x1A:"wW", 0x1B:"xX",
+    0x1C:"yY", 0x1D:"zZ", 0x1E:"1!", 0x1F:"2@", 0x20:"3#", 0x21:"4$",
+    0x22:"5%", 0x23:"6^", 0x24:"7&", 0x25:"8*", 0x26:"9(", 0x27:"0)",
+    0x2C:"  ", 0x2D:"-_", 0x2E:"=+", 0x2F:"[{", 0x30:"]}",  0x32:"#~",
+    0x33:";:", 0x34:"'\"",  0x36:",<",  0x37:".>", 0x4f:">", 0x50:"<"
+    }
+ lines = ["","","","",""]
+
+ pos = 0
+ for x in open("data1.txt","r").readlines():
+    code = int(x[6:8],16)
+
+    if code == 0:
+        continue
+    # newline or down arrow - move down
+    if code == 0x51 or code == 0x28:
+        pos += 1
+        continue
+    # up arrow - move up
+    if code == 0x52:
+        pos -= 1
+        continue
+    # select the character based on the Shift key
+    if int(x[0:2],16) == 2:
+        lines[pos] += usb_codes[code][1]
+    else:
+        lines[pos] += usb_codes[code][0]
+
+
+ for x in lines:
+    print x
 
 USB-Mouse
 ----------
@@ -343,3 +418,68 @@ Interesting Blog
 	
    *pdf2txt Untitled-1_1a110935ec70b63ad09fec68c89dfacb.pdf  
     PCTF{how_2_pdf_yo}*
+
+Others
+======
+
+* The Konami Code is a cheat code that appears in many Konami video games, although the code also appears in some non-Konami games. The player could press the following sequence of buttons on the game controller to enable a cheat or other effects:
+
+ ::
+
+  [38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 66, 13] is actually: UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT B A ENTER
+
+* A000045 would bring up the fibonacci numbers.
+
+Python
+------
+
+* Read the RGB value of a given pixel in Python?
+
+ ::
+
+  from PIL import Image
+  im = Image.open("dead_parrot.jpg") #Can be many different formats.
+  pix = im.load()
+  print im.size #Get the width and hight of the image for iterating over
+  print pix[x,y] #Get the RGBA Value of the a pixel of an image
+  pix[x,y] = value # Set the RGBA Value of the image (tuple)
+  im.save("alive_parrot.png") # Save the modified pixels as png
+
+* Convert Text to Binary and back?
+  
+  ::
+
+    >>> import binascii
+    >>> bin(int(binascii.hexlify('hello'), 16))
+    '0b110100001100101011011000110110001101111'
+
+ In reverse:
+
+ ::
+
+    >>> n = int('0b110100001100101011011000110110001101111', 2)
+    >>> binascii.unhexlify('%x' % n)
+    'hello'
+
+* function ord() would get the int value of the char. And in case you want to convert back after playing with the number, function chr() does the trick.
+
+ ::
+
+    >>> ord('a')
+    97
+    >>> chr(97)
+    'a'
+    >>> chr(ord('a') + 3)
+    'd'
+
+* Insert a newline character every 64 characters using Python
+
+ ::
+
+  s = "0123456789"*100 # test string
+  import re
+  print re.sub("(.{64})", "\\1\n", s, 0, re.DOTALL)
+
+* `Unicode <http://www.utf8-chartable.de/unicode-utf8-table.pl?start=917376&number=1024>`_ 
+
+* In a TCP Dump, you see a telnet session entering login username and password and those creds are not valid. Maybe check the value in HEX. If it contains 0x7F, that's backspace.

