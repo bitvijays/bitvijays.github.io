@@ -1,0 +1,1662 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-92365403-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>Critical Infrastructure Series : Electrical Grid &#8212; tech.bitvijays.com</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Critical Infrastructure Series : Electrical Grid</a><ul>
+<li><a class="reference internal" href="#electricity">Electricity</a><ul>
+<li><a class="reference internal" href="#other-facts">Other Facts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#generation-to-the-consumption">Generation to the Consumption</a><ul>
+<li><a class="reference internal" href="#generation">Generation</a><ul>
+<li><a class="reference internal" href="#hydroelectric-generating-station">Hydroelectric generating station</a></li>
+<li><a class="reference internal" href="#thermal-generating-station">Thermal Generating Station</a></li>
+<li><a class="reference internal" href="#renewable-energy">Renewable Energy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#towers">Towers</a><ul>
+<li><a class="reference internal" href="#towers-wires">Towers Wires?</a></li>
+<li><a class="reference internal" href="#tower-wires-not-straight">Tower Wires not straight?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#substations">Substations</a><ul>
+<li><a class="reference internal" href="#substation-flow">Substation Flow?</a></li>
+<li><a class="reference internal" href="#electrical-parameters-of-a-substation">Electrical parameters of a substation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#system-operations">System operations</a><ul>
+<li><a class="reference internal" href="#system-operators">System Operators</a></li>
+<li><a class="reference internal" href="#balancing-supply-and-demand">Balancing supply and demand</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#electricity-consumption">Electricity consumption</a><ul>
+<li><a class="reference internal" href="#from-the-meter-to-the-breaker">From the meter to the breaker</a></li>
+<li><a class="reference internal" href="#from-the-breaker-to-the-user">From the breaker to the user</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#national-grid">National Grid</a></li>
+<li><a class="reference internal" href="#scada-system">SCADA System</a><ul>
+<li><a class="reference internal" href="#hierarchical-structure">Hierarchical Structure</a><ul>
+<li><a class="reference internal" href="#hierarchy-at-regional-level">Hierarchy at Regional Level</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#functions-implemented-in-scada-ems-at-rldc-and-sldc-levels">Functions implemented in SCADA/ EMS at RLDC and SLDC levels</a><ul>
+<li><a class="reference internal" href="#scada-functions">SCADA Functions</a></li>
+<li><a class="reference internal" href="#ems-functions">EMS Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scada-architecture">SCADA Architecture</a><ul>
+<li><a class="reference internal" href="#transmission-architecture">Transmission Architecture</a></li>
+<li><a class="reference internal" href="#distribution-architecture">Distribution Architecture</a></li>
+<li><a class="reference internal" href="#scada-ems-server">SCADA/ EMS Server</a></li>
+<li><a class="reference internal" href="#fep-server">FEP Server</a><ul>
+<li><a class="reference internal" href="#communication-principles">Communication Principles</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#remote-terminal-unit">Remote Terminal Unit</a><ul>
+<li><a class="reference internal" href="#typical-applications-of-rtu-in-electrical-grid">Typical applications of RTU in Electrical Grid</a></li>
+<li><a class="reference internal" href="#rtus-and-plcs-difference">RTUs and PLCs Difference?</a></li>
+<li><a class="reference internal" href="#field-rtu">Field RTU</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#intelligent-electronic-devices">Intelligent Electronic Devices</a><ul>
+<li><a class="reference internal" href="#ied-interfaces">IED Interfaces</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bay-control-unit">Bay Control Unit</a></li>
+<li><a class="reference internal" href="#iccp-server">ICCP Server</a></li>
+<li><a class="reference internal" href="#historian-server">Historian Server</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#international-standards">International Standards</a><ul>
+<li><a class="reference internal" href="#iec-60870-5-104">IEC-60870-5-104</a><ul>
+<li><a class="reference internal" href="#transmission">Transmission</a></li>
+<li><a class="reference internal" href="#communication">Communication</a></li>
+<li><a class="reference internal" href="#application-data-objects">Application Data Objects</a></li>
+<li><a class="reference internal" href="#apci-format">APCI Format</a></li>
+<li><a class="reference internal" href="#asdu-format">ASDU Format</a></li>
+<li><a class="reference internal" href="#information-objects">Information Objects</a></li>
+<li><a class="reference internal" href="#information-elements">Information Elements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#iccp">ICCP</a><ul>
+<li><a class="reference internal" href="#iccp-conformance-blocks">ICCP Conformance Blocks</a></li>
+<li><a class="reference internal" href="#data-exchange-requirements-between-control-centers-and-power-pools-or-isos-rtos">Data Exchange Requirements Between Control Centers and Power Pools or ISOs/ RTOs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#manufacturing-message-specification-mms">Manufacturing Message Specification (MMS)</a><ul>
+<li><a class="reference internal" href="#definitions">Definitions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#casm">CASM</a></li>
+<li><a class="reference internal" href="#gomsfe">GOMSFE</a></li>
+<li><a class="reference internal" href="#scl-substation-configuration-language">SCL Substation Configuration Language</a><ul>
+<li><a class="reference internal" href="#scl-benefits">SCL – Benefits</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#goose">GOOSE</a><ul>
+<li><a class="reference internal" href="#iec-61850-goose-what">IEC 61850 GOOSE, What?</a></li>
+<li><a class="reference internal" href="#goose-why">GOOSE, Why?</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#solutions-softwares">Solutions/ Softwares?</a><ul>
+<li><a class="reference internal" href="#scada-server">SCADA Server</a><ul>
+<li><a class="reference internal" href="#abb">ABB</a></li>
+<li><a class="reference internal" href="#ge">GE</a></li>
+<li><a class="reference internal" href="#siemens">Siemens</a></li>
+<li><a class="reference internal" href="#identity-of-a-parameter">Identity of a parameter</a></li>
+<li><a class="reference internal" href="#sources-of-data">Sources of data</a></li>
+<li><a class="reference internal" href="#for-rtu-data">For RTU data</a></li>
+<li><a class="reference internal" href="#for-iccp-data">For ICCP data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#network-planning-toolkit">Network Planning Toolkit</a></li>
+<li><a class="reference internal" href="#geographical-information-system">Geographical Information System</a><ul>
+<li><a class="reference internal" href="#id1">GE</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#historian">Historian</a><ul>
+<li><a class="reference internal" href="#schneider-electric">Schneider Electric</a></li>
+<li><a class="reference internal" href="#id2">GE</a></li>
+<li><a class="reference internal" href="#id4">Siemens</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#plc">PLC</a><ul>
+<li><a class="reference internal" href="#abb-ac31">ABB - AC31</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rtu">RTU</a><ul>
+<li><a class="reference internal" href="#id5">Schneider Electric</a></li>
+<li><a class="reference internal" href="#siemens-sicam-tm-ak">Siemens SICAM TM/ AK</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ied">IED</a><ul>
+<li><a class="reference internal" href="#id6">Siemens</a></li>
+<li><a class="reference internal" href="#softwares-for-siemens">Softwares for Siemens</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other">Other</a><ul>
+<li><a class="reference internal" href="#sicam-protocol-test-system">SICAM Protocol Test System</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cybersecurity">Cybersecurity</a><ul>
+<li><a class="reference internal" href="#vulnerabilities">Vulnerabilities</a></li>
+<li><a class="reference internal" href="#remediation">Remediation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#references">References</a></li>
+<li><a class="reference internal" href="#towrite">ToWrite</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/LFF-CIS-ElectricalGrid.rst.txt"
+           rel="nofollow">Show Source</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFF-CIS-ElectricalGrid.rst"
+           rel="nofollow">Show on GitHub</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFF-CIS-ElectricalGrid.rst"
+           rel="nofollow">Edit on GitHub</a></li>
+  </ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="critical-infrastructure-series-electrical-grid">
+<h1>Critical Infrastructure Series : Electrical Grid<a class="headerlink" href="#critical-infrastructure-series-electrical-grid" title="Permalink to this headline">¶</a></h1>
+<p>Hey There! Are you Pentesting a Electrical Grid? or responsible for securing it? or New to the concept of Electrical Grid? Here are the basics which would help you in your journey!</p>
+<p>We would cover</p>
+<ul class="simple">
+<li>Few general concepts about electricity.</li>
+<li>How the electricity travels from the generation (Power Station) to the consumption (Home).</li>
+<li>General Architecture of the Electrical Grid SCADA (Transmission/ Distribution/ Customer) Substation.</li>
+<li>Protocols used in the Electrical Grid.</li>
+<li>Vulnerabilities and how to secure the Electrical Grid.</li>
+</ul>
+<div class="section" id="electricity">
+<h2>Electricity<a class="headerlink" href="#electricity" title="Permalink to this headline">¶</a></h2>
+<p>An electric current can be compared to the water flowing through a hose.</p>
+<ul class="simple">
+<li>The pressure inside the hose, or the force with which the water flows, is like voltage (V). V / Volt is the standard unit for measuring the force of electricity, or voltage.</li>
+<li>The hose’s discharge, or the amount of water flowing, is like current intensity, measured in amperes (A). A / Ampere is the unit for measuring the amount of electric current.</li>
+<li>Friction along the hose’s inner wall is similar to resistance (Ω). Ω / Ohm, is the unit for measuring the resistance of a substance through which electricity flows.</li>
+<li>Power is what is produced by multiplying voltage by intensity, and is expressed in watts (W). Consumption is expressed in watthours (Wh) and indicates the energy used by a system or device over a given period of time. W / Watt is the standard unit for measuring power, including that of alternating current.</li>
+</ul>
+<div class="section" id="other-facts">
+<h3>Other Facts<a class="headerlink" href="#other-facts" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Direct Current</strong>: In direct current, electrons move in a single direction.</li>
+<li><strong>Alternating Current</strong> : In alternating current, electrons move in both directions because they are attracted alternately by the north and south poles of a magnet. In fact, alternating current changes direction 120 times per second!</li>
+<li>Electricity always takes the shortest path to reach the ground. When a person gets an electric shock, their body becomes that shortest route. Why? The body is made up of approximately 70% water, and water, like metal, is an excellent conductor of electricity.</li>
+<li>Tree branches can also conduct electricity because they have liquid, or sap, inside. Even low-voltage current can be lethal or very harmful to humans.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="generation-to-the-consumption">
+<h2>Generation to the Consumption<a class="headerlink" href="#generation-to-the-consumption" title="Permalink to this headline">¶</a></h2>
+<p>At any rate, the electricity we use is wheeled through overhead cables that are attached to tall support structures called <strong>towers</strong>, which link generating station <strong>switchyards</strong> to power intersections called <strong>source substations</strong>. Power is then routed through <strong>satellite substations</strong> before running along the distribution lines to finally reach our homes. The fascinating thing is that we use electricity as soon as it is generated. The transfer of electricity therefore occurs at breakneck speed. Actually, it moves nearly as fast as light, which rushes along at 300,000 kilometres per second!</p>
+<p>Below is the rough diagram visualizing the flow of electricity from the Generation to the Consumption.</p>
+<a class="reference internal image-reference" href="_images/Generation2Consumer.png"><img alt="Generation to the Consumption" class="align-center" src="_images/Generation2Consumer.png" style="width: 896.0px; height: 441.0px;" /></a>
+<p>The transmission of electricity involves a series of transformations, checkpoints and crossroads. These three basic functions are carried out along the way between the power station and the home.</p>
+<p>A transformer is used to raise or lower the voltage of alternating current. Raising voltage facilitates the transmission of massive volumes of electricity, reduces energy losses and lowers the total cost of power transmission—for example, by avoiding the construction of additional power lines. As electrical energy approaches consumption centres, its voltage is lowered gradually to the point where homes are supplied with low-voltage power, namely 120/240 volts.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Generation Station ---&gt; SwitchYards     ---&gt; Strategic Substations ---&gt; Source Substation ---&gt; Satellite Substation ---&gt; Wood Pole/ Underground Lines ---&gt; Home
+US:(13800 Volts)        (735,000 Volts)      (735,000 Volts)            (120,000 Volts)        (25000, 49000 Volts)      (25000 Volts)                    (120/240 Volts)
+IN:                     (220,000 Volts)      (220,000 Volts)            (110,000 Volts)        (33000, 22000 Volts)      (11000/6000 Volts)               (415/220 Volts)
+</pre></div>
+</div>
+<div class="section" id="generation">
+<h3>Generation<a class="headerlink" href="#generation" title="Permalink to this headline">¶</a></h3>
+<p>There can be multiple ways to generate power</p>
+<div class="section" id="hydroelectric-generating-station">
+<h4>Hydroelectric generating station<a class="headerlink" href="#hydroelectric-generating-station" title="Permalink to this headline">¶</a></h4>
+<p>Plant that produces electric power by using water to propel turbines, which, in turn, drive generators.</p>
+</div>
+<div class="section" id="thermal-generating-station">
+<h4>Thermal Generating Station<a class="headerlink" href="#thermal-generating-station" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Diesel generating stations</li>
+<li>Conventional thermal generating stations</li>
+<li>Nuclear generating stations</li>
+<li>Gas-turbine generating stations</li>
+</ul>
+</div>
+<div class="section" id="renewable-energy">
+<h4>Renewable Energy<a class="headerlink" href="#renewable-energy" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Wind Power</li>
+<li>Solar Power</li>
+<li>Biomass Energy</li>
+<li>Geothermal Energy</li>
+</ul>
+<p><strong>Installed capacity</strong> : The maximum generating capacity of all turbinegenerator units in a powerstation at a given time. Expressed in watts, it is equal to the capacity of all the generators in winter operating conditions (water temperature at 5°C).</p>
+<p>At a generating station, if rotors have 32 pairs of electromagnets. To supply a 60-Hz alternating current, they must therefore rotate at a speed of 112.5 revolutions per minute (RPM). Here is the formula that was used by engineers: 32 pairs of electromagnets x 112.5 RPM = 3,600 RPM or 60&nbsp;revolutions per second (60 Hz).</p>
+</div>
+</div>
+<div class="section" id="towers">
+<h3>Towers<a class="headerlink" href="#towers" title="Permalink to this headline">¶</a></h3>
+<p>Transmission towers support the high-voltage conductors of overhead power lines, from the generating station’s switchyard right up to source substations and satellite substations located near populated areas. Their shape, height and sturdiness (mechanical strength) depend on the stresses to which they are exposed. Towers do not transmit electricity themselves unless lightning strikes the ground wire strung along the top of the structure. This cable is designed to protect conductors by allowing a lightning discharge to reach the ground through the tower.</p>
+<div class="section" id="towers-wires">
+<h4>Towers Wires?<a class="headerlink" href="#towers-wires" title="Permalink to this headline">¶</a></h4>
+<p>To stabilize power transmission and avoid energy losses, the alternating current transmitted on high-voltage cables is made up of three parts, or phases. Each phase includes between one and four wires, or conductors, depending on the voltage level. Phases with more than one conductor are called conductor bundles. In addition, to protect the tower from lightning, a ground wire is included.</p>
+</div>
+<div class="section" id="tower-wires-not-straight">
+<h4>Tower Wires not straight?<a class="headerlink" href="#tower-wires-not-straight" title="Permalink to this headline">¶</a></h4>
+<p>Wires strung between two transmission towers seem to sag in the middle. Electrical lines curve downward to reduce the force needed to hold them in place. Otherwise, towers would have to be built even stronger and they would cost more.</p>
+</div>
+</div>
+<div class="section" id="substations">
+<h3>Substations<a class="headerlink" href="#substations" title="Permalink to this headline">¶</a></h3>
+<p>Substations perform many functions that help to improve the dispatching and flow of electrical energy. For example, substations are essential in dividing long power lines into short sections that, when isolated, lessen the impact of a fault or routine maintenance on continuity of supply.</p>
+<p>They are equipped with the</p>
+<ul class="simple">
+<li>equipment for measuring current and voltage.</li>
+<li>protection systems such as circuit breakers that can shut down a line.</li>
+<li>control devices such as disconnecting switches that switch electricity from one line to another almost instantaneously. for example, when sections of a power line are out of order.</li>
+<li>Other equipment, such as shunt reactors, capacitors and compensators, also helps regulate voltage.</li>
+</ul>
+<p>Most substations are automated and subject to remote control. Only the more strategic substations have full-time technical staff; at most other substations, mobile teams perform maintenance.</p>
+<div class="section" id="substation-flow">
+<h4>Substation Flow?<a class="headerlink" href="#substation-flow" title="Permalink to this headline">¶</a></h4>
+<p>Let’s say a there exists a substation which converts 735KV to 120KV or 220kV to 110kV. The below things will happen</p>
+<ul class="simple">
+<li>When a electrical line of 735/ 220kV enters the substation, it is measured by <strong>Metering Equipments</strong> for ensuring Quality and Safety. This is done using potiential transformers and current transformers.</li>
+<li>Various units at a substation in 735/ 220kV line are used to do <strong>Protection and Switching - Railroad electricity</strong> by isolating sections, open circuits or shunt electricity to other devices. Mainly done by circuit breakers, disconnect switches and busbar assemblies.</li>
+<li>Step-down transformer : Electricity is stepped down from it very high transmission voltage (735/ 220kV) to subtransmission voltage (120KV) at which it is carried to a various regional substations. This is achieved by power transmission.</li>
+<li>After this, there is Protection and Switching for 120kV line and again measured by Metering Equipments to ensure 120kV is achieved before electricity at 120kV leaves this substation.</li>
+</ul>
+<a class="reference internal image-reference" href="_images/Substation.png"><img alt="How substations works?" class="align-center" src="_images/Substation.png" style="width: 869.4px; height: 396.9px;" /></a>
+<p>Substations maybe of different types:</p>
+<ul class="simple">
+<li>Transmission Substation (TSS) : Raises the voltage of electricity. This makes it easier to transmit electrical power because the higher the voltage, the more electricity can be carried over the same line.</li>
+<li>Distribution Substation (DSS) : Contains transformers which lower the voltage for a second time and supply the lines which distribute the power in cities and towns.</li>
+<li>Customer Substation (CSS) : Mostly, connected remotely via GPRS/ 3G/ 4G via a private APN.</li>
+</ul>
+</div>
+<div class="section" id="electrical-parameters-of-a-substation">
+<h4>Electrical parameters of a substation<a class="headerlink" href="#electrical-parameters-of-a-substation" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Analogs</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Active Power (of Lines, Generators and Transformers)</li>
+<li>Reactive Power (of Lines, Generators, Transformers, Reactors and Capacitors)</li>
+<li>Bus Voltage</li>
+<li>Bus frequency</li>
+<li>Transformer TAP position</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Digital Status</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Breaker position</li>
+<li>Isolator Position</li>
+<li>Protection signals, SOE (Sequence of events), etc.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Pulse signals<ul>
+<li>Energy measurement etc.</li>
+</ul>
+</li>
+<li>Weather Parameters</li>
+</ul>
+</div>
+</div>
+<div class="section" id="system-operations">
+<h3>System operations<a class="headerlink" href="#system-operations" title="Permalink to this headline">¶</a></h3>
+<p>Remote automatic controls perform most of the tasks needed to ensure the flow of energy from the power station to the home. These advanced monitoring and command systems could be called the grid’s “reflexes.” However, human intervention is constantly required to make important decisions related to control and security, based on the most recent and relevant data available. This decisionmaking centre is at the heart of the energy-supply chain: it is the “brains” of the power system. Mostly, it is called the <strong>System Control Centre, or SCC</strong>.</p>
+<p>The SCC operates round the clock and responds instantly to the power needs of the Region first priority—followed by those of its customers outside the region. The SCC regulates the generation and transmission of power, as well as energy trading with neighboring power systems through interconnections. To improve the decision-making process, the SCC centralizes all the information required for system operations. Several regional telecontrol centres implement SCC decisions regarding power generation and transmission, and power trading via interconnections.</p>
+<div class="section" id="system-operators">
+<h4>System Operators<a class="headerlink" href="#system-operators" title="Permalink to this headline">¶</a></h4>
+<p>Three system operators coordinate power grid operations.</p>
+<ul class="simple">
+<li>The generation system operator can request that a power station increase or lower its output.</li>
+<li>The transmission system operator can call for the opening or shutting down of a power line.</li>
+<li>The interconnection system operator oversees the delivery of electricity outside region as well as electricity imports from neighboring systems; when the demand for electricity is high in region, he has the authority to reduce or delay exports.</li>
+</ul>
+<p>System operators make real-time decisions; in other words, they have an immediate impact on power system performance and security.</p>
+<p>When we press on a switch—and the source of electricity is hydropower, as in region are in effect requesting that more water drive a turbine in order to generate more electricity and transmit a greater power flow from the generating station to our home. Turning on a single television set will not make a big difference. But if everyone in region were to turn on their set at the same time, demand would increase significantly!</p>
+<p>Power generation must always be equal or superior to power consumption.</p>
+</div>
+<div class="section" id="balancing-supply-and-demand">
+<h4>Balancing supply and demand<a class="headerlink" href="#balancing-supply-and-demand" title="Permalink to this headline">¶</a></h4>
+<p>Distributing electric power is like distributing water: it is always better to have too much to be sure to have enough. As soon as a current is generated, it must be used. The reverse is also true: as soon as we turn on an appliance, power must be available. Regardless of the quantity required, electricity suppliers must meet demand instantly! Their capacity to respond quickly and effectively to variations in demand will depend on the flexibility of their generation facilities.</p>
+<p>As a rule, medium-voltage three-phase alternating current leaves a satellite substation at 25,000 volts via underground power lines that become overhead lines some distance away. An overhead distribution system is made up of three bare phase conductors attached to insulators at the top of electricity poles. The bare neutral conductor, located a few metres beneath those three wires, is connected to a grounding system and contributes to occupational and public safety. The distribution grid also includes transformers, which are mounted on electricity poles; their purpose is to lower voltage from 25,000 volts to 120/240 volts—voltage intended for domestic use.</p>
+</div>
+</div>
+</div>
+<div class="section" id="electricity-consumption">
+<h2>Electricity consumption<a class="headerlink" href="#electricity-consumption" title="Permalink to this headline">¶</a></h2>
+<p>Every time we use an electrical appliance, we are consuming power. The resulting need for electricity from a utility is called demand. When you flick a switch, the required power leaves the distribution system for use in your home. Since there’s a cost to consuming this power, meters record precisely the amount of electricity that flows into a building. As well, certain devices and procedures can help promote safety when using electricity.</p>
+<div class="section" id="from-the-meter-to-the-breaker">
+<h3>From the meter to the breaker<a class="headerlink" href="#from-the-meter-to-the-breaker" title="Permalink to this headline">¶</a></h3>
+<p>Power system stops at the electric meter in your home. This highly accurate instrument records the volume of power used by a customer. The meter is connected to a distribution panel, also known as the breaker panel. This apparatus includes a main switch that can cut power to the entire house and contains as many circuit breakers as there are circuits in the house.</p>
+</div>
+<div class="section" id="from-the-breaker-to-the-user">
+<h3>From the breaker to the user<a class="headerlink" href="#from-the-breaker-to-the-user" title="Permalink to this headline">¶</a></h3>
+<p>Breakers are switches that automatically cut electric current when an overload or some other anomaly occurs. They prevent circuits from overheating, for instance because of a wiring problem or a defective appliance. To form a circuit, each breaker is linked by three wires to a series of outlets or electrical boxes. Some dedicated circuits have only a single outlet or electrical box—for example, the refrigerator and the water heater. Other circuits are wired to outlets with a ground fault circuit interrupter, such as bathroom outlets, to provide added protection against electricity-related accidents in the home.</p>
+<p>Most of the stuff has been taken completely from <a class="reference external" href="http://www.hydroquebec.com/teachers/pdf/doc-electricity-from-the-power-station-to-the-home.pdf">Electricity from the powerstation to the home</a></p>
+</div>
+</div>
+<div class="section" id="national-grid">
+<h2>National Grid<a class="headerlink" href="#national-grid" title="Permalink to this headline">¶</a></h2>
+<p>We might have heard a term called “National Grid”. Let’s say there’s a country which is divided into four regions NR (Northern Region), WR (Western region),
+SR (Southern Region) and ER (Eastern Region). Each regional grid is managed by an control center called Regional Load Dispatch Center (RLDC) and each state power system is controlled by a State Load Dispatch center (SLDC). System under SLDC has further been into Sub-Load Dispatch Centers (Sub-LDCs).</p>
+<p>National Load Dispatch Center (NLDC) coordinates the activities of all RLDCs. NLDC, RLDCs, SLDCs and Sub-LDCs have their own SCADA systems, integrated in a hierarchical structure. RLDC being at the top of hierarchy at regional level, coordinates the day-to-day operation of a region in consultation with SLDCs.</p>
+<a class="reference internal image-reference" href="_images/National_Grid.png"><img alt="National Grid" class="align-center" src="_images/National_Grid.png" style="width: 567.0px; height: 359.1px;" /></a>
+</div>
+<div class="section" id="scada-system">
+<h2>SCADA System<a class="headerlink" href="#scada-system" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hierarchical-structure">
+<h3>Hierarchical Structure<a class="headerlink" href="#hierarchical-structure" title="Permalink to this headline">¶</a></h3>
+<p>SCADA system is hierarchical in nature having two distinct hierarchies - one at national level other at regional level. At national level, SCADA/EMS system of all RLDCs report to NLDC. Data from each RLDC is transmitted to NLDC in real time on dedicated communication lines.</p>
+<div class="section" id="hierarchy-at-regional-level">
+<h4>Hierarchy at Regional Level<a class="headerlink" href="#hierarchy-at-regional-level" title="Permalink to this headline">¶</a></h4>
+<p>At regional level RLDC acts as apex body and coordinates the all inter-state activities of SCADA/EMS systems of SLDCs of a region. SCADA systems of all Sub-LDCs of a state reports to the SLDC of that state.</p>
+</div>
+</div>
+<div class="section" id="functions-implemented-in-scada-ems-at-rldc-and-sldc-levels">
+<h3>Functions implemented in SCADA/ EMS at RLDC and SLDC levels<a class="headerlink" href="#functions-implemented-in-scada-ems-at-rldc-and-sldc-levels" title="Permalink to this headline">¶</a></h3>
+<p>Main components of the SCADA system at RLDC and SLDC are SCADA/ EMS server and ICCP server. SCADA/EMS or data server maintain all data acquired from other SLDCs etc an make it available to display and reporting. ICCP (Inter Control-center Communication Protocol) server acts as gateway for transfer of data between SLDCs and between RLDC and SLDCs. SCADA/EMS system at RLDC, SLDC and Sub-LDC are based on distributed architecture and open standards.</p>
+<div class="section" id="scada-functions">
+<h4>SCADA Functions<a class="headerlink" href="#scada-functions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Data acquisition from RTUs and storage of data in online database.</li>
+<li>Processing of data for converting the raw values to engineering values, checking quality, assigning quality flag and checking limit.</li>
+<li>Supervisory control of power system element.</li>
+<li>Historical data storage and retrieval.</li>
+<li>Reconstruction and replay of events.</li>
+<li>Protective and informative tagging of power system device.</li>
+<li>Load Management.</li>
+<li>Sequence of events recording.</li>
+<li>Generalized calculation – for adding and removing operator’s defined calculations.</li>
+<li>Providing user interface to operators.</li>
+<li>Inter control center communication.</li>
+<li>Real time and historical trends.</li>
+<li>State Estimation.</li>
+</ul>
+</div>
+<div class="section" id="ems-functions">
+<h4>EMS Functions<a class="headerlink" href="#ems-functions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Real time generation function – allows the operator to monitor, analyze and control real time generation.</li>
+<li>Automatic generation control (AGC).</li>
+<li>Economic dispatch - helps the dispatcher to determine economic base points for a selected set of units.</li>
+<li>Reserve monitor – for calculating spinning reserve, operating reserve and regulating reserve.</li>
+<li>Production costing – calculates the current cost of generating power of online units.</li>
+<li>Transaction scheduling.</li>
+<li>Real time network analysis.</li>
+<li>Real time contingency analysis.</li>
+<li>Load Forecasting</li>
+<li>MIS Reporting</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="scada-architecture">
+<h2>SCADA Architecture<a class="headerlink" href="#scada-architecture" title="Permalink to this headline">¶</a></h2>
+<p>Electrical SCADA architecture mainly contains the below components. Also, The hardware configuration at LDC level is fully duplicated. Each and every hardware device has its backup device in active and hot standby state. In the event of failure of operational hardware the back will take up the functionality.</p>
+<p>Below diagrams display a rough architecture for the Transmission and the Distribution. Both contains the</p>
+<ul class="simple">
+<li>Field Devices<ul>
+<li>RTU with Digital Input/ Digital Output Points</li>
+<li>Protection IED Devices (Isolaters/ Circuit Breakers)</li>
+<li>Condition Monitoring Devices (Temperature/ Humidity)</li>
+<li>Multi-Function Meters (For the measurement of Voltage/ Current/ Power etc.)</li>
+<li>Bay Control and Protection Unit</li>
+<li>FRTU - Field Remote Terminal Unit (Mostly at Customer Substation connected via GPRS/ 3G/ 4G)</li>
+</ul>
+</li>
+<li>Gateway/ Data Concentrator (Can be PC Based Gateway)</li>
+<li>Servers<ul>
+<li>SCADA (The main server - from where everything can be controlled/ monitored)</li>
+<li>FEP (Front End Processor) - Collects the data from the Gateways</li>
+<li>Historian - Stored the data for historial purposes</li>
+<li>OT-AV - Antivirus Server on the SCADA side.</li>
+</ul>
+</li>
+<li>DMZ Servers</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Web Server : For possible display of any information</li>
+<li>ICCP Server : For transfer of information from control-center to control center.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="transmission-architecture">
+<h3>Transmission Architecture<a class="headerlink" href="#transmission-architecture" title="Permalink to this headline">¶</a></h3>
+<a class="reference internal image-reference" href="_images/TransEGArchitecture.png"><img alt="Transmission Architecture" class="align-center" src="_images/TransEGArchitecture.png" style="width: 654.5px; height: 408.8px;" /></a>
+</div>
+<div class="section" id="distribution-architecture">
+<h3>Distribution Architecture<a class="headerlink" href="#distribution-architecture" title="Permalink to this headline">¶</a></h3>
+<a class="reference internal image-reference" href="_images/DrisEGArchitecture.png"><img alt="Distribution Architecture" class="align-center" src="_images/DrisEGArchitecture.png" style="width: 652.4px; height: 412.3px;" /></a>
+</div>
+<div class="section" id="scada-ems-server">
+<h3>SCADA/ EMS Server<a class="headerlink" href="#scada-ems-server" title="Permalink to this headline">¶</a></h3>
+<p>For availablity purposes, there are always two SCADA/ EMS server on in the main and another in the hot standby mode. Both connected to both the LANs. One SCADA/ EMS servers acts as main server and other remains in hot standby mode and in synchronism to the main server. Standby server keeps monitoring the health of other server and take over the responsibility in case failure of main server.</p>
+<p>Data reporting to Master station (control centre)</p>
+<ul class="simple">
+<li>Through IEC 60870-5-101/60870-5-104 protocol.</li>
+<li>Communication system: PLCC, Fibre optic and GPRS.</li>
+<li>Collection of data at Master station through Front End server (CFE).</li>
+<li>Front end processor sends the data to SCADA server.</li>
+</ul>
+</div>
+<div class="section" id="fep-server">
+<h3>FEP Server<a class="headerlink" href="#fep-server" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Manages communication with the field devices.</li>
+<li>Supports communication with variety of protocols.</li>
+<li>Cyclic polling and event based communication, provides messages queuing.</li>
+<li>Infrastructure to report from RTU to master station.</li>
+</ul>
+<div class="section" id="communication-principles">
+<h4>Communication Principles<a class="headerlink" href="#communication-principles" title="Permalink to this headline">¶</a></h4>
+<p>Let’s see what all ways the CFE can request the data.</p>
+<ul class="simple">
+<li>Cyclic Polling</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Front-End communication server requests data periodically from each RTU.</li>
+<li>Period times vary from 2-4 up to 10-15 seconds.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Report By Exception</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Cyclic polling as above</li>
+<li>RTU only responds if a value has changed</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Balanced protocols</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>The RTU can send a request to be polled by the Front-End</li>
+</ul>
+</div></blockquote>
+<p>Communication between SCADA and RTUs takes place through Communication Front End (CFE). RTUs critical to the grid operation are connected with two separate communication channels one for each CFE. Other RTUs, have one communication channel but are connected to both the CFEs through splitters. This concept ensures that data from the RTUs will be available to the control center in case of failure of any communication channel or CFE.</p>
+</div>
+</div>
+<div class="section" id="remote-terminal-unit">
+<h3>Remote Terminal Unit<a class="headerlink" href="#remote-terminal-unit" title="Permalink to this headline">¶</a></h3>
+<p>Remote Terminal Unit may include the below</p>
+<ul class="simple">
+<li>Remote monitoring and control functions</li>
+<li>Process monitor for collection and visualization of data signals (hard-wired, serial, Ethernet)</li>
+<li>Communication gateway communicating via several protocols at the same time (e.g. Modbus, DNP3.0, IEC 61850, etc.)</li>
+<li>Programmable Logic Controller (PLC), able to control industry processes automatically.</li>
+<li>Human Machine Interface (HMI) provides overview similar to a small SCADA System.</li>
+</ul>
+<p>The above points can be implemented all together in one box or with different components.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>           RTU
+    ________|_______
+    |               |
+Parallel I/Os     Sub-devices such as IED
+</pre></div>
+</div>
+<p>Measurement and acquisition of electrical parameters</p>
+<ul class="simple">
+<li>Serial communication using</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>RS232</li>
+<li>RS485</li>
+<li>RS422</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Standard protocols</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Modbus</li>
+<li>IEC 60870-5-101/104</li>
+<li>DNP3</li>
+<li>ICCP</li>
+</ul>
+</div></blockquote>
+<div class="section" id="typical-applications-of-rtu-in-electrical-grid">
+<h4>Typical applications of RTU in Electrical Grid<a class="headerlink" href="#typical-applications-of-rtu-in-electrical-grid" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Feeder Automation</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Gas-insulated compact switchgear units</li>
+<li>Pole-top RTUs</li>
+<li>Capacitor banks</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Secondary distribution substation</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Demand Response</li>
+<li>Fault detection/ Isolation / Restoration</li>
+<li>Voltage Optimization</li>
+<li>Decentralized energy resources</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Primary distribution substation/ Transmission/ Sub-transmission</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Classic RTU</li>
+<li>Substation automation</li>
+<li>Gateway</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="rtus-and-plcs-difference">
+<h4>RTUs and PLCs Difference?<a class="headerlink" href="#rtus-and-plcs-difference" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="62%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">RTU</th>
+<th class="head">PLC</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Operates Event-driven</td>
+<td>Operates cyclical, cycle is performed non-stop</td>
+</tr>
+<tr class="row-odd"><td>Transmit changes only</td>
+<td>Transmits all information cyclical accr. to program.</td>
+</tr>
+<tr class="row-even"><td>Transmission path is long -&gt; Slower communication speed</td>
+<td>Pre-programmed cycle with predictable cycle time -&gt; fast</td>
+</tr>
+<tr class="row-odd"><td>Only requested data is communicated, very efficent</td>
+<td>All programmed data will be communicated, less efficient</td>
+</tr>
+<tr class="row-even"><td>Own time-stamping of events, data will be transmitted with timestamp to central control unit</td>
+<td>Central control unit does the time stamping</td>
+</tr>
+<tr class="row-odd"><td>Various voltages (24,60,110,125 VDC)</td>
+<td>Mainly 24 VDC process voltage</td>
+</tr>
+<tr class="row-even"><td>Not limited to any kind of application</td>
+<td>Mainly for local area control applications</td>
+</tr>
+<tr class="row-odd"><td>Protocols and norms are different</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="field-rtu">
+<h4>Field RTU<a class="headerlink" href="#field-rtu" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="intelligent-electronic-devices">
+<h3>Intelligent Electronic Devices<a class="headerlink" href="#intelligent-electronic-devices" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Relay to control and protect field devices</li>
+<li>Digital protective relay with added functionality</li>
+<li>Can usually interface with RTU</li>
+<li>Report events and measurement data</li>
+<li>Receive commands from RTU/SCADA</li>
+<li>Advanced functions need IEDs to communicate with each other</li>
+<li>Horizontal communication</li>
+<li>Control functions can include</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Load tap changer controller</li>
+<li>CB controller</li>
+<li>Capacitor bank switches</li>
+<li>Recloser controllers</li>
+<li>Voltage regulators</li>
+</ul>
+</div></blockquote>
+<div class="section" id="ied-interfaces">
+<h4>IED Interfaces<a class="headerlink" href="#ied-interfaces" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Analog Input</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>CT &amp; VT for Current &amp; Voltage measurments</li>
+<li>Ranges 1-5A, 100-200 V AC</li>
+<li>Temperature</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Binary Input</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Breaker status, Normally using two indicators to indicate intermediate status</li>
+<li>Tap changer positions</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Binary outputs</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Controlling the operation of circuit breakers/switches</li>
+<li>Two BO in series for normal switching</li>
+<li>One single BO for circuit breaker tripping</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Analog outputs</li>
+</ul>
+</div>
+</div>
+<div class="section" id="bay-control-unit">
+<h3>Bay Control Unit<a class="headerlink" href="#bay-control-unit" title="Permalink to this headline">¶</a></h3>
+<p>Bay controller : A device that controls all devices related to a single bay (transformer, feeder,..) and communicates with relays for functionality</p>
+<ul class="simple">
+<li>Station Controller, the top level controller in a substation</li>
+<li>Bay controller, the unit controlling a bay in a substation</li>
+<li>Relay, at the lowest level controlling a single object</li>
+<li>Relays and Bay controllers are implemented in IEDs Intelligent Electronic Devices</li>
+<li>The station controller is a Industrial PC/server</li>
+</ul>
+</div>
+<div class="section" id="iccp-server">
+<h3>ICCP Server<a class="headerlink" href="#iccp-server" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="historian-server">
+<h3>Historian Server<a class="headerlink" href="#historian-server" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="international-standards">
+<h2>International Standards<a class="headerlink" href="#international-standards" title="Permalink to this headline">¶</a></h2>
+<p>The communication between</p>
+<ul class="simple">
+<li>IED, RTU, RTU Gateway, FEP, SCADA Server happens in IEC-60870-5-104.</li>
+<li>Control Center to Contol Center or Control Center to SLDC happens in ICCP Protocol.</li>
+<li>IED to IED happens in GOOSE.</li>
+</ul>
+<div class="section" id="iec-60870-5-104">
+<h3>IEC-60870-5-104<a class="headerlink" href="#iec-60870-5-104" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>IEC 60870-5-104 protocol (aka IEC 104) is a part of IEC Telecontrol Equipment and Systems Standard IEC 60870-5 that provides a communication profile for sending basic telecontrol messages between two systems in electrical engineering and power system automation.</li>
+<li>Telecontrol means transmitting supervisory data and data acquisition requests for controlling power transmission grids.</li>
+<li>IEC 104 provides the network access to IEC 60870-5-101 (aka IEC 101) using standard transport profiles.</li>
+<li>In simple terms, it delivers IEC 101 messages as application data (L7) over TCP, port 2404.</li>
+<li>IEC 104 enables communication between control station and a substation via a standard TCP/IP network. The communication is based on the client-server model.</li>
+</ul>
+<div class="section" id="transmission">
+<h4>Transmission<a class="headerlink" href="#transmission" title="Permalink to this headline">¶</a></h4>
+<p>IEC 60870-5-101 provides a communication profile for sending basic telecontrol messages between a central telecontrol station (master, controlled station) and telecontrol outstations (slave, controlling station), which uses permanent directly connected data circuits between the central station and individual outstations.</p>
+<p>IEC 101 allows two alternative <strong>transmission procedures</strong>:</p>
+<ul class="simple">
+<li><strong>Unbalanced transmission</strong> – the controlling station controls the data traffic by polling the controlled outstations sequentially. It initiates all the message transfers while the controlled outstations only respond to these messages. The following services are supported:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>SEND/ NO REPLY – for global messages and for cyclic set-point commands</li>
+<li>SEND/ CONFIRM – for control commands and set-point commands</li>
+<li>REQUEST/ RESPOND – for polling data from the controlled outstations</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><strong>Balanced transmission</strong> – in this mode, each station can initiate message transfer. The stations can act simultaneously as controlling stations and controlled stations (they are called combined stations). The balanced transmission is restricted to point-to-point and to multiple point-to-point configurations. Supported services are:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>SEND/ CONFIRM</li>
+<li>SEND/ NO REPLY – this can be initiated only by a controlling station with a broadcast address in a multiple point-to-point configuration.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="communication">
+<h4>Communication<a class="headerlink" href="#communication" title="Permalink to this headline">¶</a></h4>
+<p>IEC 101/ 104 communication is exchanged between the controlled and the controlling station.</p>
+<ul class="simple">
+<li>Controlled station is monitored or commanded by a master station (RTU). It is also called outstation, remote station, RTU, 101-Slave, or 104-Server.</li>
+<li>Controlling station is a station where a control of outstations is performed (SCADA). Typically, it is a PC with SCADA system, can be also a RTU32.</li>
+</ul>
+<p>IEC 101/ 104 defines several <strong>modes of direction</strong>:</p>
+<ul class="simple">
+<li><strong>Monitor Direction</strong> is a direction of transmission from controlled station (RTU) to the controlling station (PC).</li>
+<li><strong>Control Direction</strong> is a direction of transmission from controlling station, typical a SCADA system to the controlled station, typical an RTU.</li>
+<li><strong>Reversed Direction</strong> is a direction when monitored station is sending commands and controlling station is sending data in monitor direction.</li>
+</ul>
+<p>Now, so that the below concepts make sense, it would be a good idea to download sample <a class="reference external" href="https://github.com/ITI/ICS-Security-Tools/tree/master/pcaps/IEC60870-5-104">IEC60870-5-104</a> or <a class="reference external" href="https://github.com/automayt/ICS-pcap/blob/master/IEC%2060870/iec104/iec104.pcap">IEC104</a> PCAP Files and follow the concepts below:</p>
+</div>
+<div class="section" id="application-data-objects">
+<h4>Application Data Objects<a class="headerlink" href="#application-data-objects" title="Permalink to this headline">¶</a></h4>
+<p>IEC 60870-5 has information on a set of information objects that are suited to both general SCADA applications, and electrical system applications in particular. Each different type of data has a unique type identification number (example Single point information M_SP_NA_1, Double point information M_DP_NA_1). Only one type of data is
+included in any one Application Service Data Unit (ASDU). The type is the first field in the ASDU. The information object types are grouped by direction (monitoring or control direction) and by the type of information (process info, system info, parameter, file transfer).</p>
+<ul class="simple">
+<li>An example of process information in monitoring direction is a measured value, e.g., a bit or an analog. In control direction it can be a command to set a bit or a value.</li>
+<li>An example of system information in monitoring direction is initiation flag, in the control direction it can be interrogation command, reset, etc.</li>
+</ul>
+<p>Thus, application data is carried within the ASDU within one or more information objects.</p>
+</div>
+<div class="section" id="apci-format">
+<h4>APCI Format<a class="headerlink" href="#apci-format" title="Permalink to this headline">¶</a></h4>
+<p>Each APCI (Application Protocol Control Information) starts with a start byte with value 0x68 followed by the 8-bit length of APDU (Application Protocol Data Unit) and four 8-bit control fields (CF). APDU contains an APCI or an APCI with ASDU</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span> APCI Frame format
+
+ &lt;-----8 bit-----&gt;                     &lt;-----8 bit-----&gt;
+ Start Byte (0x68)  ^                  Start Byte (0x68)
+  Length of APDU    |                  Length of APDU
+  Control Field 1  APCI                Control Field 1
+  Control Field 2   |                  Control Field 2
+  Control Field 3   |                  Control Field 3
+  Control Field 4   V                  Control Field 4
+                                       ASDU
+
+APDU with fixed length                 APDU with variable length
+</pre></div>
+</div>
+<p>Control Fields</p>
+<ul class="simple">
+<li>I-format (information transfer format), last bit of CF1 is 0</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>It is used to perform numbered information transfer between the controlling and the controlled station. It has variable length.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>S-format (numbered supervisory functions), last bits of CF1 are 01</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>It is used to perform numbered supervisory functions. It has fixed length</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>U-format (unnumbered control functions), last bits of CF2 are 11</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>It is used to perform unnumbered control functions. It has fixed length.</li>
+<li>U-format is used for activation and confirmation mechanism of STARTDT, STOPDT and TESTFR.</li>
+<li>STARTDT and STOPDT are used by the controlling station to control the data transfer from a controlled station.</li>
+<li>The controlling and/or controlled station must regularly check the status of all established connections to detect any communication problems as soon as possible. This is done by sending TESTFR frames</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="asdu-format">
+<h4>ASDU Format<a class="headerlink" href="#asdu-format" title="Permalink to this headline">¶</a></h4>
+<p>The ASDU contains two main sections: the data unit identifier (with the fixed length of six bytes), and the data itself, made up of one or more information objects. The data unit identifier defines the specific type of data, provides addressing to identify the specific identity of the data, and includes additional information as cause of transmission. Each ASDU can transmit maximum 127 objects.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;-----------8 bit-------------&gt;
+|-----------------------------|
+|Type identification          |
+|-----------------------------|
+|SQ |Number of Objects        |
+|-----------------------------|
+| T |P/N|Cause of Transmisson |
+|-----------------------------|
+| Originator address (ORG)    |
+|-----------------------------|
+| ASDU address fields         |
+|     (2 bytes)               |
+|-----------------------------|
+| Information object address  |
+| (IOA) fields (3 bytes)      |
+|-----------------------------|
+| Information Elements        |
+|-----------------------------|
+| Time Tag                    |
+|-----------------------------|
+| Information Object 2        |
+|-----------------------------|
+| Information Object N        |
+|-----------------------------|
+</pre></div>
+</div>
+<p><strong>Type identification</strong> (TypeID, 1 byte)</p>
+<blockquote>
+<div><ul class="simple">
+<li>0 is not used, 1-127 is used for standard IEC 101 definitions, 128-135 is reserved for message routing and 136-255 for special use.</li>
+<li>In the range of standard IEC 101 definitions, there are presently 58 specific types defined. These types form following groups,</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Type ID</th>
+<th class="head">Group</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1-40</td>
+<td>Process information in monitor direction</td>
+</tr>
+<tr class="row-odd"><td>45-51</td>
+<td>Process information in control direction</td>
+</tr>
+<tr class="row-even"><td>70</td>
+<td>System information in monitor direction</td>
+</tr>
+<tr class="row-odd"><td>100-106</td>
+<td>System information in control direction</td>
+</tr>
+<tr class="row-even"><td>110-113</td>
+<td>Parameter in control direction</td>
+</tr>
+<tr class="row-odd"><td>120-126</td>
+<td>File transfer</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<ul class="simple">
+<li><strong>SQ (Structure Qualifier)</strong> bit specifies how information objects or elements are addressed.</li>
+<li><strong>Number of objects/ elements</strong></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Uses range 0 – 127</li>
+<li>0 means ASDU contains no information object (IO)</li>
+<li>1-127 defines no. of information objects or elements</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><strong>T (test) bit</strong> defines ASDUs which were generated during test conditions and not intended to control the process or change the system state.</li>
+<li><strong>P/N (positive/negative)</strong> bit indicates the positive or negative confirmation of an activation requested by a primary application function.</li>
+<li><strong>Cause of transmission (COT)</strong> : COT field is used to control the routing of messages both on the communication network, and within a station, directing by ASDU to the correct program or task for processing. ASDUs in control direction are confirmed application services and may be mirrored in monitor direction with different causes of transmission.</li>
+<li><strong>Originator Address (ORG)</strong> :</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>The originator address is optional on a system basis. It provides a means for a controlling station to explicitly identify itself. This is not necessary when there is only one controlling station in a system, but is required when there is more than one controlling station, or some stations are dual-mode stations.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><strong>ASDU Address Field</strong> (Common Address of ASDU, COA).</li>
+</ul>
+</div>
+<div class="section" id="information-objects">
+<h4>Information Objects<a class="headerlink" href="#information-objects" title="Permalink to this headline">¶</a></h4>
+<p>ASDU transmits information objects within its structure. Each information object is addressed by Information Object Address (IOA) which identifies the particular data within a defined station. Its length is 3 bytes for IEC 104. The address is used as destination address in control direction and as source address in monitor direction.</p>
+<p>The number of information objects and information elements within the ASDU is the Number of objects given in the second byte of ASDU header.</p>
+</div>
+<div class="section" id="information-elements">
+<h4>Information Elements<a class="headerlink" href="#information-elements" title="Permalink to this headline">¶</a></h4>
+<p>Information elements are building blocks used to transmit information. Format and length of each information element differs and is given by the standard. The standard also describes how encoded values are interpreted.</p>
+<p>Refer Appendix C.1: IEC 104 ASDU types and their description, Appendix C.2: Cause of Transmission (COT) values and Appendix C.3: Information Elements  in <a class="reference external" href="http://www.fit.vutbr.cz/research/pubs/tr.en?file=%2Fpub%2F11570%2FTR-IEC104.pdf&amp;id=11570">Description and analysis of IEC 104 Protocol</a>  to gain more understanding.</p>
+<p><strong>Examples</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Message Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1 - Single point information without time tag</td>
+<td>Detects and sends the status change of internal relays to the supervisory system. For example, breaker status (open, not open). (Without timestamp).</td>
+</tr>
+<tr class="row-odd"><td>3 - Double point information without time tag</td>
+<td>Detects and sends status changes of internal relays to the supervisory system in double point information. Forexample, Breaker status (Open, Close). Without timestamp.</td>
+</tr>
+<tr class="row-even"><td>5 - Step position information</td>
+<td>Send step position info (-64 to 63) to the supervisory system when they are changed or if the QD (Quality Descriptors) are changed. Whitout timestamp.</td>
+</tr>
+<tr class="row-odd"><td>9 - Measured value, normalised value</td>
+<td>Sends measured values to the supervisory system at the change of the internal relays (bits) (rising edge of the signal only) or if QD (Quality Descriptors) are changed. No time-stamping occurs.</td>
+</tr>
+<tr class="row-even"><td>11 - Measured value, scaled value</td>
+<td>Sends measured values (-32768 till 32767) to the supervisory system at the change of the internal relays (bits) (rising edge of the signal only) or if QD (Quality Descriptors) are changed. Whitout timestamp.</td>
+</tr>
+<tr class="row-odd"><td>13 - Measured value, short floating point value</td>
+<td>Send floating-point value to the supervisory system at the change of the internal relays (rising edge of the signal) or if QD (Quality Descriptors) are changed. No time-stamping occurs.</td>
+</tr>
+<tr class="row-even"><td>30 - Single point information with full time tag</td>
+<td>Send the status changes of the internal relays to the supervisory system. For ex alarm (On, Off).</td>
+</tr>
+<tr class="row-odd"><td>31 - Double point information with full time tag</td>
+<td>Send the status changes of the internal relays to the supervisory system. For ex alarm (indeterminate or intermediate state, determined state OFF, determined state ON, indeterminate state).</td>
+</tr>
+<tr class="row-even"><td>45 - Single command</td>
+<td>Receiving a command from supervisory system to either set or reset a internal relay.</td>
+</tr>
+<tr class="row-odd"><td>46 - Double command</td>
+<td>Receiving a command from supervisory system to either set or reset a internal relay. The object has an ON and OFF bit for 2 bit status, for example circuit breakers.</td>
+</tr>
+<tr class="row-even"><td>47 - Regulating step command</td>
+<td>Receiving a command from supervisory system to either set the bit “higher” and reset the bit “lower” or vice versa.</td>
+</tr>
+<tr class="row-odd"><td>48 - Set-point Command, normalised value</td>
+<td>Receiving a command from supervisory system to write a data value to a dataregister.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="iccp">
+<h3>ICCP<a class="headerlink" href="#iccp" title="Permalink to this headline">¶</a></h3>
+<p>Inter-control Center Communications Protocol, or ICCP, or IEC 60870-6-TASE.2, into the utility infrastructure. The Inter-control Center Communications Protocol (ICCP) was developed to enable data exchange over Wide Area Networks between utility control centers, Independent System operators (ISOs), Regional Transmission Operators (RTOs), and other Generators.</p>
+<p>ICCP uses Manufacturing Message Specification (MMS) for the messaging service. ICCP uses MMS objects to define messages and data structures, and all ICCP operations run form these objects. Supported data types include control messages, status, analogs, quality codes, schedules, text and simple files. In addition to data exchange, optional functions include remote control, operator station output, events, and remote program execution. ICCP is a UCA 2.0 standard that specifies point/tag-oriented communications methods for use between control centers. Although ICCP-TASE.2 uses MMS in the application layer, it doesn’t use the CASM or GOMSFE object models. Instead, ICCP-TASE.2 treats data as a points list similar to traditional SCADA systems.</p>
+<p>When two utilities need to exchange a subset of information, they must first generate a bilateral agreement that specifies all the points that each utility is willing to expose to the other, as well as all the points that a utility needs for the other. This list of points must exactly match the two utilities in order for ICCP-TASE.2 data exchange to occur. This bilateral agreement (called a “bilateral table”) creates a lock-and-key methodology that allows utilities to carefully control the information they exchange with each other. The contents of the bilateral table are specific to the two parties involved. The ICCP-TASE.2 standards do not specify naming conventions or other data models for the contents of the bilateral table. Therefore, unlike CASM/ GOMSFE, the list of points in the bilateral table represents an agreement between the two parties only and may or may not expose the internal data structures and models that might be used within that utility. For this reason, ICCP-TASE.2 has become the industry standard for inter-utility data exchange of real-time information around the world.</p>
+<div class="section" id="iccp-conformance-blocks">
+<h4>ICCP Conformance Blocks<a class="headerlink" href="#iccp-conformance-blocks" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ICCP Conformance Block Name</th>
+<th class="head">Type of Services</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Block 1 - Periodic Power System Data</td>
+<td>Data Periodic transfer of power system data, including field device status, analog values, and accumulator values with quality and time stamps</td>
+</tr>
+<tr class="row-odd"><td>Block 2 - Extended Data Set Monitoring</td>
+<td>Non-periodic transfer of data, including detection of system changes or integrity check performance</td>
+</tr>
+<tr class="row-even"><td>Block 3 - Block Transfer Data</td>
+<td>Efficient transfer mechanism where bandwidth is at a premium</td>
+</tr>
+<tr class="row-odd"><td>Block 4 - Information Messages</td>
+<td>General message transfer mechanism, including capabilities to transfer simple text or binary files</td>
+</tr>
+<tr class="row-even"><td>Block 5 - Device Control</td>
+<td>Mechanism for transferring a request to operate a device from one node to another</td>
+</tr>
+<tr class="row-odd"><td>Block 6 - Program Control</td>
+<td>Mechanism for ICCP client to conduct program control at a server site</td>
+</tr>
+<tr class="row-even"><td>Block 7 - Event Reporting</td>
+<td>Extended reporting of system events at remote sites</td>
+</tr>
+<tr class="row-odd"><td>Block 8 - Additional User Objects</td>
+<td>Mechanism for transferring scheduling and accounting information, device outage information, and power plant information</td>
+</tr>
+<tr class="row-even"><td>Block 9 - Time Series Data</td>
+<td>Mechanism enabling transmission of time series data</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="data-exchange-requirements-between-control-centers-and-power-pools-or-isos-rtos">
+<h4>Data Exchange Requirements Between Control Centers and Power Pools or ISOs/ RTOs<a class="headerlink" href="#data-exchange-requirements-between-control-centers-and-power-pools-or-isos-rtos" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Application</th>
+<th class="head">Data/ Comments</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Basic SCADA applications for data acquisition,
+such as limit processing, to process data
+received via data links same as telemetered from RTU</td>
+<td>ICCP Block 1,2 energy management system (EMS): analogs (engineering units) status, accumulators; status data</td>
+</tr>
+<tr class="row-odd"><td>Network status processor, drive map board</td>
+<td>ICCP Block 1,2 to EMS: status of lines, SS buses, generation, condensers, loads, capacitors, circuit breakers, switches, tap changers</td>
+</tr>
+<tr class="row-even"><td>Energy dispatch</td>
+<td>ICCP Block 8 to Participants: log time, unit ID, block # (up to 7 blocks), MW, price, required action, operational flag, comments</td>
+</tr>
+<tr class="row-odd"><td>Regulation</td>
+<td>ICCP Block 1,2 to Participants: MW reading to security coordinator (SC), ACE (float) to participant</td>
+</tr>
+<tr class="row-even"><td>Reserve</td>
+<td>ICCP Block 8 to Participants</td>
+</tr>
+<tr class="row-odd"><td>Real-time power system security – state
+estimator, penalty factor calculations</td>
+<td>ICCP Block 1,2 to SC: ICCP Block 8 to participants</td>
+</tr>
+<tr class="row-even"><td>System alerts</td>
+<td>ICCP Block 4 to Participants: text alarms and messages; emergency procedure information; and power system restoration summary</td>
+</tr>
+<tr class="row-odd"><td>System controller console messages</td>
+<td>ICCP Block 4 bi-directional</td>
+</tr>
+<tr class="row-even"><td>Load forecasting</td>
+<td>ICCP Block 8 to EMS: load forecasts of participants (aggregate loads); ICCP Block 1,2 or external link to EMS; weather data</td>
+</tr>
+<tr class="row-odd"><td>Notification of electronic tags</td>
+<td>ICCP Block 5 to SC</td>
+</tr>
+<tr class="row-even"><td>Regulation dispatch setpoints, device control</td>
+<td>ICCP Block 5,7 to Participants</td>
+</tr>
+<tr class="row-odd"><td>Generation event tracking information</td>
+<td>ICCP Block 8 to EMS (transaction): generation outage report with reason and impact on capacity</td>
+</tr>
+<tr class="row-even"><td>Transmission outage scheduling information</td>
+<td>ICCP Block 8 to EMS (transaction): device name and requested start/stop time of outage</td>
+</tr>
+<tr class="row-odd"><td>Interchange scheduling data</td>
+<td>ICCP Block 8 to EMS (transaction): data for establishing two-party interchange contracts, including start/stop time, name of parties, path name, MW values</td>
+</tr>
+<tr class="row-even"><td>Generation scheduling data</td>
+<td>ICCP Block 8 to EMS (transaction): generating unit or schedule name, and data values for associated parameters</td>
+</tr>
+<tr class="row-odd"><td>Generation dispatch data</td>
+<td>ICCP Block 8 to EMS: participants choice of previously-approved generation schedule, including limits</td>
+</tr>
+<tr class="row-even"><td>Power system restoration status</td>
+<td>ICCP Block 8 to Participants</td>
+</tr>
+<tr class="row-odd"><td>Accounting data report</td>
+<td>ICCP Block 8 bi-directional: hourly accounting data from participants is compiled and balanced, and a summary report returned</td>
+</tr>
+<tr class="row-even"><td>Line/transformer limits</td>
+<td>ICCP Block 8 to EMS: normal, load dump, short term, and long term limit values</td>
+</tr>
+<tr class="row-odd"><td>AGC regulation capacity report</td>
+<td>ICCP Block 8 to Participants: amount of regulation by type assigned to each generating unit</td>
+</tr>
+<tr class="row-even"><td>Contingency status report</td>
+<td>ICCP Block 8 to Participants: list of primary lines impacted by a contingency and the affect on flow</td>
+</tr>
+<tr class="row-odd"><td>Lines out of service report</td>
+<td>ICCP Block 8 to Participants: name of line and voltage level for each critical line out of service</td>
+</tr>
+<tr class="row-even"><td>Transmission overload report</td>
+<td>ICCP Block 8 to Participants: actual, trend, and contingency overloads</td>
+</tr>
+<tr class="row-odd"><td>Load Summary</td>
+<td>ICCP Block 8 to Participants: summary of current loads</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="manufacturing-message-specification-mms">
+<h3>Manufacturing Message Specification (MMS)<a class="headerlink" href="#manufacturing-message-specification-mms" title="Permalink to this headline">¶</a></h3>
+<p>MMS is an application-layer protocol which specifies services for exchange of real-time data and supervisory control information between networked devices and/or computer applications. It is designed to provide a generic messaging system for communication
+between heterogeneous industrial devices, and the specification only describes the network-visible aspects of communication. By choosing this strategy, the MMS does not specify the internal workings of an entity, only the communication between a client
+and a server, allowing vendors full flexibility in their implementation. In order to provide this independence, the</p>
+<p>MMS defines a complete communication mechanism between entities, composed of</p>
+<ol class="arabic simple">
+<li><strong>Objects</strong>: A set of standard objects which must exist in every conformant device, on which operations can be executed (examples: read and write local variables, signal events)</li>
+<li><strong>Messages</strong>: A set of standard messages exchanged between a client and a server station for the purpose of controlling these objects</li>
+<li><strong>Encoding Rules</strong>: A set of encoding rules for these messages (how values and parameters are mapped to bits and bytes when transmitted)</li>
+<li><strong>Protocol</strong>: A set of protocols (rules for exchanging messages between devices).</li>
+</ol>
+<p>MMS composes a model from the definition of objects, services and behavior named the Virtual Manufacturing Device (VMD) Model. The VMD uses an object-oriented approach to represent different physical industrial (real) devices in a generic manner.
+Some of these objects are variables, variable type definitions, programs, events, historical logs (called journals) and semaphores.</p>
+<p>Now, so that the below concepts make sense, it would be a good idea to download sample <a class="reference external" href="https://github.com/ITI/ICS-Security-Tools/tree/master/pcaps/IEC61850">MMS Communication</a> PCAP Files and follow the concepts below:</p>
+<p>The MMS defines the following Protocol Data Unit (PDUs) for a confirmed service exchange:</p>
+<ul class="simple">
+<li>Confirmed-RequestPDU</li>
+<li>Confirmed-ResponsePDU</li>
+<li>Confirmed-ErrorPDU</li>
+<li>Cancel-RequestPDU</li>
+<li>Cancel-ResponsePDU</li>
+<li>Cancel-ErrorPDU</li>
+<li>RejectPDU</li>
+</ul>
+<p>For every RequestPDU, there would be ResponsePDU, identifiable by invokeID. Below wireshark filter would have to see a particular request and corresponding response.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>mms and mms.invokeID==4431 (4431 is a sample)
+</pre></div>
+</div>
+<div class="section" id="definitions">
+<h4>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>VMD : The device itself is an object.</li>
+<li>Domain. Represents a resource (e.g. a program) within the VMD.</li>
+<li>Program Invocation. A runnable program consisting of one or more domains.</li>
+<li>Variable. An element of typed data (e.g. integer, floating point, array, etc.).</li>
+<li>Type. A description of the format of a variable’s data.</li>
+<li>Named Variable List. A list of variables that is named as a list.</li>
+<li>Semaphore. An object used to control access to a shared resource.</li>
+<li>Operator Station. A display and keyboard for use by an operator.</li>
+<li>Event Condition. An object that represents the state of an event.</li>
+<li>Event Action. Represents the action taken when an event condition changes state.</li>
+<li>Event Enrollment. Which network application to notify when an event condition changes state.</li>
+<li>Journal. A time based record of events and variables.</li>
+<li>File. A file in a filestore or fileserver.</li>
+<li>Transaction. Represents an individual MMS service request. Not a named object.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="casm">
+<h3>CASM<a class="headerlink" href="#casm" title="Permalink to this headline">¶</a></h3>
+<p>CASM is a document that specifies the step-by-step methodology, or more simply the “verbs,” of UCA 2.0. CASM is protocol-less; that is, its services are described so that any appropriate protocol could emulate them. However, since MMS is the current UCA implementation protocol, the documentation maps CASM services to MMS.</p>
+<p>In CASM, opening a breaker using a UCA 2.0-compliant device requires the use of a “select-before-operate” (SBO) service. MMS offers two basic commands that are suitable for use in a SBO operation-read and write. These MMS commands are used to operate on specific variable objects within a device. CASM specifies MMS to the SBO mapping function so that a system implementing UCA would perform as follows:</p>
+<ol class="arabic simple">
+<li>On the SCADA display screen, a user clicks on the icon of an intelligent electronic device (IED) attached to a breaker, preparing to change the state of the breaker to “open.”</li>
+<li>As a result, the SCADA system issues a MMS “read” command to a SBO object in the IED.</li>
+<li>The IED verifies the user’s identity and access privilege for that SBO object, then it replies with a permissive (or a denial) in the MMS read response.</li>
+<li>The SCADA system sees the permissive in the read response and allows the user to then click on open in his or her SCADA display screen.</li>
+<li>The SCADA system then sends an MMS write command to the breaker object, causing it to open.</li>
+</ol>
+<p>This is an example of how a relatively high-level operation-the select-before-operate that CASM describes- is mapped onto the simpler read-and-write functions of MMS. CASM specifies this mapping for every function in UCA 2.0. This approach allows CASM to eliminate variances in how the SBO function can be implemented using a given protocol.</p>
+</div>
+<div class="section" id="gomsfe">
+<h3>GOMSFE<a class="headerlink" href="#gomsfe" title="Permalink to this headline">¶</a></h3>
+<p>If CASM represents the verbs of UCA 2.0, then GOMSFE can be thought of as the nouns. The GOMSFE document is a dictionary of standardized object modes and their associated names used to describe equipment and functions within a substation IED. Every UCA 2.0-compliant device uses the same naming conventions. Therefore, a generic UCA client can read the same information from multiple UCA 2.0-compliant devices supplied by different vendors using the same language.</p>
+<p>The information is organized in a hierarchy of increasing detail similar to the folders in a desktop explorer application. For example, if phase A Amps are to be accessed from a Bitronics PowerServe IED, a specific route would be taken.</p>
+<p>First, a device on the network would be accessed by using its physical network address or using a name that represents this network address. Within that physical device, CASM/GOMSFE would define a logical device that is identified via its domain name, which in this example is called PowerServe. This domain name corresponds to a logical device (meter, relay, RTU, etc.) that resides within a single physical network device. As is the case with a data concentrator, there can be more than one of these logical devices within a single physical device, like apartments within a building at one street address.</p>
+<p>Within that device, the first level of hierarchy is the brick. A brick represents a functional grouping of information within a logical device. For example, the poly-phase measurement unit information for a meter is supplied in a brick called MMXU1 (Polyphase Measurement Unit #1). Within that brick are other subfunctions such as setpoints, descriptions, actual measurements, etc. Under measurements (MX) the next subgroup would be amps or “A,” which is then organized into individual readings for each phase, which would be referred to as PhsAf for the Phase A floating point value.</p>
+<p>These elements can be combined to come up with a common name for the ampere reading of Phase A in any poly-phase measurement and can be easily recognized with just a little training:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Domain = PowerServe
+Object = MMXU1$MX$A$PhsAf
+</pre></div>
+</div>
+<p>The data objects defined by GOMSFE also describe the way information is presented. In this example, the Phase A Amps may also be available as an integer value in an object called MMXU1$MX$A$PhsAi.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>MMXU
+|--W
+|--Vars
+|--A
+|--V
+   | -- PhsAf
+   | -- PhaPo
+          | - Mag
+          | - Ang
+
+Object Model Structure from Object Foundry
+</pre></div>
+</div>
+</div>
+<div class="section" id="scl-substation-configuration-language">
+<h3>SCL Substation Configuration Language<a class="headerlink" href="#scl-substation-configuration-language" title="Permalink to this headline">¶</a></h3>
+<p>Substation Configuration Language (SCL), based on XML, specified by IEC 61850-6-1 to describe configurations. The various SCL files include:</p>
+<ul class="simple">
+<li>system specification description (SSD) files,</li>
+<li>IED capability description (ICD) files,</li>
+<li>substation configuration description (SCD) files,</li>
+<li>configured IED description (CID) files.</li>
+</ul>
+<p>Substation Configuration Language (SCL) allows describing in a standardised way</p>
+<ul class="simple">
+<li>IEDs, their configuration and their functional and communication capabilities</li>
+<li>Concrete communication structure of a SA system</li>
+<li>Allocation of devices to the substation primary equipment.</li>
+</ul>
+<div class="section" id="scl-benefits">
+<h4>SCL – Benefits<a class="headerlink" href="#scl-benefits" title="Permalink to this headline">¶</a></h4>
+<p>The benefits of SCL are Automation, Remote Configuration, Offline Configurations, Sharing of IED configurations, Custom configurations, Elimination of discrepancies.</p>
+</div>
+</div>
+<div class="section" id="goose">
+<h3>GOOSE<a class="headerlink" href="#goose" title="Permalink to this headline">¶</a></h3>
+<p>The IEC 61850 standard allows for communication between devices within a substation where a peer-to-peer model for Generic Substation Events (GSE) services is used for fast and reliable communication between Intelligent Electronic Devices (IEDs). One
+of the messages associated with the GSE services is the Generic Object Oriented Substation Event (GOOSE) message.</p>
+<p>The IEC 61850 standard allows for two groups of communication services between entities within the Substation Automation System (SAS), (IEC 61850-7-1) One group utilizes a client-server model, accommodating services such as Reporting and Remote
+Switching. The second group utilizes a peer-to-peer model for Generic Substation Event (GSE) services associated with time-critical activities such as fast and reliable communication between Intelligent Electronic Devices (IEDs) used for Protection purposes. In the IEC 61850-8-1 part of
+the standard, one of the messages associated with the GSE services are the Generic Object Oriented Substation Event (GOOSE) messages that allow for the broadcast of multicast messages across the Local Area Network (LAN).</p>
+<p>GOOSE – real time sharing of information between devices in a substation</p>
+<p>Based on ”publisher/subscriber” model where any device can publish data and other subscribe it if needed</p>
+<ul class="simple">
+<li>User first decides in configuration what is needed to be published and those IEDs interested of that data subscribe to it</li>
+<li>Mission is real-time data transmission– IED to IED 100ms/ 10ms/ 3ms</li>
+<li>Uses low-level Ethernet layer and priority tagging to get priority in network and devices</li>
+</ul>
+<div class="section" id="iec-61850-goose-what">
+<h4>IEC 61850 GOOSE, What?<a class="headerlink" href="#iec-61850-goose-what" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>GOOSE = Generic Object Oriented Substation Event</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Generic = Any data</li>
+<li>Object Oriented = Data from IED 61850 data model</li>
+<li>Substation = Whole substation sees the data</li>
+<li>Event = Event based sending</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>GOOSE is used for transmit data to peer devices in substation</li>
+<li>Can in principle transmit any kind of process data between IEDs</li>
+<li>Ethernet technology offers fast and reliable way to transmit the data</li>
+<li>Similar kind of functionality ABB have in existing LON platform and it is already used for a decade successfully</li>
+</ul>
+</div>
+<div class="section" id="goose-why">
+<h4>GOOSE, Why?<a class="headerlink" href="#goose-why" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Reduce interpanel wiring with between IEDs</li>
+<li>Performance – faster than IO wiring</li>
+<li>Supervised connections</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Actions can taken in application if peer IED stops communication</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Quality information is sent to peer IEDs with data for validation</li>
+<li>More (virtual) I/O for IEDs, without hardware changes</li>
+</ul>
+</div>
+<div class="section" id="examples">
+<h4>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Arc protection and GOOSE with REF615</strong></li>
+</ul>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/GOOSE_Arc_Protection.png"><img alt="Arc Protection with GOOSE" class="align-center" src="_images/GOOSE_Arc_Protection.png" style="width: 319.2px; height: 335.3px;" /></a>
+<ul class="simple">
+<li>Both relay A (incoming feeder) and relay B (outgoing feeder) are equipped with three arc sensors</li>
+<li>Relay B detects an arc in the busbar compartment via sensor 1 and sends a related GOOSE message to relay A</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Conventional wiring: &lt;37ms</li>
+<li>With GOOSE: &lt;23ms</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>After receiving the GOOSE message relay A checks the current level and issues a trip command to breaker A</li>
+<li>GOOSE communication enables fast and station wide supervised arc protection schemes</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><strong>Circuit Breaker failure scheme with GOOSE</strong></li>
+</ul>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/GOOSE_Circuit_Breaker_Failure.png"><img alt="Circuit Breaker Failure with GOOSE" class="align-center" src="_images/GOOSE_Circuit_Breaker_Failure.png" style="width: 415.8px; height: 426.3px;" /></a>
+<ul class="simple">
+<li>Relay B (outgoing feeder) detects a fault, issues opening command to the breaker and starts the breaker failure</li>
+<li>The breaker in outgoing feeder fails to open and after a set time delay the breaker failure protection in Relay B sends out backup command as a GOOSE message to Relay A</li>
+<li>After receiving the GOOSE message Relay A issues opening command to the incoming feeder breaker and the fault is cleared.</li>
+</ul>
+</div></blockquote>
+<p>The above has been taken from <a class="reference external" href="http://www02.abb.com/global/sgabb/sgabb005.nsf/bf177942f19f4a98c1257148003b7a0a/e81bb489e5ae0b68482574d70020bf42/$FILE/B5_G2_Enhanced+protection+functionality+with+IEC+61850+and+GOOSE.pdf">Enhanced protection functionality with IEC 61850 and GOOSE</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="solutions-softwares">
+<h2>Solutions/ Softwares?<a class="headerlink" href="#solutions-softwares" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="scada-server">
+<h3>SCADA Server<a class="headerlink" href="#scada-server" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="abb">
+<h4>ABB<a class="headerlink" href="#abb" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="http://new.abb.com/enterprise-software/real-time-control-and-management/network-manager-ems">ABB Ability™ Network Manager™ EMS</a></p>
+</div>
+<div class="section" id="ge">
+<h4>GE<a class="headerlink" href="#ge" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://www.gegridsolutions.com/Software_Solutions/catalog/eterraplatform.htm">eTerra</a></p>
+<ul class="simple">
+<li>e-terrascada for data acquisition, processing, and control</li>
+<li>e-terratransmission for network security analysis</li>
+<li>e-terrageneration for generation dispatching</li>
+<li>e-terraloadforecast for prediction of the demand</li>
+<li>e-terrasimulator for power system simulation and training</li>
+<li>e-terravision is the wide area management tool for situational awareness, providing grid security dashboards and an innovative task-oriented user interface</li>
+<li>e-terradisgen and e-terrarenewableplan manage the renewable &amp; Distributed Energy Resources (DER)</li>
+<li>e-terraphasorpoint for PMU monitoring and advanced on- line stability applications</li>
+</ul>
+</div>
+<div class="section" id="siemens">
+<h4>Siemens<a class="headerlink" href="#siemens" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://w3.siemens.com/smartgrid/global/en/products-systems-solutions/control-center-solutions/grid-control-platform/about-spectrum-power/Pages/overview.aspx">Spectrum Power</a></p>
+<p>Nomenclature of control centre servers</p>
+<p>WGOM0DS1</p>
+<p>Western Region</p>
+<p>State</p>
+<p>Main control
+centre Server name</p>
+</div>
+<div class="section" id="identity-of-a-parameter">
+<h4>Identity of a parameter<a class="headerlink" href="#identity-of-a-parameter" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Composite key</li>
+<li>Made up of SUBSTN, DEVICETYP, DEVICE &amp; ANALOG/POINT</li>
+<li>e.g. PONDA_GA$BUS$2B1$KV, PONDA_GA$CB$20152$STTD</li>
+</ul>
+</div>
+<div class="section" id="sources-of-data">
+<h4>Sources of data<a class="headerlink" href="#sources-of-data" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>RTU – Based on IEC addreses</li>
+<li>ICCP – Based on mapping table</li>
+<li>Calculated – Database calculations</li>
+</ul>
+</div>
+<div class="section" id="for-rtu-data">
+<h4>For RTU data<a class="headerlink" href="#for-rtu-data" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Mapping with field is through IEC addresses</li>
+<li>Mapping needs to be done both at site and at control centre</li>
+<li>Series considered</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>3001 ….. For analogs</li>
+<li>2001 ….. For Circuit breakers</li>
+<li>1001 ….. For Protection signals</li>
+<li>1 ………… For Isolators</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="for-iccp-data">
+<h4>For ICCP data<a class="headerlink" href="#for-iccp-data" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Mapping table used</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>e. g. PONDA_GABUS$2B1$KV, PONDA_GA$BUS$2B1$KV
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="network-planning-toolkit">
+<h3>Network Planning Toolkit<a class="headerlink" href="#network-planning-toolkit" title="Permalink to this headline">¶</a></h3>
+<p>Electrical Network in a city requires careful planning like where to build Transmisson/ Receiving/ Distribution/ Customer substation, where to put underground/ overhead electrical cables, number of feeders/ isolater/ busbar requires or from where to give the connection
+to the new customer etc, This works in sync with the Geographical Information Systems.</p>
+<p>The <a class="reference external" href="http://www.cyme.com/software/">CYME Power Engineering software</a>  is a suite of applications composed of a network editor, analysis modules and user-customizable model libraries. The modules available comprise a variety of advanced applications and extensive libraries for either transmission/industrial or distribution power network analysis.</p>
+<ul class="simple">
+<li>CYME Applications for Distribution power systems analysis (CYMDIST) : To perform several types of analysis on balanced or unbalanced three-phase, two-phase and single-phase systems that are operated in radial, looped or meshed configurations. CYMDIST includes a full Network Editor as well as</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Unbalanced load flow</li>
+<li>Comprehensive fault flow analysis</li>
+<li>Load balancing</li>
+<li>Load allocation/estimation</li>
+<li>Optimal capacitor placement</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>CYME Applications for Transmission and Industrial power systems analysis</li>
+</ul>
+</div>
+<div class="section" id="geographical-information-system">
+<h3>Geographical Information System<a class="headerlink" href="#geographical-information-system" title="Permalink to this headline">¶</a></h3>
+<p>Electrical grid requires to know location of the buildings, roads, railway tracks etc. to do the network planning.</p>
+<div class="section" id="id1">
+<h4>GE<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://www.gegridsolutions.com/geospatial/catalog/smallworld_core.htm">SmallWorld Core</a> Smallworld Core provides a comprehensive portfolio of solutions that support the critical processes within the plan, design, build, operate and maintain lifecycle of network asset intensive industries.</p>
+</div>
+</div>
+<div class="section" id="historian">
+<h3>Historian<a class="headerlink" href="#historian" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="schneider-electric">
+<h4>Schneider Electric<a class="headerlink" href="#schneider-electric" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://www.wonderware.com/industrial-information-management/edna/">eDNA (enterprise Dynamic Network Architecture)</a></p>
+</div>
+<div class="section" id="id2">
+<h4>GE<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://www.ge.com/digital/products/historian">Historian</a></p>
+</div>
+<div class="section" id="id4">
+<h4>Siemens<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://w3.siemens.com/smartgrid/global/en/products-systems-solutions/control-center-solutions/grid-control-platform/about-spectrum-power/Pages/historical-information-system.aspx">Spectrum Power HIS</a></p>
+</div>
+</div>
+<div class="section" id="plc">
+<h3>PLC<a class="headerlink" href="#plc" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="abb-ac31">
+<h4>ABB - AC31<a class="headerlink" href="#abb-ac31" title="Permalink to this headline">¶</a></h4>
+<p>The Advant Controller 31 series 40-50 offered small and compact PLCs with central and decentralized extensions. The Advant Controller 31 series 90 offered powerful PLCs for challenging applications with various configuration options and up to five communication interfaces. The PLC provided 60 I/Os internally and could be expanded decentrally. The combination of integrated communication fieldbus allowed to connect the PLC to several protocols like e.g. Ethernet, PROFIBUS DP, ARCNET or CANopen.</p>
+</div>
+</div>
+<div class="section" id="rtu">
+<h3>RTU<a class="headerlink" href="#rtu" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h4>Schneider Electric<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://www.schneider-electric.co.in/en/product-category/6000-telemetry-and-remote-scada-systems/?filter=business-1-industrial-automation-and-control">Telemetry and Remote SCADA Systems</a></p>
+<p><a class="reference external" href="https://www.schneider-electric.co.in/en/product-subcategory/1950-remote-control-and-monitoring/?filter=business-6-medium-voltage-distribution-and-grid-automation&amp;parent-category-id=1900">Remote Control and Monitoring</a> : Easergy T200/ T300</p>
+</div>
+<div class="section" id="siemens-sicam-tm-ak">
+<h4>Siemens SICAM TM/ AK<a class="headerlink" href="#siemens-sicam-tm-ak" title="Permalink to this headline">¶</a></h4>
+<p>Controlling and telecontrol for medium and large data volumes Applications</p>
+<ul class="simple">
+<li>SICAM TM: Automation with integrated telecontrol engineering for hydropower plants/turbine controllers, electric power distribution and transmission, oil/gas pipelines, transportation.</li>
+<li>SICAM AK: Telecontrol substation or central unit, automation unit, data node, front-end or gateway.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="ied">
+<h3>IED<a class="headerlink" href="#ied" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h4>Siemens<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>Siemens has <a class="reference external" href="http://w3.siemens.com/smartgrid/global/en/products-systems-solutions/Protection/Pages/overview.aspx">Products for Protection</a> such as SIPROTEC5, SIPROTEC4, SIPTROTEC Compact, Reyrolle for Protection.</p>
+<p>These devices provide</p>
+<ul class="simple">
+<li>Overcurrent Protection</li>
+<li>Line Protection<ul>
+<li>Distance Protection and control</li>
+<li>Line differential and control</li>
+<li>Combined line differential and distance protection and control</li>
+<li>Breaker management and control</li>
+<li>Overcurrent protection as backup for lines</li>
+</ul>
+</li>
+<li>Transformer differential protection</li>
+<li>Motor protection</li>
+<li>Generator protection</li>
+<li>Busbar protection</li>
+<li>Bay controller with control /interlocking functions and monitoring, optionally with protection functions</li>
+<li>Fault recorder and power quality recorder</li>
+</ul>
+</div>
+<div class="section" id="softwares-for-siemens">
+<h4>Softwares for Siemens<a class="headerlink" href="#softwares-for-siemens" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Digsi 5</strong> : DIGSI 5 is the versatile engineering tool for parameterization, commissioning and operating all SIPROTEC 5 devices</li>
+<li><strong>Digsi 4</strong> : Operation Software for SIPROTEC 4, SIPROTEC Compact, SIPROTEC 3 and SIPROTEC 2 protection devices. The PC operating program DIGSI 4 is the user interface to the SIPROTEC devices. It is designed with a modern, intuitive user interface. With DIGSI 4, SIPROTEC devices are configured and evaluated – it is the tailored program for industrial and energy distribution systems.</li>
+<li><strong>Sigra 4</strong> : Powerful Analysis of all Protection Fault Records. SIGRA 4 offers the possibility to display signals from various fault records in one diagram and fully automatically synchronize these signals to a common time base. In addition to fi nding out the details of the line fault, the localization of the fault is of special interest.</li>
+<li><strong>IEC 60850 System Configurator</strong> : The IEC 61850 system configurator is the manufacturer-neutral solution for the interoperable engineering of IEC 61850 products and systems and supports all devices with IEC 61850, not just Siemens products - like SIPROTEC 5, SIPROTEC 4, SIPROTEC Compact, Reyrolle, SICAM RTUs, SICAM IO/AI/P85x/ Q100 - but also devices from other areas (such as SITRAS PRO) or from third parties. The tool supports the SCL (substation configuration description language) configuration files from the IEC 61850-6 through import or export of all formats (ICD/IID/CID/SCD/SSD/SED). Thus, IEC 61850 devices can be added and a complete IEC 61850 station is available for the substation automation Technology.</li>
+<li><strong>IEC Browser</strong> : IEC Browser provides IEC61850 diagnostics features for the Client-Server communication.</li>
+<li><strong>Netview</strong> - Diagnostics System for Siemens IEDs. Netview provides user-friendly diagnostics functionalities for Siemens IEDs (SIPROTEC4, SIPROTEC Compact, SIPROTEC5, Reyrolle…) and switches integrated into an IEC61850 communication network.</li>
+<li><strong>Reydisp Evolution Configuration</strong> software for Reyrolle Protection Devices :The operating and parameterization program Reydisp is the basic software used for the configuration of the Reyrolle range of protection relays.</li>
+<li><strong>Reyrolle Reydisp Manager</strong> : Configuration Software for 7SR2x Range of Reyrolle Devices</li>
+</ul>
+</div>
+</div>
+<div class="section" id="other">
+<h3>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Siemens Small Control Center System SICAM 230 :</li>
+<li>SICOM Disto SICAM DISTO (disturbance data storage) is a software package, which recognizes the occurrence of new disturbance records in the connected protection relay fetches them by means of substation communication and stores them in preconfigured directories on the hard disk of a PC.</li>
+</ul>
+<div class="section" id="sicam-protocol-test-system">
+<h4>SICAM Protocol Test System<a class="headerlink" href="#sicam-protocol-test-system" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Testing and Simulation according to IEC 60870</li>
+<li>Product and vendor-neutral testing system</li>
+<li>Simulation of up to 255 IEC 61850 servers</li>
+<li>Interactive simulation (commands and feedback) of entire systems incl. third-party devices - SCD, ICD import (ICD files for SIPROTEC 4 devices are already included in the software package)</li>
+<li>Simulation of malfunctions</li>
+<li>Dynamic measured value with auto-simulation</li>
+<li>Simulation of fault records</li>
+<li>GOOSE publish</li>
+<li>Network overview analysis - which server is connected to which client?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="cybersecurity">
+<h2>Cybersecurity<a class="headerlink" href="#cybersecurity" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vulnerabilities">
+<h3>Vulnerabilities<a class="headerlink" href="#vulnerabilities" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/EGVuln.png"><img alt="Vulnerabilities in SCADA" class="align-center" src="_images/EGVuln.png" style="width: 655.2px; height: 409.5px;" /></a>
+</div></blockquote>
+</div>
+<div class="section" id="remediation">
+<h3>Remediation<a class="headerlink" href="#remediation" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/EGRemediation.png"><img alt="Remediation in SCADA" class="align-center" src="_images/EGRemediation.png" style="width: 660.1px; height: 412.3px;" /></a>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><a class="reference external" href="https://www.youtube.com/watch?v=X6rpFcIwxKQ">RTU Fundamentals</a></li>
+<li><a class="reference external" href="https://www.kth.se/social/upload/535629dcf2765437a2fd88f3/Lecture%209%20-%20SCADA%20System.pdf">SCADA and Central Applications: An introduction</a></li>
+<li><a class="reference external" href="http://www.wrldc.in/docs/Workshops/Fandamental%20on%20Energy%20Scheduling%20and%20Accounting%2015-17_May-2017/Sunil_SCADA_ppt_Goa.pdf">SCADA and its importance in Control Centre</a></li>
+<li><a class="reference external" href="http://www.fit.vutbr.cz/research/pubs/tr.en?file=%2Fpub%2F11570%2FTR-IEC104.pdf&amp;id=11570">Description and analysis of IEC 104 Protocol</a></li>
+<li><a class="reference external" href="http://ftc.beijer.se/files/C125728B003AF839/D19F7C759D368563C12576240049F5F3/IEC%2060870-5-104%20System%20Q%20PLC%20implementation_ver3.02.pdf">IEC870-5-104 Implementation in the Mitsubishi System Q PLCs</a></li>
+<li><a class="reference external" href="https://pdfs.semanticscholar.org/4a5b/e26509557f0a1a911e639868bfe9d002d664.pdf">An Analysis of the Manufacturing Messaging Specification Protocol</a></li>
+<li><a class="reference external" href="http://www.sisconet.com/wp-content/uploads/2016/03/mmsovrlg.pdf">Overview and Introduction to the Manufacturing Message Specification (MMS)</a></li>
+<li><a class="reference external" href="http://www.elp.com/articles/powergrid_international/print/volume-5/issue-2/features/uca-20-for-dummies.html">UCA 2.0 for Dummies</a></li>
+<li><a class="reference external" href="https://github.com/ITI/ICS-Security-Tools">ICS-Security-Tools</a></li>
+<li><a class="reference external" href="http://univagora.ro/jour/index.php/ijccc/article/viewFile/329/pdf_66">A Detailed Analysis of the GOOSE Message Structure in an IEC 61850 Standard-Based Substation Automation System</a></li>
+<li><a class="reference external" href="http://www02.abb.com/global/sgabb/sgabb005.nsf/bf177942f19f4a98c1257148003b7a0a/e81bb489e5ae0b68482574d70020bf42/$FILE/B5_G2_Enhanced+protection+functionality+with+IEC+61850+and+GOOSE.pdf">Enhanced protection functionality with IEC 61850 and GOOSE</a></li>
+<li><a class="reference external" href="https://www.kth.se/social/upload/532f243cf276541d0e466ac0/Lecture%205%20Substation%20Automation%20Systems.pdf">Lecture 5a Substation Automation Systems</a></li>
+<li><a class="reference external" href="https://www.kth.se/social/files/55fa775cf27654127b5c9b41/Lecture%206%20Substation%20Automation%20Systems.pdf">Lecture 6 Substation Automation Systems</a></li>
+</ol>
+</div>
+<div class="section" id="towrite">
+<h2>ToWrite<a class="headerlink" href="#towrite" title="Permalink to this headline">¶</a></h2>
+<p>Sicam toolbox(BCU/RTU software)
+MFM multi function meter
+LIU
+Mlfb
+GPS server sertel
+BCU
+Bcpu bay control and protection unit
+OpmIII</p>
+<p>AK 1703 acp gateway</p>
+<p>Relay OMRON MM2XP-D From all the DO from RTU to field</p>
+<p>Moxa PT-7728-F-48-48 For local lan on rtu panels
+Masters ECC, BCC, Nodal, MCC</p>
+<p>UL automation uldi2121 for interfacing field with rtu</p>
+<p>MiCOM C264, areva</p>
+<p>RTU C264 GATEWAY C264C</p>
+<p>RTU -&gt;DI/DO/AI
+can communicate when energy meters and relays over modbus, iec 103.</p>
+<p>IEC 61131-3</p>
+<p>Grafcet or sequential function chart</p>
+<p>Digital input processing</p>
+<p>Circuit breaker/ isolater/ Earth switch stuff status monitoring can be achieved using DPS and input for alarm/ other equipment status can be achieved using SPS</p>
+<p>Digital control is energized for milliseconds in rtu database</p>
+<p>C264/C264C racks are communicating with each other over station bus protocol and send the data to scada server using FEP server . C264 is configured using System Configuration editor SCE. C264 behaves as a master device to acquire data from IED…micom series protection relays</p>
+<p>Master T103</p>
+<p>C264 and PACiS Training</p>
+<p>ABB Micro scada license for gateway
+Obermeier make snmp opc server licence for gateway</p>
+<p>ABb make pcm 600 engineering tool v2.7 for ABB ieds configuration</p>
+<p>Abbmake afs670</p>
+<p>ABB rtu 560D, 560A</p>
+<p>Unified scada, areva scada system</p>
+<p>Abb RTU til
+Siemens Toolbox</p>
+<p>DSAgile GE</p>
+<p>QTester 104
+WinPP104</p>
+<p>Night Dragon</p>
+<p>BCPU - Siprotec 7SJ63 siemes 7ut63 7SD61 7SJ64
+IED Abb red 670 ref615
+Rtu 560A</p>
+<p>Siemes sicam ak 1703 acp
+Ruggedcom rsg 2100</p>
+<p>E fencing system</p>
+<p>CSC 326 easun</p>
+<p>BCPU 33KV</p>
+<p>P40 agile micom alstom, P743
+Rel 551
+Feeder, Apex metering panel</p>
+<p>Controller 172.16.117.45-41</p>
+<p>Bus couple, incoming outgoing feeder, outgoing feeder with bus pt , reacter feeder with surge arrestor</p>
+<p>ABB FOX 515 Differential</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Vijay Kumar.
+    </div>
+  </body>
+</html>

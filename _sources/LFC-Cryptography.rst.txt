@@ -14,8 +14,8 @@ This post (Work in Progress) lists the tips and tricks while doing Cryptography 
 * All ciphers listed at `Cipher Tools <http://rumkin.com/tools/cipher/>`_
 
 * If we have a "3845281945283805284526053525260547380516453748164748478317454508" something like this? It might be a  Polybius square cipher, where each 2-number block in the encrypted text is a coordinate on a 5x5 square.
-If we examine the encrypted string, we see that when divided into blocks of 2 every first letter, x, falls on the interval 0<=x<=4 and every second letter, y, falls on the interval 5<=y<=9.
-This knowledge combined with the hint that our cipher will be missing the letter "z", we can construct a 5x5 Polybius square (hence the hint sqrt(ABCDEFGHIJKLMNOPQRSTUVWXY), because the alphabet minus Z is of length 25 and sqrt(25) = 5).
+
+* If we examine the encrypted string, we see that when divided into blocks of 2 every first letter, x, falls on the interval 0<=x<=4 and every second letter, y, falls on the interval 5<=y<=9. This knowledge combined with the hint that our cipher will be missing the letter "z", we can construct a 5x5 Polybius square (hence the hint sqrt(ABCDEFGHIJKLMNOPQRSTUVWXY), because the alphabet minus Z is of length 25 and sqrt(25) = 5).
 
 
  

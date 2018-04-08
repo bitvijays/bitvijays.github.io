@@ -15,6 +15,7 @@ If you are looking for hidden flag in an image first check with
 
 * file, exiftool command, and make sure the extension is correctly displayed. 
 * strings 
+
  * Sometimes, it is better to see lines only greater than x length.
 
   ::
@@ -289,7 +290,7 @@ Important commands to try
 * Extract files using filescan and `dumpfiles <https://github.com/volatilityfoundation/volatility/wiki/Command-Reference#dumpfiles>`_
 
 Extracting RAW pictures from memory dumps
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 
 `Extracting RAW pictures from Memory Dumps <https://w00tsec.blogspot.in/2015/02/extracting-raw-pictures-from-memory.html>`_
 
@@ -299,7 +300,7 @@ Probably, dump the process running MSRDP, MSPAINT
 * We can use GIMP to navigate within the memory dump and analyse the rendered pixels/bitmaps on their corresponding offsets
 
 Interesting Blog
-^^^^^^^^^^^^^^^^
+----------------
 
 * `APT-Incident-Response <https://github.com/ctfs/write-ups-2015/tree/master/camp-ctf-2015/forensics/APT-incident-response-400>`_
 * `Securityfest CTF - Coresec challenge writeup <https://dubell.io/securityfest-ctf-coresec-challenge-writeup/>`_
