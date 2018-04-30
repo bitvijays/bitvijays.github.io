@@ -8,13 +8,12 @@ The Magic of Learning
 
 **Hey there!** Three years back, when we started our journey in Infosec, we didn't had proper guidance. At that point of time, we decided to share our knowledge gathered during this journey with the community. The blog entries below can be seen as reading material for anyone starting in the InfoSec Community or even a one-stop-reference for a seasoned InfoSec person. 
 
-Currently, **three series** have been published:
+Currently, **four series** have been published:
 
 - **The Essentials**
 - **Infrastructure Pentest**
 - **Capture the flag**
-
-..   - **Critical Infrastructure**
+- **Critical Infrastructure**
 
 Want to provide us some feedback? Write it down at :doc:`Feedback` page!
 
@@ -52,12 +51,13 @@ The Capture the flag series covers what we have learned by solving Capture the f
 - :doc:`Binary Exploitation <LFC-BinaryExploitation>` : Knowledge gained by solving/ reading write-ups of binary exploitation challenges.
 - :doc:`Forensics <LFC-Forensics>` : Knowledge gained by solving/ reading write-ups of Forensics challenges.
 
-..
 
- ##############################
- Critical Infrastructure Series
- ##############################
- .. - :doc:`Electrical Grid <LFF-CIS-ElectricalGrid>` : Pentesting or Securing a Electrical Grid? Probably, the concepts you need to know!
+
+##############################
+Critical Infrastructure Series
+##############################
+
+- :doc:`Electrical Grid <LFF-CIS-ElectricalGrid>` : Pentesting or Securing a Electrical Grid? Probably, the concepts you need to know before starting!
 
 #######################################
 Contributors, Blog Archive and About Me
