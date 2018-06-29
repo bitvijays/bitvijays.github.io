@@ -91,6 +91,10 @@
 <li><a class="reference internal" href="#manage-runlevels">Manage Runlevels</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#screen-multiplexer">Screen Multiplexer</a><ul>
+<li><a class="reference internal" href="#tmux">tmux</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#programming">Programming</a><ul>
@@ -133,7 +137,12 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#bash-command-substitution">Bash Command Substitution</a></li>
-<li><a class="reference internal" href="#bash-case-modification">Bash Case modification</a></li>
+<li><a class="reference internal" href="#bash-case-modification">Bash Case Modification</a><ul>
+<li><a class="reference internal" href="#example-parameter">Example: Parameter ^</a></li>
+<li><a class="reference internal" href="#id1">Example: Parameter ,</a></li>
+<li><a class="reference internal" href="#id2">Example: Parameter ~</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#bash-programming">Bash Programming</a><ul>
 <li><a class="reference internal" href="#bash-for-loop">Bash For Loop</a></li>
 <li><a class="reference internal" href="#bash-if-statement">Bash If Statement</a></li>
@@ -185,7 +194,7 @@
 <li><a class="reference internal" href="#task-3-gdb">Task 3 : gdb</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id1">System administration</a><ul>
+<li><a class="reference internal" href="#id3">System administration</a><ul>
 <li><a class="reference internal" href="#task-1-login-logout-messages">Task 1 : Login/ Logout Messages</a></li>
 <li><a class="reference internal" href="#task-2-gather-information">Task 2 : Gather Information</a></li>
 <li><a class="reference internal" href="#task-3-add-user">Task 3 : Add User</a></li>
@@ -198,6 +207,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#interesting-stuff">Interesting Stuff</a></li>
+<li><a class="reference internal" href="#changelog">Changelog</a></li>
 </ul>
 </li>
 </ul>
@@ -283,6 +293,8 @@ z=                          - If the cursor is on the word ( which is highlighte
 yy                          - Yank or copy current line.
 y$, yny                     - Similar to delete lines.
 p                           - Paste the line in the buffer in to text after the currentline.
+:%!xxd                      - to turn it into a hexeditor.
+:%!xxd -r                   - to go back to normal mode (from hexedit mode)
 </pre></div>
 </div>
 </div>
@@ -552,6 +564,54 @@ systemctl start &lt;service_name&gt;  - Start the service
 </pre></div>
 </div>
 </div></blockquote>
+</div>
+</div>
+<div class="section" id="screen-multiplexer">
+<h3>Screen Multiplexer<a class="headerlink" href="#screen-multiplexer" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="tmux">
+<h4>tmux<a class="headerlink" href="#tmux" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>tmux new -s myname            : start new with session name:
+tmux list-sessions            : show sessions
+tmux ls                       : show sessions
+tmux list-windows             : show windows
+tmux attach-session -t myname : Attach to session named &quot;myname&quot;
+tmux a -t myname              : Attach to session named &quot;myname&quot;
+(Prefix) + d                  : detach
+</pre></div>
+</div>
+<p><strong>Windows (Tabs)</strong></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>(Prefix Key) +
+c  create window
+w  list windows
+n  next window
+p  previous window
+f  find window
+,  name window
+&amp;  kill window
+</pre></div>
+</div>
+<p><strong>tmux.conf</strong></p>
+<div class="highlight-None"><div class="highlight"><pre><span></span># Enable mouse mode (tmux 2.1 and above)
+set -g mouse on
+</pre></div>
+</div>
+<p><strong>Reloading tmux config</strong></p>
+<p>If we have made changes to tmux configuration file in the ~/.tmux.conf file, it shouldn’t be necessary to start the server up again from scratch with kill-server. Instead, we can prompt the current tmux session to reload the configuration with the source-file command.
+This can be done either from within tmux, by pressing Ctrl+B or Prefix key and then : to bring up a command prompt, and typing:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>:source-file ~/.tmux.conf
+</pre></div>
+</div>
+<p>Or simply from a shell:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>$ tmux source-file ~/.tmux.conf
+</pre></div>
+</div>
+<p>This should apply your changes to the running tmux server without affecting the sessions or windows within them.</p>
+<p><strong>Copy Paste</strong></p>
+<p>For copying, Press the Shift key; i.e., Shift-MouseHighlight properly selects text and - still holding down the shift key</p>
+<ul class="simple">
+<li>we can right-click and get the standard bash context menu with Copy, Paste, etc.</li>
+<li>or Ctrl-Shift-C and Ctrl-Shift-V does work to copy and paste text.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -924,7 +984,7 @@ x != y          : Check if x is not the same as y
 <p>Bash performs the expansion by executing command and replacing the command substitution with the standard output of the command, with any trailing newlines deleted.</p>
 </div>
 <div class="section" id="bash-case-modification">
-<h3>Bash Case modification<a class="headerlink" href="#bash-case-modification" title="Permalink to this headline">¶</a></h3>
+<h3>Bash Case Modification<a class="headerlink" href="#bash-case-modification" title="Permalink to this headline">¶</a></h3>
 <p>Taken from <a class="reference external" href="http://wiki.bash-hackers.org/syntax/pe#case_modification">Case Modification</a></p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>${PARAMETER^}
 ${PARAMETER^^}
@@ -937,6 +997,42 @@ ${PARAMETER~~}
 <p>These expansion operators modify the case of the letters in the expanded text.</p>
 <p>The ^ operator modifies the first character to uppercase, the , operator to lowercase. When using the double-form (^^ and ,,), all characters are converted.</p>
 <p>The operators ~ and ~~ reverse the case of the given text (in PARAMETER).~ reverses the case of first letter of words in the variable while ~~ reverses case for all.</p>
+<div class="section" id="example-parameter">
+<h4>Example: Parameter ^<a class="headerlink" href="#example-parameter" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>VAR=&quot;hack the PLANET&quot;
+
+echo ${VAR^}
+Hack the PLANET
+
+echo ${VAR^^}
+HACK THE PLANET
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h4>Example: Parameter ,<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>VAR=&quot;HACK THE PLANET&quot;
+
+echo ${VAR,}
+hACK THE PLANET
+
+echo ${VAR,,}
+hack the planet
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h4>Example: Parameter ~<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>VAR=&quot;hack the PLANET&quot;
+
+echo ${VAR~}
+Hack The pLANET
+
+echo ${VAR~~}
+HACK THE planet
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="bash-programming">
 <h3>Bash Programming<a class="headerlink" href="#bash-programming" title="Permalink to this headline">¶</a></h3>
@@ -1240,8 +1336,8 @@ awk &#39;{print &quot;\&quot;&quot; $1 &quot;\&quot;,\&quot;&quot; $2&quot;\&quo
 </div>
 </div>
 </div>
-<div class="section" id="id1">
-<h3>System administration<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>System administration<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="task-1-login-logout-messages">
 <h4>Task 1 : Login/ Logout Messages<a class="headerlink" href="#task-1-login-logout-messages" title="Permalink to this headline">¶</a></h4>
 <p>Change the messages before login, after login. Remember the escapes sequences used in the /etc/issue. man agetty lists them.</p>
@@ -1301,6 +1397,13 @@ awk &#39;{print &quot;\&quot;&quot; $1 &quot;\&quot;,\&quot;&quot; $2&quot;\&quo
 <ul class="simple">
 <li>Linux Monitoring Tools : Server density has written most comprehensive list of <a class="reference external" href="https://www.serverdensity.com/monitor/linux/how-to/">80 Linux Monitoring Tools</a></li>
 <li>Windows Monitoring Tools : Server density has written similar list for Windows too <a class="reference external" href="https://www.serverdensity.com/monitor/windows/how-to/">60+ Windows Monitoring Tools</a></li>
+</ul>
+</div>
+<div class="section" id="changelog">
+<h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><strong class="first">Added Bash Case Modification Examples and vi-hex editor</strong><span> by </span><em>bitvijays</em></li>
+<li><strong class="first">Merge branch ‘master’ into master</strong><span> by </span><em>Vijay Kumar</em></li>
 </ul>
 <div data-disqus-identifier="The Essentials : Linux Basics" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>

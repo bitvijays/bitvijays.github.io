@@ -391,4 +391,10 @@ PIM is the monitoring and protection of superuser accounts in an organization's 
 
 We hope that the above chain of events helped you to understand the Cybersecurity in an Enterprise, Operations issues and the various security options available. If we have missed anything, please feel free to contribute.
 
+Changelog
+=========
+.. git_changelog::
+  :filename_filter: docs/LFF-ESS-P0A-CyberSecurityEnterprise.rst
+  :hide_date: false
+
 .. disqus::

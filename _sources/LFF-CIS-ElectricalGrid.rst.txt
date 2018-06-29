@@ -4,19 +4,21 @@ Critical Infrastructure Series : Electrical Grid
 
 Hey There! Are you Pentesting a Electrical Grid? or responsible for securing it? or New to the concept of Electrical Grid? Here are the basics which would help you in your journey!
 
-We would cover 
+We will cover 
 
-* Few general concepts about :ref:`electricity`.
-* How the electricity travels from the :ref:`generation-to-consumption`
+
+* General concepts about :ref:`electricity`.
+* How the electricity travels from the :ref:`generation-to-consumption`.
 * General :ref:`scada-architecture` of the Electrical Grid (Transmission/ Distribution/ Customer) Substation.
-* :ref:`metering` : Availability based tariff and Automated Meter Reading
+* :ref:`metering` : Availability Based Tariff and Automated Meter Reading
 * :ref:`international-standards-protocols` used in the Electrical Grid.
 * :ref:`solutions-software` used in the Electrical Grid.
-* :ref:`cybersecurity` : Vulnerabilities and Remediations (how to secure the Electrical Grid).
+* :ref:`cybersecurity` : Vulnerabilities and Remediations (how to secure the Electrical Grid) and basic hygiene required.
 
-.. Note :: By no means, we are Electrical Grid/ SCADA expert. This is just an effort to write down our understanding of Electrical Grid
+.. Note :: By no means, we are Electrical Grid/ SCADA expert. This is just an effort to write down our understanding of Electrical Grid.
 
 .. _electricity:
+
 
 Electricity
 ===========
@@ -43,9 +45,9 @@ Other Facts
 Generation to the Consumption
 =============================
 
-At any rate, the electricity we use is wheeled through overhead cables that are attached to tall support structures called **towers**, which link generating station **switchyards** to power intersections called **source substations**. Power is then routed through **satellite substations** before running along the distribution lines to finally reach our homes. The fascinating thing is that we use electricity as soon as it is generated. The transfer of electricity therefore occurs at breakneck speed. Actually, it moves nearly as fast as light, which rushes along at 300,000 kilometres per second!
+At any rate, the electricity we use is transmitted via overhead cables that are attached to tall support structures called **towers**, which link generating station **switchyards** to power intersections called **source substations**. Power is then routed through **satellite substations** before running along the distribution lines to finally reach our homes. The fascinating thing is that we use electricity as soon as it is generated. The transfer of electricity therefore occurs at breakneck speed. Actually, it moves nearly as fast as light, which rushes along at 300,000 kilometres per second!
 
-Below is the rough diagram visualizing the flow of electricity from the Generation to the Consumption.
+Below is the rough diagram visualizing the flow of electricity from Generation to Consumption.
 
 .. image:: Images/LFF-CIS-ElectricalGrid/Generation2Consumer.png
    :scale: 70 %
@@ -108,7 +110,7 @@ To stabilize power transmission and avoid energy losses, the alternating current
 Tower Wires not straight?
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Wires strung between two transmission towers seem to sag in the middle. This is to allow for wind sheer on the towers without stressing the lines.
+Wires strung between two transmission towers seem to sag in the middle. Tensioning the wires to keep them straight would require much stronger and therefor expensive towers for no benefit and remove any slack to counter contraction and expansion due to hot and cold weather.
 
 Substations
 -----------
@@ -161,7 +163,7 @@ The bay level consists of the IEDs that collect the measurements provided by the
 
 **Station Level**
 
-The station level is where you’ll find SCADA servers and HMIs, as well as the human operators (if needed) who monitor the status of the substation.
+The station level is where we’ll find SCADA servers and HMIs, as well as the human operators (if needed) who monitor the status of the substation.
 
 **Bus**
 
@@ -263,31 +265,26 @@ National Load Dispatch Center (NLDC) coordinates the activities of all RLDCs. NL
 Hierarchical Structure
 ----------------------
 
-SCADA stand SCADA stands for Supervisory Control And Data Acquisition, and is hierarchical in nature having two distinct hierarchies - one at national level other at regional level. At national level, SCADA/EMS system of all RLDCs report to NLDC. Data from each RLDC is transmitted to NLDC in real time on dedicated communication lines.
+SCADA stands for Supervisory Control And Data Acquisition, and is hierarchical in nature having two distinct hierarchies - one at national level other at regional level. At national level, SCADA/ EMS (Energy Monitoring System) system of all RLDCs report to NLDC. Data from each RLDC is transmitted to NLDC in real time on dedicated communication lines.
 
 Hierarchy at Regional Level
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-At regional level RLDC acts as apex body and coordinates the all inter-state activities of SCADA/EMS systems of SLDCs of a region. SCADA systems of all Sub-LDCs of a state reports to the SLDC of that state.
+At regional level RLDC acts as apex body and coordinates the all inter-state activities of SCADA/ EMS systems of SLDCs of a region. SCADA systems of all Sub-LDCs of a state reports to the SLDC of that state.
 
 Functions implemented in SCADA/ EMS at RLDC and SLDC levels
 -----------------------------------------------------------
-Main components of the SCADA system at RLDC and SLDC are SCADA/ EMS server and ICCP server. SCADA/EMS or data server maintain all data acquired from other SLDCs etc an make it available to display and reporting. ICCP (Inter Control-center Communication Protocol) server acts as gateway for transfer of data between SLDCs and between RLDC and SLDCs. SCADA/EMS system at RLDC, SLDC and Sub-LDC are based on distributed architecture and open standards.
+Main components of the SCADA system at RLDC and SLDC are SCADA/ EMS server and ICCP server. SCADA/ EMS or data server maintain all data acquired from other SLDCs etc and make it available to display and reporting. ICCP (Inter Control-center Communication Protocol) server acts as gateway for transfer of data between SLDCs and between RLDC and SLDCs. SCADA/EMS system at RLDC, SLDC and Sub-LDC are based on distributed architecture and open standards.
 
 SCADA Functions
 ^^^^^^^^^^^^^^^
-* Data acquisition from RTUs and storage of data in online database.
-* Processing of data for converting the raw values to engineering values, checking quality, assigning quality flag and checking limit.
+* Data acquisition from RTUs and storage of data in online database; Processing of data for converting the raw values to engineering values, checking quality, assigning quality flag and checking limit; Historical data storage and retrieval.
 * Supervisory control of power system element.
-* Historical data storage and retrieval.
-* Reconstruction and replay of events.
+* Reconstruction and replay of events; Sequence of events recording; Real time and historical trends.
 * Protective and informative tagging of power system device.
-* Load Management.
-* Sequence of events recording.
+* Load Management; State Estimation.
 * Generalized calculation – for adding and removing operator’s defined calculations.
 * Providing user interface to operators.
 * Inter control center communication.
-* Real time and historical trends.
-* State Estimation.
 
 EMS Functions
 ^^^^^^^^^^^^^
@@ -297,11 +294,8 @@ EMS Functions
 * Economic dispatch - helps the dispatcher to determine economic base points for a selected set of units.
 * Reserve monitor – for calculating spinning reserve, operating reserve and regulating reserve.
 * Production costing – calculates the current cost of generating power of online units.
-* Transaction scheduling.
-* Real time network analysis.
-* Real time contingency analysis.
-* Load Forecasting
-* MIS Reporting
+* Real time network analysis; Real time contingency analysis.
+* Load Forecasting; MIS Reporting; Transaction scheduling 
 
 .. _scada-architecture:
 
@@ -383,7 +377,7 @@ For availablity purposes, there are always two SCADA/ EMS server on in the main 
 
 Data reporting to Master station (control centre)
 
-* Through IEC 60870-5-101/60870-5-104 protocol.
+* Through IEC 60870-5-101/ 60870-5-104 protocol.
 * Communication system: PLCC, Fibre optic and GPRS.
 * Collection of data at Master station through Front End server (CFE).
 * Front end processor sends the data to SCADA server.
@@ -443,9 +437,9 @@ Measurement and acquisition of electrical parameters
 
 * Serial communication using
 
- * RS232
- * RS485
- * RS422
+ * RS232 : RS232 defines the voltage for the path used for data exchange between the devices. It specifies common voltage and signal level, common pin wire configuration and minimum, amount of control signals.
+ * RS485 : RS485 is the only of the interfaces capable of internetworking multiple transmitters and receivers in the same network.
+ * RS422 : RS422 is a high speed and/or long distance data transmission. Each signal is carried by a pair of wires and is thus a differential data transmission system.
 
 * Standard protocols
 
@@ -481,25 +475,25 @@ RTUs and PLCs Difference?
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-+----------------------------------------------------------------------------------------------+----------------------------------------------------------+
-|                          RTU                                                                 |                        PLC                               |
-+==============================================================================================+==========================================================+
-| Operates Event-driven                                                                        | Operates cyclical, cycle is performed non-stop           |
-+----------------------------------------------------------------------------------------------+----------------------------------------------------------+
-| Transmit changes only                                                                        | Transmits all information cyclical accr. to program.     |
-+----------------------------------------------------------------------------------------------+----------------------------------------------------------+
-| Transmission path is long -> Slower communication speed                                      | Pre-programmed cycle with predictable cycle time -> fast |
-+----------------------------------------------------------------------------------------------+----------------------------------------------------------+
-| Only requested data is communicated, very efficent                                           | All programmed data will be communicated, less efficient |
-+----------------------------------------------------------------------------------------------+----------------------------------------------------------+
-| Own time-stamping of events, data will be transmitted with timestamp to central control unit | Central control unit does the time stamping              |
-+----------------------------------------------------------------------------------------------+----------------------------------------------------------+
-| Various voltages (24,60,110,125 VDC)                                                         | Mainly 24 VDC process voltage                            |
-+----------------------------------------------------------------------------------------------+----------------------------------------------------------+
-| Not limited to any kind of application                                                       | Mainly for local area control applications               |
-+----------------------------------------------------------------------------------------------+----------------------------------------------------------+
-| Protocols and norms are different                                                            |                                                          |
-+----------------------------------------------------------------------------------------------+----------------------------------------------------------+
++----------------------------------------------------------------------------------------------+----------------------------------------------------------------------------+
+|                          RTU                                                                 |                        PLC                                                 |
++==============================================================================================+============================================================================+
+| Operates Event-driven                                                                        | Operates cyclical, cycle is performed non-stop                             |
++----------------------------------------------------------------------------------------------+----------------------------------------------------------------------------+
+| Transmit changes only                                                                        | Transmits all information cyclical accr. to program.                       |
++----------------------------------------------------------------------------------------------+----------------------------------------------------------------------------+
+| Transmission path is long -> Slower communication speed                                      | Pre-programmed cycle with predictable cycle time -> fast                   |
++----------------------------------------------------------------------------------------------+----------------------------------------------------------------------------+
+| Only requested data is communicated, very efficent                                           | All programmed data will be communicated, less efficient                   |
++----------------------------------------------------------------------------------------------+----------------------------------------------------------------------------+
+| Own time-stamping of events, data will be transmitted with timestamp to central control unit | Central control unit does the time stamping                                |
++----------------------------------------------------------------------------------------------+----------------------------------------------------------------------------+
+| Various voltages (24,60,110,125 VDC)                                                         | Mainly 24 VDC process voltage                                              |
++----------------------------------------------------------------------------------------------+----------------------------------------------------------------------------+
+| Not limited to any kind of application                                                       | Mainly for local area control applications                                 |
++----------------------------------------------------------------------------------------------+----------------------------------------------------------------------------+
+| Protocols and norms are different                                                            |                                                                            |
++----------------------------------------------------------------------------------------------+----------------------------------------------------------------------------+
 
 Field RTU
 ^^^^^^^^^
@@ -574,6 +568,40 @@ Bay controller : A device that controls all devices related to a single bay (tra
 * Relays and Bay controllers are implemented in IEDs Intelligent Electronic Devices
 * The station controller is a Industrial PC/server 
 
+PI Server
+---------
+
+OSISoft has a good video tutorial on `OSISoft: PI Basics <https://www.youtube.com/playlist?list=PLMcG1Hs2JbcsGGJ84BtG2fClp7SF7K9jU>`_ and `Configure PI Server Security <https://www.youtube.com/playlist?list=PLMcG1Hs2JbcvDuN8FhBrfMPDF5Gya5bYt>`_ 
+It is good to know the concept of PI Identities, Mappings and Trusts which are used to tailor PI Server access permissions to different user groups and applications based on roles.
+
+PI Server are mostly present on the IT Network Domain, if we have compromised the Domain Admin of the IT and log-on to the Pi-Server, we would be logged in as a piadmin. Using piadmin, we may possibly figure out the connections happening and 
+the IP Address of the PI Interface Server. 
+
+PI Architecture
+^^^^^^^^^^^^^^^
+
+.. image:: Images/LFF-CIS-ElectricalGrid/PI_System_Architecture.png
+   :scale: 70 %
+   :align: center
+   :alt: PI System Architecture
+
+If the company has multiple PI Servers, there might be Central PI Server which might be concentrating the data from other PI Servers.
+
+.. image:: Images/LFF-CIS-ElectricalGrid/Central_PI.png
+   :scale: 70 %
+   :align: center
+   :alt: Central PI
+
+PI Interface Server
+^^^^^^^^^^^^^^^^^^^
+
+PI Interface Server would possibly be the machine with two network interfaces one belonging to the IT Network and one to the OT Network. PI Interface Server should not be on the IT Domain and there would be a firewall between PI Interface Server
+and the OPC Server (present on the OT Side). This firewall should only allow DCOM traffic.
+
+If the firewall between PI Interface Server and OPC Server (On OT Side) is not configured well, it might be possible to reach to SCADA LAN (Generation/ Transmission/ Distribution).
+
+OPC Client would also be present on PI Interface Server, via which we can read tags values.
+
 ICCP Server
 -----------
 
@@ -593,7 +621,11 @@ Now, as a electricity company, we need to measure
 * How much electricity we are providing to our consumers (Home/ Business)
 * How much electricity we are providing to other electricity companies for distribution.
 
-Availability-based tariff
+and monitor
+
+* Power quality of electricity provided to our customers (specially business customers).
+
+Availability-Based Tariff
 -------------------------
 
 Availability Based Tariff (ABT) is a frequency based pricing mechanism applicable in India for unscheduled electric power transactions. The ABT falls under electricity market mechanisms to charge and 
@@ -606,7 +638,7 @@ Scheduling
 * Each generating station is to make advance declaration of its capacity for generation in terms of MWh delivery ex-bus for each time block of the next day. In addition, the total ex-bus MWh which can actually be delivered during the day will also be declared in case of hydro stations. These shall constitute the basis of generation scheduling.
 * While declaring the capability, the generator should ensure that the capability during peak hours is not less than that during other hours.
 * The Scheduling as referred to above should be in accordance with the operating procedures in force.
-* Based on the above declaration, the Regional Load Dispatch Centre(RLDC) shall communicate to the various beneficiaries their respective shares of the available capability.
+* Based on the above declaration, the Regional Load Dispatch Centre (RLDC) shall communicate to the various beneficiaries their respective shares of the available capability.
 * After the beneficiaries give their requisition for power based on the generation schedules, the RLDC shall prepare the generation schedules and drawal schedules for each time block after taking into account technical limitations and transmission constraints.
 * The schedule of actual generation shall be quantified on ex-bus basis, whereas for beneficiaries, scheduled drawals shall be quantified at their respective receiving points.
 * For calculating the drawal schedule for beneficiaries, the transmission losses shall be apportioned in proportion to their drawals.
@@ -621,17 +653,17 @@ Architecture
    :align: center
    :alt: Generation to the Consumption
 
-Automatic meter reading
+Automatic Meter Reading
 -----------------------
 
-Automatic meter reading, or AMR, is the technology of automatically collecting consumption, diagnostic, and status data from water meter or energy metering devices (gas, electric) and transferring that data to a central database for billing, troubleshooting, and analyzing. 
+Automatic Meter Reading, or AMR, is the technology of automatically collecting consumption, diagnostic, and status data from water meter or energy metering devices (gas, electric) and transferring that data to a central database for billing, troubleshooting, and analyzing. 
 This technology mainly saves utility providers the expense of periodic trips to each physical location to read a meter. Another advantage is that billing can be based on near real-time consumption rather than on estimates based on past or predicted consumption.
 
 
 Both ABT and AMR work on the DLMS/ COSEC Protocol
 
 
-Meter data acquisition system (MDAS) 
+Meter Data Acquisition System (MDAS) 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The main objective of the MDAS is to acquire meter data from meters within the distribution system and consumer meters for:
@@ -651,6 +683,23 @@ Features of MDAS
 * Reading of energy usage parameters including instantaneous load, load survey, event logging, etc.
 * Use of user defined dashboards
 * Reports based on the above mentioned parameters for feeder/ distribution transformer MIS.
+
+Power Quality Monitoring
+------------------------
+
+When a Electrical company is supplying power to different customer, it is important to maintain quality of power provided (such that there are no power supply variations and voltage disturbances). For example, If there's voltage disturbances, 
+the lights flicker at home or it may cause malfunction and early breakdown of expensive equipment for industrial customer. In order to overcome power quality challenges, it is necessary to monitor inputs and disturbances generated by the load.
+
+In electrical networks, voltage sags, swells, flickers, variation in nominal ratings, and distortion due to harmonics—all contain the key information regarding the electrical health of the network.
+
+Modern day power quality devices provide information that will benchmark the overall system performance, assist in preventive maintenance, monitor trends and conditions, assess network performance and sensitivity to process equipment, 
+and improve energy rates. A network of power quality monitors can be installed on supply systems, and their raw measurement data can be aggregated to correlate and help identify sources of disturbances. 
+
+Power Quality Monitoring systems are generally placed in the Distribution Substation at the Bus-Coupler.
+
+From the cybersecurity perspective, as Power Quality Monitors are placed at DSS and their could be multiple DSS, they would be in the SCADA LAN, communicating to the PQM Server (also in the SCADA LAN). However, as the application is used by the 
+electrical engineers (who probably, sits in the IT LAN), there might be a possibility to reach SCADA LAN via PQM client/ server if the firewall rules are not configured properly.
+
 
 .. _international-standards-protocols:
 
@@ -708,7 +757,7 @@ IEC 101/ 104 defines several **modes of direction**:
 * **Control Direction** is a direction of transmission from controlling station, typical a SCADA system to the controlled station, typical an RTU.
 * **Reversed Direction** is a direction when monitored station is sending commands and controlling station is sending data in monitor direction. 
 
-Now, so that the below concepts make sense, it would be a good idea to download sample `IEC60870-5-104 <https://github.com/ITI/ICS-Security-Tools/tree/master/pcaps/IEC60870-5-104>`_ or `IEC104 <https://github.com/automayt/ICS-pcap/blob/master/IEC%2060870/iec104/iec104.pcap>`_ PCAP Files and follow the concepts below:
+.. Note :: Now, so that the below concepts make sense, it would be a good idea to download sample `IEC60870-5-104 <https://github.com/ITI/ICS-Security-Tools/tree/master/pcaps/IEC60870-5-104>`_ or `IEC104 <https://github.com/automayt/ICS-pcap/blob/master/IEC%2060870/iec104/iec104.pcap>`_ PCAP Files and follow the concepts below:
 
 Application Data Objects
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -877,9 +926,9 @@ ICCP
 
 Inter-control Center Communications Protocol, or ICCP, or IEC 60870-6-TASE.2, into the utility infrastructure. The Inter-control Center Communications Protocol (ICCP) was developed to enable data exchange over Wide Area Networks between utility control centers, Independent System operators (ISOs), Regional Transmission Operators (RTOs), and other Generators.
 
-ICCP uses Manufacturing Message Specification (MMS) for the messaging service. ICCP uses MMS objects to define messages and data structures, and all ICCP operations run form these objects. Supported data types include control messages, status, analogs, quality codes, schedules, text and simple files. In addition to data exchange, optional functions include remote control, operator station output, events, and remote program execution. ICCP is a UCA 2.0 standard that specifies point/tag-oriented communications methods for use between control centers. Although ICCP-TASE.2 uses MMS in the application layer, it doesn't use the CASM or GOMSFE object models. Instead, ICCP-TASE.2 treats data as a points list similar to traditional SCADA systems.
+ICCP uses Manufacturing Message Specification (MMS) for the messaging service. ICCP uses MMS objects to define messages and data structures, and all ICCP operations run form these objects. Supported data types include control messages, status, analogs, quality codes, schedules, text and simple files. In addition to data exchange, optional functions include remote control, operator station output, events, and remote program execution.
 
-When two utilities need to exchange a subset of information, they must first generate a bilateral agreement that specifies all the points that each utility is willing to expose to the other, as well as all the points that a utility needs for the other. This list of points must exactly match the two utilities in order for ICCP-TASE.2 data exchange to occur. This bilateral agreement (called a "bilateral table") creates a lock-and-key methodology that allows utilities to carefully control the information they exchange with each other. The contents of the bilateral table are specific to the two parties involved. The ICCP-TASE.2 standards do not specify naming conventions or other data models for the contents of the bilateral table. Therefore, unlike CASM/ GOMSFE, the list of points in the bilateral table represents an agreement between the two parties only and may or may not expose the internal data structures and models that might be used within that utility. For this reason, ICCP-TASE.2 has become the industry standard for inter-utility data exchange of real-time information around the world.
+When two utilities need to exchange a subset of information, they must first generate a bilateral agreement that specifies all the points that each utility is willing to expose to the other, as well as all the points that a utility needs for the other. This list of points must exactly match the two utilities in order for ICCP-TASE.2 data exchange to occur. This bilateral agreement (called a "bilateral table") creates a lock-and-key methodology that allows utilities to carefully control the information they exchange with each other. The contents of the bilateral table are specific to the two parties involved. 
 
 ICCP Conformance Blocks
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -970,8 +1019,7 @@ Manufacturing Message Specification (MMS)
 -----------------------------------------
 
 MMS is an application-layer protocol which specifies services for exchange of real-time data and supervisory control information between networked devices and/or computer applications. It is designed to provide a generic messaging system for communication 
-between heterogeneous industrial devices, and the specification only describes the network-visible aspects of communication. By choosing this strategy, the MMS does not specify the internal workings of an entity, only the communication between a client 
-and a server, allowing vendors full flexibility in their implementation. In order to provide this independence, the
+between heterogeneous industrial devices, and the specification only describes the network-visible aspects of communication.
 
 MMS defines a complete communication mechanism between entities, composed of
 
@@ -983,7 +1031,7 @@ MMS defines a complete communication mechanism between entities, composed of
 MMS composes a model from the definition of objects, services and behavior named the Virtual Manufacturing Device (VMD) Model. The VMD uses an object-oriented approach to represent different physical industrial (real) devices in a generic manner. 
 Some of these objects are variables, variable type definitions, programs, events, historical logs (called journals) and semaphores.
 
-Now, so that the below concepts make sense, it would be a good idea to download sample `MMS Communication <https://github.com/ITI/ICS-Security-Tools/tree/master/pcaps/IEC61850>`_ PCAP Files and follow the concepts below:
+.. Note :: Now, so that the below concepts make sense, it would be a good idea to download sample `MMS Communication <https://github.com/ITI/ICS-Security-Tools/tree/master/pcaps/IEC61850>`_ PCAP Files and follow the concepts below:
 
 The MMS defines the following Protocol Data Unit (PDUs) for a confirmed service exchange:
 
@@ -1034,7 +1082,7 @@ In CASM, opening a breaker using a UCA 2.0-compliant device requires the use of 
 4. The SCADA system sees the permissive in the read response and allows the user to then click on open in his or her SCADA display screen.
 5. The SCADA system then sends an MMS write command to the breaker object, causing it to open.
 
-This is an example of how a relatively high-level operation-the select-before-operate that CASM describes- is mapped onto the simpler read-and-write functions of MMS. CASM specifies this mapping for every function in UCA 2.0. This approach allows CASM to eliminate variances in how the SBO function can be implemented using a given protocol.
+This is an example of how a relatively high-level operation-the select-before-operate that CASM describes- is mapped onto the simpler read-and-write functions of MMS. CASM specifies this mapping for every function in UCA 2.0.
 
 
 GOMSFE
@@ -1483,6 +1531,7 @@ Device supervision via SNMP V3
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Simple Network Management Protocol (SNMP) is one of the most commonly used technologies for network monitoring. By implementing SNMP, devices becomes a managed device that can share:
+
 * Diagnosis information (e.g. CPU load and telegram traffic load)
 * System events (RTU/ IED and sub devices)
 * Configurable Single Indications
@@ -1495,6 +1544,65 @@ Security logging
 Network access control (Authentication)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Devices supports the authentication and authorization in TCP/IP-based networks, according to the standard IEEE 802.1X. With the help of an authentication server, the access rights for the devices can centrally be managed, to ensure only known devices are allowed to communicate.
+
+Basic Hygiene
+-------------
+
+It is important we maintain basic hygiene of the different systems/ areas such as
+
+IT Network
+^^^^^^^^^^
+
+Your IT network should be as strong as possible, as it would be the main gateway to reach SCADA, it is necessary to make sure
+
+* No SMB Null Enumeration is possible, LLMNR/ Netbios is disabled.
+* Security Compliance Toolkit/ Security Compliance Manager is utilized to do the system hardening of the machines (Operating Systems - Windows 7/ 8 / 10).
+* Password Filters are used to not allow users to set easy guessable passwords such as company[AT]123.
+* Utilize Windows Event Forwarding with Project Sauran - Centralized storage of Windows Event.
+* No open shared folder with confidential data are present.
+* Antivirus monitoring with possibly threat hunting.
+* All operating system/ machines present in the IT Network are patched.
+
+Further, there would approx 7-8 gateways to reach SCADA LAN such as ABT, AMR, PQM, OT Antivirus Server, Transmission/ Distribution File/ Web Server (on which probably remote desktop would be required) which means there are possibly 8 paths/ gateways to reach SCADA, it is advisable to have
+
+* One Jump Server with Privileged Identity Management such as Arcos/ CyberArk. 
+* Above machines should only be accessable from that one jump server which would reduce the seven/ eight gateways to reach SCADA to only one gateway.
+* Further, access on the Jump Server can be restricted with PIM.
+
+Transmission/ Distribution
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* If your transmission/ distribution network has implemented a domain controller, it is advisable to check how many users are present in the Domain Administrators groups and no user is having default passwords such as company[AT]123.
+* Also, if the transmission/ distribution team is using any client to connect to the SCADA Server of Tranmission or Distribution and that machine (on which client is installed) is in IT Network, it might be a possible path to reach SCADA LAN. Maintain, a 
+  list of these machines. If possible, provide these clients on separate network/ machines.
+* Please make sure that there are no VNC Server without authentication. If VNC is not required, remove it, if required atleast keep a strong password on it.
+* Antivirus should be present on all the machines in your SCADA LAN. If there are machines on which antivirus can't be installed, keep a list of that.
+* It is utmost important that the machines which has a direct mapping to the IT Network (as mentioned before ABT/ AMR/ Antivirus Server/ Web Server) are patched to the latest and have antivirus.
+
+Customer Substation
+^^^^^^^^^^^^^^^^^^^
+
+* The 3G/ 4G device which is connecting your Customer Substation (FRTU/ RMU) has Wi-Fi disabled, has no default creds (admin/ admin).
+* Also, possibly isolate each 3G/ 4G device, such that if one Customer Substation is compromised (The modem device), the attacker should not be able reach other CSS.
+* If the self-healing grid concept is applied and it is required that FRTU at CSS sites talk to each other, only allow certain ports at the firewall.
+
+
+ABT/ AMR Server
+^^^^^^^^^^^^^^^
+
+* If your ABT/ AMR Server is present in the SCADA LAN, make sure that if the attacker has compromised these server, it is not possible to reach Tranmission/ Distribution from here.
+
+PI Server
+^^^^^^^^^
+
+* Secure your PI-Server by using Pi-Security Guidelines.
+* The firewall between your PI-Interface Server and OPC Server is only allowing DCOM Port.
+
+Vulnerability Feeds
+^^^^^^^^^^^^^^^^^^^
+
+* Maintain the asset inventory as well as the software application inventory for SCADA and whenever a vulnerablity is issued by the OEM, match it with asset register to check if you are affected by it or not.
+
 
 Communication Ports
 -------------------
@@ -1600,6 +1708,7 @@ References
 20. `Smart meter demonstration board with DLMS/COSEM using ST7570 S-FSK modem with STM32™ and SPEAr <http://www.st.com/content/ccc/resource/technical/document/user_manual/37/6f/55/ce/31/88/45/17/DM00051173.pdf/files/DM00051173.pdf/jcr:content/translations/en.DM00051173.pdf>`_
 21. `Meter Data Acquistion System (MDAS) Implementation Challenges in India's R-APDRP <http://securemeters.com/files/7613/7853/6534/MDAS_vivek_pathak.pdf>`_
 22. `Hands-on Control System Cyber Security Training <https://www.smartgrid.gov/files/National_SCADA_Test_Bed_Handson_Control_System_Cyber_Securit_200911.pdf>`_
+23. `The Next Generation of Power Quality Monitoring Technology—Helping Industrial Equipment Stay Healthy <http://www.analog.com/en/technical-articles/the-next-generation-of-power-quality-monitoring-technology.html>`_
 
 ToWrite
 =======
@@ -1691,5 +1800,11 @@ Bus couple, incoming outgoing feeder, outgoing feeder with bus pt , reacter feed
 ABB FOX 515 Differential
 
 G950 SE - Gateway:
+
+Changelog
+=========
+.. git_changelog::
+  :filename_filter: docs/LFF-CIS-ElectricalGrid.rst
+  :hide_date: false
 
 .. disqus::

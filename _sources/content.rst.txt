@@ -18,8 +18,10 @@ The Magic of Learning
    LFF-IPS-P3-Exploitation
    LFF-IPS-P4-PostExploitation
    LFF-IPS-P5-Reporting
+   LFF-IPS-P6-ConfigurationReview
    LFC-VulnerableMachines
    LFC-BinaryExploitation
    LFC-Forensics
+   LFF-CIS-ElectricalGrid
    contrib
    aboutme

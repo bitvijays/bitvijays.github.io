@@ -66,6 +66,8 @@ Two modes - Command and Insert Mode. All commands below are in command mode.
   yy                          - Yank or copy current line.
   y$, yny                     - Similar to delete lines.
   p                           - Paste the line in the buffer in to text after the currentline.
+  :%!xxd                      - to turn it into a hexeditor. 
+  :%!xxd -r                   - to go back to normal mode (from hexedit mode)
 
 Vi Configuration Files
 ----------------------
@@ -279,7 +281,7 @@ Kernel Modules
 Kernel modules are contained in /lib/modules/$(uname -r)/
 
 :: 
-
+ 
   lsmod      : list all loaded modules
   modprobe   : load kernel modules
   lspci      : list all pci devices
@@ -308,6 +310,67 @@ Debian GNU provides a convenient tool to manage runlevels (to control when servi
    
    systemctl status <service_name> - Status of the service.
    systemctl start <service_name>  - Start the service
+
+Screen Multiplexer
+------------------
+
+tmux
+^^^^
+
+::
+
+ tmux new -s myname            : start new with session name:
+ tmux list-sessions            : show sessions
+ tmux ls                       : show sessions
+ tmux list-windows             : show windows
+ tmux attach-session -t myname : Attach to session named "myname"
+ tmux a -t myname              : Attach to session named "myname"
+ (Prefix) + d                  : detach
+
+**Windows (Tabs)**
+
+::
+
+ (Prefix Key) + 
+ c  create window
+ w  list windows
+ n  next window
+ p  previous window
+ f  find window
+ ,  name window
+ &  kill window
+
+
+**tmux.conf**
+
+::
+
+ # Enable mouse mode (tmux 2.1 and above)
+ set -g mouse on
+
+**Reloading tmux config**
+
+If we have made changes to tmux configuration file in the ~/.tmux.conf file, it shouldn’t be necessary to start the server up again from scratch with kill-server. Instead, we can prompt the current tmux session to reload the configuration with the source-file command.
+This can be done either from within tmux, by pressing Ctrl+B or Prefix key and then : to bring up a command prompt, and typing:
+
+::
+
+ :source-file ~/.tmux.conf
+
+Or simply from a shell:
+
+::
+
+ $ tmux source-file ~/.tmux.conf
+
+This should apply your changes to the running tmux server without affecting the sessions or windows within them.
+
+**Copy Paste**
+
+For copying, Press the Shift key; i.e., Shift-MouseHighlight properly selects text and - still holding down the shift key 
+
+* we can right-click and get the standard bash context menu with Copy, Paste, etc.
+* or Ctrl-Shift-C and Ctrl-Shift-V does work to copy and paste text.
 
 Programming
 ===========
@@ -702,7 +765,7 @@ or
 
 Bash performs the expansion by executing command and replacing the command substitution with the standard output of the command, with any trailing newlines deleted.
 
-Bash Case modification
+Bash Case Modification
 ----------------------
 
 Taken from `Case Modification <http://wiki.bash-hackers.org/syntax/pe#case_modification>`_
@@ -721,6 +784,45 @@ These expansion operators modify the case of the letters in the expanded text.
 The ^ operator modifies the first character to uppercase, the , operator to lowercase. When using the double-form (^^ and ,,), all characters are converted.
 
 The operators ~ and ~~ reverse the case of the given text (in PARAMETER).~ reverses the case of first letter of words in the variable while ~~ reverses case for all.
+
+Example: Parameter ^
+^^^^^^^^^^^^^^^^^^^^
+
+::
+
+ VAR="hack the PLANET"
+
+ echo ${VAR^}
+ Hack the PLANET
+
+ echo ${VAR^^}
+ HACK THE PLANET
+
+Example: Parameter ,
+^^^^^^^^^^^^^^^^^^^^
+
+::
+
+ VAR="HACK THE PLANET"
+
+ echo ${VAR,}
+ hACK THE PLANET
+
+ echo ${VAR,,}
+ hack the planet
+
+Example: Parameter ~
+^^^^^^^^^^^^^^^^^^^^
+
+::
+
+ VAR="hack the PLANET"
+
+ echo ${VAR~}
+ Hack The pLANET
+
+ echo ${VAR~~}
+ HACK THE planet
 
 Bash Programming
 ----------------
@@ -1129,5 +1231,12 @@ Interesting Stuff
 * Linux Monitoring Tools : Server density has written most comprehensive list of `80 Linux Monitoring Tools <https://www.serverdensity.com/monitor/linux/how-to/>`_
 
 * Windows Monitoring Tools : Server density has written similar list for Windows too `60+ Windows Monitoring Tools <https://www.serverdensity.com/monitor/windows/how-to/>`_
+
+Changelog
+=========
+.. git_changelog::
+  :filename_filter: docs/LFF-ESS-P0B-LinuxEssentials.rst
+  :hide_date: false
+
 
 .. disqus::

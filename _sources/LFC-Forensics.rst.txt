@@ -484,3 +484,11 @@ Python
 * `Unicode <http://www.utf8-chartable.de/unicode-utf8-table.pl?start=917376&number=1024>`_ 
 
 * In a TCP Dump, you see a telnet session entering login username and password and those creds are not valid. Maybe check the value in HEX. If it contains 0x7F, that's backspace.
+
+Changelog
+=========
+.. git_changelog::
+  :filename_filter: docs/LFC-Forensics.rst
+  :hide_date: false
+
+.. disqus::

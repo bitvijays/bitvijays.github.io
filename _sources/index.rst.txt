@@ -39,6 +39,7 @@ The Infrastructure Pentest Series cover all the phases of Infrastructure Pentest
 - :doc:`Exploitation <LFF-IPS-P3-Exploitation>`                    : Enumeration methods that can be used after compromising a domain user credentials and Remote code execution methods after compromising administrative credentials.
 - :doc:`Post Exploitation <LFF-IPS-P4-PostExploitation>`           : Different methods to gather credentials after getting an administrative remote shell. Also, performing post-exploitation to leave high-impact to C-Level executives is also covered in this section.
 - :doc:`Reporting <LFF-IPS-P5-Reporting>`                          : Open-source ways to automate report writing after a successfull Pentest.
+- :doc:`Configuration Review <LFF-IPS-P6-ConfigurationReview>`     : Methods to perform configuration review for the switches, routers, firewall and endpoint devices.
 
 
 #######################

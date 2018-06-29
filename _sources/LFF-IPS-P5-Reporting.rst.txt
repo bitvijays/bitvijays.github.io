@@ -37,4 +37,10 @@ Salesforce Vulnreport
 
 `SalesForce Vulnreport <https://github.com/salesforce/vulnreport>`_ : Vulnreport is a platform for managing penetration tests and generating well-formatted, actionable findings reports without the normal overhead that takes up security engineer's time. The platform is built to support automation at every stage of the process and allow customization for whatever other systems you use as part of your pentesting process.
 
+Changelog
+=========
+.. git_changelog::
+  :filename_filter: docs/LFF-IPS-P5-Reporting.rst
+  :hide_date: false
+
 .. disqus::

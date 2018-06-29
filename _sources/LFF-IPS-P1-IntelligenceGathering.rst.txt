@@ -772,6 +772,12 @@ At this point, it's good to find what are the most common ports open in the scan
 
   grep "^[0-9]\+" <nmap file .nmap extension> | grep "\ open\ " | sort | uniq -c | sort -rn | awk '{print "\""$1"\",\""$2"\",\""$3"\",\""$4"\",\""$5" "$6" "$7" "$8" "$9" "$10" "$11" "$12" "$13"\""}' > test.csv
 
+or 
+
+::
+
+ xmlstarlet sel -t -m '//port/state[@state="open"]/parent::port' -v 'ancestor::host/address/@addr' -o : -v './@portid' -n nmap-output.xml
+
 Exploring the Network Further
 ------------------------------
 
@@ -927,5 +933,12 @@ Summary:
  * These malicious .jar files were used in a successful social engineering campaign against the client.
 
 .. Todo:: A lot of tools are being mentioned in this blog article. It might therefore be interesting to give a run down. Which might be highly situationals
+
+Changelog
+=========
+.. git_changelog::
+  :filename_filter: docs/LFF-IPS-P1-IntelligenceGathering.rst
+  :hide_date: false
+
 
 .. disqus::

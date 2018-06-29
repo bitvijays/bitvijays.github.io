@@ -141,6 +141,7 @@
 <li><a class="reference internal" href="#initial-compromise">Initial Compromise</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#changelog">Changelog</a></li>
 </ul>
 </li>
 </ul>
@@ -915,6 +916,10 @@ Host is up, received echo-reply (0.073s latency).
 <div class="highlight-None"><div class="highlight"><pre><span></span>grep &quot;^[0-9]\+&quot; &lt;nmap file .nmap extension&gt; | grep &quot;\ open\ &quot; | sort | uniq -c | sort -rn | awk &#39;{print &quot;\&quot;&quot;$1&quot;\&quot;,\&quot;&quot;$2&quot;\&quot;,\&quot;&quot;$3&quot;\&quot;,\&quot;&quot;$4&quot;\&quot;,\&quot;&quot;$5&quot; &quot;$6&quot; &quot;$7&quot; &quot;$8&quot; &quot;$9&quot; &quot;$10&quot; &quot;$11&quot; &quot;$12&quot; &quot;$13&quot;\&quot;&quot;}&#39; &gt; test.csv
 </pre></div>
 </div>
+<p>or</p>
+<div class="highlight-None"><div class="highlight"><pre><span></span>xmlstarlet sel -t -m &#39;//port/state[@state=&quot;open&quot;]/parent::port&#39; -v &#39;ancestor::host/address/@addr&#39; -o : -v &#39;./@portid&#39; -n nmap-output.xml
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="exploring-the-network-further">
@@ -1078,8 +1083,15 @@ snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  &lt;MIB Tree Number&gt; : Enume
 <p class="first admonition-title">Todo</p>
 <p class="last">A lot of tools are being mentioned in this blog article. It might therefore be interesting to give a run down. Which might be highly situationals</p>
 </div>
-<div data-disqus-identifier="Infrastructure PenTest Series : Part 1 - Intelligence Gathering" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>
+</div>
+<div class="section" id="changelog">
+<h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><strong class="first">Added Open-Ports via XML</strong><span> by </span><em>bitvijays</em></li>
+<li><strong class="first">Merge branch ‘master’ into master</strong><span> by </span><em>Vijay Kumar</em></li>
+</ul>
+<div data-disqus-identifier="Infrastructure PenTest Series : Part 1 - Intelligence Gathering" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>
 
 
