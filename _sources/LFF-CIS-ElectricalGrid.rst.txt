@@ -1805,6 +1805,5 @@ Changelog
 =========
 .. git_changelog::
   :filename_filter: docs/LFF-CIS-ElectricalGrid.rst
-  :hide_date: false
 
 .. disqus::
