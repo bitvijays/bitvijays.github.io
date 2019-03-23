@@ -47,11 +47,11 @@ Two modes - Command and Insert Mode. All commands below are in command mode.
   O                           - Insert a new line above the cursor
   x                           - Delete the character
   r                           - replace the character with the next key pressed.
-  dw			      - Delete the current word.
+  dw                          - Delete the current word.
   dd                          - Delete the current line. 
   d$                          - Delete the text from where your cursor is to the end of the line.
   dnd                         - Delete n lines.
-  . 			      - Repeat the last command
+  .                           - Repeat the last command
   :q                          - Quit.
   :wq                         - Save and close.
   :syntax on                  - Turn on Syntax highlighting for C programming and other languages.
@@ -62,6 +62,7 @@ Two modes - Command and Insert Mode. All commands below are in command mode.
   :set nospell                - Turn spell checking off
   :set list                   - If 'list' is on, whitespace characters are made visible. The default displays "^I" for each tab, and "$" at each EOL (end of line, so trailing whitespace can be seen)
   :u                          - Undo one change.
+  :!{cmd}                     - Run the command without exiting the vim. {cmd} can be whoami without external brackets.
   z=                          - If the cursor is on the word ( which is highlighted with spell check), Vim will suggest a list of alternatives that it thinks may be correct.
   yy                          - Yank or copy current line.
   y$, yny                     - Similar to delete lines.
@@ -109,11 +110,54 @@ Other Info
 * `Vim Awesome <https://vimawesome.com/>`_ provides Awesome VIM plugins from across the universe. Few good one are
 
  * The NERD tree : Tree explorer plugin for vim
+
+  ::
+
+     :NERDTreeToggle : Toggle the NERD Tree
+     :NERDTreeFocus  : Set the focus to NerdTree
+
  * Syntastic     : Syntax checking hacks for vim
+
+  ::
+
+   SyntasticCheck - Check for the possible syntax issues
+
  * Youcompleteme : Code-completion engine for Vim
+ * `fzf <https://github.com/junegunn/fzf.vim>`_ :  Bundle of fzf-based commands and mappings
+
+  ::
+
+   GFiles [OPTS] :    Git files (git ls-files)
+   GFiles?       :    Git files (git status)
+   History       :    v:oldfiles and open buffers
+   History:      :    Command history
+   History/      :    Search history
+   Snippets      :    Snippets (UltiSnips)
+   Commits       :    Git commits (requires fugitive.vim)
+   BCommits      :    Git commits for the current buffer
+   Commands      :    Commands
+
+ * `UltiSnips <https://github.com/SirVer/ultisnips>`_ The ultimate snippet solution for Vim
+ * `Tabular <https://github.com/godlygeek/tabular>`_ : Vim script for text filtering and alignment
+
+   ::
+
+    Select the text which you want to align in the visual mode (Do make sure that cursor is also at the same position as visual)
+    :Tabularize /{pattern to be aligned}
 
 
-Bash configuration files - For Debian/Ubuntu based Systems 
+
+
+* Utilize `Vundle, the plug-in manager for Vim <http://github.com/VundleVim/Vundle.Vim>`_
+
+ ::
+
+  :PluginList       - lists configured plugins
+  :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+  :PluginSearch foo - searches for foo; append `!` to refresh local cache
+  :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+
+Bash configuration files - For Debian/Ubuntu based Systems
 ==========================================================
 
 Important Files
@@ -181,19 +225,19 @@ Adding/Deleting/Modifying Users/Groups
    --disabled-login  : Do not run passwd to set the password.
   deluser <username> : Delete a user.
    --remove-home     : Remove the home directory of the user and its mailspool.
-   --remove-all-files: Remove all files from the system owned by this user. 
+   --remove-all-files: Remove all files from the system owned by this user.
    --backup          : Backup all files contained in the userhome and the mailspool-file to a file named /$user.tar.bz2 or /$user.tar.gz.
   usermod            : Modify a user account.
    -e EXPIREDATE     : The date on which the user account will be disabled. The date is specified in the format YYYY-MM-DD.
    -L, --lock        : Lock a user's password.
-   -U, --unlock      : Unlock a user's password  
+   -U, --unlock      : Unlock a user's password
   groupadd           : Create a new group.
   groupdel           : Delete a group.
   groupmod           : Modify a group definition on the system.
 
 Changing Group/Owner/Permission
 -------------------------------
-    
+
 ::
 
   chown              : Change file owner and group.
@@ -235,7 +279,6 @@ Linux Directories
   /usr/share/doc, /usr/share/man    : complete system documentation.
   /dev                              : system device files. In Unix, hardware devices are represented as files.
   /proc                             : "virtual" directory containing files through which you can query or tune Linux kernel settings.
-      
 
 Runlevels and Kernel Configurations
 -----------------------------------
@@ -249,7 +292,7 @@ Linux Boot Process
   2. Boot loader loads the kernel into memory.
   3. The Kernel mounts disks/partitions and starts the init daemon. 
   4. The init daemon starts services based on the runlevel.
-          
+
 Linux has six runlevels 0-6. Scripts are contained in /etc/rc[0-6,S].d/. Each folder contains the scripts which are followed by either K or S. If the first letter is K that script is not executed. If S, that script is executed. /etc/inittab contains the default run level.
 
 ====   ========================================================   =============================================================================
@@ -291,22 +334,22 @@ Kernel modules are contained in /lib/modules/$(uname -r)/
 Manage Runlevels
 ^^^^^^^^^^^^^^^^
 
-Debian GNU provides a convenient tool to manage runlevels (to control when services are started and shut down); 
-   
+Debian GNU provides a convenient tool to manage runlevels (to control when services are started and shut down);
+
 * update-rc.d and there are two commonly used invocation methods:
 
  :: 
 
    update-rc.d -f <service name> remove : Disabling a service.
    update-rc.d <service name> defaults  : Insert links using defaults, start in runlevel 2-5 and stop in runlevels 0,1 and 6.
- 
+
 * Systemctl : Control the systemd system and service manager. systemctl may be used to introspect and control the state of the "systemd" system and service manager.
 
  :: 
 
    systemctl : Present a detailed output about the different services running.
 
-   e.g. 
+   e.g.
    
    systemctl status <service_name> - Status of the service.
    systemctl start <service_name>  - Start the service
@@ -339,6 +382,10 @@ tmux
  f  find window
  ,  name window
  &  kill window
+ "  split pane horizontally.
+ %  split pane vertically.
+ arrow key — switch pane.
+ Hold Ctrl+b, don’t release it and hold one of the arrow keys — resize pane.
 
 
 **tmux.conf**
@@ -367,10 +414,47 @@ This should apply your changes to the running tmux server without affecting the 
 
 **Copy Paste**
 
-For copying, Press the Shift key; i.e., Shift-MouseHighlight properly selects text and - still holding down the shift key 
+For copying, Press the Shift key; i.e., Shift-MouseHighlight properly selects text and - still holding down the shift key
 
 * we can right-click and get the standard bash context menu with Copy, Paste, etc.
 * or Ctrl-Shift-C and Ctrl-Shift-V does work to copy and paste text.
+
+File System Superblock
+----------------------
+
+Superblock is stores the metadata of the file system such as
+
+* Blocks in the file system
+* No of free blocks in the file system
+* Inodes per block group
+* Blocks per block group
+* No of times the file system was mounted since last fsck.
+* Mount time
+* UUID of the file system
+* Write time
+* File System State (ie: was it cleanly unounted, errors detected etc)
+* The file system type etc(ie: whether its ext2,3 or 4).
+* The operating system in which the file system was formatted
+
+View superblock information
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+ dumpe2fs -h /dev/sda4
+ dumpe2fs 1.42.9 (4-Feb-2014)
+ Filesystem volume name:   cloudimg-rootfs
+ Last mounted on:          /
+ Filesystem UUID:          f75f9307-27dc-xxxx-87b7-xxxxxxxxx
+ Filesystem magic number:  0xEF53
+ Filesystem revision #:    1 (dynamic)
+ Filesystem features:      has_journal ext_attr resize_inode dir_index filetype needs_recovery extent flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize
+ Filesystem flags:         signed_directory_hash
+ Default mount options:    (none)
+ Filesystem state:         clean
+ Errors behavior:          Continue
+ Filesystem OS type:       Linux
+ .....sniped.......
 
 Programming
 ===========
@@ -382,6 +466,25 @@ Version Control System, really useful for tracking your changes.
  
 .. Todo :: 
       `try.github.com <https://try.github.com>`_ 15 mins tutorial.
+
+
+Command-line substitute for gitk
+
+::
+
+ git log --graph --abbrev-commit --pretty=oneline --decorate
+
+List all commits for a specific file
+
+::
+
+ git log --follow -- filename
+
+See the changes in a Git commit?
+
+::
+
+ git show <COMMIT>
 
 cc - GNU Compile Collection
 ---------------------------
@@ -415,7 +518,7 @@ From Files
 
 ::
         
-  /etc/issue     : Contains the message which is displayed on terminal before login. 
+  /etc/issue     : Contains the message which is displayed on terminal before login.
   /etc/motd      : Contains the message which is displayed on terminal after login.
   /proc/cpuinfo  : provides information about CPU.
   /proc/meminfo  : provides information about memory/ RAM.
@@ -445,7 +548,7 @@ Grep - Global Regular Expression Print
 
 Two ways to provide input to Grep:
 
-* search a given file or files on a system (including a recursive search through sub-folders). 
+* search a given file or files on a system (including a recursive search through sub-folders).
 
  :: 
 
@@ -464,13 +567,13 @@ Syntax
 
  grep [options] [regexp] [filename]
 
-    -i, --ignore-case     : 'it DoesNt MatTTer WhaT thE CAse Is'
-    -v, --invert-match    : 'everything , BUT that text'
-    -A <NUM>              : Print NUM lines of trailing context after matching lines.
-    -B <NUM>              : Print NUM lines of trailing context before matching lines.
-    -C <NUM>              : Print additional (leading and trailing) context lines before and after the match.
-    -a, --text            : Process a binary file as if it were text; this is equivalent to the --binary-files=text option.
-    -w                    : Whole-word search
+    -i, --ignore-case        : 'it DoesNt MatTTer WhaT thE CAse Is'
+    -v, --invert-match       : 'everything , BUT that text'
+    -A <NUM>                 : Print NUM lines of trailing context after matching lines.
+    -B <NUM>                 : Print NUM lines of trailing context before matching lines.
+    -C <NUM>                 : Print additional (leading and trailing) context lines before and after the match.
+    -a, --text               : Process a binary file as if it were text; this is equivalent to the --binary-files=text option.
+    -w                       : Whole-word search
     -L --files-without-match : which outputs the names of files that do NOT contain matches for your search pattern.
     -l --files-with-matches  : which prints out (only) the names of files that do contain matches for your search pattern.
 
@@ -500,7 +603,31 @@ A regular expression may be followed by one of several repetition operators:
 * ? means that the preceding item is optional, and if found, will be matched at the most, once.
 * \* means that the preceding item will be matched zero or more times.
 * \+ means the preceding item will be matched one or more times.
-* {n} means the preceding item is matched exactly n times, while {n,} means the item is matched n or more times. {n,m} means that the preceding item is matched at least n times, but not more than m times. {,m} means that the preceding item is matched, at the most, m times.
+* Matching with times
+
+ * {n} means the preceding item is matched exactly n times, 
+ * {n,} means the item is matched n or more times. 
+ * {n,m} means that the preceding item is matched at least n times, but not more than m times. 
+ * {,m} means that the preceding item is matched, at the most, m times.
+
+
+**grep -e / grep -E**
+
+::
+
+  Matcher Selection
+   -E, --extended-regexp        :  Interpret PATTERN as an extended regular expression.
+
+  Matching Control
+   -e PATTERN, --regexp=PATTERN :  Use  PATTERN  as the pattern.  If this option is used multiple times or is combined with the -f (--file) option, search for all patterns given.  This option can be used to protect a pattern beginning with “-”.
+
+Example:
+
+::
+
+ grep -E '^[0-9a-zA-Z]{30,}'
+
+Grep anything which is starting with string containing characters from 0-9,a-z or A-Z and has matched 30 or more times
 
 Search a specific string
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -895,6 +1022,30 @@ Sample Output with ${interfaces}:
     eth0
     wlan0
 
+Virtualization?
+===============
+
+Docker
+------
+
+# Stop all containers
+
+::
+
+ docker stop $(docker ps -a -q)
+
+# Delete all containers
+
+::
+
+ docker rm $(docker ps -a -q)
+
+# Delete all images
+
+::
+
+ docker rmi $(docker images -q)
+
 Important Definitions
 =====================
 
@@ -1118,9 +1269,9 @@ Window
 
 ::
 
- WinKey + H : Minimize/ Hide the Window
- WinKey + Up Arrow Key : Maximize the current windows
- WinKey + Down Arrow Key : Return to original 
+ WinKey + H              : Minimize/ Hide the Window
+ WinKey + Up Arrow Key   : Maximize the current windows
+ WinKey + Down Arrow Key : Return to original
 
 Searching History
 -----------------

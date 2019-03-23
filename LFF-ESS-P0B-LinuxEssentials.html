@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -19,16 +20,7 @@
     <title>The Essentials : Linux Basics &#8212; tech.bitvijays.com</title>
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -39,8 +31,7 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -93,6 +84,10 @@
 </li>
 <li><a class="reference internal" href="#screen-multiplexer">Screen Multiplexer</a><ul>
 <li><a class="reference internal" href="#tmux">tmux</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#file-system-superblock">File System Superblock</a><ul>
+<li><a class="reference internal" href="#view-superblock-information">View superblock information</a></li>
 </ul>
 </li>
 </ul>
@@ -149,6 +144,10 @@
 <li><a class="reference internal" href="#bash-loop-thru-array-of-strings">Bash loop thru array of strings</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a class="reference internal" href="#virtualization">Virtualization?</a><ul>
+<li><a class="reference internal" href="#docker">Docker</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#important-definitions">Important Definitions</a><ul>
@@ -223,12 +222,14 @@
   </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -246,14 +247,14 @@
 <h2>Vi : Powerful Editor<a class="headerlink" href="#vi-powerful-editor" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="open-file-with-vi">
 <h3>Open file with vi<a class="headerlink" href="#open-file-with-vi" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>vi &lt;filename&gt;               - Open a file to edit in Vi editor.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>vi &lt;filename&gt;               - Open a file to edit in Vi editor.
 </pre></div>
 </div>
 </div>
 <div class="section" id="vi-modes">
 <h3>Vi Modes<a class="headerlink" href="#vi-modes" title="Permalink to this headline">¶</a></h3>
 <p>Two modes - Command and Insert Mode. All commands below are in command mode.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>h,l,j,k                     - Move left, right, down, up
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>h,l,j,k                     - Move left, right, down, up
 w                           - Move to the start of the next word.
 e                           - Move to the end of the word.
 b                           - Move to the beginning of the word.
@@ -289,6 +290,7 @@ dnd                         - Delete n lines.
 :set nospell                - Turn spell checking off
 :set list                   - If &#39;list&#39; is on, whitespace characters are made visible. The default displays &quot;^I&quot; for each tab, and &quot;$&quot; at each EOL (end of line, so trailing whitespace can be seen)
 :u                          - Undo one change.
+:!{cmd}                     - Run the command without exiting the vim. {cmd} can be whoami without external brackets.
 z=                          - If the cursor is on the word ( which is highlighted with spell check), Vim will suggest a list of alternatives that it thinks may be correct.
 yy                          - Yank or copy current line.
 y$, yny                     - Similar to delete lines.
@@ -304,7 +306,7 @@ p                           - Paste the line in the buffer in to text after the 
 <div class="section" id="vimrc">
 <h4>.vimrc<a class="headerlink" href="#vimrc" title="Permalink to this headline">¶</a></h4>
 <p>Contains optional runtime configuration settings to initialize Vim when it starts. Example: If you want Vim to have syntax on and line numbers on, whenever you open vi, enter syntax on and set number in this file.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>##Sample contents of .vimrc
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>##Sample contents of .vimrc
 
 syntax on
 set number
@@ -323,7 +325,7 @@ set number
 </div>
 <div class="section" id="replace-text-in-vi">
 <h3>Replace text in Vi<a class="headerlink" href="#replace-text-in-vi" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>:s/test/learn     - would replace test to learn in current line but only first instance.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>:s/test/learn     - would replace test to learn in current line but only first instance.
 :s/test/learn/g   - would replace test to learn in current line all the instance.
 :s/test/learn/gi  - would replace test (all cases) to learn in current line all the instance.
 :%s/test/learn/gi - would replace test to learn in the file (all lines)
@@ -337,9 +339,59 @@ set number
 <blockquote>
 <div><ul class="simple">
 <li>The NERD tree : Tree explorer plugin for vim</li>
-<li>Syntastic     : Syntax checking hacks for vim</li>
-<li>Youcompleteme : Code-completion engine for Vim</li>
 </ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>:NERDTreeToggle : Toggle the NERD Tree
+:NERDTreeFocus  : Set the focus to NerdTree
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Syntastic     : Syntax checking hacks for vim</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>SyntasticCheck - Check for the possible syntax issues
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Youcompleteme : Code-completion engine for Vim</li>
+<li><a class="reference external" href="https://github.com/junegunn/fzf.vim">fzf</a> :  Bundle of fzf-based commands and mappings</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>GFiles [OPTS] :    Git files (git ls-files)
+GFiles?       :    Git files (git status)
+History       :    v:oldfiles and open buffers
+History:      :    Command history
+History/      :    Search history
+Snippets      :    Snippets (UltiSnips)
+Commits       :    Git commits (requires fugitive.vim)
+BCommits      :    Git commits for the current buffer
+Commands      :    Commands
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first"><a class="reference external" href="https://github.com/SirVer/ultisnips">UltiSnips</a> The ultimate snippet solution for Vim</p>
+</li>
+<li><p class="first"><a class="reference external" href="https://github.com/godlygeek/tabular">Tabular</a> : Vim script for text filtering and alignment</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Select the text which you want to align in the visual mode (Do make sure that cursor is also at the same position as visual)
+:Tabularize /{pattern to be aligned}
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Utilize <a class="reference external" href="http://github.com/VundleVim/Vundle.Vim">Vundle, the plug-in manager for Vim</a></li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>:PluginList       - lists configured plugins
+:PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+:PluginSearch foo - searches for foo; append `!` to refresh local cache
+:PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+</pre></div>
+</div>
 </div></blockquote>
 </div>
 </div>
@@ -372,7 +424,7 @@ set number
 <h3>Updating Debian Linux System<a class="headerlink" href="#updating-debian-linux-system" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="using-apt-get">
 <h4>Using apt-get<a class="headerlink" href="#using-apt-get" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>apt-get update                 - Sync with Repositories.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>apt-get update                 - Sync with Repositories.
 apt-get upgrade                - Upgrade installed packages.
 apt-get dist-upgrade           - Upgrade distribution packages.
 apt-get install &quot;Package Name&quot; - Install the package.
@@ -389,7 +441,7 @@ apt-cache search &quot;Keywords&quot;    - Search package name based on keywords
 </div>
 <div class="section" id="using-debian-package-manager-dpkg">
 <h4>Using Debian Package Manager dpkg<a class="headerlink" href="#using-debian-package-manager-dpkg" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>dpkg -i &lt;Package&gt;.deb          - Install package.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>dpkg -i &lt;Package&gt;.deb          - Install package.
 dpkg -r &lt;Package&gt;              - Removes everything except configuration files.
 dpkg -P &lt;Package&gt;              - Removes configurations files too.
 dpkg -l                        - Shows the list of all installed packages.
@@ -401,7 +453,7 @@ dpkg -S &quot;File path&quot;            - Shows the package to which a file bel
 </div>
 <div class="section" id="adding-deleting-modifying-users-groups">
 <h3>Adding/Deleting/Modifying Users/Groups<a class="headerlink" href="#adding-deleting-modifying-users-groups" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>adduser &lt;username&gt; : Add a user.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>adduser &lt;username&gt; : Add a user.
  --gecos GECOS     : adduser won&#39;t ask for finger information.
  --system          : Create a system user.
  --quiet           : Suppress informational messages, only show warnings and errors.
@@ -422,7 +474,7 @@ groupmod           : Modify a group definition on the system.
 </div>
 <div class="section" id="changing-group-owner-permission">
 <h3>Changing Group/Owner/Permission<a class="headerlink" href="#changing-group-owner-permission" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>chown              : Change file owner and group.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>chown              : Change file owner and group.
  -reference=RFILE  : use RFILE&#39;s owner and group rather than specifying OWNER:GROUP values.
  -R, --recursive   : operate on files and directories recursively.
 chmod              : change file mode bits.
@@ -435,21 +487,21 @@ SUID bit           : SetUID bit specifies that an executable should run as its o
 </div>
 <div class="section" id="mounting-unmounting">
 <h3>Mounting/ Unmounting<a class="headerlink" href="#mounting-unmounting" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>mount &lt;device&gt; &lt;dir&gt; : Mount a filesystem.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>mount &lt;device&gt; &lt;dir&gt; : Mount a filesystem.
    -r, --read-only   : Mount the filesystem read-only.
 unmount {dir|device} : Unmount file systems.
 </pre></div>
 </div>
 <div class="section" id="mounting-windows-share-on-linux">
 <h4>Mounting Windows share on Linux<a class="headerlink" href="#mounting-windows-share-on-linux" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>mount -t cifs -o username=&lt;share user&gt;,password=&lt;share password&gt;,domain=example.com //WIN_PC_IP/&lt;share name&gt; /mnt
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>mount -t cifs -o username=&lt;share user&gt;,password=&lt;share password&gt;,domain=example.com //WIN_PC_IP/&lt;share name&gt; /mnt
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="linux-directories">
 <h3>Linux Directories<a class="headerlink" href="#linux-directories" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>/home                             : users home directories.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>/home                             : users home directories.
 /etc                              : system-wide configuration files.
 /bin, /usr/bin, /usr/local/bin    : directories with executable files.
 /lib, /usr/lib, /usr/local/lib    : shared libraries needed to upport the applications.
@@ -465,7 +517,7 @@ unmount {dir|device} : Unmount file systems.
 <h3>Runlevels and Kernel Configurations<a class="headerlink" href="#runlevels-and-kernel-configurations" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="linux-boot-process">
 <h4>Linux Boot Process<a class="headerlink" href="#linux-boot-process" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>1. BIOS start the boot loader.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>1. BIOS start the boot loader.
 2. Boot loader loads the kernel into memory.
 3. The Kernel mounts disks/partitions and starts the init daemon.
 4. The init daemon starts services based on the runlevel.
@@ -518,7 +570,7 @@ unmount {dir|device} : Unmount file systems.
 </div>
 <div class="section" id="sysctl-configure-kernel-parameters">
 <h4>Sysctl - configure kernel parameters<a class="headerlink" href="#sysctl-configure-kernel-parameters" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>/etc/sysctl.conf                : Contains the variables for kernel parameters.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>/etc/sysctl.conf                : Contains the variables for kernel parameters.
 sysctl -a                       : Display all the kernel parameters
 sysctl -w &lt;kernel parameter&gt;    : Change a sysctl setting.
 </pre></div>
@@ -531,7 +583,7 @@ sysctl -w &lt;kernel parameter&gt;    : Change a sysctl setting.
 <div class="section" id="kernel-modules">
 <h4>Kernel Modules<a class="headerlink" href="#kernel-modules" title="Permalink to this headline">¶</a></h4>
 <p>Kernel modules are contained in /lib/modules/$(uname -r)/</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>lsmod      : list all loaded modules
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>lsmod      : list all loaded modules
 modprobe   : load kernel modules
 lspci      : list all pci devices
 lsusb      : list all usb devices
@@ -546,7 +598,7 @@ hal-device : list all the Hardware Abstraction layer devices
 <li>update-rc.d and there are two commonly used invocation methods:</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>update-rc.d -f &lt;service name&gt; remove : Disabling a service.
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>update-rc.d -f &lt;service name&gt; remove : Disabling a service.
 update-rc.d &lt;service name&gt; defaults  : Insert links using defaults, start in runlevel 2-5 and stop in runlevels 0,1 and 6.
 </pre></div>
 </div>
@@ -555,7 +607,7 @@ update-rc.d &lt;service name&gt; defaults  : Insert links using defaults, start 
 <li>Systemctl : Control the systemd system and service manager. systemctl may be used to introspect and control the state of the “systemd” system and service manager.</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>systemctl : Present a detailed output about the different services running.
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>systemctl : Present a detailed output about the different services running.
 
 e.g.
 
@@ -570,7 +622,7 @@ systemctl start &lt;service_name&gt;  - Start the service
 <h3>Screen Multiplexer<a class="headerlink" href="#screen-multiplexer" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="tmux">
 <h4>tmux<a class="headerlink" href="#tmux" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>tmux new -s myname            : start new with session name:
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>tmux new -s myname            : start new with session name:
 tmux list-sessions            : show sessions
 tmux ls                       : show sessions
 tmux list-windows             : show windows
@@ -580,7 +632,7 @@ tmux a -t myname              : Attach to session named &quot;myname&quot;
 </pre></div>
 </div>
 <p><strong>Windows (Tabs)</strong></p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>(Prefix Key) +
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>(Prefix Key) +
 c  create window
 w  list windows
 n  next window
@@ -588,21 +640,25 @@ p  previous window
 f  find window
 ,  name window
 &amp;  kill window
+&quot;  split pane horizontally.
+%  split pane vertically.
+arrow key — switch pane.
+Hold Ctrl+b, don’t release it and hold one of the arrow keys — resize pane.
 </pre></div>
 </div>
 <p><strong>tmux.conf</strong></p>
-<div class="highlight-None"><div class="highlight"><pre><span></span># Enable mouse mode (tmux 2.1 and above)
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span># Enable mouse mode (tmux 2.1 and above)
 set -g mouse on
 </pre></div>
 </div>
 <p><strong>Reloading tmux config</strong></p>
 <p>If we have made changes to tmux configuration file in the ~/.tmux.conf file, it shouldn’t be necessary to start the server up again from scratch with kill-server. Instead, we can prompt the current tmux session to reload the configuration with the source-file command.
 This can be done either from within tmux, by pressing Ctrl+B or Prefix key and then : to bring up a command prompt, and typing:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>:source-file ~/.tmux.conf
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>:source-file ~/.tmux.conf
 </pre></div>
 </div>
 <p>Or simply from a shell:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>$ tmux source-file ~/.tmux.conf
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>$ tmux source-file ~/.tmux.conf
 </pre></div>
 </div>
 <p>This should apply your changes to the running tmux server without affecting the sessions or windows within them.</p>
@@ -612,6 +668,42 @@ This can be done either from within tmux, by pressing Ctrl+B or Prefix key and t
 <li>we can right-click and get the standard bash context menu with Copy, Paste, etc.</li>
 <li>or Ctrl-Shift-C and Ctrl-Shift-V does work to copy and paste text.</li>
 </ul>
+</div>
+</div>
+<div class="section" id="file-system-superblock">
+<h3>File System Superblock<a class="headerlink" href="#file-system-superblock" title="Permalink to this headline">¶</a></h3>
+<p>Superblock is stores the metadata of the file system such as</p>
+<ul class="simple">
+<li>Blocks in the file system</li>
+<li>No of free blocks in the file system</li>
+<li>Inodes per block group</li>
+<li>Blocks per block group</li>
+<li>No of times the file system was mounted since last fsck.</li>
+<li>Mount time</li>
+<li>UUID of the file system</li>
+<li>Write time</li>
+<li>File System State (ie: was it cleanly unounted, errors detected etc)</li>
+<li>The file system type etc(ie: whether its ext2,3 or 4).</li>
+<li>The operating system in which the file system was formatted</li>
+</ul>
+<div class="section" id="view-superblock-information">
+<h4>View superblock information<a class="headerlink" href="#view-superblock-information" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>dumpe2fs -h /dev/sda4
+dumpe2fs 1.42.9 (4-Feb-2014)
+Filesystem volume name:   cloudimg-rootfs
+Last mounted on:          /
+Filesystem UUID:          f75f9307-27dc-xxxx-87b7-xxxxxxxxx
+Filesystem magic number:  0xEF53
+Filesystem revision #:    1 (dynamic)
+Filesystem features:      has_journal ext_attr resize_inode dir_index filetype needs_recovery extent flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize
+Filesystem flags:         signed_directory_hash
+Default mount options:    (none)
+Filesystem state:         clean
+Errors behavior:          Continue
+Filesystem OS type:       Linux
+.....sniped.......
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -624,10 +716,22 @@ This can be done either from within tmux, by pressing Ctrl+B or Prefix key and t
 <p class="first admonition-title">Todo</p>
 <p class="last"><a class="reference external" href="https://try.github.com">try.github.com</a> 15 mins tutorial.</p>
 </div>
+<p>Command-line substitute for gitk</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>git log --graph --abbrev-commit --pretty=oneline --decorate
+</pre></div>
+</div>
+<p>List all commits for a specific file</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>git log --follow -- filename
+</pre></div>
+</div>
+<p>See the changes in a Git commit?</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>git show &lt;COMMIT&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="cc-gnu-compile-collection">
 <h3>cc - GNU Compile Collection<a class="headerlink" href="#cc-gnu-compile-collection" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>To Compile: gcc -Wall -pedantic -g &lt;C source file&gt; -o &lt;Executable file&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>To Compile: gcc -Wall -pedantic -g &lt;C source file&gt; -o &lt;Executable file&gt;
 -Wall -pedantic : to check for all the warnings and errors if any.
 -g              : to create the symbol file to be used by gdb
 -o              : to create the executable file.
@@ -636,7 +740,7 @@ This can be done either from within tmux, by pressing Ctrl+B or Prefix key and t
 </div>
 <div class="section" id="gdb-gnu-debugger">
 <h3>GDB: GNU debugger<a class="headerlink" href="#gdb-gnu-debugger" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>gdb -tui &lt;Program name&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>gdb -tui &lt;Program name&gt;
 
 tui               : for listing the source while debugging
 &lt;linenumber&gt;      : to set the break point
@@ -650,7 +754,7 @@ bt                : to print the stack call, mainly useful to find segmentation 
 <h2>Gathering Information<a class="headerlink" href="#gathering-information" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="from-files">
 <h3>From Files<a class="headerlink" href="#from-files" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>/etc/issue     : Contains the message which is displayed on terminal before login.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>/etc/issue     : Contains the message which is displayed on terminal before login.
 /etc/motd      : Contains the message which is displayed on terminal after login.
 /proc/cpuinfo  : provides information about CPU.
 /proc/meminfo  : provides information about memory/ RAM.
@@ -660,7 +764,7 @@ bt                : to print the stack call, mainly useful to find segmentation 
 </div>
 <div class="section" id="from-commands">
 <h3>From Commands<a class="headerlink" href="#from-commands" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>last      : shows all the login attempts and the reboot occurred.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>last      : shows all the login attempts and the reboot occurred.
 lastb     : shows all the bad login attempts.
 lastlog   : shows the list of all the users and when did they login.
 id        : print real and effective user and group IDs.
@@ -682,7 +786,7 @@ hostname  : prints out the hostname of the machine which is stored in /etc/hostn
 <li>search a given file or files on a system (including a recursive search through sub-folders).</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep bitvijays /etc/passwd
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep bitvijays /etc/passwd
 </pre></div>
 </div>
 </div></blockquote>
@@ -690,21 +794,21 @@ hostname  : prints out the hostname of the machine which is stored in /etc/hostn
 <li>Grep also accepts inputs (usually via a pipe) from another command or series of commands.</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>cat /etc/passwd | grep bitvijays
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>cat /etc/passwd | grep bitvijays
 </pre></div>
 </div>
 </div></blockquote>
 <div class="section" id="syntax">
 <h4>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>grep [options] [regexp] [filename]
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep [options] [regexp] [filename]
 
-   -i, --ignore-case     : &#39;it DoesNt MatTTer WhaT thE CAse Is&#39;
-   -v, --invert-match    : &#39;everything , BUT that text&#39;
-   -A &lt;NUM&gt;              : Print NUM lines of trailing context after matching lines.
-   -B &lt;NUM&gt;              : Print NUM lines of trailing context before matching lines.
-   -C &lt;NUM&gt;              : Print additional (leading and trailing) context lines before and after the match.
-   -a, --text            : Process a binary file as if it were text; this is equivalent to the --binary-files=text option.
-   -w                    : Whole-word search
+   -i, --ignore-case        : &#39;it DoesNt MatTTer WhaT thE CAse Is&#39;
+   -v, --invert-match       : &#39;everything , BUT that text&#39;
+   -A &lt;NUM&gt;                 : Print NUM lines of trailing context after matching lines.
+   -B &lt;NUM&gt;                 : Print NUM lines of trailing context before matching lines.
+   -C &lt;NUM&gt;                 : Print additional (leading and trailing) context lines before and after the match.
+   -a, --text               : Process a binary file as if it were text; this is equivalent to the --binary-files=text option.
+   -w                       : Whole-word search
    -L --files-without-match : which outputs the names of files that do NOT contain matches for your search pattern.
    -l --files-with-matches  : which prints out (only) the names of files that do contain matches for your search pattern.
 
@@ -724,7 +828,7 @@ hostname  : prints out the hostname of the machine which is stored in /etc/hostn
 </div>
 <div class="section" id="using-regular-expressions">
 <h4>Using regular expressions<a class="headerlink" href="#using-regular-expressions" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>grep &#39;v.r&#39; testfile
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep &#39;v.r&#39; testfile
 thank you very much
 </pre></div>
 </div>
@@ -735,13 +839,34 @@ thank you very much
 <li>? means that the preceding item is optional, and if found, will be matched at the most, once.</li>
 <li>* means that the preceding item will be matched zero or more times.</li>
 <li>+ means the preceding item will be matched one or more times.</li>
-<li>{n} means the preceding item is matched exactly n times, while {n,} means the item is matched n or more times. {n,m} means that the preceding item is matched at least n times, but not more than m times. {,m} means that the preceding item is matched, at the most, m times.</li>
+<li>Matching with times</li>
 </ul>
+<blockquote>
+<div><ul class="simple">
+<li>{n} means the preceding item is matched exactly n times,</li>
+<li>{n,} means the item is matched n or more times.</li>
+<li>{n,m} means that the preceding item is matched at least n times, but not more than m times.</li>
+<li>{,m} means that the preceding item is matched, at the most, m times.</li>
+</ul>
+</div></blockquote>
+<p><strong>grep -e / grep -E</strong></p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Matcher Selection
+ -E, --extended-regexp        :  Interpret PATTERN as an extended regular expression.
+
+Matching Control
+ -e PATTERN, --regexp=PATTERN :  Use  PATTERN  as the pattern.  If this option is used multiple times or is combined with the -f (--file) option, search for all patterns given.  This option can be used to protect a pattern beginning with “-”.
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep -E &#39;^[0-9a-zA-Z]{30,}&#39;
+</pre></div>
+</div>
+<p>Grep anything which is starting with string containing characters from 0-9,a-z or A-Z and has matched 30 or more times</p>
 </div>
 <div class="section" id="search-a-specific-string">
 <h4>Search a specific string<a class="headerlink" href="#search-a-specific-string" title="Permalink to this headline">¶</a></h4>
 <p>Scan files for a text present in them Find a way to scan my entire linux system for all files containing a specific string of text. Just to clarify, I’m looking for text within the file, not in the file name.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>grep -rnw &#39;directory&#39; -e &quot;pattern&quot; --include={*.c,*.h} --exclude=*.o
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep -rnw &#39;directory&#39; -e &quot;pattern&quot; --include={*.c,*.h} --exclude=*.o
 
   -r                    : search recursively
   -n                    : print line number
@@ -761,7 +886,7 @@ thank you very much
 <li>The ^ anchor specifies that the pattern following it should be at the start of the line:</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep &#39;^th&#39; testfile
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep &#39;^th&#39; testfile
 this
 </pre></div>
 </div>
@@ -770,7 +895,7 @@ this
 <li>The $ anchor specifies that the pattern before it should be at the end of the line.</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep &#39;i$&#39; testfile
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep &#39;i$&#39; testfile
 Hi
 </pre></div>
 </div>
@@ -779,7 +904,7 @@ Hi
 <li>The operator &lt; anchors the pattern to the start of a word.</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep &#39;\&lt;fe&#39; testfile
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep &#39;\&lt;fe&#39; testfile
 carry out few cyber-crime investigations
 </pre></div>
 </div>
@@ -788,7 +913,7 @@ carry out few cyber-crime investigations
 <li>&gt; anchors the pattern to the end of a word.</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep &#39;le\&gt;&#39; testfile
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep &#39;le\&gt;&#39; testfile
 is test file
 </pre></div>
 </div>
@@ -797,7 +922,7 @@ is test file
 <li>The b (word boundary) anchor can be used in place of &lt; and &gt; to signify the beginning or end of a word:</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>grep -e &#39;\binve&#39; testfile
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep -e &#39;\binve&#39; testfile
 carry out few cyber-crime investigations
 </pre></div>
 </div>
@@ -806,12 +931,12 @@ carry out few cyber-crime investigations
 <div class="section" id="shell-expansions-input-to-grep">
 <h4>Shell expansions - input to Grep<a class="headerlink" href="#shell-expansions-input-to-grep" title="Permalink to this headline">¶</a></h4>
 <p>If we don’t single-quote the pattern passed to Grep, the shell could perform shell expansion on the pattern and actually feed a changed pattern to Grep.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>grep &quot;$HOME&quot; /etc/passwd
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep &quot;$HOME&quot; /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 </pre></div>
 </div>
 <p>We used double quotes to make the Bash shell replace the environment variable $HOME with the actual value of the variable (in this case, /root). Thus, Grep searches the /etc/passwd file for the text /root, yielding the two lines that match.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>grep `whoami` /etc/passwd
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep `whoami` /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 </pre></div>
 </div>
@@ -820,7 +945,7 @@ root:x:0:0:root:/root:/bin/bash
 </div>
 <div class="section" id="copy-copy-files-and-directories">
 <h3>Copy - Copy files and directories<a class="headerlink" href="#copy-copy-files-and-directories" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>cp &lt;SOURCE&gt; &lt;DIRECTORY&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>cp &lt;SOURCE&gt; &lt;DIRECTORY&gt;
   -r        : recursive.
   -a        : similar to preserve,
   -p        : preserve
@@ -830,7 +955,7 @@ root:x:0:0:root:/root:/bin/bash
 </div>
 <div class="section" id="cut-remove-sections-from-each-line-of-files">
 <h3>cut - remove sections from each line of files<a class="headerlink" href="#cut-remove-sections-from-each-line-of-files" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>cut OPTION... [FILE]...
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>cut OPTION... [FILE]...
  -d        : use DELIM instead of TAB for field delimiter.
  -f        : select only these fields.
 </pre></div>
@@ -838,7 +963,7 @@ root:x:0:0:root:/root:/bin/bash
 </div>
 <div class="section" id="pipes">
 <h3>Pipes<a class="headerlink" href="#pipes" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>&gt;         : direct normal output.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;         : direct normal output.
 2&gt;        : direct error output.
 &amp;&gt;        : direct all output.
 </pre></div>
@@ -846,7 +971,7 @@ root:x:0:0:root:/root:/bin/bash
 </div>
 <div class="section" id="tar-archiving-utility">
 <h3>tar - Archiving utility<a class="headerlink" href="#tar-archiving-utility" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>tar
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>tar
  -c        : create archive
  -t        : list the content of the file
  -x        : extract the files
@@ -857,7 +982,7 @@ root:x:0:0:root:/root:/bin/bash
 </div>
 <div class="section" id="find-searching-files">
 <h3>find - Searching files<a class="headerlink" href="#find-searching-files" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>find / -name somename
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>find / -name somename
 
 -user       : File is owned by user uname (numeric user ID allowed).
 -group      : File belongs to group gname (numeric group ID allowed).
@@ -867,19 +992,19 @@ root:x:0:0:root:/root:/bin/bash
 </div>
 <div class="section" id="delete-empty-file-and-directories">
 <h4>Delete empty file and directories<a class="headerlink" href="#delete-empty-file-and-directories" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>find -empty -type d -delete
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>find -empty -type d -delete
 find -empty -type f -delete
 </pre></div>
 </div>
 <p>Find each file in the current directory and tell it’s type and grep JPEG files.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>find . -type f -exec file {} + | grep JPEG
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>find . -type f -exec file {} + | grep JPEG
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="other-commands">
 <h3>Other commands<a class="headerlink" href="#other-commands" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nm-applet : a applet for network manager.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nm-applet : a applet for network manager.
 wc        : print newline, word, and byte counts for each file.
  -c       : print the bytes count.
  -l       : print the lines count.
@@ -909,7 +1034,7 @@ uniq      : Report or omit repeated lines.
 </div>
 <div class="section" id="special-characters">
 <h3>Special Characters<a class="headerlink" href="#special-characters" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>*(asterik)          : A wildcard used to represent zero or more characters in a filename. For example: ls *.txt will list all the names ending in &quot;.txt&quot; such as &quot;file1.txt&quot; and &quot;file23.txt&quot;.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>*(asterik)          : A wildcard used to represent zero or more characters in a filename. For example: ls *.txt will list all the names ending in &quot;.txt&quot; such as &quot;file1.txt&quot; and &quot;file23.txt&quot;.
 ?(question mark)    : A wildcard used to represent a single character in a filename. For example ls pic?.jpg would match &quot;pic1.jpg&quot; and &quot;pic2.jpg&quot; but not &quot;pic24.jpg&quot; or &quot;pic.jpg&quot;.
 [](square brackets) : These are used to specify a range of values to match. For example, &quot;[0-9]&quot; and &quot;[a-z]&quot;.
 ;(semi colon)       : Command separator that can be used to run multiple commands on a single line unconditionally.
@@ -924,7 +1049,7 @@ uniq      : Report or omit repeated lines.
 <h2>Bash<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="equality-tests">
 <h3>Equality Tests<a class="headerlink" href="#equality-tests" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>test      : checks file types and compare values
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>test      : checks file types and compare values
   -d      : check if the file is a directory
   -e      : check if the file exists
   -f      : check if the file is a regular file
@@ -937,12 +1062,12 @@ uniq      : Report or omit repeated lines.
 </pre></div>
 </div>
 <p>Example</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>if test -f /etc/foo.txt
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>if test -f /etc/foo.txt
 then
 </pre></div>
 </div>
 <p>It can also be written as</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>if [ -f /etc/foo.txt ]; then
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>if [ -f /etc/foo.txt ]; then
 
 --square brackets [] form test.
 -- There has to be white space surrounding both square bracket
@@ -953,7 +1078,7 @@ then
 <h3>List of equality tests<a class="headerlink" href="#list-of-equality-tests" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="checks-equality-between-numbers">
 <h4>Checks equality between numbers<a class="headerlink" href="#checks-equality-between-numbers" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>x -eq y         : Check is x is equals to y
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>x -eq y         : Check is x is equals to y
 x -ne y         : Check if x is not equals to y
 x -gt y         : Check if x is greater than y
 x -lt y         : Check if x is less than y
@@ -962,7 +1087,7 @@ x -lt y         : Check if x is less than y
 </div>
 <div class="section" id="checks-equality-between-strings">
 <h4>Checks equality between strings<a class="headerlink" href="#checks-equality-between-strings" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>x = y           : Check if x is the same as y
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>x = y           : Check if x is the same as y
 x != y          : Check if x is not the same as y
 -n x            : Evaluates to true if x is not null
 -z x            : Evaluates to true if x is null.
@@ -974,11 +1099,11 @@ x != y          : Check if x is not the same as y
 <div class="section" id="bash-command-substitution">
 <h3>Bash Command Substitution<a class="headerlink" href="#bash-command-substitution" title="Permalink to this headline">¶</a></h3>
 <p>Command substitution allows the output of a command to replace the command itself. Command substitution occurs when a command is enclosed as follows:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">$(</span><span class="nb">command</span><span class="k">)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">$(</span><span class="nb">command</span><span class="k">)</span>
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="sb">`</span><span class="nb">command</span><span class="sb">`</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">`</span><span class="nb">command</span><span class="sb">`</span>
 </pre></div>
 </div>
 <p>Bash performs the expansion by executing command and replacing the command substitution with the standard output of the command, with any trailing newlines deleted.</p>
@@ -986,7 +1111,7 @@ x != y          : Check if x is not the same as y
 <div class="section" id="bash-case-modification">
 <h3>Bash Case Modification<a class="headerlink" href="#bash-case-modification" title="Permalink to this headline">¶</a></h3>
 <p>Taken from <a class="reference external" href="http://wiki.bash-hackers.org/syntax/pe#case_modification">Case Modification</a></p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>${PARAMETER^}
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>${PARAMETER^}
 ${PARAMETER^^}
 ${PARAMETER,}
 ${PARAMETER,,}
@@ -999,7 +1124,7 @@ ${PARAMETER~~}
 <p>The operators ~ and ~~ reverse the case of the given text (in PARAMETER).~ reverses the case of first letter of words in the variable while ~~ reverses case for all.</p>
 <div class="section" id="example-parameter">
 <h4>Example: Parameter ^<a class="headerlink" href="#example-parameter" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>VAR=&quot;hack the PLANET&quot;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>VAR=&quot;hack the PLANET&quot;
 
 echo ${VAR^}
 Hack the PLANET
@@ -1011,7 +1136,7 @@ HACK THE PLANET
 </div>
 <div class="section" id="id1">
 <h4>Example: Parameter ,<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>VAR=&quot;HACK THE PLANET&quot;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>VAR=&quot;HACK THE PLANET&quot;
 
 echo ${VAR,}
 hACK THE PLANET
@@ -1023,7 +1148,7 @@ hack the planet
 </div>
 <div class="section" id="id2">
 <h4>Example: Parameter ~<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>VAR=&quot;hack the PLANET&quot;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>VAR=&quot;hack the PLANET&quot;
 
 echo ${VAR~}
 Hack The pLANET
@@ -1038,7 +1163,7 @@ HACK THE planet
 <h3>Bash Programming<a class="headerlink" href="#bash-programming" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="bash-for-loop">
 <h4>Bash For Loop<a class="headerlink" href="#bash-for-loop" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">for</span> i in <span class="k">$(</span> ls <span class="k">)</span><span class="p">;</span> <span class="k">do</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> i in <span class="k">$(</span> ls <span class="k">)</span><span class="p">;</span> <span class="k">do</span>
     <span class="nb">echo</span> item: <span class="nv">$i</span>
 <span class="k">done</span>
 </pre></div>
@@ -1046,7 +1171,7 @@ HACK THE planet
 </div>
 <div class="section" id="bash-if-statement">
 <h4>Bash If Statement<a class="headerlink" href="#bash-if-statement" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;foo&quot;</span> <span class="o">=</span> <span class="s2">&quot;foo&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;foo&quot;</span> <span class="o">=</span> <span class="s2">&quot;foo&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
        <span class="nb">echo</span> expression evaluated as <span class="nb">true</span>
 <span class="k">else</span>
        <span class="nb">echo</span> expression evaluated as <span class="nb">false</span>
@@ -1056,7 +1181,7 @@ HACK THE planet
 </div>
 <div class="section" id="bash-loop-thru-array-of-strings">
 <h4>Bash loop thru array of strings<a class="headerlink" href="#bash-loop-thru-array-of-strings" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1">## declare an array variable</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">## declare an array variable</span>
 <span class="nb">declare</span> -a <span class="nv">arr</span><span class="o">=(</span><span class="s2">&quot;element1&quot;</span> <span class="s2">&quot;element2&quot;</span> <span class="s2">&quot;element3&quot;</span><span class="o">)</span>
 
 <span class="c1">## now loop through the above array</span>
@@ -1068,11 +1193,11 @@ HACK THE planet
 </pre></div>
 </div>
 <p>The value of the variable whose name is in this variable can be found by</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="si">${</span><span class="p">!n</span><span class="si">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="si">${</span><span class="p">!n</span><span class="si">}</span>
 </pre></div>
 </div>
 <p>For example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">eth0</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>ip -o -4 address <span class="p">|</span> grep eth0 <span class="p">|</span> awk <span class="s1">&#39;{print $4}&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">eth0</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>ip -o -4 address <span class="p">|</span> grep eth0 <span class="p">|</span> awk <span class="s1">&#39;{print $4}&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
 <span class="nv">wlan0</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>ip -o -4 address <span class="p">|</span> grep wlan0 <span class="p">|</span> awk <span class="s1">&#39;{print $4}&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
 <span class="c1">##eth0 and wlan0 contains the subnet of the eth0 and wlan0.</span>
 
@@ -1084,14 +1209,32 @@ HACK THE planet
 </pre></div>
 </div>
 <p>Sample Output with ${!interfaces}:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">10</span>.233.113.136/23
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">10</span>.233.113.136/23
 </pre></div>
 </div>
 <p>Sample Output with ${interfaces}:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>eth0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eth0
 wlan0
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="section" id="virtualization">
+<h2>Virtualization?<a class="headerlink" href="#virtualization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="docker">
+<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<p># Stop all containers</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>docker stop $(docker ps -a -q)
+</pre></div>
+</div>
+<p># Delete all containers</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>docker rm $(docker ps -a -q)
+</pre></div>
+</div>
+<p># Delete all images</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>docker rmi $(docker images -q)
+</pre></div>
 </div>
 </div>
 </div>
@@ -1119,13 +1262,13 @@ wlan0
 <h4>su<a class="headerlink" href="#su" title="Permalink to this headline">¶</a></h4>
 <p>Change users or become superuser. The difference between “su -” and “su” is that former “su -” would switch to the new user directory. It would also change the environment variable according to the changed user. Whereas “su” would only change the user but will stay in the same directory.</p>
 <p>Example: “su -“</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>root@Kali-Home:~# su - bitvijays
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>root@Kali-Home:~# su - bitvijays
 bitvijays@Kali-Home:~$ pwd
 /home/bitvijays
 </pre></div>
 </div>
 <p>Example: “su”</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>root@Kali-Home:~# su bitvijays
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>root@Kali-Home:~# su bitvijays
 bitvijays@Kali-Home:/root$ pwd
 /root
 </pre></div>
@@ -1134,11 +1277,11 @@ bitvijays@Kali-Home:/root$ pwd
 <div class="section" id="su-c">
 <h4>su -c<a class="headerlink" href="#su-c" title="Permalink to this headline">¶</a></h4>
 <p>Executing command as another user</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>su -c &quot;command&quot; : Specify a command that will be invoked by the shell using its -c.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>su -c &quot;command&quot; : Specify a command that will be invoked by the shell using its -c.
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>su bitvijays -c id
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>su bitvijays -c id
 uid=1000(bitvijays) gid=1001(bitvijays) groups=1001(bitvijays)
 </pre></div>
 </div>
@@ -1162,7 +1305,7 @@ uid=1000(bitvijays) gid=1001(bitvijays) groups=1001(bitvijays)
 <li>User home directory</li>
 <li>Login shell</li>
 </ul>
-<div class="highlight-None"><div class="highlight"><pre><span></span>root:!:0:0::/:/usr/bin/ksh
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>root:!:0:0::/:/usr/bin/ksh
 daemon:!:1:1::/etc:
 bin:!:2:2::/bin:
 sys:!:3:3::/usr/sys:
@@ -1182,7 +1325,7 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <div class="section" id="etc-shadow">
 <h4>/etc/shadow<a class="headerlink" href="#etc-shadow" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>/etc/shadow</strong> file contains password and account expiration information for users, and looks like this:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>smithj:Ep6mckrOLChF.:10063:0:99999:7:xx:
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>smithj:Ep6mckrOLChF.:10063:0:99999:7:xx:
 </pre></div>
 </div>
 <p>As with the passwd file, each field in the shadow file is also separated with “:” colon characters, and are as follows:</p>
@@ -1201,7 +1344,7 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <div class="section" id="etc-group">
 <h4>/etc/group<a class="headerlink" href="#etc-group" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>/etc/group</strong> file stores group information or defines the user groups. There is one entry per line, and each line has the following format (all fields are separated by a colon (:)</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>cdrom:x:24:john,mike,yummy
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>cdrom:x:24:john,mike,yummy
 </pre></div>
 </div>
 <p>Where,</p>
@@ -1220,11 +1363,11 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <h3>Apt-get error?<a class="headerlink" href="#apt-get-error" title="Permalink to this headline">¶</a></h3>
 <p>We often do mistakes while updating using apt-get which just leaves us with command line access to the system (GUI messed up). Possibly we unintentionally removed some necessary packages.</p>
 <p>In this case, look for /var/log/apt/history.log, look for the time around which your system was broken. Copy the removed packages which would be in the format of</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>libapt-inst1.5:amd64 (0.9.7.9+deb7u5, 0.9.7.9+deb7u6), apt-utils:amd64 (0.9.7.9+deb7u5, 0.9.7.9+deb7u6).
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>libapt-inst1.5:amd64 (0.9.7.9+deb7u5, 0.9.7.9+deb7u6), apt-utils:amd64 (0.9.7.9+deb7u5, 0.9.7.9+deb7u6).
 </pre></div>
 </div>
 <p>To reinstall these packages you just need the package name such as</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>libapt-inst1.5, apt-utils.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>libapt-inst1.5, apt-utils.
 
 *Step1* : Use sed to search for pattern &quot;), &quot; and replace it with &quot;), \n&quot;. This would separate the packages by new line. Within vi &quot;:%s/), /\n/g&quot;
 *Step2* : Use cut -d &quot;:&quot; -f 1 to remove :amd64 and anything after that.
@@ -1235,28 +1378,28 @@ jdoe:*:202:1:John Doe:/home/jdoe:/usr/bin/ksh
 <div class="section" id="track-etc-directory">
 <h3>Track /etc directory<a class="headerlink" href="#track-etc-directory" title="Permalink to this headline">¶</a></h3>
 <p>Etckeeper may be a bit more advanced, and it is used to put your whole /etc directory under revision control. To install and initialize it,</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>apt-get install etckeeper
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>apt-get install etckeeper
 etckeeper init
 cd /etc
 git commit -am Initial
 </pre></div>
 </div>
 <p>After that, you can see pending changes in /etc by cd-ing into it and running</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>git status or git diff
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>git status or git diff
 </pre></div>
 </div>
 <p>at any time, and you can see previous, committed changes by running</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>git log or git log -p
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>git log or git log -p
 </pre></div>
 </div>
 <p>You can override pending changes to any file with the last committed version with</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>git checkout FILENAME
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>git checkout FILENAME
 </pre></div>
 </div>
 </div>
 <div class="section" id="ls-showing-full-path">
 <h3>ls showing full path<a class="headerlink" href="#ls-showing-full-path" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>ls -R /path | awk &#39;/:$/&amp;&amp;f{s=$0;f=0} /:$/&amp;&amp;!f{sub(/:$/,&quot;&quot;);s=$0;f=1;next} NF&amp;&amp;f{ print s&quot;/&quot;$0 }&#39;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>ls -R /path | awk &#39;/:$/&amp;&amp;f{s=$0;f=0} /:$/&amp;&amp;!f{sub(/:$/,&quot;&quot;);s=$0;f=1;next} NF&amp;&amp;f{ print s&quot;/&quot;$0 }&#39;
 </pre></div>
 </div>
 </div>
@@ -1264,7 +1407,7 @@ git commit -am Initial
 <h3>Keyboard shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="moving">
 <h4>Moving<a class="headerlink" href="#moving" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Ctrl + a : Move to the start of line.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Ctrl + a : Move to the start of line.
 Ctrl + e : Move to the end of line.
 Alt  + b : Move to the start of the current word
 Alft + f : Move to the end of the current word
@@ -1273,7 +1416,7 @@ Alft + f : Move to the end of the current word
 </div>
 <div class="section" id="erasing">
 <h4>Erasing<a class="headerlink" href="#erasing" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Ctrl + w : Cut from cursor to previous whitespace.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Ctrl + w : Cut from cursor to previous whitespace.
 Ctrl + u : Cut from cursor to the start of line.
 Ctrl + k : Cut from cursor to the end of line.
 Ctrl + y : Paste the last cut text.
@@ -1282,8 +1425,8 @@ Ctrl + y : Paste the last cut text.
 </div>
 <div class="section" id="window">
 <h4>Window<a class="headerlink" href="#window" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>WinKey + H : Minimize/ Hide the Window
-WinKey + Up Arrow Key : Maximize the current windows
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>WinKey + H              : Minimize/ Hide the Window
+WinKey + Up Arrow Key   : Maximize the current windows
 WinKey + Down Arrow Key : Return to original
 </pre></div>
 </div>
@@ -1291,21 +1434,21 @@ WinKey + Down Arrow Key : Return to original
 </div>
 <div class="section" id="searching-history">
 <h3>Searching History<a class="headerlink" href="#searching-history" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Search as you type. Ctrl + r and type the search term;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Search as you type. Ctrl + r and type the search term;
 </pre></div>
 </div>
 <p>Read <a class="reference external" href="http://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing">Command Line Editing</a> for more information.</p>
 </div>
 <div class="section" id="awk-converting-to-normal-output-to-csv">
 <h3>Awk converting to normal output to csv<a class="headerlink" href="#awk-converting-to-normal-output-to-csv" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>A B --&gt; &quot;A&quot;,&quot;B&quot;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>A B --&gt; &quot;A&quot;,&quot;B&quot;
 awk &#39;{print &quot;\&quot;&quot; $1 &quot;\&quot;,\&quot;&quot; $2&quot;\&quot;&quot;}&#39;
 </pre></div>
 </div>
 </div>
 <div class="section" id="finding-most-open-ports-in-nmap-scan">
 <h3>Finding most open ports in nmap scan<a class="headerlink" href="#finding-most-open-ports-in-nmap-scan" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>grep &quot;^[0-9]\+&quot; &lt;nmap file .nmap extension&gt; | grep &quot;\ open\ &quot; | sort | uniq -c | sort -rn | awk &#39;{print &quot;\&quot;&quot;$1&quot;\&quot;,\&quot;&quot;$2&quot;\&quot;,\&quot;&quot;$3&quot;\&quot;,\&quot;&quot;$4&quot;\&quot;,\&quot;&quot;$5&quot; &quot;$6&quot; &quot;$7&quot; &quot;$8&quot; &quot;$9&quot; &quot;$10&quot; &quot;$11&quot; &quot;$12&quot; &quot;$13&quot;\&quot;&quot;}&#39; &gt; test.csv
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep &quot;^[0-9]\+&quot; &lt;nmap file .nmap extension&gt; | grep &quot;\ open\ &quot; | sort | uniq -c | sort -rn | awk &#39;{print &quot;\&quot;&quot;$1&quot;\&quot;,\&quot;&quot;$2&quot;\&quot;,\&quot;&quot;$3&quot;\&quot;,\&quot;&quot;$4&quot;\&quot;,\&quot;&quot;$5&quot; &quot;$6&quot; &quot;$7&quot; &quot;$8&quot; &quot;$9&quot; &quot;$10&quot; &quot;$11&quot; &quot;$12&quot; &quot;$13&quot;\&quot;&quot;}&#39; &gt; test.csv
 </pre></div>
 </div>
 </div>
@@ -1402,8 +1545,8 @@ awk &#39;{print &quot;\&quot;&quot; $1 &quot;\&quot;,\&quot;&quot; $2&quot;\&quo
 <div class="section" id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><strong class="first">Added Bash Case Modification Examples and vi-hex editor</strong><span> by </span><em>bitvijays</em></li>
-<li><strong class="first">Merge branch ‘master’ into master</strong><span> by </span><em>Vijay Kumar</em></li>
+<li><strong class="first">Merge branch ‘LinuxEssentials’</strong><span> by </span><em>bitvijays</em></li>
+<li><strong class="first">git diff commandline?</strong><span> by </span><em>bitvijays</em></li>
 </ul>
 <div data-disqus-identifier="The Essentials : Linux Basics" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>

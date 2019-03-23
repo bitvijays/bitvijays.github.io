@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -19,16 +20,7 @@
     <title>Configuring and Securing Series : Windows Environment &#8212; tech.bitvijays.com</title>
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -38,8 +30,7 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -113,12 +104,14 @@
   </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -138,7 +131,7 @@
 <div class="section" id="renaming-the-computer">
 <h3>Renaming the Computer<a class="headerlink" href="#renaming-the-computer" title="Permalink to this headline">¶</a></h3>
 <p>Probably, we want to rename the existing computername to something more sensible or as per the naming convention</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>hostname
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>hostname
 WIN-N2P19KAHMFG
 
 Rename-Computer -NewName MUMDC01
@@ -150,7 +143,7 @@ Rename-Computer -NewName MUMDC01
 <h3>Setting up the Static IP<a class="headerlink" href="#setting-up-the-static-ip" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="figure-out-the-network-adapters">
 <h4>Figure out the network adapters<a class="headerlink" href="#figure-out-the-network-adapters" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>PS C:\Windows\system32&gt; Get-NetAdapter
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>PS C:\Windows\system32&gt; Get-NetAdapter
 
 Name                      InterfaceDescription                    ifIndex Status       MacAddress             LinkSpeed
 ----                      --------------------                    ------- ------       ----------             ---------
@@ -161,7 +154,7 @@ Ethernet                  Intel(R) PRO/1000 MT Desktop Adapter         12 Up    
 </div>
 <div class="section" id="setting-the-ip-address">
 <h4>Setting the IP Address<a class="headerlink" href="#setting-the-ip-address" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>$ipaddress = &quot;192.168.56.4&quot;   # Your DC IP Address according to your IP Address range
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>$ipaddress = &quot;192.168.56.4&quot;   # Your DC IP Address according to your IP Address range
 New-NetIPAddress -InterfaceAlias Ethernet -IPAddress $ipaddress -AddressFamily IPv4 -PrefixLength 24
 
 IPAddress         : 192.168.56.4
@@ -196,7 +189,7 @@ PolicyStore       : PersistentStore
 </div>
 <div class="section" id="updating-the-dns-server">
 <h4>Updating the DNS Server<a class="headerlink" href="#updating-the-dns-server" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>$dnsaddress = &quot;127.0.0.1&quot;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>$dnsaddress = &quot;127.0.0.1&quot;
 Set-DnsClientServerAddress -InterfaceAlias VBoxHost -ServerAddresses $dnsaddress -Validate
 </pre></div>
 </div>
@@ -206,13 +199,13 @@ Set-DnsClientServerAddress -InterfaceAlias VBoxHost -ServerAddresses $dnsaddress
 <h3>Installing the Domain Services<a class="headerlink" href="#installing-the-domain-services" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="install-ad-domain-services">
 <h4>Install AD-Domain-Services<a class="headerlink" href="#install-ad-domain-services" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
 </pre></div>
 </div>
 </div>
 <div class="section" id="install-adds-forest">
 <h4>Install ADDS-Forest<a class="headerlink" href="#install-adds-forest" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Install-ADDSForest -DomainName bitvijays.local
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Install-ADDSForest -DomainName bitvijays.local
 </pre></div>
 </div>
 </div>
@@ -222,7 +215,7 @@ Set-DnsClientServerAddress -InterfaceAlias VBoxHost -ServerAddresses $dnsaddress
 <li>AD/ DNS services are running</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>Get-Service adws, kdc, netlogon, dns
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Get-Service adws, kdc, netlogon, dns
 
 Status   Name               DisplayName
 ------   ----               -----------
@@ -237,7 +230,7 @@ Running  Netlogon           netlogon
 <li>SYSVOL and NetLogon shares</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>Get-SmbShare
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Get-SmbShare
 
 Name     ScopeName Path                                           Description
 ----     --------- ----                                           -----------
@@ -258,22 +251,22 @@ SYSVOL   *         C:\Windows\SYSVOL\sysvol                       Logon server s
 <h3>New-ADUser<a class="headerlink" href="#new-aduser" title="Permalink to this headline">¶</a></h3>
 <p>Detailed information could be found at <a class="reference external" href="https://technet.microsoft.com/en-us/library/ee617253.aspx">Technet New-ADUser</a></p>
 <p>New-ADUser creates a new Active Directory user.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>New-ADUser -Name &quot;John Smith&quot; -SamAccountName john.smith -GivenName John -Surname Smith
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>New-ADUser -Name &quot;John Smith&quot; -SamAccountName john.smith -GivenName John -Surname Smith
 </pre></div>
 </div>
 <p>The above would create a user with the above details. However, the account would disabled as no password is specified.</p>
 <div class="section" id="new-aduser-with-password">
 <h4>New-ADUser with Password<a class="headerlink" href="#new-aduser-with-password" title="Permalink to this headline">¶</a></h4>
 <p>The following example shows one method to set this parameter. This command will prompt you to enter the password.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>-AccountPassword (Read-Host -AsSecureString &quot;AccountPassword&quot;)
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>-AccountPassword (Read-Host -AsSecureString &quot;AccountPassword&quot;)
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>New-ADUser -Name &quot;John Smith&quot; -SamAccountName john.smith -GivenName John -Surname Smith -AccountPassword (Read-Host -AsSecureString &quot;AccountPassword&quot;)
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>New-ADUser -Name &quot;John Smith&quot; -SamAccountName john.smith -GivenName John -Surname Smith -AccountPassword (Read-Host -AsSecureString &quot;AccountPassword&quot;)
 </pre></div>
 </div>
 <p>To enable the account, we do have use the switch -Enabled $true</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>New-ADUser -Name &quot;John Smith&quot; -SamAccountName john.smith -GivenName John -Surname Smith -AccountPassword (Read-Host -AsSecureString &quot;AccountPassword&quot;) -Enabled True
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>New-ADUser -Name &quot;John Smith&quot; -SamAccountName john.smith -GivenName John -Surname Smith -AccountPassword (Read-Host -AsSecureString &quot;AccountPassword&quot;) -Enabled True
 </pre></div>
 </div>
 </div>
@@ -284,7 +277,7 @@ SYSVOL   *         C:\Windows\SYSVOL\sysvol                       Logon server s
 <li>Microsoft Excel Way: To create a password with 9 characters ( some numbers and special characters with 4 digit number ). In the formula tab, write</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>=CHAR(RANDBETWEEN(65,90))&amp;CHAR(RANDBETWEEN(97,122))&amp;CHAR(RANDBETWEEN(97,122))&amp;CHAR(RANDBETWEEN(65,90))&amp;RANDBETWEEN(1000,9999)&amp;CHAR(RANDBETWEEN(42,43))
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>=CHAR(RANDBETWEEN(65,90))&amp;CHAR(RANDBETWEEN(97,122))&amp;CHAR(RANDBETWEEN(97,122))&amp;CHAR(RANDBETWEEN(65,90))&amp;RANDBETWEEN(1000,9999)&amp;CHAR(RANDBETWEEN(42,43))
 </pre></div>
 </div>
 <p>we can repeat this to create more complex password.</p>
@@ -297,13 +290,13 @@ SYSVOL   *         C:\Windows\SYSVOL\sysvol                       Logon server s
 <div class="section" id="new-aduser-creation-with-csv">
 <h4>New-ADUser creation with CSV<a class="headerlink" href="#new-aduser-creation-with-csv" title="Permalink to this headline">¶</a></h4>
 <p>We also can create multiple users at once using CSV option. For example, let’s say CSV is</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>GivenName,Surname,Name,StreetAddress,City,Title,EmailAddress,Username,RPassword,Country,TelephoneNumber,Password
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>GivenName,Surname,Name,StreetAddress,City,Title,EmailAddress,Username,RPassword,Country,TelephoneNumber,Password
 Jane,Green,Jane Green,Libellengasse 60,SASSL,Ms.,Jane.Green@bitvijays.local,Jane.Green,OdlL6837*ai,AT,0650 130 26 58,TyzM9015+dp
 John,Hudson,John Hudson,Landstrasse 36,ETZELSDORF,Mr.,John.Hudson@bitvijays.local,John.Hudson,TbfY6122*ei,AT,0664 366 58 55,TtqF5989+wk
 </pre></div>
 </div>
 <p>When we import this CSV using powershell</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Import-CSV ..\ADUsers.csv
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Import-CSV ..\ADUsers.csv
 
 GivenName       : Cory
 Surname         : Nava
@@ -320,7 +313,7 @@ Password        : JskE4317*of
 </pre></div>
 </div>
 <p>We can create multiple users by passing these parameter to the New-ADUser function by</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Import-Csv ..\..\Users\Administrator\Desktop\ADUsers.csv | % { New-ADUser -GivenName  $_.GivenName -Surname $_.Surname -Name $_.Name -SamAccountName $_.Username -Title $_.title -AccountPassword (ConvertTo-SecureString -Force -AsPlainText $_.Password) -Enabled $true }
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Import-Csv ..\..\Users\Administrator\Desktop\ADUsers.csv | % { New-ADUser -GivenName  $_.GivenName -Surname $_.Surname -Name $_.Name -SamAccountName $_.Username -Title $_.title -AccountPassword (ConvertTo-SecureString -Force -AsPlainText $_.Password) -Enabled $true }
 </pre></div>
 </div>
 <p>For lab purposes, Carlos Perez has written a blog on <a class="reference external" href="https://www.darkoperator.com/blog/2016/7/30/creating-real-looking-user-accounts-in-ad-lab">Creating Real Looking User Accounts in AD Lab</a></p>
@@ -337,7 +330,7 @@ Password        : JskE4317*of
 <h3>AD-Computer<a class="headerlink" href="#ad-computer" title="Permalink to this headline">¶</a></h3>
 <p>Microsoft documentation has provided a good documentation <a class="reference external" href="https://docs.microsoft.com/en-gb/powershell/module/Microsoft.PowerShell.Management/Add-Computer">Add-Computer</a></p>
 <p>Add the local computer to a domain or workgroup.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Add-Computer
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Add-Computer
    [-DomainName] &lt;String&gt;                      : Specifies the domain to which the computers are added. This parameter is required when adding the computers to a domain.
    [-WorkgroupName &lt;String&gt;]                   : Specifies the name of a workgroup to which the computers are added. The default value is &quot;WORKGROUP&quot;.
    [-ComputerName &lt;String[]&gt;]                  : Specifies the computers to add to a domain or workgroup. The default is the local computer.
@@ -356,13 +349,13 @@ Password        : JskE4317*of
 </div>
 <div class="section" id="add-a-local-computer-to-the-domain">
 <h3>Add a local computer to the domain<a class="headerlink" href="#add-a-local-computer-to-the-domain" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Add-Computer -Domain &quot;Domain02&quot; -NewName &quot;Server044&quot; -Credential Domain02\Admin01 -Restart
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Add-Computer -Domain &quot;Domain02&quot; -NewName &quot;Server044&quot; -Credential Domain02\Admin01 -Restart
 </pre></div>
 </div>
 </div>
 <div class="section" id="add-a-remote-computer-to-the-domain">
 <h3>Add a remote computer to the domain<a class="headerlink" href="#add-a-remote-computer-to-the-domain" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Add-Computer -ComputerName &quot;Server01&quot; -Domain &quot;Domain02&quot; -LocalCredential User01 -Credential Domain02\Admin01 -Restart
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Add-Computer -ComputerName &quot;Server01&quot; -Domain &quot;Domain02&quot; -LocalCredential User01 -Credential Domain02\Admin01 -Restart
 </pre></div>
 </div>
 <p>For moving a remote computer, probably, WMI or WinRM should be enabled.</p>
@@ -379,13 +372,13 @@ Password        : JskE4317*of
 <div class="section" id="creating-a-new-ou">
 <h3>Creating a New OU<a class="headerlink" href="#creating-a-new-ou" title="Permalink to this headline">¶</a></h3>
 <p>Let’s first create few OU ( Organizational Unit ). In the below example we are creating a OU named Security_Baseline which will contain two or more sub-OUs. Let’s say for Windows 7, Windows 10 or Windows Server.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>New-ADOrganizationalUnit -Name &quot;Security_Baseline&quot; -Description &quot;Security Baseline&quot; -Path &quot;DC=bitvijays,DC=com&quot;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>New-ADOrganizationalUnit -Name &quot;Security_Baseline&quot; -Description &quot;Security Baseline&quot; -Path &quot;DC=bitvijays,DC=com&quot;
 New-ADOrganizationalUnit -Name &quot;Windows7&quot; -Description &quot;Windows 7 Machine Security Baseline&quot; -Path &quot;OU=Security_Baseline,DC=bitvijays,DC=com&quot;
 New-ADOrganizationalUnit -Name &quot;Windows10&quot; -Description &quot;Windows 10 Machine Security Baseline&quot; -Path &quot;OU=Security_Baseline,DC=bitvijays,DC=com&quot;
 </pre></div>
 </div>
 <p>Let’s figure out what are the different OUs in our domain</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>PS C:\Windows\system32&gt; Get-ADOrganizationalUnit -Filter * | FT Name, DistinguishedName
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>PS C:\Windows\system32&gt; Get-ADOrganizationalUnit -Filter * | FT Name, DistinguishedName
 
 Name               DistinguishedName
 ----               -----------------
@@ -397,7 +390,7 @@ Windows10          OU=Windows10,OU=Security_Baseline,DC=bitvijays,DC=com
 </pre></div>
 </div>
 <p>If we just wanna see Windows7 one, we can do</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Get-ADOrganizationalUnit -LDAPFilter &quot;(name=Windows7)&quot; | FT Name, DistinguishedName
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Get-ADOrganizationalUnit -LDAPFilter &quot;(name=Windows7)&quot; | FT Name, DistinguishedName
 
 Name     DistinguishedName
 ----     -----------------
@@ -408,11 +401,11 @@ Windows7 OU=Windows7,OU=Security_Baseline,DC=bitvijays,DC=com
 <div class="section" id="figuring-out-different-os-in-domain">
 <h3>Figuring out different OS in Domain<a class="headerlink" href="#figuring-out-different-os-in-domain" title="Permalink to this headline">¶</a></h3>
 <p>We would require ActiveDirectory Module for this.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Import-Module ActiveDirectory
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Import-Module ActiveDirectory
 </pre></div>
 </div>
 <p>Microsoft has provided a technet article on <a class="reference external" href="https://technet.microsoft.com/en-us/itpro/powershell/windows/addsadministration/get-adcomputer">Get-ADComputer</a> The Get-ADComputer cmdlet gets a computer or performs a search to retrieve multiple computers.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Get-ADComputer -Filter * -Property *
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Get-ADComputer -Filter * -Property *
 
 AccountExpirationDate                :
 accountExpires                       : 9223372036854775807
@@ -509,7 +502,7 @@ whenCreated                          : 5/9/2017 4:34:31 AM
 </pre></div>
 </div>
 <p>Let’s say we just want to see Name and OperatingSystem, we can do</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Get-ADComputer -Filter * -Property * | Format-Table Name, OperatingSystem, OperatingSystemVersion
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Get-ADComputer -Filter * -Property * | Format-Table Name, OperatingSystem, OperatingSystemVersion
 
 Name            OperatingSystem                            OperatingSystemVersion
 ----            ---------------                            ----------------------
@@ -521,7 +514,7 @@ IE10WIN72       Windows 7 Enterprise                       6.1 (7601)
 <div class="section" id="moving-adcomputer-object-to-a-specific-ou">
 <h3>Moving ADComputer Object to a specific OU<a class="headerlink" href="#moving-adcomputer-object-to-a-specific-ou" title="Permalink to this headline">¶</a></h3>
 <p>Let’s say we want to move Windows 7 Machines to the a specific OU ( one we created to have Security baseline for Windows7 )</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Get-ADComputer -Filter {OperatingSystem -Like &quot;Windows 7*&quot;} | Move-ADObject -TargetPath &quot;OU=Windows7,OU=Security_Baseline,DC=bitvijays,DC=com&quot;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Get-ADComputer -Filter {OperatingSystem -Like &quot;Windows 7*&quot;} | Move-ADObject -TargetPath &quot;OU=Windows7,OU=Security_Baseline,DC=bitvijays,DC=com&quot;
 </pre></div>
 </div>
 <p>This has been explained by Scripting Guys at <a class="reference external" href="https://blogs.technet.microsoft.com/heyscriptingguy/2012/03/01/the-easy-way-to-use-powershell-to-move-computer-accounts/">The Easy Way to Use PowerShell to Move Computer Accounts</a></p>
@@ -541,7 +534,7 @@ IE10WIN72       Windows 7 Enterprise                       6.1 (7601)
 <p>However, coming back to SCM and it’s ability to export the GPO. Let’s see how we can import it in the Group Policy Managment Tool ( Preferrbly using Powershell ) We can do it for almost every OS version. In the below example we would do it for Windows 7.</p>
 <p>Now, As we had two OU “Windows 7 SB” and “Windows 10 SB”, by using Group Policy Management Tool, create two GPO Win7SB and Win10SB.</p>
 <p>We can get current GPO in the domain by using</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Get-GPO -All | FT DisplayName
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Get-GPO -All | FT DisplayName
 
 DisplayName
 -----------
@@ -552,7 +545,7 @@ Win10SB
 </pre></div>
 </div>
 <p>Let’s create a New-GPO and link it to a OU.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>New-GPO -Name GlobalSB -Comment &quot;GPO for all the OS&quot;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>New-GPO -Name GlobalSB -Comment &quot;GPO for all the OS&quot;
 
 
 DisplayName      : GlobalSB
@@ -569,7 +562,7 @@ WmiFilter        :
 </pre></div>
 </div>
 <p>Let’s link it to a OU</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>New-GPLink -Guid 651e0d7b-ad70-4369-b21e-8a9cde424a04 -Target &quot;OU=Security_Baseline,DC=bitvijays,DC=com&quot;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>New-GPLink -Guid 651e0d7b-ad70-4369-b21e-8a9cde424a04 -Target &quot;OU=Security_Baseline,DC=bitvijays,DC=com&quot;
 
 GpoId       : 651e0d7b-ad70-4369-b21e-8a9cde424a04
 DisplayName : GlobalSB
@@ -580,7 +573,7 @@ Order       : 1
 </pre></div>
 </div>
 <p>Let’s import the SecurityBaseline Settings generated by the SCM ( Creation of GPO Export Folder for Security Baseline is out-of-scope for this document )</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Import-GPO -BackupId aa23f7c2-c57c-4fc0-82f9-7c12c8787d25 -Path &quot;C:\Users\Administrator\Desktop&quot; -TargetGuid 358bb269-024a-408a-b010-0e54062cbd94
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Import-GPO -BackupId aa23f7c2-c57c-4fc0-82f9-7c12c8787d25 -Path &quot;C:\Users\Administrator\Desktop&quot; -TargetGuid 358bb269-024a-408a-b010-0e54062cbd94
 
  DisplayName      : Win7SB
  DomainName       : bitvijays.com
@@ -624,7 +617,7 @@ a23f7c2-c57c-4fc0-82f9-7c12c8787d25 - is the Guid for the exported GPO from SCM.
 <p>If the domain contains operating system earlier than Windows 10, We should run <a class="reference external" href="https://gallery.technet.microsoft.com/Net-Cease-Blocking-Net-1e8dcb5b">Net Cease - Hardening Net Session Enumeration</a> powershell script.</p>
 <p>It changes the registry key</p>
 <p>NetSessionEnum method permissions are controlled by a registry key under the following path:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/LanmanServer/DefaultSecurity/SrvsvcSessionInfo
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/LanmanServer/DefaultSecurity/SrvsvcSessionInfo
 </pre></div>
 </div>
 <div class="admonition-todo admonition" id="index-1">

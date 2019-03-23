@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -19,16 +20,7 @@
     <title>Critical Infrastructure Series : Electrical Grid &#8212; tech.bitvijays.com</title>
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -39,8 +31,7 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -284,12 +275,14 @@
   </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -344,7 +337,7 @@
 <a class="reference internal image-reference" href="_images/Generation2Consumer.png"><img alt="Generation to the Consumption" class="align-center" src="_images/Generation2Consumer.png" style="width: 896.0px; height: 441.0px;" /></a>
 <p>The transmission of electricity involves a series of transformations, checkpoints and crossroads. These three basic functions are carried out along the way between the power station and the home.</p>
 <p>A transformer is used to raise or lower the voltage of alternating current. Raising voltage for transmission reduces the loss due to the resistance of the power lines. As voltage is inversely proportional to current (R = V/I) and the power consumption of the power lines (at this scale the tranmission lines act as a source of resistance) and that the power consumption is given as I^2 x R it is more efficient to increase the voltage in order to reduce the current. As electrical energy approaches consumption centres, its voltage is lowered gradually to the point where homes are supplied with low-voltage power, namely 120/240 volts.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Generation Station ---&gt; SwitchYards     ---&gt; Strategic Substations ---&gt; Source Substation ---&gt; Satellite Substation ---&gt; Wood Pole/ Underground Lines ---&gt; Home
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Generation Station ---&gt; SwitchYards     ---&gt; Strategic Substations ---&gt; Source Substation ---&gt; Satellite Substation ---&gt; Wood Pole/ Underground Lines ---&gt; Home
 US:(13800 Volts)        (735,000 Volts)      (735,000 Volts)            (120,000 Volts)        (25000, 49000 Volts)      (25000 Volts)                    (120/240 Volts)
 IN:                     (220,000 Volts)      (220,000 Volts)            (110,000 Volts)        (33000, 22000 Volts)      (11000/6000 Volts)               (415/220 Volts)
 </pre></div>
@@ -656,7 +649,7 @@ SR (Southern Region) and ER (Eastern Region). Each regional grid is managed by a
 <li>Human Machine Interface (HMI) provides overview similar to a small SCADA System.</li>
 </ul>
 <p>The above points can be implemented all together in one box or with different components.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>           RTU
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>           RTU
     ________|_______
     |               |
 Parallel I/Os     Sub-devices such as IED
@@ -1026,7 +1019,7 @@ included in any one Application Service Data Unit (ASDU). The type is the first 
 <div class="section" id="apci-format">
 <h4>APCI Format<a class="headerlink" href="#apci-format" title="Permalink to this headline">¶</a></h4>
 <p>Each APCI (Application Protocol Control Information) starts with a start byte with value 0x68 followed by the 8-bit length of APDU (Application Protocol Data Unit) and four 8-bit control fields (CF). APDU contains an APCI or an APCI with ASDU</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span> APCI Frame format
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span> APCI Frame format
 
  &lt;-----8 bit-----&gt;                     &lt;-----8 bit-----&gt;
  Start Byte (0x68)  ^                  Start Byte (0x68)
@@ -1072,7 +1065,7 @@ APDU with fixed length                 APDU with variable length
 <div class="section" id="asdu-format">
 <h4>ASDU Format<a class="headerlink" href="#asdu-format" title="Permalink to this headline">¶</a></h4>
 <p>The ASDU contains two main sections: the data unit identifier (with the fixed length of six bytes), and the data itself, made up of one or more information objects. The data unit identifier defines the specific type of data, provides addressing to identify the specific identity of the data, and includes additional information as cause of transmission. Each ASDU can transmit maximum 127 objects.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>&lt;-----------8 bit-------------&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&lt;-----------8 bit-------------&gt;
 |-----------------------------|
 |Type identification          |
 |-----------------------------|
@@ -1391,7 +1384,7 @@ Some of these objects are variables, variable type definitions, programs, events
 <li>RejectPDU</li>
 </ul>
 <p>For every RequestPDU, there would be ResponsePDU, identifiable by invokeID. Below wireshark filter would have to see a particular request and corresponding response.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>mms and mms.invokeID==4431 (4431 is a sample)
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>mms and mms.invokeID==4431 (4431 is a sample)
 </pre></div>
 </div>
 <div class="section" id="definitions">
@@ -1434,12 +1427,12 @@ Some of these objects are variables, variable type definitions, programs, events
 <p>First, a device on the network would be accessed by using its physical network address or using a name that represents this network address. Within that physical device, CASM/GOMSFE would define a logical device that is identified via its domain name, which in this example is called PowerServe. This domain name corresponds to a logical device (meter, relay, RTU, etc.) that resides within a single physical network device. As is the case with a data concentrator, there can be more than one of these logical devices within a single physical device, like apartments within a building at one street address.</p>
 <p>Within that device, the first level of hierarchy is the brick. A brick represents a functional grouping of information within a logical device. For example, the poly-phase measurement unit information for a meter is supplied in a brick called MMXU1 (Polyphase Measurement Unit #1). Within that brick are other subfunctions such as setpoints, descriptions, actual measurements, etc. Under measurements (MX) the next subgroup would be amps or “A,” which is then organized into individual readings for each phase, which would be referred to as PhsAf for the Phase A floating point value.</p>
 <p>These elements can be combined to come up with a common name for the ampere reading of Phase A in any poly-phase measurement and can be easily recognized with just a little training:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Domain = PowerServe
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Domain = PowerServe
 Object = MMXU1$MX$A$PhsAf
 </pre></div>
 </div>
 <p>The data objects defined by GOMSFE also describe the way information is presented. In this example, the Phase A Amps may also be available as an integer value in an object called MMXU1$MX$A$PhsAi.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>MMXU
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>MMXU
 |--W
 |--Vars
 |--A
@@ -1799,7 +1792,7 @@ to the new customer etc, This works in sync with the Geographical Information Sy
 <li>Mapping table used</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>e. g. PONDA_GABUS$2B1$KV, PONDA_GA$BUS$2B1$KV
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>e. g. PONDA_GABUS$2B1$KV, PONDA_GA$BUS$2B1$KV
 </pre></div>
 </div>
 </div></blockquote>
@@ -2122,13 +2115,10 @@ Feeder, Apex metering panel</p>
 <div class="section" id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><strong class="first">Added PI Server Architecture Details and Basic Hygiene required</strong><span> by </span><em>bitvijays</em><span> at </span><em>2018-06-29 17:55:48</em></li>
-<li><strong class="first">Merge pull request #18 from TunnyTraffic/master</strong><span> by </span><em>Vijay Kumar</em><span> at </span><em>2018-06-29 03:44:50</em><p>Review comments</p>
+<li><strong class="first">Added PI Server Architecture Details and Basic Hygiene required</strong><span> by </span><em>bitvijays</em></li>
+<li><strong class="first">Merge pull request #18 from TunnyTraffic/master</strong><span> by </span><em>Vijay Kumar</em><p>Review comments</p>
 </li>
-<li><strong class="first">Update LFF-CIS-ElectricalGrid.rst</strong><span> by </span><em>Vijay Kumar</em><span> at </span><em>2018-06-29 03:41:47</em></li>
-<li><strong class="first">Merge branch ‘master’ into master</strong><span> by </span><em>Vijay Kumar</em><span> at </span><em>2018-06-29 03:38:53</em></li>
-<li><strong class="first">Merge pull request #1 from TunnyTraffic/review</strong><span> by </span><em>vc</em><span> at </span><em>2018-06-24 14:45:43</em><p>Update LFF-CIS-ElectricalGrid.rst</p>
-</li>
+<li><strong class="first">Update LFF-CIS-ElectricalGrid.rst</strong><span> by </span><em>Vijay Kumar</em></li>
 </ul>
 <div data-disqus-identifier="Critical Infrastructure Series : Electrical Grid" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>

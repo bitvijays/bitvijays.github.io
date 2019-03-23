@@ -54,18 +54,27 @@
 <li><a class="reference internal" href="#assembly-language-statements">Assembly Language Statements</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#registers">Registers</a></li>
+<li><a class="reference internal" href="#memory-and-addressing-modes">Memory and Addressing Modes</a><ul>
+<li><a class="reference internal" href="#declaring-static-data-regions">Declaring Static Data Regions</a></li>
+<li><a class="reference internal" href="#addressing-memory">Addressing Memory</a></li>
+<li><a class="reference internal" href="#size-directives">Size Directives</a></li>
+<li><a class="reference internal" href="#lea-load-effective-address">LEA - Load Effective Address</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#jump-statements">Jump Statements</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/LFCReverseEngineering.rst.txt"
+    <li><a href="_sources/LFC-ReverseEngineering.rst.txt"
            rel="nofollow">Show Source</a></li>
-    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFCReverseEngineering.rst"
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFC-ReverseEngineering.rst"
            rel="nofollow">Show on GitHub</a></li>
-    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFCReverseEngineering.rst"
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFC-ReverseEngineering.rst"
            rel="nofollow">Edit on GitHub</a></li>
   </ul>
 <div id="searchbox" style="display: none" role="search">
@@ -140,7 +149,16 @@ info functions: Tell us about the functions in the binary.
 <h2>IDA<a class="headerlink" href="#ida" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Search strings in IDA: Enter the “strings window” by either press shift+F12 or go to View &gt; Open Subviews &gt; Strings in the toolbar.</li>
+<li>Want to convert Hex to ASCII?</li>
 </ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>mov     [ebp+var_28], 46h
+mov     [ebp+var_27], 4Ch
+mov     [ebp+var_26], 41h
+</pre></div>
+</div>
+<p>Select the hex and press the keyboard key “R”; If you are selecting multiple values together, a pop-up “Convert to Char en masse”, select “Operand value range”, Lower value “0x00” and Upper Value “0xFF” and convert.</p>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="appendix-i-assembly-basics">
@@ -217,6 +235,72 @@ _start:
 <li>the first one is the name of the instruction (or the mnemonic), which is to be executed, and</li>
 <li>the second are the operands or the parameters of the command.</li>
 </ul>
+<p>A good guide to follow is <cite>x86 Assembly Guide &lt;`http://www.cs.virginia.edu/~evans/cs216/guides/x86.html</cite>&gt;_</p>
+</div>
+</div>
+<div class="section" id="registers">
+<h2>Registers<a class="headerlink" href="#registers" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/x86-registers.png" src="_images/x86-registers.png" />
+</div>
+<div class="section" id="memory-and-addressing-modes">
+<h2>Memory and Addressing Modes<a class="headerlink" href="#memory-and-addressing-modes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="declaring-static-data-regions">
+<h3>Declaring Static Data Regions<a class="headerlink" href="#declaring-static-data-regions" title="Permalink to this headline">¶</a></h3>
+<p>Data declarations should be preceded by the .DATA directive. Following this directive, the directives DB, DW, and DD can be used to declare one, two, and four byte data locations, respectively.
+Declared locations can be labeled with names for later reference — this is similar to declaring variables by name, but abides by some lower level rules.</p>
+<p>Example declarations:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>.DATA
+varDB 64                 ; Declare a byte, referred to as location var, containing the value 64.
+var2DB ?                 ; Declare an uninitialized byte, referred to as location var2.
+DB 10                    ; Declare a byte with no label, containing the value 10. Its location is var2 + 1.
+XDW ?                    ; Declare a 2-byte uninitialized value, referred to as location X.
+YDD 30000                ; Declare a 4-byte value, referred to as location Y, initialized to 30000.
+</pre></div>
+</div>
+<p>An array can be declared by just listing the values, as in the first example below. Two other common methods used for declaring arrays of data are the DUP directive and the use of string literals.
+The DUP directive tells the assembler to duplicate an expression a given number of times. For example, 4 DUP(2) is equivalent to 2, 2, 2, 2.</p>
+<p>Examples:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Z          DD 1, 2, 3    ; Declare three 4-byte values, initialized to 1, 2, and 3. The value of location Z + 8 will be 3.
+bytes      DB 10 DUP(?)  ; Declare 10 uninitialized bytes starting at location bytes.
+arr        DD 100 DUP(0) ; Declare 100 4-byte words starting at location arr, all initialized to 0
+str        DB &#39;hello&#39;,0  ; Declare 6 bytes starting at the address str, initialized to the ASCII character values for hello and the null (0) byte.
+</pre></div>
+</div>
+</div>
+<div class="section" id="addressing-memory">
+<h3>Addressing Memory<a class="headerlink" href="#addressing-memory" title="Permalink to this headline">¶</a></h3>
+<p>Mov instruction moves data between registers and memory. This instruction has two operands: the first is the destination and the second specifies the source.</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>mov eax, [ebx]           ; Move the 4 bytes in memory at the address contained in EBX into EAX
+mov [var], ebx           ; Move the contents of EBX into the 4 bytes at memory address var. (Note, var is a 32-bit constant).
+mov eax, [esi-4]         ; Move 4 bytes at memory address ESI + (-4) into EAX
+mov [esi+eax], cl        ; Move the contents of CL into the byte at address ESI+EAX
+mov edx, [esi+4*ebx]     ; Move the 4 bytes of data at address ESI+4*EBX into EDX
+</pre></div>
+</div>
+</div>
+<div class="section" id="size-directives">
+<h3>Size Directives<a class="headerlink" href="#size-directives" title="Permalink to this headline">¶</a></h3>
+<p>The size directives BYTE PTR, WORD PTR, and DWORD PTR serve this purpose, indicating sizes of 1, 2, and 4 bytes respectively.</p>
+<p>For example:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>mov BYTE  PTR [ebx], 2   ; Move 2 into the single byte at the address stored in EBX.
+mov WORD  PTR [ebx], 2   ; Move the 16-bit integer representation of 2 into the 2 bytes starting at the address in EBX.
+mov DWORD PTR [ebx], 2   ; Move the 32-bit integer representation of 2 into the 4 bytes starting at the address in EBX.
+</pre></div>
+</div>
+</div>
+<div class="section" id="lea-load-effective-address">
+<h3>LEA - Load Effective Address<a class="headerlink" href="#lea-load-effective-address" title="Permalink to this headline">¶</a></h3>
+<p>The lea instruction places the address specified by its second operand into the register specified by its first operand. Note, the contents of the memory location are not loaded, only the effective address is computed and placed into the register. This is useful for obtaining a pointer into a memory region.</p>
+<p>Syntax</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>lea &lt;reg32&gt;,&lt;mem&gt;
+</pre></div>
+</div>
+<p>Examples</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>lea edi, [ebx+4*esi]     ; the quantity EBX+4*ESI is placed in EDI.
+lea eax, [var]           ; the value in var is placed in EAX.
+lea eax, [val]           ; the value val is placed in EAX.
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="jump-statements">
@@ -391,6 +475,10 @@ Jump if not less or equal</td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li>Consider a binary which is setuid and used to read files.</li>
 </ul>
@@ -432,7 +520,6 @@ Ahdiemoo1j
 </pre></div>
 </div>
 </div></blockquote>
-</div>
 </div>
 
 

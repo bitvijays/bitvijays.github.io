@@ -1,5 +1,5 @@
 Learning from the CTF : Reverse Engineering
-============================================
+===========================================
 
 This post lists the learnings from the CTF while doing Reverse Engineering.
 
@@ -50,6 +50,16 @@ IDA
 ----
 
 * Search strings in IDA: Enter the "strings window" by either press shift+F12 or go to View > Open Subviews > Strings in the toolbar.
+
+* Want to convert Hex to ASCII?
+
+ ::
+ 
+  mov     [ebp+var_28], 46h
+  mov     [ebp+var_27], 4Ch
+  mov     [ebp+var_26], 41h
+
+ Select the hex and press the keyboard key "R"; If you are selecting multiple values together, a pop-up "Convert to Char en masse", select "Operand value range", Lower value "0x00" and Upper Value "0xFF" and convert.
 
 Appendix-I Assembly Basics
 ==========================
@@ -138,6 +148,90 @@ The fields in the square brackets are optional. A basic instruction has two part
 * the first one is the name of the instruction (or the mnemonic), which is to be executed, and 
 * the second are the operands or the parameters of the command. 
 
+A good guide to follow is `x86 Assembly Guide <`http://www.cs.virginia.edu/~evans/cs216/guides/x86.html`>_
+
+Registers
+---------
+
+.. image:: ./Images/LFC-ReverseEngineering/x86-registers.png
+
+Memory and Addressing Modes
+---------------------------
+
+Declaring Static Data Regions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Data declarations should be preceded by the .DATA directive. Following this directive, the directives DB, DW, and DD can be used to declare one, two, and four byte data locations, respectively. 
+Declared locations can be labeled with names for later reference — this is similar to declaring variables by name, but abides by some lower level rules.
+
+Example declarations:
+
+::
+
+ .DATA
+ varDB 64                 ; Declare a byte, referred to as location var, containing the value 64.
+ var2DB ?                 ; Declare an uninitialized byte, referred to as location var2.
+ DB 10                    ; Declare a byte with no label, containing the value 10. Its location is var2 + 1.
+ XDW ?                    ; Declare a 2-byte uninitialized value, referred to as location X.
+ YDD 30000                ; Declare a 4-byte value, referred to as location Y, initialized to 30000.
+
+An array can be declared by just listing the values, as in the first example below. Two other common methods used for declaring arrays of data are the DUP directive and the use of string literals. 
+The DUP directive tells the assembler to duplicate an expression a given number of times. For example, 4 DUP(2) is equivalent to 2, 2, 2, 2.
+
+Examples:
+
+::
+
+ Z          DD 1, 2, 3    ; Declare three 4-byte values, initialized to 1, 2, and 3. The value of location Z + 8 will be 3.
+ bytes      DB 10 DUP(?)  ; Declare 10 uninitialized bytes starting at location bytes.
+ arr        DD 100 DUP(0) ; Declare 100 4-byte words starting at location arr, all initialized to 0
+ str        DB 'hello',0  ; Declare 6 bytes starting at the address str, initialized to the ASCII character values for hello and the null (0) byte.
+
+Addressing Memory
+^^^^^^^^^^^^^^^^^
+
+Mov instruction moves data between registers and memory. This instruction has two operands: the first is the destination and the second specifies the source.
+
+::
+ 
+ mov eax, [ebx]           ; Move the 4 bytes in memory at the address contained in EBX into EAX
+ mov [var], ebx           ; Move the contents of EBX into the 4 bytes at memory address var. (Note, var is a 32-bit constant).
+ mov eax, [esi-4]         ; Move 4 bytes at memory address ESI + (-4) into EAX
+ mov [esi+eax], cl        ; Move the contents of CL into the byte at address ESI+EAX
+ mov edx, [esi+4*ebx]     ; Move the 4 bytes of data at address ESI+4*EBX into EDX
+
+Size Directives
+^^^^^^^^^^^^^^^
+
+The size directives BYTE PTR, WORD PTR, and DWORD PTR serve this purpose, indicating sizes of 1, 2, and 4 bytes respectively.
+
+For example:
+
+::
+
+ mov BYTE  PTR [ebx], 2   ; Move 2 into the single byte at the address stored in EBX.
+ mov WORD  PTR [ebx], 2   ; Move the 16-bit integer representation of 2 into the 2 bytes starting at the address in EBX.
+ mov DWORD PTR [ebx], 2   ; Move the 32-bit integer representation of 2 into the 4 bytes starting at the address in EBX.
+
+LEA - Load Effective Address
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The lea instruction places the address specified by its second operand into the register specified by its first operand. Note, the contents of the memory location are not loaded, only the effective address is computed and placed into the register. This is useful for obtaining a pointer into a memory region.
+
+Syntax
+
+::
+
+ lea <reg32>,<mem>
+
+Examples
+
+::
+
+ lea edi, [ebx+4*esi]     ; the quantity EBX+4*ESI is placed in EDI.
+ lea eax, [var]           ; the value in var is placed in EAX.
+ lea eax, [val]           ; the value val is placed in EAX.
+
 Jump Statements
 ---------------
 
@@ -209,7 +303,7 @@ Signed Ones
 +--------+------------------------------+-------------+--------------------+
 
 Examples
-********
+========
 
 * Consider a binary which is setuid and used to read files.
 

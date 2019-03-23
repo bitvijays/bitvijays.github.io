@@ -1,6 +1,6 @@
-************************************************************
-Infrastruture PenTest Series : Part 6 - Configuration Review
-************************************************************
+*************************************************************
+Infrastructure PenTest Series : Part 6 - Configuration Review
+*************************************************************
 
 So far, we have discussed about the IT infrastructure penetration testing in which plethora of attacking methods, tools, commands were explained. Now it's time get our hands dirty with the secure configuration re`view of network devices. 
 Often in an engagement we are required to perform a secure configuration review of network devices such as routers, switches, firewalls etc. We will try to cover devices by different vendors.

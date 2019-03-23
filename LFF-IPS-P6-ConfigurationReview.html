@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -16,19 +17,10 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>Infrastruture PenTest Series : Part 6 - Configuration Review &#8212; tech.bitvijays.com</title>
+    <title>Infrastructure PenTest Series : Part 6 - Configuration Review &#8212; tech.bitvijays.com</title>
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -38,8 +30,7 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -50,7 +41,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Infrastruture PenTest Series : Part 6 - Configuration Review</a><ul>
+<li><a class="reference internal" href="#">Infrastructure PenTest Series : Part 6 - Configuration Review</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a><ul>
 <li><a class="reference internal" href="#routers">Routers</a></li>
 <li><a class="reference internal" href="#switches">Switches</a></li>
@@ -107,12 +98,14 @@
   </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -123,8 +116,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="infrastruture-pentest-series-part-6-configuration-review">
-<h1>Infrastruture PenTest Series : Part 6 - Configuration Review<a class="headerlink" href="#infrastruture-pentest-series-part-6-configuration-review" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="infrastructure-pentest-series-part-6-configuration-review">
+<h1>Infrastructure PenTest Series : Part 6 - Configuration Review<a class="headerlink" href="#infrastructure-pentest-series-part-6-configuration-review" title="Permalink to this headline">¶</a></h1>
 <p>So far, we have discussed about the IT infrastructure penetration testing in which plethora of attacking methods, tools, commands were explained. Now it’s time get our hands dirty with the secure configuration re`view of network devices.
 Often in an engagement we are required to perform a secure configuration review of network devices such as routers, switches, firewalls etc. We will try to cover devices by different vendors.</p>
 <div class="section" id="introduction">
@@ -160,13 +153,13 @@ With this information, the switch will repeat a frame only out to the port that 
 <h2>Cisco Devices<a class="headerlink" href="#cisco-devices" title="Permalink to this headline">¶</a></h2>
 <p>Its always recommended to perform a manual review for the devices. The manual approach may take time but its the best way to learn the IOS configuration commands as well. First and foremost, we need to obtain the configuration file of the device.
 To do so we will talk a bit about various modes present in CISCO devices.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>User EXEC              Log in.                                                                         Router&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>User EXEC              Log in.                                                                         Router&gt;
 Privileged EXEC        From user EXEC mode, use the enable EXEC command.                               Router#
 Global configuration   From privileged EXEC mode, use the configure terminal privileged EXEC command.  Router(config)#
 </pre></div>
 </div>
 <p>Now to pull out the configuration of the device one of the simplest way is by using telnet (Though its an insecure protocol, Its just a method)</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Router# show runnning-config
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Router# show runnning-config
 </pre></div>
 </div>
 <p>There are many ways to save the configuration into a text file like saving the config to a tftp/ftp server and then get the file from there etc. But the simplest way is by using Putty emulator,
@@ -202,7 +195,7 @@ for the manual review we will discuss few pointers which can be checked in no ti
 <h3>Nipper<a class="headerlink" href="#nipper" title="Permalink to this headline">¶</a></h3>
 <p>Nipper is a very handy tool which is by default available in Kali linux. This tool is a cli based and can be utilised to perform some basic checks related to firmware version, device control etc. Its also available as a paid version and n trial version
 with limited amount of devices to be audited. However, the inbuilt nipper module in kali linux sometimes gives a lot of false positives, but for a start this also gives some juicy information.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nipper [Options]
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nipper [Options]
 
 General Options:
     --input=&lt;file&gt; :  Specifies a  device configuration  file to  process.  For CheckPoint Firewall-1 configurations, the input should be the conf directory.
@@ -286,12 +279,12 @@ provides the feature of viewing the rules and analyze them according to the inte
 <h4>Gpresult<a class="headerlink" href="#gpresult" title="Permalink to this headline">¶</a></h4>
 <p>Displays the Resultant Set of Policy (RSoP) information for a remote user and computer. To use RSoP reporting for remotely targeted computers through the firewall, you must have firewall rules that enable inbound network traffic on the ports.</p>
 <p>Usage</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>gpresult [/s &lt;compUTER&gt; [/u &lt;USERNAME&gt; [/p [&lt;PASSWOrd&gt;]]]] [/user [&lt;TARGETDOMAIN&gt;\]&lt;TARGETUSER&gt;] [/scope {user | computer}] {/r | /v | /z | [/x | /h] &lt;FILENAME&gt; [/f] | /?}
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>gpresult [/s &lt;compUTER&gt; [/u &lt;USERNAME&gt; [/p [&lt;PASSWOrd&gt;]]]] [/user [&lt;TARGETDOMAIN&gt;\]&lt;TARGETUSER&gt;] [/scope {user | computer}] {/r | /v | /z | [/x | /h] &lt;FILENAME&gt; [/f] | /?}
 </pre></div>
 </div>
 <p>The following example displays RSoP data for the computer srvmain and the logged-on user. Data is included about both the user and the computer. The command is run with the credentials of the user maindomhiropln, and <a class="reference external" href="mailto:p&#37;&#52;&#48;ssW23">p<span>&#64;</span>ssW23</a> is entered as the
 password for that user.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>gpresult /s srvmain /u maindom\hiropln /p p@ssW23 /r
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>gpresult /s srvmain /u maindom\hiropln /p p@ssW23 /r
 </pre></div>
 </div>
 </div>
@@ -299,7 +292,7 @@ password for that user.</p>
 <h4>Net Accounts<a class="headerlink" href="#net-accounts" title="Permalink to this headline">¶</a></h4>
 <p>This is a native windows command for acquires account related information such as password complexity, Password expiration, No. of passwords to be remembered, Lockout Duration etc.</p>
 <p>Usage</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Net Accounts            - View the current password &amp; logon restrictions for the computer
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Net Accounts            - View the current password &amp; logon restrictions for the computer
 Net Accounts /Domain    - View the current password &amp; logon restrictions for the domain.
 NET USER [/DOMAIN]      - View user account details
 </pre></div>
@@ -313,7 +306,7 @@ NET USER [/DOMAIN]      - View user account details
 <div class="section" id="applications-installed">
 <h4>Applications installed<a class="headerlink" href="#applications-installed" title="Permalink to this headline">¶</a></h4>
 <p>We also have to look for vulnerable applications installed by getting a comprehensive list of installed applications. This can be gathered by using the following command line in native windows powershell.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table AutoSize &gt; File.txt
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table AutoSize &gt; File.txt
 </pre></div>
 </div>
 </div>
@@ -321,7 +314,7 @@ NET USER [/DOMAIN]      - View user account details
 <h4>auditpol<a class="headerlink" href="#auditpol" title="Permalink to this headline">¶</a></h4>
 <p>We also need to look for the audit policies defined for systems/ Servers in order identify various misconfiguration of windows audit policy this can be gathered by using this command which displays information about and performs functions to manipulate audit policies.</p>
 <p>Usage</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Auditpol command [&lt;sub-command&gt;&lt;options&gt;]
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Auditpol command [&lt;sub-command&gt;&lt;options&gt;]
 
 auditpol /get
 [/user[:&lt;username&gt;|&lt;{sid}&gt;]]
@@ -334,7 +327,7 @@ auditpol /get
 </div>
 <p>Refer <a class="reference external" href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/auditpol-get">Auditpol-Get</a>.</p>
 <p>Simply issue</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>auditpol /get /category:* &gt; Audit_Policy.txt
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>auditpol /get /category:* &gt; Audit_Policy.txt
 </pre></div>
 </div>
 <p>For extracting the audit policy.</p>
@@ -414,7 +407,7 @@ Few features of LSAT is listed below:</p>
 <div class="section" id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><strong class="first">Merge branch ‘master’ into master</strong><span> by </span><em>Vijay Kumar</em></li>
+<li><strong class="first">Binary Exploitation/ Vulnarable Machines/ Linux Essentials/ Configuration Review- Push</strong><span> by </span><em>bitvijays</em></li>
 </ul>
 </div>
 </div>

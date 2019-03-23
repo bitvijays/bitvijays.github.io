@@ -17,5 +17,5 @@ This post (Work in Progress) lists the tips and tricks while doing Cryptography 
 
 * If we examine the encrypted string, we see that when divided into blocks of 2 every first letter, x, falls on the interval 0<=x<=4 and every second letter, y, falls on the interval 5<=y<=9. This knowledge combined with the hint that our cipher will be missing the letter "z", we can construct a 5x5 Polybius square (hence the hint sqrt(ABCDEFGHIJKLMNOPQRSTUVWXY), because the alphabet minus Z is of length 25 and sqrt(25) = 5).
 
-
+* Provided with RSA p,q,dp,dq and ciphertext utilize `https://raw.githubusercontent.com/LFlare/picoctf_2017_writeup/master/cryptography/weird-rsa/solve.py>`_
  

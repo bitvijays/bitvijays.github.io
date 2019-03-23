@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -19,16 +20,7 @@
     <title>Learning from the CTF : Cryptography &#8212; tech.bitvijays.com</title>
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -38,8 +30,7 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -59,12 +50,14 @@
   </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -86,6 +79,7 @@
 <li>All ciphers listed at <a class="reference external" href="http://rumkin.com/tools/cipher/">Cipher Tools</a></li>
 <li>If we have a “3845281945283805284526053525260547380516453748164748478317454508” something like this? It might be a  Polybius square cipher, where each 2-number block in the encrypted text is a coordinate on a 5x5 square.</li>
 <li>If we examine the encrypted string, we see that when divided into blocks of 2 every first letter, x, falls on the interval 0&lt;=x&lt;=4 and every second letter, y, falls on the interval 5&lt;=y&lt;=9. This knowledge combined with the hint that our cipher will be missing the letter “z”, we can construct a 5x5 Polybius square (hence the hint sqrt(ABCDEFGHIJKLMNOPQRSTUVWXY), because the alphabet minus Z is of length 25 and sqrt(25) = 5).</li>
+<li>Provided with RSA p,q,dp,dq and ciphertext utilize <a href="#id1"><span class="problematic" id="id2">`https://raw.githubusercontent.com/LFlare/picoctf_2017_writeup/master/cryptography/weird-rsa/solve.py&gt;`_</span></a></li>
 </ul>
 </div>
 

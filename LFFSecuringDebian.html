@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -19,16 +20,7 @@
     <title>Learning from the field : Securing your Debian &#8212; tech.bitvijays.com</title>
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -38,8 +30,7 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -82,12 +73,14 @@
   </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -110,10 +103,10 @@
 <li>Generate an encrypted password, open a terminal and run the following command:</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>grub-mkpasswd-pbkdf2
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grub-mkpasswd-pbkdf2
 </pre></div>
 </div>
-<div class="highlight-None"><div class="highlight"><pre><span></span>grub-mkpasswd-pbkdf2
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grub-mkpasswd-pbkdf2
 Enter password:
 Reenter password:
 PBKDF2 hash of your password is  grub.pbkdf2.sha512.10000.A56BEB30E27FE2F7D119E8DEFD6A8049E4300734BB139A5DD08E668BA434792B8AB45A285AC88B95DD16658AC7EC0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX``
@@ -124,7 +117,7 @@ PBKDF2 hash of your password is  grub.pbkdf2.sha512.10000.A56BEB30E27FE2F7D119E8
 <li>Insert the hash in /etc/grub.d/40_custom</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>set superusers=&quot;root&quot;
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>set superusers=&quot;root&quot;
 password_pbkdf2 root grub.pbkdf2.sha512.10000.A56BEB30E27FE2F7D119E8DEFD6A8049E4300734BB139A5DD08E668BA434792B8AB45A285AC88B95DD16658AC7EC0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 export superusers``
 </pre></div>
@@ -134,7 +127,7 @@ export superusers``
 <li>Execute update-grub</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>update-grub
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>update-grub
 Generating grub configuration file ...
 Found background image: .background_cache.png
 Found linux image: /boot/vmlinuz-4.0.0-kali1-amd64
@@ -150,7 +143,7 @@ done
 <div class="section" id="password-security-in-pam">
 <h3>Password security in PAM<a class="headerlink" href="#password-security-in-pam" title="Permalink to this headline">¶</a></h3>
 <p>Install libpam-passwdqc which is a PAM module for password strength policy enforcement. Insert the below line in /etc/pam.d/common-password</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>password    requisite           pam_passwdqc.so min=disabled,disabled,8,8,8
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>password    requisite           pam_passwdqc.so min=disabled,disabled,8,8,8
 
 Format is min=N0,N1,N2,N3,N4 [min=disabled,24,11,8,7] where
 </pre></div>
@@ -169,7 +162,7 @@ Format is min=N0,N1,N2,N3,N4 [min=disabled,24,11,8,7] where
 <li>With root privileges uncomment the following line in /etc/pam.d/su, by removing the leading ‘#’:</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>#auth       required pam_wheel.so
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>#auth       required pam_wheel.so
 </pre></div>
 </div>
 <p>That’s all for the file and no user can execute su anymore. This is the most secure configuration.</p>
@@ -178,11 +171,11 @@ Format is min=N0,N1,N2,N3,N4 [min=disabled,24,11,8,7] where
 <li>Allow a user to execute su: After having restricted the execution of su,create the group wheel with root privileges:</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>groupadd wheel
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>groupadd wheel
 </pre></div>
 </div>
 <p>And then add user_name to that group:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>usermod -aG wheel user_name
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>usermod -aG wheel user_name
 </pre></div>
 </div>
 <p>From now user_name can execute su.</p>
@@ -191,14 +184,14 @@ Format is min=N0,N1,N2,N3,N4 [min=disabled,24,11,8,7] where
 <div class="section" id="temporary-directories-in-pam">
 <h3>Temporary directories in PAM<a class="headerlink" href="#temporary-directories-in-pam" title="Permalink to this headline">¶</a></h3>
 <p>Since there have been a number of so called insecure tempfile vulnerabilities, thttpd is one example,the libpam-tmpdir is a good package to install. All you have to do is add the following to /etc/pam.d/common   -  session:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>session    optional     pam_tmpdir.so
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>session    optional     pam_tmpdir.so
 </pre></div>
 </div>
 </div>
 <div class="section" id="configuration-for-undefined-pam-applications">
 <h3>Configuration for undefined PAM applications<a class="headerlink" href="#configuration-for-undefined-pam-applications" title="Permalink to this headline">¶</a></h3>
 <p>Finally, but not least, create /etc/pam.d/other and enter the followinglines:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>auth     required       pam_securetty.so
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>auth     required       pam_securetty.so
 auth     required       pam_unix_auth.so
 auth     required       pam_warn.so
 auth     required       pam_deny.so
@@ -224,7 +217,7 @@ session  required       pam_deny.so
 <li>Install libpam-umask package adjusts the users’ default umask using PAM. Add the following, after installing the package, to /etc/pam.d/common-session:</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>session    optional     pam_umask.so umask=077
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>session    optional     pam_umask.so umask=077
 </pre></div>
 </div>
 </div></blockquote>
@@ -237,23 +230,23 @@ session  required       pam_deny.so
 <div class="section" id="user-login-actions">
 <h2>User login actions<a class="headerlink" href="#user-login-actions" title="Permalink to this headline">¶</a></h2>
 <p>Edit /etc/login.defs The next step is to edit the basic configuration and action upon user login. Note that this file is not part of the PAM configuration, it’s a configuration file honored by login and su programs, so it doesn’t make sense tuning it for cases where neither of the two programs are at least indirectly called (the getty program which sits on the consoles and offers the initial login prompt does invoke login).</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>FAILLOG_ENAB        yes
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>FAILLOG_ENAB        yes
 </pre></div>
 </div>
 <p>If you enable this variable, failed logins will be logged. It is important to keep track of them to catch someone who tries a brute force attack.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>LOG_UNKFAIL_ENAB    no
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>LOG_UNKFAIL_ENAB    no
 </pre></div>
 </div>
 <p>If you set this variable to ‘yes’ it will record unknown usernames if the login failed. It is best if you use ‘no’ (the default) since, otherwise, user passwords might be inadvertenly logged here (if a user mistypes and they enter their password as the username). If you set it to ‘yes’, make sure the logs have the proper permissions (640 for example, with an appropriate group setting such as adm).</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>SYSLOG_SU_ENAB      yes
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>SYSLOG_SU_ENAB      yes
 </pre></div>
 </div>
 <p>This one enables logging of su attempts to syslog. Quite important on serious machines but note that this       can create privacy issues as well.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>SYSLOG_SG_ENAB      yes
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>SYSLOG_SG_ENAB      yes
 </pre></div>
 </div>
 <p>The same as SYSLOG_SU_ENAB but applies to the sg program.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>ENCRYPT_METHOD  SHA512
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>ENCRYPT_METHOD  SHA512
 </pre></div>
 </div>
 <p>As stated above, encrypted passwords greatly reduce the problem of dictionary attacks, since you can use longer passwords. This definition has to be consistent with the value defined in /etc/pam.d/common-password.</p>
@@ -261,7 +254,7 @@ session  required       pam_deny.so
 <div class="section" id="log-files-permissions">
 <h2>Log files Permissions<a class="headerlink" href="#log-files-permissions" title="Permalink to this headline">¶</a></h2>
 <p>It is not only important to decide how alerts are used, but also who has read/modify access to the log files (if not using a remote loghost. First /var/log/lastlog and /var/log/faillog do not need to be readable by normal users. In the lastlog file you can see who logged in recently, and in the faillog you see a summary of failed logins. The author recommends chmod 660 for both.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>#  find /var/log -type f -exec ls -l {} \; | cut -c 17-35 |sort -u
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>#  find /var/log -type f -exec ls -l {} \; | cut -c 17-35 |sort -u
 (see to what users do files in /var/log belong)
 #  find /var/log -type f -exec ls -l {} \; | cut -c 26-34 |sort -u
 (see to what groups do files in /var/log belong)
@@ -326,7 +319,7 @@ session  required       pam_deny.so
 <li>&gt;1 - bitmask of allowed sysrq functions (see below for detailed function description):</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>2   =   0x2 - enable control of console logging level
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>2   =   0x2 - enable control of console logging level
 4   =   0x4 - enable control of keyboard (SAK, unraw)
 8   =   0x8 - enable debugging dumps of processes etc.
 16  =  0x10 - enable sync command
@@ -369,19 +362,19 @@ session  required       pam_deny.so
 <div class="section" id="harden-compilers">
 <h2>Harden compilers<a class="headerlink" href="#harden-compilers" title="Permalink to this headline">¶</a></h2>
 <p>Harden compilers like restricting access to root user only: Use grep to found out the compilers installed from the /var/log/lynis.log file.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Found known binary: as (compiler) - /usr/bin/as
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Found known binary: as (compiler) - /usr/bin/as
 Found known binary: g++ (compiler) - /usr/bin/g++
 Found known binary: gcc (compiler) - /usr/bin/gcc
 </pre></div>
 </div>
-<div class="highlight-None"><div class="highlight"><pre><span></span>ls -lah /usr/bin/as /usr/bin/g++ /usr/bin/gcc
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>ls -lah /usr/bin/as /usr/bin/g++ /usr/bin/gcc
 lrwxrwxrwx 1 root root 19 May 12 20:29 /usr/bin/as -&gt; x86_64-linux-gnu-as
 lrwxrwxrwx 1 root root  7 Sep  9  2015 /usr/bin/g++ -&gt; g++-4.9
 lrwxrwxrwx 1 root root  7 Sep  9  2015 /usr/bin/gcc -&gt; gcc-4.9
 </pre></div>
 </div>
 <p>Remove permissions of read, write, execute from others:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>chmod o-x /usr/bin/as /usr/bin/g++ /usr/bin/gcc
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>chmod o-x /usr/bin/as /usr/bin/g++ /usr/bin/gcc
 chmod o-r /usr/bin/as /usr/bin/g++ /usr/bin/gcc
 chmod o-w /usr/bin/as /usr/bin/g++ /usr/bin/gcc``
 </pre></div>
@@ -393,14 +386,14 @@ chmod o-w /usr/bin/as /usr/bin/g++ /usr/bin/gcc``
 <ul class="simple">
 <li>USB Mass storage: Add the below line in /etc/modprobe.d/blacklist-usbstorage</li>
 </ul>
-<div class="highlight-None"><div class="highlight"><pre><span></span>#Disabling USB Storage
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>#Disabling USB Storage
 blacklist usb-storage
 </pre></div>
 </div>
 <ul class="simple">
 <li>Firewire storage: Add the below line in /etc/modprobe.d/blacklist-firewire</li>
 </ul>
-<div class="highlight-None"><div class="highlight"><pre><span></span>#Disabling Firewire Storage
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>#Disabling Firewire Storage
 blacklist firewire_core
 blacklist firewire_ohci
 </pre></div>

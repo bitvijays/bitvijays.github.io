@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -19,16 +20,7 @@
     <title>Infrastructure PenTest Series : Part 1 - Intelligence Gathering &#8212; tech.bitvijays.com</title>
     <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -39,8 +31,7 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -157,12 +148,14 @@
   </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -280,7 +273,7 @@ inside the internal network of the organization.</p>
 <li>NTLM: NTLM hashes are stored in the Security Account Manager (SAM) database and in the Domain Controller’s NTDS.dit database.</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>aad3b435b51404eeaad3b435b51404ee:e19ccf75ee54e06b06a5907af13cef42
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>aad3b435b51404eeaad3b435b51404ee:e19ccf75ee54e06b06a5907af13cef42
 </pre></div>
 </div>
 <p>The LM hash is the one before the semicolon (:) and the NT hash is the one after the semicolon. Starting with Windows Vista and Windows Server 2008, by default, only the NT hash is stored.</p>
@@ -289,7 +282,7 @@ inside the internal network of the organization.</p>
 <li>NTLMv1/v2 / Net-NTLMv1/v2 : Net-NTLM hashes are used for network authentication (they are derived from a challenge/response algorithm and are based on the user’s NT hash). Here is an example of a Net-NTLMv2 (a.k.a NTLMv2) hash:</li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>admin::N46iSNekpT:08ca45b7d7ea58ee:88dcbe4446168966a153a0064958dac6:5c7830315c7830310000000000000b45c67103d07d7b95acd12ffa11230e0000000052920b85f78d013c31cdb3b92f5d765c783030
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>admin::N46iSNekpT:08ca45b7d7ea58ee:88dcbe4446168966a153a0064958dac6:5c7830315c7830310000000000000b45c67103d07d7b95acd12ffa11230e0000000052920b85f78d013c31cdb3b92f5d765c783030
 </pre></div>
 </div>
 </div></blockquote>
@@ -409,12 +402,12 @@ inside the internal network of the organization.</p>
 <li>For a Domain name, it just provides registrar name etc.</li>
 <li>For a IP address, it provides the net-block, ASN Number etc.</li>
 </ul>
-<div class="highlight-None"><div class="highlight"><pre><span></span>whois &lt;Domain Name/ IP Address&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>whois &lt;Domain Name/ IP Address&gt;
 -H Do not display the legal disclaimers some registries like to show you.
 </pre></div>
 </div>
 <p>Googling for</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>&quot;Registrant Organization&quot; inurl: domaintools
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&quot;Registrant Organization&quot; inurl: domaintools
 </pre></div>
 </div>
 <p>Also helps for to search for new domains registered by the same organization. “Registrant Organization” is present in the output of whois.
@@ -427,7 +420,7 @@ This technique was used by person who compromised FinFisher in his <a class="ref
 <div class="section" id="asn-number">
 <h3>ASN Number<a class="headerlink" href="#asn-number" title="Permalink to this headline">¶</a></h3>
 <p>We could find the AS Number that participates in the Border Gateway Protocol (BGP) used by particular organization which could further inform about the IP address ranges used by the organization. An ASN Number could be found by using Team CMRU whois service</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>whois -h whois.cymru.com &quot; -v 216.90.108.31&quot;                         |
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>whois -h whois.cymru.com &quot; -v 216.90.108.31&quot;                         |
 </pre></div>
 </div>
 <p>If you want to do bulk queries refer &#64; <a class="reference external" href="http://www.team-cymru.org/IP-ASN-mapping.html">IP-ASN-Mapping-Team-CYMRU</a></p>
@@ -462,7 +455,7 @@ This technique was used by person who compromised FinFisher in his <a class="ref
 <div class="section" id="the-harvester">
 <h4>The Harvester<a class="headerlink" href="#the-harvester" title="Permalink to this headline">¶</a></h4>
 <p>The harvester provides email addresses, virtual hosts, different domains, shodan results etc. for the domain. It provides really good results, especially if you combine with shodan results as it may provide server versions and what’s OS is running on a provided IP address.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Usage: theharvester options
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Usage: theharvester options
    -d: Domain to search or company name
    -b: data source: google, googleCSE, bing, bingapi, pgp
                     linkedin, google-profiles, people123, jigsaw,
@@ -487,11 +480,11 @@ This technique was used by person who compromised FinFisher in his <a class="ref
 <div class="section" id="dns-dumpster-api">
 <h4>DNS Dumpster API<a class="headerlink" href="#dns-dumpster-api" title="Permalink to this headline">¶</a></h4>
 <p>We can utilize DNS Dumpster’s API to know the various sub-domain related to a domain.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>curl -s http://api.hackertarget.com/hostsearch/?q=example.com &gt; hostsearch
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>curl -s http://api.hackertarget.com/hostsearch/?q=example.com &gt; hostsearch
 </pre></div>
 </div>
 <p>and the various dns queries by</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>curl -s http://api.hackertarget.com/dnslookup/?q=example.com &gt; dnslookup
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>curl -s http://api.hackertarget.com/dnslookup/?q=example.com &gt; dnslookup
 </pre></div>
 </div>
 </div>
@@ -519,7 +512,7 @@ This technique was used by person who compromised FinFisher in his <a class="ref
 <li><a class="reference external" href="https://www.shodan.io/">Shodan</a>: provides the same results may be with recent scans. You need to be logged-in. Shodan CLI is available at <a class="reference external" href="https://cli.shodan.io/">Shodan Command-Line Interface</a></li>
 </ul>
 <p>Shodan Queries</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>title   : Search the content scraped from the HTML tag
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>title   : Search the content scraped from the HTML tag
 html    : Search the full HTML content of the returned page
 product : Search the name of the software or product identified in the banner
 net     : Search a given netblock (example: 204.51.94.79/18)
@@ -539,7 +532,7 @@ city    : Search for results in a given city
 </ul>
 <blockquote>
 <div><p>Censys.io queries</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>ip:192.168.0.0/24 -- CIDR notation
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>ip:192.168.0.0/24 -- CIDR notation
 </pre></div>
 </div>
 </div></blockquote>
@@ -563,7 +556,7 @@ city    : Search for results in a given city
 <div class="section" id="robtex">
 <h4>Robtex<a class="headerlink" href="#robtex" title="Permalink to this headline">¶</a></h4>
 <p><a class="reference external" href="https://www.robtex.com/">Robtex</a> : Robtex is one of the world’s largest network tools. At robtex.com, you will find everything you need to know about domains, DNS, IP, Routes, Autonomous Systems, etc. There’s a nmap nse <a class="reference external" href="https://nmap.org/nsedoc/scripts/http-robtex-reverse-ip.html">http-robtex-reverse-ip</a> which can be used to find the domain/ website hosted on that ip.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nmap --script http-robtex-reverse-ip --script-args http-robtex-reverse-ip.host=&#39;XX.XX.78.214&#39;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nmap --script http-robtex-reverse-ip --script-args http-robtex-reverse-ip.host=&#39;XX.XX.78.214&#39;
 Starting Nmap 7.01 ( https://nmap.org ) at 2016-04-20 21:39 IST
 Pre-scan script results:
 | http-robtex-reverse-ip:
@@ -581,7 +574,7 @@ Pre-scan script results:
 <h3>Finding DNS, MX, AAAA, A using<a class="headerlink" href="#finding-dns-mx-aaaa-a-using" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="host">
 <h4>host<a class="headerlink" href="#host" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>host &lt;domain&gt; &lt;optional_name_server&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>host &lt;domain&gt; &lt;optional_name_server&gt;
 host -t ns &lt;domain&gt;           -- Name Servers
 host -t a &lt;domain&gt;            -- Address
 host -t aaaa &lt;domain&gt;         -- AAAA record points a domain or subdomain to an IPv6 address
@@ -591,7 +584,7 @@ host &lt;IP&gt;                     -- Reverse Lookup
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>host -t ns zonetransfer.me
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>host -t ns zonetransfer.me
 zonetransfer.me name server nsztm1.digi.ninja.
 zonetransfer.me name server nsztm2.digi.ninja.
 </pre></div>
@@ -599,7 +592,7 @@ zonetransfer.me name server nsztm2.digi.ninja.
 </div>
 <div class="section" id="nslookup">
 <h4>nslookup<a class="headerlink" href="#nslookup" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nslookup - &lt;optional_name_server&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nslookup - &lt;optional_name_server&gt;
 set type=mx
 set type=ns
 </pre></div>
@@ -613,25 +606,25 @@ This is interesting because if gives us an overview of what IP to hostname trans
 <p>DNS Zone Transfer can be done with:</p>
 <div class="section" id="id2">
 <h4>host<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>host -l &lt;Domain Name&gt; &lt;DNS Server&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>host -l &lt;Domain Name&gt; &lt;DNS Server&gt;
 </pre></div>
 </div>
 <p>Try zonetransfer using host for zonetransfer.me using their name servers.</p>
 </div>
 <div class="section" id="dig">
 <h4>Dig<a class="headerlink" href="#dig" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>dig axfr &lt;domain_name&gt; @nameserver
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>dig axfr &lt;domain_name&gt; @nameserver
 </pre></div>
 </div>
 <p>Try zonetransfer using dig for zonetransfer.me using their name servers.</p>
 </div>
 <div class="section" id="dnsrecon">
 <h4>dnsrecon<a class="headerlink" href="#dnsrecon" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>dnsrecon -d &lt;domain&gt; -t axfr
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>dnsrecon -d &lt;domain&gt; -t axfr
 </pre></div>
 </div>
 <p>dnsrecon could also be used for other purposes such as finding nameservers, mailserver, forward reverse lookup</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>-d, --domain      &lt;domain&gt;          Domain to Target for enumeration.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>-d, --domain      &lt;domain&gt;          Domain to Target for enumeration.
 -r, --range       &lt;range&gt;           IP Range for reverse look-up brute force in formats (first-last) or in (range/bitmask).
 -n, --name_server &lt;name&gt;            Domain server to use, if none is given the SOA of the target will be used
 </pre></div>
@@ -640,7 +633,7 @@ This is interesting because if gives us an overview of what IP to hostname trans
 <div class="section" id="dnsenum">
 <h4>DNSEnum<a class="headerlink" href="#dnsenum" title="Permalink to this headline">¶</a></h4>
 <p>DNS Enumeration tool</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>dnsenum &lt;domain&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>dnsenum &lt;domain&gt;
 </pre></div>
 </div>
 </div>
@@ -652,7 +645,7 @@ This is interesting because if gives us an overview of what IP to hostname trans
 <li><strong>Retrieving an SRV record:</strong></li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>$ dig _sip._tls.example.com SRV
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>$ dig _sip._tls.example.com SRV
 
 $ host -t SRV _sip._tls.example.com
 
@@ -669,7 +662,7 @@ $ nslookup
 </ul>
 <blockquote>
 <div><p>SRV records are used by the below standardized communication protocols:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Teamspeak 3 (since version 3.0.8 - Neither priority nor weight is taken into consideration. The client appears to choose an SRV record at random for a connection attempt.[1])
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Teamspeak 3 (since version 3.0.8 - Neither priority nor weight is taken into consideration. The client appears to choose an SRV record at random for a connection attempt.[1])
 Minecraft (since version 1.3.1, _minecraft._tcp)
 CalDAV and CardDAV
 Client SMTP Authorization
@@ -700,7 +693,7 @@ Citrix Receiver
 <div class="section" id="ping-gateway-ip-addresses">
 <h4>Ping Gateway IP Addresses<a class="headerlink" href="#ping-gateway-ip-addresses" title="Permalink to this headline">¶</a></h4>
 <p>Let’s say internally, we got an IP address 192.168.56.101 netmask 255.255.255.0 with a default gateway of 192.168.56.1. It is a high probability that the rest of the network ranges would have been defined as /24 CIDR as well. In that case, a ping sweep for the range of 192.168.*.1 with a watch on the TTL would possibly reveal what the other network ranges are.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sn -v -PE 192.168.*.1
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nmap -sn -v -PE 192.168.*.1
 </pre></div>
 </div>
 <div class="admonition-todo admonition" id="index-11">
@@ -711,7 +704,7 @@ Citrix Receiver
 <div class="section" id="dns-enumeration">
 <h4>DNS Enumeration<a class="headerlink" href="#dns-enumeration" title="Permalink to this headline">¶</a></h4>
 <p>If you are connected to a internal dns server, you may query it with</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>dig -t any &lt;domainname&gt;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>dig -t any &lt;domainname&gt;
 </pre></div>
 </div>
 <p>which should result in an output containing different name servers, mail servers, A, AAAA, SOA records which would possibly give you a inner scenario how the network has been designed as there can be different nameservers, domain controllers for different locations, internal departments etc.</p>
@@ -731,16 +724,16 @@ Citrix Receiver
 <div class="section" id="reverse-dns-lookup">
 <h4>Reverse DNS Lookup<a class="headerlink" href="#reverse-dns-lookup" title="Permalink to this headline">¶</a></h4>
 <p>Nmap provides a List scan option which does the reverse lookup. It provides the hostnames of the IP Address</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sL 10.0.0.0/8
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nmap -sL 10.0.0.0/8
 </pre></div>
 </div>
 <p>It can also be used with the below options:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>--randomize-hosts  : make the scans less obvious to various network monitoring systems
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>--randomize-hosts  : make the scans less obvious to various network monitoring systems
 --dns-servers server1,server2 : By default, it would use the dns servers which are listed in resolve.conf (if you haven&#39;t used --system-dns option). We can also list custom servers using these options.
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sL 45.33.32.156
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nmap -sL 45.33.32.156
 
 Starting Nmap 7.60 ( https://nmap.org ) at 2018-01-21 12:29 CET
 Nmap scan report for scanme.nmap.org (45.33.32.156)
@@ -753,21 +746,21 @@ Nmap done: 1 IP address (0 hosts up) scanned in 0.23 seconds
 <h3>Identifying Alive IP Addresses<a class="headerlink" href="#identifying-alive-ip-addresses" title="Permalink to this headline">¶</a></h3>
 <p>Nmap by default provides a -sn Ping scan option. Default host discovery is done with -sn which consists of an ICMP echo request, TCP SYN to port 443, TCP ACK to port 80, and an ICMP timestamp request by default. This works as if ICMP echo request is blocked, nmap would know if a host is alive if it receives any response from port 443 or 80 or timestamp reply.</p>
 <p>Let’s see what nmap does when we do a ping scan.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sn -n 10.0.0.230
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nmap -sn -n 10.0.0.230
 #My IP is 10.0.0.1
 </pre></div>
 </div>
 <p>It is very important to mention that the -n option (No DNS resolution) should be used going forward as we have already did DNS resolution while using nmap’s List scan. Since DNS can be slow even with Nmap’s built-in parallel stub resolver, this option can slash scanning times. TCP Dump output is presented here. As both the IP addresses are in the same subnet, nmap would use ARP Ping scan to find the alive IP Address.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>22:11:27.292054 ARP, Request who-has 10.0.0.230 (Broadcast) tell 10.0.0.1, length 28
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>22:11:27.292054 ARP, Request who-has 10.0.0.230 (Broadcast) tell 10.0.0.1, length 28
 22:11:27.361100 ARP, Reply 10.0.0.230 is-at 8c:64:22:3b:2b:2d (oui Unknown), length 28
 </pre></div>
 </div>
 <p>However, this behaviour can be changed using –disable-arp-ping.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sn 10.0.0.230 --disable-arp-ping
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nmap -sn 10.0.0.230 --disable-arp-ping
 </pre></div>
 </div>
 <p>TCPdump output is as below One ICMP Echo Request, SYN to Port 443, ACK to Port 80 and a time stamp request.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>22:14:02.742180 IP 10.0.0.1 &gt; 10.0.0.230: ICMP echo request, id 45066, seq 0, length 8
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>22:14:02.742180 IP 10.0.0.1 &gt; 10.0.0.230: ICMP echo request, id 45066, seq 0, length 8
 22:14:02.742222 IP 10.0.0.1.59246 &gt; 10.0.0.230.https: Flags [S], seq 3994420539, win 1024, options [mss 1460], length 0
 22:14:02.742234 IP 10.0.0.1.59246 &gt; 10.0.0.230.http: Flags [.], ack 3994420539, win 1024, length 0
 22:14:02.742241 IP 10.0.0.1 &gt; 10.0.0.230: ICMP time stamp query id 38635 seq 0, length 20
@@ -778,29 +771,29 @@ Nmap done: 1 IP address (0 hosts up) scanned in 0.23 seconds
 </pre></div>
 </div>
 <p>If you use the –reason option, nmap will tell why it thinks the host is alive. In the below case (received echo-reply).</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>Nmap scan report for 10.0.0.230
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>Nmap scan report for 10.0.0.230
 Host is up, received echo-reply (0.073s latency).
 </pre></div>
 </div>
 <p>If we only want to send an ICMP Ping query (as if the host replies to it, the other three packets (SYN 443, ACK 80 and Timestamp) are an extra burden. (I may be wrong here). We can use</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -n -sn -PE --disable-arp-ping 10.0.0.230
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nmap -n -sn -PE --disable-arp-ping 10.0.0.230
 </pre></div>
 </div>
 <p>TCP Dump output:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>22:30:20.768525 IP 10.0.0.1 &gt; 10.0.0.230: ICMP echo request, id 39366, seq 0, length 8
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>22:30:20.768525 IP 10.0.0.1 &gt; 10.0.0.230: ICMP echo request, id 39366, seq 0, length 8
 22:30:20.826098 IP 10.0.0.230 &gt; 10.0.0.1: ICMP echo reply, id 39366, seq 0, length 8
 </pre></div>
 </div>
 <p>Please note that this ICMP scan would miss all the hosts which are alive but where the firewall is dropping the ICMP echo request packet. However, if you want to find more hosts, it would be advisable to separate the list of IPs which responded to ICMP from the IP address scan range and run the scan again (may be) with a SYN to 443 and an ACK to 80 using PA, PS options.</p>
 <p>Please also note Nmap’s ICMP ping, by default, sends zero data as part of the ping. Nmap typically pings the host via ICMP if the user has root privileges, and uses a tcp-ping otherwise. This is easily detected by Snort’s IDS Rule 1-469 <a class="reference external" href="https://www.snort.org/rule_docs/1-469">SID 1-469</a>.</p>
 <p>This could be evaded by using</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>--data &lt;hex string&gt; (Append custom binary data to sent packets)
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>--data &lt;hex string&gt; (Append custom binary data to sent packets)
 --data-string &lt;string&gt; (Append custom string to sent packets)
 --data-length &lt;number&gt; (Append random data to sent packets)
 </pre></div>
 </div>
 <p>Please note that you should use these options only on ICMP Echo Request for IDS Evasion as the data gets appended to every packet (ex. port scan packets). Designing the ideal combinations of probes as suggested in the Nmap Book is</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>-PE -PA -PS 21,22,23,25,80,113,31339 -PA 80,113,443,10042
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>-PE -PA -PS 21,22,23,25,80,113,31339 -PA 80,113,443,10042
  Adding --source-port 53 might also help
 </pre></div>
 </div>
@@ -822,7 +815,7 @@ Host is up, received echo-reply (0.073s latency).
 <div class="section" id="port-scanning">
 <h3>Port Scanning<a class="headerlink" href="#port-scanning" title="Permalink to this headline">¶</a></h3>
 <p>Once you have the list of IP Addresses which are alive, we can perform portscanning on them. Nmap provides multiple options such as</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>-sS TCP SYN Stealth : Half Open SYN Scan : Nmap sends the SYN packet, Server would send SYN/ACK, System would send RST.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>-sS TCP SYN Stealth : Half Open SYN Scan : Nmap sends the SYN packet, Server would send SYN/ACK, System would send RST.
 -sT TCP Connect Scan : Nmap uses system to send the SYN scan : Connect full TCP Handshake
 -sU UDP Scan
 -sA ACK Scan : Ack scan is generally used to map out firewall rule sets. (Whether a firewall is stateful or not)
@@ -830,15 +823,15 @@ Host is up, received echo-reply (0.073s latency).
 </div>
 <p>Please note p0f recognizes Nmap’s SYN scan because of the TCP Options such as the TCP window size which is a multiple of 1024, and only the MSS option supported with a value of 1460 (Check the tcpdump output of Ping scan above, SYN Packet). Recently, a IRC user was getting filtered port while using SYN Scan whereas he was getting OPEN ports when using telnet or TCP Connect Scan. Also, A patch to allow a user to override the TCP Window size in SYN scan was posted to the <a class="reference external" href="http://seclists.org/nmap-dev/2015/q3/52">Nmap Development List</a>.</p>
 <p>By default, nmap scans the 1000 most popular ports of each protocol (gathered by scanning million of IP address). Scanning 1000 ports in an unknown environment with 16 million IP Address could be challenging. Nmap also provides a Fast scan (-F) option which scans the 100 most common ports for each protocol. Otherwise it also provides –top-ports to specify an arbitrary number of ports. So, How do we know what are the ports scanned with –top-ports option? This could be figured out for respectively the top 1000 and top 100 ports by running the following commands:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nmap -sT -oG - -v | grep &#39;^# Ports&#39;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nmap -sT -oG - -v | grep &#39;^# Ports&#39;
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nmap localhost -F -oX - | grep &#39;^&lt;scaninfo&#39;
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nmap localhost -F -oX - | grep &#39;^&lt;scaninfo&#39;
 </pre></div>
 </div>
 <p>Nmap needs an nmap-services file with frequency information in order to know which ports are the most common. See the section called <a class="reference external" href="http://seclists.org/nmap-dev/2015/q3/52">Well Known Port List: nmap-services</a> : for more information about port frequencies. We could provide ports to nmap by using -p option also, for example</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>-p 22 : Scan single port
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>-p 22 : Scan single port
 -p 22,25,80 : Scan multiple ports with comma separated values. If -sS is specified TCP ports would be scanned (syn). If -sU UDP Scan is specified, UDP Ports would be scanned.
 -p 80-85, 443, 8000-8005 : Scan port with ranges.
 -p- : Scan all the ports excluding 0.
@@ -848,14 +841,14 @@ Host is up, received echo-reply (0.073s latency).
 </div>
 <p>Port scanning via <strong>netcat</strong>: Netcat might not be the best tool to use for port scanning, but can be used quickly. netcat scans TCP ports by default, but we can perform UDP scans as well.</p>
 <p>For a TCP scan, the format is</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nc -vvn -z xxx.xxx.xxx.xxx startport-endport
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nc -vvn -z xxx.xxx.xxx.xxx startport-endport
    -z flag is Zero-I/O mode (used for scanning)
    -vv will provide verbose information about the results
    -n flag allows to skip the DNS lookup
 </pre></div>
 </div>
 <p>For a UDP Port Scan, we need to add -u flag which makes the format</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nc -vvn -u -z xxx.xxx.xxx.xxx startport-endport
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nc -vvn -u -z xxx.xxx.xxx.xxx startport-endport
 </pre></div>
 </div>
 <p>If we have windows machine without nmap, we can use <a class="reference external" href="https://www.powershellgallery.com/packages/PSnmap/">PSnmap</a></p>
@@ -863,21 +856,21 @@ Host is up, received echo-reply (0.073s latency).
 <h4>Identifying service versions<a class="headerlink" href="#identifying-service-versions" title="Permalink to this headline">¶</a></h4>
 <p>Ideally, we can use -sV to probe the ports to find the running version of a service. When performing a version scan (-sV), Nmap sends a series of probes, each of which is assigned a rarity value in regards to correctly identifying a service. However, high intensity scans or in other words sending many probes takes longer. The intensity must be between 0 and 9. The default is 7.</p>
 <p>Ideally, to avoid IDS Detection, we should avoid using the -sV option. However, we can keep the noise less by using –version intensity by which we can control the number of probes sent to determine the service. Setting this option to 0 will send only the Null probe (connect and wait for banner) and any probes that have been specifically listed as pertaining to the scanned port in nmap-service-probes. The other available options are provided below:</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>--version-light (Enable light mode) : Alias for --version-intensity 2.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>--version-light (Enable light mode) : Alias for --version-intensity 2.
 --version-all (Try every single probe) : An alias for --version-intensity 9
 --version-trace (Trace version scan activity) : Print debugging information.
 </pre></div>
 </div>
 <p>Also, when -sV is specified apart from the probes, all the scripts in the <a class="reference external" href="https://nmap.org/nsedoc/categories/version.html">Version</a> category are executed. These scripts could be prevented from running by removing them from the script.db catalog or by building Nmap without NSE support (./configure –without-liblua). However, if –version-intensity option is less than 7, those scripts won’t be executed (I might be a little wrong here).</p>
 <p>So our scan would become approx</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nmap &lt;IP_Address_Range&gt; -n --top-ports &lt;number&gt;/-p &lt;Custom Port List&gt; -sV --version-intensity 0/ (No -sV)
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nmap &lt;IP_Address_Range&gt; -n --top-ports &lt;number&gt;/-p &lt;Custom Port List&gt; -sV --version-intensity 0/ (No -sV)
 </pre></div>
 </div>
 </div>
 <div class="section" id="performance">
 <h4>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h4>
 <p>So, how can we improve the performance of our nmap scan, so that result could be achieved faster. As always we will have Time Vs Accuracy Trade off.</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>-T&lt;0-5&gt;: Set timing template (higher is faster)
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>-T&lt;0-5&gt;: Set timing template (higher is faster)
 --min-rtt-timeout/max-rtt-timeout/initial-rtt-timeout &lt;time&gt;: Specifies probe round trip time.
 --max-retries &lt;tries&gt;: Caps number of port scan probe retransmissions.
 --host-timeout &lt;time&gt;: Give up on target after this long
@@ -904,7 +897,7 @@ Host is up, received echo-reply (0.073s latency).
 </div>
 <div class="section" id="output-options">
 <h4>Output Options<a class="headerlink" href="#output-options" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>-oN/-oX/-oS/-oG &lt;file&gt;: Output scan in normal, XML, s|&lt;rIpt kIddi3, and Grepable format, respectively.
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>-oN/-oX/-oS/-oG &lt;file&gt;: Output scan in normal, XML, s|&lt;rIpt kIddi3, and Grepable format, respectively.
 -oA &lt;basename&gt;: Output in the three major formats at once
 --reason: Display the reason a port is in a particular state
 --open: Only show open (or possibly open) ports
@@ -913,11 +906,11 @@ Host is up, received echo-reply (0.073s latency).
 </pre></div>
 </div>
 <p>At this point, it’s good to find what are the most common ports open in the scan we just performed by</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>grep &quot;^[0-9]\+&quot; &lt;nmap file .nmap extension&gt; | grep &quot;\ open\ &quot; | sort | uniq -c | sort -rn | awk &#39;{print &quot;\&quot;&quot;$1&quot;\&quot;,\&quot;&quot;$2&quot;\&quot;,\&quot;&quot;$3&quot;\&quot;,\&quot;&quot;$4&quot;\&quot;,\&quot;&quot;$5&quot; &quot;$6&quot; &quot;$7&quot; &quot;$8&quot; &quot;$9&quot; &quot;$10&quot; &quot;$11&quot; &quot;$12&quot; &quot;$13&quot;\&quot;&quot;}&#39; &gt; test.csv
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>grep &quot;^[0-9]\+&quot; &lt;nmap file .nmap extension&gt; | grep &quot;\ open\ &quot; | sort | uniq -c | sort -rn | awk &#39;{print &quot;\&quot;&quot;$1&quot;\&quot;,\&quot;&quot;$2&quot;\&quot;,\&quot;&quot;$3&quot;\&quot;,\&quot;&quot;$4&quot;\&quot;,\&quot;&quot;$5&quot; &quot;$6&quot; &quot;$7&quot; &quot;$8&quot; &quot;$9&quot; &quot;$10&quot; &quot;$11&quot; &quot;$12&quot; &quot;$13&quot;\&quot;&quot;}&#39; &gt; test.csv
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>xmlstarlet sel -t -m &#39;//port/state[@state=&quot;open&quot;]/parent::port&#39; -v &#39;ancestor::host/address/@addr&#39; -o : -v &#39;./@portid&#39; -n nmap-output.xml
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>xmlstarlet sel -t -m &#39;//port/state[@state=&quot;open&quot;]/parent::port&#39; -v &#39;ancestor::host/address/@addr&#39; -o : -v &#39;./@portid&#39; -n nmap-output.xml
 </pre></div>
 </div>
 </div>
@@ -952,7 +945,7 @@ Host is up, received echo-reply (0.073s latency).
 We can use grep to identify machines we ran nmap against earlier on which these three ports
 or a combination of them are open. The idea is the filter those IP’s out and feed them
 to nbtscan and/or enum4linux</p>
-<div class="highlight-None"><div class="highlight"><pre><span></span>:Grep for UDP port 137 which is required for nbtscan
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>:Grep for UDP port 137 which is required for nbtscan
 grep -E &quot;^Host.*[ ]137/open/udp&quot; &lt;Nmap .gnmap file&gt;
 grep -E &quot;^Host.*[ ]139/open/tcp&quot; &lt;Nmap .gnmap file&gt;
 
@@ -969,7 +962,7 @@ grep -E &quot;^Host.*[ ]139/open/tcp|[ ]443/open/tcp&quot; &lt;Nmap .gnmap file&
 </div>
 <div class="section" id="nbtscan">
 <h4>NBTSCAN<a class="headerlink" href="#nbtscan" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-None"><div class="highlight"><pre><span></span>nbtscan
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>nbtscan
     -v              Verbose output. Print all names received from each host.
     -f filename     Take IP addresses to scan from file &quot;filename&quot;
 </pre></div>
@@ -986,7 +979,7 @@ grep -E &quot;^Host.*[ ]139/open/tcp|[ ]443/open/tcp&quot; &lt;Nmap .gnmap file&
 <li><strong>snmpcheck:</strong></li>
 </ul>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>snmpcheck -t &lt;IP address&gt;
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>snmpcheck -t &lt;IP address&gt;
      -c : SNMP community; default is public
      -v : SNMP version (1,2); default is 1
      -w : detect write access (separate action by enumeration)
@@ -998,7 +991,7 @@ grep -E &quot;^Host.*[ ]139/open/tcp|[ ]443/open/tcp&quot; &lt;Nmap .gnmap file&
 </ul>
 <p>Also allows us to interact with the SNMP version 3 and extract particular nodes of a MIB tree.</p>
 <blockquote>
-<div><div class="highlight-None"><div class="highlight"><pre><span></span>snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  : Enumerates the Entire MIB Tree
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  : Enumerates the Entire MIB Tree
 snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  &lt;MIB Tree Number&gt; : Enumerates a particular node
     -v 1|2c|3     specifies SNMP version to use
     -c COMMUNITY  set the community string
@@ -1089,7 +1082,6 @@ snmpwalk -­c public ­‐v1 &lt;IP Address&gt;  &lt;MIB Tree Number&gt; : Enume
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><strong class="first">Added Open-Ports via XML</strong><span> by </span><em>bitvijays</em></li>
-<li><strong class="first">Merge branch ‘master’ into master</strong><span> by </span><em>Vijay Kumar</em></li>
 </ul>
 <div data-disqus-identifier="Infrastructure PenTest Series : Part 1 - Intelligence Gathering" data-disqus-shortname="techbitvijays" id="disqus_thread"></div></div>
 </div>

