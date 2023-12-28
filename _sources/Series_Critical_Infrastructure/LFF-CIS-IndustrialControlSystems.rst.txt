@@ -1,0 +1,1691 @@
+Industrial Control Systems
+##########################
+
+Purpose
+*******
+
+- Help to better understand ICS networks and ideas on protecting them from cyber attacks.
+- Discuss common weakness and vulnerablities along with cyber risks for ICS.
+- Importance of knowing the networks that needs to be protected
+- Discuss mitigation strategies and defense in depth for more secure ICS environment
+
+Definitions
+***********
+
+IT
+==
+
+- IT refers to anything related to computing technology.
+
+OT
+==
+
+- OT refers to hardware and software used to monitor events, processes, and devics and make adjustments in industrial operations.
+- Operational Technology (OT) refers to systems used to monitor and control industrial operations.
+
+ICS
+===
+
+- Industrial Control Systems (ICS) includes systems used to monitor and control industrial processes.
+- ICS refers to a broad set of control systems including
+  
+  - SCADA (Supervisory Control and Data Acquistion): geographically spread out (pipelines, electric substations)
+  - DCS (Distributed Control System): might be located at one location only such as Nuclear power station with reactor basement (ground and first floor), cooling tower and field controller (communicating with IO and sending data to control room) (Distributed control)
+  - PCS (Process Control System)
+  - EMS (Energy Management System)
+  - AS (Automation System)
+  - SIS (Safety Instrumented System): Separate system from a DCS created specifically for safety purposes. For example as long as the variables (temperature, pressure and other important variables) are within specfied all is good. If not, SIS will shutdown the systems.
+  - Any other automated control system.
+
+Embedded Systems
+================
+
+- Embedded Systems is computer system consisting of hardware and software specifically defined for a specific purpose or dedicated task. (Workstations, laptops and servers are not embedded system).
+- Embedded system used in ICS
+
+  - Programmable Logic Controller, Remote Terminal Unit, DCS controllers, Intelligent Electronic Devices, field devics (HART, Foundation Fieldbus, Profibus, Devicenet)
+  - Network/communication equipment (Routers, switches, modems, radios, terminal servers, gateways, firewall and other security appliances)
+  - Others (GPS, time synchronziation, network printers, hand-held configuration devices, test equipment)
+
+Field Controllers
+------------------
+
+- Processors (X86, PowerPC, ARM, MIPS)
+
+Memory
+^^^^^^
+
+- Non-volatile Memory
+
+  - Flash memory, EEPROM, EPROM, ROM
+  - Firmware (boot code, real time operating system (RTOS), application program)
+- Volatile Memory (lost after power; much less susceptible to being able to manipulate or take items from)
+
+  - RAM
+  - Variables, stack, buffers
+
+Input/Output
+^^^^^^^^^^^^
+
+- Discrete, Analog, Fieldbus (4 to 10 milliAmps or 0-10 Volts)
+
+Communication Ports
+^^^^^^^^^^^^^^^^^^^
+
+- Serial - RS232, RS422/485, USB, modems, radios
+- Network - Ethernet radio, ControlNet, LonWorks
+
+User interface
+^^^^^^^^^^^^^^
+
+Internal
+""""""""
+- Status lights, small LCD screens (HMIs), keypads, jumpers, dip switches, switches
+
+External
+""""""""
+- Browers (allows to see the status, working of the devices), Applications (always check if the applications can be shutdown, is there a business use-case for them?). Remember the smaller the attack surface area the better!
+
+Programs
+^^^^^^^^
+
+- RTOS (Neutrino & RTOS (QNX), VxWorks, Windows CE)
+- IEC 61131 program languages
+  - Workbences (CoDeSys (allows the ability to program in anyone of the below languages), ISaGRAF)
+  - Languages
+
+    - Ladder Logic 
+    - Function Block Diagram (FBD)
+    - Sequential Function Chart (SFC)
+    - Structured Text (ST)
+    - Instruction List (IL)
+
+- Device Drivers and Device Managers
+
+  - Ethernet/IP Stacks
+  - RS232/RS-485
+  - Memory Managers
+  - User interfaces
+- Services (Web server, FTP server, SNMP) (Any business case for these running? If not, turn them off)
+- Debuggers (data for troubleshooting, are we turning it off after debugging? Often, debuggers are turned-on exposing data and possible vulnerablities)
+
+Programmable Logic Controller
+-----------------------------
+
+Program Execution
+^^^^^^^^^^^^^^^^^
+
+- A line of code in a PLC program is called a rung.
+- PLC program execute from left to right and top to bottom.
+- Each completion of the program is called a scan.
+- A PLC will complete many scans in a single second (Scan rate: 50-60 milli-seconds/scan; SCADA system scan rate is approx 2 mins; metering at home (water/energy) is approx 15-30 mins).
+
+Programming Concepts
+^^^^^^^^^^^^^^^^^^^^
+
+- Each rung executes on an "IF-Then" principle
+- IF the instruction(s) on the left are true then execute the instructions on the right.
+- Direct/Normal Open Contact
+- Direct/Normal Open Output Coil
+- Reverse/Normally Closed Contact
+- Placing multiple rungs (branch) on a single rung = OR
+- Placing multiple inputs on the same rung = AND
+
+Data Flow
+=========
+
+- ICS collect information about some process or function using a communications infrastructure to send the data back to an operator. The operator reviews the data, typically in a graphical format, assesses the operational status of the process, and tunes the system for optimal performance.
+- Field Devices are the instruments and sensors that measure process parameters and the actuators that control the process. This is the interface between the ICS and the physical process. These sensors or measuring instruments are often referred to as input devices because they “input” data into the ICS.
+- Field Controllers are responsible for collecting and processing input and output information, sometimes referred to as I/O. They also send the process data to the human machine interface (HMI) and process control commands from the operators. They are often located close to the field devices.
+- Servers, HMIs, and engineering workstations take the information from field controllers and display the data in a manner that depicts what is happening in the process. The user interface, usually referred to as the HMI, allows the operator to have a real‐time, or near real‐time, operational view of the process. These three components are linked using networks or communication channels.
+
+  - Field Devices (Meters, Sensors, Valves, Switches)  <-------> Field Controllers (PLC, IED, RTU, Controller, PAC) <-----------> HMI (SCADA Server, HMI, Workstations, EMS)
+  -                        Direct connection or Device level protocols (HART, Foundation Fieldbus, Profibus)   <----------> Command and Control Protocols (DNP3, Modbus, Ethernet/IP)
+  - Field Controllers --> Primary Historian --> Secondary Historian
+                    |---> Configuration Database ---> HMI
+                    ----> HMI
+
+- Protocols (ANSI X3.28, BBC 7200, CDC Type 1/2, Contitel, DCP, DNP, Gedac 7020, ICCP, Landis, Modbus, OPC, ControlNet, DeviceNet, DH+, Profibus, Tejas 3/5, TRW 9550, UCA)
+
+
+- Indusoft (HMI Software?)
+- Connected Components Workbench 
+
+https://www.rockwellautomation.com/en-us/products/hardware/allen-bradley/programmable-controllers/micro-controllers/micro800-family/micro850-controllers.html
+
+https://www.plcfiddle.com/
+
+
+Network Discovery and Mapping
+*****************************
+
+Discovery Process in both, Passive is much more stealthy and Active is aggressive in trying to learn things. In both cases, we are mapping out the environment. Often is the case, when we are presented with a case of understading
+in-production environment, with no-prior person to enquire from, documentation is little, suggestions to how to handle certain performance issue. 
+
+Passive Discovery
+=================
+
+What?
+-----
+
+What is Passive Discovery?
+
+- Using information discovered from local memory of any host, to build a vision of an existing Control system environment.
+- Practicing safe methods to explore and perform reconnaissance.  
+- Attempt to identify network details without sending network packets.
+
+Why?
+----
+
+Why perform passive network discovery?
+
+- Safer practice regarding Control System networks (don't want to break something).
+- Can yield information that active discover may not be practical for, such as data found in various files.
+- Use tools passively
+
+  - When exploring a Control System network, practice passive techniques when mapping.
+  - Utilities and commands are not neccessarily defined as passive. Using a tool passively is a responsibility of the user.
+  - Daily operation of production Control Systems already create expected traffic. Try not to interfere or manipulate pathways when exploring.
+
+- Examples and Effects
+
+  - Neglect to disable name resolution in commands
+    - resolution queries could alert and IDS unnecessarily.
+  - Scanning your own host, from the same host (to know what it is running?).
+    - Self inflicted scans will preoccupy a host's network resources and may alert a host-based IDS.
+  - Restarting services without planning (often we try turning off and on again without planning). For example, if a watchdog timer checks for a open-port and restarting doesn't start the service and the port remain closed.
+    - Watchdog timers (checking for a particular state or change in state) could generate timeout signals, and trigger alarms to an operator. Meaningless errors can appear in logs.
+  - Clearing Cache
+    - Clearing cache will cause bursts of packets to repopulate tables.
+
+Artifacts
+----------
+
+Tools
+^^^^^
+
+  - ``ipconfig``, ``ip``, ``ifconfig``
+  - ``netstat -anob``/ ``netstat -pantu``
+  - ``route print``/ ``route -n``
+  - ``iptables``
+  - ``tcpdump`` + ``wireshark``
+  - EtherApe
+
+History + Logs
+^^^^^^^^^^^^^^
+
+  - ``.bash_history``
+  - Browser History
+  - Remote Desktop History
+  - ``var/log/messages``
+  - ``var/log/syslog``
+
+Configuration files
+^^^^^^^^^^^^^^^^^^^
+
+  - ``crontab -l``
+  - ``/etc/network/interfaces``
+  - ``C:\windows\system32\Drivers\etc\hosts``
+  - ``/etc/resolv.conf``
+
+Cache
+^^^^^
+
+  - ``arp -an``
+  - ``nbstat -c``
+  - ``ipconfig /displaydns``
+
+How? 
+----
+
+ARP
+^^^
+
+Linux
+"""""
+
+``arp -a -i eth0`` will do the DNS resolution that will send the network packets to the DNS server asking for name resolution (Active scan).
+
+``arp -a -i eth0 -n`` will not do the DNS resolution (more passive).
+
+Windows
+"""""""
+
+``arp -a``
+
+EtherApe is a good tool to understand what traffic is being generated
+
+- Explore the ARP table
+
+  - Control systems can participate using ethernet.
+  - Investigating ARP Tables are a great local cache to start with.
+  - Use the arp command to view the table.
+  - Take note of the MAC addresses mapped to IPv4 addresses.
+  - Research discovered vendoes from first 3 bytes of the address (OUI - Organization Unique Identifier) and figure out what vendor is famous for what in control systems? (router/PLC/HMI/firewall/Cameras?).
+
+- Why look at the ARP table?
+
+  - Display a list of remote hosts or devices, with with the host has recently communicated.
+  - See if there are two ARP tables? (which probably means two network interfaces in a host connected to different networks?)
+  - Check the table again later. It may change. If it does, this might be an indicatio nof scheduled tasks. Investigate further.
+
+IP
+^^
+
+- Check IP addressing
+
+  - Control systems can also participate using IP.
+  - HMI workstations could be PC operating systems. Learn it's potiential reach with other IP networks.
+  - IP addressing commands can reveal much more than IP address.
+  - Compare previously discovered MAC addresses mappings.
+
+- Why look so closely to IP addressing?
+  - PLC's, RTU's and various SCADA devices are often controlled by HMI workstations. Knowing the IP connectivity is important security awareness.
+
+Windows
+"""""""
+
+``ipconfig /all``
+
+- check hostname, IP routing enabled (to see if its a router), subnet, gateway, DHCP/DNS servers?
+
+Linux
+""""""
+
+``ifconfig -a``
+
+- if we do ``ifconfig``, it would only show interfaces that are up and in configured state.
+- if we do ``ifconfig -a``, it would show interfaces that are configured/present in an up/down state (we might vlan, vpn, bonded interfaces).
+
+``ip a`` or ``ip addr show eth0``
+
+DNS
+^^^
+
+``cat /etc/resolv.conf``
+
+- When a host is set to use a DNS server, generally ALL applications can query it.
+- HMI software becomes configured with network addresses. If the configurations are populated with names instead of numeric IP addresses, then we will be at the mercy of DNS server.
+
+TCP/UDP Ports
+^^^^^^^^^^^^^
+
+- Ports
+
+  - Review any Listening or Established ports.
+  - Compare TCP and UDP port numbers that maybe associated with Control system vendors.
+
+- Control System Port Number Examples
+
+  - BACNet/IP   : UDP 47808
+  - DNP3        : TCP 20000, UDP 20000
+  - Ethernet/IP : TCP 44818, UDP 2222, UDP 44818
+  - ICCP        : TCP 102
+  - Modbus      : TCP 502
+
+- Well-know ports range from ``0 - 1023``
+- Registered port ranges from ``1024 - 49151``
+- Dynamic port ranges from ``49152 - 65535``
+
+netstat
+^^^^^^^
+
+What is netstat?
+
+- Tool for looking at a host current network sessions and listening ports that are being offered.
+
+Why use netstat?
+
+- Determine which local servers are TCP or UDP based.
+- Search for potiential connections being made with any known Control Systems.
+- View all currently Established connections taking place with HMI, Controller, Historian or other hosts.
+
+
+Windows
+""""""""
+
+``netstat -ano -p tcp``
+
+-a all sockets
+-n no name resolution
+-b owning process name
+-o owning processs ID
+
+Linux
+""""""
+
+``netstat -pantu``
+
+-p owning process ID
+-a all sockets
+-n no name resolution
+-t tcp
+-u udp
+
+
+- Check Local Address, Remote Address, State column (listening (those port numbers are listening), established (the host is talking to some other host check what ports (ICS Ports?)))
+- Probably, we can figure out what the local machine is used for HMI (connects to several devices and a database)
+- Check if IP addresses are in the same subnet or different (File server, HMI accessing files from an outside network) helps to figure out different subnet or boundary of different subnets.
+
+Routing Table
+^^^^^^^^^^^^^
+
+What is a routing table?
+
+- A local table of IP network destinations that the host is able to reach.
+
+Why look at the routing table?
+
+- Identify router/gateway IP addresses.
+- Identify network destinations.
+- Identify individual host destinations.
+
+- When viewing a route table, learn to notice the IP address ranges. Determine which ones appear public and which one appear private.
+- Make not of any public IP addresses that may appear in configurations found on Control System networks.
+- Private IPv4 ranges:
+
+  - ``10.0.0.0 - 10.255.255.255 /8``
+  - ``172.16.0.0 - 172.31.255.255 /12``
+  - ``192.168.0.0 - 192.168.255.255 /16``
+
+- If there's any public IP printed in route table, if exists try to understand why control system needs to talk to the public IP address.
+
+Windows
+""""""""
+
+``route print``
+
+Linux
+""""""
+
+``route -n`` or ``netstat -rn``
+
+- Any gateway entry of ``0.0.0.0`` specifies local interface that has IP address setup on them.
+- Check if any static IP addresses are setup?
+
+- Any host with more than one interfaces can act as a gateway.
+
+  - Linux: check ``/proc/sys/net/ipv4/ip_forward``
+    - ``0`` - Not forwarding 
+    - ``1`` - Forwarding.
+  - Windows: Registry : ``HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\Tcpip\Parameters`` 
+
+    - Check value ``IPEnableRouter``
+
+
+netBIOS
+^^^^^^^
+
+What is netBIOS?
+
+- Network Basic Input/Output System (netBIOS) - allows applications on diffrent computers to communicate within a local area network.
+- Used by Microsoft File and Printer Sharing
+
+How can netBIOS be helpful?
+
+- Discovers networks and hosts by looking at netBIOS cache (``nbtstat -c``)
+- Cache contains recently contacted systems.
+- Check the naming convention of the name. For example: FSWCB1, AD2. 
+  
+  - FS/AD might represent FileServer or Active Directory. 
+  - Numbers 1,2 might highlight that there could be more than 1 server.
+
+TCPDump/Windump
+^^^^^^^^^^^^^^^
+
+- Captures and analyses common network traffic for the command line.
+- Uses standard libpcap/winpcap to capture/parse network traffic.
+- Uses Berkeley Packet Filter (BPF) syntax for creating capture filter expressions.
+
+- tcpdump can also be active, so probably do ``-n`` to avoid doing name resolution.
+- Also, each tool can have a vulnerablities, it's better to run the tool using a different user ``-Z username``.
+
+wireshark
+^^^^^^^^^
+
+- GUI network protocol analyszer and packet sniffer.
+- Libpcap standard library for opening and capturing network traffic.
+- Customizable dissectors (modules) for proprietary protocols.
+
+- Security Notes:
+ - vulnerablities in wireshark could leave your system at risk of compromise if used on active networks.
+ - Not required to run with root privileges
+ - Long-term traffic monitoring should be done with "tcpdump"
+
+- Rule of Thumb: Capture with tcpdump and analyze with Wireshark using a normal user account.
+
+
+Files and Others
+----------------
+
+Browser history
+^^^^^^^^^^^^^^^
+
+Control system facilities may have workstations where various routine operations are performed. If particular personnel are no longer avialable, we can still explore a frequenctly used browser to collect information passively.
+
+- Address bar pre-populating with any URLs.
+- Saved usernames and passwords.
+- Bookmarks or Favorites, relating to Control Systems addresses.
+- Keystrokes to open recently closed tabs and windows.
+- Learn how to explore temporarty cache of the specific browser.
+
+.bash_history
+^^^^^^^^^^^^^
+
+What is ``.bash_history`` file?
+
+- History file containing a record of executed commands.
+- Every user of the has their own history file. It is located in the home directory of each user.
+- Files starting with a period appear hidden by default.
+
+Why look at ``.bash_history`` file?
+
+- Routinely executed commands help identify what tasks are performed at the workstation.
+- Host addresses and filenames could appear with specfied commands. Such as ssh, wget, ftp, rsync, mail and others.
+- People make mistakes. It may also contain username passwords.
+- Use the ``history`` command to view the contents.
+
+- Check for any new IP address or any file extensions that might be of interest or any mail commands (employee addresses/file names) or any mysql commands (username, password or database name, or remote host (if not present that means mysql server is locally hosted)).
+- It may provide info on local hosts directories.
+- Check if any commands shows any USB/HDD/SDD was connected (any ``/media`` entries).
+
+Active Discovery
+================
+
+What?
+-----
+
+What is Active network discovery?
+
+- Send network packets and wait for a response in order to identify host and network targets
+- Can be extremely noisy and easily detected
+
+Why?
+----
+
+Why use active disovery methods?
+
+- Identify targets that cannot be otherwise identified using passive discovery techniques.
+- Provides specific service, port and version information for a given targets.
+- Identify vulnerablities of accessible services.
+
+How?
+----
+
+arp-scan 
+^^^^^^^^
+
+``arp-scan -g 10.10.10.2/24``
+
+
+nmap 
+^^^^
+
+- Designed to allow system administrators and individuals to scan large networks to determine which hosts are up and what services they are offering.
+- network discovery tool that can be used for identifying the systems currently connected to the network
+- nmap allows to audit what services are running on the identified hosts.
+- Can be dangerous to IT, SCADA and PCS systems, ICSs and embedded devices.
+
+What is Nmap?
+
+- Open source tool for network mapping and security auditing.
+
+Why use nmap?
+
+- much faster than manual discovery.
+- can scan an entire network quickly, and offers several options to customize a scan and its results.
+
+How does nmap work?
+
+- Hosts on the network
+- Services (ports)
+- Operating systems etc.
+
+Two-stage process
+
+- Host discovery
+- Port scanning
+
+nmap - Discovery methods
+"""""""""""""""""""""""""
+
+- User Datagram protocol (UDP)
+
+  - unreliable stateless communication
+  - No handshaking
+- Tranmission Control Protocol (TCP)
+
+  - Reliable stateful communication
+  - 3-way handshake
+- Internet Control Message protocol (ICMP)
+
+  - Provides control, troubleshooting, and error messages.
+  - Normally used by ping and trace route commands.
+- Address resolution protocol (ARP)
+
+  - Discovers Link Layer addresses of network devices.
+  - Communicates in the bounds of single network.
+
+Three-way handshake
+'''''''''''''''''''
+
+Host Discovery
+''''''''''''''
+
+- What is host discovery (HD)?
+
+  - process of identifying active and interesting hosts on a network.
+- Why does Nmap do HD?
+
+  - To significantly reduce the amount of time to complete network scans.
+  - Narrows a set of IP ranges into list of active or interesting hosts to be port scanned.
+- How does HD work?
+
+  - Uses combination of ARP, ICMP, TCP SYN, TCP ACK packets to identify active hosts.
+- Default Host Discovery Settings
+
+  - LAN sends ARP scan (``-PR``)
+  - WAN (privileged) sends TCP ACK packet to Port 80.
+  - (``-PA``) and an ICMP echo request query (``-PE``)
+  - WAN (unprivileged) sends TCP SYN packet (``-PS``) using ``connect()`` system call instead of TCP ACK packet.
+  - By default nmap will use arp-response for local network host discovery. If we want to use ICMP, use ``--send-ip``
+  -P (Host discovery)
+
+Port Scanning
+"""""""""""""
+
+- What is port scanning?
+
+  - process of identifying the status of interesting ports on hosts that are discovered on a network.
+- Why does nmap do port scanning?
+
+  - to identify ports that are open on a host
+- How does port scanning work?
+
+  - attempts to communicate with each port with a specified set of ports.
+  - port scans are performed on hosts that were identified as active or interesting during HD.
+- Nmap Port states
+
+  - Open: Application on target machine is listening for connections or packets on that port.
+  - Closed: No application listening at the moment
+  - Filtered: Firewall, filter or other network obstacle is blocking the port so that Nmap cannot tell if the port is open or closed. Nmap received no response.
+  - Unfiltered: Port is accessible but nmap not able to determine if open or closed.
+  - Open | Filtered: Unable to determine if open or filtered.
+  - Closed | Filtered: Unable to determine if closed or filtered.
+- Nmap default port scanning settings.
+  - SYN scan (``-sS``) for privileged users.
+  - Connect scan (``-sT``) for unprivileged users.
+- If it starts with ``-P`` (host discover) ``-s`` is for port scanning.
+
+Timing and Performance options
+""""""""""""""""""""""""""""""
+
+- What are timing and performance options
+
+  - Settings used to control scanning delays, timeouts, retries and parallelism.
+- Why use timing and performance options?
+
+  - Help speed up scanning process
+  - Slow down scan to avoid IDS detection
+
+- Timing and performance options
+
+  - Manual options are available but templates are usually sufficient
+  - Template timings options offer throttling abilities not available using manual options.
+
+Nmap results
+""""""""""""
+
+- Why save your nmap results?
+
+  - easier to analyze and compare scans results (using ndiff)
+  - Results overflow the console window buffer.
+
+- Output options
+
+  - ``-oN filename.nmap``: Output results in normal format
+  - ``-oX filename.xml`` : Output results in XML format
+  - ``-oG filename.gmap``: Output results in grepable format
+  - ``-oA filname``: Output results in all formats.
+  - ``-v``: Verbose output results
+- ``--reason`` tells the reason.
+
+OS and Version detection
+""""""""""""""""""""""""
+
+- What is OS and version detection.
+
+  - Identifies operating system by looking at packet charactertistics.
+  - Identifies the version of a service running on a host.
+
+- Why use OS and version detection?
+  
+  - Provides information that could help in the selection of exploits and payloads used against a target
+
+- How does OS detection work?
+
+  - Nmap sends a series of TCP and UDP packets to the remote host and examples every bit in the responses.
+  - Nmap compares the results to its database of known OS fingerprints and prints out the OS details if theres is a match.
+
+- How does Service and Version Detection Work?
+
+  - After TCP and/or UDP ports are discovered, version detection interrogates those ports.
+  - Database of probes for querying various services and match expressions to recognize and parse responses.
+  - Tried to determine application name, version number, hostname, device type, OS family, and misc. information.
+
+Nmap Address Schemes
+""""""""""""""""""""
+
+- Target hosts can be specified in many ways
+
+  - ``1.2.3.1-254``: All 254 possible IP addresses on this subnet.
+  - ``1.2.3.0/24``: Equivalent to above but signifying a Class C address block.
+  - ``1.2.1-4.1-254``: Ranges are allowed for subnets as well.
+  - ``1.2.0.0/16``: The 16-bit netmask will scan the entire clas B address block.
+- ``--exclude`` exclude a host/range.
+- ``-sn`` only do host scanning phase
+
+ICS challenges
+""""""""""""""
+
+- scans can cause computer system to restart
+- scans can cause embedded devices to freeze or lose configuration and in some severe cases requires vendor involvement.
+- Nmap considerations
+- Use connect scan (``-sT``) to prevent dangling connections.
+- Don't use OS (``-O``) and version detection (``-sV``) (Control system would be running PLCs, RTU)
+- Slow the scan down by reducing the rate at which packets are being generated and sent by Nmap.
+- Consider using exlusion lists (``--exclude`` or ``--excludefile``)
+
+Nessus Vulnerablity Scanner
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Can be dangerous to ICSs.
+- Plugin modules for various ICS protocols.
+- Security auditing tool consists of two parts
+- Server (in charge of the scanning process).
+- Client (presents the interface to the user).
+
+Nessus ICS Plugins
+""""""""""""""""""
+
+- Areva/Alstom Energey management system
+- DNP3 Binary Inputs access
+- DNP3: 
+
+  - Link layer addressing DNP3
+  - Unsolicited Messaging
+
+- ICCP
+
+  - ICCP/COTP protocol
+  - ICCP/COTP
+  - TSAP Addressing
+  - LiveData ICCP Server
+
+- Matrikon OPC Explorer
+- Matrikon OPC Server for ControlLogix
+- Matrikon OPC Server for Modbus
+- Modbus/TCP
+
+  - Coil access
+  - Discrete Input Access Programming
+  - Function Code Access
+
+Network Defense, Detection and Analysis
+***************************************
+
+Identify
+========
+
+Asset and Information inventory
+-------------------------------
+
+An asset inventory is necessary to understand and manage ICS risk and determine priorities for security
+defenses. The asset inventory is critical for understanding the potential impact of an intrusion
+
+Know your environment
+
+What?
+^^^^^
+
+- Needs to be protected (PLC, pump, valves, non-electronics still something physical - how it is protected?)
+- Protection levels are available (What is available by vendors to protect the systems). How data is gathered from the ground-up?
+- Inter-connections and dependencies are required (what talks to what?, pump talking to PLC (controlling pump speed or flow) if not it might cause something to fail?)
+
+Why?
+^^^^
+
+- Are systems critical (any special use, any special vendor?)
+- Are assets valuable ($$ and information)(produce gas or oil, electricity?)(Does the information provide insights to business to make decisions?)
+
+Who?
+^^^^
+
+- Has responsibility for the asset (Who's responsible System Admin, SPOC (single point of contact))
+
+How?
+^^^^
+
+- Are worst-case scenarios identified if compromised (Do we have any plans in place in terms of outside/inside attacker?)
+- Are methods available for user access to the asset (Does the person have to visit the control room to access the devices or can be access remotely or via VPN?)
+- Does the information flow throught the system (where it starts/stops? Goes to firewall? Business IT network?)
+
+Other
+^^^^^
+
+Field Devices
+""""""""""""""
+
+- Easy to forget in asset inventory - "out of sight, out of mind".
+- Field devices may be accessed remotely because it is more convenient or may require that a human being physically visit the remote device. When accessing remotely make sure the communication is secure and the device accessing the field devices is secure.
+- Security Challenges regarding Field Devices.
+
+  - No centralized management for older field devices.
+  - May lack security capabilities (maybe serial only, make sure we understand what capabilities they have)
+  - Increased use of portable devices to access field devices (Laptops/Tablets?).
+
+- Possible Mitigations
+
+  - Lock down unneeded services, ports and restrict access (Disable unused ports on the switch).
+  - All devices used to interface with the field devices should be secured and monitored (have anti-virus and properly logged and accounted for).
+  - Think about what devices are present and how they are communicating with central system and how they are controlled?
+
+Least Functionality
+-------------------
+
+- Determine necessary ports, protocols, and services (What are the vendor recommendations/talk to the vendors what needs to be open on firewall/router)
+- Deny all others at the host and firewall
+- Harden devices (be careful while hardening and test whether everything is working or not; Never test on live system.)
+- Network access control (What can talk to what or each others? )
+
+- Use the data from a scan such as Nmap, to identify unused ports and service and disable all unused ports and services off. This should be done at the host. However, if it cannot be done at the host, use other mitigations, such as a firewall, to block any access to the services or any traffic leaving these hosts on these ports.
+- Hardening systems using security guidelines or controls will also reduce your attack surface. Work with vendors to determine hardening guidelines/settings for ICS equipment
+
+Least Privileges
+----------------
+
+- Establish user accounts for administrators (separate accounts for engineers, administrators and test that they are able to do their work and perform their responsiblities)
+- Appropriate use of the escalated privilege function (Check if the user needs esclated privileges and it is logged properly and they use it appropriately (whenever it is really required)).
+- Review work requirements for necessary access requirements
+- Role-based access (provide appropriate access for appropriate person).
+
+Tools
+-----
+
+GrassMarlin (Retired)
+^^^^^^^^^^^^^^^^^^^^^
+
+- GrassMarlin can be used to identify traffic and systems on ICS network.
+- GrassMarlin is a passive network mapper dedicated to ICS and SCADA networks in support of network security assessments.
+- GrassMarlin passively maps, and visually displays, an ICS/SCADA network topology while safely conducting device discovery, accounting, and reporting on these critical cyber‐physical systems.
+
+GrassMarlin gives a snapshot of the ICS network including:
+
+- Devices part of the network;
+- Communications between these devices;
+- Metadata extracted from these communications.
+- Reads in Zeek Connection logs, PCAP files and PCAP-NG files or can listen on the wire
+
+Protect
+=======
+
+IT-OT Convergence
+-----------------
+
+- Does IT/OT talk to each other? (They should be able to work together and help each other and whenever they have problems they talk to each other and solve problems by respecting each other.)
+- What we can do to improve communication between IT and OT teams (invite them to meetings, talk to them regarding something they are expert in and can help (firewall issues))
+
+Human element
+-------------
+
+- Policies and Procedures specific to ICS
+
+  - Outline rules with regard to securing ICS (What kind of things we need to secure?)
+  - Computer use policy (helps to understand what's expected and what's not)
+
+- Make security a priority (everyone should be aware of the ICS security)
+- Training and awareness
+
+  - Employees are part of your defense (They are the most important people. Employee errors or unintentional actions often leads upto 50% incidents).
+  - See something, say something (If they see something that is not right, ask them to mention)
+  - Talk about security in staff meetings (something going on in your network, group or unit and training around security)
+
+- Lessons learnt from past incidents
+
+  - User education is important.
+  - Do regular phishing tests (As an OT person, we can take help of IT department to set this up.).
+  - Explain to users the consequences of clicking bad links (Usually people often don't understand why it is bad to click on links, if they understand they are more careful.)
+
+OPSEC
+-----
+
+- Operational Security, or OPSEC, is when we protect unclassified information from leaking out via our own actions and behaviors. The goal of Cybersecurity OPSEC is to minimize your digital footprint /information leakage and to minimize the damage when things go bad. In the best of scenarios you might almost drop off the grid completely.  Remember that OPSEC does not replace any other security disciplines - it supplements them.
+- Always be aware of what your company is presenting to the outside world (what your network looks from outside? Do we have FTP/SSH server accessible from internet? )
+- Do you know what is on your company's external webpage and social media feeds? 
+- Are vendors using your company for free advertising? 
+- Are your IP address ranges showing up in `Shodan ICS <https://www.shodan.io/explore/category/industrial-control-systems>`_?  If you give data to vendors, do you know how they are storing it? 
+- The OPSEC process is categorized into 5 questions/steps. One of the first questions is, who would want access to the data in question, what needs protected?
+- The OPSEC process
+
+  - What needs to be protected?
+  - Who is the threat?
+  - What are my vulnerablities?
+  - What is the threat level?
+  - How should we combat the threats?
+
+Secure Passwords
+----------------
+
+- Adversaries focus on gaining legitimate credentials to traverse the network
+
+- NIST SP 800-63B Guidelines (Digital Identity Guidelines - Authentication and Lifecycle Management)
+
+  - Fewer complexity rules enforced
+  - Expiration of passwords no longer based on a time schedule (If the passwords are good and strong, maybe no need to change them every time)
+  - Passwords should be screened again lists of dictionaries and common, easily guessed passwords (mention to employees that we will try to guess and crack their passwords and they will create strong passwords)
+  - Allow paste functionality from Password Managers (also store your passwords in a safe secure location)
+
+- Industry compliance documents or your organisation policies may differ.
+
+  - NERC CIP standards (CIP-007-5)
+  - NIST-800-53
+
+Vendor Access
+-------------
+
+Vendor connections to the ICS Network
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- One of the most common ways malware and viruses are introduced into ICS environments is the use of media that has been shared or used on systems outside the production environment. 
+
+  - To mitigate that risk consider implementing the following:
+    
+    - Implement a Dedicated workstation to transfer files and patches to trusted devices that is up to date with the latest virus and malware definitions not connected to the ICS network. 
+
+- Do not allow vendors or 3rd party USB's in ICS environment (We have no idea who's USB device it is, where it has been, what it contains?)
+- Have a device whitelisting application or ability to disable media ports.
+- Provide security policies to govern use.
+- Configure your removable media policy to notify your security team of events of when access to USB ports or unapproved media is attempted to be used.
+
+Removable Media
+^^^^^^^^^^^^^^^
+
+- If possible, do not allow personal devices to be used in the ICS network (people charging their phones on ICS network?, malicious USB (USBDucky, OMG Cable and others?))
+- If this is not possible, provide good security policies to manage the use of personal devices, and use company resources to help implement the policies. 
+- Enterprise device management technology can help ensure that only approved assets can be attached to ICS networks and computers.  
+- Lessons learnt from past incidents
+
+  - Good network segmentation can prevent malware call backs.
+  - Monitor USB usage especially in the ICS environment (inventory of allowed USB devices, who have them and what they are using it for?).
+
+Secure Authentication
+^^^^^^^^^^^^^^^^^^^^^^
+
+Multi-factor Authentication
+""""""""""""""""""""""""""""
+
+- Definition: What the user knows (password), what the user has (security token), and/or what the user is (biometric validation).
+- Single factor authentication increases the attack surface.
+- Use multi-factor authentication for remote access and critical administrative access.
+- Can be used with VPN, network device access, administrator access to systems.
+- Example: Many asset owners use single-factor authentication for remote access. If a user has a vulnerable machine, the attack surface is greatly increased.
+
+Secure VPN access
+^^^^^^^^^^^^^^^^^
+
+- Limit VPN access to business requirements - vendors, technicians, integrators (who has access to what? If providing access to vendor, terminate VPN as close to edge as possible and provide access to only required systems/segmented network/DMZ. Good idea to define that in vendor contract agreements)
+- Require company issued and configured systems be used without Admin access (No admin access provided until and unless really required).
+  - If they require admin access or access to a particular resource, work with them to figure out how we can provide that securely. Otherwise, technical users will always figure out a way to achieve it which might result in undocumented access.
+- VPN security policy should check for patches, a personal firewall, and an antivirus product.
+- Utilise a jump-box, or a virtual desktop for further network access.
+- Utilise a second domain controller (Have a separate IT/OT domain controller)
+
+VPN Logs
+""""""""
+
+VPN appliance provides a wealth of logging information regarding the perimeter of your network. This information can be used to monitor the health of the system and potentially detect malicious
+activity. It is important to:
+
+- **Find unusual login attempts**: Look for unusual situations, such as the company President logging in from a Starbucks in England, when the President is actually in the middle of a safari in Africa.
+- **Monitor failed authentication attempts**: All devices or processes that require identity authentication should log and/or alert when an identity validation attempt fails.
+- **Monitor successful authentication attempts from different sources**: If available, all devices or processes should log and/or alert when the same user logs in simultaneously from two different source locations.
+- **Monitor successful authentication under duress**: For critical systems, consider deploying an authentication mechanism that supports duress codes. This allows a user under duress to log into a system using a secondary credential, but alerts that the access was performed under duress.
+- **Monitor failed access attempts**: All devices or processes that manage access control to communications, data, or services should log and/or alert when access is requested that is not allowed.  
+- **Monitor successful access attempts**: All devices or processes that manage access control to communications, data, or services should log when access is requested and allowed.
+
+Lessons Learned
+""""""""""""""""
+
+- Virtual Machine Use Case
+
+ - Incident: VM was configured in an ICS environment with the VM hardware (vmware/hardware machine) located in the ICS DMZ. Management interface provided direct connectivity to the corporate network for ease of use. Further, ICS servers in the VM bridged the DMZ firewall to the ICS network
+ - Lesson: Bridged the corporate protected communications to the VM management interface located in the ICS DMZ. Utilize VMware security guidance to setup VMware systems.
+
+- VPN/Password Use case
+
+ - Incident: A user had a VPN connection and was logged in as administrator. The user's home PC was dual homed with VPN client and a public interface.
+ - Lesson: Proper configuration of VPN client. Limit VPN access to business requirements. Do not allow users to run as admin.
+
+ICS Network segmentation
+------------------------
+
+- The Purdue Enterprise Reference Architecture (PERA) Model is suggested by the DHS Assessment Team as a best practice for segmenting networks.
+- The PERA model segments industrial control devices into hierarchical “levels” of operations within a facility. Using levels as common terminology breaks down and determines plant wide information flow. Zones establish domains of trust for security access and smaller LANs to shape and manage network traffic.
+- This model groups levels into the following zones for specific functions:
+
+  - Enterprise Zone: Levels 4 and 5 handle IT networks, business applications/servers (e.g. email, enterprise resource planning - ERP) as well as intranet.
+  - ICS Demilitarized Zone (IDMZ): This buffer zone provides a barrier between the ICS and Enterprise Zones but allows for data and services to be shared securely. All network traffic from either side of the IDMZ terminates in the IDMZ. No traffic traverses the IDMZ. That is, no traffic directly travels between the Enterprise and ICS Zones.
+  - ICS Zone: Level 3 addresses plant wide applications (e.g., historian, asset management, authentication, patch management), consisting of multiple Cell/Area Zones.
+  - Cell/Area Zone: Levels 0, 1 and 2 manage industrial control devices (e.g., controllers, drives, I/O and HMI) and multi-disciplined control applications (e.g., drive, batch, continuous process, and discrete).
+
+- Typical Flat network
+
+  - Poor asset inventory
+  - Poor boundary protection (HMI's directly connected to the Internet)
+  - Poorly Secured Remote Access
+
+- Recommended Secure Network Architecture
+
+  - Good Asset Inventory and Data flows (How does data flow and what data flow is important/critical (what must always be available))
+  - Good Boundary Protection
+  - Secured Remote monitoring and Access
+  - Isolation of Safety Instrumented Systems (How are safety systems implemented?)
+
+Firewall Implementation 
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The firewalls are placed at the front line of defense for each of the various zones. These firewalls provide the trusted path for users and applications to communicate with and between all of the various pieces.
+
+- There are two complimentary principles for segmenting networks.
+
+  - The first principle includes the general functions of a system:
+
+    - Serve external customers
+    - Handle facility environmental controls
+    - Support IT
+    - Process HR data
+    - Run/supervise ICS process data
+    - Run/Supervise ICS
+
+  - The second principle is trust level. 
+
+    - What is the sensitivity of the data/system/data path? 
+
+- Segmentation should be implemented using firewalls or at least routers with access control lists (ACLs). Some considerations for firewalls:
+
+  - Know your environment
+
+    - How does data flow? 
+    - How is data used? (What does that data mean?)
+    - Who uses the data? (Who is the owner of the data? Mostly historian from ICS persecptive)
+
+  - Newer next generation firewall support multiple ICS protocols/standards.
+  - Trade off efficency vs. security vs. cost (Every device can provide or hinder efficency or has a cost to it)
+  - Erroneously deployed as a cornerstone of architecture (requires month of planning/architected)
+
+Firewall Rules
+^^^^^^^^^^^^^^
+
+Without rules, firewall is basically a router.
+
+- Block direct traffic from the control network to the corporate network. All ICS traffic should end at the DMZ.
+- Every protocol permitted between the control network and the DMZ should be explicitly denied between the DMZ and corporate networks (and vice versa).
+- ICS networks should not be connected directly to the Internet, even if they are protected by a firewall.
+
+Firewall Logs
+^^^^^^^^^^^^^
+
+- Firewalls logs provides insights into security threats and traffic behaviour regarding the perimeter of your network. Information can be used to monitor the health of the system and potentially detect malicious activity. It is important to:
+
+  - Identify traffic denied at the firewall - e.g. traffic from inside the network that is bouncing off the firewall (what traffic is trying to get out?)
+  - Identify traffic allowed at the firewall
+  - Identify multiple connections from multiple devices in your network to a few target locations
+
+Data Diode
+----------
+
+- A data diode is a unidirectional gateway intended to move data from a more secure network to a less secure network.
+- A data diode creates a physically se cure, one-way communication channel from
+the control system network to the corporate network. Data diodes can be implemented in hardware,
+software, or a combination of both. The hardware implementation is the most secure because it is
+physically impossible to send any messages in the reverse direction.
+
+
+Data Diode vs. Firewalls
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Data Diodes
+""""""""""""
+
+- Behaves like a Proxy Server: converts TCP sessions to UDP
+- Uni-directional communication: reverse tunneling not possible
+- May cost more than some firewalls
+- Fewer rules: rules require less auditing
+- Transmits only the data: no connection between systems.
+
+Firewalls
+""""""""""
+
+- Two-way communications: tunneling possible.
+- Rules require more auditing due to complexity of rule set
+- Cannot create a one-way communication. UDP is one way. Does not create anything but one way.
+
+Patch Management
+----------------
+
+- BEFORE PATCHING ANY ICS\OT SYSTEM (PLC/RTU/HMI) ENSURE YOU HAVE A GOOD BAREMETAL BACKUP OR ABILITY
+TO RESTORE THE SYSTEM TO THE CURRENT STATE!
+
+- Patches are intended to:
+
+  - Fix known vulnerablities.
+  - Enhance functionality
+
+- Software that needs patching includes
+
+  - Operating System
+  - ICS Application/hardware
+  - Third-party applications
+
+- Patch deployment considerations
+
+  - Test and validate
+  - Offline systems vs. live systems
+  - Work with vendors for patch applicability.
+
+Patching Considerations
+^^^^^^^^^^^^^^^^^^^^^^^
+Considerations when deciding to patch systems:
+
+- How critical is each system to production?
+- What complications arise in patching critical infrastructure?
+- What is the cost of a patch?
+- What is the cost of not applying a patch?
+- What is the business\security driver in patching?
+- Do you have a mitigating control in place if you decide patching is not an option?
+
+Potential Patch Complications
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Patching can break other software components
+- Patching can break 3rd party software components
+- Updating antivirus definitions can inadvertently stop legitimate processes
+- Sand box systems are not used directly for production
+- Balance in waiting to test the patch and applying a patch before it is fully tested
+  
+  - Systems remain vulnerable until they are patched, or mitigating controls are implemented.
+
+
+Application whitelisting
+------------------------
+
+Advantages
+^^^^^^^^^^
+
+- Blocks most current malware 
+- Prevents use of unauthorized applications (have good software inventory. Process environment is very predictable)
+- Does not require daily definitions updates
+- Administrator installation and approval of new applications.
+
+Limitations
+^^^^^^^^^^^
+
+- Approved applications - compromised in supply chain.
+- Malware that exploits application that run in higher-level execution environments such as Java may not be found.
+
+Disadvantages
+^^^^^^^^^^^^^
+
+- Requires performance overhead
+- Requires regular maintainence
+- Causes some users to be annoyed
+
+
+Detect
+======
+
+Identify a cybersecurity event
+
+Intrusion Detection System
+--------------------------
+
+- ICS environments provide a unique opportunity. Compared to a corporate environment, an ICS environment is a steady state. Once again, you must know your environment. Ask and answer the following questions:
+
+  - WHAT is normal? (Is this documented?)
+    - You know that host “A” talks to host “B,” but not host “C”…
+  - WHEN does “normal” become abnormal? (indicators that something might be going on?)
+    - Host “A” is now talking to host “C”…WHY?
+  - WHOSE applications and services are on your critical networks?
+  - WHICH protocols are used?
+    - Known IT protocols (DNS traffic, HTTP traffic)
+    - Vendor (Proprietary traffic)
+
+IDS Types
+^^^^^^^^^
+
+- Host: Sensors reside on the host system
+- Network: What traffic is on your network?
+- Application: Web application firewall, database, firewall, application protocol IDS.
+- Log: What is happening at the OS level? or at the application level?
+- Paper: Who came in?
+- Anomaly: Any combination of the above.
+
+All methods of intrusion detection involve the gathering and analysis of information from various
+sources within a computer, network, and enterprise to identify possible threats posed by hackers inside
+or outside the organization.
+
+IDS/IPS Functions
+^^^^^^^^^^^^^^^^^
+
+An IDS is not a cure‐all for network security problems. It is an alerting tool to let you know something
+has happened. An IDS can:
+
+- Provide forewarning
+- Provide forensics data
+- Provide “situational awareness”
+- Provide network troubleshooting
+- Identify policy abuse.
+
+Placing an IDS outside of the firewall can be helpful for situational awareness and forewarning of
+activities. The IDS can detect scanning or other precursory attack activities that might be dropped by
+the firewall. An IDS cannot:  
+
+- Tell you directly if the system was exploited
+- Monitor actions taken by the system console
+- Perform analysis of an event (requires human being to analyse ).
+
+HIDS
+^^^^
+
+Host-based intrusion detection (HIDS) refers to intrusion detection that takes place on a single host
+system. HIDS involves installing an agent on the local host that monitors and reports on the system
+configuration and application activity. Some common abilities of HIDS systems include:
+
+- Provides the “victims” view
+- Virus detection/mitigation
+- Local log analysis  
+- File integrity checking  
+- Policy monitoring
+- Rootkit detection  
+- Network monitoring from the host viewpoint
+- Real-time alerting
+- Active response.
+
+HIDS often have the ability to baseline a host system to detect variations in system configuration. In
+specific vendor implementations, these HIDS agents also allow connectivity to other security systems.
+This allows for central management of configuration policy and verification. 
+
+HIDS Deployment
+"""""""""""""""
+
+HIDS tools are initially deployed in “monitor only” mode. This enables the administrator to create a
+baseline of the system configuration and activity. Active blocking of applications, system changes, and
+network activity is limited to only the most egregious activities. The policy can then be tuned based on
+what is considered “normal activity.” Once a policy is configured, it is then applied and distributed to the
+hosts. Benefits of central management architecture are:
+
+- Can be centrally managed with deployable policies.
+- Ability to apply changes to many systems at once  
+- Create a “baseline” for known system types/use cases  
+- Central authentication, alerting, and reporting
+- Central audit logging.
+
+The main two concerns with using any HIDS in an ICS environment are:
+
+- Does Operating System even support the use of a HIDS?
+- Do the hosts have enough hardware capacity to support the HIDS (CPU, memory, network bandwidth, etc.)
+
+Network Intrusion Detection (NIDS)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- NIDSs scan traffic from its networks and look for known patterns in traffic (packets).  
+- A NIDS can scan both sides of a conversation and can be reactive by blocking traffic when in IPS mode.
+- NIDS often does not know if the system is Windows, Linux, or a PLC. From a NIDS perspective traffic is traffic, and it simply reports on what traffic is seen on the network.
+- NIDS can have a high False-Positive or False-Negative rate based on the information used to generate the signatures.
+- NIDS are connected to the network via a SPAN/mirror port or a network tap.
+
+  - When using a SPAN port, the switch sends a copy of all the network packets “seen” on one physical port (or an entire VLAN) to another physical port, where the packets can be captured and/or analyzed.  
+  - A networking monitoring tap can be used to collect network packets without having to configure a span port on a switch. Think of a tap as a special T‐connection that can read data from the network, but not inject any data of its own into the network traffic. 
+
+IDS Sensor Placement
+""""""""""""""""""""
+
+The placement for IDS sensors is important.
+
+- Any change in trust zones should have an IDS/IPS deployed
+- A data diode should be attached to the historian. The IDS can also be deployed here
+- All points of presences for the external communications should have an IDS/IPS deployed
+- An IDS on either side of firewalls allows you to audit your firewall rules.
+
+NIDS Signature vs. Anomaly Detection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Signature                                | Anomaly                                                                                                                               |
++==========================================+=======================================================================================================================================+
+| Ex. Snort, Mcafee                        |                                                                                                                                       |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Watches for specific events              | Watches for changes in trends                                                                                                         |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Only looks for what it has been told     | Learns from gradual changes                                                                                                           |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Can deal with any known threat           | Can deal with unknowns, but any attack is subject to false-negative (Doesn't know what attacks are, just know it's change in traffic) |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Unaware of network configuration changes | Sensitive to changes in network devices                                                                                               |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Highly objective inspection              | Subjective, prone to misinterpretations                                                                                               |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Predictable behavior                     | Unpredictable behavior                                                                                                                |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Easy to tune manually                    |                                                                                                                                       |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+
+
+Netflow Anomaly Detection
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+NetFlow is a network protocol developed by Cisco Systems for collecting IP traffic information. NetFlow has become an industry standard for traffic monitoring and is supported by platforms other than Cisco. Routers and switches that have the NetFlow feature enabled produce UDP data streams that are sent to a NetFlow collector (server) where it can be processed and stored.  
+
+- Describes a set of packets sharing these characteristics:  src, sport, dst, dport, protocol, type of service.
+- Data include: time, number of bytes, number of packets
+- Usually sent via UDP or Stream Control Transmission Protocol
+- Distributed Denial of Service  
+
+  - Massive increase in flows
+- Trojan Horses  
+
+  - “Well-known” or unexpected services
+- Firewall Policy Violation
+
+  - Unexpected inside/outside flow
+
+Example Alerts for Anomaly Detection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Hosts scanning for services:
+  
+  - Are there external hosts poking at more than __ internal addresses?   
+  - Are there external hosts poking at more than __ ports on 1 (or more) internal hosts?  
+
+- Internal infected host scanning/talking to for external hosts:
+  
+  - Is some internal host poking at __ external hosts?  
+  - Is some internal host poking at __ internal hosts?
+  - Is some internal host poking at dark space (un-allocated Internet address space)?   
+
+- Internal hosts talking to “Interesting Net blocks” (pick your favorite countries here)
+  
+  - Are there pokes from __ net blocks that may be of interest?
+  - Are there pokes to __ net blocks that may be of interest?
+
+- Increased network traffic:
+  
+  - Distributed Denial of Service (DDOS)
+  - Unexpected high volume - Data mining, egress?
+
+Zeek IDS
+^^^^^^^^
+
+- Open-source
+- Allows scripting of monitoring policies
+- Collect logs for analysis (Non-standard ports, Connections, DNS, FTP, Files, HTTP requests, SSL, SMTP activity).
+- Analyzers for many protocols including Modbus and DNP3
+- Unexpected protocol level activity.
+- Logs can be used by several other security products.
+
+IDS vs. IPS
+^^^^^^^^^^^
+
+IDS 
+
+- Watching/ Passive alerting
+
+IPS
+
+- Inline, Passive Alerting, Active Response
+
+SNORT
+-----
+
+- Snort is an open-source network intrusion detection and prevention system. Snort is widely used and has become the standard for IDS/IPS.
+- Learning to write Snort rules is useful because most IDS/IPS applications will either use the Snort rule format or provide a way to import Snort rules.
+- If you are able to understand the data flow in your environment, you will be able to design simple anomalous traffic signatures quickly without regard to the actual details of the protocol used.
+- Snort rules are composed of a rule header and rule options. There are five types of rule options:
+
+  - Metadata
+  - Payload detection
+  - Non-payload detection
+  - Post-detection
+  - Thresholding and suppression
+
+- We will focus on Metadata and payload detection
+
+  ``alert ip ![10.0.10.20, 10.0.10.30] any <> [10.0.10.15] any (msg:"ALERT - Field Controller interacts with another node"; reference:url,mysite.org/rule1; reference:cve,2018-0000;sid:3000001;priority:1;rev:1;)``
+
++---------------------+--------------------------------------------------------------------------------------------------------------+
+| action              | alert, log, pass, active, dynamic, or a custom defined type                                                  |
++---------------------+--------------------------------------------------------------------------------------------------------------+
+| protocol            | ip, tcp, udp, icmp, any                                                                                      |
++---------------------+--------------------------------------------------------------------------------------------------------------+
+| src ip and src port | See below                                                                                                    |
++---------------------+--------------------------------------------------------------------------------------------------------------+
+| direction           | ->, <>  direction of the traffic that the rule applies to                                                    |
++---------------------+--------------------------------------------------------------------------------------------------------------+
+| dst ip and dst port | See below                                                                                                    |
++---------------------+--------------------------------------------------------------------------------------------------------------+
+| Msg                 | Used by analyst to quickly identify the signature                                                            |
++---------------------+--------------------------------------------------------------------------------------------------------------+
+| Reference           | Can use a predefined tag for a security web site or use “URL” to include any web site reference in the rules |
++---------------------+--------------------------------------------------------------------------------------------------------------+
+| Sid                 | The signature ID is used by Snort to uniquely identify rules. We recommend using a number > 3,000,000        |
++---------------------+--------------------------------------------------------------------------------------------------------------+
+| Priority            | Allows the user to set the priority of the rule. Highest - 1, Lowest - 10                                    |
++---------------------+--------------------------------------------------------------------------------------------------------------+
+
+Snort Preprocessors for ICS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- A number of attacks cannot be detected by signature matching alone in the detection engine, so protocol “examine” preprocessors step up to the plate and detect suspicious activity. These preprocessors include packet fragmentation, TCP stateful inspection, portscans, and many other Network/Application protocol‐specific activities.
+- Others modify packets by normalizing traffic so that the detection engine can accurately match signatures. These preprocessors defeat attacks that attempt to evade Snort’s detection engine by manipulating traffic patterns.
+- Snort cycles packets through every preprocessor to discover attacks that require more than one preprocessor to detect them. If Snort simply quit checking for the suspicious attributes of a packet after it had set off a preprocessor alert, attackers could use this deficiency to hide traffic from Snort.
+- Preprocessor parameters are configured and tuned via the snort.conf file. The snort.conf file lets you add or remove preprocessors as you see fit. Of particular interest to the ICS community are the DNP3 and Modbus preprocessors.
+- ICS Specfic: DNP3/Modbus
+- Other useful preprocessor: SSH, SSL, Portscan, httpinspect
+
+DNP3 Preprocessor Rule Options
+""""""""""""""""""""""""""""""
+
+- dnp3_func: Matches Function Code inside an Application-Layer request/response header
+- dnp3_ind: Matches on the Internal Indicators flags in Application Response Header (Similar to TCP flags)
+- dnp3_obj: Matches on request or response object headers
+- dnp3_data: Reassembled Application-Layer Fragments.
+
+DNP3 Preprocessor Examples
+""""""""""""""""""""""""""
+
+Here are some examples of the new DNP3 preprocessor rule options:
+
+- Alerts on DNP3 Write Request:
+
+  - ``alert tcp any any -> any 20000 (msg:"DNP3 Write request"; dnp3_func:write; sid:3000001;)``
+- Alerts on reserved_1 OR reserved_2 being set:
+
+  - ``alert tcp any 20000 -> any any (msg:"Reserved DNP3  Indicator set"; dnp3_ind:reserved_1,reserved_2; sid:3000002)``
+- Alerts on Content in Re-assembled Application-Layer Fragment:
+
+  - ``alert tcp any any -> any any (msg:"badstuff' in DNP3 message"; dnp3_data; content:"badstuff"; sid:3000003;)``
+  - Notice in the third rule, dnp3_data sets the content buffer to the beginning of the Re-assembled Application-Layer Fragment then looks for the content: “badstuff”
+
+Modbus Preprocessor Rule Options
+""""""""""""""""""""""""""""""""
+
+- modbus_func: Matches against the Function Code inside of a Modbus Application-Layer request/response header
+- modbus_unit: Matches against the Unit ID field in a Modbus header
+- modbus_data: Sets the cursor at the beginning of the Data field in Modbus request/response
+
+Modbus Preprocessor Rule Examples
+""""""""""""""""""""""""""""""""""
+
+- Alerts on specific Modbus function:
+
+  - ``alert tcp any any -> any 502 (msg:"Modbus Write Coils  request"; modbus_func:write_multiple_coils; sid:3000004;)``
+- Alerts on unauthorized host
+
+  - ``var MODBUS_ADMIN 192.168.1.2``
+  - ``alert tcp !$MODBUS_ADMIN any -> any 502 (msg:"Modbus command to Unit 01 from unauthorized host";  modbus_unit:1; sid:3000005;)``
+- Alerts on Content in modbus data field
+
+  - ``alert tcp any any -> any any (msg:"String 'badstuff' in Modbus  message"; modbus_data; content:"badstuff"; sid:3000006;).
+
+Example Rule Variables
+""""""""""""""""""""""
+
+- ``ipvar HOME_NET [1.2.3.0/24,10.0.10.0/24]``
+- ``ipvar EXTERNAL_NET [!HOME_NET]``
+- ``ipvar CANARY 1.2.3.4``
+- ``ipvar PCS [10.0.10.0/24]``
+- ``ipvar CORP [1.2.3.0/24]``
+- ``ipvar HMI [10.0.10.20,10.0.10.30]``
+- ``ipvar AD 1.2.3.20``
+- ``ipvar FC 10.0.10.15``
+- ``ipvar HIST1 [10.0.10.150]``
+- ``ipvar CONFDB [10.0.10.10]``
+- ``portvar TAG 2000``
+- ``portvar TAG_RANGE [2000:2020]``
+
+Example Rules
+"""""""""""""
+
+- #Field Controller (FC) talking to unknown system
+
+  - ``alert ip ![$HMI,$HIST1,$CONFDB] any -> $FC any (msg:“ALERT - Field Controller interacts with unknown node"; sid:4000001; priority:1; rev:1;)``
+- #Configuration Database talks to unexpected system
+
+  - ``alert ip [$CONFDB] any -> ![$FC,$HMI,$HIST1] any (msg:“ALERT - Configuration DB Communicate with new system; sid:4000002; priority:1; rev:1;)``
+- # PCS network communication with CORP network, trying to bypass the firewall
+
+  - ``alert ip [$PCS,!$HIST1] any -> $CORP any (msg:”PCS network talking to CORP network”; sid:4000003; priority:1; classtype:unknown;)``
+- #Configuration Database updates (auditing tool)
+
+  - ``log ip [$CONFDB] any -> [$FC,$HMI,$HIST1] any (msg:“AUDIT - Configuration Updates; sid:4000004; priority:10; rev:1;)``
+
+- # LOOKING FOR BAD TRAFFIC
+- # Find traffic involving a canary
+
+  - ``alert ip any any <> $CANARY any (msg:”The canary is talking”; sid: 4000005; priority:1; classtype:unknown; tag:session,256,packets;)``
+- #Monitor for the Field Controller talking to the Internet
+
+  - ``alert tcp $FC any -> $EXTERNAL_NET any (msg:”PLC talking to the outside world”; sid:4000007; priority:1; flags:S; classtype:bad-unknown;)``
+- # Monitor for AD attempting to connect to the Internet
+
+  - ``alert tcp $AD any -> $EXTERNAL_NET any (msg:”AD attempting to talk to the outside world”; sid:4000008; priority:1; flags:S; classtype:bad-unknown;)``
+- #Command shell on HMI
+
+  - ``alert ip any any -> $HMI any (msg:”cmd.exe on HMI”; content: “cmd.exe”; sid:4000009; priority:1; classtype:unknown;)``
+
+Log Sources and Management
+--------------------------
+
+Logging Architecture
+^^^^^^^^^^^^^^^^^^^^^
+
+- A central log server can assist in an incident by providing a chronological list of the events surrounding an incident that give the bigger picture.
+- Multiple systems/sources can send their data to a central log server where it can be correlated with other information.
+- Correlating with other logs can sometimes make the difference between recognizing an event for what it is (true or false) and then acting accordingly. The same data can provide valuable information (such as an IDS) to the security analyst.
+
+There are some considerations in centralizing logs:
+- Properly prioritize the function of log management. Define requirements and goals for log performance and monitoring based on applicable laws, regulations, and existing organizational policies. Then, prioritize goals based on balancing the need to reduce risk with the time and resources necessary to perform log management functions.
+- Create and maintain a secure log management infrastructure. Identify the needed components and determine how they will interact (e.g., firewall rules, diodes). With the various types of information in one place, the log server becomes a valuable system to target a critical system to protect. It should only run the logging service and be in a highly protected area of your network.
+- Provide appropriate support for staff with log management responsibilities. All efforts to implement log management will be for naught if the staff members who are tasked with log management responsibilities do not receive adequate training, proper tools, or support to do their jobs effectively. The staff members need to understand what situations are normal, bad, and weird. Providing log management tools, documentation, and technical guidance are all critical for the success of log management staff.
+
+Log sources
+^^^^^^^^^^^
+
+- firewalls
+- VPN Servers (maybe part of firewall logs)
+- Operating Systems (e.g Windows, \*nix, Mac)
+- Proxy Server
+- Web Servers (e.g. IIS, Apache, NGinx)
+- Databases (e.g. MS SQL, Oracle, MySQL)
+- Others (e.g. PLCs, HMIs)
+
+Log Transport
+^^^^^^^^^^^^^
+
+syslog
+"""""""
+
+- Defacto standard in IT community
+- Use UDP/TCP
+- Data diode can be used
+- Encryption can be used
+- Third-party tools maybe necessary for some OS or applications.
+
+
+ 
+Operating System Logs
+^^^^^^^^^^^^^^^^^^^^^^
+
+- Operating system logs can be used to monitor the health of the system and detect malicious activity
+- Windows OS
+  - Security Log
+  - System Log
+  - Third-party agent to send logs to a remote server.
+- Linux/Unix OS
+  - Syslog transport part of OS
+  - auth.log, messages
+
+Security Audit Logging Web Server Logs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Review daily to determine a baseline
+- Web server logs will show:
+
+  - who visited the website
+  - when they visited the website
+  - what they did while viewing the website (including SQL queries)
+  - Where they came from?
+
+Security Audit Logging Database Logs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- User logins and logouts
+- Database system starts, stops and restarts
+- Various system failures and errors
+- User privilege changes
+- Database structure changes (tables that has been deleted/data that has been changed)
+- Most other DBA actions; and
+- Select or all database data access (if configured to be so)
+
+Security Information and Event Management
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Capabilities
+
+- Data aggregation
+- Correlation
+- Alerting
+- compliance
+- Forensics analysis
+
+Honeypots & Canaries
+--------------------
+
+- Decoy systems (sit on your network and try to replicate how your network looks like)
+- Variant of an IDS
+- Any traffic seen talking to a Honeypot could be considered malicious
+- Open-source ICS Honeypots are available: `Conpot <https://github.com/glastopf/conpot>`_
+- Canaries (doesn't communicate with any other system on your network. If an IDS is watching for ANY traffic to/from the canary, you will get an early warning that something is going on that shouldn’t be).
+
+Respond and Recover
+===================
+
+Execute activities taken during and after a cybersecurity event.
+
+- The Respond Function supports the ability to contain the impact of a potential cybersecurity event. Examples of outcome Categories within this Function include: Response Planning; Communications; Analysis; Mitigation; and Improvements.
+- The Recover Function supports timely recovery to normal operations to reduce the impact from a cybersecurity event. Examples of outcome Categories within this Function include: Recovery Planning; Improvements; and Communications.
+- Incident Respond Phases
+  - Preparation --> Identification --> Containment --> Clean-up and Recovery --> Follow-up
+
+Preparation
+-----------
+
+- Build your team
+- Plan your response
+  - Secure and alternate methods of communication.
+- Scribe(s) for each group within the team.
+  - Securable room where you can keep accurate and complete information
+  - access to ALL of the logs and data.
+  - Known, certified clean computer systems to do forensics.
+  - Person with the authority to unplug from the internet (maybe your manager, CEO?)
+- Define your strategy.
+- Create documentation
+- Train your teams and users
+  - A practiced plan
+- Gather threat intelligence
+  - Feeds & threat reports
+  - Yara rules and indicators of known malware (know whats going on in the world)
+- Use a checklist for starting point
+- Compliance and safety officers should review the IR plan.
+ 
+Incident Response Team
+^^^^^^^^^^^^^^^^^^^^^^
+
+- Senior Technical staff
+- Lead and Forensics Analysts
+- Scribe(s)
+- Stakeholders from:
+  - Corporate IT
+  - Control Systems
+  - Subject Matter Experts
+  - Public Relations
+  - Legal Counsel
+  - Law Enforcement (if necessary)
+  - IT and/or financial auditors (optional)
+
+Identification
+--------------
+
+- Starts when incident is detected (snort/log alert?)
+- Forensics tools
+- Use the intelligence gathered
+- Thorough analysis of logs and network traffic
+
+Containment
+-----------
+
+- Find the call back addresses
+- Stop the information flow leaving the network
+- Stop the malware from spreading
+
+Clean-up and Recovery
+----------------------
+
+- Remediation
+- Intrusion Clean-up
+- Affected system back-in service
+
+Follow-up
+---------
+
+- Incident report
+- Lessons Learned
+  - Update incident response plan
+  - update threat intelligence
+  - Implement new security initiatives
+
+Network Forensics
+^^^^^^^^^^^^^^^^^
+
+- Main purpose: Incident response and Law Enforcement
+- Items to analyse in packet Captures
+  - Pattern matching - match specific values
+  - Conversations - identify all sessions of interest
+  - Exports: export sessions of interest
+- Tools used in network forensics
+  - Wireshark, Network Miner, Tcpdump/windump, tcpflow, tcpxtract, argus, YARA, others.
+
+YARA
+^^^^
+
+- Main purposes: to help identify and classify malware samples
+- Yara Rules
+  - consists of a set of strings and boolean expressions
+  - can be found in security alerts and bulletins
+  - can be used by different security tools
+
+
+Protocols
+*********
+
+Modbus
+======
+
+- Modbus protocol is a master/slave protocol: the master reads and writes slaves' registers.
+- Modbus RTU is usually used via RS-485 (serial network): one master is present with one or more slaves. Each slave has an unique 8-bit address. 
+- Modbus data is used to read and write "registers" which are 16-bit long. 
+  
+  - Holding register: 16-bit; readable and writable
+  - Input register: 16-bit; readable
+  - Coil (Discrete Output): 1-bit long; readable and writeable
+  - Discrete input (Status Input): 1-bit long; readable

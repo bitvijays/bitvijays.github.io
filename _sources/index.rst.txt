@@ -23,7 +23,6 @@ Want to provide us some feedback? Write it down at :doc:`Feedback <Series_Other_
    Series_The_Essentials/LFF-ESS-P0C-CloudEssentials
    Series_The_Essentials/LFF-ESS-P0E-OpenSource
    Series_The_Essentials/LFF-ESS-P0D-SecureSoftware
-   Series_The_Essentials/LFF-ESS-P0F-IndustrialControlSystems
 
 .. toctree::
    :maxdepth: 1
@@ -62,6 +61,7 @@ Want to provide us some feedback? Write it down at :doc:`Feedback <Series_Other_
    :maxdepth: 1
    :caption: Critical Infrastructure
 
+   Series_Critical_Infrastructure/LFF-CIS-IndustrialControlSystems
    Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid
 
 .. .. toctree::

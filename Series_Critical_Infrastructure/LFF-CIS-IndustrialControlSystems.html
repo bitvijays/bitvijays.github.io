@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Industrial Control Systems &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Electrical Grid" href="LFF-CIS-ElectricalGrid.html" />
+    <link rel="prev" title="Coding Quick Reference" href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Industrial Control Systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#definitions">Definitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#it">IT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ot">OT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ics">ICS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#embedded-systems">Embedded Systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#field-controllers">Field Controllers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#memory">Memory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#input-output">Input/Output</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#communication-ports">Communication Ports</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#user-interface">User interface</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#programs">Programs</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#programmable-logic-controller">Programmable Logic Controller</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#program-execution">Program Execution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#programming-concepts">Programming Concepts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#data-flow">Data Flow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#network-discovery-and-mapping">Network Discovery and Mapping</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#passive-discovery">Passive Discovery</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what">What?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#why">Why?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#artifacts">Artifacts</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#tools">Tools</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#history-logs">History + Logs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#configuration-files">Configuration files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#cache">Cache</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#how">How?</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#arp">ARP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ip">IP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#dns">DNS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#tcp-udp-ports">TCP/UDP Ports</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#netstat">netstat</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#routing-table">Routing Table</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#netbios">netBIOS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#tcpdump-windump">TCPDump/Windump</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#wireshark">wireshark</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#files-and-others">Files and Others</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#browser-history">Browser history</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#bash-history">.bash_history</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#active-discovery">Active Discovery</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">What?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Why?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">How?</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#arp-scan">arp-scan</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#nmap">nmap</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#nessus-vulnerablity-scanner">Nessus Vulnerablity Scanner</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#network-defense-detection-and-analysis">Network Defense, Detection and Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#identify">Identify</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#asset-and-information-inventory">Asset and Information inventory</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id12">What?</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id13">Why?</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#who">Who?</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id14">How?</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#other">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#least-functionality">Least Functionality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#least-privileges">Least Privileges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">Tools</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#grassmarlin-retired">GrassMarlin (Retired)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#protect">Protect</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#it-ot-convergence">IT-OT Convergence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#human-element">Human element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opsec">OPSEC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#secure-passwords">Secure Passwords</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vendor-access">Vendor Access</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#vendor-connections-to-the-ics-network">Vendor connections to the ICS Network</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#removable-media">Removable Media</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#secure-authentication">Secure Authentication</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#secure-vpn-access">Secure VPN access</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#ics-network-segmentation">ICS Network segmentation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#firewall-implementation">Firewall Implementation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#firewall-rules">Firewall Rules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#firewall-logs">Firewall Logs</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#data-diode">Data Diode</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#data-diode-vs-firewalls">Data Diode vs. Firewalls</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#patch-management">Patch Management</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#patching-considerations">Patching Considerations</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#potential-patch-complications">Potential Patch Complications</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#application-whitelisting">Application whitelisting</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#advantages">Advantages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#limitations">Limitations</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#disadvantages">Disadvantages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#detect">Detect</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#intrusion-detection-system">Intrusion Detection System</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#ids-types">IDS Types</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ids-ips-functions">IDS/IPS Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hids">HIDS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#network-intrusion-detection-nids">Network Intrusion Detection (NIDS)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#nids-signature-vs-anomaly-detection">NIDS Signature vs. Anomaly Detection</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#netflow-anomaly-detection">Netflow Anomaly Detection</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#example-alerts-for-anomaly-detection">Example Alerts for Anomaly Detection</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#zeek-ids">Zeek IDS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ids-vs-ips">IDS vs. IPS</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#snort">SNORT</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#snort-preprocessors-for-ics">Snort Preprocessors for ICS</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#log-sources-and-management">Log Sources and Management</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#logging-architecture">Logging Architecture</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#log-sources">Log sources</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#log-transport">Log Transport</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#operating-system-logs">Operating System Logs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#security-audit-logging-web-server-logs">Security Audit Logging Web Server Logs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#security-audit-logging-database-logs">Security Audit Logging Database Logs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#security-information-and-event-management">Security Information and Event Management</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#honeypots-canaries">Honeypots &amp; Canaries</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#respond-and-recover">Respond and Recover</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#preparation">Preparation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#incident-response-team">Incident Response Team</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#identification">Identification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#containment">Containment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#clean-up-and-recovery">Clean-up and Recovery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#follow-up">Follow-up</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#network-forensics">Network Forensics</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#yara">YARA</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#protocols">Protocols</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modbus">Modbus</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Industrial Control Systems</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="industrial-control-systems">
+<h1>Industrial Control Systems<a class="headerlink" href="#industrial-control-systems" title="Link to this heading"></a></h1>
+<section id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Help to better understand ICS networks and ideas on protecting them from cyber attacks.</p></li>
+<li><p>Discuss common weakness and vulnerablities along with cyber risks for ICS.</p></li>
+<li><p>Importance of knowing the networks that needs to be protected</p></li>
+<li><p>Discuss mitigation strategies and defense in depth for more secure ICS environment</p></li>
+</ul>
+</section>
+<section id="definitions">
+<h2>Definitions<a class="headerlink" href="#definitions" title="Link to this heading"></a></h2>
+<section id="it">
+<h3>IT<a class="headerlink" href="#it" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>IT refers to anything related to computing technology.</p></li>
+</ul>
+</section>
+<section id="ot">
+<h3>OT<a class="headerlink" href="#ot" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>OT refers to hardware and software used to monitor events, processes, and devics and make adjustments in industrial operations.</p></li>
+<li><p>Operational Technology (OT) refers to systems used to monitor and control industrial operations.</p></li>
+</ul>
+</section>
+<section id="ics">
+<h3>ICS<a class="headerlink" href="#ics" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Industrial Control Systems (ICS) includes systems used to monitor and control industrial processes.</p></li>
+<li><p>ICS refers to a broad set of control systems including</p>
+<ul>
+<li><p>SCADA (Supervisory Control and Data Acquistion): geographically spread out (pipelines, electric substations)</p></li>
+<li><p>DCS (Distributed Control System): might be located at one location only such as Nuclear power station with reactor basement (ground and first floor), cooling tower and field controller (communicating with IO and sending data to control room) (Distributed control)</p></li>
+<li><p>PCS (Process Control System)</p></li>
+<li><p>EMS (Energy Management System)</p></li>
+<li><p>AS (Automation System)</p></li>
+<li><p>SIS (Safety Instrumented System): Separate system from a DCS created specifically for safety purposes. For example as long as the variables (temperature, pressure and other important variables) are within specfied all is good. If not, SIS will shutdown the systems.</p></li>
+<li><p>Any other automated control system.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="embedded-systems">
+<h3>Embedded Systems<a class="headerlink" href="#embedded-systems" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Embedded Systems is computer system consisting of hardware and software specifically defined for a specific purpose or dedicated task. (Workstations, laptops and servers are not embedded system).</p></li>
+<li><p>Embedded system used in ICS</p>
+<ul>
+<li><p>Programmable Logic Controller, Remote Terminal Unit, DCS controllers, Intelligent Electronic Devices, field devics (HART, Foundation Fieldbus, Profibus, Devicenet)</p></li>
+<li><p>Network/communication equipment (Routers, switches, modems, radios, terminal servers, gateways, firewall and other security appliances)</p></li>
+<li><p>Others (GPS, time synchronziation, network printers, hand-held configuration devices, test equipment)</p></li>
+</ul>
+</li>
+</ul>
+<section id="field-controllers">
+<h4>Field Controllers<a class="headerlink" href="#field-controllers" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Processors (X86, PowerPC, ARM, MIPS)</p></li>
+</ul>
+<section id="memory">
+<h5>Memory<a class="headerlink" href="#memory" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Non-volatile Memory</p>
+<ul>
+<li><p>Flash memory, EEPROM, EPROM, ROM</p></li>
+<li><p>Firmware (boot code, real time operating system (RTOS), application program)</p></li>
+</ul>
+</li>
+<li><p>Volatile Memory (lost after power; much less susceptible to being able to manipulate or take items from)</p>
+<ul>
+<li><p>RAM</p></li>
+<li><p>Variables, stack, buffers</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="input-output">
+<h5>Input/Output<a class="headerlink" href="#input-output" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Discrete, Analog, Fieldbus (4 to 10 milliAmps or 0-10 Volts)</p></li>
+</ul>
+</section>
+<section id="communication-ports">
+<h5>Communication Ports<a class="headerlink" href="#communication-ports" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Serial - RS232, RS422/485, USB, modems, radios</p></li>
+<li><p>Network - Ethernet radio, ControlNet, LonWorks</p></li>
+</ul>
+</section>
+<section id="user-interface">
+<h5>User interface<a class="headerlink" href="#user-interface" title="Link to this heading"></a></h5>
+<section id="internal">
+<h6>Internal<a class="headerlink" href="#internal" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Status lights, small LCD screens (HMIs), keypads, jumpers, dip switches, switches</p></li>
+</ul>
+</section>
+<section id="external">
+<h6>External<a class="headerlink" href="#external" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Browers (allows to see the status, working of the devices), Applications (always check if the applications can be shutdown, is there a business use-case for them?). Remember the smaller the attack surface area the better!</p></li>
+</ul>
+</section>
+</section>
+<section id="programs">
+<h5>Programs<a class="headerlink" href="#programs" title="Link to this heading"></a></h5>
+<ul>
+<li><p>RTOS (Neutrino &amp; RTOS (QNX), VxWorks, Windows CE)</p></li>
+<li><p>IEC 61131 program languages
+- Workbences (CoDeSys (allows the ability to program in anyone of the below languages), ISaGRAF)
+- Languages</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Ladder Logic</p></li>
+<li><p>Function Block Diagram (FBD)</p></li>
+<li><p>Sequential Function Chart (SFC)</p></li>
+<li><p>Structured Text (ST)</p></li>
+<li><p>Instruction List (IL)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Device Drivers and Device Managers</p>
+<ul class="simple">
+<li><p>Ethernet/IP Stacks</p></li>
+<li><p>RS232/RS-485</p></li>
+<li><p>Memory Managers</p></li>
+<li><p>User interfaces</p></li>
+</ul>
+</li>
+<li><p>Services (Web server, FTP server, SNMP) (Any business case for these running? If not, turn them off)</p></li>
+<li><p>Debuggers (data for troubleshooting, are we turning it off after debugging? Often, debuggers are turned-on exposing data and possible vulnerablities)</p></li>
+</ul>
+</section>
+</section>
+<section id="programmable-logic-controller">
+<h4>Programmable Logic Controller<a class="headerlink" href="#programmable-logic-controller" title="Link to this heading"></a></h4>
+<section id="program-execution">
+<h5>Program Execution<a class="headerlink" href="#program-execution" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>A line of code in a PLC program is called a rung.</p></li>
+<li><p>PLC program execute from left to right and top to bottom.</p></li>
+<li><p>Each completion of the program is called a scan.</p></li>
+<li><p>A PLC will complete many scans in a single second (Scan rate: 50-60 milli-seconds/scan; SCADA system scan rate is approx 2 mins; metering at home (water/energy) is approx 15-30 mins).</p></li>
+</ul>
+</section>
+<section id="programming-concepts">
+<h5>Programming Concepts<a class="headerlink" href="#programming-concepts" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Each rung executes on an “IF-Then” principle</p></li>
+<li><p>IF the instruction(s) on the left are true then execute the instructions on the right.</p></li>
+<li><p>Direct/Normal Open Contact</p></li>
+<li><p>Direct/Normal Open Output Coil</p></li>
+<li><p>Reverse/Normally Closed Contact</p></li>
+<li><p>Placing multiple rungs (branch) on a single rung = OR</p></li>
+<li><p>Placing multiple inputs on the same rung = AND</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="data-flow">
+<h3>Data Flow<a class="headerlink" href="#data-flow" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>ICS collect information about some process or function using a communications infrastructure to send the data back to an operator. The operator reviews the data, typically in a graphical format, assesses the operational status of the process, and tunes the system for optimal performance.</p></li>
+<li><p>Field Devices are the instruments and sensors that measure process parameters and the actuators that control the process. This is the interface between the ICS and the physical process. These sensors or measuring instruments are often referred to as input devices because they “input” data into the ICS.</p></li>
+<li><p>Field Controllers are responsible for collecting and processing input and output information, sometimes referred to as I/O. They also send the process data to the human machine interface (HMI) and process control commands from the operators. They are often located close to the field devices.</p></li>
+<li><p>Servers, HMIs, and engineering workstations take the information from field controllers and display the data in a manner that depicts what is happening in the process. The user interface, usually referred to as the HMI, allows the operator to have a real‐time, or near real‐time, operational view of the process. These three components are linked using networks or communication channels.</p>
+<ul>
+<li><p>Field Devices (Meters, Sensors, Valves, Switches)  &lt;——-&gt; Field Controllers (PLC, IED, RTU, Controller, PAC) &lt;———–&gt; HMI (SCADA Server, HMI, Workstations, EMS)</p></li>
+<li><p>Direct connection or Device level protocols (HART, Foundation Fieldbus, Profibus)   &lt;———-&gt; Command and Control Protocols (DNP3, Modbus, Ethernet/IP)</p></li>
+<li><dl class="simple">
+<dt>Field Controllers –&gt; Primary Historian –&gt; Secondary Historian</dt><dd><p><a href="#id1"><span class="problematic" id="id2">|</span></a>—&gt; Configuration Database —&gt; HMI
+—-&gt; HMI</p>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li><p>Protocols (ANSI X3.28, BBC 7200, CDC Type 1/2, Contitel, DCP, DNP, Gedac 7020, ICCP, Landis, Modbus, OPC, ControlNet, DeviceNet, DH+, Profibus, Tejas 3/5, TRW 9550, UCA)</p></li>
+<li><p>Indusoft (HMI Software?)</p></li>
+<li><p>Connected Components Workbench</p></li>
+</ul>
+<p><a class="reference external" href="https://www.rockwellautomation.com/en-us/products/hardware/allen-bradley/programmable-controllers/micro-controllers/micro800-family/micro850-controllers.html">https://www.rockwellautomation.com/en-us/products/hardware/allen-bradley/programmable-controllers/micro-controllers/micro800-family/micro850-controllers.html</a></p>
+<p><a class="reference external" href="https://www.plcfiddle.com/">https://www.plcfiddle.com/</a></p>
+</section>
+</section>
+<section id="network-discovery-and-mapping">
+<h2>Network Discovery and Mapping<a class="headerlink" href="#network-discovery-and-mapping" title="Link to this heading"></a></h2>
+<p>Discovery Process in both, Passive is much more stealthy and Active is aggressive in trying to learn things. In both cases, we are mapping out the environment. Often is the case, when we are presented with a case of understading
+in-production environment, with no-prior person to enquire from, documentation is little, suggestions to how to handle certain performance issue.</p>
+<section id="passive-discovery">
+<h3>Passive Discovery<a class="headerlink" href="#passive-discovery" title="Link to this heading"></a></h3>
+<section id="what">
+<h4>What?<a class="headerlink" href="#what" title="Link to this heading"></a></h4>
+<p>What is Passive Discovery?</p>
+<ul class="simple">
+<li><p>Using information discovered from local memory of any host, to build a vision of an existing Control system environment.</p></li>
+<li><p>Practicing safe methods to explore and perform reconnaissance.</p></li>
+<li><p>Attempt to identify network details without sending network packets.</p></li>
+</ul>
+</section>
+<section id="why">
+<h4>Why?<a class="headerlink" href="#why" title="Link to this heading"></a></h4>
+<p>Why perform passive network discovery?</p>
+<ul class="simple">
+<li><p>Safer practice regarding Control System networks (don’t want to break something).</p></li>
+<li><p>Can yield information that active discover may not be practical for, such as data found in various files.</p></li>
+<li><p>Use tools passively</p>
+<ul>
+<li><p>When exploring a Control System network, practice passive techniques when mapping.</p></li>
+<li><p>Utilities and commands are not neccessarily defined as passive. Using a tool passively is a responsibility of the user.</p></li>
+<li><p>Daily operation of production Control Systems already create expected traffic. Try not to interfere or manipulate pathways when exploring.</p></li>
+</ul>
+</li>
+<li><p>Examples and Effects</p>
+<ul>
+<li><p>Neglect to disable name resolution in commands
+- resolution queries could alert and IDS unnecessarily.</p></li>
+<li><p>Scanning your own host, from the same host (to know what it is running?).
+- Self inflicted scans will preoccupy a host’s network resources and may alert a host-based IDS.</p></li>
+<li><p>Restarting services without planning (often we try turning off and on again without planning). For example, if a watchdog timer checks for a open-port and restarting doesn’t start the service and the port remain closed.
+- Watchdog timers (checking for a particular state or change in state) could generate timeout signals, and trigger alarms to an operator. Meaningless errors can appear in logs.</p></li>
+<li><p>Clearing Cache
+- Clearing cache will cause bursts of packets to repopulate tables.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="artifacts">
+<h4>Artifacts<a class="headerlink" href="#artifacts" title="Link to this heading"></a></h4>
+<section id="tools">
+<h5>Tools<a class="headerlink" href="#tools" title="Link to this heading"></a></h5>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ipconfig</span></code>, <code class="docutils literal notranslate"><span class="pre">ip</span></code>, <code class="docutils literal notranslate"><span class="pre">ifconfig</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-anob</span></code>/ <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-pantu</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">route</span> <span class="pre">print</span></code>/ <code class="docutils literal notranslate"><span class="pre">route</span> <span class="pre">-n</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iptables</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tcpdump</span></code> + <code class="docutils literal notranslate"><span class="pre">wireshark</span></code></p></li>
+<li><p>EtherApe</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="history-logs">
+<h5>History + Logs<a class="headerlink" href="#history-logs" title="Link to this heading"></a></h5>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.bash_history</span></code></p></li>
+<li><p>Browser History</p></li>
+<li><p>Remote Desktop History</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">var/log/messages</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">var/log/syslog</span></code></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="configuration-files">
+<h5>Configuration files<a class="headerlink" href="#configuration-files" title="Link to this heading"></a></h5>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">crontab</span> <span class="pre">-l</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C:\windows\system32\Drivers\etc\hosts</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="cache">
+<h5>Cache<a class="headerlink" href="#cache" title="Link to this heading"></a></h5>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">arp</span> <span class="pre">-an</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nbstat</span> <span class="pre">-c</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/displaydns</span></code></p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="how">
+<h4>How?<a class="headerlink" href="#how" title="Link to this heading"></a></h4>
+<section id="arp">
+<h5>ARP<a class="headerlink" href="#arp" title="Link to this heading"></a></h5>
+<section id="linux">
+<h6>Linux<a class="headerlink" href="#linux" title="Link to this heading"></a></h6>
+<p><code class="docutils literal notranslate"><span class="pre">arp</span> <span class="pre">-a</span> <span class="pre">-i</span> <span class="pre">eth0</span></code> will do the DNS resolution that will send the network packets to the DNS server asking for name resolution (Active scan).</p>
+<p><code class="docutils literal notranslate"><span class="pre">arp</span> <span class="pre">-a</span> <span class="pre">-i</span> <span class="pre">eth0</span> <span class="pre">-n</span></code> will not do the DNS resolution (more passive).</p>
+</section>
+<section id="windows">
+<h6>Windows<a class="headerlink" href="#windows" title="Link to this heading"></a></h6>
+<p><code class="docutils literal notranslate"><span class="pre">arp</span> <span class="pre">-a</span></code></p>
+<p>EtherApe is a good tool to understand what traffic is being generated</p>
+<ul class="simple">
+<li><p>Explore the ARP table</p>
+<ul>
+<li><p>Control systems can participate using ethernet.</p></li>
+<li><p>Investigating ARP Tables are a great local cache to start with.</p></li>
+<li><p>Use the arp command to view the table.</p></li>
+<li><p>Take note of the MAC addresses mapped to IPv4 addresses.</p></li>
+<li><p>Research discovered vendoes from first 3 bytes of the address (OUI - Organization Unique Identifier) and figure out what vendor is famous for what in control systems? (router/PLC/HMI/firewall/Cameras?).</p></li>
+</ul>
+</li>
+<li><p>Why look at the ARP table?</p>
+<ul>
+<li><p>Display a list of remote hosts or devices, with with the host has recently communicated.</p></li>
+<li><p>See if there are two ARP tables? (which probably means two network interfaces in a host connected to different networks?)</p></li>
+<li><p>Check the table again later. It may change. If it does, this might be an indicatio nof scheduled tasks. Investigate further.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="ip">
+<h5>IP<a class="headerlink" href="#ip" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Check IP addressing</p>
+<ul>
+<li><p>Control systems can also participate using IP.</p></li>
+<li><p>HMI workstations could be PC operating systems. Learn it’s potiential reach with other IP networks.</p></li>
+<li><p>IP addressing commands can reveal much more than IP address.</p></li>
+<li><p>Compare previously discovered MAC addresses mappings.</p></li>
+</ul>
+</li>
+<li><p>Why look so closely to IP addressing?
+- PLC’s, RTU’s and various SCADA devices are often controlled by HMI workstations. Knowing the IP connectivity is important security awareness.</p></li>
+</ul>
+<section id="id3">
+<h6>Windows<a class="headerlink" href="#id3" title="Link to this heading"></a></h6>
+<p><code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/all</span></code></p>
+<ul class="simple">
+<li><p>check hostname, IP routing enabled (to see if its a router), subnet, gateway, DHCP/DNS servers?</p></li>
+</ul>
+</section>
+<section id="id4">
+<h6>Linux<a class="headerlink" href="#id4" title="Link to this heading"></a></h6>
+<p><code class="docutils literal notranslate"><span class="pre">ifconfig</span> <span class="pre">-a</span></code></p>
+<ul class="simple">
+<li><p>if we do <code class="docutils literal notranslate"><span class="pre">ifconfig</span></code>, it would only show interfaces that are up and in configured state.</p></li>
+<li><p>if we do <code class="docutils literal notranslate"><span class="pre">ifconfig</span> <span class="pre">-a</span></code>, it would show interfaces that are configured/present in an up/down state (we might vlan, vpn, bonded interfaces).</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code> or <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">addr</span> <span class="pre">show</span> <span class="pre">eth0</span></code></p>
+</section>
+</section>
+<section id="dns">
+<h5>DNS<a class="headerlink" href="#dns" title="Link to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/etc/resolv.conf</span></code></p>
+<ul class="simple">
+<li><p>When a host is set to use a DNS server, generally ALL applications can query it.</p></li>
+<li><p>HMI software becomes configured with network addresses. If the configurations are populated with names instead of numeric IP addresses, then we will be at the mercy of DNS server.</p></li>
+</ul>
+</section>
+<section id="tcp-udp-ports">
+<h5>TCP/UDP Ports<a class="headerlink" href="#tcp-udp-ports" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Ports</p>
+<ul>
+<li><p>Review any Listening or Established ports.</p></li>
+<li><p>Compare TCP and UDP port numbers that maybe associated with Control system vendors.</p></li>
+</ul>
+</li>
+<li><p>Control System Port Number Examples</p>
+<ul>
+<li><p>BACNet/IP   : UDP 47808</p></li>
+<li><p>DNP3        : TCP 20000, UDP 20000</p></li>
+<li><p>Ethernet/IP : TCP 44818, UDP 2222, UDP 44818</p></li>
+<li><p>ICCP        : TCP 102</p></li>
+<li><p>Modbus      : TCP 502</p></li>
+</ul>
+</li>
+<li><p>Well-know ports range from <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">-</span> <span class="pre">1023</span></code></p></li>
+<li><p>Registered port ranges from <code class="docutils literal notranslate"><span class="pre">1024</span> <span class="pre">-</span> <span class="pre">49151</span></code></p></li>
+<li><p>Dynamic port ranges from <code class="docutils literal notranslate"><span class="pre">49152</span> <span class="pre">-</span> <span class="pre">65535</span></code></p></li>
+</ul>
+</section>
+<section id="netstat">
+<h5>netstat<a class="headerlink" href="#netstat" title="Link to this heading"></a></h5>
+<p>What is netstat?</p>
+<ul class="simple">
+<li><p>Tool for looking at a host current network sessions and listening ports that are being offered.</p></li>
+</ul>
+<p>Why use netstat?</p>
+<ul class="simple">
+<li><p>Determine which local servers are TCP or UDP based.</p></li>
+<li><p>Search for potiential connections being made with any known Control Systems.</p></li>
+<li><p>View all currently Established connections taking place with HMI, Controller, Historian or other hosts.</p></li>
+</ul>
+<section id="id5">
+<h6>Windows<a class="headerlink" href="#id5" title="Link to this heading"></a></h6>
+<p><code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-ano</span> <span class="pre">-p</span> <span class="pre">tcp</span></code></p>
+<p>-a all sockets
+-n no name resolution
+-b owning process name
+-o owning processs ID</p>
+</section>
+<section id="id6">
+<h6>Linux<a class="headerlink" href="#id6" title="Link to this heading"></a></h6>
+<p><code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-pantu</span></code></p>
+<p>-p owning process ID
+-a all sockets
+-n no name resolution
+-t tcp
+-u udp</p>
+<ul class="simple">
+<li><p>Check Local Address, Remote Address, State column (listening (those port numbers are listening), established (the host is talking to some other host check what ports (ICS Ports?)))</p></li>
+<li><p>Probably, we can figure out what the local machine is used for HMI (connects to several devices and a database)</p></li>
+<li><p>Check if IP addresses are in the same subnet or different (File server, HMI accessing files from an outside network) helps to figure out different subnet or boundary of different subnets.</p></li>
+</ul>
+</section>
+</section>
+<section id="routing-table">
+<h5>Routing Table<a class="headerlink" href="#routing-table" title="Link to this heading"></a></h5>
+<p>What is a routing table?</p>
+<ul class="simple">
+<li><p>A local table of IP network destinations that the host is able to reach.</p></li>
+</ul>
+<p>Why look at the routing table?</p>
+<ul class="simple">
+<li><p>Identify router/gateway IP addresses.</p></li>
+<li><p>Identify network destinations.</p></li>
+<li><p>Identify individual host destinations.</p></li>
+<li><p>When viewing a route table, learn to notice the IP address ranges. Determine which ones appear public and which one appear private.</p></li>
+<li><p>Make not of any public IP addresses that may appear in configurations found on Control System networks.</p></li>
+<li><p>Private IPv4 ranges:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">10.0.0.0</span> <span class="pre">-</span> <span class="pre">10.255.255.255</span> <span class="pre">/8</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">172.16.0.0</span> <span class="pre">-</span> <span class="pre">172.31.255.255</span> <span class="pre">/12</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">192.168.0.0</span> <span class="pre">-</span> <span class="pre">192.168.255.255</span> <span class="pre">/16</span></code></p></li>
+</ul>
+</li>
+<li><p>If there’s any public IP printed in route table, if exists try to understand why control system needs to talk to the public IP address.</p></li>
+</ul>
+<section id="id7">
+<h6>Windows<a class="headerlink" href="#id7" title="Link to this heading"></a></h6>
+<p><code class="docutils literal notranslate"><span class="pre">route</span> <span class="pre">print</span></code></p>
+</section>
+<section id="id8">
+<h6>Linux<a class="headerlink" href="#id8" title="Link to this heading"></a></h6>
+<p><code class="docutils literal notranslate"><span class="pre">route</span> <span class="pre">-n</span></code> or <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-rn</span></code></p>
+<ul class="simple">
+<li><p>Any gateway entry of <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code> specifies local interface that has IP address setup on them.</p></li>
+<li><p>Check if any static IP addresses are setup?</p></li>
+<li><p>Any host with more than one interfaces can act as a gateway.</p>
+<ul>
+<li><p>Linux: check <code class="docutils literal notranslate"><span class="pre">/proc/sys/net/ipv4/ip_forward</span></code>
+- <code class="docutils literal notranslate"><span class="pre">0</span></code> - Not forwarding
+- <code class="docutils literal notranslate"><span class="pre">1</span></code> - Forwarding.</p></li>
+<li><p>Windows: Registry : <code class="docutils literal notranslate"><span class="pre">HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\Tcpip\Parameters</span></code></p>
+<ul>
+<li><p>Check value <code class="docutils literal notranslate"><span class="pre">IPEnableRouter</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="netbios">
+<h5>netBIOS<a class="headerlink" href="#netbios" title="Link to this heading"></a></h5>
+<p>What is netBIOS?</p>
+<ul class="simple">
+<li><p>Network Basic Input/Output System (netBIOS) - allows applications on diffrent computers to communicate within a local area network.</p></li>
+<li><p>Used by Microsoft File and Printer Sharing</p></li>
+</ul>
+<p>How can netBIOS be helpful?</p>
+<ul class="simple">
+<li><p>Discovers networks and hosts by looking at netBIOS cache (<code class="docutils literal notranslate"><span class="pre">nbtstat</span> <span class="pre">-c</span></code>)</p></li>
+<li><p>Cache contains recently contacted systems.</p></li>
+<li><p>Check the naming convention of the name. For example: FSWCB1, AD2.</p>
+<ul>
+<li><p>FS/AD might represent FileServer or Active Directory.</p></li>
+<li><p>Numbers 1,2 might highlight that there could be more than 1 server.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="tcpdump-windump">
+<h5>TCPDump/Windump<a class="headerlink" href="#tcpdump-windump" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Captures and analyses common network traffic for the command line.</p></li>
+<li><p>Uses standard libpcap/winpcap to capture/parse network traffic.</p></li>
+<li><p>Uses Berkeley Packet Filter (BPF) syntax for creating capture filter expressions.</p></li>
+<li><p>tcpdump can also be active, so probably do <code class="docutils literal notranslate"><span class="pre">-n</span></code> to avoid doing name resolution.</p></li>
+<li><p>Also, each tool can have a vulnerablities, it’s better to run the tool using a different user <code class="docutils literal notranslate"><span class="pre">-Z</span> <span class="pre">username</span></code>.</p></li>
+</ul>
+</section>
+<section id="wireshark">
+<h5>wireshark<a class="headerlink" href="#wireshark" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>GUI network protocol analyszer and packet sniffer.</p></li>
+<li><p>Libpcap standard library for opening and capturing network traffic.</p></li>
+<li><p>Customizable dissectors (modules) for proprietary protocols.</p></li>
+<li><p>Security Notes:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>vulnerablities in wireshark could leave your system at risk of compromise if used on active networks.</p></li>
+<li><p>Not required to run with root privileges</p></li>
+<li><p>Long-term traffic monitoring should be done with “tcpdump”</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Rule of Thumb: Capture with tcpdump and analyze with Wireshark using a normal user account.</p></li>
+</ul>
+</section>
+</section>
+<section id="files-and-others">
+<h4>Files and Others<a class="headerlink" href="#files-and-others" title="Link to this heading"></a></h4>
+<section id="browser-history">
+<h5>Browser history<a class="headerlink" href="#browser-history" title="Link to this heading"></a></h5>
+<p>Control system facilities may have workstations where various routine operations are performed. If particular personnel are no longer avialable, we can still explore a frequenctly used browser to collect information passively.</p>
+<ul class="simple">
+<li><p>Address bar pre-populating with any URLs.</p></li>
+<li><p>Saved usernames and passwords.</p></li>
+<li><p>Bookmarks or Favorites, relating to Control Systems addresses.</p></li>
+<li><p>Keystrokes to open recently closed tabs and windows.</p></li>
+<li><p>Learn how to explore temporarty cache of the specific browser.</p></li>
+</ul>
+</section>
+<section id="bash-history">
+<h5>.bash_history<a class="headerlink" href="#bash-history" title="Link to this heading"></a></h5>
+<p>What is <code class="docutils literal notranslate"><span class="pre">.bash_history</span></code> file?</p>
+<ul class="simple">
+<li><p>History file containing a record of executed commands.</p></li>
+<li><p>Every user of the has their own history file. It is located in the home directory of each user.</p></li>
+<li><p>Files starting with a period appear hidden by default.</p></li>
+</ul>
+<p>Why look at <code class="docutils literal notranslate"><span class="pre">.bash_history</span></code> file?</p>
+<ul class="simple">
+<li><p>Routinely executed commands help identify what tasks are performed at the workstation.</p></li>
+<li><p>Host addresses and filenames could appear with specfied commands. Such as ssh, wget, ftp, rsync, mail and others.</p></li>
+<li><p>People make mistakes. It may also contain username passwords.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">history</span></code> command to view the contents.</p></li>
+<li><p>Check for any new IP address or any file extensions that might be of interest or any mail commands (employee addresses/file names) or any mysql commands (username, password or database name, or remote host (if not present that means mysql server is locally hosted)).</p></li>
+<li><p>It may provide info on local hosts directories.</p></li>
+<li><p>Check if any commands shows any USB/HDD/SDD was connected (any <code class="docutils literal notranslate"><span class="pre">/media</span></code> entries).</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="active-discovery">
+<h3>Active Discovery<a class="headerlink" href="#active-discovery" title="Link to this heading"></a></h3>
+<section id="id9">
+<h4>What?<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
+<p>What is Active network discovery?</p>
+<ul class="simple">
+<li><p>Send network packets and wait for a response in order to identify host and network targets</p></li>
+<li><p>Can be extremely noisy and easily detected</p></li>
+</ul>
+</section>
+<section id="id10">
+<h4>Why?<a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
+<p>Why use active disovery methods?</p>
+<ul class="simple">
+<li><p>Identify targets that cannot be otherwise identified using passive discovery techniques.</p></li>
+<li><p>Provides specific service, port and version information for a given targets.</p></li>
+<li><p>Identify vulnerablities of accessible services.</p></li>
+</ul>
+</section>
+<section id="id11">
+<h4>How?<a class="headerlink" href="#id11" title="Link to this heading"></a></h4>
+<section id="arp-scan">
+<h5>arp-scan<a class="headerlink" href="#arp-scan" title="Link to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">arp-scan</span> <span class="pre">-g</span> <span class="pre">10.10.10.2/24</span></code></p>
+</section>
+<section id="nmap">
+<h5>nmap<a class="headerlink" href="#nmap" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Designed to allow system administrators and individuals to scan large networks to determine which hosts are up and what services they are offering.</p></li>
+<li><p>network discovery tool that can be used for identifying the systems currently connected to the network</p></li>
+<li><p>nmap allows to audit what services are running on the identified hosts.</p></li>
+<li><p>Can be dangerous to IT, SCADA and PCS systems, ICSs and embedded devices.</p></li>
+</ul>
+<p>What is Nmap?</p>
+<ul class="simple">
+<li><p>Open source tool for network mapping and security auditing.</p></li>
+</ul>
+<p>Why use nmap?</p>
+<ul class="simple">
+<li><p>much faster than manual discovery.</p></li>
+<li><p>can scan an entire network quickly, and offers several options to customize a scan and its results.</p></li>
+</ul>
+<p>How does nmap work?</p>
+<ul class="simple">
+<li><p>Hosts on the network</p></li>
+<li><p>Services (ports)</p></li>
+<li><p>Operating systems etc.</p></li>
+</ul>
+<p>Two-stage process</p>
+<ul class="simple">
+<li><p>Host discovery</p></li>
+<li><p>Port scanning</p></li>
+</ul>
+<section id="nmap-discovery-methods">
+<h6>nmap - Discovery methods<a class="headerlink" href="#nmap-discovery-methods" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>User Datagram protocol (UDP)</p>
+<ul>
+<li><p>unreliable stateless communication</p></li>
+<li><p>No handshaking</p></li>
+</ul>
+</li>
+<li><p>Tranmission Control Protocol (TCP)</p>
+<ul>
+<li><p>Reliable stateful communication</p></li>
+<li><p>3-way handshake</p></li>
+</ul>
+</li>
+<li><p>Internet Control Message protocol (ICMP)</p>
+<ul>
+<li><p>Provides control, troubleshooting, and error messages.</p></li>
+<li><p>Normally used by ping and trace route commands.</p></li>
+</ul>
+</li>
+<li><p>Address resolution protocol (ARP)</p>
+<ul>
+<li><p>Discovers Link Layer addresses of network devices.</p></li>
+<li><p>Communicates in the bounds of single network.</p></li>
+</ul>
+</li>
+</ul>
+<section id="three-way-handshake">
+<h6 aria-level="7">Three-way handshake<a class="headerlink" href="#three-way-handshake" title="Link to this heading"></a></h6>
+</section>
+<section id="host-discovery">
+<h6 aria-level="7">Host Discovery<a class="headerlink" href="#host-discovery" title="Link to this heading"></a></h6>
+<ul>
+<li><p>What is host discovery (HD)?</p>
+<ul class="simple">
+<li><p>process of identifying active and interesting hosts on a network.</p></li>
+</ul>
+</li>
+<li><p>Why does Nmap do HD?</p>
+<ul class="simple">
+<li><p>To significantly reduce the amount of time to complete network scans.</p></li>
+<li><p>Narrows a set of IP ranges into list of active or interesting hosts to be port scanned.</p></li>
+</ul>
+</li>
+<li><p>How does HD work?</p>
+<ul class="simple">
+<li><p>Uses combination of ARP, ICMP, TCP SYN, TCP ACK packets to identify active hosts.</p></li>
+</ul>
+</li>
+<li><p>Default Host Discovery Settings</p>
+<ul class="simple">
+<li><p>LAN sends ARP scan (<code class="docutils literal notranslate"><span class="pre">-PR</span></code>)</p></li>
+<li><p>WAN (privileged) sends TCP ACK packet to Port 80.</p></li>
+<li><p>(<code class="docutils literal notranslate"><span class="pre">-PA</span></code>) and an ICMP echo request query (<code class="docutils literal notranslate"><span class="pre">-PE</span></code>)</p></li>
+<li><p>WAN (unprivileged) sends TCP SYN packet (<code class="docutils literal notranslate"><span class="pre">-PS</span></code>) using <code class="docutils literal notranslate"><span class="pre">connect()</span></code> system call instead of TCP ACK packet.</p></li>
+<li><p>By default nmap will use arp-response for local network host discovery. If we want to use ICMP, use <code class="docutils literal notranslate"><span class="pre">--send-ip</span></code></p></li>
+</ul>
+<p>-P (Host discovery)</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="port-scanning">
+<h6>Port Scanning<a class="headerlink" href="#port-scanning" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>What is port scanning?</p>
+<ul>
+<li><p>process of identifying the status of interesting ports on hosts that are discovered on a network.</p></li>
+</ul>
+</li>
+<li><p>Why does nmap do port scanning?</p>
+<ul>
+<li><p>to identify ports that are open on a host</p></li>
+</ul>
+</li>
+<li><p>How does port scanning work?</p>
+<ul>
+<li><p>attempts to communicate with each port with a specified set of ports.</p></li>
+<li><p>port scans are performed on hosts that were identified as active or interesting during HD.</p></li>
+</ul>
+</li>
+<li><p>Nmap Port states</p>
+<ul>
+<li><p>Open: Application on target machine is listening for connections or packets on that port.</p></li>
+<li><p>Closed: No application listening at the moment</p></li>
+<li><p>Filtered: Firewall, filter or other network obstacle is blocking the port so that Nmap cannot tell if the port is open or closed. Nmap received no response.</p></li>
+<li><p>Unfiltered: Port is accessible but nmap not able to determine if open or closed.</p></li>
+<li><p>Open | Filtered: Unable to determine if open or filtered.</p></li>
+<li><p>Closed | Filtered: Unable to determine if closed or filtered.</p></li>
+</ul>
+</li>
+<li><p>Nmap default port scanning settings.
+- SYN scan (<code class="docutils literal notranslate"><span class="pre">-sS</span></code>) for privileged users.
+- Connect scan (<code class="docutils literal notranslate"><span class="pre">-sT</span></code>) for unprivileged users.</p></li>
+<li><p>If it starts with <code class="docutils literal notranslate"><span class="pre">-P</span></code> (host discover) <code class="docutils literal notranslate"><span class="pre">-s</span></code> is for port scanning.</p></li>
+</ul>
+</section>
+<section id="timing-and-performance-options">
+<h6>Timing and Performance options<a class="headerlink" href="#timing-and-performance-options" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>What are timing and performance options</p>
+<ul>
+<li><p>Settings used to control scanning delays, timeouts, retries and parallelism.</p></li>
+</ul>
+</li>
+<li><p>Why use timing and performance options?</p>
+<ul>
+<li><p>Help speed up scanning process</p></li>
+<li><p>Slow down scan to avoid IDS detection</p></li>
+</ul>
+</li>
+<li><p>Timing and performance options</p>
+<ul>
+<li><p>Manual options are available but templates are usually sufficient</p></li>
+<li><p>Template timings options offer throttling abilities not available using manual options.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="nmap-results">
+<h6>Nmap results<a class="headerlink" href="#nmap-results" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Why save your nmap results?</p>
+<ul>
+<li><p>easier to analyze and compare scans results (using ndiff)</p></li>
+<li><p>Results overflow the console window buffer.</p></li>
+</ul>
+</li>
+<li><p>Output options</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">-oN</span> <span class="pre">filename.nmap</span></code>: Output results in normal format</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-oX</span> <span class="pre">filename.xml</span></code> : Output results in XML format</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-oG</span> <span class="pre">filename.gmap</span></code>: Output results in grepable format</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-oA</span> <span class="pre">filname</span></code>: Output results in all formats.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span></code>: Verbose output results</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--reason</span></code> tells the reason.</p></li>
+</ul>
+</section>
+<section id="os-and-version-detection">
+<h6>OS and Version detection<a class="headerlink" href="#os-and-version-detection" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>What is OS and version detection.</p>
+<ul>
+<li><p>Identifies operating system by looking at packet charactertistics.</p></li>
+<li><p>Identifies the version of a service running on a host.</p></li>
+</ul>
+</li>
+<li><p>Why use OS and version detection?</p>
+<ul>
+<li><p>Provides information that could help in the selection of exploits and payloads used against a target</p></li>
+</ul>
+</li>
+<li><p>How does OS detection work?</p>
+<ul>
+<li><p>Nmap sends a series of TCP and UDP packets to the remote host and examples every bit in the responses.</p></li>
+<li><p>Nmap compares the results to its database of known OS fingerprints and prints out the OS details if theres is a match.</p></li>
+</ul>
+</li>
+<li><p>How does Service and Version Detection Work?</p>
+<ul>
+<li><p>After TCP and/or UDP ports are discovered, version detection interrogates those ports.</p></li>
+<li><p>Database of probes for querying various services and match expressions to recognize and parse responses.</p></li>
+<li><p>Tried to determine application name, version number, hostname, device type, OS family, and misc. information.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="nmap-address-schemes">
+<h6>Nmap Address Schemes<a class="headerlink" href="#nmap-address-schemes" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Target hosts can be specified in many ways</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.2.3.1-254</span></code>: All 254 possible IP addresses on this subnet.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.2.3.0/24</span></code>: Equivalent to above but signifying a Class C address block.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.2.1-4.1-254</span></code>: Ranges are allowed for subnets as well.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.2.0.0/16</span></code>: The 16-bit netmask will scan the entire clas B address block.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--exclude</span></code> exclude a host/range.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-sn</span></code> only do host scanning phase</p></li>
+</ul>
+</section>
+<section id="ics-challenges">
+<h6>ICS challenges<a class="headerlink" href="#ics-challenges" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>scans can cause computer system to restart</p></li>
+<li><p>scans can cause embedded devices to freeze or lose configuration and in some severe cases requires vendor involvement.</p></li>
+<li><p>Nmap considerations</p></li>
+<li><p>Use connect scan (<code class="docutils literal notranslate"><span class="pre">-sT</span></code>) to prevent dangling connections.</p></li>
+<li><p>Don’t use OS (<code class="docutils literal notranslate"><span class="pre">-O</span></code>) and version detection (<code class="docutils literal notranslate"><span class="pre">-sV</span></code>) (Control system would be running PLCs, RTU)</p></li>
+<li><p>Slow the scan down by reducing the rate at which packets are being generated and sent by Nmap.</p></li>
+<li><p>Consider using exlusion lists (<code class="docutils literal notranslate"><span class="pre">--exclude</span></code> or <code class="docutils literal notranslate"><span class="pre">--excludefile</span></code>)</p></li>
+</ul>
+</section>
+</section>
+<section id="nessus-vulnerablity-scanner">
+<h5>Nessus Vulnerablity Scanner<a class="headerlink" href="#nessus-vulnerablity-scanner" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Can be dangerous to ICSs.</p></li>
+<li><p>Plugin modules for various ICS protocols.</p></li>
+<li><p>Security auditing tool consists of two parts</p></li>
+<li><p>Server (in charge of the scanning process).</p></li>
+<li><p>Client (presents the interface to the user).</p></li>
+</ul>
+<section id="nessus-ics-plugins">
+<h6>Nessus ICS Plugins<a class="headerlink" href="#nessus-ics-plugins" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Areva/Alstom Energey management system</p></li>
+<li><p>DNP3 Binary Inputs access</p></li>
+<li><p>DNP3:</p>
+<ul>
+<li><p>Link layer addressing DNP3</p></li>
+<li><p>Unsolicited Messaging</p></li>
+</ul>
+</li>
+<li><p>ICCP</p>
+<ul>
+<li><p>ICCP/COTP protocol</p></li>
+<li><p>ICCP/COTP</p></li>
+<li><p>TSAP Addressing</p></li>
+<li><p>LiveData ICCP Server</p></li>
+</ul>
+</li>
+<li><p>Matrikon OPC Explorer</p></li>
+<li><p>Matrikon OPC Server for ControlLogix</p></li>
+<li><p>Matrikon OPC Server for Modbus</p></li>
+<li><p>Modbus/TCP</p>
+<ul>
+<li><p>Coil access</p></li>
+<li><p>Discrete Input Access Programming</p></li>
+<li><p>Function Code Access</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section id="network-defense-detection-and-analysis">
+<h2>Network Defense, Detection and Analysis<a class="headerlink" href="#network-defense-detection-and-analysis" title="Link to this heading"></a></h2>
+<section id="identify">
+<h3>Identify<a class="headerlink" href="#identify" title="Link to this heading"></a></h3>
+<section id="asset-and-information-inventory">
+<h4>Asset and Information inventory<a class="headerlink" href="#asset-and-information-inventory" title="Link to this heading"></a></h4>
+<p>An asset inventory is necessary to understand and manage ICS risk and determine priorities for security
+defenses. The asset inventory is critical for understanding the potential impact of an intrusion</p>
+<p>Know your environment</p>
+<section id="id12">
+<h5>What?<a class="headerlink" href="#id12" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Needs to be protected (PLC, pump, valves, non-electronics still something physical - how it is protected?)</p></li>
+<li><p>Protection levels are available (What is available by vendors to protect the systems). How data is gathered from the ground-up?</p></li>
+<li><p>Inter-connections and dependencies are required (what talks to what?, pump talking to PLC (controlling pump speed or flow) if not it might cause something to fail?)</p></li>
+</ul>
+</section>
+<section id="id13">
+<h5>Why?<a class="headerlink" href="#id13" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Are systems critical (any special use, any special vendor?)</p></li>
+<li><p>Are assets valuable ($$ and information)(produce gas or oil, electricity?)(Does the information provide insights to business to make decisions?)</p></li>
+</ul>
+</section>
+<section id="who">
+<h5>Who?<a class="headerlink" href="#who" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Has responsibility for the asset (Who’s responsible System Admin, SPOC (single point of contact))</p></li>
+</ul>
+</section>
+<section id="id14">
+<h5>How?<a class="headerlink" href="#id14" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Are worst-case scenarios identified if compromised (Do we have any plans in place in terms of outside/inside attacker?)</p></li>
+<li><p>Are methods available for user access to the asset (Does the person have to visit the control room to access the devices or can be access remotely or via VPN?)</p></li>
+<li><p>Does the information flow throught the system (where it starts/stops? Goes to firewall? Business IT network?)</p></li>
+</ul>
+</section>
+<section id="other">
+<h5>Other<a class="headerlink" href="#other" title="Link to this heading"></a></h5>
+<section id="field-devices">
+<h6>Field Devices<a class="headerlink" href="#field-devices" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Easy to forget in asset inventory - “out of sight, out of mind”.</p></li>
+<li><p>Field devices may be accessed remotely because it is more convenient or may require that a human being physically visit the remote device. When accessing remotely make sure the communication is secure and the device accessing the field devices is secure.</p></li>
+<li><p>Security Challenges regarding Field Devices.</p>
+<ul>
+<li><p>No centralized management for older field devices.</p></li>
+<li><p>May lack security capabilities (maybe serial only, make sure we understand what capabilities they have)</p></li>
+<li><p>Increased use of portable devices to access field devices (Laptops/Tablets?).</p></li>
+</ul>
+</li>
+<li><p>Possible Mitigations</p>
+<ul>
+<li><p>Lock down unneeded services, ports and restrict access (Disable unused ports on the switch).</p></li>
+<li><p>All devices used to interface with the field devices should be secured and monitored (have anti-virus and properly logged and accounted for).</p></li>
+<li><p>Think about what devices are present and how they are communicating with central system and how they are controlled?</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="least-functionality">
+<h4>Least Functionality<a class="headerlink" href="#least-functionality" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Determine necessary ports, protocols, and services (What are the vendor recommendations/talk to the vendors what needs to be open on firewall/router)</p></li>
+<li><p>Deny all others at the host and firewall</p></li>
+<li><p>Harden devices (be careful while hardening and test whether everything is working or not; Never test on live system.)</p></li>
+<li><p>Network access control (What can talk to what or each others? )</p></li>
+<li><p>Use the data from a scan such as Nmap, to identify unused ports and service and disable all unused ports and services off. This should be done at the host. However, if it cannot be done at the host, use other mitigations, such as a firewall, to block any access to the services or any traffic leaving these hosts on these ports.</p></li>
+<li><p>Hardening systems using security guidelines or controls will also reduce your attack surface. Work with vendors to determine hardening guidelines/settings for ICS equipment</p></li>
+</ul>
+</section>
+<section id="least-privileges">
+<h4>Least Privileges<a class="headerlink" href="#least-privileges" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Establish user accounts for administrators (separate accounts for engineers, administrators and test that they are able to do their work and perform their responsiblities)</p></li>
+<li><p>Appropriate use of the escalated privilege function (Check if the user needs esclated privileges and it is logged properly and they use it appropriately (whenever it is really required)).</p></li>
+<li><p>Review work requirements for necessary access requirements</p></li>
+<li><p>Role-based access (provide appropriate access for appropriate person).</p></li>
+</ul>
+</section>
+<section id="id15">
+<h4>Tools<a class="headerlink" href="#id15" title="Link to this heading"></a></h4>
+<section id="grassmarlin-retired">
+<h5>GrassMarlin (Retired)<a class="headerlink" href="#grassmarlin-retired" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>GrassMarlin can be used to identify traffic and systems on ICS network.</p></li>
+<li><p>GrassMarlin is a passive network mapper dedicated to ICS and SCADA networks in support of network security assessments.</p></li>
+<li><p>GrassMarlin passively maps, and visually displays, an ICS/SCADA network topology while safely conducting device discovery, accounting, and reporting on these critical cyber‐physical systems.</p></li>
+</ul>
+<p>GrassMarlin gives a snapshot of the ICS network including:</p>
+<ul class="simple">
+<li><p>Devices part of the network;</p></li>
+<li><p>Communications between these devices;</p></li>
+<li><p>Metadata extracted from these communications.</p></li>
+<li><p>Reads in Zeek Connection logs, PCAP files and PCAP-NG files or can listen on the wire</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="protect">
+<h3>Protect<a class="headerlink" href="#protect" title="Link to this heading"></a></h3>
+<section id="it-ot-convergence">
+<h4>IT-OT Convergence<a class="headerlink" href="#it-ot-convergence" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Does IT/OT talk to each other? (They should be able to work together and help each other and whenever they have problems they talk to each other and solve problems by respecting each other.)</p></li>
+<li><p>What we can do to improve communication between IT and OT teams (invite them to meetings, talk to them regarding something they are expert in and can help (firewall issues))</p></li>
+</ul>
+</section>
+<section id="human-element">
+<h4>Human element<a class="headerlink" href="#human-element" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Policies and Procedures specific to ICS</p>
+<ul>
+<li><p>Outline rules with regard to securing ICS (What kind of things we need to secure?)</p></li>
+<li><p>Computer use policy (helps to understand what’s expected and what’s not)</p></li>
+</ul>
+</li>
+<li><p>Make security a priority (everyone should be aware of the ICS security)</p></li>
+<li><p>Training and awareness</p>
+<ul>
+<li><p>Employees are part of your defense (They are the most important people. Employee errors or unintentional actions often leads upto 50% incidents).</p></li>
+<li><p>See something, say something (If they see something that is not right, ask them to mention)</p></li>
+<li><p>Talk about security in staff meetings (something going on in your network, group or unit and training around security)</p></li>
+</ul>
+</li>
+<li><p>Lessons learnt from past incidents</p>
+<ul>
+<li><p>User education is important.</p></li>
+<li><p>Do regular phishing tests (As an OT person, we can take help of IT department to set this up.).</p></li>
+<li><p>Explain to users the consequences of clicking bad links (Usually people often don’t understand why it is bad to click on links, if they understand they are more careful.)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="opsec">
+<h4>OPSEC<a class="headerlink" href="#opsec" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Operational Security, or OPSEC, is when we protect unclassified information from leaking out via our own actions and behaviors. The goal of Cybersecurity OPSEC is to minimize your digital footprint /information leakage and to minimize the damage when things go bad. In the best of scenarios you might almost drop off the grid completely.  Remember that OPSEC does not replace any other security disciplines - it supplements them.</p></li>
+<li><p>Always be aware of what your company is presenting to the outside world (what your network looks from outside? Do we have FTP/SSH server accessible from internet? )</p></li>
+<li><p>Do you know what is on your company’s external webpage and social media feeds?</p></li>
+<li><p>Are vendors using your company for free advertising?</p></li>
+<li><p>Are your IP address ranges showing up in <a class="reference external" href="https://www.shodan.io/explore/category/industrial-control-systems">Shodan ICS</a>?  If you give data to vendors, do you know how they are storing it?</p></li>
+<li><p>The OPSEC process is categorized into 5 questions/steps. One of the first questions is, who would want access to the data in question, what needs protected?</p></li>
+<li><p>The OPSEC process</p>
+<ul>
+<li><p>What needs to be protected?</p></li>
+<li><p>Who is the threat?</p></li>
+<li><p>What are my vulnerablities?</p></li>
+<li><p>What is the threat level?</p></li>
+<li><p>How should we combat the threats?</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="secure-passwords">
+<h4>Secure Passwords<a class="headerlink" href="#secure-passwords" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Adversaries focus on gaining legitimate credentials to traverse the network</p></li>
+<li><p>NIST SP 800-63B Guidelines (Digital Identity Guidelines - Authentication and Lifecycle Management)</p>
+<ul>
+<li><p>Fewer complexity rules enforced</p></li>
+<li><p>Expiration of passwords no longer based on a time schedule (If the passwords are good and strong, maybe no need to change them every time)</p></li>
+<li><p>Passwords should be screened again lists of dictionaries and common, easily guessed passwords (mention to employees that we will try to guess and crack their passwords and they will create strong passwords)</p></li>
+<li><p>Allow paste functionality from Password Managers (also store your passwords in a safe secure location)</p></li>
+</ul>
+</li>
+<li><p>Industry compliance documents or your organisation policies may differ.</p>
+<ul>
+<li><p>NERC CIP standards (CIP-007-5)</p></li>
+<li><p>NIST-800-53</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="vendor-access">
+<h4>Vendor Access<a class="headerlink" href="#vendor-access" title="Link to this heading"></a></h4>
+<section id="vendor-connections-to-the-ics-network">
+<h5>Vendor connections to the ICS Network<a class="headerlink" href="#vendor-connections-to-the-ics-network" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>One of the most common ways malware and viruses are introduced into ICS environments is the use of media that has been shared or used on systems outside the production environment.</p>
+<ul>
+<li><p>To mitigate that risk consider implementing the following:</p>
+<ul>
+<li><p>Implement a Dedicated workstation to transfer files and patches to trusted devices that is up to date with the latest virus and malware definitions not connected to the ICS network.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Do not allow vendors or 3rd party USB’s in ICS environment (We have no idea who’s USB device it is, where it has been, what it contains?)</p></li>
+<li><p>Have a device whitelisting application or ability to disable media ports.</p></li>
+<li><p>Provide security policies to govern use.</p></li>
+<li><p>Configure your removable media policy to notify your security team of events of when access to USB ports or unapproved media is attempted to be used.</p></li>
+</ul>
+</section>
+<section id="removable-media">
+<h5>Removable Media<a class="headerlink" href="#removable-media" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>If possible, do not allow personal devices to be used in the ICS network (people charging their phones on ICS network?, malicious USB (USBDucky, OMG Cable and others?))</p></li>
+<li><p>If this is not possible, provide good security policies to manage the use of personal devices, and use company resources to help implement the policies.</p></li>
+<li><p>Enterprise device management technology can help ensure that only approved assets can be attached to ICS networks and computers.</p></li>
+<li><p>Lessons learnt from past incidents</p>
+<ul>
+<li><p>Good network segmentation can prevent malware call backs.</p></li>
+<li><p>Monitor USB usage especially in the ICS environment (inventory of allowed USB devices, who have them and what they are using it for?).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="secure-authentication">
+<h5>Secure Authentication<a class="headerlink" href="#secure-authentication" title="Link to this heading"></a></h5>
+<section id="multi-factor-authentication">
+<h6>Multi-factor Authentication<a class="headerlink" href="#multi-factor-authentication" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Definition: What the user knows (password), what the user has (security token), and/or what the user is (biometric validation).</p></li>
+<li><p>Single factor authentication increases the attack surface.</p></li>
+<li><p>Use multi-factor authentication for remote access and critical administrative access.</p></li>
+<li><p>Can be used with VPN, network device access, administrator access to systems.</p></li>
+<li><p>Example: Many asset owners use single-factor authentication for remote access. If a user has a vulnerable machine, the attack surface is greatly increased.</p></li>
+</ul>
+</section>
+</section>
+<section id="secure-vpn-access">
+<h5>Secure VPN access<a class="headerlink" href="#secure-vpn-access" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Limit VPN access to business requirements - vendors, technicians, integrators (who has access to what? If providing access to vendor, terminate VPN as close to edge as possible and provide access to only required systems/segmented network/DMZ. Good idea to define that in vendor contract agreements)</p></li>
+<li><p>Require company issued and configured systems be used without Admin access (No admin access provided until and unless really required).
+- If they require admin access or access to a particular resource, work with them to figure out how we can provide that securely. Otherwise, technical users will always figure out a way to achieve it which might result in undocumented access.</p></li>
+<li><p>VPN security policy should check for patches, a personal firewall, and an antivirus product.</p></li>
+<li><p>Utilise a jump-box, or a virtual desktop for further network access.</p></li>
+<li><p>Utilise a second domain controller (Have a separate IT/OT domain controller)</p></li>
+</ul>
+<section id="vpn-logs">
+<h6>VPN Logs<a class="headerlink" href="#vpn-logs" title="Link to this heading"></a></h6>
+<p>VPN appliance provides a wealth of logging information regarding the perimeter of your network. This information can be used to monitor the health of the system and potentially detect malicious
+activity. It is important to:</p>
+<ul class="simple">
+<li><p><strong>Find unusual login attempts</strong>: Look for unusual situations, such as the company President logging in from a Starbucks in England, when the President is actually in the middle of a safari in Africa.</p></li>
+<li><p><strong>Monitor failed authentication attempts</strong>: All devices or processes that require identity authentication should log and/or alert when an identity validation attempt fails.</p></li>
+<li><p><strong>Monitor successful authentication attempts from different sources</strong>: If available, all devices or processes should log and/or alert when the same user logs in simultaneously from two different source locations.</p></li>
+<li><p><strong>Monitor successful authentication under duress</strong>: For critical systems, consider deploying an authentication mechanism that supports duress codes. This allows a user under duress to log into a system using a secondary credential, but alerts that the access was performed under duress.</p></li>
+<li><p><strong>Monitor failed access attempts</strong>: All devices or processes that manage access control to communications, data, or services should log and/or alert when access is requested that is not allowed.</p></li>
+<li><p><strong>Monitor successful access attempts</strong>: All devices or processes that manage access control to communications, data, or services should log when access is requested and allowed.</p></li>
+</ul>
+</section>
+<section id="lessons-learned">
+<h6>Lessons Learned<a class="headerlink" href="#lessons-learned" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Virtual Machine Use Case</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Incident: VM was configured in an ICS environment with the VM hardware (vmware/hardware machine) located in the ICS DMZ. Management interface provided direct connectivity to the corporate network for ease of use. Further, ICS servers in the VM bridged the DMZ firewall to the ICS network</p></li>
+<li><p>Lesson: Bridged the corporate protected communications to the VM management interface located in the ICS DMZ. Utilize VMware security guidance to setup VMware systems.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>VPN/Password Use case</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Incident: A user had a VPN connection and was logged in as administrator. The user’s home PC was dual homed with VPN client and a public interface.</p></li>
+<li><p>Lesson: Proper configuration of VPN client. Limit VPN access to business requirements. Do not allow users to run as admin.</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="ics-network-segmentation">
+<h4>ICS Network segmentation<a class="headerlink" href="#ics-network-segmentation" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>The Purdue Enterprise Reference Architecture (PERA) Model is suggested by the DHS Assessment Team as a best practice for segmenting networks.</p></li>
+<li><p>The PERA model segments industrial control devices into hierarchical “levels” of operations within a facility. Using levels as common terminology breaks down and determines plant wide information flow. Zones establish domains of trust for security access and smaller LANs to shape and manage network traffic.</p></li>
+<li><p>This model groups levels into the following zones for specific functions:</p>
+<ul>
+<li><p>Enterprise Zone: Levels 4 and 5 handle IT networks, business applications/servers (e.g. email, enterprise resource planning - ERP) as well as intranet.</p></li>
+<li><p>ICS Demilitarized Zone (IDMZ): This buffer zone provides a barrier between the ICS and Enterprise Zones but allows for data and services to be shared securely. All network traffic from either side of the IDMZ terminates in the IDMZ. No traffic traverses the IDMZ. That is, no traffic directly travels between the Enterprise and ICS Zones.</p></li>
+<li><p>ICS Zone: Level 3 addresses plant wide applications (e.g., historian, asset management, authentication, patch management), consisting of multiple Cell/Area Zones.</p></li>
+<li><p>Cell/Area Zone: Levels 0, 1 and 2 manage industrial control devices (e.g., controllers, drives, I/O and HMI) and multi-disciplined control applications (e.g., drive, batch, continuous process, and discrete).</p></li>
+</ul>
+</li>
+<li><p>Typical Flat network</p>
+<ul>
+<li><p>Poor asset inventory</p></li>
+<li><p>Poor boundary protection (HMI’s directly connected to the Internet)</p></li>
+<li><p>Poorly Secured Remote Access</p></li>
+</ul>
+</li>
+<li><p>Recommended Secure Network Architecture</p>
+<ul>
+<li><p>Good Asset Inventory and Data flows (How does data flow and what data flow is important/critical (what must always be available))</p></li>
+<li><p>Good Boundary Protection</p></li>
+<li><p>Secured Remote monitoring and Access</p></li>
+<li><p>Isolation of Safety Instrumented Systems (How are safety systems implemented?)</p></li>
+</ul>
+</li>
+</ul>
+<section id="firewall-implementation">
+<h5>Firewall Implementation<a class="headerlink" href="#firewall-implementation" title="Link to this heading"></a></h5>
+<p>The firewalls are placed at the front line of defense for each of the various zones. These firewalls provide the trusted path for users and applications to communicate with and between all of the various pieces.</p>
+<ul class="simple">
+<li><p>There are two complimentary principles for segmenting networks.</p>
+<ul>
+<li><p>The first principle includes the general functions of a system:</p>
+<ul>
+<li><p>Serve external customers</p></li>
+<li><p>Handle facility environmental controls</p></li>
+<li><p>Support IT</p></li>
+<li><p>Process HR data</p></li>
+<li><p>Run/supervise ICS process data</p></li>
+<li><p>Run/Supervise ICS</p></li>
+</ul>
+</li>
+<li><p>The second principle is trust level.</p>
+<ul>
+<li><p>What is the sensitivity of the data/system/data path?</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Segmentation should be implemented using firewalls or at least routers with access control lists (ACLs). Some considerations for firewalls:</p>
+<ul>
+<li><p>Know your environment</p>
+<ul>
+<li><p>How does data flow?</p></li>
+<li><p>How is data used? (What does that data mean?)</p></li>
+<li><p>Who uses the data? (Who is the owner of the data? Mostly historian from ICS persecptive)</p></li>
+</ul>
+</li>
+<li><p>Newer next generation firewall support multiple ICS protocols/standards.</p></li>
+<li><p>Trade off efficency vs. security vs. cost (Every device can provide or hinder efficency or has a cost to it)</p></li>
+<li><p>Erroneously deployed as a cornerstone of architecture (requires month of planning/architected)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="firewall-rules">
+<h5>Firewall Rules<a class="headerlink" href="#firewall-rules" title="Link to this heading"></a></h5>
+<p>Without rules, firewall is basically a router.</p>
+<ul class="simple">
+<li><p>Block direct traffic from the control network to the corporate network. All ICS traffic should end at the DMZ.</p></li>
+<li><p>Every protocol permitted between the control network and the DMZ should be explicitly denied between the DMZ and corporate networks (and vice versa).</p></li>
+<li><p>ICS networks should not be connected directly to the Internet, even if they are protected by a firewall.</p></li>
+</ul>
+</section>
+<section id="firewall-logs">
+<h5>Firewall Logs<a class="headerlink" href="#firewall-logs" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Firewalls logs provides insights into security threats and traffic behaviour regarding the perimeter of your network. Information can be used to monitor the health of the system and potentially detect malicious activity. It is important to:</p>
+<ul>
+<li><p>Identify traffic denied at the firewall - e.g. traffic from inside the network that is bouncing off the firewall (what traffic is trying to get out?)</p></li>
+<li><p>Identify traffic allowed at the firewall</p></li>
+<li><p>Identify multiple connections from multiple devices in your network to a few target locations</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="data-diode">
+<h4>Data Diode<a class="headerlink" href="#data-diode" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>A data diode is a unidirectional gateway intended to move data from a more secure network to a less secure network.</p></li>
+<li><p>A data diode creates a physically se cure, one-way communication channel from</p></li>
+</ul>
+<p>the control system network to the corporate network. Data diodes can be implemented in hardware,
+software, or a combination of both. The hardware implementation is the most secure because it is
+physically impossible to send any messages in the reverse direction.</p>
+<section id="data-diode-vs-firewalls">
+<h5>Data Diode vs. Firewalls<a class="headerlink" href="#data-diode-vs-firewalls" title="Link to this heading"></a></h5>
+<section id="data-diodes">
+<h6>Data Diodes<a class="headerlink" href="#data-diodes" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Behaves like a Proxy Server: converts TCP sessions to UDP</p></li>
+<li><p>Uni-directional communication: reverse tunneling not possible</p></li>
+<li><p>May cost more than some firewalls</p></li>
+<li><p>Fewer rules: rules require less auditing</p></li>
+<li><p>Transmits only the data: no connection between systems.</p></li>
+</ul>
+</section>
+<section id="firewalls">
+<h6>Firewalls<a class="headerlink" href="#firewalls" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Two-way communications: tunneling possible.</p></li>
+<li><p>Rules require more auditing due to complexity of rule set</p></li>
+<li><p>Cannot create a one-way communication. UDP is one way. Does not create anything but one way.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="patch-management">
+<h4>Patch Management<a class="headerlink" href="#patch-management" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>BEFORE PATCHING ANY ICSOT SYSTEM (PLC/RTU/HMI) ENSURE YOU HAVE A GOOD BAREMETAL BACKUP OR ABILITY</p></li>
+</ul>
+<p>TO RESTORE THE SYSTEM TO THE CURRENT STATE!</p>
+<ul class="simple">
+<li><p>Patches are intended to:</p>
+<ul>
+<li><p>Fix known vulnerablities.</p></li>
+<li><p>Enhance functionality</p></li>
+</ul>
+</li>
+<li><p>Software that needs patching includes</p>
+<ul>
+<li><p>Operating System</p></li>
+<li><p>ICS Application/hardware</p></li>
+<li><p>Third-party applications</p></li>
+</ul>
+</li>
+<li><p>Patch deployment considerations</p>
+<ul>
+<li><p>Test and validate</p></li>
+<li><p>Offline systems vs. live systems</p></li>
+<li><p>Work with vendors for patch applicability.</p></li>
+</ul>
+</li>
+</ul>
+<section id="patching-considerations">
+<h5>Patching Considerations<a class="headerlink" href="#patching-considerations" title="Link to this heading"></a></h5>
+<p>Considerations when deciding to patch systems:</p>
+<ul class="simple">
+<li><p>How critical is each system to production?</p></li>
+<li><p>What complications arise in patching critical infrastructure?</p></li>
+<li><p>What is the cost of a patch?</p></li>
+<li><p>What is the cost of not applying a patch?</p></li>
+<li><p>What is the businesssecurity driver in patching?</p></li>
+<li><p>Do you have a mitigating control in place if you decide patching is not an option?</p></li>
+</ul>
+</section>
+<section id="potential-patch-complications">
+<h5>Potential Patch Complications<a class="headerlink" href="#potential-patch-complications" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Patching can break other software components</p></li>
+<li><p>Patching can break 3rd party software components</p></li>
+<li><p>Updating antivirus definitions can inadvertently stop legitimate processes</p></li>
+<li><p>Sand box systems are not used directly for production</p></li>
+<li><p>Balance in waiting to test the patch and applying a patch before it is fully tested</p>
+<ul>
+<li><p>Systems remain vulnerable until they are patched, or mitigating controls are implemented.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="application-whitelisting">
+<h4>Application whitelisting<a class="headerlink" href="#application-whitelisting" title="Link to this heading"></a></h4>
+<section id="advantages">
+<h5>Advantages<a class="headerlink" href="#advantages" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Blocks most current malware</p></li>
+<li><p>Prevents use of unauthorized applications (have good software inventory. Process environment is very predictable)</p></li>
+<li><p>Does not require daily definitions updates</p></li>
+<li><p>Administrator installation and approval of new applications.</p></li>
+</ul>
+</section>
+<section id="limitations">
+<h5>Limitations<a class="headerlink" href="#limitations" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Approved applications - compromised in supply chain.</p></li>
+<li><p>Malware that exploits application that run in higher-level execution environments such as Java may not be found.</p></li>
+</ul>
+</section>
+<section id="disadvantages">
+<h5>Disadvantages<a class="headerlink" href="#disadvantages" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Requires performance overhead</p></li>
+<li><p>Requires regular maintainence</p></li>
+<li><p>Causes some users to be annoyed</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="detect">
+<h3>Detect<a class="headerlink" href="#detect" title="Link to this heading"></a></h3>
+<p>Identify a cybersecurity event</p>
+<section id="intrusion-detection-system">
+<h4>Intrusion Detection System<a class="headerlink" href="#intrusion-detection-system" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>ICS environments provide a unique opportunity. Compared to a corporate environment, an ICS environment is a steady state. Once again, you must know your environment. Ask and answer the following questions:</p>
+<ul>
+<li><p>WHAT is normal? (Is this documented?)
+- You know that host “A” talks to host “B,” but not host “C”…</p></li>
+<li><p>WHEN does “normal” become abnormal? (indicators that something might be going on?)
+- Host “A” is now talking to host “C”…WHY?</p></li>
+<li><p>WHOSE applications and services are on your critical networks?</p></li>
+<li><p>WHICH protocols are used?
+- Known IT protocols (DNS traffic, HTTP traffic)
+- Vendor (Proprietary traffic)</p></li>
+</ul>
+</li>
+</ul>
+<section id="ids-types">
+<h5>IDS Types<a class="headerlink" href="#ids-types" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Host: Sensors reside on the host system</p></li>
+<li><p>Network: What traffic is on your network?</p></li>
+<li><p>Application: Web application firewall, database, firewall, application protocol IDS.</p></li>
+<li><p>Log: What is happening at the OS level? or at the application level?</p></li>
+<li><p>Paper: Who came in?</p></li>
+<li><p>Anomaly: Any combination of the above.</p></li>
+</ul>
+<p>All methods of intrusion detection involve the gathering and analysis of information from various
+sources within a computer, network, and enterprise to identify possible threats posed by hackers inside
+or outside the organization.</p>
+</section>
+<section id="ids-ips-functions">
+<h5>IDS/IPS Functions<a class="headerlink" href="#ids-ips-functions" title="Link to this heading"></a></h5>
+<p>An IDS is not a cure‐all for network security problems. It is an alerting tool to let you know something
+has happened. An IDS can:</p>
+<ul class="simple">
+<li><p>Provide forewarning</p></li>
+<li><p>Provide forensics data</p></li>
+<li><p>Provide “situational awareness”</p></li>
+<li><p>Provide network troubleshooting</p></li>
+<li><p>Identify policy abuse.</p></li>
+</ul>
+<p>Placing an IDS outside of the firewall can be helpful for situational awareness and forewarning of
+activities. The IDS can detect scanning or other precursory attack activities that might be dropped by
+the firewall. An IDS cannot:</p>
+<ul class="simple">
+<li><p>Tell you directly if the system was exploited</p></li>
+<li><p>Monitor actions taken by the system console</p></li>
+<li><p>Perform analysis of an event (requires human being to analyse ).</p></li>
+</ul>
+</section>
+<section id="hids">
+<h5>HIDS<a class="headerlink" href="#hids" title="Link to this heading"></a></h5>
+<p>Host-based intrusion detection (HIDS) refers to intrusion detection that takes place on a single host
+system. HIDS involves installing an agent on the local host that monitors and reports on the system
+configuration and application activity. Some common abilities of HIDS systems include:</p>
+<ul class="simple">
+<li><p>Provides the “victims” view</p></li>
+<li><p>Virus detection/mitigation</p></li>
+<li><p>Local log analysis</p></li>
+<li><p>File integrity checking</p></li>
+<li><p>Policy monitoring</p></li>
+<li><p>Rootkit detection</p></li>
+<li><p>Network monitoring from the host viewpoint</p></li>
+<li><p>Real-time alerting</p></li>
+<li><p>Active response.</p></li>
+</ul>
+<p>HIDS often have the ability to baseline a host system to detect variations in system configuration. In
+specific vendor implementations, these HIDS agents also allow connectivity to other security systems.
+This allows for central management of configuration policy and verification.</p>
+<section id="hids-deployment">
+<h6>HIDS Deployment<a class="headerlink" href="#hids-deployment" title="Link to this heading"></a></h6>
+<p>HIDS tools are initially deployed in “monitor only” mode. This enables the administrator to create a
+baseline of the system configuration and activity. Active blocking of applications, system changes, and
+network activity is limited to only the most egregious activities. The policy can then be tuned based on
+what is considered “normal activity.” Once a policy is configured, it is then applied and distributed to the
+hosts. Benefits of central management architecture are:</p>
+<ul class="simple">
+<li><p>Can be centrally managed with deployable policies.</p></li>
+<li><p>Ability to apply changes to many systems at once</p></li>
+<li><p>Create a “baseline” for known system types/use cases</p></li>
+<li><p>Central authentication, alerting, and reporting</p></li>
+<li><p>Central audit logging.</p></li>
+</ul>
+<p>The main two concerns with using any HIDS in an ICS environment are:</p>
+<ul class="simple">
+<li><p>Does Operating System even support the use of a HIDS?</p></li>
+<li><p>Do the hosts have enough hardware capacity to support the HIDS (CPU, memory, network bandwidth, etc.)</p></li>
+</ul>
+</section>
+</section>
+<section id="network-intrusion-detection-nids">
+<h5>Network Intrusion Detection (NIDS)<a class="headerlink" href="#network-intrusion-detection-nids" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>NIDSs scan traffic from its networks and look for known patterns in traffic (packets).</p></li>
+<li><p>A NIDS can scan both sides of a conversation and can be reactive by blocking traffic when in IPS mode.</p></li>
+<li><p>NIDS often does not know if the system is Windows, Linux, or a PLC. From a NIDS perspective traffic is traffic, and it simply reports on what traffic is seen on the network.</p></li>
+<li><p>NIDS can have a high False-Positive or False-Negative rate based on the information used to generate the signatures.</p></li>
+<li><p>NIDS are connected to the network via a SPAN/mirror port or a network tap.</p>
+<ul>
+<li><p>When using a SPAN port, the switch sends a copy of all the network packets “seen” on one physical port (or an entire VLAN) to another physical port, where the packets can be captured and/or analyzed.</p></li>
+<li><p>A networking monitoring tap can be used to collect network packets without having to configure a span port on a switch. Think of a tap as a special T‐connection that can read data from the network, but not inject any data of its own into the network traffic.</p></li>
+</ul>
+</li>
+</ul>
+<section id="ids-sensor-placement">
+<h6>IDS Sensor Placement<a class="headerlink" href="#ids-sensor-placement" title="Link to this heading"></a></h6>
+<p>The placement for IDS sensors is important.</p>
+<ul class="simple">
+<li><p>Any change in trust zones should have an IDS/IPS deployed</p></li>
+<li><p>A data diode should be attached to the historian. The IDS can also be deployed here</p></li>
+<li><p>All points of presences for the external communications should have an IDS/IPS deployed</p></li>
+<li><p>An IDS on either side of firewalls allows you to audit your firewall rules.</p></li>
+</ul>
+</section>
+</section>
+<section id="nids-signature-vs-anomaly-detection">
+<h5>NIDS Signature vs. Anomaly Detection<a class="headerlink" href="#nids-signature-vs-anomaly-detection" title="Link to this heading"></a></h5>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Signature</p></th>
+<th class="head"><p>Anomaly</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ex. Snort, Mcafee</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Watches for specific events</p></td>
+<td><p>Watches for changes in trends</p></td>
+</tr>
+<tr class="row-even"><td><p>Only looks for what it has been told</p></td>
+<td><p>Learns from gradual changes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Can deal with any known threat</p></td>
+<td><p>Can deal with unknowns, but any attack is subject to false-negative (Doesn’t know what attacks are, just know it’s change in traffic)</p></td>
+</tr>
+<tr class="row-even"><td><p>Unaware of network configuration changes</p></td>
+<td><p>Sensitive to changes in network devices</p></td>
+</tr>
+<tr class="row-odd"><td><p>Highly objective inspection</p></td>
+<td><p>Subjective, prone to misinterpretations</p></td>
+</tr>
+<tr class="row-even"><td><p>Predictable behavior</p></td>
+<td><p>Unpredictable behavior</p></td>
+</tr>
+<tr class="row-odd"><td><p>Easy to tune manually</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="netflow-anomaly-detection">
+<h5>Netflow Anomaly Detection<a class="headerlink" href="#netflow-anomaly-detection" title="Link to this heading"></a></h5>
+<p>NetFlow is a network protocol developed by Cisco Systems for collecting IP traffic information. NetFlow has become an industry standard for traffic monitoring and is supported by platforms other than Cisco. Routers and switches that have the NetFlow feature enabled produce UDP data streams that are sent to a NetFlow collector (server) where it can be processed and stored.</p>
+<ul class="simple">
+<li><p>Describes a set of packets sharing these characteristics:  src, sport, dst, dport, protocol, type of service.</p></li>
+<li><p>Data include: time, number of bytes, number of packets</p></li>
+<li><p>Usually sent via UDP or Stream Control Transmission Protocol</p></li>
+<li><p>Distributed Denial of Service</p>
+<ul>
+<li><p>Massive increase in flows</p></li>
+</ul>
+</li>
+<li><p>Trojan Horses</p>
+<ul>
+<li><p>“Well-known” or unexpected services</p></li>
+</ul>
+</li>
+<li><p>Firewall Policy Violation</p>
+<ul>
+<li><p>Unexpected inside/outside flow</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="example-alerts-for-anomaly-detection">
+<h5>Example Alerts for Anomaly Detection<a class="headerlink" href="#example-alerts-for-anomaly-detection" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Hosts scanning for services:</p>
+<ul>
+<li><p>Are there external hosts poking at more than __ internal addresses?</p></li>
+<li><p>Are there external hosts poking at more than __ ports on 1 (or more) internal hosts?</p></li>
+</ul>
+</li>
+<li><p>Internal infected host scanning/talking to for external hosts:</p>
+<ul>
+<li><p>Is some internal host poking at __ external hosts?</p></li>
+<li><p>Is some internal host poking at __ internal hosts?</p></li>
+<li><p>Is some internal host poking at dark space (un-allocated Internet address space)?</p></li>
+</ul>
+</li>
+<li><p>Internal hosts talking to “Interesting Net blocks” (pick your favorite countries here)</p>
+<ul>
+<li><p>Are there pokes from __ net blocks that may be of interest?</p></li>
+<li><p>Are there pokes to __ net blocks that may be of interest?</p></li>
+</ul>
+</li>
+<li><p>Increased network traffic:</p>
+<ul>
+<li><p>Distributed Denial of Service (DDOS)</p></li>
+<li><p>Unexpected high volume - Data mining, egress?</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="zeek-ids">
+<h5>Zeek IDS<a class="headerlink" href="#zeek-ids" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Open-source</p></li>
+<li><p>Allows scripting of monitoring policies</p></li>
+<li><p>Collect logs for analysis (Non-standard ports, Connections, DNS, FTP, Files, HTTP requests, SSL, SMTP activity).</p></li>
+<li><p>Analyzers for many protocols including Modbus and DNP3</p></li>
+<li><p>Unexpected protocol level activity.</p></li>
+<li><p>Logs can be used by several other security products.</p></li>
+</ul>
+</section>
+<section id="ids-vs-ips">
+<h5>IDS vs. IPS<a class="headerlink" href="#ids-vs-ips" title="Link to this heading"></a></h5>
+<p>IDS</p>
+<ul class="simple">
+<li><p>Watching/ Passive alerting</p></li>
+</ul>
+<p>IPS</p>
+<ul class="simple">
+<li><p>Inline, Passive Alerting, Active Response</p></li>
+</ul>
+</section>
+</section>
+<section id="snort">
+<h4>SNORT<a class="headerlink" href="#snort" title="Link to this heading"></a></h4>
+<ul>
+<li><p>Snort is an open-source network intrusion detection and prevention system. Snort is widely used and has become the standard for IDS/IPS.</p></li>
+<li><p>Learning to write Snort rules is useful because most IDS/IPS applications will either use the Snort rule format or provide a way to import Snort rules.</p></li>
+<li><p>If you are able to understand the data flow in your environment, you will be able to design simple anomalous traffic signatures quickly without regard to the actual details of the protocol used.</p></li>
+<li><p>Snort rules are composed of a rule header and rule options. There are five types of rule options:</p>
+<ul class="simple">
+<li><p>Metadata</p></li>
+<li><p>Payload detection</p></li>
+<li><p>Non-payload detection</p></li>
+<li><p>Post-detection</p></li>
+<li><p>Thresholding and suppression</p></li>
+</ul>
+</li>
+<li><p>We will focus on Metadata and payload detection</p>
+<p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">ip</span> <span class="pre">![10.0.10.20,</span> <span class="pre">10.0.10.30]</span> <span class="pre">any</span> <span class="pre">&lt;&gt;</span> <span class="pre">[10.0.10.15]</span> <span class="pre">any</span> <span class="pre">(msg:&quot;ALERT</span> <span class="pre">-</span> <span class="pre">Field</span> <span class="pre">Controller</span> <span class="pre">interacts</span> <span class="pre">with</span> <span class="pre">another</span> <span class="pre">node&quot;;</span> <span class="pre">reference:url,mysite.org/rule1;</span> <span class="pre">reference:cve,2018-0000;sid:3000001;priority:1;rev:1;)</span></code></p>
+</li>
+</ul>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>action</p></td>
+<td><p>alert, log, pass, active, dynamic, or a custom defined type</p></td>
+</tr>
+<tr class="row-even"><td><p>protocol</p></td>
+<td><p>ip, tcp, udp, icmp, any</p></td>
+</tr>
+<tr class="row-odd"><td><p>src ip and src port</p></td>
+<td><p>See below</p></td>
+</tr>
+<tr class="row-even"><td><p>direction</p></td>
+<td><p>-&gt;, &lt;&gt;  direction of the traffic that the rule applies to</p></td>
+</tr>
+<tr class="row-odd"><td><p>dst ip and dst port</p></td>
+<td><p>See below</p></td>
+</tr>
+<tr class="row-even"><td><p>Msg</p></td>
+<td><p>Used by analyst to quickly identify the signature</p></td>
+</tr>
+<tr class="row-odd"><td><p>Reference</p></td>
+<td><p>Can use a predefined tag for a security web site or use “URL” to include any web site reference in the rules</p></td>
+</tr>
+<tr class="row-even"><td><p>Sid</p></td>
+<td><p>The signature ID is used by Snort to uniquely identify rules. We recommend using a number &gt; 3,000,000</p></td>
+</tr>
+<tr class="row-odd"><td><p>Priority</p></td>
+<td><p>Allows the user to set the priority of the rule. Highest - 1, Lowest - 10</p></td>
+</tr>
+</tbody>
+</table>
+<section id="snort-preprocessors-for-ics">
+<h5>Snort Preprocessors for ICS<a class="headerlink" href="#snort-preprocessors-for-ics" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>A number of attacks cannot be detected by signature matching alone in the detection engine, so protocol “examine” preprocessors step up to the plate and detect suspicious activity. These preprocessors include packet fragmentation, TCP stateful inspection, portscans, and many other Network/Application protocol‐specific activities.</p></li>
+<li><p>Others modify packets by normalizing traffic so that the detection engine can accurately match signatures. These preprocessors defeat attacks that attempt to evade Snort’s detection engine by manipulating traffic patterns.</p></li>
+<li><p>Snort cycles packets through every preprocessor to discover attacks that require more than one preprocessor to detect them. If Snort simply quit checking for the suspicious attributes of a packet after it had set off a preprocessor alert, attackers could use this deficiency to hide traffic from Snort.</p></li>
+<li><p>Preprocessor parameters are configured and tuned via the snort.conf file. The snort.conf file lets you add or remove preprocessors as you see fit. Of particular interest to the ICS community are the DNP3 and Modbus preprocessors.</p></li>
+<li><p>ICS Specfic: DNP3/Modbus</p></li>
+<li><p>Other useful preprocessor: SSH, SSL, Portscan, httpinspect</p></li>
+</ul>
+<section id="dnp3-preprocessor-rule-options">
+<h6>DNP3 Preprocessor Rule Options<a class="headerlink" href="#dnp3-preprocessor-rule-options" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>dnp3_func: Matches Function Code inside an Application-Layer request/response header</p></li>
+<li><p>dnp3_ind: Matches on the Internal Indicators flags in Application Response Header (Similar to TCP flags)</p></li>
+<li><p>dnp3_obj: Matches on request or response object headers</p></li>
+<li><p>dnp3_data: Reassembled Application-Layer Fragments.</p></li>
+</ul>
+</section>
+<section id="dnp3-preprocessor-examples">
+<h6>DNP3 Preprocessor Examples<a class="headerlink" href="#dnp3-preprocessor-examples" title="Link to this heading"></a></h6>
+<p>Here are some examples of the new DNP3 preprocessor rule options:</p>
+<ul class="simple">
+<li><p>Alerts on DNP3 Write Request:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">tcp</span> <span class="pre">any</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">any</span> <span class="pre">20000</span> <span class="pre">(msg:&quot;DNP3</span> <span class="pre">Write</span> <span class="pre">request&quot;;</span> <span class="pre">dnp3_func:write;</span> <span class="pre">sid:3000001;)</span></code></p></li>
+</ul>
+</li>
+<li><p>Alerts on reserved_1 OR reserved_2 being set:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">tcp</span> <span class="pre">any</span> <span class="pre">20000</span> <span class="pre">-&gt;</span> <span class="pre">any</span> <span class="pre">any</span> <span class="pre">(msg:&quot;Reserved</span> <span class="pre">DNP3</span>&#160; <span class="pre">Indicator</span> <span class="pre">set&quot;;</span> <span class="pre">dnp3_ind:reserved_1,reserved_2;</span> <span class="pre">sid:3000002)</span></code></p></li>
+</ul>
+</li>
+<li><p>Alerts on Content in Re-assembled Application-Layer Fragment:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">tcp</span> <span class="pre">any</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">any</span> <span class="pre">any</span> <span class="pre">(msg:&quot;badstuff'</span> <span class="pre">in</span> <span class="pre">DNP3</span> <span class="pre">message&quot;;</span> <span class="pre">dnp3_data;</span> <span class="pre">content:&quot;badstuff&quot;;</span> <span class="pre">sid:3000003;)</span></code></p></li>
+<li><p>Notice in the third rule, dnp3_data sets the content buffer to the beginning of the Re-assembled Application-Layer Fragment then looks for the content: “badstuff”</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="modbus-preprocessor-rule-options">
+<h6>Modbus Preprocessor Rule Options<a class="headerlink" href="#modbus-preprocessor-rule-options" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>modbus_func: Matches against the Function Code inside of a Modbus Application-Layer request/response header</p></li>
+<li><p>modbus_unit: Matches against the Unit ID field in a Modbus header</p></li>
+<li><p>modbus_data: Sets the cursor at the beginning of the Data field in Modbus request/response</p></li>
+</ul>
+</section>
+<section id="modbus-preprocessor-rule-examples">
+<h6>Modbus Preprocessor Rule Examples<a class="headerlink" href="#modbus-preprocessor-rule-examples" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Alerts on specific Modbus function:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">tcp</span> <span class="pre">any</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">any</span> <span class="pre">502</span> <span class="pre">(msg:&quot;Modbus</span> <span class="pre">Write</span> <span class="pre">Coils</span>&#160; <span class="pre">request&quot;;</span> <span class="pre">modbus_func:write_multiple_coils;</span> <span class="pre">sid:3000004;)</span></code></p></li>
+</ul>
+</li>
+<li><p>Alerts on unauthorized host</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">MODBUS_ADMIN</span> <span class="pre">192.168.1.2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">tcp</span> <span class="pre">!$MODBUS_ADMIN</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">any</span> <span class="pre">502</span> <span class="pre">(msg:&quot;Modbus</span> <span class="pre">command</span> <span class="pre">to</span> <span class="pre">Unit</span> <span class="pre">01</span> <span class="pre">from</span> <span class="pre">unauthorized</span> <span class="pre">host&quot;;</span>&#160; <span class="pre">modbus_unit:1;</span> <span class="pre">sid:3000005;)</span></code></p></li>
+</ul>
+</li>
+<li><p>Alerts on Content in modbus data field</p>
+<ul>
+<li><p><a href="#id16"><span class="problematic" id="id17">``</span></a>alert tcp any any -&gt; any any (msg:”String ‘badstuff’ in Modbus  message”; modbus_data; content:”badstuff”; sid:3000006;).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="example-rule-variables">
+<h6>Example Rule Variables<a class="headerlink" href="#example-rule-variables" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ipvar</span> <span class="pre">HOME_NET</span> <span class="pre">[1.2.3.0/24,10.0.10.0/24]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipvar</span> <span class="pre">EXTERNAL_NET</span> <span class="pre">[!HOME_NET]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipvar</span> <span class="pre">CANARY</span> <span class="pre">1.2.3.4</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipvar</span> <span class="pre">PCS</span> <span class="pre">[10.0.10.0/24]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipvar</span> <span class="pre">CORP</span> <span class="pre">[1.2.3.0/24]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipvar</span> <span class="pre">HMI</span> <span class="pre">[10.0.10.20,10.0.10.30]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipvar</span> <span class="pre">AD</span> <span class="pre">1.2.3.20</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipvar</span> <span class="pre">FC</span> <span class="pre">10.0.10.15</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipvar</span> <span class="pre">HIST1</span> <span class="pre">[10.0.10.150]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipvar</span> <span class="pre">CONFDB</span> <span class="pre">[10.0.10.10]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">portvar</span> <span class="pre">TAG</span> <span class="pre">2000</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">portvar</span> <span class="pre">TAG_RANGE</span> <span class="pre">[2000:2020]</span></code></p></li>
+</ul>
+</section>
+<section id="example-rules">
+<h6>Example Rules<a class="headerlink" href="#example-rules" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>#Field Controller (FC) talking to unknown system</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">ip</span> <span class="pre">![$HMI,$HIST1,$CONFDB]</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">$FC</span> <span class="pre">any</span> <span class="pre">(msg:“ALERT</span> <span class="pre">-</span> <span class="pre">Field</span> <span class="pre">Controller</span> <span class="pre">interacts</span> <span class="pre">with</span> <span class="pre">unknown</span> <span class="pre">node&quot;;</span> <span class="pre">sid:4000001;</span> <span class="pre">priority:1;</span> <span class="pre">rev:1;)</span></code></p></li>
+</ul>
+</li>
+<li><p>#Configuration Database talks to unexpected system</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">ip</span> <span class="pre">[$CONFDB]</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">![$FC,$HMI,$HIST1]</span> <span class="pre">any</span> <span class="pre">(msg:“ALERT</span> <span class="pre">-</span> <span class="pre">Configuration</span> <span class="pre">DB</span> <span class="pre">Communicate</span> <span class="pre">with</span> <span class="pre">new</span> <span class="pre">system;</span> <span class="pre">sid:4000002;</span> <span class="pre">priority:1;</span> <span class="pre">rev:1;)</span></code></p></li>
+</ul>
+</li>
+<li><p># PCS network communication with CORP network, trying to bypass the firewall</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">ip</span> <span class="pre">[$PCS,!$HIST1]</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">$CORP</span> <span class="pre">any</span> <span class="pre">(msg:”PCS</span> <span class="pre">network</span> <span class="pre">talking</span> <span class="pre">to</span> <span class="pre">CORP</span> <span class="pre">network”;</span> <span class="pre">sid:4000003;</span> <span class="pre">priority:1;</span> <span class="pre">classtype:unknown;)</span></code></p></li>
+</ul>
+</li>
+<li><p>#Configuration Database updates (auditing tool)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">log</span> <span class="pre">ip</span> <span class="pre">[$CONFDB]</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">[$FC,$HMI,$HIST1]</span> <span class="pre">any</span> <span class="pre">(msg:“AUDIT</span> <span class="pre">-</span> <span class="pre">Configuration</span> <span class="pre">Updates;</span> <span class="pre">sid:4000004;</span> <span class="pre">priority:10;</span> <span class="pre">rev:1;)</span></code></p></li>
+</ul>
+</li>
+<li><p># LOOKING FOR BAD TRAFFIC</p></li>
+<li><p># Find traffic involving a canary</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">ip</span> <span class="pre">any</span> <span class="pre">any</span> <span class="pre">&lt;&gt;</span> <span class="pre">$CANARY</span> <span class="pre">any</span> <span class="pre">(msg:”The</span> <span class="pre">canary</span> <span class="pre">is</span> <span class="pre">talking”;</span> <span class="pre">sid:</span> <span class="pre">4000005;</span> <span class="pre">priority:1;</span> <span class="pre">classtype:unknown;</span> <span class="pre">tag:session,256,packets;)</span></code></p></li>
+</ul>
+</li>
+<li><p>#Monitor for the Field Controller talking to the Internet</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">tcp</span> <span class="pre">$FC</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">$EXTERNAL_NET</span> <span class="pre">any</span> <span class="pre">(msg:”PLC</span> <span class="pre">talking</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">outside</span> <span class="pre">world”;</span> <span class="pre">sid:4000007;</span> <span class="pre">priority:1;</span> <span class="pre">flags:S;</span> <span class="pre">classtype:bad-unknown;)</span></code></p></li>
+</ul>
+</li>
+<li><p># Monitor for AD attempting to connect to the Internet</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">tcp</span> <span class="pre">$AD</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">$EXTERNAL_NET</span> <span class="pre">any</span> <span class="pre">(msg:”AD</span> <span class="pre">attempting</span> <span class="pre">to</span> <span class="pre">talk</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">outside</span> <span class="pre">world”;</span> <span class="pre">sid:4000008;</span> <span class="pre">priority:1;</span> <span class="pre">flags:S;</span> <span class="pre">classtype:bad-unknown;)</span></code></p></li>
+</ul>
+</li>
+<li><p>#Command shell on HMI</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert</span> <span class="pre">ip</span> <span class="pre">any</span> <span class="pre">any</span> <span class="pre">-&gt;</span> <span class="pre">$HMI</span> <span class="pre">any</span> <span class="pre">(msg:”cmd.exe</span> <span class="pre">on</span> <span class="pre">HMI”;</span> <span class="pre">content:</span> <span class="pre">“cmd.exe”;</span> <span class="pre">sid:4000009;</span> <span class="pre">priority:1;</span> <span class="pre">classtype:unknown;)</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="log-sources-and-management">
+<h4>Log Sources and Management<a class="headerlink" href="#log-sources-and-management" title="Link to this heading"></a></h4>
+<section id="logging-architecture">
+<h5>Logging Architecture<a class="headerlink" href="#logging-architecture" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>A central log server can assist in an incident by providing a chronological list of the events surrounding an incident that give the bigger picture.</p></li>
+<li><p>Multiple systems/sources can send their data to a central log server where it can be correlated with other information.</p></li>
+<li><p>Correlating with other logs can sometimes make the difference between recognizing an event for what it is (true or false) and then acting accordingly. The same data can provide valuable information (such as an IDS) to the security analyst.</p></li>
+</ul>
+<p>There are some considerations in centralizing logs:
+- Properly prioritize the function of log management. Define requirements and goals for log performance and monitoring based on applicable laws, regulations, and existing organizational policies. Then, prioritize goals based on balancing the need to reduce risk with the time and resources necessary to perform log management functions.
+- Create and maintain a secure log management infrastructure. Identify the needed components and determine how they will interact (e.g., firewall rules, diodes). With the various types of information in one place, the log server becomes a valuable system to target a critical system to protect. It should only run the logging service and be in a highly protected area of your network.
+- Provide appropriate support for staff with log management responsibilities. All efforts to implement log management will be for naught if the staff members who are tasked with log management responsibilities do not receive adequate training, proper tools, or support to do their jobs effectively. The staff members need to understand what situations are normal, bad, and weird. Providing log management tools, documentation, and technical guidance are all critical for the success of log management staff.</p>
+</section>
+<section id="log-sources">
+<h5>Log sources<a class="headerlink" href="#log-sources" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>firewalls</p></li>
+<li><p>VPN Servers (maybe part of firewall logs)</p></li>
+<li><p>Operating Systems (e.g Windows, *nix, Mac)</p></li>
+<li><p>Proxy Server</p></li>
+<li><p>Web Servers (e.g. IIS, Apache, NGinx)</p></li>
+<li><p>Databases (e.g. MS SQL, Oracle, MySQL)</p></li>
+<li><p>Others (e.g. PLCs, HMIs)</p></li>
+</ul>
+</section>
+<section id="log-transport">
+<h5>Log Transport<a class="headerlink" href="#log-transport" title="Link to this heading"></a></h5>
+<section id="syslog">
+<h6>syslog<a class="headerlink" href="#syslog" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Defacto standard in IT community</p></li>
+<li><p>Use UDP/TCP</p></li>
+<li><p>Data diode can be used</p></li>
+<li><p>Encryption can be used</p></li>
+<li><p>Third-party tools maybe necessary for some OS or applications.</p></li>
+</ul>
+</section>
+</section>
+<section id="operating-system-logs">
+<h5>Operating System Logs<a class="headerlink" href="#operating-system-logs" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Operating system logs can be used to monitor the health of the system and detect malicious activity</p></li>
+<li><p>Windows OS
+- Security Log
+- System Log
+- Third-party agent to send logs to a remote server.</p></li>
+<li><p>Linux/Unix OS
+- Syslog transport part of OS
+- auth.log, messages</p></li>
+</ul>
+</section>
+<section id="security-audit-logging-web-server-logs">
+<h5>Security Audit Logging Web Server Logs<a class="headerlink" href="#security-audit-logging-web-server-logs" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Review daily to determine a baseline</p></li>
+<li><p>Web server logs will show:</p>
+<ul>
+<li><p>who visited the website</p></li>
+<li><p>when they visited the website</p></li>
+<li><p>what they did while viewing the website (including SQL queries)</p></li>
+<li><p>Where they came from?</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="security-audit-logging-database-logs">
+<h5>Security Audit Logging Database Logs<a class="headerlink" href="#security-audit-logging-database-logs" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>User logins and logouts</p></li>
+<li><p>Database system starts, stops and restarts</p></li>
+<li><p>Various system failures and errors</p></li>
+<li><p>User privilege changes</p></li>
+<li><p>Database structure changes (tables that has been deleted/data that has been changed)</p></li>
+<li><p>Most other DBA actions; and</p></li>
+<li><p>Select or all database data access (if configured to be so)</p></li>
+</ul>
+</section>
+<section id="security-information-and-event-management">
+<h5>Security Information and Event Management<a class="headerlink" href="#security-information-and-event-management" title="Link to this heading"></a></h5>
+<p>Capabilities</p>
+<ul class="simple">
+<li><p>Data aggregation</p></li>
+<li><p>Correlation</p></li>
+<li><p>Alerting</p></li>
+<li><p>compliance</p></li>
+<li><p>Forensics analysis</p></li>
+</ul>
+</section>
+</section>
+<section id="honeypots-canaries">
+<h4>Honeypots &amp; Canaries<a class="headerlink" href="#honeypots-canaries" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Decoy systems (sit on your network and try to replicate how your network looks like)</p></li>
+<li><p>Variant of an IDS</p></li>
+<li><p>Any traffic seen talking to a Honeypot could be considered malicious</p></li>
+<li><p>Open-source ICS Honeypots are available: <a class="reference external" href="https://github.com/glastopf/conpot">Conpot</a></p></li>
+<li><p>Canaries (doesn’t communicate with any other system on your network. If an IDS is watching for ANY traffic to/from the canary, you will get an early warning that something is going on that shouldn’t be).</p></li>
+</ul>
+</section>
+</section>
+<section id="respond-and-recover">
+<h3>Respond and Recover<a class="headerlink" href="#respond-and-recover" title="Link to this heading"></a></h3>
+<p>Execute activities taken during and after a cybersecurity event.</p>
+<ul class="simple">
+<li><p>The Respond Function supports the ability to contain the impact of a potential cybersecurity event. Examples of outcome Categories within this Function include: Response Planning; Communications; Analysis; Mitigation; and Improvements.</p></li>
+<li><p>The Recover Function supports timely recovery to normal operations to reduce the impact from a cybersecurity event. Examples of outcome Categories within this Function include: Recovery Planning; Improvements; and Communications.</p></li>
+<li><p>Incident Respond Phases
+- Preparation –&gt; Identification –&gt; Containment –&gt; Clean-up and Recovery –&gt; Follow-up</p></li>
+</ul>
+<section id="preparation">
+<h4>Preparation<a class="headerlink" href="#preparation" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Build your team</p></li>
+<li><p>Plan your response
+- Secure and alternate methods of communication.</p></li>
+<li><p>Scribe(s) for each group within the team.
+- Securable room where you can keep accurate and complete information
+- access to ALL of the logs and data.
+- Known, certified clean computer systems to do forensics.
+- Person with the authority to unplug from the internet (maybe your manager, CEO?)</p></li>
+<li><p>Define your strategy.</p></li>
+<li><p>Create documentation</p></li>
+<li><p>Train your teams and users
+- A practiced plan</p></li>
+<li><p>Gather threat intelligence
+- Feeds &amp; threat reports
+- Yara rules and indicators of known malware (know whats going on in the world)</p></li>
+<li><p>Use a checklist for starting point</p></li>
+<li><p>Compliance and safety officers should review the IR plan.</p></li>
+</ul>
+<section id="incident-response-team">
+<h5>Incident Response Team<a class="headerlink" href="#incident-response-team" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Senior Technical staff</p></li>
+<li><p>Lead and Forensics Analysts</p></li>
+<li><p>Scribe(s)</p></li>
+<li><p>Stakeholders from:
+- Corporate IT
+- Control Systems
+- Subject Matter Experts
+- Public Relations
+- Legal Counsel
+- Law Enforcement (if necessary)
+- IT and/or financial auditors (optional)</p></li>
+</ul>
+</section>
+</section>
+<section id="identification">
+<h4>Identification<a class="headerlink" href="#identification" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Starts when incident is detected (snort/log alert?)</p></li>
+<li><p>Forensics tools</p></li>
+<li><p>Use the intelligence gathered</p></li>
+<li><p>Thorough analysis of logs and network traffic</p></li>
+</ul>
+</section>
+<section id="containment">
+<h4>Containment<a class="headerlink" href="#containment" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Find the call back addresses</p></li>
+<li><p>Stop the information flow leaving the network</p></li>
+<li><p>Stop the malware from spreading</p></li>
+</ul>
+</section>
+<section id="clean-up-and-recovery">
+<h4>Clean-up and Recovery<a class="headerlink" href="#clean-up-and-recovery" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Remediation</p></li>
+<li><p>Intrusion Clean-up</p></li>
+<li><p>Affected system back-in service</p></li>
+</ul>
+</section>
+<section id="follow-up">
+<h4>Follow-up<a class="headerlink" href="#follow-up" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Incident report</p></li>
+<li><p>Lessons Learned
+- Update incident response plan
+- update threat intelligence
+- Implement new security initiatives</p></li>
+</ul>
+<section id="network-forensics">
+<h5>Network Forensics<a class="headerlink" href="#network-forensics" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Main purpose: Incident response and Law Enforcement</p></li>
+<li><p>Items to analyse in packet Captures
+- Pattern matching - match specific values
+- Conversations - identify all sessions of interest
+- Exports: export sessions of interest</p></li>
+<li><p>Tools used in network forensics
+- Wireshark, Network Miner, Tcpdump/windump, tcpflow, tcpxtract, argus, YARA, others.</p></li>
+</ul>
+</section>
+<section id="yara">
+<h5>YARA<a class="headerlink" href="#yara" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Main purposes: to help identify and classify malware samples</p></li>
+<li><p>Yara Rules
+- consists of a set of strings and boolean expressions
+- can be found in security alerts and bulletins
+- can be used by different security tools</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+<section id="protocols">
+<h2>Protocols<a class="headerlink" href="#protocols" title="Link to this heading"></a></h2>
+<section id="modbus">
+<h3>Modbus<a class="headerlink" href="#modbus" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Modbus protocol is a master/slave protocol: the master reads and writes slaves’ registers.</p></li>
+<li><p>Modbus RTU is usually used via RS-485 (serial network): one master is present with one or more slaves. Each slave has an unique 8-bit address.</p></li>
+<li><p>Modbus data is used to read and write “registers” which are 16-bit long.</p>
+<ul>
+<li><p>Holding register: 16-bit; readable and writable</p></li>
+<li><p>Input register: 16-bit; readable</p></li>
+<li><p>Coil (Discrete Output): 1-bit long; readable and writeable</p></li>
+<li><p>Discrete input (Status Input): 1-bit long; readable</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html" class="btn btn-neutral float-left" title="Coding Quick Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LFF-CIS-ElectricalGrid.html" class="btn btn-neutral float-right" title="Electrical Grid" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
