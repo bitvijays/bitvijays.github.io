@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Initial Recon &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="From Nothing to a Unprivileged Shell" href="LFC-VM-P1-FromNothingToUnprivilegedShell.html" />
+    <link rel="prev" title="Configuration Review" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Initial Recon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#finding-the-ip-address">Finding the IP address</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#netdiscover">Netdiscover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nmap">Nmap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#port-scanning">Port Scanning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Nmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unicornscan">Unicornscan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#netcat">Netcat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tcp-scan">TCP Scan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#udp-scan">UDP Scan</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#amap-application-mapper">Amap - Application mapper</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rabbit-holes">Rabbit Holes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#listen-to-the-interface">Listen to the interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dns-server">DNS Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssl-certificate">SSL Certificate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Initial Recon</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="initial-recon">
+<h1>Initial Recon<a class="headerlink" href="#initial-recon" title="Link to this heading"></a></h1>
+<p>This post (Work in Progress) records what we learned by doing vulnerable machines provided by <a class="reference external" href="https://vulnhub.com">VulnHub</a>, <a class="reference external" href="https://hackthebox.eu">Hack the Box</a> and others. The steps below could be followed to find vulnerabilities, exploit these vulnerabilities and finally achieve system/ root.</p>
+<p>Once you download a virtual machines from <a class="reference external" href="https://vulnhub.com">VulnHub</a>  you can run it by using virtualisation software such as VMware or Virtual Box.</p>
+<p>We would like to <strong>thank g0tm1lk</strong> for maintaining <strong>Vulnhub</strong> and the <strong>moderators</strong> of <strong>HackTheBox</strong>. Also, <strong>shout-outs</strong> are in order for each and every <strong>author of Vulnerable Machines and/ or write-ups</strong>. Thank you for providing these awesome challenges to learn from and sharing your knowledge with the IT security community! <strong>Thank You!!</strong></p>
+<p>Generally, we go through the following stages when solving a vulnerable machine:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="LFC-VulnerableMachines.html#finding-the-ip-address"><span class="std std-ref">Finding the IP address</span></a></p></li>
+<li><p><a class="reference internal" href="LFC-VulnerableMachines.html#port-scanning"><span class="std std-ref">Port Scanning</span></a></p></li>
+<li><p><a class="reference internal" href="LFC-VulnerableMachines.html#rabbit-holes"><span class="std std-ref">Rabbit Holes</span></a></p></li>
+<li><p><a class="reference internal" href="LFC-VulnerableMachines.html#from-nothing-to-unprivileged-shell"><span class="std std-ref">From Nothing to a Unprivileged Shell</span></a></p></li>
+<li><p><a class="reference internal" href="LFC-VulnerableMachines.html#unprivileged-shell-to-privileged-shell"><span class="std std-ref">Unprivileged Shell to Privileged Shell</span></a></p></li>
+</ul>
+<p>In this blog post, we have mentioned, what can be done in each separate stage. Furthermore, we have also provided <a class="reference internal" href="LFC-VulnerableMachines.html#tips-and-tricks"><span class="std std-ref">Tips and Tricks</span></a> for solving vulnerable VMs. Additionally <span class="xref std std-doc">LFF-IPS-P2-VulnerabilityAnalysis</span> could be referred for exploitation of any particular services (i.e. it provides information such as “If you have identified service X (like ssh, Apache tomcat, JBoss, iscsi etc.), how they can be exploited”). Lastly there are also appendixes related to</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="LFC-VulnerableMachines.html#a1-local-file-inclusion"><span class="std std-ref">Appendix-I : Local File Inclusion</span></a></p></li>
+<li><p><a class="reference internal" href="LFC-VulnerableMachines.html#a2-file-upload"><span class="std std-ref">Appendix-II : File Upload</span></a></p></li>
+<li><p><a class="reference internal" href="LFC-VulnerableMachines.html#a3-tranfer-files-from-linux-to-windows"><span class="std std-ref">Appendix-III Transferring Files from Linux to Windows (post-exploitation)</span></a></p></li>
+<li><p><a class="reference internal" href="LFC-VulnerableMachines.html#a4-linux-group-membership-issues"><span class="std std-ref">Appendix-IV Linux Group Membership Issues</span></a></p></li>
+<li><p><a class="reference internal" href="LFC-VulnerableMachines.html#a5-coding-languages-tricks"><span class="std std-ref">Appendix-V Coding Languages Tricks</span></a></p></li>
+</ul>
+<section id="finding-the-ip-address">
+<h2>Finding the IP address<a class="headerlink" href="#finding-the-ip-address" title="Link to this heading"></a></h2>
+<p>Before, exploiting any machine, we need to figure out its IP address.</p>
+<section id="netdiscover">
+<h3>Netdiscover<a class="headerlink" href="#netdiscover" title="Link to this heading"></a></h3>
+<p>An active/ passive arp reconnaissance tool</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">netdiscover [options]</span>
+<span class="go">-i interface : The network interface to sniff and inject packets on.</span>
+<span class="go">-r range : Scan a given range instead performing an auto scan.</span>
+
+<span class="go">Example:</span>
+<span class="go">netdiscover -i eth0/wlan0/vboxnet0/vmnet1 -r 192.168.1.0/24</span>
+</pre></div>
+</div>
+<p>Interface names of common Virtualisation Software:</p>
+<ul class="simple">
+<li><p>Virtualbox : vboxnet</p></li>
+<li><p>Vmware     : vmnet</p></li>
+</ul>
+</section>
+<section id="nmap">
+<h3>Nmap<a class="headerlink" href="#nmap" title="Link to this heading"></a></h3>
+<p>Network exploration tool and security/ port scanner</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nmap [Scan Type] [Options] {target specification}</span>
+<span class="go">-sP/-sn Ping Scan -disable port scan</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nmap -sP/-sn 192.168.1.0/24</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="port-scanning">
+<h2>Port Scanning<a class="headerlink" href="#port-scanning" title="Link to this heading"></a></h2>
+<p>Port scanning provides a large amount of information about open (exposed) services and possible exploits that may target these services.</p>
+<p>Common port scanning software include: nmap, unicornscan, netcat (when nmap is not available).</p>
+<section id="id2">
+<h3>Nmap<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>Network exploration tool and security/ port scanner</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nmap [Scan Type] [Options] {target specification}</span>
+
+<span class="go">HOST DISCOVERY:</span>
+<span class="go">-sL: List Scan - simply list targets to scan</span>
+<span class="go">-sn/-sP: Ping Scan - disable port scan</span>
+<span class="go">-Pn: Treat all hosts as online -- skip host discovery</span>
+
+<span class="go">SCAN TECHNIQUES:</span>
+<span class="go">-sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans</span>
+<span class="go">-sU: UDP Scan -sN/sF/sX: TCP Null, FIN, and Xmas scans</span>
+
+<span class="go">PORT SPECIFICATION:</span>
+<span class="go">-p : Only scan specified ports</span>
+<span class="go">Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9</span>
+
+<span class="go">SERVICE/VERSION DETECTION:</span>
+<span class="go">-sV: Probe open ports to determine service/version info</span>
+
+<span class="go">OUTPUT:</span>
+<span class="go">-oN/-oX/-oS/-oG : Output scan in normal, XML,Output in the three major formats at once</span>
+<span class="go">-v: Increase verbosity level (use -vv or more for greater effect)</span>
+
+<span class="go">MISC: -6: Enable IPv6 scanning -A: Enable OS detection, version detection, script scanning, and traceroute</span>
+</pre></div>
+</div>
+</section>
+<section id="unicornscan">
+<h3>Unicornscan<a class="headerlink" href="#unicornscan" title="Link to this heading"></a></h3>
+<p>A port scanner that utilizes its own userland TCP/IP stack, which allows it to run asynchronous scans. It can scan 65,535 ports in a relatively short time frame.</p>
+<p>As unicornscan is faster then nmap it makes sense to use it for scanning large networks or a large number of ports. The idea is to use unicornscan to scan all ports, and make a list of those ports that are open and pass them to nmap for service detection. Superkojiman has written <a class="reference external" href="https://github.com/superkojiman/onetwopunch">onetwopunch</a> for this.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">unicornscan [options] X.X.X.X/YY:S-E</span>
+<span class="go">  -i, --interface : interface name, like eth0 or fxp1, not normally required</span>
+<span class="go">  -m, --mode : scan mode, tcp (syn) scan is default, U for udp T for tcp \`sf&#39; for tcp connect scan and A for arp for -mT you can also specify tcp flags following the T like -mTsFpU for example that would send tcp syn packets with (NO Syn\|FIN\|NO Push\|URG)</span>
+
+<span class="go">  Address ranges are in cidr notation like 1.2.3.4/8 for all of 1.?.?.?, if you omit the cidr mask /32 is implied.</span>
+<span class="go">  Port ranges are like 1-4096 with 53 only scanning one port, **a** for all 65k and p for 1-1024</span>
+
+<span class="go"> example: unicornscan 192.168.1.5:1-4000 gateway:a would scan port 1 - 4000 for 192.168.1.5 and all 65K ports for the host named gateway.</span>
+</pre></div>
+</div>
+</section>
+<section id="netcat">
+<h3>Netcat<a class="headerlink" href="#netcat" title="Link to this heading"></a></h3>
+<p>Netcat might not be the best tool to use for port scanning, but it can be used quickly. While Netcat scans TCP ports by default it can perform UDP scans as well.</p>
+<section id="tcp-scan">
+<h4>TCP Scan<a class="headerlink" href="#tcp-scan" title="Link to this heading"></a></h4>
+<p>For a TCP scan, the format is:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nc -vvn -z xxx.xxx.xxx.xxx startport-endport</span>
+
+<span class="go">   -z flag is Zero-I/O mode (used for scanning)</span>
+<span class="go">   -vv will provide verbose information about the results</span>
+<span class="go">   -n flag allows to skip the DNS lookup</span>
+</pre></div>
+</div>
+</section>
+<section id="udp-scan">
+<h4>UDP Scan<a class="headerlink" href="#udp-scan" title="Link to this heading"></a></h4>
+<p>For a UDP Port Scan, we need to add -u flag which makes the format:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nc -vvn -u -z xxx.xxx.xxx.xxx startport-endport</span>
+</pre></div>
+</div>
+<p>If we have windows machine without nmap, we can use <a class="reference external" href="https://www.powershellgallery.com/packages/PSnmap/">PSnmap</a></p>
+</section>
+</section>
+<section id="amap-application-mapper">
+<h3>Amap - Application mapper<a class="headerlink" href="#amap-application-mapper" title="Link to this heading"></a></h3>
+<p>When portscanning a host, you will be presented with a list of open ports. In many cases, the port number tells you which application is running. Port 25 is usually SMTP, port 80 mostly HTTP. However, this is not always the case, and especially when dealing with proprietary protocols running on non-standard ports you will not be able to determine which application is running.</p>
+<p>By using <strong>amap</strong>, we can identify which services are running on a given port. For example is there a SSL server running on port 3445 or some oracle listener on port 23? Note that the application can also handle services that requires SSL. Therefore it will perform an SSL connect followed by trying to identify the SSL-enabled protocol!. e.g.  One of the vulnhub VM’s was running http and https on the same port.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">amap -A 192.168.1.2 12380</span>
+<span class="go">amap v5.4 (www.thc.org/thc-amap) started at 2016-08-10 05:48:09 - APPLICATION MAPPING mode</span>
+<span class="go">Protocol on 192.168.1.2:12380/tcp matches http</span>
+<span class="go">Protocol on 192.168.1.2:12380/tcp matches http-apache-2</span>
+<span class="go">Protocol on 192.168.1.2:12380/tcp matches ntp</span>
+<span class="go">Protocol on 192.168.1.2:12380/tcp matches ssl</span>
+<span class="go">Unidentified ports: none.</span>
+<span class="go">amap v5.4 finished at 2016-08-10 05:48:16</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="rabbit-holes">
+<h2>Rabbit Holes<a class="headerlink" href="#rabbit-holes" title="Link to this heading"></a></h2>
+<p>There will be instances when we will not able to find anything entry point such as any open port. The section below may provide some clues on how to get unstuck.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When in doubt, enumerate</p>
+</div>
+<section id="listen-to-the-interface">
+<span id="id3"></span><h3>Listen to the interface<a class="headerlink" href="#listen-to-the-interface" title="Link to this heading"></a></h3>
+<p>Many VMs send data on random ports therefore we recommend to listen to the local interface (vboxnet0 / vmnet) on which the VM is running. This can be done by using wireshark or tcpdump. For example, one of the vulnhub VMs, performs an arp scan and sends a SYN packet on port 4444, if something is listening on that port, it sends some data.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">tcpdump -i eth0</span>
+
+<span class="go">18:02:04.096292 IP 192.168.56.101.36327 &gt; 192.168.56.1.4444: Flags [S], seq 861815232, win 16384, options [mss 1460,nop,nop,sackOK,nop,wscale 3,nop,nop,TS val 4127458640 ecr 0], length 0</span>
+<span class="go">18:02:04.096330 IP 192.168.56.1.4444 &gt; 192.168.56.101.36327: Flags [R.], seq 0, ack 861815233, win 0, length 0</span>
+<span class="go">18:02:04.098584 ARP, Request who-has 192.168.56.2 tell 192.168.56.101, length 28</span>
+<span class="go">18:02:04.100773 ARP, Request who-has 192.168.56.3 tell 192.168.56.101, length 28</span>
+<span class="go">18:02:04.096292 IP 192.168.56.101.36327 &gt; 192.168.56.1.4444: Flags [S],</span>
+</pre></div>
+</div>
+<p>While listening on port 4444, we might receive something like a base64 encoded string or some message.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nc -lvp 4444</span>
+<span class="go">listening on [any] 4444 …</span>
+<span class="go">192.168.56.101: inverse host lookup failed: Unknown host</span>
+<span class="go">connect to [192.168.56.1] from (UNKNOWN) [192.168.56.101] 39519</span>
+<span class="go">0IHNpbGVuY2Ugc3Vycm91bmRpbmcgeW91Lg0KWW91IGxvb2sgZWFzdCwgdGhlbiBzb3V0aCwgdGhlbiB3ZXN0LCBhbGwgeW91IGNhbiBzZWUgaXMgYSBncmVhdCB3YXN0ZWxh</span>
+</pre></div>
+</div>
+</section>
+<section id="dns-server">
+<h3>DNS Server<a class="headerlink" href="#dns-server" title="Link to this heading"></a></h3>
+<p>If the targeted machine is running a DNS Server and we have a possible domain name, we may try to figure out A, MX, AAAA records or try zone-transfer to figure out other possible domain names.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">host &lt;domain&gt; &lt;optional_name_server&gt;</span>
+<span class="go">host -t ns &lt;domain&gt;                -- Name Servers</span>
+<span class="go">host -t a &lt;domain&gt;                 -- Address</span>
+<span class="go">host -t aaaa &lt;domain&gt;              -- AAAA record points a domain or subdomain to an IPv6 address</span>
+<span class="go">host -t mx &lt;domain&gt;                -- Mail Servers</span>
+<span class="go">host -t soa &lt;domain&gt;               -- Start of Authority</span>
+<span class="go">host &lt;IP&gt;                          -- Reverse Lookup</span>
+<span class="go">host -l &lt;Domain Name&gt; &lt;DNS Server&gt; -- Domain Zone Transfer</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">host scanme.nmap.org</span>
+<span class="go">scanme.nmap.org has address 45.33.32.156</span>
+<span class="go">scanme.nmap.org has IPv6 address 2600:3c01::f03c:91ff:fe18:bb2f</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Usually, DNS runs on UDP Port. However, If DNS is running on TCP port, probably DNS Zone Transfer would be possible.</p>
+</div>
+</section>
+<section id="ssl-certificate">
+<h3>SSL Certificate<a class="headerlink" href="#ssl-certificate" title="Link to this heading"></a></h3>
+<p>If the targeted machine is running an https server and we are getting an apache default webpage on hitting the <a class="reference external" href="https://IPAddress">https://IPAddress</a>, virtual hosts would be probably in use. Check the alt-dns-name on the ssl-certificate, create an entry in hosts file (/etc/hosts) and check what is being hosted on these domain names by surfing to <a class="reference external" href="https://alt-dns-name">https://alt-dns-name</a>.</p>
+<p>nmap service scan result for port 443 (sample)</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">| ssl-cert: Subject: commonName=examplecorp.com/organizationName=ExampleCorp Ltd./stateOrProvinceName=Attica/countryName=IN/localityName=Mumbai/organizationalUnitName=IT/emailAddress=admin@examplecorp.com</span>
+<span class="go">| Subject Alternative Name: DNS:www.examplecorp.com, DNS:admin-portal.examplecorp.com</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html" class="btn btn-neutral float-left" title="Configuration Review" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LFC-VM-P1-FromNothingToUnprivilegedShell.html" class="btn btn-neutral float-right" title="From Nothing to a Unprivileged Shell" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

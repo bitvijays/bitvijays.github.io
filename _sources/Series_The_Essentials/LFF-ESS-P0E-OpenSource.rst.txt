@@ -1,0 +1,1411 @@
+********************
+Open Source Concepts
+********************
+
+The below notes are from the free Linux Foundation `A Beginner's Guide to
+Open Source Software Development
+(LFD102) <https://training.linuxfoundation.org/training/beginners-guide-open-source-software-development/>`__
+and `Open Source Licensing Basics for Software Developers
+(LFC191) <https://training.linuxfoundation.org/training/open-source-licensing-basics-for-software-developers/>`__.
+
+Proprietary Software
+====================
+
+-  Proprietary software means that only the owners of such software
+   projects have full legal access to the source code involved. However,
+   they may grant inspection rights to trusted partners who have signed
+   non-disclosure agreements (NDAs).
+-  To use proprietary software, end users must accept an end-user
+   license agreement restricting their rights presented during installation.
+-  The end-user licenses generally restrict the user's redistribution
+   rights, indemnify the product from damages due to either malfunction
+   or misuse, and prohibit trying to reconstruct source code or use
+   inside another product.
+-  The difference between OSS (Open Source Software) and proprietary
+   models has nothing to do with price. One can charge for an
+   open-source product, and one can provide a proprietary product for
+   free. The license differences involve redistribution,
+   modification, and reuse of code.
+
+Open Source Software
+====================
+
+Open Source Software (OSS) means that the source code is made available
+with a license that provides rights to examine, modify and redistribute,
+without restriction on the user's identity or purpose.
+
+There is a multiplicity of licensing methods, falling into the two
+general classifications:
+
+-  Permissive (such as BSD-licensed software)
+-  Restrictive (such as GPL-licensed software)
+
+OSS has had two different philosophical strains:
+
+-  idealistic: There is a profound belief that all software should be
+   open for ideological and ethical reasons, not just technological
+   ones.
+-  pragmatic: primary considerations are technical ones, including
+   faster and better development involving more contributors and reviews,
+   easier debugging.
+
+Open Source Governance Models
+-----------------------------
+
+OSS projects differ according to the degrees of centralization, strong
+influence by one or a few organizational entities, and the existence of
+democratically-inspired decision mechanisms and leadership selection.
+
+Company Led (mostly closed source)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+-  Development is strongly led by one corporate or organizational
+   interest
+-  Examples: Google Android, Red Hat Enterprise Linux
+
+Benevolent Dictatorship (strong leadership)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+-  One individual has overriding influence in every decision
+- The project's quality depends on that of the dictator
+-  Example: Linux kernel
+
+Governing Board (tighter control by smaller groups)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+-  A body (group) carries out discussions on open mailing lists
+-  Decisions about design and release dates are made collectively
+-  Examples: FreeBSD, Debian.
+
+Reasons for Using Open-Source Software
+--------------------------------------
+
+Collaborative development
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+-  Collaborative development enables software projects to build
+   better software.
+-  When progress is shared, not everyone has to solve the same
+   problems and make the same mistakes. Thus, progress can be made
+   much faster, and costs can be reduced.
+-  Having more eyeballs viewing code and more group testing leads to
+   more robust and more secure code, as well.
+
+Security and Quality of Source Code
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+-  Code published openly tends to be cleaner because:
+
+   -  It is embarrassing to show ugly, sloppy code
+   -  Coding standards and styles tend to be cleaner and more
+      consistent on community projects
+   -  More people have to understand and work on the code
+
+-  There are more eyeballs examining code and looking for security
+   weaknesses before bad actors discover them
+-  There is more input in the original design to avoid bad ideas
+-  No security through obscurity
+-  No, just trust me
+-  Potentially faster bug repair.
+
+OSS Advantage for different stakeholders
+----------------------------------------
+
+Individual
+^^^^^^^^^^
+
+-  Flexibility
+
+   -  Can mix and match software from different sources.
+   -  Can save money on buying or leasing software.
+   -  Can avoid vendor lock-in, maintaining choice
+   -  Can look under the hood (trust, but verify)
+
+Business
+^^^^^^^^
+
+-  Collaborative Development
+
+   - Lowers cost of development
+   - Speeds time to market
+   - Work is submitted to the wider community for criticism, suggestions and contribution
+   - Uses well-defined API
+
+-  Marketing
+
+   - Customers know what they are getting, have confidence in quality, no secrets
+
+Education
+^^^^^^^^^
+
+-  Elementary High School
+
+   - Teaching resources available at little/no cost
+   - Students do not get locked in vendor products
+
+-  University
+
+   - Students can study and work on OS internals, applications, libraries and system administration utilities
+   - Students are ready to enter the workforce
+
+OSS Projects Examples
+---------------------
+
+-  Git
+-  Linux Kernels
+-  Apache
+-  TeX and LaTeX
+-  GNU: gcc, gdb, glibc, bash, coreutils
+-  X and Desktop Managers (GNOME, KDE, XFCE)
+-  `OpenStack <https://www.openstack.org/>`__,
+   `Kubernetes <https://kubernetes.io/>`__,
+   `ONAP <https://www.onap.org/>`__,
+   `Hyperledger <https://www.hyperledger.org/>`__,
+   `Node.js <https://nodejs.org/en/>`__,
+   `Xen <https://xenproject.org/>`__, `Core Infrastructure
+   Initiative <https://www.coreinfrastructure.org/>`__, `Automotive
+   Grade Linux <https://www.automotivelinux.org/>`__.
+
+Developing OSS Strategy
+-----------------------
+
+Organization developing an open-source product needs a strategy to follow
+open-source standards. Strategy will involve
+
+-  how to bring the open-source culture into the organization
+-  how to properly follow the open-source standards
+-  how to respect the different open-source licenses
+-  how to have a long-range sustainable system.
+
+Strategic Considerations
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+`Open Strategizing: Key Considerations for an Open Source
+Strategy <https://www.whitesourcesoftware.com/resources/blog/key-considerations-for-open-source-strategy/>`__
+summarizes the key considerations in developing a strategy for
+integrating open source into an organizational and business framework.
+It often involves:
+
+-  Establishing an Open Source Office: The open source program office
+   serves as a centre for functions, including:
+
+   -  Choosing the OSS code to be used
+   -  Facilitating the adoption of the code and popularizing its
+      availability and usage
+   -  Keeping track of usage
+   -  Auditing compliance considerations
+   -  Making sure proper information and training is available to all
+      employees, as needed.
+
+-  Formulating an Open Source Policy: Identifying how
+   much of our product already uses open source components and how
+   large an achievable goal can be is essential. Key considerations involve:
+
+   -  How much of the product is desired to be OSS? Are there current
+      closed-source components which could be replaced by open source
+      ones, perhaps both improving the product and its forward
+      maintenance?
+   -  Which license(s) fit our needs well, and which licenses
+      can be used in various OSS components we integrate, such as
+      libraries, APIs, etc.? Are we best off with permissive licenses
+      (like BSD or Apache) or more restrictive ones (like GPL)? Can we
+      mix them in one or more released products?
+   -  Do we have a strong enough understanding (and legal help) to set
+      up procedures for using both proprietary and open-source code in a
+      the way which protects both types?
+   -  How will we review the code to make sure things are being done
+      properly, and that inappropriately licensed material does not find its
+      way into our code, both the open and closed parts? Will we use
+      automated license compliance tools, such as
+      `FOSSology <https://www.fossology.org/>`__,
+      `SPDX <https://spdx.org/tools>`__, or `FOSS Bar Code
+      Tracker <http://git.linuxfoundation.org/foss-barcode.git/>`__.
+   -  A good starting point would be to check the `Linux Foundation's
+      Open Compliance
+      Program <https://compliance.linuxfoundation.org/references/tools/>`__.
+   -  The other important things to consider:
+
+      -  Disclosure requirements require the organization to report to
+         any interested client or user information about all OSS
+         components, including information such as the original upstream
+         source, the version, licensing considerations and dependencies.
+         If our organization is using someone else's upstream, we would
+         require the same information.
+      -  Security considerations also require documenting the different
+         OSS components used in the project. They need to be of high
+         quality and secure.
+
+-  Implementing an Open Source Policy: A policy is worthless without
+   both a structure for ensuring implementation and having a dedicated
+   staff tasked with carrying it out.
+
+   -  Training will need to be developed (or outsourced), targeted to
+      more than one staff element, including Developers, Procurement,
+      Legal, Security.
+   -  Community participation and outreach can also be critical. Who are
+      the designated spokespeople? Who monitors developer participation and
+      contributions?
+   -  Specific procedures must be developed for (often
+      automated) code inspection of any incorporated elements for
+      license compliance, etc.
+   -  Clear assignment of responsibility is required in all areas.
+
+OSS Licensing and Legal Issues
+------------------------------
+
+In particular, what kind of license is adopted will have substantial effects
+on:
+
+-  How the project is developed
+-  How the project is deployed.
+
+There are two broad classes of licenses:
+
+-  Restrictive: Demand the software remains open and place strong
+   limitations on any attempt to make proprietary closed products.
+   Changes to the code must be made available to future recipients. A
+   prominent example is the GPL (General Public License), a copyleft
+   license.
+-  Permissive: Do not require modifications and enhancements to be
+   generally available. Prominent examples include the BSD (Berkeley
+   Software Distribution) and Apache licenses.
+
+For a list of available licenses and their attributes, see `Comparison
+of Free and Open-source Software
+Licenses <https://en.wikipedia.org/wiki/Comparison_of_free_and_open-source_software_licenses>`__.
+
+Software Patents
+^^^^^^^^^^^^^^^^
+
+A software patent gives exclusionary rights to material such as a
+computer program, library, interfaces or even techniques and algorithms.
+
+The `Open Invention Network
+(OIN) <https://www.openinventionnetwork.com/>`__ was created as a global
+patent pool; companies and other entities which join the OIN enter in a
+mutual non-aggression agreement within the OSS-based ecosystem. OIN
+members agree in return for not suing each other over patent issues,
+they gain access to each other's patent portfolios free of charge.
+
+Choosing a license
+^^^^^^^^^^^^^^^^^^
+
+Choosing the best license is a crucial decision and requires
+careful consideration.
+
+`OSS Watch <http://oss-watch.ac.uk/apps/licdiff/>`__ (advisory service
+for issues related to free and open source software) can help
+pick an appropriate license by interactively asking a series of
+questions. Briefly, these questions involve:
+
+-  Should the search include only very popular and widely used licenses?
+-  Should the licenses be restrictive or permissive? Depending on
+   the choice, there are more detailed questions.
+-  Jurisdiction? It might be insignificant.
+-  Patent policy on patents (if relevant)?
+-  Patent retaliation clauses?
+-  Giving credit to original authors? And, if so, in what form should
+   such attribution appear?
+-  Must source be given out even if the application is used only on a
+   server?
+-  Can authors' names be used to promote a product or service?
+
+Based on answers to these eight (or more) questions, the above website
+will rank available licenses according to how they correlate with
+answers.
+
+Several resources can be used to help choose the most
+appropriate license for the project:
+
+-  `Open Source Licenses by
+   Category <https://opensource.org/licenses/category>`__
+-  `Choose an Open Source License <https://choosealicense.com/>`__ walks
+   through the properties that must be considered, helping decide what
+   the license makes sense.
+-  `Browse Software Licenses and
+   Summaries <https://tldrlegal.com/browse>`__ tags software
+   licenses with key properties to help navigate easier and better
+   understand the existing licenses.
+-  `Various Licenses and Comments About
+   Them <https://www.gnu.org/licenses/license-list.en.html>`__ provides
+   a description of copyleft licenses and comments about them.
+
+TODO (talk openly, develop openly) Group
+----------------------------------------
+
+`TODO <https://todogroup.org/>`__ is an open group of organizations who
+want to collaborate on practices, tools, and other ways to run
+successful and effective open-source projects and programs.
+
+The TODO Group focuses on:
+
+-  Sharing best practices for running large open-source programs.
+-  Codifying goals for successfully managed projects.
+-  Spreading knowledge about helpful tooling and instrumentation.
+-  Listing and describing member projects that are successful examples.
+
+Every organization has its own unique set of needs, challenges and
+practices. Sharing allows for faster and better establishment of
+enabling open-source strategies.
+
+The TODO Group and the Linux Foundation have made available a series of
+`TODO guides <https://todogroup.org/guides/>`__ that publicize best
+practices gained from the experience of companies that use and develop
+OSS. Current guides include
+
+-  To build a successful open-source program
+
+   -  `How to Create an Open Source
+      Program <https://todogroup.org/guides/create-program/>`__
+   -  `Measuring Your Open Source
+      Program <https://todogroup.org/guides/measuring/>`__
+   -  `Tools for Managing Your Open Source
+      Program <https://todogroup.org/guides/management-tools/>`__
+   -  `Managing Career Development within
+      OSPOs <https://todogroup.org/guides/career-development/>`__
+
+-  For open source program management best practices:
+
+   -  `Using Open Source
+      Code <https://todogroup.org/guides/using-open-source/>`__
+   -  `Participating in Open Source
+      Communities <https://todogroup.org/guides/participating/>`__
+   -  `Recruiting Open Source
+      Developers <https://todogroup.org/guides/recruiting-developers/>`__
+   -  `Starting an Open Source
+      Project <https://todogroup.org/guides/starting/>`__
+   -  `Open Source Reading
+      List <https://todogroup.org/guides/open-source-reading-list/>`__
+   -  `Improve Your Open Source Development
+      Impact <https://todogroup.org/guides/impact/>`__
+   -  `Shutting Down an Open Source
+      Project <https://todogroup.org/guides/shutting-down/>`__
+   -  `Building Leadership in an Open Source
+      Community <https://todogroup.org/guides/building-leadership/>`__
+   -  `Setting an Open Source
+      Strategy <https://todogroup.org/guides/strategy/>`__
+   -  `Marketing Open Source
+      Projects <https://todogroup.org/guides/marketing-open-source-projects/>`__
+   -  `Building an Inclusive Open Source
+      Community <https://todogroup.org/guides/diversity-inclusion/>`__
+   -  `Organizing and Managing Open Source
+      Events <https://todogroup.org/guides/organizing-and-managing-open-source-events/>`__
+   -  `Creating OS Commercial
+      Ecosystems <https://todogroup.org/guides/os-commercial-ecosystem/>`__
+
+-  `Open Source Program Office (OSPO)
+   101 <https://github.com/todogroup/ospo101>`__
+
+The TODO Group has also published a `series of case
+studies <https://todogroup.org/guides/casestudies/>`__ by a diverse
+group of companies that describe how they adopted and managed open
+source into their corporate DNA.
+
+OpenChain
+---------
+
+Now, suppose the project is following open-source standards. In that case, there must be a
+way to prove that they are following the open-source standards correctly
+so that the public can trust them. Here OpenChain comes into the
+picture.
+
+`OpenChain ISO 5230 <https://www.openchainproject.org/>`__ is the
+International Standard for open source license compliance. It is simple,
+effective and suitable for companies of all sizes in all markets. This
+standard is openly developed by a vibrant user community and is freely
+available to all. It is supported by free online self-certification,
+extensive reference material and official service provider partners.
+
+`Six main categories required for a compliance
+program <https://www.openchainproject.org/resources/faq>`__:
+
+-  Know Your Free and Open Source (FOSS) Responsibilities [i.e., "Policy
+   and Training"]
+-  Assign Responsibility for Achieving Compliance
+-  Deliver FOSS Content Documentation and Artifacts
+-  Review and approve FOSS content
+-  Understand FOSS Community Engagement
+-  Certify Adherence to OpenChain Requirements
+
+OpenChain Conformance can be established online through a
+`self-certification
+process <https://www.openchainproject.org/get-started/conformance>`__
+and is as simple as answering a series of questions. A step by step
+`OpenChain
+Self-Certification <https://www.youtube.com/watch?v=EAUAr9S8Ipk&feature=youtu.be>`__
+video showing the process can also be referred.
+
+`Detailed
+documentation <https://www.openchainproject.org/get-started/conformance>`__
+can be referred to understand how to achieve conformance, including
+guides for best practices for compliance, engineering and reuse, as well
+as checklists for compliance and conformance. There are also tooling
+overviews guidance for establishing proper workflows.
+
+Organizations that complete the certification can use the OpenChain
+logo.
+
+Working in OSS Projects
+-----------------------
+
+Before contributing to any OSS project, it is recommended to investigate,
+understand its workflow and style, and identify the scope and nature of
+work. Below are steps can help:
+
+-  Identify how the project communicates; start by reading the mailing
+   list for the project. Also, study any existing archives. If there is
+   an Internet Relay Chat (IRC) network, join it.
+-  Understand how contributions are submitted. Is it through mailing
+   lists? Email? A revision control system, such as git or subversion? A
+   good way to lessen our standing on the project is to be sloppy or
+   ignorant of proper procedures, including even trivial-sounding
+   matters like using an email client that does not mess up white space.
+-  Study previous history. Has the idea been considered before and
+   rejected? Or, if generally seen as worthwhile, is there already an
+   individual or group working on the idea? If so, we should join them
+   in many cases, not start over.
+-  Does the project offer veteran contributors as mentors?
+
+Other suggestions:
+
+-  Rather than beginning by submitting code, offering services for testing, finding bugs, and similar work is often far better. Many
+   open source projects complain that this is their weakest link.
+-  Make sure we are competent at whatever programming or scripting
+   the language the project uses; developers will be impatient in correcting
+   code on that level.
+-  Find the right balance between asking for suggestions and review
+   early in the process, instead of waiting too long and dumping a lot
+   of poorly conceived work on people at once. No one enjoys
+   contributors who pontificate all the time without contributing code,
+   and no one likes massive patch sets that cannot be absorbed quickly.
+-  Finally, please be polite and respectful, and avoid obscenities, flaming and
+   trolling. While some communities tolerate it, it should not be
+   encouraged, as it affects the quality of work and is just wrong.
+
+Contributing to OSS Projects
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When contributing to OSS projects, we must keep in mind various things,
+to ensure that we abide by the project's and its community's rules.
+
+-  Study and Understand the Project DNA
+
+   -  Unless we start a new project, there will already be a
+      community-established ethos and formal or informal leadership
+      structure.
+   -  Why does this project exist, and why was it started?
+   -  Has it diverged far from its original purpose?
+   -  Is the contributing community large or small? Continuously active,
+      or only sporadically so?
+   -  Does it have a collective or singular governance structure?
+   -  What kind of license does it adopt, and is there a contributor
+      license agreement (CLA) we must agree to?
+
+-  Figure Out What Itch We Want to Scratch
+
+   -  Most contributors get involved in open source projects because:
+
+      -  There is a bug/problem that interferes with their use of the
+         project
+      -  They want to add additional functionality to the project.
+
+   -  Sometimes, we are just interested in something cool and want to
+      learn about it.
+   -  Some projects have a "janitorial" list of things to do, relatively
+      straightforward tasks that can help get our feet wet.
+
+-  Identify Maintainers and Their Work Flows and Methods
+
+   -  There will always be maintainers whose job is to review
+      code submissions carefully. Having a good relationship with relevant
+      maintainers is crucial.
+   -  There may be one maintainer for the whole project (perhaps the
+      benevolent dictator). Still, for projects with many pieces and large
+      communities, there will be subsystem maintainers as well. A good
+      example is the Linux kernel community.
+   -  The job of a maintainer is difficult. They have to:
+
+      -  Understand and review all submissions.
+      -  Make sure they add something other than complication and do not
+         introduce bugs.
+      -  Make sure they do not conflict with other patches.
+      -  Do all this in a timely fashion; it is very frustrating for
+         contributors if maintainers appear to need to be working on a review.
+      -  Do everything respectfully.
+
+   -  Be respectful and be patient. It will not be appreciated if we treat a maintainer as 
+      someone who works for us or a demanding boss.
+   -  Offer to review other contributors' submissions and be helpful.
+   -  Offer to debug new features and bug fixes; this is often one of
+      the most neglected areas in OSS development.
+
+-  Get Early Input and Work in the Open
+
+   -  As a new member of the community, we probably need to learn the
+      history. Our bright new idea might be an old one. If so,
+      perhaps the idea has been discussed and rejected. Or, perhaps
+      there was work on it, and it petered out for various reasons.
+      This does not mean the idea is a bad one; maybe it could not have
+      been done in the past, but is feasible now, as software and
+      hardware has evolved.
+   -  Propose the ideas to the community before we go very far with
+      them; take advantage of institutional memory. Get suggestions and
+      input.
+   -  Never introduce an idea and suggest someone else do it; this
+      is often a sure road to oblivion ("Show me the code!").
+   - Say we ask for opinions before we go too far to see if people think it is worthwhile and feasible.
+   -  In doing this, we will get more eyeballs from the beginning, which can only help. If we are uncomfortable having other people
+      look at work often, OSS is not for you!
+
+-  Contribute Incremental Bits, Not Large Code Dumps
+
+   -  Code contributions are best digested in small unit-sized bites.
+      Overloading maintainers and mailing lists with large code dumps is
+      a good way to make sure code is not reviewed.
+   -  Besides just being a lot for reviewers to consume, it becomes
+      difficult to process the individual parts; perhaps most of the
+      changes are good, but some require modification. It is hard to
+      back out if it is in one large patch.
+   -  So, breaking up work into sequential patches is
+      often the best way. For example, we may have a separate
+      patch for each file modified.
+   -  It is possible functionality will only work once all patches
+      are included. That's fine. Wings and feet were not fully
+      functional as they began to evolve.
+
+-  Leave Your Ego at the Door: Do Not Be Thin-Skinned
+
+   -  Like any Internet-based community, OSS projects tend to attract
+      some rather interesting characters. Unfortunately, some of them
+      can be pretty irritating, even offensive.
+   -  Leave the ego at the door. Take a deep breath if someone is nasty and does not answer kindly.
+   -  Respect other opinions. The approach may not be the best one.
+      Learn when to yield if we want to get code upstream. When making
+      criticisms or engaging in any discussion thread, be polite and
+      respectful.
+   -  If someone is going over the line, rely on community members with
+      a long history to try and calm things down and resolve issues. Do
+      not feed the trolls.
+   -  Occasionally, contributors may be purged from a project. This is
+      a pretty rare occurrence. The main reason is maintainer
+      inactivity or being unpleasant.
+   -  While in a good project, every effort is made to keep things
+      energetic but mellow, there can be problems with behaviour
+      involving discrimination and offensive conduct to
+      Race, Sex, Sexual preference, Religion, National origin.
+   -  In addition, expressing (strongly) political or religious
+      sentiments and opinions are generally out of place. People from
+      rather far sides of the spectrum often work together successfully.
+
+-  Be Patient, Develop Long-Term Relationships, and Be Helpful
+
+   -  Most projects do not appreciate drive-by contributors: those who
+      provide some enhancement or fix but disappear.
+   -  Besides the initial contribution, there often needs to be a
+      commitment to long-term maintenance. Otherwise, bit rot will ensue
+      for all but trivial contributions.
+   -  For this reason, one sometimes sees good code rejected unless
+      someone steps forward and volunteers long-term maintenance. Thus,
+      think about the future when making submissions.
+   -  One good way to develop (good) long-term relationships in the
+      community is to offer to help in areas not directly related to
+      our main interests.
+   -  It is helpful to be viewed as a good citizen. This is particularly
+      true if we are contributing as part of a commercial organization;
+      community members will see us as a real community member, not just someone exploiting it.
+
+Open Source Licensing Basics for software developers
+====================================================
+
+Understanding how copyright and licenses work and being able to clearly
+and accurately specifying them, is critical to ensuring that contributions
+are acceptable for open-source projects to use, and that licensing
+statements reflect intentions correctly.
+
+What Are Licenses?
+------------------
+
+-  Licenses give those who want to use our code permission in advance.
+   The actual permissions granted are spelt out in the selection of a
+   license that the copyright holder chooses.
+-  A license lets people know how code can be used and how it can be
+   combined with other software. The purpose of stating a license is to
+   give people who want to use our work permission in advance.
+-  Many software and hardware developers will encounter open-source
+   materials on the job or in personal projects. Open-source materials
+   include software, hardware designs, tools, documents,
+   audio recordings, and image files. Although open-source materials are
+   usually freely available, they are typically provided under a stated
+   license. The license chosen is what permits project material to be
+   considered "open source", and the copyright holder for the
+   material is the decider of the license.
+
+Definition
+----------
+
+A software license is a legal instrument . . . governing the use or
+redistribution of software.
+
+-  Software refers to a document that represents a program or firmware
+   written by an author. The software's author can be one or many
+   people and possibly working on behalf of a company.
+-  Legal instrument is a legal term that is used for any formally
+   executed written document (such as a software program) that can be
+   attributed officially to its author, that records and formally
+   expresses a legally enforceable act, process, or contractual duty,
+   obligation, or right, and therefore evidence that act, process, or
+   agreement.
+-  Governing the use describes how a person or company can use this
+   software program. What is permitted and what is not? Can they
+   publicly post it, use it inside their company or for personal use at
+   home?
+-  Redistribution describes how it can be shared. Can the person using
+   it gives a copy to a friend, modify or create derivative works, post
+   online, etc.?
+
+License Types
+-------------
+
+-  Proprietary licenses are licenses where the copyright holder keeps
+   many or most of the rights to themselves and often adds additional
+   restrictions on what users can do with the software. Proprietary
+   licenses are specific to a company or a project.
+-  Open source licenses are generally understood to follow
+   the definition of open source developed by the Open Source Initiative
+   organization. They allow the software to be freely used, modified and
+   shared. Open-source licenses are generally grouped as follows:
+
+   -  Permissive or Copyleft: The license might impose few or no
+      requirements on the licensee, permitting use and redistribution in
+      proprietary applications. Or it might require redistributors to
+      provide downstream recipients the same freedoms they received
+      for the upstream software or for their works derived from it
+      or added to it.
+   -  Patent Grant or No Patent Grant: A patent grant can either be
+      explicitly specified or implied by the text (called implicit).
+      Or, there can be no patent grant associated with some licenses,
+      which some may consider not to be open-source licenses as a
+      result.
+
+To learn more about open source licenses, review the Open Source
+Initiative's website - "`Licenses &
+Standards <https://opensource.org/licenses>`__”.
+
+For code to be considered open source, the license the code is released
+under should comply with the properties listed in the `Open Source
+Definition <https://opensource.org/osd-annotated>`__ maintained by the
+`Open Source Initiative (OSI) <https://opensource.org/>`__.
+
+-  Free Redistribution: The license shall not restrict any party from
+   selling or giving away the software as a component of an aggregate
+   software distribution containing programs from several different
+   sources. The license shall not require a royalty or other fee for
+   such sale.
+-  Source Code: The program must include source code and must allow
+   distribution in source code as well as compiled form.
+-  Derived Works: The license must allow modifications and derived
+   works and must allow them to be distributed under the same terms as
+   the license of the original software.
+-  Integrity of the Author's Source Code: The license may restrict
+   source code from being distributed in modified form only if the
+   license allows the distribution of "patch files" with the source code
+   for the purpose of modifying the program at build time. The license
+   must explicitly permit the distribution of software built from modified
+   source code. The license may require derived works to carry a
+   different name or version number from the original software.
+-  No Discrimination Against Persons or Groups: The license must not
+   discriminate against any person or group of persons.
+-  No Discrimination Against Fields of Endeavor: The license must not
+   restrict anyone from using the program in a specific field of
+   endeavour. For example, it may not restrict the program from being
+   used in a business or for genetic research.
+-  Distribution of License: The rights attached to the program must
+   apply to all to whom the program is redistributed without the need
+   for the execution of an additional license by those parties.
+-  License Must Not Be Specific to a Product: The rights attached to the
+   the program must not depend on the program's being part of a particular
+   software distribution. If the program is extracted from that
+   distribution and used or distributed within the terms of the
+   program's license, all parties to whom the program is redistributed
+   should have the same rights as those that are granted in conjunction
+   with the original software distribution.
+-  License Must Not Restrict Other Software: The license must not place
+   restrictions on other software that is distributed along with the
+   licensed software. For example, the license must not insist that all
+   other programs distributed on the same medium must be open-source
+   software.
+-  License Must Be Technology-Neutral: No provision of the license may
+   be predicated on any individual technology or style of interface.
+
+Whether a license complies with the definition and therefore is listed
+on OSI's `approved open-source license
+list <https://opensource.org/licenses/category>`__, is determined by OSI
+through their `license review
+process <https://opensource.org/approval>`__.
+
+Permissive or Copyleft License
+------------------------------
+
+-  Permissive licenses are those with minimal requirements on what you
+   must do when redistributing the software. Those requirements are
+   typically limited to things like retaining or delivering attribution
+   notices. Because requirements are minimal, it is often easier for
+   permissively-licensed software to be combined with copyleft and/or
+   proprietary software, but there are compatibility issues in some
+   cases.
+-  Common examples of permissive licenses are: MIT, BSD-2-Clause and
+   BSD-3-Clause, Apache-2.0
+-  Copyleft licenses are sometimes called protective or reciprocal
+   licenses. The term copyleft originated from the GNU licenses but has
+   been expanded over time to cover other licenses. Copyleft licenses
+   have requirements for how the software can be redistributed and requirements that may impact how derivative works can be
+   distributed.
+-  These licenses tend to get grouped into strong and weak copyleft
+   licenses.
+
+   -  `Wikipedia <https://en.wikipedia.org/wiki/Copyleft>`__ defines
+      "weak copyleft" as
+
+      - "Weak copyleft" refers to licenses where not all derived works inherit the copyleft license; whether a derived work inherits or not often depends on how it was derived. 
+      - "Weak copyleft" licenses are generally used for the creation of software libraries to allow other software to link to the library, and then be redistributed without the legal requirement for the work to be distributed under the library's copyleft license.
+      -  Examples of "weak copyleft" licenses are:
+
+         -  Lesser GNU Public License (written as LGPL-2.0, LGPL-2.1 or
+            LGPL-3.0)
+         -  Mozilla Public Licenses (written as MPL-1.0, MPL-1.1 or
+            MPL-2.0)
+         -  Eclipse Public License (written as EPL-1.0 or EPL-2.0)
+         -  Common Development and Distribution License (written as
+            CDDL-1.0 or CDDL-1.1)
+
+   - "Strong copyleft" refers to the class of licenses which specify the practice of offering people the right to distribute freely copies and modified versions of a work, with the stipulation that the same rights be preserved in derivative works down the line.
+   -  The best-known examples of "strong copyleft" licenses are:
+
+      -  GNU General Public Licenses (GPL-2.0 and GPL-3.0)
+      -  Affero General Public License (AGPL-3.0)
+
+   -  These licenses follow the free software definition, which gives
+      each person possessing a copy of the work the same freedoms as the
+      author, namely: the freedom to use the work, the freedom to study
+      the work, the freedom to copy and share the work with others, the
+      freedom to modify the work, and the freedom to distribute modified
+      and therefore derivative works. Those derivative works, including
+      forks, would need to retain the same license as the original code
+      if we are not the copyright holder of the original code.
+
+We are using the `SPDX license
+identifiers <https://spdx.org/licenses/>`__ for the licenses listed
+above.
+
+Patent
+------
+
+-  According to Wikipedia, the term patent usually refers to the right
+   granted to anyone who invents any new, useful, and non-obvious
+   process, machine, article of manufacture, or composition of matter.
+   Patents provide the right to exclude others from making, using,
+   selling, offering for sale, or importing the patented invention for
+   the term of the patent.
+-  By explicitly granting patent rights as part of a license, the
+   license makes clear that others are not excluded from using any of
+   the contributor's inventions practiced by the code they contribute.
+   Some licenses are considered to have an implicit patent grant, even
+   though no grant is made explicitly in the text.
+-  Software can implement patented inventions. For example, certain
+   software inventions have been patented, and, if we want to use them,
+   we may owe the company that patented them a fee to do so.
+-  When contributing to or creating a new project, it is very important
+   to clarify the things that someone using the code is required to do
+   (must), what they are permitted to do (can), and what they are
+   forbidden to do (cannot)
+
+Properties to Consider
+----------------------
+
+When choosing a license, it is important to be clear on goals for
+releasing the code. Who (what types of people/organizations) do we want
+to adopt it? Do we want to see any changes people make to the code
+when they redistribute it? Do we want other people to be able to sell
+the code for a profit?
+
+You should also consider the following common properties:
+
+-  Publish license, copyright notices, change summaries?
+-  Disclose source?
+-  Distribution of modified work?
+-  Sublicensing?
+-  Private or commercial use?
+-  Patent grant?
+-  Able to use trademarks?
+-  Can code be warranted?
+-  Able to hold liable for damages?
+-  Scope of license: work as a whole or only a specific file?
+
+Help Available
+--------------
+
+The list on the page contains some common questions we should
+understand the answer before making the code public, and choose a
+the license that reflects our answers.
+
+-  Source Code
+
+   -  `Open Source Licenses by
+      Category <https://opensource.org/licenses/category>`__ from the
+      Open Source Initiative lists the approved open source licenses.
+   -  `Choose an Open Source License <https://choosealicense.com/>`__
+      walks us through the properties we must consider, helping us
+      decide what license makes sense.
+   - "too long, didn't read" - denoted TL;DR. `tl;drLegal <https://tldrlegal.com/licenses/browse>`__ is trying to clarify the legal text into standard properties. The website creators work with volunteer lawyers to classify and color code the properties associated with specific licenses to help us navigate easier and better understand the existing licenses.
+
+      -  Blue - Rules we must follow.
+      -  Green - Rules we can follow.
+      -  Red - Things we cannot do.
+
+   -  This is a very useful tool for understanding the terms of some of
+      the common licenses. For example, for Mozilla Public License
+      version 1.0, we cannot hold the contributors liable, but if we
+      use it, we must include copyright, license, state any changes,
+      and disclose the source.
+   -  `Various Licenses and Comments About
+      Them <https://www.gnu.org/licenses/license-list.en.html>`__ from
+      the Free Software Foundation's Licensing and Compliance Lab
+      provides a description of many licenses and comments about them.
+
+-  Other Creative Work
+
+   -  `Creative Commons
+      Licenses <https://creativecommons.org/choose/>`__ help us
+      understand license options for images and documentation.
+
+Additional Resources
+^^^^^^^^^^^^^^^^^^^^
+
+-  `Open Source License Compliance
+   Handbook <https://github.com/finos-osr/OSLC-handbook>`__ provides
+   "self-serve" information to help users and redistributors of open
+   source software understand the specific requirements for complying
+   with various licenses.
+-  The `SPDX License List <https://spdx.org/licenses/>`__ provides a
+   curated catalog of commonly-seen licenses used in
+   publicly-distributed software.
+-  `REUSE Software guidelines <https://reuse.software/>`__ provide
+   detailed examples on how to add identifiers, and the full text of
+   licenses into projects, as well as scripts to check for compliance
+   with the guidelines.
+
+What Does a Reference to a License Look Like in a File?
+-------------------------------------------------------
+
+Full license text is frequently long and complex, and not always
+suitable to put in each file in a project.
+
+It is a common practice to put a LICENSE file at the top level of the
+project and include the full text of the license(s) that may be in
+effect for the project as a whole. For the other files in a project, by
+referring to the actual license within each file — even if that
+reference doesn't include the full license text — ambiguity is removed
+as to which license governs that file, particularly when there are
+multiple licenses being used by a project.
+
+For example, a project may decide to include code from a different
+project to add new functionality, and the included project is under a
+different license.
+
+What should a license reference actually look like in a file? You may
+want to include the following items as a comment in the file with the
+code:
+
+-  A standard header for the license (if it exists).
+-  An unambiguous reference to the license intended.
+
+Copyright
+=========
+
+-  Copyright is established by national laws, and gives the copyright
+   holder some exclusive rights to control a creative work's use and
+   distribution. Copyright holders have exclusive rights to their
+   creative expression. Copyright is used to protect tangible forms of
+   expression, which are sometimes referred to as original works of
+   authorship.
+-  Normally, we think of copyrights protecting things like books,
+   movies, music, maps, and art. Copyright can also be used to protect
+   the expression of hardware designs and software, as well as other
+   creative works.
+
+What Is a Copyright?
+--------------------
+
+Copyright holders are those able to define the license under which an
+original work can be used. The license is also known as the "terms of
+use".
+
+Wikipedia's defines "Copyright is a legal right created by the law of a
+country that grants the creator of an original work exclusive rights for
+its use and distribution."
+
+It is important to note that countries have their own copyright laws. To
+a certain extent, international treaties like the `Berne
+Convention <https://en.wikipedia.org/wiki/Berne_Convention>`__ and the
+`Universal Copyright
+Convention <https://en.wikipedia.org/wiki/Universal_Copyright_Convention>`__
+have standardized the treatment, but local variations in law do exist.
+
+Original "work" can refer to creative, intellectual or artistic output.
+Software source code written by a person is considered an original work.
+Copyright does not cover the ideas or information, but rather how they
+are expressed (or written down). Ideas and algorithms can be covered by
+patent law instead. The work must be considered as original, rather than
+copied from somewhere else to be covered.
+
+Copyrights were originally created to preserve the rights of authors,
+when printing presses started to produce books in quantity. Over time,
+as each country evolved its own copyright law, at the international
+level it became harder and harder to figure out what rights applied to
+work created in one country but copied and reproduced in another.
+
+In 1886, an international agreement was created in Berne, Switzerland,
+governing copyright. The Berne Convention for the Protection of Literary
+and Artistic Works requires those countries that have signed the
+convention to treat the copyright of works of authors from other
+signatory countries (known as members of the Berne Union) at least as
+well as those of its own nationals. This was also the first attempt to
+provide a minimum standard for copyright law. In particular, under the
+Berne Convention, copyright is automatic and need not be obtained
+through official registration with any government office. Up until this
+time, in some countries, registration with the government was required
+to be considered to hold copyright
+
+Who Is a Copyright Holder?
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The author of the work is generally considered to be the copyright
+holder. In situations where there are multiple authors, each has a set
+of rights to use or license the work, and they are commonly referred to
+as rights holders.
+
+Often, when the work was created in the course of the author's
+employment, it is considered as a "work for hire" and the employer is
+the copyright holder. For example, the "Copyright, Designs, and Patents
+Act of 1988" (which is a United Kingdom law), provides that if a
+copyrighted work is made by an employee in the course of that
+employment, the copyright is automatically owned by the employer. This
+can be different in some jurisdictions, particularly in Europe, as an
+example.
+
+The rights of the copyright holder can also be assigned to another
+organization or individual.
+
+Copyright notices in open source software projects tend to follow one of
+two different categories of formats.
+
+-  Historical Format:
+
+   -  Traditionally, copyright notices in open source software projects
+      have tended to follow a model similar to the following: Copyright
+      (C) 2001, 2004-2006 Company ABC.
+   -  Historical format typically includes one or more of the following,
+      in varying combinations:
+
+      -  the word "Copyright"
+      -  the symbol “(C)” or ©
+      -  a year or series / range of years
+      -  the name of the individual or legal entity who is the copyright
+         holder
+
+   -  Example:
+
+      -  Copyright 1998, Linus Torvalds
+      -  © 2003, 2010, Free Software Foundation, Inc.
+      -  Copyright (C) 2011, 2014-2019 Company ABC.
+
+-  Newer Format:
+
+   -  In newer open source projects which have (or expect to have) many
+      different contributors, and where the contributors retain
+      ownership of their contributions, some projects express copyright
+      notices using a form similar to the following:
+
+      -  Copyright Contributors to the \__________\_ Project.
+      -  Copyright The \__________\_ Contributors.
+
+   -  Newer format is intended to be a simple statement that the work is
+      copyrighted; that the contributors of the code licensed it, but
+      retain ownership of their copyrights; and that it was licensed for
+      distribution as part of the specified project.
+   -  Examples:
+
+      -  Copyright The Kubernetes Authors.
+      -  Copyright Contributors to the OpenVDB Project.
+      -  Copyright the Hyperledger Fabric contributors.
+
+REUSE Software Guidelines for Copyright Notices
+-----------------------------------------------
+
+`REUSE Software Guidelines <https://reuse.software/spec/>`__ and their
+recommendations for how to express license notices using SPDX short-form
+identifiers. REUSE also provides recommendations for how to express
+copyright notices in a file. Their recommendations generally follow the
+historical model, in that they require the inclusion of the names of the
+copyright holders, and encourage the inclusion of year of publication.
+
+In particular, REUSE also encourages the use of SPDX file tags for
+copyright notices. SPDX file tags were added in version 2.2 of the SPDX
+specification, and they provide a format for per-file information in a
+single, easily searchable line, similar to SPDX short-form license
+identifiers. REUSE recommends using these to express copyright notices
+in files with the SPDX-FileCopyrightText: tag, as in the following
+examples:
+
+-  SPDX-FileCopyrightText: 2019 Jane Doe or
+-  SPDX-FileCopyrightText: © 2019 John Doe
+
+File Notice
+-----------
+
+-  A file notice is the information included in a software source file,
+   indicating the copyright notice and the license. Together the
+   copyright notice and the license reference form a file notice.
+-  Valid file notices have the following characteristics: they define in
+   a clear manner the license that the file is governed by, and may
+   include information or references to copyright holders. A file notice
+   may also provide additional information about authorship, when the
+   author is not the copyright holder.
+-  If a file notice contains this information using an unambiguous
+   license reference, then this key information can be machine
+   detectable.
+-  Enabling licensing information to be machine detectable greatly
+   improves the handling of compliance information. It also makes it
+   easier for those using open source software to understand the terms
+   of using it, and to know who to ask questions of when something is
+   ambiguous.
+-  By convention, file notices are usually placed at the start of the
+   file.
+
+Contributing to Projects
+------------------------
+
+-  Before contributing code upstream to an open source project, we need
+   to make sure it is ok for us to do so.
+-  If we do not work for a company or organization, and are making the
+   contributions of code or content as an individual where we own the
+   copyright, it tends to be fairly straightforward. Projects have
+   individual contributor guidelines to follow and these should be read
+   carefully, any necessary paperwork filed or sign-offs prepared, and
+   then patches sent to the project.
+-  If we do work for an organization, we will need to check with management that it is ok to send work you have been doing to the
+   upstream project. The company may need to sign some form of
+   contributor agreement or assign copyrights, or we may need to
+   provide DCO (Developer Certificate of Origin) sign-offs, in order for
+   the contribution to be accepted.
+-  If we are contributing code on behalf of employer — in other
+   words, code that is owned by employer and not by us — then we
+   should make sure employer will permit us to contribute it to
+   the project. Part of this may include employer's acceptance of
+   the applicable contribution mechanism, such as signing a Contributor
+   License Agreement (CLA) or permitting a Developer Certificate of
+   Origin (DCO) sign-off.
+
+Contribution Mechanisms
+^^^^^^^^^^^^^^^^^^^^^^^
+
+-  To preserve a project's goals, and to ensure that downstream users
+   can enjoy the rights granted by the projects license, the project
+   may require some formalities before it can accept changes from us.
+-  Typically there will be some documentation in a CONTRIBUTING file in
+   the project repository, or on the project website and pages,
+   describing what formalities are needed.
+-  Not all projects require these formalities. Many projects on GitHub
+   will accept pull requests without anything required other than a code
+   patch. However, many larger and significant open source projects use
+   formal contribution mechanisms to help protect the project community,
+   users and contributors, and their expectations.
+-  Examples of formal contribution mechanisms include:
+
+   -  Contributor License Agreements (CLAs) e.g. Apache Software
+      Foundation, Google, Kubernetes
+   -  Copyright Assignment e.g. GNU toolchain
+   - Developer's Certificate of Origin (DCO) e.g. Linux kernel, Zephyr
+
+Contributor License Agreements (CLAs)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+-  A Contributor License Agreement (CLA) is an agreement between the
+   project and the owner of the contribution. As its name suggests, the
+   contributor grants a license to the project. The CLA's text describes
+   the scope of the license that is granted.
+-  This means that the owner of the contribution continues to own it.
+   Signing a CLA doesn't mean that they transfer their ownership to the
+   project. Rather, the CLA grants a license, but the owner of the
+   contribution still owns its copyright, and can use and license it to
+   others in other ways.
+-  Every project's CLA might be different, and might grant a different
+   scope of license, have different requirements, etc. The scope of
+   licenses being granted to the project are often not the same as the
+   "outbound" license granted by the project to the rest of the world.
+   Because of this, we and/or legal team will likely want to
+   review closely any CLA before we sign it.
+-  Many projects that use CLAs will have two different forms:
+
+   -  Individual: An Individual CLA (ICLA) is intended for individuals
+      who are contributing code that they own.
+   -  Corporate: A Corporate CLA (CCLA) is intended for companies and
+      organizations, where an employee is contributing code on behalf of
+      their employer.
+
+-  If we are contributing code owned by employer, we should have
+   legal team review the Corporate CLA and, if they approve it,
+   have it signed by someone who is authorized by company to sign
+   contracts like CLAs. Do not bypass company's review,
+   approval and signing of a CCLA by instead signing an Individual CLA
+   yourself, if the code is owned by, and being contributed on behalf
+   of employer.
+
+Copyright Assignment
+^^^^^^^^^^^^^^^^^^^^
+
+-  A Copyright Assignment agreement, like a CLA, is also an agreement
+   between the project and the owner of the contribution. However,
+   unlike CLAs, a Copyright Assignment actually transfers (or "assigns")
+   ownership of the copyright from the contributor to the project. The
+   contributor will no longer own the copyright in the contributed code.
+-  Copyright assignment is typically used by projects that want to own
+   the copyrights for enforcement purposes, and to retain the right to
+   relicense a project at some future date. (CLAs may also enable
+   relicensing of a project, depending on the text of the particular
+   CLA.)
+-  A common example where this is used is by the Free Software
+   Foundation, or FSF, for contributions to the GNU compiler. Here they
+   ask for the copyright to be assigned as one contribution mechanism
+   before they accept changes in, so that the project will own all
+   copyrights in the contributions.
+-  In the DCO, the contributor indicates at the time they submit a
+   contribution — via a sign-off statement in the metadata provided
+   together with the contribution — that they have the right to submit
+   the change under the indicated license, have it be public, and if it
+   is based on a previous work, that too is ok to submit, to the best of
+   the contributor's knowledge.
+
+Developer's Certificate of Origin
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Refer `Developer's Certificate of Origin Version
+1.1 <https://www.developercertificate.org/>`__
+
+The DCO does not involve getting a signed agreement (whether from us or
+employer). Instead, if we are submitting to a project that uses a
+DCO, we will be adding a "signed-off" statement in patch.
+
+-  A signed-off statement follows the following syntax.
+-  A "Signed-off-by:" tag followed by the person's name and email
+   address. This statement can easily be added to commit with a
+   single ``-s`` command-line flag when using the Git tools.
+
+   -  Example: Signed-off-by: Linus Torvalds
+      torvalds@linuxfoundation.org
+
+-  Some tools make it easier to enforce DCO checks, meaning that they
+   help ensure that patches submitted for inclusion are only
+   incorporated into the project code if they were accompanied by a
+   "Signed-off-by:" statement. For example, on GitHub the DCO app
+   enables these checks when a pull request is submitted.
+
+Things to Remember
+------------------
+
+-  Using unambiguous copyright and license notices in the code helps us
+   avoid problems with its adoption:
+
+   -  For new files: Add a copyright statement and indicate the license
+      the file is governed by in a file notice.
+   -  For significant changes in existing files: Update the copyright if
+      appropriate and, if relevant, any other licenses.
+   -  Always secure all the necessary permissions before contributing
+      changes to upstream projects, and understand the mechanisms used
+      for contributions
+
+Compliance Projects
+===================
+
+We will explore
+
+-  FOSSology
+-  Software Package Data Exchange (SPDX)
+-  Community Health Analytics Open Source Software (CHAOSS)
+-  Automated Compliance Tooling
+
+FOSSology
+---------
+
+FOSSology is a system for measuring and documenting open source license
+compliance. It is also a toolkit for running various kinds of scans from
+the command line, as well as using a graphical, generally web-based
+interface. In short, this tool can scan either individual files, or
+entire source archives, and identify licenses, copyrights etc., and
+document the results, and help identify where information is lacking or
+is poorly documented.
+
+Fundamentally, FOSSology is a scanner that can work on individual files
+as well as entire projects, performing operations on every file in the
+source archive. There are several types of scans that can be done, each
+of which has an associated scanner application.
+
+-  Nomos: Nomos searches for licenses using regular expression matching,
+   combining with context identification, i.e. does a certain phrase
+   occur in the vicinity of another certain phrase? Nomos will return
+   strings such as GPL or MIT, but generally not give the specific
+   version of a license. It can also detect an unknown license and
+   report that.
+-  Monk: Monk also does text-based searching and can report back on
+   license variations, such as GPL-2 and GPL-3+, etc. It cannot
+   recognize unknown licenses, as it works off of a stored table in the
+   server. Monk is complementary to Nomos.
+-  Copyrights: Copyrights are investigated by searching for "copyright"
+   and "(C)" in the text. Less ex plicit assignments such as phrases
+   like "written by" are also evaluated. Users can examine the reported
+   results and decide on the correct answers (including no explicit
+   copyright).
+-  Export Control Codes (ECC) are also determined by regular expression
+   searching (this is also called export control and customs codes).
+
+The FOSSology interface is designed to let the user evaluate all the
+results found, and correct or investigate further. If software is well
+designed with respect to explicit statements of copyrights, licenses,
+authorship, export controls, etc., then the tools will have a much
+easier time. Thus, software design that considers these issues from the
+start will breeze through a FOSSology scan.
+
+Software Package Data Exchange (SPDX)
+-------------------------------------
+
+The `Software Package Data Exchange (SPDX) <https://spdx.org/>`__ open
+standard provides a common format for sharing data about software
+copyrights, licenses, security information, etc. This open standard is
+used to communicate software bill of material information. By its very
+nature, this avoids repetition of work and streamlines compliance.
+
+SPDX File
+^^^^^^^^^
+
+A project will include an SPDX file that consists of a series of tags
+and values, separated by a colon and space (there are other possible
+formats but this is the simplest one).
+
+Refer `David Wheeler's excellent SPDX
+Tutorial <https://github.com/david-a-wheeler/spdx-tutorial>`__:
+
+.. code-block:: console
+
+   SPDXVersion: SPDX-2.1
+   DataLicense: CC0-1.0
+   PackageName: FooPackage
+   Originator: David A. Wheeler
+   PackageHomePage: https://github.com/david-a-wheeler/spdx-tutorial/
+   PackageLicenseDeclared: MIT
+
+The `full list of possible
+tags <https://github.com/adie1309/master/blob/master/spdx_onepager.pdf>`__
+can also be referred. The list of possible licenses has "short form",
+such as Apache-2.0, or GPL-2.0-only or GPL-3.0-or-later. These are
+convenient for inclusion in source files, without a rather long list of
+lines describing the license.
+
+Community Health Analytics Open Source Software (CHAOSS)
+--------------------------------------------------------
+
+The `Community Health Analytics Open Source Software
+(CHAOSS) <https://chaoss.community/>`__ project purpose is to develop
+tools and metrics for evaluation of the health of open source projects
+and ecosystems, with a view to increasing sustainability over time. This
+is important for stakeholders making good, informed decisions about how
+to be involved.
+
+The goals are:
+
+-  Establish excellent metrics for measuring community activity,
+   contributions, and health
+-  Produce software tooling or doing the analysis
+-  Build project health reports.
+
+Automated Compliance Tooling
+----------------------------
+
+Automated Compliance Tooling has four constituent projects:
+
+-  FOSSology runs license, copyright and export control scans, etc.
+-  SPDX tools construct and communicate software bills of material.
+-  Quartermaster (QMSTR) is integrated into the product build system
+   itself, rather than be a separate "final" step. Thus, it is
+   DevOps-oriented and it facilitates Continuous Integration and
+   Development methods. QMSTR was contributed by its initiator,
+   Endocode.
+-  TERN inspects package metadata in container images, and elucidates
+   the bill of materials. With the growing adoption of containerized
+   deployments, demystifying their contents and examining their
+   compliance become of increased importance.
+
+The word "automated" in the ACT name is important. Having a smooth
+workflow with compliance evaluation built into the work flow end-to-end
+can only lead to speedier and more confident development and deployment,
+and integration with CI/CD methods.
+
+Introduction to Leadership vs Control and Why Projects Fail
+===========================================================
+
+How an open source software project is led has important consequences
+for its growth, longevity and capability. Good leadership empowers
+contributors to do their best work. It also leads to a more efficient
+and rapid development process. Building trust is important, as is making
+sure experienced project members can mentor less experienced ones and
+train subsystem maintainers.
+
+Leading vs Controlling a Project
+--------------------------------
+
+-  Loosen the Chains: A good leader listens. Good ideas can originate
+   from many different contributors, even recent entrants into a
+   project.
+-  Mentoring: Proper mentoring empowers people, leads to a more
+   efficient workflow, and contributes to long term vitality and growth
+   of a project.
+-  Building Trust: Without trust, an open source project cannot function
+
+   -  Contributors must trust that their submissions will be treated
+      with respect and given reasonably prompt consideration.
+   -  Project leaders must trust that subsystem maintainers are
+      qualified and capable of doing their job. And if they are not
+      living up to their responsibilities, they can be tutored on doing
+      a better job or be asked to transition out of the role.
+
+Why Do Many OSS Projects Fail?
+------------------------------
+
+The vast majority of OSS projects do not succeed. The reasons are
+varied, but include:
+
+-  Insufficient interest: Competition from more established projects
+   that duplicate the intended functionality, even if the new project
+   seems to have features the older one does not.
+-  Poor leadership. This can mean a lack of attention and prompt
+   response, as well as antisocial behavior or autocratic rule, etc.
+-  Not enough developers
+-  Insufficient funding. Serious projects often require developers who
+   have employers that see the work as relevant to their mission at
+   best, or at worst, do not disparage contributing as either a time
+   waster or potential intellectual property leak.
+-  Insufficient or uninformed attention to licensing issues that
+   alienate contributors who are wary of either giving their code to
+   others without adequate protections or compensation.
+
+Introduction to Respecting and Encouraging Diversity in OSS
+-----------------------------------------------------------
+
+Diversity in an OSS project can mean many different things:
+
+-  Race and national origin
+-  Sex and gender identity
+-  National and geographical/regional characteristics, including both
+   language and cultural differences
+-  Religious beliefs and political views
+-  Acceptance of different opinions and methods about how the project
+   should take shape and develop in the future.

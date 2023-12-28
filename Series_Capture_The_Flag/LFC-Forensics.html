@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forensics &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Reverse Engineering" href="LFC-ReverseEngineering.html" />
+    <link rel="prev" title="Binary Exploitation" href="LFC-BinaryExploitation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Forensics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#file-formats">File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hex-file-header-and-ascii-equivalent">Hex File Header and ASCII Equivalent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kaitai-struct">Kaitai Struct</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bmp">BMP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#png">PNG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#chunk-layout">Chunk layout</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#summary-of-chunks">Summary of chunks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#metadata">Metadata</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#timestamps">Timestamps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timeline-patterns">Timeline Patterns</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#steganography">Steganography</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#images">Images</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exiftool">exiftool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#strings">strings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stegsolve">stegsolve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cyberchef">CyberChef</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#steghide">steghide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#binwalk-foremost">binwalk/foremost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lsb-stegonagraphy">LSB Stegonagraphy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#lsb-stegonagraphy-in-images">LSB Stegonagraphy in Images</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#msb-steganography">MSB Steganography</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#powershell-steganography">Powershell Steganography</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qrcodes">QRCodes?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#images-type">Images type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#svg">SVG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">PNG</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#sound-files">Sound Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#slow-scan-television-transmissions-sstv">Slow-Scan Television transmissions (SSTV)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spectrum-analysis">Spectrum Analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#amplitude">Amplitude?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#patterns">Patterns</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#network-forensics">Network Forensics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wired-pcap">Wired PCAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dns-tunneling">DNS Tunneling?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#decrypting-traffic">Decrypting traffic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tls">TLS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#wireshark">Wireshark</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ssldump">ssldump</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#network-attack-detection">Network attack Detection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#detection-of-host-discovery-recon">Detection of host discovery (recon)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#detection-of-network-port-scanning">Detection of network port scanning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#detection-of-network-attacks">Detection of network attacks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#detection-of-wireless-network-attacks">Detection of wireless network attacks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#detection-of-reverse-shell-port">Detection of reverse shell port</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#eternalblue">EternalBlue</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#tftp-filter">TFTP Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#wireshark-tips">Wireshark tips</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#finding-information">Finding information</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#bittorrent">Bittorrent</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#wireless-pcap">Wireless PCAP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usb-forensics">USB Forensics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usb-keyboard">USB-Keyboard</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#keyboard-report-format">Keyboard Report Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usb-hid-keyboard-scan-codes">USB HID Keyboard Scan Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#usb-mouse">USB-Mouse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usb-storage-device">USB-Storage-Device</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#browser-forensics">Browser Forensics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#browser-extension">Browser extension</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#file-forensics">File Forensics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#webserver-logs">Webserver logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zip-files">ZIP Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#word-powerpoint-and-others-macro">Word/Powerpoint and others? Macro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pdf-files">PDF Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#redacted-pdf">Redacted PDF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#memory-forensics">Memory Forensics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#volatility">Volatility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#extracting-raw-pictures-from-memory-dumps">Extracting RAW pictures from memory dumps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#disk-forensics">Disk Forensics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initial-recon">Initial recon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mounting-the-disk">Mounting the disk</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#method-1">Method 1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#method-2">Method 2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#raid">RAID</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#challenges">Challenges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#formats">Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#boarding-pass-format">Boarding Pass Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#interesting-blog">Interesting Blog</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#others">Others</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forensics-tools-used">Forensics Tools used</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Forensics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="forensics">
+<h1>Forensics<a class="headerlink" href="#forensics" title="Link to this heading"></a></h1>
+<p>This post (Work in Progress) lists the tips and tricks while doing Forensics challenges during various CTF’s.</p>
+<p>This might be a good reference <a class="reference external" href="http://g33kinfo.com/info/archives/6261">Useful tools for CTF</a></p>
+<section id="file-formats">
+<h2>File Formats<a class="headerlink" href="#file-formats" title="Link to this heading"></a></h2>
+<p>There could be CTF challenges in which the header format is wrong and the file won’t open as expected.</p>
+<section id="hex-file-header-and-ascii-equivalent">
+<h3>Hex File Header and ASCII Equivalent<a class="headerlink" href="#hex-file-header-and-ascii-equivalent" title="Link to this heading"></a></h3>
+<p>File headers are used to identify a file by examining the first 4 or 5 bytes of its hexadecimal content. Taken from <a class="reference external" href="https://sansorg.egnyte.com/dl/ZvGHqvRS3X">Hex file and Regex Cheat Sheet</a>  and <a class="reference external" href="https://www.garykessler.net/library/file_sigs.html">Gary Kessler File Signature Table</a> is a good reference for file signatures.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Filetype       Start             Start ASCII Translation
+
+  ani         52 49 46 46                                 RIFF
+  au          2E 73 6E 64                                 snd
+  bmp         42 4D F8 A9                                 BM
+  bmp         42 4D 62 25                                 BMp%
+  bmp         42 4D 76 03                                 BMv
+  cab         4D 53 43 46                                 MSCF
+  dll         4D 5A 90 00                                 MZ
+  Excel       D0 CF 11 E0
+  exe         4D 5A 50 00                                 MZP (inno)
+  exe         4D 5A 90 00                                 MZ
+  flv         46 4C 56 01                                 FLV
+  gif         47 49 46 38 39 61                           GIF89a
+  gif         47 49 46 38 37 61                           GIF87a
+  gz          1F 8B 08 08
+  ico         00 00 01 00
+  jpeg        FF D8 FF E1
+  jpeg        FF D8 FF E0                                 JFIF
+  jpeg        FF D8 FF FE                                 JFIF
+  Linux bin   7F 45 4C 46                                  ELF
+  png         89 50 4E 47                                  PNG
+  msi         D0 CF 11 E0
+  mp3         49 44 33 2E                                  ID3
+  mp3         49 44 33 03                                  ID3
+  OFT         4F 46 54 32                                  OFT2
+  PPT         D0 CF 11 E0
+  PDF         25 50 44 46                                  %PDF
+  rar         52 61 72 21                                  Rar!
+  sfw         43 57 53 06/08                               cws
+  tar         1F 8B 08 00
+  tgz         1F 9D 90 70
+  Word        D0 CF 11 E0
+  wmv         30 26 B2 75
+  zip         50 4B 03 04                                   PK
+  wav         52 49 46 46 ?? ?? ?? ?? 57 41 56 45
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Correct Headers: SQLite3</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0000000</span><span class="p">:</span> <span class="mi">5351</span> <span class="mi">4</span><span class="n">c69</span> <span class="mi">7465</span> <span class="mi">2066</span> <span class="mi">6</span><span class="n">f72</span> <span class="mi">6</span><span class="n">d61</span> <span class="mi">7420</span> <span class="mi">3300</span>  <span class="n">SQLite</span> <span class="nb">format</span> <span class="mf">3.</span>
+<span class="mi">0000010</span><span class="p">:</span> <span class="mi">0400</span> <span class="mi">0101</span> <span class="mi">0040</span> <span class="mi">2020</span> <span class="mi">0000</span> <span class="mi">000</span><span class="n">b</span> <span class="mi">0000</span> <span class="mi">000</span><span class="n">b</span>  <span class="o">.....@</span>  <span class="o">........</span>
+<span class="mi">0000020</span><span class="p">:</span> <span class="mi">0000</span> <span class="mi">0000</span> <span class="mi">0000</span> <span class="mi">0000</span> <span class="mi">0000</span> <span class="mi">0002</span> <span class="mi">0000</span> <span class="mi">0004</span>  <span class="o">................</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="kaitai-struct">
+<h3>Kaitai Struct<a class="headerlink" href="#kaitai-struct" title="Link to this heading"></a></h3>
+<p>Apart from the above reference, use <a class="reference external" href="https://kaitai.io/">Kaitai Struct</a>, <a class="reference external" href="https://github.com/kaitai-io/kaitai_struct_visualizer">Kaitai Struct Visualizer</a> to verify the header.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Usage: ksv [options] &lt;file_to_parse.bin&gt; &lt;format.ksy&gt;...</span>
+
+<span class="go">  -I, --import-path [DIRECTORIES]  .ksy library search path(s) for imports (see also KSPATH env variable)</span>
+<span class="go">      --opaque-types [BOOLEAN]     opaque types allowed, default: false</span>
+<span class="go">      --version                    show versions of ksv and ksc</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ksv tunn3l_v1s10n.bmp ~/utils/forensics/kaitai_struct_formats/image/bmp.ksy</span>
+
+<span class="go">[-] [root]                               00000000: 42 4d 8e 26 2c 00 00 00 00 00 ba d0 00 00 ba d0 | BM.&amp;,...........</span>
+<span class="go">[-] file_hdr                           00000010: 00 00 6e 04 00 00 32 01 00 00 01 00 18 00 00 00 | ..n...2.........</span>
+<span class="go">  [.] file_type = 42 4d                00000020: 00 00 58 26 2c 00 25 16 00 00 25 16 00 00 00 00 | ..X&amp;,.%...%.....</span>
+<span class="go">  [.] len_file = 2893454               00000030: 00 00 00 00 00 00 23 1a 17 27 1e 1b 29 20 1d 2a | ......#..&#39;..) .*</span>
+<span class="go">  [.] reserved1 = 0                    00000040: 21 1e 26 1d 1a 31 28 25 35 2c 29 33 2a 27 38 2f | !.&amp;..1(%5,)3*&#39;8/</span>
+<span class="go">  [.] reserved2 = 0                    00000050: 2c 2f 26 23 33 2a 26 2d 24 20 3b 32 2e 32 29 25 | ,/&amp;#3*&amp;-$ ;2.2)%</span>
+<span class="go">  [.] ofs_bitmap = 53434               00000060: 30 27 23 33 2a 26 38 2c 28 36 2b 27 39 2d 2b 2f | 0&#39;#3*&amp;8,(6+&#39;9-+/</span>
+<span class="go">[-] dib_info                           00000070: 26 23 1d 12 0e 23 17 11 29 16 0e 55 3d 31 97 76 | &amp;#...#..)..U=1.v</span>
+<span class="go">  [.] len_header = 53434               00000080: 66 8b 66 52 99 6d 56 9e 70 58 9e 6f 54 9c 6f 54 | f.fR.mV.pX.oT.oT</span>
+<span class="go">  [?] color_mask_alpha                 00000090: ab 7e 63 ba 8c 6d bd 8a 69 c8 97 71 c1 93 71 c1 | .~c..m..i..q..q.</span>
+<span class="go">  [?] color_mask_blue                  000000a0: 97 74 c1 94 73 c0 93 72 c0 8f 6f bd 8e 6e ba 8d | .t..s..r..o..n..</span>
+<span class="go">  [?] color_mask_green                 000000b0: 6b b7 8d 6a b0 85 64 a0 74 55 a3 77 5a 98 6f 56 | k..j..d.tU.wZ.oV</span>
+<span class="go">  [?] color_mask_red                   000000c0: 76 52 3a 71 52 3d 6c 4f 40 6d 52 44 6e 53 49 77 | vR:qR=lO@mRDnSIw</span>
+<span class="go">  [?] is_color_mask_here               000000d0: 5e 54 53 39 33 70 58 52 76 61 59 73 5f 54 7e 6b | ^TS93pXRvaYs_T~k</span>
+<span class="go">  [?] is_color_mask_given              000000e0: 5e 86 74 63 7e 6a 59 76 62 50 76 5e 4c 7a 62 50 | ^.tc~jYvbPv^LzbP</span>
+<span class="go">  [?] color_mask_given                 000000f0: 87 6d 5d 83 69 59 8d 73 63 9b 81 71 9e 84 74 98 | .m].iY.sc..q..t.</span>
+</pre></div>
+</div>
+<section id="bmp">
+<h4>BMP<a class="headerlink" href="#bmp" title="Link to this heading"></a></h4>
+<ul>
+<li><p><a class="reference external" href="http://www.ece.ualberta.ca/~elliott/ee552/studentAppNotes/2003_w/misc/bmp_file_format/bmp_file_format.htm">BMP File Format</a></p></li>
+<li><p>In the Header, look for DataOffset, it contains the Offset from beginning of file to the beginning of the bitmap data.</p></li>
+<li><p>Check the file size that should match with the height and width of the image.</p></li>
+<li><p>The pixel dimensions can be determined by multiplying both the width and the height by the dpi.</p></li>
+<li><p>There could be cases where height and width of the image are wrong. In that case, check the size of the image and calculate the possible height and width.
+- Also check <cite>Bits per pixel</cite>. (Check if anything is hidden in Red/Blue/Green channel - Refer Stegsolv/CyberChef (RenderImage))</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If it’s 24 bit (RGB), we need to divide the filesize by 3 to determine the number of pixels. Based on that we can calculate the actual height and width of the image. Refer <a class="reference external" href="https://github.com/Dvd848/CTFs/blob/master/2021_picoCTF/tunn3l_v1s10n.md">PicoCTF tunn3l_v1s10n</a></p></li>
+<li><p>If it’s 32 bit (RGBA).</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="png">
+<h4>PNG<a class="headerlink" href="#png" title="Link to this heading"></a></h4>
+<p>The first eight bytes of a PNG file always contain the following (hex) values: <code class="docutils literal notranslate"><span class="pre">89</span> <span class="pre">50</span> <span class="pre">4e</span> <span class="pre">47</span> <span class="pre">0d</span> <span class="pre">0a</span> <span class="pre">1a</span> <span class="pre">0a</span></code>. This signature indicates that the remainder of the file contains a single PNG image, consisting of a series of chunks beginning with an IHDR chunk and ending with an IEND chunk.
+A valid PNG image must contain an IHDR chunk, one or more IDAT chunks, and an IEND chunk.</p>
+<section id="chunk-layout">
+<h5>Chunk layout<a class="headerlink" href="#chunk-layout" title="Link to this heading"></a></h5>
+<p>Each chunk consists of four parts:</p>
+<ul class="simple">
+<li><p>Length: A 4-byte unsigned integer giving the number of bytes in the chunk’s data field. The length counts only the data field, not itself, the chunk type code, or the CRC. Zero is a valid length.</p></li>
+<li><p>Chunk Type: A 4-byte chunk type code. For convenience in description and in examining PNG files, type codes are restricted to consist of uppercase and lowercase ASCII letters (A-Z and a-z, or 65-90 and 97-122 decimal).</p></li>
+<li><p>Chunk Data: The data bytes appropriate to the chunk type, if any. This field can be of zero length.</p></li>
+<li><p>CRC: A 4-byte CRC (Cyclic Redundancy Check) calculated on the preceding bytes in the chunk, including the chunk type code and chunk data fields, but not including the length field. The CRC is always present, even for chunks containing no data.</p></li>
+</ul>
+</section>
+<section id="summary-of-chunks">
+<h5>Summary of chunks<a class="headerlink" href="#summary-of-chunks" title="Link to this heading"></a></h5>
+<p>This table summarizes some properties of the standard chunk types.</p>
+<blockquote>
+<div><p>Critical chunks (must appear in this order, except PLTE is optional):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Name  Multiple  Ordering constraints</span>
+<span class="go">        OK?</span>
+
+<span class="go">IHDR    No      Must be first</span>
+<span class="go">PLTE    No      Before IDAT</span>
+<span class="go">IDAT    Yes     Multiple IDATs must be consecutive</span>
+<span class="go">IEND    No      Must be last</span>
+</pre></div>
+</div>
+<p>Ancillary chunks (need not appear in this order):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Name  Multiple  Ordering constraints</span>
+<span class="go">        OK?</span>
+
+<span class="go">cHRM    No      Before PLTE and IDAT</span>
+<span class="go">gAMA    No      Before PLTE and IDAT</span>
+<span class="go">iCCP    No      Before PLTE and IDAT</span>
+<span class="go">sBIT    No      Before PLTE and IDAT</span>
+<span class="go">sRGB    No      Before PLTE and IDAT</span>
+<span class="go">bKGD    No      After PLTE; before IDAT</span>
+<span class="go">hIST    No      After PLTE; before IDAT</span>
+<span class="go">tRNS    No      After PLTE; before IDAT</span>
+<span class="go">pHYs    No      Before IDAT</span>
+<span class="go">sPLT    Yes     Before IDAT</span>
+<span class="go">tIME    No      None</span>
+<span class="go">iTXt    Yes     None</span>
+<span class="go">tEXt    Yes     None</span>
+<span class="go">zTXt    Yes     None</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="metadata">
+<h3>Metadata<a class="headerlink" href="#metadata" title="Link to this heading"></a></h3>
+<p>Metadata is data about data. Different types of files have different metadata. The metadata on a photo could include dates, camera information, GPS location, comments, etc. For music, it could include the title, author, track number and album.</p>
+<section id="timestamps">
+<h4>Timestamps<a class="headerlink" href="#timestamps" title="Link to this heading"></a></h4>
+<p>Timestamps are data that indicate the time of certain events (MAC):</p>
+<ul class="simple">
+<li><p>Modification : when a file was modified</p></li>
+<li><p>Access       : when a file or entries were read or accessed</p></li>
+<li><p>Creation     : when files or entries were created</p></li>
+</ul>
+<p>Types of timestamps</p>
+<ul class="simple">
+<li><p>Modified</p></li>
+<li><p>Accessed</p></li>
+<li><p>Created</p></li>
+<li><p>Date Changed (MFT)</p></li>
+<li><p>Filename Date Created (MFT)</p></li>
+<li><p>Filename Date Modified (MFT)</p></li>
+<li><p>Filename Date Accessed (MFT)</p></li>
+<li><p>INDX Entry Date Created</p></li>
+<li><p>INDX Entry Date Modified</p></li>
+<li><p>INDX Entry Date Accessed</p></li>
+<li><p>INDX Entry Date Changed</p></li>
+</ul>
+</section>
+<section id="timeline-patterns">
+<h4>Timeline Patterns<a class="headerlink" href="#timeline-patterns" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Pattern: Run steghide Tool on File</p></li>
+</ul>
+<blockquote>
+<div><p>If steghide tool was used to hide information in a file,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M</span><span class="o">=</span><span class="n">Date</span> <span class="n">Changed</span><span class="p">(</span><span class="n">MFT</span><span class="p">)</span><span class="o">=</span><span class="n">INDX</span> <span class="n">Entry</span> <span class="n">Date</span> <span class="n">Modified</span> <span class="o">=</span> <span class="n">INDX</span> <span class="n">Entry</span> <span class="n">Date</span> <span class="n">Changed</span> <span class="o">&gt;</span> <span class="n">A</span><span class="p">,</span><span class="n">C</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="steganography">
+<h2>Steganography<a class="headerlink" href="#steganography" title="Link to this heading"></a></h2>
+<section id="images">
+<h3>Images<a class="headerlink" href="#images" title="Link to this heading"></a></h3>
+<p>If you are looking for hidden flag in an image first check with</p>
+<section id="exiftool">
+<h4>exiftool<a class="headerlink" href="#exiftool" title="Link to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">exiftool</span></code> command, and make sure the extension is correctly displayed.</p>
+<blockquote>
+<div><ul>
+<li><p>user could “add a comment” to an embedded thumbnail image using the command:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">exiftool a.jpg -thumbnailimage -b | exiftool -comment=wow - | exiftool a.jpg -thumbnailimage&#39;&lt;=-&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>The hidden flag could in <cite>base64</cite> without <code class="docutils literal notranslate"><span class="pre">==</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="strings">
+<h4>strings<a class="headerlink" href="#strings" title="Link to this heading"></a></h4>
+<p>Sometimes, it is better to see lines only greater than x length.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings RainingBlood.mp3 | awk &#39;length($0)&gt;20&#39; | sort -u</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>There is also <code class="docutils literal notranslate"><span class="pre">srch_strings</span></code> command part of <cite>sleuthkit</cite> that can display printable strings in files.</p>
+</section>
+<section id="stegsolve">
+<h4>stegsolve<a class="headerlink" href="#stegsolve" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget<span class="w"> </span>http://www.caesum.com/handbook/Stegsolve.jar<span class="w"> </span>-O<span class="w"> </span>stegsolve.jar
+<span class="gp">$ </span>java<span class="w"> </span>-jar<span class="w"> </span>stegsolve.jar
+</pre></div>
+</div>
+</section>
+<section id="cyberchef">
+<h4>CyberChef<a class="headerlink" href="#cyberchef" title="Link to this heading"></a></h4>
+<p>Cyberchef also allows us to render image <code class="docutils literal notranslate"><span class="pre">Multimedia</span> <span class="pre">-&gt;</span> <span class="pre">Render</span> <span class="pre">Image</span></code> and perform different functions.</p>
+<ul class="simple">
+<li><p>Split color channels.</p></li>
+</ul>
+</section>
+<section id="steghide">
+<h4>steghide<a class="headerlink" href="#steghide" title="Link to this heading"></a></h4>
+<p>If there’s any text present in the Image/Wav file or the filename of the image or any link ( maybe to youtube video; video name can be the password ) that can be a passphrase to steghide. Sometimes, you may have to try all lowercase/ uppercase combinations.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">steghide info filename.bmp</span>
+<span class="go">steghide extract -sf filename.bmp -v</span>
+<span class="go">steghide extract -sf message.wav -p hidden_stegosaurus</span>
+</pre></div>
+</div>
+<p>There might be a case where we have to bruteforce <code class="docutils literal notranslate"><span class="pre">steghide</span></code> with a wordlist. In that case, use <code class="docutils literal notranslate"><span class="pre">stegcracker</span></code> or <code class="docutils literal notranslate"><span class="pre">stegseek</span></code>.</p>
+</section>
+<section id="binwalk-foremost">
+<h4>binwalk/foremost<a class="headerlink" href="#binwalk-foremost" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">binwalk</span></code> or <code class="docutils literal notranslate"><span class="pre">foremost</span></code> the file, just to make sure, there’s nothing extra stored in that image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hexdump</span> <span class="pre">-C</span></code> and look for interesting pattern may be? If you get <code class="docutils literal notranslate"><span class="pre">7z</span></code> or <code class="docutils literal notranslate"><span class="pre">PK</span></code> they represent Zipped files. If so, you can extract those file with <code class="docutils literal notranslate"><span class="pre">7z</span> <span class="pre">x</span></code> . If somehow, you get a passphrase for the image, then you might have to use <code class="docutils literal notranslate"><span class="pre">steghide</span></code> tool as it allows to hide data with a passphrase.</p></li>
+<li><p>stegsolve: check all the planes. There’s a data-extracter, we may try to extract all the values of RGB and see if there’s any flag in that.</p></li>
+<li><p>stegosuite</p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/zed-0xff/zsteg">zsteg</a> : detect stegano-hidden data in PNG &amp; BMP</p></li>
+<li><p><a class="reference external" href="https://github.com/panzi/mediaextract">Mediaextract</a> : Extracts media files (AVI, Ogg, Wave, PNG, …) that are embedded within other files.</p></li>
+<li><p>Comparing two similar images to find the difference</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">compare</span> <span class="n">hint</span><span class="o">.</span><span class="n">png</span> <span class="n">stego100</span><span class="o">.</span><span class="n">png</span> <span class="o">-</span><span class="n">compose</span> <span class="n">src</span> <span class="n">diff</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p><a class="reference external" href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/arthops.htm">Image Arithmetic</a> We can do image addition, subtraction, multiplication, division, blending, logical AND/NAND, logical OR/NOR, logical XOR/XNOR, Invert/ Logical NOT, Bitshift Operators.</p></li>
+<li><p>We can use <a class="reference external" href="http://gmic.eu/">gmic</a> to perform XOR of the images.</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gmic</span> <span class="n">a</span><span class="o">.</span><span class="n">png</span> <span class="n">b</span><span class="o">.</span><span class="n">png</span> <span class="o">-</span><span class="n">blend</span> <span class="n">xor</span> <span class="o">-</span><span class="n">o</span> <span class="n">result</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>JPEG : <a class="reference external" href="https://sourceforge.net/projects/jstego/">Jstego</a> : program aims at providing a java solution to hide secret information(such as secret file) to JPEG images. Hiding algorithm contains Jsteg and F5. The main(probably the toughest) stuff is encoding and decoding JFIF files.</p></li>
+<li><p>JPEG : <a class="reference external" href="https://github.com/lukechampine/jsteg">Jsteg</a> : jsteg is a package for hiding data inside jpeg files, a technique known as steganography. This is accomplished by copying each bit of the data into the least-significant bits of the image. The amount of data that can be hidden depends on the filesize of the jpeg; it takes about 10-14 bytes of jpeg to store each byte of the hidden data.</p></li>
+<li><p><a class="reference external" href="https://online.officerecovery.com/pixrecovery/">Repair Corrupted JPEG/JPG, GIF, TIFF, BMP, PNG or RAW Image</a></p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://stylesuxx.github.io/steganography/">https://stylesuxx.github.io/steganography/</a></p></li>
+</ul>
+</section>
+<section id="lsb-stegonagraphy">
+<h4>LSB Stegonagraphy<a class="headerlink" href="#lsb-stegonagraphy" title="Link to this heading"></a></h4>
+<p>File are made of bytes. Each byte is composed of eight bits.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10101100</span>
+
+<span class="mi">1</span><span class="n">st</span> <span class="n">digit</span> <span class="ow">is</span> <span class="n">MSB</span> <span class="ow">and</span> <span class="n">Last</span> <span class="n">digit</span> <span class="ow">is</span> <span class="n">LSB</span>
+</pre></div>
+</div>
+<p>Changing the least-significant bit (LSB) doesn’t change the value very much.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10101100</span><span class="p">(</span><span class="n">base</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">172</span> <span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>changing the LSB from 0 to 1:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10101101</span><span class="p">(</span><span class="n">base</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">173</span> <span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So we can modify the LSB without changing the file noticeably. By doing so, we can hide a message inside.</p>
+<section id="lsb-stegonagraphy-in-images">
+<h5>LSB Stegonagraphy in Images<a class="headerlink" href="#lsb-stegonagraphy-in-images" title="Link to this heading"></a></h5>
+<p>LSB Stegonagraphy or Least Significant Bit Stegonagraphy is a method of stegonagraphy where data is recorded in the lowest bit of a byte.</p>
+<p>Say an image has a pixel with an RGB value of (255, 255, 255), the bits of those RGB values will look like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>By modifying the lowest, or least significant, bit, we can use the 1 bit space across every RGB value for every pixel to construct a message.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>The reason stegonagraphy is hard to detect by sight is because a 1 bit difference in color is insignificant as seen below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Color</span> <span class="mi">1</span>    <span class="n">Color</span> <span class="mi">2</span>
+<span class="n">FFFFFE</span>     <span class="n">FFFFFF</span>
+</pre></div>
+</div>
+<p>Decoding LSB steganography is exactly the same as encoding, but in reverse. For each byte, grab the LSB and add it to your decoded message. Once you’ve gone through each byte, convert all the LSBs you grabbed into text or a file.</p>
+<p>There might be times, whether there is a message hidden using LSB encoding in a image in a particular way such as original.bmp, encoded.bmp. The encoded bmp might be
+X bytes of original image and then bytes are encoded. We have to check the patter in which flag has been written.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;encoded.bmp&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<span class="c1"># 0x2d3 is the location from where the flag has been written</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mh">0x2d3</span><span class="p">)</span>
+    <span class="n">bin_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="c1"># Assuming flag is of 50 characters. Each character is represented by 1 byte and can be from 0x00-0xFF and hence 50 * 8.</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span> <span class="o">*</span> <span class="mi">8</span><span class="p">):</span>
+        <span class="c1">## file.read reads a byte.</span>
+        <span class="c1"># ord function returns the number representing the unicode code of a specified character.</span>
+        <span class="c1"># Bit operator AND &amp; get the LSB</span>
+        <span class="n">bin_str</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">char_str</span> <span class="o">=</span> <span class="n">unbits</span><span class="p">(</span><span class="n">bin_str</span><span class="p">,</span> <span class="n">endian</span> <span class="o">=</span> <span class="s1">&#39;little&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">char_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="msb-steganography">
+<h4>MSB Steganography<a class="headerlink" href="#msb-steganography" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/Pulho/sigBits">SigBits</a> Steganography significant bits image decoder.</p></li>
+<li><p><a class="reference external" href="https://stegonline.georgeom.net/">StegOnline</a>: A web-based, enhanced and open-source port of StegSolve.</p></li>
+</ul>
+</section>
+<section id="powershell-steganography">
+<h4>Powershell Steganography<a class="headerlink" href="#powershell-steganography" title="Link to this heading"></a></h4>
+<p><a class="reference external" href="https://github.com/peewpw/Invoke-PSImage">Invoke-PSImage</a> can encode a PowerShell script in the pixels of a PNG file and generates a oneliner to execute.</p>
+<p>It can be decoded using <a class="reference external" href="https://github.com/PCsXcetra/Decode_PS_Stego">Decode_PS_Stego</a>. Read more details at <a class="reference external" href="https://pcsxcetrasupport3.wordpress.com/2020/07/22/powershell-steganography/">Powershell Steganography</a>.</p>
+</section>
+<section id="qrcodes">
+<h4>QRCodes?<a class="headerlink" href="#qrcodes" title="Link to this heading"></a></h4>
+<p>Install <a class="reference external" href="http://manpages.ubuntu.com/manpages/wily/man1/zbarimg.1.html">zbarimg</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">zbar</span><span class="o">-</span><span class="n">tools</span>
+</pre></div>
+</div>
+<p>Usage</p>
+<p>Read a QR-Code</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">zbarimg</span> <span class="o">&lt;</span><span class="n">imagefile</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Got a QR-Code in Binary 0101?, convert it into QR-Code by <a class="reference external" href="https://bahamas10.github.io/binary-to-qrcode/">QR Code Generator</a></p>
+</section>
+</section>
+<section id="images-type">
+<h3>Images type<a class="headerlink" href="#images-type" title="Link to this heading"></a></h3>
+<section id="svg">
+<h4>SVG<a class="headerlink" href="#svg" title="Link to this heading"></a></h4>
+<p>There could be text hidden inside the SVG file using <cite>tspan &lt;https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tspan&gt;_</cite> tag. The SVG &lt;tspan&gt; element defines a subtext within a &lt;text&gt; element or another &lt;tspan&gt; element. It allows for adjustment of the style and/or position of that subtext as needed.</p>
+<p>For example:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">svg</span><span class="w"> </span><span class="nx">viewBox</span><span class="o">=</span><span class="s2">&quot;0 0 240 40&quot;</span><span class="w"> </span><span class="nx">xmlns</span><span class="o">=</span><span class="s2">&quot;http://www.w3.org/2000/svg&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">style</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="nx">text</span><span class="w"> </span><span class="p">{</span><span class="nx">font</span><span class="o">:</span><span class="w"> </span><span class="nx">italic</span><span class="w"> </span><span class="mf">12</span><span class="nx">px</span><span class="w"> </span><span class="nx">serif</span><span class="p">;}</span>
+<span class="w">  </span><span class="nx">tspan</span><span class="w"> </span><span class="p">{</span><span class="nx">font</span><span class="o">:</span><span class="w"> </span><span class="nx">bold</span><span class="w"> </span><span class="mf">10</span><span class="nx">px</span><span class="w"> </span><span class="nx">sans</span><span class="o">-</span><span class="nx">serif</span><span class="p">;</span><span class="nx">fill</span><span class="o">:</span><span class="w"> </span><span class="nx">red</span><span class="p">;}</span>
+<span class="o">&lt;</span><span class="err">/style&gt;</span>
+<span class="o">&lt;</span><span class="nx">text</span><span class="w"> </span><span class="nx">x</span><span class="o">=</span><span class="s2">&quot;10&quot;</span><span class="w"> </span><span class="nx">y</span><span class="o">=</span><span class="s2">&quot;30&quot;</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">&quot;small&quot;</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="nx">You</span><span class="w"> </span><span class="nx">are</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="nx">tspan</span><span class="o">&gt;</span><span class="nx">not</span><span class="o">&lt;</span><span class="err">/tspan&gt;</span>
+<span class="w">  </span><span class="nx">a</span><span class="w"> </span><span class="nx">banana</span><span class="o">!</span>
+<span class="o">&lt;</span><span class="err">/text&gt;</span>
+<span class="o">&lt;</span><span class="err">/svg&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h4>PNG<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<blockquote>
+<div><p><a class="reference external" href="http://www.libpng.org/pub/png/apps/pngcheck.html">pngcheck</a> : pngcheck verifies the integrity of PNG, JNG and MNG files (by checking the internal 32-bit CRCs [checksums] and decompressing the image data); it can optionally dump almost all of the chunk-level information in the image in human-readable form.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="sound-files">
+<h3>Sound Files<a class="headerlink" href="#sound-files" title="Link to this heading"></a></h3>
+<section id="slow-scan-television-transmissions-sstv">
+<h4>Slow-Scan Television transmissions (SSTV)<a class="headerlink" href="#slow-scan-television-transmissions-sstv" title="Link to this heading"></a></h4>
+<p>It is easy to trasmit an image inside audio frequencies.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">apt-get install qsstv</span>
+<span class="go">pactl load-module module-null-sink sink_name=virtual-cable</span>
+<span class="go">pavucontrol # A GUI will pop-up, go to the &quot;Output Devices&quot; tab to verify that you have the &quot;Null Output&quot; device</span>
+<span class="go">qsstv # The program GUI will pop-up, go to &quot;Options&quot; -&gt; &quot;Configuration&quot; -&gt; &quot;Sound&quot; and select the &quot;PulseAudio&quot; Audio Interface</span>
+<span class="gp"># </span>Back<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>pavucontrol<span class="w"> </span>GUI,<span class="w"> </span><span class="k">select</span><span class="w"> </span>the<span class="w"> </span><span class="s2">&quot;Recording&quot;</span><span class="w"> </span>tab<span class="w"> </span>and<span class="w"> </span>specify<span class="w"> </span>that<span class="w"> </span>QSSTV<span class="w"> </span>should<span class="w"> </span>capture<span class="w"> </span>audio<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>Null<span class="w"> </span>Output
+
+<span class="gp"># </span>click<span class="w"> </span>the<span class="w"> </span><span class="s2">&quot;Play&quot;</span><span class="w"> </span>button<span class="w"> </span><span class="k">in</span><span class="w"> </span>QSSTV<span class="w"> </span>to<span class="w"> </span>start<span class="w"> </span>the<span class="w"> </span>receiver,<span class="w"> </span>and<span class="w"> </span><span class="k">then</span><span class="w"> </span>play<span class="w"> </span>the<span class="w"> </span>audio<span class="w"> </span>file:
+<span class="go">paplay -d virtual-cable message.wav</span>
+</pre></div>
+</div>
+<p>After the transmission has ended, cleanup by using the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pactl list short modules | grep null</span>
+<span class="go">22      module-null-sink        sink_name=virtual-cable</span>
+<span class="go">pactl unload-module 22</span>
+</pre></div>
+</div>
+</section>
+<section id="spectrum-analysis">
+<h4>Spectrum Analysis<a class="headerlink" href="#spectrum-analysis" title="Link to this heading"></a></h4>
+<p>Open the file in Audacity or <a class="reference external" href="https://academo.org/demos/spectrum-analyzer/">Spectrum Analyzer</a> and probably analyze the Spectogram</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Arrow next to the track name to switch from waveform (top) to logarithmic spectrogram (bottom).</p></li>
+<li><p>Morse code possible? As all the morse data appears to be below 100 Hz, we can use a low pass filter (effects menu, cutoff 100 Hz) to ease transcription</p></li>
+<li><p><a class="reference external" href="https://github.com/tcolgate/mp3">Golang mp3 Frame Parser</a></p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>In Audacity, we can zoom in to see any interesting patterns. <code class="docutils literal notranslate"><span class="pre">View</span> <span class="pre">&gt;</span> <span class="pre">Zoom</span> <span class="pre">in</span></code></p></li>
+</ul>
+</section>
+<section id="amplitude">
+<h4>Amplitude?<a class="headerlink" href="#amplitude" title="Link to this heading"></a></h4>
+<p>If we are provided a wave file, it can interesting to see the amplitudes. Check the unique amplitudes? See if the number of unique amplitude is equal to 16 (hex).
+In that case, probably the amplitude first two digits may represent hex? For example, if <code class="docutils literal notranslate"><span class="pre">array([10,</span> <span class="pre">15,</span> <span class="pre">20,</span> <span class="pre">25,</span> <span class="pre">30,</span> <span class="pre">35,</span> <span class="pre">40,</span> <span class="pre">45,</span> <span class="pre">50,</span> <span class="pre">55,</span> <span class="pre">60,</span> <span class="pre">65,</span> <span class="pre">70,</span> <span class="pre">75,</span> <span class="pre">80,</span> <span class="pre">85])</span></code>, <code class="docutils literal notranslate"><span class="pre">10</span></code> might represent <code class="docutils literal notranslate"><span class="pre">0x0</span></code> and so on.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">wavfile</span>
+<span class="c1"># Return the sample rate (in samples/sec) and data from an LPCM WAV file.</span>
+<span class="n">samplerate</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">wavfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="patterns">
+<h4>Patterns<a class="headerlink" href="#patterns" title="Link to this heading"></a></h4>
+<p>If you find a pattern like below</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/spectrogram_pattern_1.jpg"><img alt="Spectogram Pattern 1" src="../_images/spectrogram_pattern_1.jpg" style="width: 1771.0px; height: 102.89999999999999px;" /></a>
+</figure>
+<p>it might mean binary pattern like</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/spectrogram_pattern_1_zoomed.jpg"><img alt="Spectogram Pattern 1 Zoomed" src="../_images/spectrogram_pattern_1_zoomed.jpg" style="width: 843.5px; height: 168.0px;" /></a>
+</figure>
+<p>and result in something like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">11111110</span> <span class="mi">11111110</span>
+<span class="mi">01010110</span> <span class="mi">00010101</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="network-forensics">
+<h2>Network Forensics<a class="headerlink" href="#network-forensics" title="Link to this heading"></a></h2>
+<p>Have you been provided with a PCAP? Let’s start with</p>
+<section id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Statistics</span> <span class="pre">&gt;</span> <span class="pre">Capture</span> <span class="pre">File</span> <span class="pre">Properties</span></code> provide the information about <cite>Capture Interface</cite> and <cite>Capture Filter</cite> and the hardware used for the capture.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Statistics</span> <span class="pre">&gt;</span> <span class="pre">Protocol</span> <span class="pre">Hierarchy</span></code> provides the different protocol captured. We can also use <code class="docutils literal notranslate"><span class="pre">tshark</span> <span class="pre">-qz</span> <span class="pre">io,phs</span> <span class="pre">-r</span> <span class="pre">pcapfile.pcap</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Statistics</span> <span class="pre">&gt;</span> <span class="pre">Conversations/Endpoints</span></code> provides good insight about the number of devices communicating.</p></li>
+<li><p>Wireshark can extract objects transferred using FTP/HTTP/TFTP use <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">&gt;</span> <span class="pre">Export</span> <span class="pre">Objects</span> <span class="pre">&gt;</span></code>.
+- The files can be extracted using <code class="docutils literal notranslate"><span class="pre">--export-objects</span> <span class="pre">&lt;protocol&gt;,&lt;destdir&gt;</span></code>.
+- For example: <code class="docutils literal notranslate"><span class="pre">tshark</span> <span class="pre">-r</span> <span class="pre">filename.pcapng</span> <span class="pre">--export-objects</span> <span class="pre">&quot;tftp,exported_objects&quot;</span> <span class="pre">-2</span> <span class="pre">&gt;</span> <span class="pre">/dev/null</span></code></p></li>
+<li><p>Wireshark can follow conversations using <cite>Analyse &gt; TCP/HTTP/ Stream</cite>.</p>
+<ul>
+<li><p>We can use <code class="docutils literal notranslate"><span class="pre">-z</span> <span class="pre">follow,prot,mode,filter[,range]</span></code> where</p>
+<ul>
+<li><p><cite>prot</cite> specifies the transport protocol (tcp, udp, dccp, tls, http, http2, quic)</p></li>
+<li><p><cite>mode</cite> specifies the output mode (ascii, ebcdic, hex, raw, yaml)</p></li>
+<li><p><cite>filter</cite> specifies the stream to be displayed. There are three formats: (<code class="docutils literal notranslate"><span class="pre">ip-addr0:port0,ip-addr1:port1</span></code>, <code class="docutils literal notranslate"><span class="pre">stream-index</span></code>, <code class="docutils literal notranslate"><span class="pre">stream-index,substream-index</span></code>).</p></li>
+<li><p>For example: <code class="docutils literal notranslate"><span class="pre">tshark</span> <span class="pre">-r</span> <span class="pre">shark2.pcapng</span> <span class="pre">-qz</span> <span class="pre">follow,tcp,ascii,5</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Wireshark can use display filter and extract field.
+- <code class="docutils literal notranslate"><span class="pre">-Y|--display-filter</span>&#160; <span class="pre">&lt;displaY</span> <span class="pre">filter&gt;</span></code>
+- <code class="docutils literal notranslate"><span class="pre">-T</span>&#160; <span class="pre">ek|fields|json|jsonraw|pdml|ps|psml|tabs|text</span></code>: Set the format of the output when viewing decoded packet data.
+- <code class="docutils literal notranslate"><span class="pre">-e</span>&#160; <span class="pre">&lt;field&gt;</span></code>: Add a field to the list of fields to display if <code class="docutils literal notranslate"><span class="pre">-T</span> <span class="pre">ek|fields|json|pdml</span></code> is selected.
+- For example: <code class="docutils literal notranslate"><span class="pre">tshark</span> <span class="pre">-nr</span> <span class="pre">shark2.pcapng</span> <span class="pre">-Y</span> <span class="pre">'frame</span> <span class="pre">contains</span> <span class="pre">&quot;pico&quot;'</span> <span class="pre">-T</span> <span class="pre">fields</span> <span class="pre">-e</span> <span class="pre">text</span></code></p></li>
+<li><p>Fields can found using a particular protocol. For example <a class="reference external" href="https://www.wireshark.org/docs/dfref/d/dns.html">Display Filter Reference: Domain Name System</a></p></li>
+<li><p>We can save the output of a conversation (Follow TCP/UDP/HTTP/ and other streams), &gt; <cite>Show data as</cite> and <cite>save as</cite>.</p></li>
+</ul>
+</section>
+<section id="wired-pcap">
+<h3>Wired PCAP<a class="headerlink" href="#wired-pcap" title="Link to this heading"></a></h3>
+<section id="dns-tunneling">
+<h4>DNS Tunneling?<a class="headerlink" href="#dns-tunneling" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Check if there’s a DNS traffic to a public IP address.
+- For filtering only DNS queries: <code class="docutils literal notranslate"><span class="pre">dns.flags.response</span> <span class="pre">==</span> <span class="pre">0</span></code>
+- For filtering only DNS responses: <code class="docutils literal notranslate"><span class="pre">dns.flags.response</span> <span class="pre">==</span> <span class="pre">1</span></code></p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">tshark -nr shark2.pcapng -Y &#39;dns &amp;&amp; dns.flags.response == 0 &amp;&amp; frame contains &quot;local&quot; &amp;&amp; ip.dst==18.217.1.57&#39; -T fields -e dns.qry.name</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="decrypting-traffic">
+<h3>Decrypting traffic<a class="headerlink" href="#decrypting-traffic" title="Link to this heading"></a></h3>
+<section id="tls">
+<h4>TLS<a class="headerlink" href="#tls" title="Link to this heading"></a></h4>
+<section id="wireshark">
+<h5>Wireshark<a class="headerlink" href="#wireshark" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Wireshark</span> <span class="pre">&gt;</span> <span class="pre">Edit</span> <span class="pre">&gt;</span> <span class="pre">Preferences</span> <span class="pre">&gt;</span> <span class="pre">Protocols</span> <span class="pre">&gt;</span> <span class="pre">TLS</span> <span class="pre">&gt;</span> <span class="pre">RSA</span> <span class="pre">Key</span> <span class="pre">List</span></code> and edit the private RSA key.</p></li>
+</ul>
+</section>
+<section id="ssldump">
+<h5>ssldump<a class="headerlink" href="#ssldump" title="Link to this heading"></a></h5>
+<p>ssldump - dump SSL traffic on a network</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">- r file   : Read data from file instead of from the network</span>
+<span class="go">-k keyfile : Use keyfile as the location of the SSL keyfile (OpenSSL format)</span>
+<span class="go">-d         : Display the application data traffic. This usually means decrypting it, but when -d is used ssldump will also decode application data traffic before the SSL session initiates.</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="network-attack-detection">
+<h3>Network attack Detection<a class="headerlink" href="#network-attack-detection" title="Link to this heading"></a></h3>
+<p>Network attacks PCAP can have different kinds of scenarios
+- various host discovery techniques,
+- network port scanning methods,
+- various network attacks such as denial of service, poisoning, flooding and also
+- wireless attacks</p>
+<p>Below information has mainly summarized from <a class="reference external" href="https://www.infosecmatter.com/detecting-network-attacks-with-wireshark/">Detecting Network Attacks with wireshark</a>.</p>
+<section id="detection-of-host-discovery-recon">
+<h4>Detection of host discovery (recon)<a class="headerlink" href="#detection-of-host-discovery-recon" title="Link to this heading"></a></h4>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Technique</p></th>
+<th class="head"><p>Wireshark Filter</p></th>
+<th class="head"><p>Command / Tool</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ARP scanning
+IP protocol scan
+ICMP ping sweep
+TCP ping sweeps
+UDP ping sweeps</p></td>
+<td><p>arp.dst.hw_mac==00:00:00:00:00:00
+icmp.type==3 and icmp.code==2
+icmp.type==8 or icmp.type==0
+tcp.dstport==7
+udp.dstport==7</p></td>
+<td><p>arp-scan -l
+nmap -sO &lt;target&gt;
+nmap -sn -PE &lt;subnet&gt;
+nmap -sn -PS/-PA &lt;subnet&gt;
+nmap -sn -PU &lt;subnet&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="detection-of-network-port-scanning">
+<h4>Detection of network port scanning<a class="headerlink" href="#detection-of-network-port-scanning" title="Link to this heading"></a></h4>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Technique</p></th>
+<th class="head"><p>Wireshark Filter</p></th>
+<th class="head"><p>Command / Tool</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TCP SYN scan
+TCP Connect() scan
+TCP Null scan
+TCP FIN scan
+TCP Xmass scan
+UDP port scan</p></td>
+<td><p>tcp.flags.syn==1 and tcp.flags.ack==0 and tcp.window_size&lt;=1024
+tcp.flags.syn==1 and tcp.flags.ack==0 and tcp.window_size&gt;1024
+tcp.flags==0
+tcp.flags==0x001
+tcp.flags.fin==1 &amp;&amp; tcp.flags.push==1 &amp;&amp; tcp.flags.urg==1
+icmp.type==3 and icmp.code==3</p></td>
+<td><p>nmap -sS &lt;target&gt;
+nmap -sT &lt;target&gt;
+nmap -sN &lt;target&gt;
+nmap -sF &lt;target&gt;
+nmap -sX &lt;target&gt;
+nmap -sU &lt;target&gt;</p></td>
+</tr>
+</tbody>
+</table>
+<p>To understand what ports were open on the attacked machine, we can use <cite>tcp.flags.ack==1 &amp;&amp; tcp.flags.syn==1 &amp;&amp; ip.src==ip_address_of_attacked_machine</cite> as after <cite>SYN</cite> packet machine sends <cite>SYN, ACK</cite>.</p>
+</section>
+<section id="detection-of-network-attacks">
+<h4>Detection of network attacks<a class="headerlink" href="#detection-of-network-attacks" title="Link to this heading"></a></h4>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Technique</p></th>
+<th class="head"><p>Wireshark Filter</p></th>
+<th class="head"><p>Command / Tool</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ARP poisoning
+ICMP flood
+VLAN hoping
+Unexplained packet loss
+TCP Xmass scan
+UDP port scan</p></td>
+<td><p>arp.duplicate-address-detected or arp.duplicate-address-frame
+icmp and data.len &gt; 48
+dtp or vlan.too_many_tags
+tcp.analysis.lost_segment or tcp.analysis.retransmission
+tcp.flags.fin==1 &amp;&amp; tcp.flags.push==1 &amp;&amp; tcp.flags.urg==1
+icmp.type==3 and icmp.code==3</p></td>
+<td><p>arpspoof, ettercap
+fping, hping
+frogger, yersinia
+n/a
+nmap -sX &lt;target&gt;
+nmap -sU &lt;target&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="detection-of-wireless-network-attacks">
+<h4>Detection of wireless network attacks<a class="headerlink" href="#detection-of-wireless-network-attacks" title="Link to this heading"></a></h4>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Technique</p></th>
+<th class="head"><p>Wireshark Filter</p></th>
+<th class="head"><p>Command / Tool</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Client deauthentication
+Client disassociation
+Fake AP beacon flood
+Authentication DoS
+UDP port scan</p></td>
+<td><p>wlan.fc.type_subtype == 12
+wlan.fc.type_subtype == 10
+wlan.fc.type_subtype == 8
+wlan.fc.type_subtype == 11
+icmp.type==3 and icmp.code==3</p></td>
+<td><p>aireplay-ng, mdk3, mdk4
+mdk3, mdk4
+mdk3, mdk4
+mdk3, mdk4
+nmap -sU &lt;target&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="detection-of-reverse-shell-port">
+<h4>Detection of reverse shell port<a class="headerlink" href="#detection-of-reverse-shell-port" title="Link to this heading"></a></h4>
+<p>Few forensics challenges can request to find the reverse shell port number after the vulnerability was exploited. In that case, remember few things</p>
+<ul class="simple">
+<li><p>If available, use Suricata logs to identify the time period when the attack happened.</p></li>
+<li><p>If possible, identify what vulnerability was exploited (e.g. Eternal Blue exploits SMB) and search google for pcap analysis of that vuln to understand more.</p></li>
+<li><p>Analyse the traffic after the vulnerability has been exploited.</p></li>
+</ul>
+<section id="eternalblue">
+<h5>EternalBlue<a class="headerlink" href="#eternalblue" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Eternalblue exploits SMB. So, we have to analyse <code class="docutils literal notranslate"><span class="pre">smb</span></code> traffic.
+- Look for <code class="docutils literal notranslate"><span class="pre">smb.mid</span> <span class="pre">==</span> <span class="pre">65</span></code> for EternalBlue and <code class="docutils literal notranslate"><span class="pre">smb.mid</span> <span class="pre">==</span> <span class="pre">81</span></code> or <code class="docutils literal notranslate"><span class="pre">smb.mid</span> <span class="pre">==</span> <span class="pre">82</span></code> for DoublePulsar? (This is unconfirmed).</p></li>
+</ul>
+</section>
+<section id="tftp-filter">
+<h5>TFTP Filter<a class="headerlink" href="#tftp-filter" title="Link to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">tftp.opcode==1</span></code> : tftp Read Request</p>
+</section>
+</section>
+</section>
+<section id="wireshark-tips">
+<h3>Wireshark tips<a class="headerlink" href="#wireshark-tips" title="Link to this heading"></a></h3>
+<p>Many times, we are investigating a incident and knowing the exact time of the incident in wireshark is important. Use <code class="docutils literal notranslate"><span class="pre">Menu</span> <span class="pre">&gt;</span> <span class="pre">View</span> <span class="pre">&gt;</span> <span class="pre">Time</span> <span class="pre">Display</span> <span class="pre">Format</span> <span class="pre">&gt;</span> <span class="pre">Date</span> <span class="pre">and</span> <span class="pre">Time</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Day</span></code>.</p>
+<ul class="simple">
+<li><p>Wireshark - Searching for answers in pcap file?</p></li>
+<li><p>Searching passwords in HTTP Web traffic in wireshark?</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span> <span class="nb">filter</span> <span class="n">might</span> <span class="n">help</span><span class="p">,</span> <span class="n">based</span> <span class="n">on</span> <span class="n">concept</span> <span class="n">that</span> <span class="n">server</span> <span class="ow">is</span> <span class="n">asking</span> <span class="k">for</span> <span class="n">LOGIN</span> <span class="n">prompt</span> <span class="ow">and</span> <span class="n">user</span> <span class="ow">is</span> <span class="n">POSTing</span> <span class="n">his</span> <span class="n">password</span> <span class="ow">in</span> <span class="n">cleartext</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Filters can be chained together using ‘&amp;&amp;’ notation. In order to filter by IP, ensure a double equals ‘==’ is used.</p></li>
+<li><p>If the challenge says IP address has been spoofed, then you should look for MAC address as it wouldn’t have changed. You would find packets with two different IP address having same MAC address. In another scenario, if the MAC address has been spoofed, IP address might be the same. In both cases display filter “arp” (to only show arp requests) and “ip.addr==” (to show only packets with either source or destination being the IP address). might be helpful.</p></li>
+<li><p>Sometimes, it is better to check which objects we are able to export, (File –&gt; Export Objects –&gt; HTTP/DICOM/SMB/SMB2) export the http/DICOM/SMB/SMB2 object</p></li>
+<li><p>SSL Traffic? and have a key? Visit Wireshark-&gt;Edit-&gt;Preferences-&gt;Protocols-&gt;SSL-&gt;RSA Key List. SSL Traffic with forward secretcy -&gt;SSL-&gt;Pre-Master-Secret-Log filename</p></li>
+<li><p>Sometimes, you need to find all the unique ip address in the network capture, for that you can use</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>tshark<span class="w"> </span>-T<span class="w"> </span>fields<span class="w"> </span>-e<span class="w"> </span>ip.src<span class="w"> </span>-r<span class="w"> </span>&lt;pcap<span class="w"> </span>file&gt;<span class="w"> </span><span class="se">\|</span><span class="w"> </span>sort<span class="w"> </span><span class="se">\|</span><span class="w"> </span>uniq
+
+-T<span class="w"> </span>fields<span class="se">\|</span>pdml<span class="se">\|</span>ps<span class="se">\|</span>psml<span class="se">\|</span>text<span class="w"> </span>:<span class="w"> </span>Set<span class="w"> </span>the<span class="w"> </span>format<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>output<span class="w"> </span>when<span class="w"> </span>viewing<span class="w"> </span>decoded<span class="w"> </span>packet<span class="w"> </span>data.
+-e<span class="w"> </span>:<span class="w"> </span>Add<span class="w"> </span>a<span class="w"> </span>field<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>fields<span class="w"> </span>to<span class="w"> </span>display<span class="w"> </span><span class="k">if</span><span class="w"> </span>-T<span class="w"> </span>fields<span class="w"> </span>is<span class="w"> </span>selected.
+-r<span class="w"> </span>:<span class="w"> </span>Read<span class="w"> </span>packet<span class="w"> </span>data<span class="w"> </span>from<span class="w"> </span>infile,<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>any<span class="w"> </span>supported<span class="w"> </span>capture<span class="w"> </span>file<span class="w"> </span>format<span class="w"> </span><span class="o">(</span>including<span class="w"> </span>gzipped<span class="w"> </span>files<span class="o">)</span>.
+-R<span class="w"> </span>:<span class="w"> </span>Cause<span class="w"> </span>the<span class="w"> </span>specified<span class="w"> </span>filter<span class="w"> </span><span class="o">(</span>which<span class="w"> </span>uses<span class="w"> </span>the<span class="w"> </span>syntax<span class="w"> </span>of<span class="w"> </span>read/displayfilters,<span class="w"> </span>rather<span class="w"> </span>than<span class="w"> </span>that<span class="w"> </span>of<span class="w"> </span>capture<span class="w"> </span>filters<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>applied
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Wireshark can not reassamble HTTP fragmented packets to generate the RAW data,we can use Dshell to reassemble http partial contents. A blog mentioning how to do it is <a class="reference external" href="https://github.com/naijim/blog/blob/master/writeups/asis-quals-ctf-2015_broken_heart_writeup.md">here</a></p></li>
+<li><p>If there’s any file getting transferred in the PCAP, maybe try carving out using binwalk or foremost, you might get lucky.</p></li>
+</ul>
+<ul class="simple">
+<li><p>If you are searching for flags, and nothing is quite obvious.</p>
+<ul>
+<li><p>Check for hints such a packet mentioning <cite>start</cite> or <cite>end</cite>.</p></li>
+<li><p>Check for patterns in source port number (sport changing with same destination port) or destination port number (dport changing with same source port).</p></li>
+</ul>
+</li>
+</ul>
+<section id="finding-information">
+<h4>Finding information<a class="headerlink" href="#finding-information" title="Link to this heading"></a></h4>
+<section id="bittorrent">
+<h5>Bittorrent<a class="headerlink" href="#bittorrent" title="Link to this heading"></a></h5>
+<p>If we have bittorrent traffic and want to find the file being downloaded, look for <code class="docutils literal notranslate"><span class="pre">BT-DHT</span></code> packets and look for <code class="docutils literal notranslate"><span class="pre">info_hash</span></code>. Search the hash on internet.</p>
+</section>
+</section>
+</section>
+<section id="wireless-pcap">
+<h3>Wireless PCAP<a class="headerlink" href="#wireless-pcap" title="Link to this heading"></a></h3>
+<p>The assumption is that the wireless PCAP would be encrypted. In this section, we will see the encryption</p>
+<p><code class="docutils literal notranslate"><span class="pre">aircrack-ng</span></code> can crack WEP/WPA handshakes using a word dictionary specified using <code class="docutils literal notranslate"><span class="pre">-w</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">aircrack-ng wpa-ing_out.pcap -w /usr/share/wordlists/rockyou.txt</span>
+</pre></div>
+</div>
+<p>Once we have found the key (password), go to <code class="docutils literal notranslate"><span class="pre">Wireshark</span> <span class="pre">&gt;</span> <span class="pre">Edit</span> <span class="pre">&gt;</span> <span class="pre">Preferences</span> <span class="pre">&gt;</span> <span class="pre">Protocols</span> <span class="pre">&gt;</span> <span class="pre">IEEE</span> <span class="pre">802.11</span></code> and edit the decryption key.</p>
+</section>
+</section>
+<section id="usb-forensics">
+<h2>USB Forensics<a class="headerlink" href="#usb-forensics" title="Link to this heading"></a></h2>
+<p>Probably, we would be provided with the USB-based PCAP file, now as there are USB-Mouse/ Keyboard and Storage devices. There would be data related to that. Now, to figure what device is connected. Check the below packets in the wireshark</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>      <span class="mf">0.000000</span>        <span class="n">host</span>    <span class="mf">1.12.0</span>  <span class="n">USB</span>     <span class="mi">36</span>      <span class="n">GET</span> <span class="n">DESCRIPTOR</span> <span class="n">Request</span> <span class="n">DEVICE</span>
+<span class="mi">2</span>      <span class="mf">0.000306</span>        <span class="mf">1.12.0</span>  <span class="n">host</span>    <span class="n">USB</span>     <span class="mi">46</span>      <span class="n">GET</span> <span class="n">DESCRIPTOR</span> <span class="n">Response</span> <span class="n">DEVICE</span>
+</pre></div>
+</div>
+<p>In the GET DESCRIPTOR Response packet, there would be a idVendor and idProduct, searching for that. We can figure out that whether it’s a Keyboard, mouse or storage device.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DEVICE</span> <span class="n">DESCRIPTOR</span>
+   <span class="n">bLength</span><span class="p">:</span> <span class="mi">18</span>
+   <span class="n">bDescriptorType</span><span class="p">:</span> <span class="mh">0x01</span> <span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+   <span class="n">bcdUSB</span><span class="p">:</span> <span class="mh">0x0200</span>
+   <span class="n">bDeviceClass</span><span class="p">:</span> <span class="n">Device</span> <span class="p">(</span><span class="mh">0x00</span><span class="p">)</span>
+   <span class="n">bDeviceSubClass</span><span class="p">:</span> <span class="mi">0</span>
+   <span class="n">bDeviceProtocol</span><span class="p">:</span> <span class="mi">0</span> <span class="p">(</span><span class="n">Use</span> <span class="k">class</span> <span class="nc">code</span> <span class="n">info</span> <span class="kn">from</span> <span class="nn">Interface</span> <span class="n">Descriptors</span><span class="p">)</span>
+   <span class="n">bMaxPacketSize0</span><span class="p">:</span> <span class="mi">8</span>
+   <span class="n">idVendor</span><span class="p">:</span> <span class="n">Razer</span> <span class="n">USA</span><span class="p">,</span> <span class="n">Ltd</span> <span class="p">(</span><span class="mh">0x1532</span><span class="p">)</span>
+   <span class="n">idProduct</span><span class="p">:</span> <span class="n">BlackWidow</span> <span class="n">Ultimate</span> <span class="mi">2013</span> <span class="p">(</span><span class="mh">0x011a</span><span class="p">)</span>
+   <span class="n">bcdDevice</span><span class="p">:</span> <span class="mh">0x0200</span>
+   <span class="n">iManufacturer</span><span class="p">:</span> <span class="mi">1</span>
+   <span class="n">iProduct</span><span class="p">:</span> <span class="mi">2</span>
+   <span class="n">iSerialNumber</span><span class="p">:</span> <span class="mi">0</span>
+   <span class="n">bNumConfigurations</span><span class="p">:</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<section id="usb-keyboard">
+<h3>USB-Keyboard<a class="headerlink" href="#usb-keyboard" title="Link to this heading"></a></h3>
+<p>If the device connected is the keyboard, we can actually, check for the “interrupt in” message</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">51</span>     <span class="mf">8.808610</span>        <span class="mf">1.12.1</span>  <span class="n">host</span>    <span class="n">USB</span>     <span class="mi">35</span>      <span class="n">URB_INTERRUPT</span> <span class="ow">in</span>
+</pre></div>
+</div>
+<p>and check for the Leftover Capture Data field</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Frame</span> <span class="mi">159</span><span class="p">:</span> <span class="mi">35</span> <span class="nb">bytes</span> <span class="n">on</span> <span class="n">wire</span> <span class="p">(</span><span class="mi">280</span> <span class="n">bits</span><span class="p">),</span> <span class="mi">35</span> <span class="nb">bytes</span> <span class="n">captured</span> <span class="p">(</span><span class="mi">280</span> <span class="n">bits</span><span class="p">)</span>
+<span class="n">USB</span> <span class="n">URB</span>
+   <span class="p">[</span><span class="n">Source</span><span class="p">:</span> <span class="mf">1.12.1</span><span class="p">]</span>
+   <span class="p">[</span><span class="n">Destination</span><span class="p">:</span> <span class="n">host</span><span class="p">]</span>
+   <span class="n">USBPcap</span> <span class="n">pseudoheader</span> <span class="n">length</span><span class="p">:</span> <span class="mi">27</span>
+   <span class="n">IRP</span> <span class="n">ID</span><span class="p">:</span> <span class="mh">0xffffa5045d1653c0</span>
+   <span class="n">IRP</span> <span class="n">USBD_STATUS</span><span class="p">:</span> <span class="n">USBD_STATUS_SUCCESS</span> <span class="p">(</span><span class="mh">0x00000000</span><span class="p">)</span>
+   <span class="n">URB</span> <span class="n">Function</span><span class="p">:</span> <span class="n">URB_FUNCTION_BULK_OR_INTERRUPT_TRANSFER</span> <span class="p">(</span><span class="mh">0x0009</span><span class="p">)</span>
+   <span class="n">IRP</span> <span class="n">information</span><span class="p">:</span> <span class="mh">0x01</span><span class="p">,</span> <span class="n">Direction</span><span class="p">:</span> <span class="n">PDO</span> <span class="o">-&gt;</span> <span class="n">FDO</span>
+   <span class="n">URB</span> <span class="n">bus</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span>
+   <span class="n">Device</span> <span class="n">address</span><span class="p">:</span> <span class="mi">12</span>
+   <span class="n">Endpoint</span><span class="p">:</span> <span class="mh">0x81</span><span class="p">,</span> <span class="n">Direction</span><span class="p">:</span> <span class="n">IN</span>
+   <span class="n">URB</span> <span class="n">transfer</span> <span class="nb">type</span><span class="p">:</span> <span class="n">URB_INTERRUPT</span> <span class="p">(</span><span class="mh">0x01</span><span class="p">)</span>
+   <span class="n">Packet</span> <span class="n">Data</span> <span class="n">Length</span><span class="p">:</span> <span class="mi">8</span>
+   <span class="p">[</span><span class="n">bInterfaceClass</span><span class="p">:</span> <span class="n">HID</span> <span class="p">(</span><span class="mh">0x03</span><span class="p">)]</span>
+<span class="n">Leftover</span> <span class="n">Capture</span> <span class="n">Data</span><span class="p">:</span> <span class="mi">0000500000000000</span>
+</pre></div>
+</div>
+<p>Now, we can use tshark to take out, usb.capdata out</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tshark</span> <span class="o">-</span><span class="n">r</span> <span class="n">usb</span><span class="o">-</span><span class="n">keyboard</span><span class="o">-</span><span class="n">data</span><span class="o">.</span><span class="n">pcap</span> <span class="o">-</span><span class="n">T</span> <span class="n">fields</span> <span class="o">-</span><span class="n">e</span> <span class="n">usb</span><span class="o">.</span><span class="n">capdata</span>
+<span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">0</span><span class="n">e</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+</pre></div>
+</div>
+<p>Here there are 8 bytes</p>
+<section id="keyboard-report-format">
+<h4>Keyboard Report Format<a class="headerlink" href="#keyboard-report-format" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Byte 0: Keyboard modifier bits (SHIFT, ALT, CTRL etc)</p></li>
+<li><p>Byte 1: reserved</p></li>
+<li><p>Byte 2-7: Up to six keyboard usage indexes representing the keys that are currently “pressed”. Order is not important, a key is either pressed (present in the  buffer) or not pressed.</p></li>
+</ul>
+</section>
+<section id="usb-hid-keyboard-scan-codes">
+<h4>USB HID Keyboard Scan Codes<a class="headerlink" href="#usb-hid-keyboard-scan-codes" title="Link to this heading"></a></h4>
+<p>MightyPork has created a gist mentioning USB HID Keyboard scan codes as per USB spec 1.11 at <a class="reference external" href="https://gist.github.com/MightyPork/6da26e382a7ad91b5496ee55fdc73db2">usb_hid_keys.h</a></p>
+<p>The above can be referred and utilized to convert the usb.capdata to know what was the user typing using the USB Keyboard!</p>
+<p>whoami has written a script to figure out the keyboard strokes</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usb_codes</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="mh">0x04</span><span class="p">:</span><span class="s2">&quot;aA&quot;</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">:</span><span class="s2">&quot;bB&quot;</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">:</span><span class="s2">&quot;cC&quot;</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">:</span><span class="s2">&quot;dD&quot;</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">:</span><span class="s2">&quot;eE&quot;</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">:</span><span class="s2">&quot;fF&quot;</span><span class="p">,</span>
+   <span class="mh">0x0A</span><span class="p">:</span><span class="s2">&quot;gG&quot;</span><span class="p">,</span> <span class="mh">0x0B</span><span class="p">:</span><span class="s2">&quot;hH&quot;</span><span class="p">,</span> <span class="mh">0x0C</span><span class="p">:</span><span class="s2">&quot;iI&quot;</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">:</span><span class="s2">&quot;jJ&quot;</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">:</span><span class="s2">&quot;kK&quot;</span><span class="p">,</span> <span class="mh">0x0F</span><span class="p">:</span><span class="s2">&quot;lL&quot;</span><span class="p">,</span>
+   <span class="mh">0x10</span><span class="p">:</span><span class="s2">&quot;mM&quot;</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">:</span><span class="s2">&quot;nN&quot;</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">:</span><span class="s2">&quot;oO&quot;</span><span class="p">,</span> <span class="mh">0x13</span><span class="p">:</span><span class="s2">&quot;pP&quot;</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">:</span><span class="s2">&quot;qQ&quot;</span><span class="p">,</span> <span class="mh">0x15</span><span class="p">:</span><span class="s2">&quot;rR&quot;</span><span class="p">,</span>
+   <span class="mh">0x16</span><span class="p">:</span><span class="s2">&quot;sS&quot;</span><span class="p">,</span> <span class="mh">0x17</span><span class="p">:</span><span class="s2">&quot;tT&quot;</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">:</span><span class="s2">&quot;uU&quot;</span><span class="p">,</span> <span class="mh">0x19</span><span class="p">:</span><span class="s2">&quot;vV&quot;</span><span class="p">,</span> <span class="mh">0x1A</span><span class="p">:</span><span class="s2">&quot;wW&quot;</span><span class="p">,</span> <span class="mh">0x1B</span><span class="p">:</span><span class="s2">&quot;xX&quot;</span><span class="p">,</span>
+   <span class="mh">0x1C</span><span class="p">:</span><span class="s2">&quot;yY&quot;</span><span class="p">,</span> <span class="mh">0x1D</span><span class="p">:</span><span class="s2">&quot;zZ&quot;</span><span class="p">,</span> <span class="mh">0x1E</span><span class="p">:</span><span class="s2">&quot;1!&quot;</span><span class="p">,</span> <span class="mh">0x1F</span><span class="p">:</span><span class="s2">&quot;2@&quot;</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">:</span><span class="s2">&quot;3#&quot;</span><span class="p">,</span> <span class="mh">0x21</span><span class="p">:</span><span class="s2">&quot;4$&quot;</span><span class="p">,</span>
+   <span class="mh">0x22</span><span class="p">:</span><span class="s2">&quot;5%&quot;</span><span class="p">,</span> <span class="mh">0x23</span><span class="p">:</span><span class="s2">&quot;6^&quot;</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">:</span><span class="s2">&quot;7&amp;&quot;</span><span class="p">,</span> <span class="mh">0x25</span><span class="p">:</span><span class="s2">&quot;8*&quot;</span><span class="p">,</span> <span class="mh">0x26</span><span class="p">:</span><span class="s2">&quot;9(&quot;</span><span class="p">,</span> <span class="mh">0x27</span><span class="p">:</span><span class="s2">&quot;0)&quot;</span><span class="p">,</span>
+   <span class="mh">0x2C</span><span class="p">:</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="mh">0x2D</span><span class="p">:</span><span class="s2">&quot;-_&quot;</span><span class="p">,</span> <span class="mh">0x2E</span><span class="p">:</span><span class="s2">&quot;=+&quot;</span><span class="p">,</span> <span class="mh">0x2F</span><span class="p">:</span><span class="s2">&quot;[{&quot;</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">:</span><span class="s2">&quot;]}&quot;</span><span class="p">,</span>  <span class="mh">0x32</span><span class="p">:</span><span class="s2">&quot;#~&quot;</span><span class="p">,</span>
+   <span class="mh">0x33</span><span class="p">:</span><span class="s2">&quot;;:&quot;</span><span class="p">,</span> <span class="mh">0x34</span><span class="p">:</span><span class="s2">&quot;&#39;</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="mh">0x36</span><span class="p">:</span><span class="s2">&quot;,&lt;&quot;</span><span class="p">,</span>  <span class="mh">0x37</span><span class="p">:</span><span class="s2">&quot;.&gt;&quot;</span><span class="p">,</span> <span class="mh">0x4f</span><span class="p">:</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">:</span><span class="s2">&quot;&lt;&quot;</span>
+   <span class="p">}</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data1.txt&quot;</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+   <span class="n">code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">],</span><span class="mi">16</span><span class="p">)</span>
+
+   <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+       <span class="k">continue</span>
+   <span class="c1"># newline or down arrow - move down</span>
+   <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="mh">0x51</span> <span class="ow">or</span> <span class="n">code</span> <span class="o">==</span> <span class="mh">0x28</span><span class="p">:</span>
+       <span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span>
+       <span class="k">continue</span>
+   <span class="c1"># up arrow - move up</span>
+   <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="mh">0x52</span><span class="p">:</span>
+       <span class="n">pos</span> <span class="o">-=</span> <span class="mi">1</span>
+       <span class="k">continue</span>
+   <span class="c1"># select the character based on the Shift key</span>
+   <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span><span class="mi">16</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+       <span class="n">lines</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">+=</span> <span class="n">usb_codes</span><span class="p">[</span><span class="n">code</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+   <span class="k">else</span><span class="p">:</span>
+       <span class="n">lines</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">+=</span> <span class="n">usb_codes</span><span class="p">[</span><span class="n">code</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+   <span class="nb">print</span> <span class="n">x</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="usb-mouse">
+<h3>USB-Mouse<a class="headerlink" href="#usb-mouse" title="Link to this heading"></a></h3>
+<p>If we take the USB-Mouse Leftover Capture data, we have around four bytes</p>
+<p>Format of First 3 Packet Bytes</p>
+<p>Even if your mouse is sending 4 byte packets, the first 3 bytes always have the same format.
+* The first byte has a bunch of bit flags.</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">byte</span> <span class="mi">1</span><span class="p">:</span>
+<span class="n">Y</span> <span class="n">overflow</span>    <span class="n">X</span> <span class="n">overflow</span>      <span class="n">Y</span> <span class="n">sign</span> <span class="n">bit</span>      <span class="n">X</span> <span class="n">sign</span> <span class="n">bit</span>      <span class="n">Always</span> <span class="mi">1</span>        <span class="n">Middle</span> <span class="n">Btn</span>      <span class="n">Right</span> <span class="n">Btn</span>       <span class="n">Left</span> <span class="n">Btn</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>The second byte is the “delta X” value – that is, it measures horizontal mouse movement, with left being negative.</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">byte</span> <span class="mi">2</span><span class="p">:</span>
+<span class="n">X</span> <span class="n">movement</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>The third byte is “delta Y”, with down (toward the user) being negative. Typical values for deltaX and deltaY are one or two for slow movement, and perhaps 20 for very fast movement. Maximum possible values are +255 to -256 (they are 9-bit quantities, two’s complement).</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">byte</span> <span class="mi">3</span><span class="p">:</span>
+<span class="n">Y</span> <span class="n">movement</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Let’s say we capture this data into a file, we can eventually capture the mouse movements,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tshark</span> <span class="o">-</span><span class="n">r</span> <span class="n">challenge</span><span class="o">.</span><span class="n">pcapng</span> <span class="n">usb</span><span class="o">.</span><span class="n">capdata</span> <span class="ow">and</span> <span class="n">usb</span><span class="o">.</span><span class="n">device_address</span><span class="o">==</span><span class="mi">12</span> <span class="o">-</span><span class="n">T</span> <span class="n">fields</span> <span class="o">-</span><span class="n">e</span> <span class="n">usb</span><span class="o">.</span><span class="n">capdata</span> <span class="o">&gt;</span> <span class="n">mouse_data</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>This can be plotted using GNUplot as shown in a writeup of <a class="reference external" href="https://github.com/ctfs/write-ups-2015/tree/master/boston-key-party-2015/school-bus/riverside">Riverside</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">awk</span> <span class="o">-</span><span class="n">F</span><span class="p">:</span> <span class="s1">&#39;function comp(v){if(v&gt;127)v-=256;return v}{x+=comp(strtonum(&quot;0x&quot;$2));y+=comp(strtonum(&quot;0x&quot;$3))}$1==&quot;01&quot;{print x,y}&#39;</span> <span class="n">mouse_data</span><span class="o">.</span><span class="n">txt</span> <span class="o">&gt;</span> <span class="n">click_coordinates</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>GNUplot</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gnuplot</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;plot &#39;click_coordinates.txt&#39;&quot;</span>
+</pre></div>
+</div>
+<p>If the mouse movement shows a on-screen keyboard, probably, we can use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">awk</span> <span class="s1">&#39;BEGIN{split(&quot;          zxcvbnm  asdfghjkl qwertyuiop&quot;,key,//)}{r=int(($2-20)/-100);c=int(($1 - 117 + (r % 2 * 40)) / 85);k=r*10+c;printf &quot;</span><span class="si">%s</span><span class="s1">&quot;,key[k]}END{print&quot;&quot;}&#39;</span> <span class="n">click_coordinates</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</section>
+<section id="usb-storage-device">
+<h3>USB-Storage-Device<a class="headerlink" href="#usb-storage-device" title="Link to this heading"></a></h3>
+<p>If the device found in the PCAP is a USB-Storage-Device, check for the packets having size greater than 1000 bytes with flags URB_BULK out/in. Select the stream and press Ctrl + h or you can use File-&gt;Export Packet Bytes.</p>
+</section>
+</section>
+<section id="browser-forensics">
+<h2>Browser Forensics<a class="headerlink" href="#browser-forensics" title="Link to this heading"></a></h2>
+<section id="browser-extension">
+<h3>Browser extension<a class="headerlink" href="#browser-extension" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/Tuhinshubhra/ExtAnalysis">ExtAnalysis</a> : Browser Extension Analysis Framework - Scan, Analyze Chrome, firefox and Brave extensions for vulnerabilities and intels.</p></li>
+</ul>
+</section>
+</section>
+<section id="file-forensics">
+<h2>File Forensics<a class="headerlink" href="#file-forensics" title="Link to this heading"></a></h2>
+<section id="webserver-logs">
+<h3>Webserver logs<a class="headerlink" href="#webserver-logs" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://goaccess.io/">GoAccess</a> : GoAccess is an open source real-time web log analyzer and interactive viewer that runs in a terminal in *nix systems or through your browser.</p></li>
+</ul>
+</section>
+<section id="zip-files">
+<h3>ZIP Files<a class="headerlink" href="#zip-files" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://linux.die.net/man/1/shar">Shar</a> creates “shell archives” (or shar files) which are in text format and can be mailed. These files may be unpacked later by executing them with <code class="docutils literal notranslate"><span class="pre">/bin/sh</span></code>.</p></li>
+</ul>
+</section>
+<section id="word-powerpoint-and-others-macro">
+<h3>Word/Powerpoint and others? Macro<a class="headerlink" href="#word-powerpoint-and-others-macro" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Word/Powerpoint files can be opened using zip software like <code class="docutils literal notranslate"><span class="pre">7z</span> <span class="pre">x</span> <span class="pre">hello.doc</span></code>.</p></li>
+<li><p>Further it is always a good idea to list all the extracted files using <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-laR</span></code>.</p></li>
+<li><p>After that, we can use <a class="reference external" href="https://github.com/decalage2/ViperMonkey">ViperMonkey</a> which is a VBA Emulation engine written in Python, designed to analyze and deobfuscate malicious VBA Macros contained in Microsoft Office files (Word, Excel, PowerPoint, Publisher, etc).</p></li>
+</ul>
+</section>
+<section id="pdf-files">
+<h3>PDF Files<a class="headerlink" href="#pdf-files" title="Link to this heading"></a></h3>
+<section id="redacted-pdf">
+<h4>Redacted PDF<a class="headerlink" href="#redacted-pdf" title="Link to this heading"></a></h4>
+<p>Masking over the text of a PDF document does not actually erase the underlying text.</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">pdftotext</span></code> to extract the text from pdf and see if there’s a flag.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="memory-forensics">
+<h2>Memory Forensics<a class="headerlink" href="#memory-forensics" title="Link to this heading"></a></h2>
+<section id="volatility">
+<h3>Volatility<a class="headerlink" href="#volatility" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://github.com/volatilityfoundation/volatility/wiki/Command-Reference">Command Reference</a></p>
+<p>Important commands to try</p>
+<ul class="simple">
+<li><p>imageinfo/ pslist / cmdscan/ consoles/ consoles/ memdump/ procdump/ filescan/ connscan/</p></li>
+<li><p>Extract files using filescan and <a class="reference external" href="https://github.com/volatilityfoundation/volatility/wiki/Command-Reference#dumpfiles">dumpfiles</a></p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://security.stackexchange.com/questions/256283/how-to-identify-hidden-processes-with-volatility-using-psxview">https://security.stackexchange.com/questions/256283/how-to-identify-hidden-processes-with-volatility-using-psxview</a></p></li>
+</ul>
+<section id="extracting-raw-pictures-from-memory-dumps">
+<h4>Extracting RAW pictures from memory dumps<a class="headerlink" href="#extracting-raw-pictures-from-memory-dumps" title="Link to this heading"></a></h4>
+<p><a class="reference external" href="https://w00tsec.blogspot.in/2015/02/extracting-raw-pictures-from-memory.html">Extracting RAW pictures from Memory Dumps</a></p>
+<p>Probably, dump the process running MSRDP, MSPAINT</p>
+<ul class="simple">
+<li><p>Rename the file extensions from *.dmp to *.data, download/install GIMP and open them as “RAW Image Data”:</p></li>
+<li><p>We can use GIMP to navigate within the memory dump and analyse the rendered pixels/bitmaps on their corresponding offsets</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="disk-forensics">
+<h2>Disk Forensics<a class="headerlink" href="#disk-forensics" title="Link to this heading"></a></h2>
+<section id="initial-recon">
+<h3>Initial recon<a class="headerlink" href="#initial-recon" title="Link to this heading"></a></h3>
+<p>If we are provided a image,</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">img_stat</span></code> to display details of an image file.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">└─$ img_stat dds2-alpine.flag.img</span>
+<span class="go">IMAGE FILE INFORMATION</span>
+<span class="go">--------------------------------------------</span>
+<span class="go">Image Type: raw</span>
+
+<span class="go">Size in bytes: 134217728</span>
+<span class="go">Sector size:    512</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mmls</span></code> to display the partition layout of a volume system (partition tables). If <code class="docutils literal notranslate"><span class="pre">mmls</span></code> doesn’t provide any output, run <code class="docutils literal notranslate"><span class="pre">fsstat</span></code> on the disk image as it might not have any partition table.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mmls dds2-alpine.flag.img</span>
+<span class="go">DOS Partition Table</span>
+<span class="go">Offset Sector: 0</span>
+<span class="go">Units are in 512-byte sectors</span>
+
+<span class="go">      Slot      Start        End          Length       Description</span>
+<span class="go">000:  Meta      0000000000   0000000000   0000000001   Primary Table (#0)</span>
+<span class="go">001:  -------   0000000000   0000002047   0000002048   Unallocated</span>
+<span class="go">002:  000:000   0000002048   0000262143   0000260096   Linux (0x83)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fsstat</span></code> to display general details of a file system. The output of this command is file system specific. At a minimum, the range of meta-data values (inode numbers) and content units (blocks or clusters) are given. Also given are details from the Super Block, such as mount times and and features. It requires <code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">imgoffset</span></code> (the sector offset where the file system starts in the image).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">fsstat -o 2048 dds2-alpine.flag.img</span>
+<span class="go">FILE SYSTEM INFORMATION</span>
+<span class="go">--------------------------------------------</span>
+<span class="go">File System Type: Ext3</span>
+<span class="go">Volume Name:</span>
+<span class="go">Volume ID: dc53a3bb0ae739a5164c89db56bbb12f</span>
+
+<span class="go">Last Written at: 2021-02-16 13:21:20 (EST)</span>
+<span class="go">Last Checked at: 2021-02-16 13:21:19 (EST)</span>
+
+<span class="go">Last Mounted at: 2021-02-16 13:21:19 (EST)</span>
+<span class="go">Unmounted properly</span>
+<span class="go">Last mounted on: /os/mnt</span>
+
+<span class="go">Source OS: Linux</span>
+<span class="go">Dynamic Structure</span>
+<span class="go">Compat Features: Journal, Ext Attributes, Resize Inode, Dir Index</span>
+<span class="go">InCompat Features: Filetype,</span>
+<span class="go">Read Only Compat Features: Sparse Super, Large File,</span>
+
+<span class="go">Journal ID: 00</span>
+<span class="go">Journal Inode: 8</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fls</span></code> to list file and directory names in a disk image.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: fls [-adDFlhpruvV] [-f fstype] [-i imgtype] [-b dev_sector_size] [-m dir/] [-o imgoffset] [-z ZONE] [-s seconds] image [images] [inode]</span>
+<span class="go">        If [inode] is not given, the root directory is used</span>
+<span class="go">        -a: Display &quot;.&quot; and &quot;..&quot; entries</span>
+<span class="go">        -d: Display deleted entries only</span>
+<span class="go">        -D: Display only directories</span>
+<span class="go">        -F: Display only files</span>
+<span class="go">        -o imgoffset: Offset into image file (in sectors)</span>
+<span class="go">        -r: Recurse on directory entries</span>
+<span class="go">        -u: Display undeleted entries only</span>
+<span class="go">        -k password: Decryption password for encrypted volumes</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">fls -a -o 2048 dds2-alpine.flag.img</span>
+<span class="go">d/d 26417:      home</span>
+<span class="go">d/d 18290:      root</span>
+<span class="go">d/d 16259:      run</span>
+</pre></div>
+</div>
+<p>Then <code class="docutils literal notranslate"><span class="pre">fls</span></code> can be used see files in particular Folders by providing the above inode number.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">fls -a -o 2048 dds2-alpine.flag.img 18290</span>
+<span class="go">d/d 18290:      .</span>
+<span class="go">d/d 2:  ..</span>
+<span class="go">r/r 18291:      down-at-the-bottom.txt</span>
+</pre></div>
+</div>
+</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">icat</span></code> to read file or output the contents of a file based on its inode number. From above we get the inode number of the file.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">icat -o 2048 dds2-alpine.flag.img 18291</span>
+<span class="go">  / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \</span>
+<span class="go"> ( p ) ( i ) ( c ) ( o ) ( C ) ( T ) ( F ) ( { ) ( f ) ( 0 ) ( r ) ( 3 ) ( n )</span>
+<span class="go">  \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/</span>
+</pre></div>
+</div>
+<p>Further, there could be slack space in the file. We can use <code class="docutils literal notranslate"><span class="pre">-s</span></code> to include the slack space.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">icat -s suspicious.dd.sda1 12</span>
+<span class="go">Nothing to see here! But you may want to look here --&gt;</span>
+<span class="go">}1937befc_3&lt;_|Lm_111t5_3b{FTCocip</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="mounting-the-disk">
+<h3>Mounting the disk<a class="headerlink" href="#mounting-the-disk" title="Link to this heading"></a></h3>
+<section id="method-1">
+<h4>Method 1<a class="headerlink" href="#method-1" title="Link to this heading"></a></h4>
+<p>Install image as loops and mount the partition required.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[user@host Operation Oni]$ </span>sudo<span class="w"> </span>kpartx<span class="w"> </span>-a<span class="w"> </span>-v<span class="w"> </span>disk.img
+<span class="go">add map loop19p1 (253:22): 0 204800 linear 7:19 2048</span>
+<span class="go">add map loop19p2 (253:23): 0 264192 linear 7:19 206848</span>
+<span class="gp">[user@host Operation Oni]$ </span>sudo<span class="w"> </span>mount<span class="w"> </span>/dev/mapper/loop19p2<span class="w"> </span>mnt/
+</pre></div>
+</div>
+<p>We can browse the mounted directory using <code class="docutils literal notranslate"><span class="pre">cd</span></code>.</p>
+<p>Unmount the disk and delete the image as loop.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[user@host Operation Oni]$ </span>umount<span class="w"> </span>mnt
+<span class="gp">[user@host Operation Oni]$ </span>sudo<span class="w"> </span>kpartx<span class="w"> </span>-d<span class="w"> </span>disk.img
+<span class="go">loop deleted : /dev/loop19</span>
+</pre></div>
+</div>
+</section>
+<section id="method-2">
+<h4>Method 2<a class="headerlink" href="#method-2" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">disk -l disk.img</span>
+<span class="go">Disk disk.img: 230 MiB, 241172480 bytes, 471040 sectors</span>
+<span class="go">Units: sectors of 1 * 512 = 512 bytes</span>
+<span class="go">Sector size (logical/physical): 512 bytes / 512 bytes</span>
+<span class="go">I/O size (minimum/optimal): 512 bytes / 512 bytes</span>
+<span class="go">Disklabel type: dos</span>
+<span class="go">Disk identifier: 0x0b0051d0</span>
+
+<span class="go">Device     Boot  Start    End Sectors  Size Id Type</span>
+<span class="go">disk.img1  *      2048 206847  204800  100M 83 Linux</span>
+<span class="go">disk.img2       206848 471039  264192  129M 83 Linux</span>
+</pre></div>
+</div>
+<p>Mount the disk by replacing the offset. In the below, we just replace the <cite>Start</cite> number to calculate the offset.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo  mount -o loop,offset=`echo 206848 \* 512|bc` disk.img /mnt</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="raid">
+<h3>RAID<a class="headerlink" href="#raid" title="Link to this heading"></a></h3>
+<p>Redundant Array of Inexpensive Disks</p>
+<p>RAID can be used for a number of reasons such as squeezing out extra performance, offering redundancy to your data and even parity; parity is what rebuilds data which is potentially lost, thus offering an extra level of protection from data loss.</p>
+<p>The most common types of RAID array are</p>
+<ul class="simple">
+<li><p>RAID 0</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Requires a minimum of 2 disks to create</p></li>
+<li><p>Widely known as the performance RAID</p></li>
+<li><p>Offers no redundancy whatsoever (no mirroring or parity featured)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>RAID 1</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Like RAID 0, requires a minimum of 2 disks to create</p></li>
+<li><p>Offers good redundancy due to RAID 1 using a mirrored drive</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>RAID 5</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Requires a minimum of 3 disks to setup</p></li>
+<li><p>Gives a level added of redundancy through parity</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>RAID 10 (Sometimes known as RAID 1+0)</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>A minimum of 4 disks is needed</p></li>
+<li><p>Effectively RAID10 is a RAID0 and 1 array combined into a single arra</p></li>
+</ul>
+</div></blockquote>
+<section id="challenges">
+<h4>Challenges<a class="headerlink" href="#challenges" title="Link to this heading"></a></h4>
+<p>If we are provided either two or three raid disk file in which one is crashed, we can eventually recover it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$file disk*
+disk0:    DOS/MBR boot sector, code offset 0x3c+2, OEM-ID &quot;mkfs.fat&quot;, sectors/cluster 4, root entries 512, sectors 2048 (volumes &amp;lt;=32 MB) , Media descriptor 0xf8, sectors/FAT 2, sectors/track 32, heads 64, reserved 0x1, serial number 0x867314a9, unlabeled, FAT (12 bit)
+disk1:    ASCII text
+disk2:    data
+
+$ ls -lh
+512K  disk0
+12    disk1
+512K  disk2
+
+$ cat disk1
+crashed :-()
+</pre></div>
+</div>
+<p>From above output we know that disk1 is missing. We also know that RAID was used. The most probable version of RAID allowing 1 out of 3 disk loss is the one where every disk can be obtained by XOR-ing 2 other disks. We XOR-ed disk0 and disk2 to get disk1 using some python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;disk0&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f1</span><span class="p">:</span>
+   <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;disk2&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f2</span><span class="p">:</span>
+       <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;disk1&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f3</span><span class="p">:</span>
+           <span class="n">x</span> <span class="o">=</span> <span class="n">f1</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+           <span class="n">y</span> <span class="o">=</span> <span class="n">f2</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+           <span class="n">f3</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>or we can use <a class="reference external" href="https://github.com/scangeo/xor-files">xor-files</a> to XOR for two or more files and get the result on a pipe</p>
+<p>Now, to get the full NAS content, we had to determine the block distribution. After few minutes of analyzing the disks content and with some knowledge of FAT12 structure) we have determined that parity block (BP) is on
+different disk in each row so we have distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D0</span> <span class="o">|</span> <span class="n">D1</span> <span class="o">|</span> <span class="n">D2</span>
+<span class="o">---|----|---</span>
+<span class="n">B0</span> <span class="o">|</span> <span class="n">B1</span> <span class="o">|</span> <span class="n">BP</span>
+<span class="n">B2</span> <span class="o">|</span> <span class="n">BP</span> <span class="o">|</span> <span class="n">B3</span>
+<span class="n">BP</span> <span class="o">|</span> <span class="n">B4</span> <span class="o">|</span> <span class="n">B5</span>
+<span class="n">B6</span> <span class="o">|</span> <span class="n">B7</span> <span class="o">|</span> <span class="n">BP</span>
+</pre></div>
+</div>
+<p>Simple python code to piece together all data blocks:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">1024</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">512</span>    <span class="c1"># block size</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;disk0&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f1</span><span class="p">:</span>
+   <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;disk1&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f2</span><span class="p">:</span>
+       <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;disk2&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f3</span><span class="p">:</span>
+           <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;disk_out&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_out</span><span class="p">:</span>
+               <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+               <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                   <span class="n">blocks</span> <span class="o">=</span> <span class="p">(</span><span class="n">f1</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">f2</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">f3</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+                   <span class="n">data_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">blocks</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">x</span><span class="p">]</span>
+                   <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span>
+                   <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_blocks</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Now to check the content we can mount the resulting disk image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo mount disk_out  /mnt/img/
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="formats">
+<h2>Formats<a class="headerlink" href="#formats" title="Link to this heading"></a></h2>
+<section id="boarding-pass-format">
+<h3>Boarding Pass Format<a class="headerlink" href="#boarding-pass-format" title="Link to this heading"></a></h3>
+<p>Boarding pass issued at the airport from <a class="reference external" href="https://shaun.net/notes/whats-contained-in-a-boarding-pass-barcode/">What’s contained in a boarding pass barcode?</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M1EWING</span><span class="o">/</span><span class="n">SHAUN</span>         <span class="n">E1AAAAA</span> <span class="n">SYDBNEQF</span> <span class="mi">0524</span> <span class="mi">106</span><span class="n">Y023A0073</span> <span class="mi">359</span><span class="o">&gt;</span><span class="mi">2180</span>
+<span class="n">B</span>                <span class="mi">29</span>             <span class="mi">0</span>    <span class="n">QF</span> <span class="mi">1245678</span>             <span class="mi">128</span>
+</pre></div>
+</div>
+<p>There’s more information in this boarding pass barcode, which is as follows:</p>
+<ul class="simple">
+<li><p>M1          : Format code ‘M’ and 1 leg on the boarding pass.</p></li>
+<li><p>EWING/SHAUN : My name.</p></li>
+<li><p>E1AAAAA     : Electronic ticket indicator and my booking reference.</p></li>
+<li><p>SYDBNEQF    : Flying from SYD (Sydney) to BNE (Brisbane) on QF (Qantas).</p></li>
+<li><p>0524        : Flight number 524.</p></li>
+<li><p>106         : The Julian date. In this case 106 is April 16.</p></li>
+<li><p>Y           : Cabin – Economy in this case. Others including F (First) and J (Business).</p></li>
+<li><p>23A         : My seat.</p></li>
+<li><p>0073        : My sequence number. In this case I was the 73rd person to check-in.</p></li>
+<li><p>3           : My “passenger status”.</p></li>
+<li><p>59          : There is a various size field. This is the size</p></li>
+<li><p>&gt;          : Beginning of the version number</p></li>
+<li><p>2          : The version number.</p></li>
+<li><p>18          : Field size of another variable field.</p></li>
+<li><p>0          : My check-in source.</p></li>
+<li><p>B          : Airline designator of boarding pass issuer.</p></li>
+<li><p>2          : Another variable size field.</p></li>
+<li><p>9          : Airline code.</p></li>
+<li><p>0          : International document verification. ’0′ as I presume is not applicable.</p></li>
+<li><p>QF          : The airline my frequent flyer account is with.</p></li>
+<li><p>1245678     : My frequent flyer number.</p></li>
+<li><p>128         : Airline specific data.</p></li>
+</ul>
+<section id="interesting-blog">
+<h4>Interesting Blog<a class="headerlink" href="#interesting-blog" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ctfs/write-ups-2015/tree/master/camp-ctf-2015/forensics/APT-incident-response-400">APT-Incident-Response</a></p></li>
+<li><p><a class="reference external" href="https://dubell.io/securityfest-ctf-coresec-challenge-writeup/">Securityfest CTF - Coresec challenge writeup</a></p></li>
+<li><p><a class="reference external" href="http://dann.com.br/shx7-for300-go_deeper/">SHX7 - for300</a></p></li>
+</ul>
+</section>
+</section>
+<section id="others">
+<h3>Others<a class="headerlink" href="#others" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>The Konami Code is a cheat code that appears in many Konami video games, although the code also appears in some non-Konami games. The player could press the following sequence of buttons on the game controller to enable a cheat or other effects:</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">38</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">13</span><span class="p">]</span> <span class="ow">is</span> <span class="n">actually</span><span class="p">:</span> <span class="n">UP</span> <span class="n">UP</span> <span class="n">DOWN</span> <span class="n">DOWN</span> <span class="n">LEFT</span> <span class="n">RIGHT</span> <span class="n">LEFT</span> <span class="n">RIGHT</span> <span class="n">B</span> <span class="n">A</span> <span class="n">ENTER</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>A000045 would bring up the fibonacci numbers.</p></li>
+<li><p><a class="reference external" href="http://www.utf8-chartable.de/unicode-utf8-table.pl?start=917376&amp;number=1024">Unicode</a></p></li>
+<li><p>In a TCP Dump, you see a telnet session entering login username and password and those creds are not valid. Maybe check the value in HEX. If it contains 0x7F, that’s backspace.</p></li>
+<li><p>If in a challenge, you are provided a setgid program which is able to read a certain extension files and flag is present in some other extension, create a symbolic link to the flag with the extension which can be read by the program. For example: In picoCTF 2014 Supercow challenge, a program named supercow was able to read files with .cow extension only and flag was present with flag.txt. So we created a symbolic link like ln -s flag.txt flag.cow</p></li>
+<li><p>If in a challenge, you are provided with a <strong>APK</strong> file. There are three ways to decompile it as described below:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Apktool: It is used to decode resources to nearly original form (including resources.arsc, XMLs and 9.png files) and rebuilding them. Also, used for smali debugging. apktool converts the apk file in to smali format. smali/baksmali is an assembler/disassembler for the dex format used by dalvik, Android’s Java VM implementation.</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apktool<span class="w"> </span>d<span class="w"> </span>file.apk<span class="w"> </span>output-dir
+d<span class="w"> </span>:<span class="w"> </span>decode<span class="w"> </span>to<span class="w"> </span>output-dir
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Dex2jar: To see the java code (approx)</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Change the extension of file.apk from .apk to .zip</p></li>
+<li><p>Unzip the file.zip</p></li>
+<li><p>After unzip, you would get classes.dex file.</p></li>
+<li><p>Use dex2jar classes.dex (It would create classes_dex2jar.jar file)</p></li>
+<li><p>Extract jar file by jar xf classes_dex2jar.jar</p></li>
+<li><p>This would provide you with .class files which could be open by jd-gui (Java Decompiler) tool.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Use online services such as Decompile Android. Once it’s decompiled, we can download the decompiled files and unpack them.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>If you are provided a disk.img file, from which files have to recovered, you could use foremost tool used to recover files using their headers, footers, and data structures.</p></li>
+<li><p>If you are provided with iOS package, we may use dpkg-deb to extract it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dpkg</span><span class="o">-</span><span class="n">deb</span> <span class="o">-</span><span class="n">x</span> <span class="n">com</span><span class="o">.</span><span class="n">yourcompany</span><span class="o">.</span><span class="n">whyos_4</span><span class="mf">.2.0</span><span class="o">-</span><span class="mi">28</span><span class="n">debug_iphoneos</span><span class="o">-</span><span class="n">arm</span><span class="o">.</span><span class="n">deb</span> <span class="n">app</span>
+</pre></div>
+</div>
+</li>
+<li><p>If you are provided a jar file in the challenge, JAR (Java ARchive) is a package file format typically used to aggregate many Java class files and associated metadata and resources (text, images, etc.) into one file to distribute application software or libraries on the Java platform. It can be extracted using</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jar</span> <span class="n">xf</span> <span class="n">jar</span><span class="o">-</span><span class="n">file</span>
+<span class="n">x</span> <span class="p">:</span> <span class="n">extract</span> <span class="n">files</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">JAR</span> <span class="n">archive</span><span class="o">.</span>
+<span class="n">f</span> <span class="p">:</span> <span class="n">JAR</span> <span class="n">file</span> <span class="kn">from</span> <span class="nn">which</span> <span class="n">files</span> <span class="n">are</span> <span class="n">to</span> <span class="n">be</span> <span class="n">extracted</span> <span class="ow">is</span> <span class="n">specified</span> <span class="n">on</span> <span class="n">the</span> <span class="n">command</span> <span class="n">line</span><span class="p">,</span> <span class="n">rather</span> <span class="n">than</span> <span class="n">through</span> <span class="n">stdin</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">jar</span><span class="o">-</span><span class="n">file</span> <span class="n">argument</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">filename</span> <span class="p">(</span><span class="ow">or</span> <span class="n">path</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">)</span> <span class="n">of</span> <span class="n">the</span> <span class="n">JAR</span> <span class="n">file</span> <span class="kn">from</span> <span class="nn">which</span> <span class="n">to</span> <span class="n">extract</span> <span class="n">files</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>If you are having a source code of evil program, check the source code of the real program, do a comparision and find the added evil code.</p></li>
+<li><p>Morse code, utilize <a class="reference external" href="https://morsecode.scphillips.com/translator.html">Transator</a></p></li>
+<li><p>Sometimes, if you extract some files, if you wuld see a blank name, you know there is some file but can’t see a name, like file name could be spaces?, then</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-lb<span class="w"> </span>might<span class="w"> </span>be<span class="w"> </span>of<span class="w"> </span>help.
+-b,<span class="w"> </span>--escape<span class="w"> </span>:<span class="w">   </span>print<span class="w"> </span>C-style<span class="w"> </span>escapes<span class="w"> </span><span class="k">for</span><span class="w"> </span>nongraphic<span class="w"> </span>characters
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>How to open a filename named “-” : We can create a file named “-” by</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span>hello<span class="w"> </span>&gt;<span class="w"> </span>-
+</pre></div>
+</div>
+<p>and this file can be opened by</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>./-
+</pre></div>
+</div>
+<p>This is needed because lot of programs use “-” to mean stdin/stdout.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>If you have a hex dump of something and you want to create the binary version of the data?</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>xxd<span class="w"> </span>r<span class="w"> </span>data
+data<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>hexdump<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>binary<span class="w"> </span>file.
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Excel Document: You may try unzipping it and check VBA macros in it. There are tools to extract VBA from excel listed here ools to extract VBA Macro source code from MS Office Documents</p></li>
+<li><p>GIF to JPG</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>convert<span class="w"> </span>animation.gif<span class="w"> </span>target.jpg
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>If the pdf-parser contains</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/ProcSet<span class="w"> </span><span class="o">[</span>/PDF/Text/ImageC/ImageI<span class="o">]</span>
+/ProcSet<span class="w"> </span><span class="o">[</span>/PDF/Text/ImageC/ImageI<span class="o">]</span>
+</pre></div>
+</div>
+<p>It means it will contain text which can be extracted by using</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>*pdf2txt<span class="w"> </span>Untitled-1_1a110935ec70b63ad09fec68c89dfacb.pdf
+<span class="w"> </span>PCTF<span class="o">{</span>how_2_pdf_yo<span class="o">}</span>*
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>If you get an IP address on the challenge and probably no port is open and pinging, try to check the response time of the pings, it might different each time and maybe representing binary 0 (If response time is less than Xms) or
+binary 1 (If the response time is greater than Xms).</p></li>
+</ul>
+</section>
+<section id="forensics-tools-used">
+<h3>Forensics Tools used<a class="headerlink" href="#forensics-tools-used" title="Link to this heading"></a></h3>
+<ul>
+<li><p><cite>AutoRuns PowerShell Module &lt;https://github.com/p0w3rsh3ll/AutoRuns&gt;</cite>: AutoRuns module was designed to help do live incident response and enumerate autoruns artifacts that may be used by legitimate programs as well as malware to achieve persistence.</p>
+<blockquote>
+<div><p>Sample Entry:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;item&gt;</span>
+<span class="nt">&lt;location&gt;</span>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell<span class="w"> </span>Folders\Common<span class="w"> </span>Startup<span class="nt">&lt;/location&gt;</span>
+<span class="nt">&lt;itemname&gt;</span>Windows<span class="w"> </span>Updater.lnk<span class="nt">&lt;/itemname&gt;</span>
+<span class="nt">&lt;enabled&gt;</span>Enabled<span class="nt">&lt;/enabled&gt;</span>
+<span class="nt">&lt;profile&gt;</span>System-wide<span class="nt">&lt;/profile&gt;</span>
+<span class="nt">&lt;launchstring&gt;</span>C:\ProgramData\Microsoft\Windows\Start<span class="w"> </span>Menu\Programs\Startup\Windows<span class="w"> </span>Updater.lnk<span class="nt">&lt;/launchstring&gt;</span>
+<span class="nt">&lt;imagepath&gt;</span>c:\users\barry\downloads\updater.cmd<span class="nt">&lt;/imagepath&gt;</span>
+<span class="nt">&lt;time&gt;</span>20230504-124939<span class="nt">&lt;/time&gt;</span>
+<span class="nt">&lt;/item&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Firmware image provided? with <code class="docutils literal notranslate"><span class="pre">Squashfs</span></code>? Use <cite>unsquashfs</cite> to uncompress, extract and list squashfs filesystems</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">CONTROL: BOA archive data</span>
+<span class="go">kernel:  Device Tree Blob version 17, size=2640268, boot CPU=0, string block size=108, DT structure block size=2639208</span>
+<span class="go">root:    Squashfs filesystem, little endian, version 4.0, xz compressed, 11550948 bytes, 1199 inodes, blocksize: 262144 bytes, created: Tue Jan 31 15:36:57 2023</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="LFC-BinaryExploitation.html" class="btn btn-neutral float-left" title="Binary Exploitation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LFC-ReverseEngineering.html" class="btn btn-neutral float-right" title="Reverse Engineering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

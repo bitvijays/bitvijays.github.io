@@ -1,0 +1,150 @@
+############
+Cryptography
+############
+
+This post (Work in Progress) lists the tips and tricks while doing Cryptography challenges during various CTF's.
+
+Codes and Substitution
+**********************
+
+- If you get some text atleast few paragraphs and some random numbers as (1, 9, 4) (4, 2, 8) (4, 8, 3) (7, 1, 5) (8, 10, 1), it might mean (Paragraph, Line, Word). 
+
+- If you get a poem followed by some numbers and ciphertext, probably it's `Poem Code <https://en.wikipedia.org/wiki/Poem_code>`_ The poem code is a simple, and insecure, cryptographic method which was used by SOE to communicate with their agents in Nazi-occupied Europe. The method works by the sender and receiver pre-arranging a poem to use.
+
+- If you see multiple flags, which may mean something. Maybe have a look at `International Maritime Signal Flags <https://en.wikipedia.org/wiki/International_maritime_signal_flags>`_ 
+
+
+Ciphers
+*******
+
+Asymmetric Encryption
+=====================
+
+RSA
+----
+
+p,q,dp,dp
+^^^^^^^^^
+
+- Provided with RSA p,q,dp,dq and ciphertext Refer `PicoCTF_2017:Weird RSA <https://github.com/navin-moorthy/Pico-CTF-2017-Write-Up/blob/master/cryptography/weird-rsa/README.md>`_
+
+
+Different public exponent (e) and the same modulus (N)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Provided with e1, e2, c1, c2 and N, Refer `rsa_e2 <https://asecuritysite.com/rsa/rsa_e2>`_
+
+.. code-block:: 
+
+    e1: 65337
+    e2: 1025
+    n:   9898006990106....
+    c1:  8876427863578....
+    c2:  3874365421971....
+
+
+Symmetric Encryption
+====================
+
+- `Fernet <https://cryptography.io/en/latest/fernet/>`_ : Fernet guarantees that a message encrypted using it cannot be manipulated or read without the key. Fernet is an implementation of symmetric (also known as “secret key”) authenticated cryptography.
+
+
+.. code:: console
+
+  E: openssl aes256 -salt -in flag.txt -out flag.txt.enc -k unbreakablepassword1234567
+  D: openssl aes256 -d --in flag.txt.enc -k unbreakablepassword1234567
+
+
+  E: 
+  D: openssl enc -d -aes256 -in dracula.txt.enc -out dracula.txt -S 0f3fa17eeacd53a9 -K 58593a7522257f2a95cce9a68886ff78546784ad7db4473dbd91aecd9eefd508 -iv 7a12fd4dc1898efcd997a1b9496e7591
+
+
+Esoteric programming language
+*****************************
+
+This would be the best page to refer `Esoteric programming language <https://en.wikipedia.org/wiki/Esoteric_programming_language>`_
+
+Rockstar
+========
+
+`Rockstar <https://github.com/dylanbeattie/rockstar>`_: Rockstar is a dynamically typed computer programming language, designed for creating programs that are also song lyrics. Rockstar is heavily influenced by the lyrical conventions of 1980s hard rock and power ballads.
+
+There are multiple program to convert the rockstar to ruby, python and others.
+
+Piet
+====
+
+Piet is a language designed by David Morgan-Mar, whose programs are bitmaps that look like abstract art. (Steganography - Challenges)
+
+Malbolge
+========
+
+`Malbolge <https://en.wikipedia.org/wiki/Malbolge>`_ : Malbolge is a public domain esoteric programming language invented by Ben Olmstead in 1998, named after the eighth circle of hell in Dante's Inferno, the Malebolge
+
+
+
+
+
+* Caesar cipher and substitution cipher can be solved by using Cryptool 1. Just check the Analysis option, there’s analysis for Symmetric Key,Asymmetric Key, Hash and others. Otherwise, a good website to solve substitution cipher is  `Quipqiup <http://quipqiup.com/>`_. Ceaser cipher good website is `Caesar cipher decryption tool <https://www.xarg.org/tools/caesar-cipher/>`_
+
+
+* If you get some ciphertext encrypted by XOR, `xortool <https://github.com/hellman/xortool>`_. It can help you to find the key length and the key.
+
+* All ciphers listed at `Cipher Tools <http://rumkin.com/tools/cipher/>`_
+
+* If we have a "3845281945283805284526053525260547380516453748164748478317454508" something like this? It might be a  Polybius square cipher, where each 2-number block in the encrypted text is a coordinate on a 5x5 square.
+
+* If we examine the encrypted string, we see that when divided into blocks of 2 every first letter, x, falls on the interval 0<=x<=4 and every second letter, y, falls on the interval 5<=y<=9. This knowledge combined with the hint that our cipher will be missing the letter "z", we can construct a 5x5 Polybius square (hence the hint sqrt(ABCDEFGHIJKLMNOPQRSTUVWXY), because the alphabet minus Z is of length 25 and sqrt(25) = 5).
+
+Different Base
+**************
+
+Golden Ratio Base
+=================
+
+Golden ratio base is a non-integer positional numeral system that uses the golden ratio (the irrational number 1 + √5/2 ≈ 1.61803399 symbolized by the Greek letter φ) as its base.
+
+If we get output something like
+
+.. code:: console
+
+  01010010100.01001001000100.01001010000100.00101010010101.01000100100100.00100100000100.01000100000101.01000100001010.00000100000001.00001001010000.00000100010010.01000100010010.01001001001000.10001001000101.01001001010000.00001001000100.01001001010001.00000100000010.01000100010000.00001001001000.10000100010100.01000000010100.01001010000010.00101001010000.00001010101000.10000100100100.00101001000100.01000100010100.01001001010001.00000100010010.01000100010000.00001001000101.01000100010010.01000100010001.00000100001000.10001001000101.01001001001010.00000100010100.01000100000100.01000100010001.00000100000001.00000100001010.00000100010001.00001001000100.01000100000001.00000100001010.00000100001000.10000100000001.00000100010010.01001001001010.00000100000100.01000100010001.00000100001000.10001001010000.00001001010000.00000100000101.01001001000100.01000100010010.01000100010010.01001001000100.01000100010010.01000100000101.01001001000100.01001001001010.00000100010100.01000100010001.00000100000100.01000100000100.01000100000010.01000100010001.00001001000101.01000100010010.01000100000010.01001001010001.00001001001010.00001001001000.10000100000100.01001001000101.01001001000101.01000100010010.01001001010000.00000100010010.01001001001000.10001001000100.01000100010010.01000100010001.00000100000101.01000100010000.00001001001010.00001001000100.01000000010100.01001001010101.01001010100010.00100100100100.00100100010100.01000100000001.00000100010010.01000100001000.10000100001010.00000100010010.01001001010000.00000100001000.10000100010010.01001001010001.00001001001000.10000100010010.01001001001010.00001001000101.01000100000010.01001001001000.10000100001010.00001001000100.01000100001000.10000100010000.00001001010001.00000100000010.01000100010010.01001001010001.00000100000001.00001001010001.00001001010000.00001001000101.01000100000010.01000100000010.01000100010100.01001001010001.00000000010100.010
+
+Use the below code from `Argeus C. Dominguez on his PicoCTF writeup <https://medium.com/@12gnathic.xsgb9/picoctf-2023-unforgottenbits-writeup-3f758528bcdc>`_ to decode it
+
+.. code:: python
+
+  #phi_decoder.py
+  from math import ceil
+  from scipy.constants import golden
+
+  def phinary_to_decimal(phigit):
+      integer, fraction = phigit.split(".")
+      integer = integer[::-1] #reverse integer string
+
+      number = 0
+
+      for i, x in enumerate(integer):
+          if x == "1":
+              number = number + golden ** (i)
+      for i, x in enumerate(fraction):
+          if x == "1":
+              number = number + golden ** -(i+1)
+      
+      return number
+
+  if __name__ == "__main__":
+      with open("phi_enc.txt") as f:
+          string = f.read()
+          string = string.rstrip("\n")
+      
+      #Split string every 15th character
+      phigits = [string[i: i + 15] for i in range(0, len(string), 15)]
+      
+      decoded_phi = []
+
+      for phigit in phigits:
+          decoded_phi.append(ceil(phinary_to_decimal(phigit)))
+
+      print(''.join(map(chr,decoded_phi)))
+

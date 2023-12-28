@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cryptography &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Coding Quick Reference" href="LFC-CodingQuickRef.html" />
+    <link rel="prev" title="Reverse Engineering" href="LFC-ReverseEngineering.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cryptography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#codes-and-substitution">Codes and Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ciphers">Ciphers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#asymmetric-encryption">Asymmetric Encryption</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rsa">RSA</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#p-q-dp-dp">p,q,dp,dp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#different-public-exponent-e-and-the-same-modulus-n">Different public exponent (e) and the same modulus (N)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#symmetric-encryption">Symmetric Encryption</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#esoteric-programming-language">Esoteric programming language</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rockstar">Rockstar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#piet">Piet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#malbolge">Malbolge</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#different-base">Different Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#golden-ratio-base">Golden Ratio Base</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cryptography</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cryptography">
+<h1>Cryptography<a class="headerlink" href="#cryptography" title="Link to this heading"></a></h1>
+<p>This post (Work in Progress) lists the tips and tricks while doing Cryptography challenges during various CTF’s.</p>
+<section id="codes-and-substitution">
+<h2>Codes and Substitution<a class="headerlink" href="#codes-and-substitution" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>If you get some text atleast few paragraphs and some random numbers as (1, 9, 4) (4, 2, 8) (4, 8, 3) (7, 1, 5) (8, 10, 1), it might mean (Paragraph, Line, Word).</p></li>
+<li><p>If you get a poem followed by some numbers and ciphertext, probably it’s <a class="reference external" href="https://en.wikipedia.org/wiki/Poem_code">Poem Code</a> The poem code is a simple, and insecure, cryptographic method which was used by SOE to communicate with their agents in Nazi-occupied Europe. The method works by the sender and receiver pre-arranging a poem to use.</p></li>
+<li><p>If you see multiple flags, which may mean something. Maybe have a look at <a class="reference external" href="https://en.wikipedia.org/wiki/International_maritime_signal_flags">International Maritime Signal Flags</a></p></li>
+</ul>
+</section>
+<section id="ciphers">
+<h2>Ciphers<a class="headerlink" href="#ciphers" title="Link to this heading"></a></h2>
+<section id="asymmetric-encryption">
+<h3>Asymmetric Encryption<a class="headerlink" href="#asymmetric-encryption" title="Link to this heading"></a></h3>
+<section id="rsa">
+<h4>RSA<a class="headerlink" href="#rsa" title="Link to this heading"></a></h4>
+<section id="p-q-dp-dp">
+<h5>p,q,dp,dp<a class="headerlink" href="#p-q-dp-dp" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Provided with RSA p,q,dp,dq and ciphertext Refer <a class="reference external" href="https://github.com/navin-moorthy/Pico-CTF-2017-Write-Up/blob/master/cryptography/weird-rsa/README.md">PicoCTF_2017:Weird RSA</a></p></li>
+</ul>
+</section>
+<section id="different-public-exponent-e-and-the-same-modulus-n">
+<h5>Different public exponent (e) and the same modulus (N)<a class="headerlink" href="#different-public-exponent-e-and-the-same-modulus-n" title="Link to this heading"></a></h5>
+<p>Provided with e1, e2, c1, c2 and N, Refer <a class="reference external" href="https://asecuritysite.com/rsa/rsa_e2">rsa_e2</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">e1</span><span class="p">:</span> <span class="mi">65337</span>
+<span class="n">e2</span><span class="p">:</span> <span class="mi">1025</span>
+<span class="n">n</span><span class="p">:</span>   <span class="mf">9898006990106.</span><span class="o">...</span>
+<span class="n">c1</span><span class="p">:</span>  <span class="mf">8876427863578.</span><span class="o">...</span>
+<span class="n">c2</span><span class="p">:</span>  <span class="mf">3874365421971.</span><span class="o">...</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="symmetric-encryption">
+<h3>Symmetric Encryption<a class="headerlink" href="#symmetric-encryption" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cryptography.io/en/latest/fernet/">Fernet</a> : Fernet guarantees that a message encrypted using it cannot be manipulated or read without the key. Fernet is an implementation of symmetric (also known as “secret key”) authenticated cryptography.</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">E: openssl aes256 -salt -in flag.txt -out flag.txt.enc -k unbreakablepassword1234567</span>
+<span class="go">D: openssl aes256 -d --in flag.txt.enc -k unbreakablepassword1234567</span>
+
+
+<span class="go">E:</span>
+<span class="go">D: openssl enc -d -aes256 -in dracula.txt.enc -out dracula.txt -S 0f3fa17eeacd53a9 -K 58593a7522257f2a95cce9a68886ff78546784ad7db4473dbd91aecd9eefd508 -iv 7a12fd4dc1898efcd997a1b9496e7591</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="esoteric-programming-language">
+<h2>Esoteric programming language<a class="headerlink" href="#esoteric-programming-language" title="Link to this heading"></a></h2>
+<p>This would be the best page to refer <a class="reference external" href="https://en.wikipedia.org/wiki/Esoteric_programming_language">Esoteric programming language</a></p>
+<section id="rockstar">
+<h3>Rockstar<a class="headerlink" href="#rockstar" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://github.com/dylanbeattie/rockstar">Rockstar</a>: Rockstar is a dynamically typed computer programming language, designed for creating programs that are also song lyrics. Rockstar is heavily influenced by the lyrical conventions of 1980s hard rock and power ballads.</p>
+<p>There are multiple program to convert the rockstar to ruby, python and others.</p>
+</section>
+<section id="piet">
+<h3>Piet<a class="headerlink" href="#piet" title="Link to this heading"></a></h3>
+<p>Piet is a language designed by David Morgan-Mar, whose programs are bitmaps that look like abstract art. (Steganography - Challenges)</p>
+</section>
+<section id="malbolge">
+<h3>Malbolge<a class="headerlink" href="#malbolge" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Malbolge">Malbolge</a> : Malbolge is a public domain esoteric programming language invented by Ben Olmstead in 1998, named after the eighth circle of hell in Dante’s Inferno, the Malebolge</p>
+<ul class="simple">
+<li><p>Caesar cipher and substitution cipher can be solved by using Cryptool 1. Just check the Analysis option, there’s analysis for Symmetric Key,Asymmetric Key, Hash and others. Otherwise, a good website to solve substitution cipher is  <a class="reference external" href="http://quipqiup.com/">Quipqiup</a>. Ceaser cipher good website is <a class="reference external" href="https://www.xarg.org/tools/caesar-cipher/">Caesar cipher decryption tool</a></p></li>
+<li><p>If you get some ciphertext encrypted by XOR, <a class="reference external" href="https://github.com/hellman/xortool">xortool</a>. It can help you to find the key length and the key.</p></li>
+<li><p>All ciphers listed at <a class="reference external" href="http://rumkin.com/tools/cipher/">Cipher Tools</a></p></li>
+<li><p>If we have a “3845281945283805284526053525260547380516453748164748478317454508” something like this? It might be a  Polybius square cipher, where each 2-number block in the encrypted text is a coordinate on a 5x5 square.</p></li>
+<li><p>If we examine the encrypted string, we see that when divided into blocks of 2 every first letter, x, falls on the interval 0&lt;=x&lt;=4 and every second letter, y, falls on the interval 5&lt;=y&lt;=9. This knowledge combined with the hint that our cipher will be missing the letter “z”, we can construct a 5x5 Polybius square (hence the hint sqrt(ABCDEFGHIJKLMNOPQRSTUVWXY), because the alphabet minus Z is of length 25 and sqrt(25) = 5).</p></li>
+</ul>
+</section>
+</section>
+<section id="different-base">
+<h2>Different Base<a class="headerlink" href="#different-base" title="Link to this heading"></a></h2>
+<section id="golden-ratio-base">
+<h3>Golden Ratio Base<a class="headerlink" href="#golden-ratio-base" title="Link to this heading"></a></h3>
+<p>Golden ratio base is a non-integer positional numeral system that uses the golden ratio (the irrational number 1 + √5/2 ≈ 1.61803399 symbolized by the Greek letter φ) as its base.</p>
+<p>If we get output something like</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">01010010100.01001001000100.01001010000100.00101010010101.01000100100100.00100100000100.01000100000101.01000100001010.00000100000001.00001001010000.00000100010010.01000100010010.01001001001000.10001001000101.01001001010000.00001001000100.01001001010001.00000100000010.01000100010000.00001001001000.10000100010100.01000000010100.01001010000010.00101001010000.00001010101000.10000100100100.00101001000100.01000100010100.01001001010001.00000100010010.01000100010000.00001001000101.01000100010010.01000100010001.00000100001000.10001001000101.01001001001010.00000100010100.01000100000100.01000100010001.00000100000001.00000100001010.00000100010001.00001001000100.01000100000001.00000100001010.00000100001000.10000100000001.00000100010010.01001001001010.00000100000100.01000100010001.00000100001000.10001001010000.00001001010000.00000100000101.01001001000100.01000100010010.01000100010010.01001001000100.01000100010010.01000100000101.01001001000100.01001001001010.00000100010100.01000100010001.00000100000100.01000100000100.01000100000010.01000100010001.00001001000101.01000100010010.01000100000010.01001001010001.00001001001010.00001001001000.10000100000100.01001001000101.01001001000101.01000100010010.01001001010000.00000100010010.01001001001000.10001001000100.01000100010010.01000100010001.00000100000101.01000100010000.00001001001010.00001001000100.01000000010100.01001001010101.01001010100010.00100100100100.00100100010100.01000100000001.00000100010010.01000100001000.10000100001010.00000100010010.01001001010000.00000100001000.10000100010010.01001001010001.00001001001000.10000100010010.01001001001010.00001001000101.01000100000010.01001001001000.10000100001010.00001001000100.01000100001000.10000100010000.00001001010001.00000100000010.01000100010010.01001001010001.00000100000001.00001001010001.00001001010000.00001001000101.01000100000010.01000100000010.01000100010100.01001001010001.00000000010100.010</span>
+</pre></div>
+</div>
+<p>Use the below code from <a class="reference external" href="https://medium.com/&#64;12gnathic.xsgb9/picoctf-2023-unforgottenbits-writeup-3f758528bcdc">Argeus C. Dominguez on his PicoCTF writeup</a> to decode it</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#phi_decoder.py</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">ceil</span>
+<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">golden</span>
+
+<span class="k">def</span> <span class="nf">phinary_to_decimal</span><span class="p">(</span><span class="n">phigit</span><span class="p">):</span>
+    <span class="n">integer</span><span class="p">,</span> <span class="n">fraction</span> <span class="o">=</span> <span class="n">phigit</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">integer</span> <span class="o">=</span> <span class="n">integer</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#reverse integer string</span>
+
+    <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">integer</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">+</span> <span class="n">golden</span> <span class="o">**</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fraction</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">+</span> <span class="n">golden</span> <span class="o">**</span> <span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">number</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;phi_enc.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1">#Split string every 15th character</span>
+    <span class="n">phigits</span> <span class="o">=</span> <span class="p">[</span><span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">15</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">),</span> <span class="mi">15</span><span class="p">)]</span>
+
+    <span class="n">decoded_phi</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">phigit</span> <span class="ow">in</span> <span class="n">phigits</span><span class="p">:</span>
+        <span class="n">decoded_phi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="n">phinary_to_decimal</span><span class="p">(</span><span class="n">phigit</span><span class="p">)))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span><span class="n">decoded_phi</span><span class="p">)))</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="LFC-ReverseEngineering.html" class="btn btn-neutral float-left" title="Reverse Engineering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LFC-CodingQuickRef.html" class="btn btn-neutral float-right" title="Coding Quick Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
