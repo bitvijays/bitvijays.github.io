@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R21NVEB2EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R21NVEB2EY');
+    </script>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Tier &mdash; tech.bitvijays.com 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=51b770b3"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/debug.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech.bitvijays.com
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0A-CyberSecurityEnterprise.html">Cybersecurity in an Enterprise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0B-LinuxEssentials.html">Linux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_The_Essentials/LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P1-IntelligenceGathering.html">Intelligence Gathering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P2-VulnerabilityAnalysis.html">Vulnerability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P3-Exploitation.html">Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P4-PostExploitation.html">Post Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P5-Reporting.html">Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Infrastructure_Pentest/LFF-IPS-P6-ConfigurationReview.html">Configuration Review</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vulnerable Machines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P0-InitialRecon.html">Initial Recon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P1-FromNothingToUnprivilegedShell.html">From Nothing to a Unprivileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P2-UnprivilegedToPrivilegedShell.html">Unprivileged Shell to Privileged Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P3-TipsAndTricks.html">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Vulnerable_Machines/LFC-VM-P4-Appendix.html">Appendix</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">CTF - Challenges</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-BinaryExploitation.html">Binary Exploitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Forensics.html">Forensics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-ReverseEngineering.html">Reverse Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-Cryptography.html">Cryptography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Capture_The_Flag/LFC-CodingQuickRef.html">Coding Quick Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-IndustrialControlSystems.html">Industrial Control Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech.bitvijays.com</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cloud Tier</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cloud-tier">
+<h1>Cloud Tier<a class="headerlink" href="#cloud-tier" title="Link to this heading"></a></h1>
+<p>We need five servers to support Urban Monitoring Architecture (UMA)</p>
+<ol class="arabic simple">
+<li><p>Puppet Server: Automatic provisining and configuration of cloud and
+edge device.</p></li>
+<li><p>FreeIPA Server: To provide authentication to the nodes. Local
+accounts for citizens can be created to admin Edge device.</p></li>
+<li><p>Teleport Server: Administrative access using Teleport (ssh access
+behind Home Firewall). However, if VPN is provided, this kind of can
+be avoided.</p></li>
+<li><p>Cloudcore Server: Kubernetes + Kubeedge. Applications such as Face
+Recognition/ ANPR/ Air Quality can be deployed.</p></li>
+<li><p>Kafka Server: Kafka + InfluxDB Time series information database
+stored at Cloud. (Could be stored at Edge too).</p></li>
+</ol>
+<section id="s1-create-the-virtual-machines">
+<h2>S1: Create the Virtual Machines<a class="headerlink" href="#s1-create-the-virtual-machines" title="Link to this heading"></a></h2>
+<p>We can create servers either in the Cloud (AWS/Azure/GCP/OpenStack) or
+local server with the public IP Address.</p>
+<section id="local-virtualization">
+<h3>Local Virtualization<a class="headerlink" href="#local-virtualization" title="Link to this heading"></a></h3>
+<p>We have setup the Virtual Machines locally using KVM Virtualization. We
+start with five servers created using <a class="reference external" href="https://github.com/bitvijays/terraform-example">Terraform
+Example</a>.</p>
+</section>
+<section id="cloud-aws-azure-openstack">
+<h3>Cloud (AWS/Azure/OpenStack)<a class="headerlink" href="#cloud-aws-azure-openstack" title="Link to this heading"></a></h3>
+<p>Use the cloud services to create Virtual Machines</p>
+</section>
+</section>
+<section id="s2-virtual-machines-initial-configuration">
+<h2>S2: Virtual Machines: Initial Configuration<a class="headerlink" href="#s2-virtual-machines-initial-configuration" title="Link to this heading"></a></h2>
+<section id="s2a-hostname">
+<h3>S2A: Hostname<a class="headerlink" href="#s2a-hostname" title="Link to this heading"></a></h3>
+<section id="virtual-machines-created-using-cloud">
+<h4>Virtual Machines created using cloud<a class="headerlink" href="#virtual-machines-created-using-cloud" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">hostnamectl set-hostname &lt;hostname&gt;</span>
+
+<span class="go">e.g hostnamectl set-hostname puppet.xxxxx.local</span>
+</pre></div>
+</div>
+</section>
+<section id="virtual-machines-created-using-terraform">
+<h4>Virtual Machines created using Terraform<a class="headerlink" href="#virtual-machines-created-using-terraform" title="Link to this heading"></a></h4>
+<p>If we have used terraform-example, hostname are already defined</p>
+</section>
+</section>
+<section id="s2b-install-puppet-repo">
+<h3>S2B: Install Puppet Repo<a class="headerlink" href="#s2b-install-puppet-repo" title="Link to this heading"></a></h3>
+<p>If we have used terraform-example, cloud-init used in terraform should
+install the latest version of puppet, however, that doesn’t happen yet.
+Have raised a Puppet Issue for the same, So, we use bolt to run
+individual commands.</p>
+<p><em>Update</em> : Puppet Ticket has been resolved and now, cloud-init does
+contain the code to install puppet by default. However, as what
+<code class="docutils literal notranslate"><span class="pre">cloud-init</span></code> package version would be installed on the OS, depends on
+how soon OS get updates, we still have to manually install/update the
+puppet.</p>
+<p>By using, bolt, we are assuming that your user <code class="docutils literal notranslate"><span class="pre">debian</span></code> has access to
+the machines.</p>
+<p>We need to install the Puppet Repo and install the package.</p>
+<section id="for-debian-based-os-we-use">
+<h4>For Debian-based OS, we use<a class="headerlink" href="#for-debian-based-os-we-use" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">wget https://apt.puppetlabs.com/puppet6-release-buster.deb</span>
+<span class="go">sudo dpkg -i puppet6-release-buster.deb</span>
+</pre></div>
+</div>
+</section>
+<section id="for-redhat-centos-we-use">
+<h4>For Redhat/CentOS, we use<a class="headerlink" href="#for-redhat-centos-we-use" title="Link to this heading"></a></h4>
+<p>We might want to convert CentOS 8 to Cent OS 8 Stream using <cite>convert to centos 8 stream &lt;https://www.centos.org/news-and-events/convert-to-stream-8/&gt;_</cite></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">wget https://yum.puppetlabs.com/puppet6/puppet6-release-el-7.noarch.rpm</span>
+<span class="go">wget https://yum.puppetlabs.com/puppet6/puppet6-release-el-8.noarch.rpm</span>
+</pre></div>
+</div>
+<p>and install it</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo rpm -ivh puppet-release-el-7.noarch.rpm</span>
+<span class="go">sudo rpm -ivh puppet6-release-el-8.noarch.rpm</span>
+</pre></div>
+</div>
+<p>and install <code class="docutils literal notranslate"><span class="pre">puppet-agent</span></code></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">apt-get install puppet-agent</span>
+</pre></div>
+</div>
+<p>The above can be manually by logging to each machine or by using bolt
+and execute them at once on all the servers.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bolt command run &#39;whoami&#39; --targets kafka,puppet,teleport,cloudcore --user debian --no-host-key-check</span>
+</pre></div>
+</div>
+<p>where</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--targets represents the Virtual Machine domain name</span>
+<span class="go">--user represent the username</span>
+</pre></div>
+</div>
+<p>Commands to install puppet-agent in all Debian machines</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bolt command run &#39;wget https://apt.puppetlabs.com/puppet6-release-buster.deb;sudo dpkg -i puppet6-release-buster.deb;rm puppet6-release-buster.deb; sudo apt-get update; sudo apt-get install puppet-agent&#39; --targets kafka,puppet,teleport,cloudcore --user debian --no-host-key-check</span>
+</pre></div>
+</div>
+<p>Bullseye</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bolt command run &#39;wget https://apt.puppetlabs.com/puppet7-release-bullseye.deb;sudo dpkg -i puppet7-release-bullseye.deb;rm puppet7-release-bullseye.deb; sudo apt-get update; sudo apt-get install puppet-agent&#39; --targets puppet,rancher,cloudcore,nuc1 --user debian --no-host-key-check</span>
+</pre></div>
+</div>
+<p>Commands to install puppet-agent on Centos machine</p>
+<p>CentOS-8</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bolt command run &#39;sudo yum install wget -y; wget https://yum.puppetlabs.com/puppet6/puppet6-release-el-8.noarch.rpm;sudo sudo rpm -ivh puppet6-release-el-8.noarch.rpm;rm puppet6-release-el-8.noarch.rpm; sudo yum update -y; sudo yum install puppet-agent -y&#39; --targets ipa --user centos --no-host-key-check</span>
+</pre></div>
+</div>
+<p>CentOS-9</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bolt command run &#39;sudo yum install wget -y; wget https://yum.puppetlabs.com/puppet6/puppet6-release-el-9.noarch.rpm;sudo sudo rpm -ivh puppet6-release-el-9.noarch.rpm;rm puppet6-release-el-9.noarch.rpm; sudo yum update -y; sudo yum install puppet-agent -y&#39; --targets ipa --user centos --no-host-key-check</span>
+</pre></div>
+</div>
+<p>Fedora 34</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bolt command run &#39;sudo yum install wget -y; wget http://yum.puppetlabs.com/puppet6-release-fedora-34.noarch.rpm;sudo sudo rpm -ivh puppet6-release-fedora-34.noarch.rpm;rm puppet6-release-fedora-34.noarch.rpm; sudo yum update -y; sudo yum install puppet-agent -y&#39; --targets ipa,cephserver1 --user centos --no-host-key-check</span>
+</pre></div>
+</div>
+<p>Running puppet-agent on all the machines (Run after configuring PuppetServer)</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bolt command run &#39;sudo /opt/puppetlabs/bin/puppet agent -t&#39; --targets k3sserver,k3sworker1,k3sworker2 --user debian --no-host-key-check</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="s3-configure-the-virtual-machines">
+<h2>S3: Configure the Virtual Machines<a class="headerlink" href="#s3-configure-the-virtual-machines" title="Link to this heading"></a></h2>
+<p>We would configure</p>
+<ul class="simple">
+<li><p>Puppet Server</p></li>
+<li><p>FreeIPA Server</p></li>
+</ul>
+<section id="vm1-puppetserver">
+<h3>VM1: PuppetServer<a class="headerlink" href="#vm1-puppetserver" title="Link to this heading"></a></h3>
+<p>Following the <a class="reference external" href="https://puppet.com/docs/puppet/7.1/install_puppet.html">Puppet
+Docs</a></p>
+<p>There are two ways to install puppetserver</p>
+<ul class="simple">
+<li><p>With Foreman (would be easier)</p></li>
+<li><p>Without Foreman</p></li>
+</ul>
+<section id="install-puppet">
+<h4>Install Puppet<a class="headerlink" href="#install-puppet" title="Link to this heading"></a></h4>
+<section id="with-foreman">
+<h5>With Foreman<a class="headerlink" href="#with-foreman" title="Link to this heading"></a></h5>
+<p>Foreman is now supported on Debian 11 (Bullseye) but we are not sure about FreeIPA supported on Debian 11 yet</p>
+<p>Install <a class="reference external" href="https://theforeman.org/">Foreman</a></p>
+<p>If you get locale error refer <a class="reference external" href="https://projects.theforeman.org/issues/17131">Locale Issue</a></p>
+<ul class="simple">
+<li><p>Ensure that <cite>ping $(hostname -f)`</cite> shows the real IP address, not 127.0.1.1. Change or remove this entry from <cite>/etc/hosts</cite> if present.</p></li>
+</ul>
+<p>Click on Getting Started, has very clear instructions to install
+foreman. It will automatically install puppet.</p>
+</section>
+<section id="without-foreman">
+<h5>Without Foreman<a class="headerlink" href="#without-foreman" title="Link to this heading"></a></h5>
+<p>Install PuppetServer</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>puppetserver
+</pre></div>
+</div>
+<p>Enable and start the puppetserver</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>puppetserver.service
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>puppetserver
+</pre></div>
+</div>
+<p>Check if started correctly</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>puppetserver<span class="w"> </span>-v
+</pre></div>
+</div>
+<p>PuppetServer IPV4</p>
+<p>The puppet server might be only listening to IPv6, to run it in IPv4.</p>
+<p>Add <code class="docutils literal notranslate"><span class="pre">-Djava.net.preferIPv4Stack=true</span></code> to
+<code class="docutils literal notranslate"><span class="pre">JAVA_ARGS=&quot;-Xms2G</span> <span class="pre">-Xmx2G</span> <span class="pre">-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger</span></code>
+in <code class="docutils literal notranslate"><span class="pre">/etc/default/puppetserver</span></code></p>
+</section>
+</section>
+<section id="configuring-puppetserver">
+<h4>Configuring PuppetServer<a class="headerlink" href="#configuring-puppetserver" title="Link to this heading"></a></h4>
+<p>Install the puppet modules</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppet-epel
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppetlabs-stdlib
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppet-augeasproviders_core
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>hardening-os_hardening
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppet-archive
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppetlabs-apt
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppetlabs-ntp
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppetlabs-motd
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppetlabs-kubernetes
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppetlabs-docker
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppet-kmod
+
+puppet<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>puppetlabs-powershell
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Double check the versions installed with the latest versions by doing <code class="docutils literal notranslate"><span class="pre">puppet</span> <span class="pre">module</span> <span class="pre">list</span></code> on puppet server</p>
+</div>
+<p>We also need <a class="reference external" href="https://forge.puppet.com/modules/adullact/freeipa/readme">puppet-freeipa</a> and <cite>puppet teleport</cite>, install it in the
+modules</p>
+<p>Currently, we would</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/bitvijays/conf_files.git</span>
+</pre></div>
+</div>
+<p>and then link the <code class="docutils literal notranslate"><span class="pre">site.pp</span></code> file to the Puppet</p>
+<p>Link site.pp to puppet site.pp. <cite>site.pp</cite> helps us to configure the machines as per our requirements.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ln -s /home/debian/conf_files/Puppet/site.pp /etc/puppetlabs/code/environments/production/manifests/site.pp</span>
+</pre></div>
+</div>
+</section>
+<section id="accepting-client-certificates">
+<h4>Accepting Client certificates<a class="headerlink" href="#accepting-client-certificates" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">puppetserver ca list</span>
+<span class="go">puppetserver ca --sing cert1,cert2</span>
+</pre></div>
+</div>
+<p>After signing the certificates, start in the following order</p>
+<ul class="simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">puppet</span> <span class="pre">agent</span> <span class="pre">-t</span></code> on IPA server</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">puppet</span> <span class="pre">agent</span> <span class="pre">-t</span></code> on Puppet server</p></li>
+</ul>
+</section>
+</section>
+<section id="vm2-freeipa-server">
+<h3>VM2: FreeIPA Server<a class="headerlink" href="#vm2-freeipa-server" title="Link to this heading"></a></h3>
+<p>Use CentOS for FreeIPA Server. The default user for centos is
+<code class="docutils literal notranslate"><span class="pre">centos</span></code>.</p>
+<p>Installing IPA server would be a pain. Even automated installation as it
+installs multiple services that are dependent on each other. There’s a
+high probabably, something would not work. Refer <a class="reference external" href="https://pagure.io/freeipa/issues">FreeIPA
+Issues</a> if you are doing everything
+right and still facing some issue. Have patience. IPA is required for
+authentication and node host key verification. Refer <a class="reference external" href="https://freeipa.readthedocs.io/en/latest/workshop.html">FreeIPA
+Workshop</a></p>
+<section id="initial-configuration">
+<h4>Initial Configuration<a class="headerlink" href="#initial-configuration" title="Link to this heading"></a></h4>
+<p>By default, FreeIPA package is not available in the CentOS standard
+repository. So we will need to enable <code class="docutils literal notranslate"><span class="pre">idm:DL1</span></code> repo in our system.</p>
+<p>Enable it:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dnf module enable idm:DL1</span>
+</pre></div>
+</div>
+<p>Next, sync the repository:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dnf distro-sync</span>
+</pre></div>
+</div>
+<p>Bolt command</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bolt command run &#39;sudo dnf module enable idm:DL1 -y; sudo dnf distro-sync&#39; --targets ipa --user centos --no-host-key-check</span>
+</pre></div>
+</div>
+<p>Install puppet-agent</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">yum install puppet-agent</span>
+</pre></div>
+</div>
+<p>Install <code class="docutils literal notranslate"><span class="pre">avahi</span></code> for DNS resolution</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo yum install avahi</span>
+<span class="go">sudo service avahi-daemon start</span>
+</pre></div>
+</div>
+<p>Installing IPA Server requires</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/linux_domain_identity_authentication_and_policy_guide/installing-ipa#prerequisites">IPv6</a>
+should be enabled.</p></li>
+</ul>
+<p>This could be a difficult setup.</p>
+<p>It is best if ipa is installed on <code class="docutils literal notranslate"><span class="pre">CentOS</span></code> and then installed via
+<code class="docutils literal notranslate"><span class="pre">puppet-freeipa</span></code>.</p>
+</section>
+<section id="automatic-installation-using-puppet-freeipa">
+<h4>Automatic installation using Puppet-FreeIPA<a class="headerlink" href="#automatic-installation-using-puppet-freeipa" title="Link to this heading"></a></h4>
+<p>Puppet <code class="docutils literal notranslate"><span class="pre">site.pp</span></code> manifest contains</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">node</span><span class="w"> </span><span class="s1">&#39;ipa.bitvijays.local&#39;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kp">include</span><span class="w"> </span><span class="n">profile</span><span class="o">::</span><span class="n">base</span>
+<span class="w">  </span><span class="kp">include</span><span class="w"> </span><span class="n">profile</span><span class="o">::</span><span class="n">ipa_server</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">profile::ipa_server</span></code> contains</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="n">profile</span><span class="o">::</span><span class="n">ipa_server</span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;freeipa&#39;</span><span class="p">:</span>
+<span class="w">    </span><span class="n">ipa_role</span><span class="w">                    </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;master&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">domain</span><span class="w">                      </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;bitvijays.local&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ipa_server_fqdn</span><span class="w">             </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;ipa.bitvijays.local&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ipa_master_fqdn</span><span class="w">             </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;ipa.bitvijays.local&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">puppet_admin_password</span><span class="w">       </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;puppet_admin&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">directory_services_password</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;directory_service&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">install_ipa_server</span><span class="w">          </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">true</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ip_address</span><span class="w">                  </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">$:</span><span class="ss">:ipaddress</span><span class="p">,</span>
+<span class="w">    </span><span class="n">enable_ip_address</span><span class="w">           </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">true</span><span class="p">,</span>
+<span class="w">    </span><span class="n">enable_hostname</span><span class="w">             </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">true</span><span class="p">,</span>
+<span class="w">    </span><span class="n">manage_host_entry</span><span class="w">           </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">true</span><span class="p">,</span>
+<span class="w">    </span><span class="n">install_epel</span><span class="w">                </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">true</span><span class="p">,</span>
+<span class="w">    </span><span class="n">idstart</span><span class="w">                     </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">60001</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="manual-installation">
+<h4>Manual installation<a class="headerlink" href="#manual-installation" title="Link to this heading"></a></h4>
+<p>If the automatic installation using puppet-freeipa fails, try the manual
+installation using</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ipa-server-install</span>
+<span class="go">ipa-server-install --uninstall : To uninstall the FreeIPA</span>
+</pre></div>
+</div>
+</section>
+<section id="service-user-for-freeipa">
+<h4>Service User for FreeIPA<a class="headerlink" href="#service-user-for-freeipa" title="Link to this heading"></a></h4>
+<p>Refer
+<a class="reference external" href="https://bgstack15.wordpress.com/2020/01/15/freeipa-service-account-to-join-systems-unattended/">https://bgstack15.wordpress.com/2020/01/15/freeipa-service-account-to-join-systems-unattended/</a></p>
+<p>We want to have systems join, or enroll in, FreeIPA, unattended, and
+need a few configurations. Run these on an ipa master.</p>
+<p>Establish a service account. I will use “domainjoin.”</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo &quot;thisisdapassword&quot; | ipa user-add --first=&quot;domain&quot; --last=&quot;join&quot; --cn=&quot;domainjoin&quot; --password --displayname=&quot;domainjoin&quot; domainjoin</span>
+</pre></div>
+</div>
+<p>Remove the user from the default group of ipausers. We will add it to a
+new service accounts group.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ipa group-remove-member --users=domainjoin ipausers</span>
+<span class="go">ipa group-add service-accounts</span>
+<span class="go">ipa group-add-member --users=domainjoin service-accounts</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="vm4-cloudcore-server">
+<h3>VM4: Cloudcore Server<a class="headerlink" href="#vm4-cloudcore-server" title="Link to this heading"></a></h3>
+<p>We would be installing Kubernetes and KubeEdge on the Cloudcore Server.</p>
+<section id="vm4a-kubernetes-server">
+<h4>VM4A: Kubernetes Server<a class="headerlink" href="#vm4a-kubernetes-server" title="Link to this heading"></a></h4>
+<p>Ideally, this should be installed using
+<a class="reference external" href="https://github.com/puppetlabs/puppetlabs-kubernetes">Puppet-Kubernetes</a></p>
+<ul class="simple">
+<li><p>First, check the <cite>containerd</cite> version available on the <cite>cloudcore</cite> machine using <cite>apt-cache policy containerd</cite> and then check the <a class="reference external" href="https://containerd.io/releases/#kubernetes-support">Containerd Kubernetes Support</a></p></li>
+<li><p>Ensure that the kubernetes version we want to install is supported using <cite>containerd</cite>. If not, update <cite>containerd</cite></p></li>
+<li><p>Check which <a href="#id1"><span class="problematic" id="id2">`</span></a>kubernetes version &lt;<a class="reference external" href="https://kubernetes.io/releases/">https://kubernetes.io/releases/</a>&gt;_ we want to install.</p></li>
+</ul>
+<section id="puppet-kubernetes">
+<h5>Puppet-Kubernetes<a class="headerlink" href="#puppet-kubernetes" title="Link to this heading"></a></h5>
+<p>While installing from puppetlabs-kubernetes, we need to create a Hiera
+file containing the data. Refer <a class="reference external" href="https://github.com/puppetlabs/puppetlabs-kubernetes#generating-the-module-configuration">Generating Module
+Configuration</a></p>
+<p>Login to the <cite>puppet</cite> server and cd to the <cite>/etc/puppetlabs/code/environments/production/modules/kubernetes</cite></p>
+<p>Download the
+<a class="reference external" href="https://github.com/puppetlabs/puppetlabs-kubernetes/blob/main/env">env</a>,
+populate the values and run the docker command</p>
+<p>Sample values:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">OS=debian</span>
+<span class="go">VERSION=1.25.6</span>
+<span class="go">CONTAINER_RUNTIME=cri_containerd</span>
+<span class="go">CNI_PROVIDER=flannel</span>
+<span class="go">ETCD_INITIAL_CLUSTER=cloudcore:192.168.1.211</span>
+<span class="go">ETCD_IP=192.168.1.211</span>
+<span class="go">KUBE_API_ADVERTISE_ADDRESS=192.168.1.211</span>
+<span class="go">INSTALL_DASHBOARD=true</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run --rm -v $(pwd):/mnt --env-file env puppet/kubetool:{$module_version}</span>
+</pre></div>
+</div>
+<p>This would create <code class="docutils literal notranslate"><span class="pre">OS.yaml</span></code> such as <code class="docutils literal notranslate"><span class="pre">Debian.yaml</span></code> and
+<code class="docutils literal notranslate"><span class="pre">hostname.yaml</span></code> such as <code class="docutils literal notranslate"><span class="pre">cloudcore.bitvijays.local</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">module_version</span></code> can be found <a class="reference external" href="https://hub.docker.com/r/puppet/kubetool/">Puppet
+Kubetool</a></p>
+<p>Move the <code class="docutils literal notranslate"><span class="pre">Debian.yaml</span></code> and <code class="docutils literal notranslate"><span class="pre">cloudcore.bitvijays.local</span></code> to <code class="docutils literal notranslate"><span class="pre">data</span></code>
+folder in the modules folder of <code class="docutils literal notranslate"><span class="pre">kubernetes</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">root@puppet:/etc/puppetlabs/code/environments/production/modules/kubernetes# </span>ls
+<span class="go">CHANGELOG.md  CONTRIBUTING.md  env       hiera.yaml         HISTORY.md  LICENSE    metadata.json  provision.yaml  REFERENCE.md  templates</span>
+<span class="go">CODEOWNERS    data             examples  hiera.yaml.backup  lib         manifests  plans          README.md       tasks         tooling</span>
+</pre></div>
+</div>
+<p>Login to the Cloudcore machine and run</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">puppet agent -t</span>
+</pre></div>
+</div>
+<p>We might get some error regarding etcd service, otherwise should be
+running fine. Refer <a class="reference external" href="https://github.com/coreos/bugs/issues/2054">couldn’t find local name “$HOSTNAME” in the initial
+cluster configuration</a></p>
+<p>Check</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">kubectl get nodes</span>
+</pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">site.pp</span></code>, we have defined a class <code class="docutils literal notranslate"><span class="pre">profile::kubernetes_server</span></code></p>
+<div class="highlight-puppet notranslate"><div class="highlight"><pre><span></span><span class="c"># Class for installing the Kubernetes Server</span>
+<span class="k">class</span><span class="w"> </span><span class="na">profile</span><span class="p">::</span><span class="na">kubernetes_server</span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;kubernetes&#39;</span><span class="p">:</span>
+<span class="w">    </span><span class="na">controller</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">true</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Also, remember to set <a class="reference external" href="https://forge.puppet.com/modules/puppetlabs/kubernetes/readme#ttl_duration">ttl_duration</a>  for the Join token timeout.</p></li>
+</ul>
+<p>and added this in</p>
+<div class="highlight-puppet notranslate"><div class="highlight"><pre><span></span><span class="k">node</span><span class="w"> </span><span class="s">&#39;cloudcore.bitvijays.local&#39;</span><span class="p">{</span>
+<span class="w">  </span><span class="k">include</span><span class="w"> </span><span class="na">profile</span><span class="p">::</span><span class="na">base</span>
+<span class="w">  </span><span class="k">include</span><span class="w"> </span><span class="na">profile</span><span class="p">::</span><span class="na">ipa_client</span>
+<span class="w">  </span><span class="k">include</span><span class="w"> </span><span class="na">profile</span><span class="p">::</span><span class="na">kubernetes_server</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When finished, you should get something like</p>
+<div class="highlight-puppet notranslate"><div class="highlight"><pre><span></span><span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w"> </span><span class="na">To</span><span class="w"> </span><span class="na">start</span><span class="w"> </span><span class="na">using</span><span class="w"> </span><span class="na">your</span><span class="w"> </span><span class="na">cluster</span><span class="p">,</span><span class="w"> </span><span class="na">you</span><span class="w"> </span><span class="na">need</span><span class="w"> </span><span class="na">to</span><span class="w"> </span><span class="na">run</span><span class="w"> </span><span class="na">the</span><span class="w"> </span><span class="na">following</span><span class="w"> </span><span class="na">as</span><span class="w"> </span><span class="na">a</span><span class="w"> </span><span class="na">regular</span><span class="w"> </span><span class="k">user</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w">   </span><span class="na">mkdir</span><span class="w"> </span><span class="o">-</span><span class="na">p</span><span class="w"> </span><span class="nv">$HOME/.kube</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w">   </span><span class="na">sudo</span><span class="w"> </span><span class="na">cp</span><span class="w"> </span><span class="o">-</span><span class="na">i</span><span class="w"> </span><span class="o">/</span><span class="na">etc</span><span class="o">/</span><span class="na">kubernetes</span><span class="o">/</span><span class="na">admin</span><span class="err">.</span><span class="na">conf</span><span class="w"> </span><span class="nv">$HOME/.kube/config</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w">   </span><span class="na">sudo</span><span class="w"> </span><span class="na">chown</span><span class="w"> </span><span class="nv">$(id</span><span class="w"> </span><span class="o">-</span><span class="na">u</span><span class="p">):</span><span class="nv">$(id</span><span class="w"> </span><span class="o">-</span><span class="na">g</span><span class="p">)</span><span class="w"> </span><span class="nv">$HOME/.kube/config</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w"> </span><span class="na">Alternatively</span><span class="p">,</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="na">you</span><span class="w"> </span><span class="na">are</span><span class="w"> </span><span class="na">the</span><span class="w"> </span><span class="na">root</span><span class="w"> </span><span class="k">user</span><span class="p">,</span><span class="w"> </span><span class="na">you</span><span class="w"> </span><span class="na">can</span><span class="w"> </span><span class="na">run</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w">   </span><span class="na">export</span><span class="w"> </span><span class="na">KUBECONFIG</span><span class="o">=/</span><span class="na">etc</span><span class="o">/</span><span class="na">kubernetes</span><span class="o">/</span><span class="na">admin</span><span class="err">.</span><span class="na">conf</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w"> </span><span class="na">You</span><span class="w"> </span><span class="na">should</span><span class="w"> </span><span class="na">now</span><span class="w"> </span><span class="na">deploy</span><span class="w"> </span><span class="na">a</span><span class="w"> </span><span class="na">pod</span><span class="w"> </span><span class="na">network</span><span class="w"> </span><span class="na">to</span><span class="w"> </span><span class="na">the</span><span class="w"> </span><span class="na">cluster</span><span class="err">.</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w"> </span><span class="na">Run</span><span class="w"> </span><span class="s">&quot;kubectl apply -f [podnetwork].yaml&quot;</span><span class="w"> </span><span class="na">with</span><span class="w"> </span><span class="na">one</span><span class="w"> </span><span class="na">of</span><span class="w"> </span><span class="na">the</span><span class="w"> </span><span class="na">options</span><span class="w"> </span><span class="na">listed</span><span class="w"> </span><span class="na">at</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w">   </span><span class="na">https</span><span class="p">:</span><span class="o">//</span><span class="na">kubernetes</span><span class="err">.</span><span class="na">io</span><span class="o">/</span><span class="na">docs</span><span class="o">/</span><span class="na">concepts</span><span class="o">/</span><span class="na">cluster</span><span class="o">-</span><span class="na">administration</span><span class="o">/</span><span class="na">addons</span><span class="o">/</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w"> </span><span class="na">You</span><span class="w"> </span><span class="na">can</span><span class="w"> </span><span class="na">now</span><span class="w"> </span><span class="na">join</span><span class="w"> </span><span class="na">any</span><span class="w"> </span><span class="na">number</span><span class="w"> </span><span class="na">of</span><span class="w"> </span><span class="na">control</span><span class="o">-</span><span class="na">plane</span><span class="w"> </span><span class="na">nodes</span><span class="w"> </span><span class="na">by</span><span class="w"> </span><span class="na">copying</span><span class="w"> </span><span class="na">certificate</span><span class="w"> </span><span class="na">authorities</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w"> </span><span class="na">and</span><span class="w"> </span><span class="k">service</span><span class="w"> </span><span class="na">account</span><span class="w"> </span><span class="na">keys</span><span class="w"> </span><span class="na">on</span><span class="w"> </span><span class="na">each</span><span class="w"> </span><span class="k">node</span><span class="w"> </span><span class="na">and</span><span class="w"> </span><span class="na">then</span><span class="w"> </span><span class="k">running</span><span class="w"> </span><span class="na">the</span><span class="w"> </span><span class="na">following</span><span class="w"> </span><span class="na">as</span><span class="w"> </span><span class="na">root</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w">   </span><span class="na">kubeadm</span><span class="w"> </span><span class="na">join</span><span class="w"> </span><span class="mf">192.168.1.202</span><span class="p">:</span><span class="mi">6443</span><span class="w"> </span><span class="o">--</span><span class="na">token</span><span class="w"> </span><span class="na">b6008d</span><span class="mf">.201</span><span class="na">b8248ebf062ec</span><span class="w"> </span><span class="err">\</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w">  </span><span class="o">--</span><span class="na">discovery</span><span class="o">-</span><span class="na">token</span><span class="o">-</span><span class="na">ca</span><span class="o">-</span><span class="na">cert</span><span class="o">-</span><span class="na">hash</span><span class="w"> </span><span class="na">sha256</span><span class="p">:</span><span class="mi">6</span><span class="na">a6c8d9d2a5ba871a04c2556d7453b7f2b2aef8579abde201233fa93512ccc0b</span><span class="w"> </span><span class="err">\</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w">  </span><span class="o">--</span><span class="na">control</span><span class="o">-</span><span class="na">plane</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w"> </span><span class="na">Then</span><span class="w"> </span><span class="na">you</span><span class="w"> </span><span class="na">can</span><span class="w"> </span><span class="na">join</span><span class="w"> </span><span class="na">any</span><span class="w"> </span><span class="na">number</span><span class="w"> </span><span class="na">of</span><span class="w"> </span><span class="na">worker</span><span class="w"> </span><span class="na">nodes</span><span class="w"> </span><span class="na">by</span><span class="w"> </span><span class="k">running</span><span class="w"> </span><span class="na">the</span><span class="w"> </span><span class="na">following</span><span class="w"> </span><span class="na">on</span><span class="w"> </span><span class="na">each</span><span class="w"> </span><span class="na">as</span><span class="w"> </span><span class="na">root</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w"> </span><span class="na">kubeadm</span><span class="w"> </span><span class="na">join</span><span class="w"> </span><span class="mf">192.168.1.202</span><span class="p">:</span><span class="mi">6443</span><span class="w"> </span><span class="o">--</span><span class="na">token</span><span class="w"> </span><span class="na">b6008d</span><span class="mf">.201</span><span class="na">b8248ebf062ec</span><span class="w"> </span><span class="err">\</span>
+<span class="k">Notice</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">Stage</span><span class="p">[</span><span class="na">main</span><span class="p">]</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Cluster_roles</span><span class="o">/</span><span class="na">Kubernetes</span><span class="p">::</span><span class="na">Kubeadm_init</span><span class="p">[</span><span class="na">cloudcore</span><span class="p">]</span><span class="o">/</span><span class="k">Exec</span><span class="p">[</span><span class="na">kubeadm</span><span class="w"> </span><span class="na">init</span><span class="p">]</span><span class="o">/</span><span class="na">returns</span><span class="p">:</span><span class="w">  </span><span class="o">--</span><span class="na">discovery</span><span class="o">-</span><span class="na">token</span><span class="o">-</span><span class="na">ca</span><span class="o">-</span><span class="na">cert</span><span class="o">-</span><span class="na">hash</span><span class="w"> </span><span class="na">sha256</span><span class="p">:</span><span class="mi">6</span><span class="na">a6c8d9d2a5ba871a04c2556d7453b7f2b2aef8579abde201233fa93512ccc0b</span>
+</pre></div>
+</div>
+<p>We can also download <a class="reference external" href="https://k8slens.dev/index.html">Lens</a> to
+perform Kubernetes administration.</p>
+</section>
+<section id="adding-worker-nodes">
+<h5>Adding Worker nodes<a class="headerlink" href="#adding-worker-nodes" title="Link to this heading"></a></h5>
+<p>We do have to ensure that <cite>containerd</cite> version is same as on the worker and master nodes.</p>
+<p>Adding worker node is easy just by adding the class <code class="docutils literal notranslate"><span class="pre">kubernetes</span></code> with
+<code class="docutils literal notranslate"><span class="pre">worker</span> <span class="pre">=&gt;</span> <span class="pre">true</span></code>.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">node</span><span class="w"> </span><span class="s1">&#39;k8sworker1.bitvijays.local&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;k8sworker2.bitvijays.local&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cephserver1.bitvijays.local&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cephserver2.bitvijays.local&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cephserver3.bitvijays.local&#39;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kp">include</span><span class="w"> </span><span class="n">profile</span><span class="o">::</span><span class="n">base</span>
+<span class="w">  </span><span class="kp">include</span><span class="w"> </span><span class="n">profile</span><span class="o">::</span><span class="n">ipa_client</span>
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;kubernetes&#39;</span><span class="p">:</span>
+<span class="w">  </span><span class="n">worker</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">true</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="kubeadm-token">
+<h5>Kubeadm Token<a class="headerlink" href="#kubeadm-token" title="Link to this heading"></a></h5>
+<p>Node joining requires a token which is valid for 24 hours. If we are
+joining the nodes after the token as expired we have to create a new
+token using <code class="docutils literal notranslate"><span class="pre">kubeadm</span> <span class="pre">token</span> <span class="pre">create</span></code> or create a token which will never
+expire.</p>
+<p>The new token needs to be stored in the data directory of the kubernetes
+module.</p>
+</section>
+<section id="manual-installation-1">
+<span id="id3"></span><h5>Manual Installation<a class="headerlink" href="#manual-installation-1" title="Link to this heading"></a></h5>
+<p>If that is not working, install it from <a class="reference external" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/">Install
+Kubeadm</a></p>
+<p>We are using <code class="docutils literal notranslate"><span class="pre">flannel</span></code> network, so follow <a class="reference external" href="https://github.com/flannel-io/flannel/blob/master/Documentation/kubernetes.md">Flannel
+Kubernetes</a>
+and pass <code class="docutils literal notranslate"><span class="pre">--pod-network-cidr=10.244.0.0/16</span></code> to <code class="docutils literal notranslate"><span class="pre">kubeadm</span> <span class="pre">init</span></code>.</p>
+</section>
+</section>
+<section id="services-on-kubernetes-server">
+<h4>Services on Kubernetes Server?<a class="headerlink" href="#services-on-kubernetes-server" title="Link to this heading"></a></h4>
+<p>We have to install different applications on the Kubernetes cluster:</p>
+<section id="arkade">
+<h5>arkade<a class="headerlink" href="#arkade" title="Link to this heading"></a></h5>
+<p><a class="reference external" href="https://github.com/alexellis/arkade#getting-arkade">arkade</a></p>
+</section>
+<section id="helm">
+<h5>Helm<a class="headerlink" href="#helm" title="Link to this heading"></a></h5>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ark get helm</span>
+</pre></div>
+</div>
+</section>
+<section id="cert-manager">
+<h5>cert-manager<a class="headerlink" href="#cert-manager" title="Link to this heading"></a></h5>
+<p><a class="reference external" href="https://cert-manager.io/docs/installation/">cert-manager installation</a></p>
+<p>We are currently using <a class="reference external" href="https://cert-manager.io/docs/installation/helm/">helm3
+method</a></p>
+<p>Show helm configuration values:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">helm show values jetstack/cert-manager</span>
+</pre></div>
+</div>
+<p>Install <cite>cert-manager</cite> using <cite>helm</cite></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">helm install cert-manager jetstack/cert-manager --namespace cert-manager  --create-namespace --set installCRDs=true</span>
+</pre></div>
+</div>
+<p>Configure the CertManager using <a class="reference external" href="https://cert-manager.io/docs/configuration/">Issuer
+Configuration</a></p>
+<p>Test Example</p>
+</section>
+<section id="nginx-ingress-controller">
+<h5>Nginx Ingress Controller<a class="headerlink" href="#nginx-ingress-controller" title="Link to this heading"></a></h5>
+<p>We also have to install a <a class="reference external" href="https://kubernetes.github.io/ingress-nginx/">Ingress-Nginx</a> controller from <a class="reference external" href="https://kubernetes.github.io/ingress-nginx/deploy/">ingress-nginx Installation Guide</a></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">helm show values ingress-nginx --repo https://kubernetes.github.io/ingress-nginx</span>
+</pre></div>
+</div>
+</section>
+<section id="metallb-loadbalancer-if-the-infrastructure-is-deployed-on-bare-metal">
+<h5>MetalLB LoadBalancer (If the infrastructure is deployed on Bare Metal)<a class="headerlink" href="#metallb-loadbalancer-if-the-infrastructure-is-deployed-on-bare-metal" title="Link to this heading"></a></h5>
+<p><a class="reference external" href="https://metallb.universe.tf/">MetalLB</a></p>
+<p>Install it with</p>
+<ul>
+<li><p><a class="reference external" href="https://metallb.universe.tf/installation/">Helm</a> (Preferred as of now. Tried MetalLB Operator didn’t worked)</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">helm install metallb metallb/metallb --namespace metallb-system  --create-namespace</span>
+</pre></div>
+</div>
+</li>
+<li><p><a class="reference external" href="https://metallb.universe.tf/installation/#using-the-metallb-operator">MetalLB Operator</a></p></li>
+</ul>
+<p>Configure it by providing a IPAddressPool and L2advertisement. Refer <a class="reference external" href="https://kubernetes.github.io/ingress-nginx/deploy/baremetal/#a-pure-software-solution-metallb">A pure software solution: MetalLB</a> and
+<a class="reference external" href="https://metallb.universe.tf/configuration/">MetalLB Configuration</a></p>
+</section>
+<section id="install-starboard-security-tool">
+<h5>Install Starboard Security Tool<a class="headerlink" href="#install-starboard-security-tool" title="Link to this heading"></a></h5>
+<p><a class="reference external" href="https://aquasecurity.github.io/starboard/">Starboard</a></p>
+<p>and Install the <a class="reference external" href="https://github.com/aquasecurity/starboard-lens-extension">Starboard extension on
+Lens</a>.</p>
+</section>
+</section>
+</section>
+<section id="vm2a-rancher-server">
+<h3>VM2A: Rancher Server<a class="headerlink" href="#vm2a-rancher-server" title="Link to this heading"></a></h3>
+<p>Install
+<a class="reference external" href="https://rancher.com/docs/rancher/v2.5/en/installation/other-installation-methods/single-node-docker/">Rancher</a></p>
+<p>In future, install the <a class="reference external" href="https://rancher.com/docs/rancher/v2.5/en/installation/other-installation-methods/single-node-docker/#option-c-bring-your-own-certificate-signed-by-a-recognized-ca">certificate signed by the
+CA</a></p>
+<p>Run it with <a class="reference external" href="https://rancher.com/docs/rancher/v2.5/en/installation/other-installation-methods/single-node-docker/advanced/#persistent-data">Persistent
+Volume</a></p>
+</section>
+<section id="vm3-teleport-server">
+<h3>VM3: Teleport Server<a class="headerlink" href="#vm3-teleport-server" title="Link to this heading"></a></h3>
+<p>Puppet <code class="docutils literal notranslate"><span class="pre">site.pp</span></code> contains</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">node</span><span class="w"> </span><span class="s1">&#39;teleport.bitvijays.local&#39;</span><span class="p">{</span>
+<span class="w">  </span><span class="kp">include</span><span class="w"> </span><span class="n">profile</span><span class="o">::</span><span class="n">base</span>
+<span class="w">  </span><span class="kp">include</span><span class="w"> </span><span class="n">profile</span><span class="o">::</span><span class="n">ipa_client</span>
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;::teleport&#39;</span><span class="p">:</span>
+<span class="w">    </span><span class="n">version</span><span class="w">               </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;5.1.0&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">auth_enable</span><span class="w">           </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">true</span><span class="p">,</span>
+<span class="w">    </span><span class="n">proxy_enable</span><span class="w">          </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">true</span><span class="p">,</span>
+<span class="w">    </span><span class="n">auth_listen_addr</span><span class="w">      </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">proxy_web_listen_addr</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">auth_service_tokens</span><span class="w">   </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s1">&#39;node:pNVNrTIupUieGWGR0vz5LNOxUaNbgIgjsEZaIAjo3AfkwVHcIedLlwkOScbXWFfyqiSOtz5kFHWnUDZnPSZtZ0KzJKiUuOHMGkHlz&#39;</span><span class="o">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="vm4b-kubeedge">
+<h4>VM4B: KubeEdge<a class="headerlink" href="#vm4b-kubeedge" title="Link to this heading"></a></h4>
+<p>Install using Puppet-KubeEdge</p>
+<div class="highlight-puppet notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;::kubeedge&#39;</span><span class="p">:</span>
+<span class="w">      </span><span class="na">controller</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">true</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The puppet-kubeedge module will install the keadm package and install
+cloudcore executable and run it as a service.</p>
+</section>
+</section>
+<section id="vm5-vault-server">
+<h3>VM5 Vault Server<a class="headerlink" href="#vm5-vault-server" title="Link to this heading"></a></h3>
+<p>Start with deploying a <a class="reference external" href="https://learn.hashicorp.com/tutorials/vault/getting-started-deploy?in=vault/getting-started">vault
+server</a></p>
+<p>We can install the Vault server either by using - (Install
+Vault)[<a class="reference external" href="https://www.vaultproject.io/docs/install#install-vault">https://www.vaultproject.io/docs/install#install-vault</a>] -
+<a class="reference external" href="https://www.vaultproject.io/docs/platform/k8s/helm">Helm</a> - <a class="reference external" href="https://banzaicloud.com/docs/bank-vaults/overview/">Banzai
+Vault Operator</a></p>
+<p>Refer
+<a class="reference external" href="https://learn.hashicorp.com/tutorials/vault/pki-engine">PKI-Engine</a>
+to create a PKI to generate and revoke the certificates Refer <a class="reference external" href="https://learn.hashicorp.com/tutorials/vault/agent-kubernetes?in=vault/kubernetes">Vault
+Agent with
+Kubernetes</a>
+and <a class="reference external" href="https://learn.hashicorp.com/tutorials/vault/kubernetes-cert-manager?in=vault/kubernetes">Configure Vault as a Certificate Manager in Kubernetes with
+Helm</a></p>
+<p><a class="reference external" href="https://superuser.com/questions/437330/how-do-you-add-a-certificate-authority-ca-to-ubuntu">How to add the cert in
+OS</a></p>
+</section>
+<section id="vm6-ceph-server">
+<h3>VM6: CEPH Server<a class="headerlink" href="#vm6-ceph-server" title="Link to this heading"></a></h3>
+<p>Turn off firewall on CEPHServer (CentOS) by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">state</span>
+<span class="n">systemctl</span> <span class="n">stop</span> <span class="n">firewalld</span>
+<span class="n">systemctl</span> <span class="n">disable</span> <span class="n">firewalld</span>
+</pre></div>
+</div>
+<p>Ceph requires package <code class="docutils literal notranslate"><span class="pre">lvm2</span></code> to be installed, otherwise, ceph will
+<a class="reference external" href="https://github.com/rook/rook/issues/3289">fail after rebooting</a> the
+host.</p>
+<p>Follow <a class="reference external" href="https://rook.github.io/docs/rook/latest/quickstart.html">CEPH
+QuickStart</a></p>
+<p>We want to deploy a rook cluster with 10 GB HDD that we create using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qemu</span><span class="o">-</span><span class="n">img</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">raw</span> <span class="n">cephserver3</span> <span class="mi">10</span><span class="n">G</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">cephdisk2</span><span class="o">.</span><span class="n">img</span> <span class="n">bs</span><span class="o">=</span><span class="mi">1024</span><span class="n">k</span> <span class="n">seek</span><span class="o">=</span><span class="mi">10600</span> <span class="n">count</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+<p>and as we are using KVM/libvirt to manage the machines, we can attach
+the hard-disk using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="n">attach</span><span class="o">-</span><span class="n">disk</span> <span class="o">&lt;</span><span class="n">domain_name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">disk_location</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">where_to_place</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">persistent</span>
+<span class="n">virsh</span> <span class="n">attach</span><span class="o">-</span><span class="n">disk</span> <span class="n">ceph_server1</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libvirt</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="n">ceph_disk</span><span class="o">/</span><span class="n">cephserver1</span> <span class="n">vdb</span> <span class="o">--</span><span class="n">persistent</span>
+</pre></div>
+</div>
+<p>^ Always do check by using <code class="docutils literal notranslate"><span class="pre">dmesg</span></code> whether the disk as been attached
+to the correct device or not.</p>
+<p>We probably want to apply</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://rook.github.io/docs/rook/latest/ceph-block.html">Block
+Storage</a></p></li>
+</ul>
+<p>When we apply <code class="docutils literal notranslate"><span class="pre">storageclass</span></code>, we might also have to set it a <a class="reference external" href="https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/">default
+storage
+class</a></p>
+<p>If you are facing issues, start by reading <a class="reference external" href="https://rook.github.io/docs/rook/latest/ceph-common-issues.html">CEPH Common
+Issues</a></p>
+<p>If you have deployed the Loadbalancer and Ingress Controller, Deploy the
+<a class="reference external" href="https://github.com/rook/rook/blob/master/Documentation/ceph-dashboard.md#ingress-controller">Ceph
+Dashboard</a></p>
+<section id="tearing-down-the-cluster">
+<h4>Tearing down the cluster<a class="headerlink" href="#tearing-down-the-cluster" title="Link to this heading"></a></h4>
+<p>Many times, we would struggle with setting the cluster and need to tear
+it down, follow
+<a class="reference external" href="https://rook.io/docs/rook/latest/ceph-teardown.html">CEPH-Teardown</a></p>
+</section>
+<section id="upgrading-the-rook-and-ceph-cluster">
+<h4>Upgrading the Rook and Ceph cluster<a class="headerlink" href="#upgrading-the-rook-and-ceph-cluster" title="Link to this heading"></a></h4>
+<p>Refer <a class="reference external" href="https://www.rook.io/docs/rook/latest/Upgrade/health-verification/">Rook and Ceph
+Upgrade</a></p>
+</section>
+</section>
+<section id="vm7-keycloak-server">
+<h3>VM7 Keycloak server<a class="headerlink" href="#vm7-keycloak-server" title="Link to this heading"></a></h3>
+<p>Tried to create a keycloak instance using keycloak operator, however,
+instance is not created. Raised a github discussion</p>
+<p><a class="reference external" href="https://github.com/keycloak/keycloak/discussions/9179">https://github.com/keycloak/keycloak/discussions/9179</a></p>
+<p>As of now, installed keycloak without Kubernetes using <a class="reference external" href="https://www.keycloak.org/getting-started/getting-started-zip">Getting started
+ZIP</a></p>
+<p><a class="reference external" href="https://keycloak.discourse.group/t/create-user-federation-provider-for-freeipa-with-keycloak-operator/8999">https://keycloak.discourse.group/t/create-user-federation-provider-for-freeipa-with-keycloak-operator/8999</a></p>
+<p>Create keycloak using the <a class="reference external" href="https://www.keycloak.org/getting-started/getting-started-operator-kubernetes">Keycloak
+operator</a></p>
+</section>
+<section id="vm5-kafka-server">
+<h3>VM5: Kafka Server<a class="headerlink" href="#vm5-kafka-server" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="remove-nodes">
+<h2>Remove Nodes<a class="headerlink" href="#remove-nodes" title="Link to this heading"></a></h2>
+<section id="from-puppet">
+<h3>From Puppet<a class="headerlink" href="#from-puppet" title="Link to this heading"></a></h3>
+<section id="puppet-agent">
+<h4>puppet-agent<a class="headerlink" href="#puppet-agent" title="Link to this heading"></a></h4>
+<p>When installing on the server, would suggest to manually run the
+<code class="docutils literal notranslate"><span class="pre">puppet</span> <span class="pre">agent</span> <span class="pre">-t</span></code> at the start. Once, all the nodes are configured
+correctly, then start the puppet service</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/opt/puppetlabs/bin/puppet<span class="w"> </span>resource<span class="w"> </span>service<span class="w"> </span>puppet<span class="w"> </span><span class="nv">ensure</span><span class="o">=</span>running<span class="w"> </span><span class="nv">enable</span><span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<p>First, we should setup up the Servers (IPA, Teleport) and then Clients
+(Kafka, Cloudcore, Puppet)</p>
+<p>Configuring puppet agent on host machine.</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">puppet</span> <span class="pre">agent</span> <span class="pre">-t</span></code> . This would generate a request for the
+certificate.</p>
+<p>Sign the cert for host machine <code class="docutils literal notranslate"><span class="pre">agent.puppet.vm</span></code> at <code class="docutils literal notranslate"><span class="pre">puppetserver</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>puppetserver<span class="w"> </span>ca<span class="w"> </span>sign<span class="w"> </span>--certname<span class="w"> </span>agent.puppet.vm
+</pre></div>
+</div>
+</section>
+<section id="from-puppetserver">
+<h4>From PuppetServer<a class="headerlink" href="#from-puppetserver" title="Link to this heading"></a></h4>
+<p>We can list all the nodes registered in Puppet by</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>puppetserver<span class="w"> </span>ca<span class="w"> </span>list<span class="w"> </span>--all
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>puppetserver<span class="w"> </span>ca<span class="w"> </span>clean<span class="w"> </span>--certname<span class="w"> </span>node-0003.replicate.local,node-0004.replicate.local
+</pre></div>
+</div>
+</section>
+<section id="from-puppet-node">
+<h4>From Puppet Node<a class="headerlink" href="#from-puppet-node" title="Link to this heading"></a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>service<span class="w"> </span>puppet<span class="w"> </span>stop
+</pre></div>
+</div>
+<p>Locate Puppet’s SSL directory and delete its contents. The SSL directory
+can be determined by running
+<code class="docutils literal notranslate"><span class="pre">puppet</span> <span class="pre">config</span> <span class="pre">print</span> <span class="pre">ssldir</span> <span class="pre">--section</span> <span class="pre">agent</span></code></p>
+</section>
+</section>
+<section id="from-freeipa">
+<h3>From FreeIPA<a class="headerlink" href="#from-freeipa" title="Link to this heading"></a></h3>
+<section id="on-node">
+<h4>On Node<a class="headerlink" href="#on-node" title="Link to this heading"></a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ipa-client-install<span class="w"> </span>--uninstall
+</pre></div>
+</div>
+</section>
+<section id="on-ipa-server">
+<h4>On IPA Server<a class="headerlink" href="#on-ipa-server" title="Link to this heading"></a></h4>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ipa host-del &lt;client&gt;</span>
+
+<span class="go">ipa host-del cloudcore.bitvijays.local --updatedns</span>
+
+<span class="go">--updatedns Remove A, AAAA, SSHFP and PTR records of the host(s) managed by IPA DNS</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="yum">
+<h2>Yum<a class="headerlink" href="#yum" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>yum update updates all the presently installed packages to their
+latest versions that are available in the repositories and</p></li>
+<li><p>yum upgrade performs the same action as “yum update”, but once
+finished it also removes all of the obsolete packages from the
+system.</p></li>
+</ul>
+<section id="mosquitto-server">
+<h3>Mosquitto server<a class="headerlink" href="#mosquitto-server" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">mosquitto</span><span class="o">.</span><span class="n">acl</span>
+<span class="n">topic</span> <span class="n">write</span> <span class="n">device</span><span class="o">/</span><span class="n">sck</span><span class="o">/</span><span class="c1">#</span>
+
+<span class="n">user</span> <span class="n">bitvijays</span>
+<span class="n">topic</span> <span class="n">device</span><span class="o">/</span><span class="n">sck</span><span class="o">/</span><span class="c1">#</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">mosquitto</span><span class="o">.</span><span class="n">conf</span>
+<span class="n">listener</span> <span class="mi">8140</span>
+<span class="n">allow_anonymous</span> <span class="n">true</span>
+<span class="n">acl_file</span> <span class="n">mosquitto</span><span class="o">.</span><span class="n">acl</span>
+<span class="n">password_file</span> <span class="n">mosquitto</span><span class="o">.</span><span class="n">passwd</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat mosquitto.passwd
+bitvijays:$6$9GIlXjmneLKYoE61$7nxEXwa0UitW2qbK6fkLK/2uf2NdM+plTpOdkCv9GGvCkZYeRTD2k0WkfNzMVCPFWZnxn7hJC8e+Bj4Czox4BQ==
+</pre></div>
+</div>
+</section>
+</section>
+<section id="appendix-i-freeipa">
+<h2>Appendix - I : FreeIPA<a class="headerlink" href="#appendix-i-freeipa" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Start by having a look at <a class="reference external" href="https://www.freeipa.org/page/Documentation">FreeIPA
+Documentation</a></p></li>
+<li><p>Read <a class="reference external" href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Linux_Domain_Identity_Authentication_and_Policy_Guide/index.html">Linux Domain Identity, Authentication and Policy Guide for RHEL
+7</a></p></li>
+<li><p>Read <a class="reference external" href="https://freeipa.readthedocs.io/en/latest/workshop/workshop.html">FreeIPA
+Workshop</a></p></li>
+</ul>
+<p>Red Hat Identity Management (IdM) provides a centralized and unified way
+to manage identity stores, authentication, policies, and authorization
+policies in a Linux-based domain.</p>
+<section id="benefits-of-idm">
+<h3>Benefits of IDM<a class="headerlink" href="#benefits-of-idm" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Managing identities and policies with several Linux servers</p>
+<ul>
+<li><p>Without IdM: Each server is administered separately. All passwords
+are saved on the local machines. The IT administrator manages
+users on every machine, sets authentication and authorization
+policies separately, and maintains local passwords.</p></li>
+<li><p>With IdM: The IT administrator can:</p>
+<ul>
+<li><p>Maintain the identities in one central place: the IdM server</p></li>
+<li><p>Apply policies uniformly to multiples of machines at the same
+time</p></li>
+<li><p>Set different access levels for users by using host-based
+access control, delegation, and other rules.</p></li>
+<li><p>Centrally manage privilege escalation rules</p></li>
+<li><p>Define how home directories are mounted</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Enterprise single sign-on</p>
+<ul>
+<li><p>Without IdM: Users log in to the system and are prompted for a
+password every single time they access a service or application.
+These passwords might be different, and the users have to remember
+which credential to use for which application.</p></li>
+<li><p>With IdM: After users log in to the system, they can access
+multiple services and applications without being repeatedly asked
+for their credentials. This helps:</p>
+<ul>
+<li><p>Improve usability</p></li>
+<li><p>Reduce the security risk of passwords being written down or
+stored insecurely</p></li>
+<li><p>Boost user productivity</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Managing a mixed Linux and Windows environment</p>
+<ul>
+<li><p>Without IdM: Windows systems are managed in an Active Directory
+forest, but development, production, and other teams have many
+Linux systems. The Linux systems are excluded from the Active
+Directory environment.</p></li>
+<li><p>With IdM: The IT administrator can:</p>
+<ul>
+<li><p>Manage the Linux systems using native Linux tools</p></li>
+<li><p>Integrate the Linux systems with the Windows systems, thus
+preserving a centralized user store</p></li>
+<li><p>Expand the Linux base easily</p></li>
+<li><p>Separate management of Linux and Active Directory machines and
+enable Linux and Windows admins to control their environment
+directly</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="identity-management-domain">
+<h3>Identity management domain<a class="headerlink" href="#identity-management-domain" title="Link to this heading"></a></h3>
+<p>The Identity Management (IdM) domain consists of a group of machines
+that share the same configuration, policies, and identity stores. The
+shared properties allow the machines within the domain to be aware of
+each other and operate together.</p>
+<p>From the perspective of IdM, the domain includes the following types of
+machines:</p>
+<ul class="simple">
+<li><p>IdM servers, which work as domain controllers</p></li>
+<li><p>IdM clients, which are enrolled with the servers</p></li>
+</ul>
+<p>IdM servers are also IdM clients enrolled with themselves: server
+machines provide the same functionality as clients.</p>
+<section id="identity-management-servers">
+<h4>Identity Management Servers<a class="headerlink" href="#identity-management-servers" title="Link to this heading"></a></h4>
+<p>The IdM servers act as central repositories for identity and policy
+information. They also host the services used by domain members. IdM
+provides a set of management tools to manage all the IdM-associated
+services centrally: the IdM web UI and command-line utilities.</p>
+<section id="services-hosted-by-idm-servers">
+<h5>Services hosted by idM Servers<a class="headerlink" href="#services-hosted-by-idm-servers" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Kerberos: krb5kdc and kadmin: IdM uses the Kerberos protocol to
+support single sign-on. With Kerberos, users only need to present the
+correct username and password once and can access IdM services
+without the system prompting for credentials again. Kerberos is
+divided into two parts:</p>
+<ul>
+<li><p>The krb5kdc service is the Kerberos Authentication service and Key
+Distribution Center (KDC) daemon.</p></li>
+<li><p>The kadmin service is the Kerberos database administration program</p></li>
+</ul>
+</li>
+<li><p>LDAP directory server: dirsrv: The IdM internal LDAP directory server
+instance stores all IdM information, such as information related to
+Kerberos, user accounts, host entries, services, policies, DNS, and
+others.</p></li>
+<li><p>The integrated Certificate Authority (CA) is based on the same
+technology as <a class="reference external" href="https://access.redhat.com/documentation/en-us/red_hat_certificate_system/">Red Hat Certificate
+System</a>.
+pki is the Command-Line Interface for accessing Certificate System
+services.</p></li>
+<li><p>Domain Name System (DNS): named: IdM uses DNS for dynamic service
+discovery. The IdM client installation utility can use information
+from DNS to automatically configure the client machine. After the
+client is enrolled in the IdM domain, it uses DNS to locate IdM
+servers and services within the domain.</p></li>
+<li><p>Network Time Protocol: ntpd: Many services require that servers and
+clients have the same system time, within a certain variance.</p></li>
+<li><p>Apache HTTP Server: httpd: The Apache HTTP web server provides the
+IdM Web UI, and also manages communication between the Certificate
+Authority and other IdM services.</p></li>
+<li><p>Samba / Winbind: smb, winbind: Samba implements the Server Message
+Block (SMB) protocol, also known as the Common Internet File System
+(CIFS) protocol), in Red Hat Enterprise Linux. Via the smb service,
+the SMB protocol enables you to access resources on a server, such as
+file shares and shared printers.</p></li>
+<li><p>One-time password (OTP) authentication: ipa-otpd: One-time passwords
+(OTP) are passwords that are generated by an authentication token for
+only one session, as part of two-factor authentication</p></li>
+<li><p>Custodia: ipa-custodia: Custodia is a Secrets Services provider, it
+stores and shares access to secret material such as passwords, keys,
+tokens, certificates.</p></li>
+<li><p>OpenDNSSEC: ipa-dnskeysyncd: OpenDNSSEC is a DNS manager that
+automates the process of keeping track of DNS security extensions
+(DNSSEC) keys and the signing of zones.</p></li>
+</ul>
+</section>
+</section>
+<section id="identity-management-clients">
+<h4>Identity Management Clients<a class="headerlink" href="#identity-management-clients" title="Link to this heading"></a></h4>
+<p>IdM clients are machines configured to operate within the IdM domain.
+They interact with the IdM servers to access domain resources. For
+example, they belong to the Kerberos domains configured on the servers,
+receive certificates and tickets issued by the servers, and use other
+centralized services for authentication and authorization. An IdM client
+does not require dedicated client software to interact as a part of the
+domain. It only requires proper system configuration of certain services
+and libraries, such as Kerberos or DNS. This configuration directs the
+client machine to use IdM services</p>
+<section id="services-hosted-by-idm-clients">
+<h5>Services Hosted by IdM Clients<a class="headerlink" href="#services-hosted-by-idm-clients" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>System Security Services Daemon: sssd: The System Security Services
+Daemon (SSSD) is the client-side application that manages user
+authentication and caching credentials. Caching enables the local
+system to continue normal authentication operations if the IdM server
+becomes unavailable or if the client goes offline.</p></li>
+<li><p>certmonger: The certmonger service monitors and renews the
+certificates on the client. It can request new certificates for the
+services on the system.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="operations">
+<h3>Operations<a class="headerlink" href="#operations" title="Link to this heading"></a></h3>
+<section id="user">
+<h4>User<a class="headerlink" href="#user" title="Link to this heading"></a></h4>
+<section id="adding-user">
+<h5>Adding user<a class="headerlink" href="#adding-user" title="Link to this heading"></a></h5>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ipa user-add
+First name: first_name
+Last name: last_name
+User login [default_login]: custom_login
+</pre></div>
+</div>
+<p>Uploading a user ssh key from stdin</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="n">mod</span> <span class="n">user</span> <span class="o">--</span><span class="n">sshpubkey</span><span class="o">=</span><span class="s2">&quot;ssh-rsa AAAAB3Nza...SNc5dv== client.example.com&quot;</span>
+</pre></div>
+</div>
+<p>Uploading a user ssh key from a file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="n">mod</span> <span class="n">user</span> <span class="o">--</span><span class="n">sshpubkey</span><span class="o">=</span><span class="s2">&quot;$(cat ~/.ssh/id_rsa.pub)&quot;</span> <span class="o">--</span><span class="n">sshpubkey</span><span class="o">=</span><span class="s2">&quot;$(cat ~/.ssh/id_rsa2.pub)&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="finding-user">
+<h5>Finding User<a class="headerlink" href="#finding-user" title="Link to this heading"></a></h5>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="n">find</span>
+<span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="n">find</span> <span class="n">user</span>
+</pre></div>
+</div>
+</section>
+<section id="displaying-user-info">
+<h5>Displaying user info<a class="headerlink" href="#displaying-user-info" title="Link to this heading"></a></h5>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="n">show</span> <span class="n">user_login</span>
+</pre></div>
+</div>
+</section>
+<section id="deleteing-a-user">
+<h5>Deleteing a user<a class="headerlink" href="#deleteing-a-user" title="Link to this heading"></a></h5>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="k">del</span> <span class="n">user_login</span>
+</pre></div>
+</div>
+</section>
+<section id="modifying-a-user">
+<h5>Modifying a user<a class="headerlink" href="#modifying-a-user" title="Link to this heading"></a></h5>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="n">mod</span> <span class="n">user_login</span> <span class="o">--</span><span class="n">title</span><span class="o">=</span><span class="n">new_title</span>
+</pre></div>
+</div>
+</section>
+<section id="disabling-enabling-a-user">
+<h5>Disabling/ Enabling a user<a class="headerlink" href="#disabling-enabling-a-user" title="Link to this heading"></a></h5>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="n">disable</span> <span class="n">user_login</span>
+<span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="n">enable</span> <span class="n">user_login</span>
+</pre></div>
+</div>
+</section>
+<section id="unlocking-a-user-account">
+<h5>Unlocking a user account<a class="headerlink" href="#unlocking-a-user-account" title="Link to this heading"></a></h5>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="n">unlock</span> <span class="n">user</span>
+</pre></div>
+</div>
+</section>
+<section id="checking-the-status-of-user">
+<h5>Checking the status of user<a class="headerlink" href="#checking-the-status-of-user" title="Link to this heading"></a></h5>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipa</span> <span class="n">user</span><span class="o">-</span><span class="n">status</span> <span class="n">user</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="host">
+<h4>Host<a class="headerlink" href="#host" title="Link to this heading"></a></h4>
+<p>Removing host from IPA domain</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipa</span><span class="o">-</span><span class="n">client</span><span class="o">-</span><span class="n">install</span> <span class="o">--</span><span class="n">uninstall</span>
+</pre></div>
+</div>
+<p>The above will unenroll the client from the IPA domain, however, you
+might still need to remove the clients from IPA webserver?</p>
+</section>
+<section id="sudo">
+<h4>Sudo<a class="headerlink" href="#sudo" title="Link to this heading"></a></h4>
+<p>Refer <a class="reference external" href="https://freeipa.readthedocs.io/en/latest/workshop/8-sudorule.html">Sudo
+Rule</a></p>
+</section>
+</section>
+<section id="hosts-services-machine-identity-and-authentication">
+<h3>Hosts, Services, Machine Identity and Authentication<a class="headerlink" href="#hosts-services-machine-identity-and-authentication" title="Link to this heading"></a></h3>
+<p>The basic function of an enrollment process is to create a host entry
+for the client machine in the IdM directory. This host entry is used to
+establish relationships between other hosts and even services within the
+domain.</p>
+<p>A host entry contains all of the information about the client within
+IdM:</p>
+<ul class="simple">
+<li><p>Service entries associated with the host</p></li>
+<li><p>The host and service principal</p></li>
+<li><p>Access control rules</p></li>
+<li><p>Machine information, such as its physical location and operating
+system</p></li>
+</ul>
+<p>An IdM domain provides three main services specifically for machines: -
+DNS - Kerberos - Certificate management</p>
+<p>From the machine perspective, there are several tasks that can be
+performed that access these domain services:</p>
+<ul class="simple">
+<li><p>Joining the DNS domain (machine enrollment)</p></li>
+<li><p>Managing DNS entries and zones</p></li>
+<li><p>Managing machine authentication</p></li>
+</ul>
+<p>Authentication in IdM includes machines as well as users. Machine
+authentication is required for the IdM server to trust the machine and
+to accept IdM connections from the client software installed on that
+machine. After authenticating the client, the IdM server can respond to
+its requests. IdM supports three different approaches to machine
+authentication:</p>
+<ul class="simple">
+<li><p>SSH keys. The SSH public key for the host is created and uploaded to
+the host entry.</p></li>
+<li><p>Key tables (or keytabs, a symmetric key resembling to some extent a
+user password) and machine certificates. Kerberos tickets are
+generated as part of the Kerberos services and policies defined by
+the server. Initially granting a Kerberos ticket, renewing the
+Kerberos credentials, and even destroying the Kerberos session are
+all handled by the IdM services.</p></li>
+<li><p>Machine certificates. In this case, the machine uses an SSL
+certificate that is issued by the IdM server’s certificate authority
+and then stored in IdM’s Directory Server. The certificate is then
+sent to the machine to present when it authenticates to the server.
+On the client, certificates are managed by a service called
+certmonger.</p></li>
+</ul>
+</section>
+<section id="managing-public-ssh-keys-for-hosts">
+<h3>Managing Public SSH Keys for Hosts<a class="headerlink" href="#managing-public-ssh-keys-for-hosts" title="Link to this heading"></a></h3>
+<p>OpenSSH uses public keys to authenticate hosts. One machine attempts to
+access another machine and presents its key pair. The first time the
+host authenticates, the administrator on the target machine has to
+approve the request manually. The machine then stores the host’s public
+key in a known_hosts file. Any time that the remote machine attempts to
+access the target machine again, the target machine simply checks its
+known_hosts file and then grants access automatically to approved hosts.</p>
+<p>There are a few problems with this system:</p>
+<ul class="simple">
+<li><p>The known_hosts file stores host entries in a triplet of the host IP
+address, host name, and key. This file can rapidly become out of date
+if the IP address changes (which is common in virtual environments
+and data centers) or if the key is updated.</p></li>
+<li><p>SSH keys have to be distributed manually and separately to all
+machines in an environment.</p></li>
+<li><p>Administrators have to approve host keys to add them to the
+configuration, but it is difficult to verify either the host or key
+issuer properly, which can create security problems.</p></li>
+</ul>
+<p>On Red Hat Enterprise Linux, the System Security Services Daemon (SSSD)
+can be configured to cache and retrieve host SSH keys so that
+applications and services only have to look in one location for host
+keys. Because SSSD can use Identity Management as one of its identity
+information providers, Identity Management provides a universal and
+centralized repository of keys. Administrators do not need to worry
+about distributing, updating, or verifying host SSH keys.</p>
+<section id="ipa-client-install-and-openssh">
+<h4>ipa-client-install and OpenSSh<a class="headerlink" href="#ipa-client-install-and-openssh" title="Link to this heading"></a></h4>
+<p>The ipa-client-install script, by default, configures an OpenSSH server
+and client on the IdM client machine. It also configures SSSD to perform
+host and user key caching. Essentially, simply configuring the client
+does all of the configuration necessary for the host to use SSSD,
+OpenSSH, and Identity Management for key caching and retrieval.</p>
+<p>A user group is a set of users with common privileges, password
+policies, and other characteristics. A host group is a set of IdM hosts
+with common access control rules and other characteristics.</p>
+</section>
+</section>
+<section id="managing-services">
+<h3>Managing services<a class="headerlink" href="#managing-services" title="Link to this heading"></a></h3>
+<p>Some services that run on a host can also belong to the IdM domain. Any
+service that can store a Kerberos principal or an SSL certificate (or
+both) can be configured as an IdM service. Adding a service to the IdM
+domain allows the service to request an SSL certificate or keytab from
+the domain. (Only the public key for the certificate is stored in the
+service record. The private key is local to the service.)</p>
+<p>An IdM domain establishes a commonality between machines, with common
+identity information, common policies, and shared services. Any machine
+which belongs to a domain functions as a client of the domain, which
+means it uses the services that the domain provides.</p>
+<p>An IdM domain provides three main services specifically for machines:</p>
+<ul class="simple">
+<li><p>DNS</p></li>
+<li><p>Kerberos</p></li>
+<li><p>Certificate management</p></li>
+</ul>
+</section>
+<section id="sssd">
+<h3>SSSD<a class="headerlink" href="#sssd" title="Link to this heading"></a></h3>
+<p>The System Security Services Daemon (SSSD) provides interfaces towards
+several system services, including OpenSSH.</p>
+<p>SSSD can serve as a credentials cache for SSH public keys for machines
+and users. In this setup:</p>
+<ul class="simple">
+<li><p>OpenSSH is configured to reference SSSD to check for cached keys.</p></li>
+<li><p>SSSD uses an Identity Management (IdM) domain, and IdM stores the
+public keys and host information.</p></li>
+</ul>
+<section id="how-sssd-manages-host-keys">
+<h4>How SSSD Manages Host Keys<a class="headerlink" href="#how-sssd-manages-host-keys" title="Link to this heading"></a></h4>
+<p>To manage host keys, SSSD performs the following: - Retrieves the public
+host key from the host system. - Stores the host key in the
+<code class="docutils literal notranslate"><span class="pre">/var/lib/sss/pubconf/known_hosts</span></code> file. - Establishes a connection
+with the host machine.</p>
+</section>
+<section id="how-sssd-manages-user-keys">
+<h4>How SSSD Manages User Keys<a class="headerlink" href="#how-sssd-manages-user-keys" title="Link to this heading"></a></h4>
+<p>To manage user keys, SSSD performs the following:</p>
+<ul class="simple">
+<li><p>Retrieves the user’s public key from the user entries in the IdM
+domain.</p></li>
+<li><p>Stores the user key in the <code class="docutils literal notranslate"><span class="pre">.ssh/sss_authorized_keys</span></code> file in the
+standard authorized keys format.</p></li>
+</ul>
+</section>
+</section>
+<section id="sudo-user">
+<h3>sudo user<a class="headerlink" href="#sudo-user" title="Link to this heading"></a></h3>
+<section id="sudo-rules-in-identity-management">
+<h4>sudo Rules in Identity Management<a class="headerlink" href="#sudo-rules-in-identity-management" title="Link to this heading"></a></h4>
+<p>Using sudo rules, you can define who can do what, where, and as whom.</p>
+<ul class="simple">
+<li><p>Who are the users allowed to use sudo.</p></li>
+<li><p>What are the commands that can be used with sudo.</p></li>
+<li><p>Where are the target hosts on which the users are allowed to use
+sudo.</p></li>
+<li><p>As whom is the system or other user identity which the users assume
+to perform tasks.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="appendix-ii-k3s-server-and-agents">
+<h2>Appendix - II K3S Server and Agents<a class="headerlink" href="#appendix-ii-k3s-server-and-agents" title="Link to this heading"></a></h2>
+<section id="server">
+<h3>Server<a class="headerlink" href="#server" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bolt</span> <span class="n">command</span> <span class="n">run</span> <span class="s1">&#39;sudo curl -sfL https://get.k3s.io | sh -&#39;</span> <span class="o">--</span><span class="n">targets</span> <span class="n">k3sserver</span> <span class="o">--</span><span class="n">user</span> <span class="n">debian</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">host</span><span class="o">-</span><span class="n">key</span><span class="o">-</span><span class="n">check</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">K3S_TOKEN</span></code> is stored at <code class="docutils literal notranslate"><span class="pre">/var/lib/rancher/k3s/server/node-token</span></code> on
+your server node.</p>
+</section>
+<section id="agents">
+<h3>Agents<a class="headerlink" href="#agents" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bolt</span> <span class="n">command</span> <span class="n">run</span> <span class="s1">&#39;sudo curl -sfL https://get.k3s.io | K3S_URL=https://k3sserver:6443 K3S_TOKEN=K10905620f642071f1f6dbbd34b381f9e3e89494380fbee8b84fec80e6df5d82d56::server:0983a29cb2faaed59fa466afc5e04deb sh -&#39;</span> <span class="o">--</span><span class="n">targets</span> <span class="n">k3sworker1</span><span class="p">,</span><span class="n">k3sworker2</span> <span class="o">--</span><span class="n">user</span> <span class="n">debian</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">host</span><span class="o">-</span><span class="n">key</span><span class="o">-</span><span class="n">check</span>
+</pre></div>
+</div>
+</section>
+<section id="kubectl">
+<h3>Kubectl<a class="headerlink" href="#kubectl" title="Link to this heading"></a></h3>
+<p>Running as normal user</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">cp</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rancher</span><span class="o">/</span><span class="n">k3s</span><span class="o">/</span><span class="n">k3s</span><span class="o">.</span><span class="n">yaml</span> <span class="n">config</span>
+<span class="n">mkdir</span> <span class="o">.</span><span class="n">kube</span><span class="o">/</span>
+<span class="n">mv</span> <span class="n">config</span> <span class="o">.</span><span class="n">kube</span><span class="o">/</span>
+<span class="n">sudo</span> <span class="n">chown</span> <span class="n">debian</span><span class="o">.</span><span class="n">debian</span> <span class="o">.</span><span class="n">kube</span><span class="o">/</span><span class="n">config</span>
+<span class="n">export</span> <span class="n">KUBECONFIG</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">debian</span><span class="o">/.</span><span class="n">kube</span><span class="o">/</span><span class="n">config</span>
+<span class="n">kubectl</span> <span class="n">get</span> <span class="n">nodes</span> <span class="o">-</span><span class="n">o</span> <span class="n">wide</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="appendix-iii-openfaas-serverless">
+<h2>Appendix - III OpenFaaS Serverless<a class="headerlink" href="#appendix-iii-openfaas-serverless" title="Link to this heading"></a></h2>
+<p>Install <a class="reference external" href="https://github.com/alexellis/arkade">arkade - The Open Source Kubernetes
+Marketplace</a> : The tools can be
+downloaded and installed using the above.</p>
+<p>Install <a class="reference external" href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/">Kubernetes
+Dashboard</a>
+using <code class="docutils literal notranslate"><span class="pre">arkade</span></code></p>
+<p>Deploy
+<a class="reference external" href="https://github.com/openfaas/faas-netes/blob/master/chart/openfaas/README.md#deploy-openfaas">OpenFaaS</a>.
+If deploying on K3S, follow <a class="reference external" href="https://github.com/k3s-io/k3s/issues/1126">Error: Kubernetes cluster
+unreachable</a>. We may
+follow <a class="reference external" href="https://docs.openfaas.com/deployment/kubernetes/">OpenFaaS - Deployment guide for
+Kubernetes</a></p>
+<p>Install <code class="docutils literal notranslate"><span class="pre">faas-cli</span></code> using <code class="docutils literal notranslate"><span class="pre">arkade</span></code>.</p>
+</section>
+<section id="appendix-iv-securing-kubernetes">
+<h2>Appendix - IV Securing Kubernetes<a class="headerlink" href="#appendix-iv-securing-kubernetes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>We can start with running
+<a class="reference external" href="https://github.com/armosec/kubescape">Kubescape</a>. Kubescape will
+scan your Kubernetes cluster and check for any weak points.</p></li>
+<li><p>To ensure that our Kubernetes YAML files are secure, we can use
+<a class="reference external" href="https://www.datree.io/">datree</a></p></li>
+<li><p>Follow <a class="reference external" href="https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF">Kubernetes Hardening
+Guideline</a></p></li>
+</ul>
+<section id="kubernetes-additional-features">
+<h3>Kubernetes Additional Features<a class="headerlink" href="#kubernetes-additional-features" title="Link to this heading"></a></h3>
+<section id="node-feature-discovery">
+<h4>Node Feature Discovery<a class="headerlink" href="#node-feature-discovery" title="Link to this heading"></a></h4>
+<p>Install NFD either by using
+<a class="reference external" href="https://operatorhub.io/operator/nfd-operator">OperatorHub</a> (Failed,
+have raised a issue for it) or directly from <a class="reference external" href="https://github.com/kubernetes-sigs/node-feature-discovery">Node Feature
+Discovery</a></p>
+</section>
+<section id="puppet-server">
+<h4>Puppet server<a class="headerlink" href="#puppet-server" title="Link to this heading"></a></h4>
+</section>
+</section>
+</section>
+<section id="appendix-x-pxe-boot">
+<h2>Appendix - X PXE Boot<a class="headerlink" href="#appendix-x-pxe-boot" title="Link to this heading"></a></h2>
+</section>
+<section id="appendix-extra">
+<h2>Appendix - Extra<a class="headerlink" href="#appendix-extra" title="Link to this heading"></a></h2>
+<p>lvm2 package to be installed on Ceph Server</p>
+<p>tmux and jq to be installed on vault and cloudcore</p>
+<ul class="simple">
+<li><p>If you have enabled conditional forwarding in your pi-hole DNS and
+the (forwarded DNS server is not online), PiHole will be delayed.</p></li>
+</ul>
+</section>
+<section id="appendix-installation-of-cluster-applications">
+<h2>Appendix - Installation of Cluster Applications<a class="headerlink" href="#appendix-installation-of-cluster-applications" title="Link to this heading"></a></h2>
+<section id="metrics-server">
+<h3>Metrics Server<a class="headerlink" href="#metrics-server" title="Link to this heading"></a></h3>
+<p>Metrics Server is a scalable, efficient source of container resource
+metrics for Kubernetes built-in autoscaling pipelines</p>
+<p>Refer <a class="reference external" href="https://github.com/kubernetes-sigs/metrics-server">Metric
+Server</a> for
+installation of Metric server. It is required for installation of
+GitLab.</p>
+<p>It can be installed either by <a class="reference external" href="https://github.com/kubernetes-sigs/metrics-server#installation">applying a YAML file or a Helm
+Chart</a>
+and also require a bit of configuration. Refer
+<a class="reference external" href="https://github.com/kubernetes-sigs/metrics-server#requirements">Requirements</a></p>
+</section>
+<section id="falco">
+<h3>Falco<a class="headerlink" href="#falco" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="appendix-removal-of-cluster-applications">
+<h2>Appendix - Removal of Cluster Applications<a class="headerlink" href="#appendix-removal-of-cluster-applications" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Vijay Kumar &amp; Contributors.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

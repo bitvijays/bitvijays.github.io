@@ -1,0 +1,1470 @@
+Cloud Tier
+==========
+
+We need five servers to support Urban Monitoring Architecture (UMA)
+
+1. Puppet Server: Automatic provisining and configuration of cloud and
+   edge device.
+2. FreeIPA Server: To provide authentication to the nodes. Local
+   accounts for citizens can be created to admin Edge device.
+3. Teleport Server: Administrative access using Teleport (ssh access
+   behind Home Firewall). However, if VPN is provided, this kind of can
+   be avoided.
+4. Cloudcore Server: Kubernetes + Kubeedge. Applications such as Face
+   Recognition/ ANPR/ Air Quality can be deployed.
+5. Kafka Server: Kafka + InfluxDB Time series information database
+   stored at Cloud. (Could be stored at Edge too).
+
+S1: Create the Virtual Machines
+--------------------------------
+
+We can create servers either in the Cloud (AWS/Azure/GCP/OpenStack) or
+local server with the public IP Address.
+
+Local Virtualization
+~~~~~~~~~~~~~~~~~~~~
+
+We have setup the Virtual Machines locally using KVM Virtualization. We
+start with five servers created using `Terraform
+Example <https://github.com/bitvijays/terraform-example>`__.
+
+Cloud (AWS/Azure/OpenStack)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the cloud services to create Virtual Machines
+
+S2: Virtual Machines: Initial Configuration
+-------------------------------------------
+
+S2A: Hostname
+~~~~~~~~~~~~~
+
+Virtual Machines created using cloud
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: console
+
+   hostnamectl set-hostname <hostname>
+
+   e.g hostnamectl set-hostname puppet.xxxxx.local
+
+Virtual Machines created using Terraform
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If we have used terraform-example, hostname are already defined
+
+S2B: Install Puppet Repo
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+If we have used terraform-example, cloud-init used in terraform should
+install the latest version of puppet, however, that doesn’t happen yet.
+Have raised a Puppet Issue for the same, So, we use bolt to run
+individual commands.
+
+*Update* : Puppet Ticket has been resolved and now, cloud-init does
+contain the code to install puppet by default. However, as what
+``cloud-init`` package version would be installed on the OS, depends on
+how soon OS get updates, we still have to manually install/update the
+puppet.
+
+By using, bolt, we are assuming that your user ``debian`` has access to
+the machines.
+
+We need to install the Puppet Repo and install the package.
+
+For Debian-based OS, we use
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: console
+
+   wget https://apt.puppetlabs.com/puppet6-release-buster.deb
+   sudo dpkg -i puppet6-release-buster.deb
+
+For Redhat/CentOS, we use
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We might want to convert CentOS 8 to Cent OS 8 Stream using `convert to centos 8 stream <https://www.centos.org/news-and-events/convert-to-stream-8/>_`
+
+.. code:: console
+
+   wget https://yum.puppetlabs.com/puppet6/puppet6-release-el-7.noarch.rpm
+   wget https://yum.puppetlabs.com/puppet6/puppet6-release-el-8.noarch.rpm
+
+and install it
+
+.. code:: console
+
+   sudo rpm -ivh puppet-release-el-7.noarch.rpm
+   sudo rpm -ivh puppet6-release-el-8.noarch.rpm
+
+and install ``puppet-agent``
+
+.. code:: console
+
+   apt-get install puppet-agent
+
+The above can be manually by logging to each machine or by using bolt
+and execute them at once on all the servers.
+
+.. code:: console
+
+   bolt command run 'whoami' --targets kafka,puppet,teleport,cloudcore --user debian --no-host-key-check
+
+where
+
+.. code:: console
+
+   --targets represents the Virtual Machine domain name
+   --user represent the username
+
+Commands to install puppet-agent in all Debian machines
+
+.. code:: console
+
+   bolt command run 'wget https://apt.puppetlabs.com/puppet6-release-buster.deb;sudo dpkg -i puppet6-release-buster.deb;rm puppet6-release-buster.deb; sudo apt-get update; sudo apt-get install puppet-agent' --targets kafka,puppet,teleport,cloudcore --user debian --no-host-key-check
+
+Bullseye
+
+.. code:: console
+
+   bolt command run 'wget https://apt.puppetlabs.com/puppet7-release-bullseye.deb;sudo dpkg -i puppet7-release-bullseye.deb;rm puppet7-release-bullseye.deb; sudo apt-get update; sudo apt-get install puppet-agent' --targets puppet,rancher,cloudcore,nuc1 --user debian --no-host-key-check
+
+Commands to install puppet-agent on Centos machine
+
+CentOS-8
+
+.. code:: console
+
+   bolt command run 'sudo yum install wget -y; wget https://yum.puppetlabs.com/puppet6/puppet6-release-el-8.noarch.rpm;sudo sudo rpm -ivh puppet6-release-el-8.noarch.rpm;rm puppet6-release-el-8.noarch.rpm; sudo yum update -y; sudo yum install puppet-agent -y' --targets ipa --user centos --no-host-key-check
+
+
+CentOS-9
+
+.. code:: console
+
+   bolt command run 'sudo yum install wget -y; wget https://yum.puppetlabs.com/puppet6/puppet6-release-el-9.noarch.rpm;sudo sudo rpm -ivh puppet6-release-el-9.noarch.rpm;rm puppet6-release-el-9.noarch.rpm; sudo yum update -y; sudo yum install puppet-agent -y' --targets ipa --user centos --no-host-key-check
+
+Fedora 34
+
+.. code:: console
+
+   bolt command run 'sudo yum install wget -y; wget http://yum.puppetlabs.com/puppet6-release-fedora-34.noarch.rpm;sudo sudo rpm -ivh puppet6-release-fedora-34.noarch.rpm;rm puppet6-release-fedora-34.noarch.rpm; sudo yum update -y; sudo yum install puppet-agent -y' --targets ipa,cephserver1 --user centos --no-host-key-check
+
+Running puppet-agent on all the machines (Run after configuring PuppetServer)
+
+.. code:: console
+
+   bolt command run 'sudo /opt/puppetlabs/bin/puppet agent -t' --targets k3sserver,k3sworker1,k3sworker2 --user debian --no-host-key-check
+
+S3: Configure the Virtual Machines
+----------------------------------
+
+
+We would configure
+
+- Puppet Server
+- FreeIPA Server
+
+VM1: PuppetServer
+~~~~~~~~~~~~~~~~~
+
+Following the `Puppet
+Docs <https://puppet.com/docs/puppet/7.1/install_puppet.html>`__
+
+There are two ways to install puppetserver
+
+-  With Foreman (would be easier)
+-  Without Foreman
+
+Install Puppet
+^^^^^^^^^^^^^^
+
+With Foreman
+''''''''''''
+
+Foreman is now supported on Debian 11 (Bullseye) but we are not sure about FreeIPA supported on Debian 11 yet
+
+Install `Foreman <https://theforeman.org/>`__
+
+If you get locale error refer `Locale Issue <https://projects.theforeman.org/issues/17131>`__
+
+-  Ensure that `ping $(hostname -f)`` shows the real IP address, not 127.0.1.1. Change or remove this entry from `/etc/hosts` if present.
+
+Click on Getting Started, has very clear instructions to install
+foreman. It will automatically install puppet.
+
+Without Foreman
+'''''''''''''''
+
+Install PuppetServer
+
+.. code:: shell
+
+   apt-get install puppetserver
+
+Enable and start the puppetserver
+
+.. code:: shell
+
+   sudo systemctl enable puppetserver.service
+   sudo systemctl start puppetserver
+
+Check if started correctly
+
+.. code:: shell
+
+   puppetserver -v
+
+PuppetServer IPV4
+                 
+
+The puppet server might be only listening to IPv6, to run it in IPv4.
+
+Add ``-Djava.net.preferIPv4Stack=true`` to
+``JAVA_ARGS="-Xms2G -Xmx2G -Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger``
+in ``/etc/default/puppetserver``
+
+Configuring PuppetServer
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Install the puppet modules
+
+.. code:: shell
+
+   puppet module install puppet-epel
+   puppet module install puppetlabs-stdlib
+   puppet module install puppet-augeasproviders_core
+   puppet module install hardening-os_hardening
+   puppet module install puppet-archive
+   puppet module install puppetlabs-apt
+   puppet module install puppetlabs-ntp
+   puppet module install puppetlabs-motd
+   puppet module install puppetlabs-kubernetes
+   puppet module install puppetlabs-docker
+   puppet module install puppet-kmod
+   
+   puppet module install puppetlabs-powershell
+
+.. note:: Double check the versions installed with the latest versions by doing ``puppet module list`` on puppet server
+
+We also need `puppet-freeipa <https://forge.puppet.com/modules/adullact/freeipa/readme>`_ and `puppet teleport`, install it in the
+modules
+
+Currently, we would
+
+.. code:: console
+
+   git clone https://github.com/bitvijays/conf_files.git
+
+and then link the ``site.pp`` file to the Puppet
+
+Link site.pp to puppet site.pp. `site.pp` helps us to configure the machines as per our requirements. 
+
+.. code:: console
+
+   ln -s /home/debian/conf_files/Puppet/site.pp /etc/puppetlabs/code/environments/production/manifests/site.pp
+
+Accepting Client certificates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: console
+
+   puppetserver ca list
+   puppetserver ca --sing cert1,cert2
+
+After signing the certificates, start in the following order
+
+-  Run ``puppet agent -t`` on IPA server
+-  Run ``puppet agent -t`` on Puppet server
+
+VM2: FreeIPA Server
+~~~~~~~~~~~~~~~~~~~
+
+Use CentOS for FreeIPA Server. The default user for centos is
+``centos``.
+
+Installing IPA server would be a pain. Even automated installation as it
+installs multiple services that are dependent on each other. There’s a
+high probabably, something would not work. Refer `FreeIPA
+Issues <https://pagure.io/freeipa/issues>`__ if you are doing everything
+right and still facing some issue. Have patience. IPA is required for
+authentication and node host key verification. Refer `FreeIPA
+Workshop <https://freeipa.readthedocs.io/en/latest/workshop.html>`__
+
+Initial Configuration
+^^^^^^^^^^^^^^^^^^^^^
+
+By default, FreeIPA package is not available in the CentOS standard
+repository. So we will need to enable ``idm:DL1`` repo in our system.
+
+Enable it:
+
+.. code:: console
+
+   dnf module enable idm:DL1
+
+Next, sync the repository:
+
+.. code:: console
+
+   dnf distro-sync
+
+Bolt command
+
+.. code:: console
+
+   bolt command run 'sudo dnf module enable idm:DL1 -y; sudo dnf distro-sync' --targets ipa --user centos --no-host-key-check
+
+Install puppet-agent
+
+.. code:: console
+
+   yum install puppet-agent
+
+Install ``avahi`` for DNS resolution
+
+.. code:: console
+
+   sudo yum install avahi
+   sudo service avahi-daemon start
+
+Installing IPA Server requires
+
+-  `IPv6 <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/linux_domain_identity_authentication_and_policy_guide/installing-ipa#prerequisites>`__
+   should be enabled.
+
+This could be a difficult setup.
+
+It is best if ipa is installed on ``CentOS`` and then installed via
+``puppet-freeipa``.
+
+Automatic installation using Puppet-FreeIPA
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Puppet ``site.pp`` manifest contains
+
+.. code:: ruby
+
+   node 'ipa.bitvijays.local' {
+     include profile::base
+     include profile::ipa_server
+   }
+
+where ``profile::ipa_server`` contains
+
+.. code:: ruby
+
+   class profile::ipa_server{
+
+     class {'freeipa':
+       ipa_role                    => 'master',
+       domain                      => 'bitvijays.local',
+       ipa_server_fqdn             => 'ipa.bitvijays.local',
+       ipa_master_fqdn             => 'ipa.bitvijays.local',
+       puppet_admin_password       => 'puppet_admin',
+       directory_services_password => 'directory_service',
+       install_ipa_server          => true,
+       ip_address                  => $::ipaddress,
+       enable_ip_address           => true,
+       enable_hostname             => true,
+       manage_host_entry           => true,
+       install_epel                => true,
+       idstart                     => 60001
+     }
+   }
+
+Manual installation
+^^^^^^^^^^^^^^^^^^^
+
+If the automatic installation using puppet-freeipa fails, try the manual
+installation using
+
+.. code:: console
+
+   ipa-server-install
+   ipa-server-install --uninstall : To uninstall the FreeIPA
+
+Service User for FreeIPA
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Refer
+https://bgstack15.wordpress.com/2020/01/15/freeipa-service-account-to-join-systems-unattended/
+
+We want to have systems join, or enroll in, FreeIPA, unattended, and
+need a few configurations. Run these on an ipa master.
+
+Establish a service account. I will use “domainjoin.”
+
+.. code:: console
+
+   echo "thisisdapassword" | ipa user-add --first="domain" --last="join" --cn="domainjoin" --password --displayname="domainjoin" domainjoin
+
+Remove the user from the default group of ipausers. We will add it to a
+new service accounts group.
+
+.. code:: console
+
+   ipa group-remove-member --users=domainjoin ipausers
+   ipa group-add service-accounts
+   ipa group-add-member --users=domainjoin service-accounts
+
+
+VM4: Cloudcore Server
+~~~~~~~~~~~~~~~~~~~~~
+
+We would be installing Kubernetes and KubeEdge on the Cloudcore Server.
+
+VM4A: Kubernetes Server
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Ideally, this should be installed using
+`Puppet-Kubernetes <https://github.com/puppetlabs/puppetlabs-kubernetes>`__
+
+- First, check the `containerd` version available on the `cloudcore` machine using `apt-cache policy containerd` and then check the `Containerd Kubernetes Support <https://containerd.io/releases/#kubernetes-support>`_
+- Ensure that the kubernetes version we want to install is supported using `containerd`. If not, update `containerd`
+- Check which `kubernetes version <https://kubernetes.io/releases/>_ we want to install.
+
+
+Puppet-Kubernetes
+'''''''''''''''''
+
+While installing from puppetlabs-kubernetes, we need to create a Hiera
+file containing the data. Refer `Generating Module
+Configuration <https://github.com/puppetlabs/puppetlabs-kubernetes#generating-the-module-configuration>`__
+
+Login to the `puppet` server and cd to the `/etc/puppetlabs/code/environments/production/modules/kubernetes`
+
+Download the
+`env <https://github.com/puppetlabs/puppetlabs-kubernetes/blob/main/env>`__,
+populate the values and run the docker command
+
+Sample values:
+
+.. code:: console
+
+  OS=debian
+  VERSION=1.25.6
+  CONTAINER_RUNTIME=cri_containerd
+  CNI_PROVIDER=flannel
+  ETCD_INITIAL_CLUSTER=cloudcore:192.168.1.211
+  ETCD_IP=192.168.1.211
+  KUBE_API_ADVERTISE_ADDRESS=192.168.1.211
+  INSTALL_DASHBOARD=true
+
+.. code:: console
+
+   docker run --rm -v $(pwd):/mnt --env-file env puppet/kubetool:{$module_version}
+
+This would create ``OS.yaml`` such as ``Debian.yaml`` and
+``hostname.yaml`` such as ``cloudcore.bitvijays.local``. The
+``module_version`` can be found `Puppet
+Kubetool <https://hub.docker.com/r/puppet/kubetool/>`__
+
+Move the ``Debian.yaml`` and ``cloudcore.bitvijays.local`` to ``data``
+folder in the modules folder of ``kubernetes``.
+
+.. code:: console
+
+   root@puppet:/etc/puppetlabs/code/environments/production/modules/kubernetes# ls
+   CHANGELOG.md  CONTRIBUTING.md  env       hiera.yaml         HISTORY.md  LICENSE    metadata.json  provision.yaml  REFERENCE.md  templates
+   CODEOWNERS    data             examples  hiera.yaml.backup  lib         manifests  plans          README.md       tasks         tooling
+
+Login to the Cloudcore machine and run
+
+.. code:: console
+
+   puppet agent -t
+
+We might get some error regarding etcd service, otherwise should be
+running fine. Refer `couldn’t find local name “$HOSTNAME” in the initial
+cluster configuration <https://github.com/coreos/bugs/issues/2054>`__
+
+Check
+
+.. code:: console
+
+   kubectl get nodes
+
+In ``site.pp``, we have defined a class ``profile::kubernetes_server``
+
+.. code:: puppet
+
+   # Class for installing the Kubernetes Server
+   class profile::kubernetes_server{
+
+     class {'kubernetes':
+       controller => true,
+     }
+   }
+
+- Also, remember to set `ttl_duration <https://forge.puppet.com/modules/puppetlabs/kubernetes/readme#ttl_duration>`_  for the Join token timeout.
+
+and added this in
+
+.. code:: puppet
+
+   node 'cloudcore.bitvijays.local'{
+     include profile::base
+     include profile::ipa_client
+     include profile::kubernetes_server
+   }
+
+When finished, you should get something like
+
+.. code:: puppet
+
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns: To start using your cluster, you need to run the following as a regular user:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:   mkdir -p $HOME/.kube
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns: Alternatively, if you are the root user, you can run:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:   export KUBECONFIG=/etc/kubernetes/admin.conf
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns: You should now deploy a pod network to the cluster.
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns: Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:   https://kubernetes.io/docs/concepts/cluster-administration/addons/
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns: You can now join any number of control-plane nodes by copying certificate authorities
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns: and service account keys on each node and then running the following as root:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:   kubeadm join 192.168.1.202:6443 --token b6008d.201b8248ebf062ec \
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:  --discovery-token-ca-cert-hash sha256:6a6c8d9d2a5ba871a04c2556d7453b7f2b2aef8579abde201233fa93512ccc0b \
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:  --control-plane
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns: Then you can join any number of worker nodes by running the following on each as root:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns: kubeadm join 192.168.1.202:6443 --token b6008d.201b8248ebf062ec \
+   Notice: /Stage[main]/Kubernetes::Cluster_roles/Kubernetes::Kubeadm_init[cloudcore]/Exec[kubeadm init]/returns:  --discovery-token-ca-cert-hash sha256:6a6c8d9d2a5ba871a04c2556d7453b7f2b2aef8579abde201233fa93512ccc0b
+
+We can also download `Lens <https://k8slens.dev/index.html>`__ to
+perform Kubernetes administration.
+
+Adding Worker nodes
+'''''''''''''''''''
+
+We do have to ensure that `containerd` version is same as on the worker and master nodes.
+
+Adding worker node is easy just by adding the class ``kubernetes`` with
+``worker => true``.
+
+.. code:: ruby
+
+   node 'k8sworker1.bitvijays.local', 'k8sworker2.bitvijays.local', 'cephserver1.bitvijays.local', 'cephserver2.bitvijays.local', 'cephserver3.bitvijays.local' {
+     include profile::base
+     include profile::ipa_client
+     class {'kubernetes':
+     worker => true,
+     }
+   }
+
+Kubeadm Token
+'''''''''''''
+
+Node joining requires a token which is valid for 24 hours. If we are
+joining the nodes after the token as expired we have to create a new
+token using ``kubeadm token create`` or create a token which will never
+expire.
+
+The new token needs to be stored in the data directory of the kubernetes
+module.
+
+.. _manual-installation-1:
+
+Manual Installation
+'''''''''''''''''''
+
+If that is not working, install it from `Install
+Kubeadm <https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/>`__
+
+We are using ``flannel`` network, so follow `Flannel
+Kubernetes <https://github.com/flannel-io/flannel/blob/master/Documentation/kubernetes.md>`__
+and pass ``--pod-network-cidr=10.244.0.0/16`` to ``kubeadm init``.
+
+Services on Kubernetes Server?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We have to install different applications on the Kubernetes cluster:
+
+arkade
+''''''
+
+`arkade <https://github.com/alexellis/arkade#getting-arkade>`__
+
+Helm
+''''
+
+.. code:: console
+
+   ark get helm   
+
+cert-manager
+''''''''''''
+
+`cert-manager installation <https://cert-manager.io/docs/installation/>`__
+
+We are currently using `helm3
+method <https://cert-manager.io/docs/installation/helm/>`__
+
+Show helm configuration values:
+
+.. code:: console
+
+   helm show values jetstack/cert-manager
+
+Install `cert-manager` using `helm`
+
+.. code:: console
+
+   helm install cert-manager jetstack/cert-manager --namespace cert-manager  --create-namespace --set installCRDs=true
+
+Configure the CertManager using `Issuer
+Configuration <https://cert-manager.io/docs/configuration/>`__
+
+Test Example
+
+
+Nginx Ingress Controller
+''''''''''''''''''''''''
+
+We also have to install a `Ingress-Nginx <https://kubernetes.github.io/ingress-nginx/>`__ controller from `ingress-nginx Installation Guide <https://kubernetes.github.io/ingress-nginx/deploy/>`_
+
+.. code:: console
+
+   helm show values ingress-nginx --repo https://kubernetes.github.io/ingress-nginx
+
+MetalLB LoadBalancer (If the infrastructure is deployed on Bare Metal)
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+`MetalLB <https://metallb.universe.tf/>`__
+
+Install it with
+
+-  `Helm <https://metallb.universe.tf/installation/>`_ (Preferred as of now. Tried MetalLB Operator didn't worked)
+
+   .. code:: console
+
+      helm install metallb metallb/metallb --namespace metallb-system  --create-namespace
+
+- `MetalLB Operator <https://metallb.universe.tf/installation/#using-the-metallb-operator>`_
+
+
+Configure it by providing a IPAddressPool and L2advertisement. Refer `A pure software solution: MetalLB <https://kubernetes.github.io/ingress-nginx/deploy/baremetal/#a-pure-software-solution-metallb>`_ and 
+`MetalLB Configuration <https://metallb.universe.tf/configuration/>`_
+
+
+Install Starboard Security Tool
+'''''''''''''''''''''''''''''''
+
+`Starboard <https://aquasecurity.github.io/starboard/>`__
+
+and Install the `Starboard extension on
+Lens <https://github.com/aquasecurity/starboard-lens-extension>`__.
+
+VM2A: Rancher Server
+~~~~~~~~~~~~~~~~~~~~
+
+Install
+`Rancher <https://rancher.com/docs/rancher/v2.5/en/installation/other-installation-methods/single-node-docker/>`__
+
+In future, install the `certificate signed by the
+CA <https://rancher.com/docs/rancher/v2.5/en/installation/other-installation-methods/single-node-docker/#option-c-bring-your-own-certificate-signed-by-a-recognized-ca>`__
+
+Run it with `Persistent
+Volume <https://rancher.com/docs/rancher/v2.5/en/installation/other-installation-methods/single-node-docker/advanced/#persistent-data>`__
+
+VM3: Teleport Server
+~~~~~~~~~~~~~~~~~~~~
+
+Puppet ``site.pp`` contains
+
+.. code:: ruby
+
+   node 'teleport.bitvijays.local'{
+     include profile::base
+     include profile::ipa_client
+     class { '::teleport':
+       version               => '5.1.0',
+       auth_enable           => true,
+       proxy_enable          => true,
+       auth_listen_addr      => '0.0.0.0',
+       proxy_web_listen_addr => '0.0.0.0',
+       auth_service_tokens   => [ 'node:pNVNrTIupUieGWGR0vz5LNOxUaNbgIgjsEZaIAjo3AfkwVHcIedLlwkOScbXWFfyqiSOtz5kFHWnUDZnPSZtZ0KzJKiUuOHMGkHlz']
+     }
+   }
+
+
+VM4B: KubeEdge
+^^^^^^^^^^^^^^
+
+Install using Puppet-KubeEdge
+
+.. code:: puppet
+
+     class {'::kubeedge':
+           controller => true,
+     }
+
+The puppet-kubeedge module will install the keadm package and install
+cloudcore executable and run it as a service.
+
+
+
+VM5 Vault Server
+~~~~~~~~~~~~~~~~
+
+Start with deploying a `vault
+server <https://learn.hashicorp.com/tutorials/vault/getting-started-deploy?in=vault/getting-started>`__
+
+We can install the Vault server either by using - (Install
+Vault)[https://www.vaultproject.io/docs/install#install-vault] -
+`Helm <https://www.vaultproject.io/docs/platform/k8s/helm>`__ - `Banzai
+Vault Operator <https://banzaicloud.com/docs/bank-vaults/overview/>`__
+
+Refer
+`PKI-Engine <https://learn.hashicorp.com/tutorials/vault/pki-engine>`__
+to create a PKI to generate and revoke the certificates Refer `Vault
+Agent with
+Kubernetes <https://learn.hashicorp.com/tutorials/vault/agent-kubernetes?in=vault/kubernetes>`__
+and `Configure Vault as a Certificate Manager in Kubernetes with
+Helm <https://learn.hashicorp.com/tutorials/vault/kubernetes-cert-manager?in=vault/kubernetes>`__
+
+`How to add the cert in
+OS <https://superuser.com/questions/437330/how-do-you-add-a-certificate-authority-ca-to-ubuntu>`__
+
+VM6: CEPH Server
+~~~~~~~~~~~~~~~~
+
+Turn off firewall on CEPHServer (CentOS) by
+
+::
+
+   firewall-cmd --state
+   systemctl stop firewalld
+   systemctl disable firewalld
+
+Ceph requires package ``lvm2`` to be installed, otherwise, ceph will
+`fail after rebooting <https://github.com/rook/rook/issues/3289>`__ the
+host.
+
+Follow `CEPH
+QuickStart <https://rook.github.io/docs/rook/latest/quickstart.html>`__
+
+We want to deploy a rook cluster with 10 GB HDD that we create using
+
+::
+
+   qemu-img create -f raw cephserver3 10G
+
+or
+
+::
+
+   dd if=/dev/zero of=cephdisk2.img bs=1024k seek=10600 count=0
+
+and as we are using KVM/libvirt to manage the machines, we can attach
+the hard-disk using
+
+::
+
+   virsh attach-disk <domain_name> <disk_location> <where_to_place> --persistent
+   virsh attach-disk ceph_server1 /var/lib/libvirt/images/ceph_disk/cephserver1 vdb --persistent
+
+^ Always do check by using ``dmesg`` whether the disk as been attached
+to the correct device or not.
+
+::
+
+We probably want to apply
+
+-  `Block
+   Storage <https://rook.github.io/docs/rook/latest/ceph-block.html>`__
+
+When we apply ``storageclass``, we might also have to set it a `default
+storage
+class <https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/>`__
+
+If you are facing issues, start by reading `CEPH Common
+Issues <https://rook.github.io/docs/rook/latest/ceph-common-issues.html>`__
+
+If you have deployed the Loadbalancer and Ingress Controller, Deploy the
+`Ceph
+Dashboard <https://github.com/rook/rook/blob/master/Documentation/ceph-dashboard.md#ingress-controller>`__
+
+Tearing down the cluster
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Many times, we would struggle with setting the cluster and need to tear
+it down, follow
+`CEPH-Teardown <https://rook.io/docs/rook/latest/ceph-teardown.html>`__
+
+Upgrading the Rook and Ceph cluster
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Refer `Rook and Ceph
+Upgrade <https://www.rook.io/docs/rook/latest/Upgrade/health-verification/>`__
+
+VM7 Keycloak server
+~~~~~~~~~~~~~~~~~~~
+
+Tried to create a keycloak instance using keycloak operator, however,
+instance is not created. Raised a github discussion
+
+https://github.com/keycloak/keycloak/discussions/9179
+
+As of now, installed keycloak without Kubernetes using `Getting started
+ZIP <https://www.keycloak.org/getting-started/getting-started-zip>`__
+
+https://keycloak.discourse.group/t/create-user-federation-provider-for-freeipa-with-keycloak-operator/8999
+
+Create keycloak using the `Keycloak
+operator <https://www.keycloak.org/getting-started/getting-started-operator-kubernetes>`__
+
+VM5: Kafka Server
+~~~~~~~~~~~~~~~~~
+
+Remove Nodes
+------------
+
+From Puppet
+~~~~~~~~~~~
+
+puppet-agent
+^^^^^^^^^^^^
+
+When installing on the server, would suggest to manually run the
+``puppet agent -t`` at the start. Once, all the nodes are configured
+correctly, then start the puppet service
+
+.. code:: shell
+
+   sudo /opt/puppetlabs/bin/puppet resource service puppet ensure=running enable=true
+
+First, we should setup up the Servers (IPA, Teleport) and then Clients
+(Kafka, Cloudcore, Puppet)
+
+Configuring puppet agent on host machine.
+
+Run ``puppet agent -t`` . This would generate a request for the
+certificate.
+
+Sign the cert for host machine ``agent.puppet.vm`` at ``puppetserver``
+
+.. code:: shell
+
+   puppetserver ca sign --certname agent.puppet.vm
+
+From PuppetServer
+^^^^^^^^^^^^^^^^^
+
+We can list all the nodes registered in Puppet by
+
+.. code:: shell
+
+   puppetserver ca list --all
+
+.. code:: shell
+
+   puppetserver ca clean --certname node-0003.replicate.local,node-0004.replicate.local
+
+From Puppet Node
+^^^^^^^^^^^^^^^^
+
+.. code:: shell
+
+   service puppet stop
+
+Locate Puppet’s SSL directory and delete its contents. The SSL directory
+can be determined by running
+``puppet config print ssldir --section agent``
+
+From FreeIPA
+~~~~~~~~~~~~
+
+On Node
+^^^^^^^
+
+.. code:: shell
+
+   ipa-client-install --uninstall
+
+On IPA Server
+^^^^^^^^^^^^^
+
+.. code:: console
+
+   ipa host-del <client>
+
+   ipa host-del cloudcore.bitvijays.local --updatedns
+
+   --updatedns Remove A, AAAA, SSHFP and PTR records of the host(s) managed by IPA DNS
+
+Yum
+---
+
+-  yum update updates all the presently installed packages to their
+   latest versions that are available in the repositories and
+-  yum upgrade performs the same action as “yum update”, but once
+   finished it also removes all of the obsolete packages from the
+   system.
+
+Mosquitto server
+~~~~~~~~~~~~~~~~
+
+::
+
+   cat mosquitto.acl 
+   topic write device/sck/#
+
+   user bitvijays
+   topic device/sck/#
+
+::
+
+   cat mosquitto.conf 
+   listener 8140
+   allow_anonymous true
+   acl_file mosquitto.acl
+   password_file mosquitto.passwd
+
+::
+
+   cat mosquitto.passwd 
+   bitvijays:$6$9GIlXjmneLKYoE61$7nxEXwa0UitW2qbK6fkLK/2uf2NdM+plTpOdkCv9GGvCkZYeRTD2k0WkfNzMVCPFWZnxn7hJC8e+Bj4Czox4BQ==
+
+Appendix - I : FreeIPA
+----------------------
+
+-  Start by having a look at `FreeIPA
+   Documentation <https://www.freeipa.org/page/Documentation>`__
+-  Read `Linux Domain Identity, Authentication and Policy Guide for RHEL
+   7 <https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Linux_Domain_Identity_Authentication_and_Policy_Guide/index.html>`__
+-  Read `FreeIPA
+   Workshop <https://freeipa.readthedocs.io/en/latest/workshop/workshop.html>`__
+
+Red Hat Identity Management (IdM) provides a centralized and unified way
+to manage identity stores, authentication, policies, and authorization
+policies in a Linux-based domain.
+
+Benefits of IDM
+~~~~~~~~~~~~~~~
+
+-  Managing identities and policies with several Linux servers
+
+   -  Without IdM: Each server is administered separately. All passwords
+      are saved on the local machines. The IT administrator manages
+      users on every machine, sets authentication and authorization
+      policies separately, and maintains local passwords.
+   -  With IdM: The IT administrator can:
+
+      -  Maintain the identities in one central place: the IdM server
+      -  Apply policies uniformly to multiples of machines at the same
+         time
+      -  Set different access levels for users by using host-based
+         access control, delegation, and other rules.
+      -  Centrally manage privilege escalation rules
+      -  Define how home directories are mounted
+
+-  Enterprise single sign-on
+
+   -  Without IdM: Users log in to the system and are prompted for a
+      password every single time they access a service or application.
+      These passwords might be different, and the users have to remember
+      which credential to use for which application.
+   -  With IdM: After users log in to the system, they can access
+      multiple services and applications without being repeatedly asked
+      for their credentials. This helps:
+
+      -  Improve usability
+      -  Reduce the security risk of passwords being written down or
+         stored insecurely
+      -  Boost user productivity
+
+-  Managing a mixed Linux and Windows environment
+
+   -  Without IdM: Windows systems are managed in an Active Directory
+      forest, but development, production, and other teams have many
+      Linux systems. The Linux systems are excluded from the Active
+      Directory environment.
+   -  With IdM: The IT administrator can:
+
+      -  Manage the Linux systems using native Linux tools
+      -  Integrate the Linux systems with the Windows systems, thus
+         preserving a centralized user store
+      -  Expand the Linux base easily
+      -  Separate management of Linux and Active Directory machines and
+         enable Linux and Windows admins to control their environment
+         directly
+
+Identity management domain
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Identity Management (IdM) domain consists of a group of machines
+that share the same configuration, policies, and identity stores. The
+shared properties allow the machines within the domain to be aware of
+each other and operate together.
+
+From the perspective of IdM, the domain includes the following types of
+machines:
+
+-  IdM servers, which work as domain controllers
+-  IdM clients, which are enrolled with the servers
+
+IdM servers are also IdM clients enrolled with themselves: server
+machines provide the same functionality as clients.
+
+Identity Management Servers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The IdM servers act as central repositories for identity and policy
+information. They also host the services used by domain members. IdM
+provides a set of management tools to manage all the IdM-associated
+services centrally: the IdM web UI and command-line utilities.
+
+Services hosted by idM Servers
+''''''''''''''''''''''''''''''
+
+-  Kerberos: krb5kdc and kadmin: IdM uses the Kerberos protocol to
+   support single sign-on. With Kerberos, users only need to present the
+   correct username and password once and can access IdM services
+   without the system prompting for credentials again. Kerberos is
+   divided into two parts:
+
+   -  The krb5kdc service is the Kerberos Authentication service and Key
+      Distribution Center (KDC) daemon.
+   -  The kadmin service is the Kerberos database administration program
+
+-  LDAP directory server: dirsrv: The IdM internal LDAP directory server
+   instance stores all IdM information, such as information related to
+   Kerberos, user accounts, host entries, services, policies, DNS, and
+   others.
+-  The integrated Certificate Authority (CA) is based on the same
+   technology as `Red Hat Certificate
+   System <https://access.redhat.com/documentation/en-us/red_hat_certificate_system/>`__.
+   pki is the Command-Line Interface for accessing Certificate System
+   services.
+-  Domain Name System (DNS): named: IdM uses DNS for dynamic service
+   discovery. The IdM client installation utility can use information
+   from DNS to automatically configure the client machine. After the
+   client is enrolled in the IdM domain, it uses DNS to locate IdM
+   servers and services within the domain.
+-  Network Time Protocol: ntpd: Many services require that servers and
+   clients have the same system time, within a certain variance.
+-  Apache HTTP Server: httpd: The Apache HTTP web server provides the
+   IdM Web UI, and also manages communication between the Certificate
+   Authority and other IdM services.
+-  Samba / Winbind: smb, winbind: Samba implements the Server Message
+   Block (SMB) protocol, also known as the Common Internet File System
+   (CIFS) protocol), in Red Hat Enterprise Linux. Via the smb service,
+   the SMB protocol enables you to access resources on a server, such as
+   file shares and shared printers.
+-  One-time password (OTP) authentication: ipa-otpd: One-time passwords
+   (OTP) are passwords that are generated by an authentication token for
+   only one session, as part of two-factor authentication
+-  Custodia: ipa-custodia: Custodia is a Secrets Services provider, it
+   stores and shares access to secret material such as passwords, keys,
+   tokens, certificates.
+-  OpenDNSSEC: ipa-dnskeysyncd: OpenDNSSEC is a DNS manager that
+   automates the process of keeping track of DNS security extensions
+   (DNSSEC) keys and the signing of zones.
+
+Identity Management Clients
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+IdM clients are machines configured to operate within the IdM domain.
+They interact with the IdM servers to access domain resources. For
+example, they belong to the Kerberos domains configured on the servers,
+receive certificates and tickets issued by the servers, and use other
+centralized services for authentication and authorization. An IdM client
+does not require dedicated client software to interact as a part of the
+domain. It only requires proper system configuration of certain services
+and libraries, such as Kerberos or DNS. This configuration directs the
+client machine to use IdM services
+
+Services Hosted by IdM Clients
+''''''''''''''''''''''''''''''
+
+-  System Security Services Daemon: sssd: The System Security Services
+   Daemon (SSSD) is the client-side application that manages user
+   authentication and caching credentials. Caching enables the local
+   system to continue normal authentication operations if the IdM server
+   becomes unavailable or if the client goes offline.
+-  certmonger: The certmonger service monitors and renews the
+   certificates on the client. It can request new certificates for the
+   services on the system.
+
+Operations
+~~~~~~~~~~
+
+User
+^^^^
+
+Adding user
+'''''''''''
+
+::
+
+   $ ipa user-add
+   First name: first_name
+   Last name: last_name
+   User login [default_login]: custom_login
+
+Uploading a user ssh key from stdin
+
+::
+
+   ipa user-mod user --sshpubkey="ssh-rsa AAAAB3Nza...SNc5dv== client.example.com"
+
+Uploading a user ssh key from a file
+
+::
+
+   ipa user-mod user --sshpubkey="$(cat ~/.ssh/id_rsa.pub)" --sshpubkey="$(cat ~/.ssh/id_rsa2.pub)"
+
+Finding User
+''''''''''''
+
+::
+
+   ipa user-find
+   ipa user-find user
+
+Displaying user info
+''''''''''''''''''''
+
+::
+
+   ipa user-show user_login
+
+Deleteing a user
+''''''''''''''''
+
+::
+
+   ipa user-del user_login
+
+Modifying a user
+''''''''''''''''
+
+::
+
+   ipa user-mod user_login --title=new_title
+
+Disabling/ Enabling a user
+''''''''''''''''''''''''''
+
+::
+
+   ipa user-disable user_login
+   ipa user-enable user_login
+
+Unlocking a user account
+''''''''''''''''''''''''
+
+::
+
+   ipa user-unlock user
+
+Checking the status of user
+'''''''''''''''''''''''''''
+
+::
+
+   ipa user-status user
+
+Host
+^^^^
+
+Removing host from IPA domain
+
+::
+
+   ipa-client-install --uninstall
+
+The above will unenroll the client from the IPA domain, however, you
+might still need to remove the clients from IPA webserver?
+
+Sudo
+^^^^
+
+Refer `Sudo
+Rule <https://freeipa.readthedocs.io/en/latest/workshop/8-sudorule.html>`__
+
+Hosts, Services, Machine Identity and Authentication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The basic function of an enrollment process is to create a host entry
+for the client machine in the IdM directory. This host entry is used to
+establish relationships between other hosts and even services within the
+domain.
+
+A host entry contains all of the information about the client within
+IdM:
+
+-  Service entries associated with the host
+-  The host and service principal
+-  Access control rules
+-  Machine information, such as its physical location and operating
+   system
+
+An IdM domain provides three main services specifically for machines: -
+DNS - Kerberos - Certificate management
+
+From the machine perspective, there are several tasks that can be
+performed that access these domain services:
+
+-  Joining the DNS domain (machine enrollment)
+-  Managing DNS entries and zones
+-  Managing machine authentication
+
+Authentication in IdM includes machines as well as users. Machine
+authentication is required for the IdM server to trust the machine and
+to accept IdM connections from the client software installed on that
+machine. After authenticating the client, the IdM server can respond to
+its requests. IdM supports three different approaches to machine
+authentication:
+
+-  SSH keys. The SSH public key for the host is created and uploaded to
+   the host entry.
+-  Key tables (or keytabs, a symmetric key resembling to some extent a
+   user password) and machine certificates. Kerberos tickets are
+   generated as part of the Kerberos services and policies defined by
+   the server. Initially granting a Kerberos ticket, renewing the
+   Kerberos credentials, and even destroying the Kerberos session are
+   all handled by the IdM services.
+-  Machine certificates. In this case, the machine uses an SSL
+   certificate that is issued by the IdM server’s certificate authority
+   and then stored in IdM’s Directory Server. The certificate is then
+   sent to the machine to present when it authenticates to the server.
+   On the client, certificates are managed by a service called
+   certmonger.
+
+Managing Public SSH Keys for Hosts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+OpenSSH uses public keys to authenticate hosts. One machine attempts to
+access another machine and presents its key pair. The first time the
+host authenticates, the administrator on the target machine has to
+approve the request manually. The machine then stores the host’s public
+key in a known_hosts file. Any time that the remote machine attempts to
+access the target machine again, the target machine simply checks its
+known_hosts file and then grants access automatically to approved hosts.
+
+There are a few problems with this system:
+
+-  The known_hosts file stores host entries in a triplet of the host IP
+   address, host name, and key. This file can rapidly become out of date
+   if the IP address changes (which is common in virtual environments
+   and data centers) or if the key is updated.
+-  SSH keys have to be distributed manually and separately to all
+   machines in an environment.
+-  Administrators have to approve host keys to add them to the
+   configuration, but it is difficult to verify either the host or key
+   issuer properly, which can create security problems.
+
+On Red Hat Enterprise Linux, the System Security Services Daemon (SSSD)
+can be configured to cache and retrieve host SSH keys so that
+applications and services only have to look in one location for host
+keys. Because SSSD can use Identity Management as one of its identity
+information providers, Identity Management provides a universal and
+centralized repository of keys. Administrators do not need to worry
+about distributing, updating, or verifying host SSH keys.
+
+ipa-client-install and OpenSSh
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ipa-client-install script, by default, configures an OpenSSH server
+and client on the IdM client machine. It also configures SSSD to perform
+host and user key caching. Essentially, simply configuring the client
+does all of the configuration necessary for the host to use SSSD,
+OpenSSH, and Identity Management for key caching and retrieval.
+
+A user group is a set of users with common privileges, password
+policies, and other characteristics. A host group is a set of IdM hosts
+with common access control rules and other characteristics.
+
+Managing services
+~~~~~~~~~~~~~~~~~
+
+Some services that run on a host can also belong to the IdM domain. Any
+service that can store a Kerberos principal or an SSL certificate (or
+both) can be configured as an IdM service. Adding a service to the IdM
+domain allows the service to request an SSL certificate or keytab from
+the domain. (Only the public key for the certificate is stored in the
+service record. The private key is local to the service.)
+
+An IdM domain establishes a commonality between machines, with common
+identity information, common policies, and shared services. Any machine
+which belongs to a domain functions as a client of the domain, which
+means it uses the services that the domain provides.
+
+An IdM domain provides three main services specifically for machines:
+
+-  DNS
+-  Kerberos
+-  Certificate management
+
+SSSD
+~~~~
+
+The System Security Services Daemon (SSSD) provides interfaces towards
+several system services, including OpenSSH.
+
+SSSD can serve as a credentials cache for SSH public keys for machines
+and users. In this setup:
+
+-  OpenSSH is configured to reference SSSD to check for cached keys.
+-  SSSD uses an Identity Management (IdM) domain, and IdM stores the
+   public keys and host information.
+
+How SSSD Manages Host Keys
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To manage host keys, SSSD performs the following: - Retrieves the public
+host key from the host system. - Stores the host key in the
+``/var/lib/sss/pubconf/known_hosts`` file. - Establishes a connection
+with the host machine.
+
+How SSSD Manages User Keys
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To manage user keys, SSSD performs the following:
+
+-  Retrieves the user’s public key from the user entries in the IdM
+   domain.
+-  Stores the user key in the ``.ssh/sss_authorized_keys`` file in the
+   standard authorized keys format.
+
+sudo user
+~~~~~~~~~
+
+sudo Rules in Identity Management
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Using sudo rules, you can define who can do what, where, and as whom.
+
+-  Who are the users allowed to use sudo.
+-  What are the commands that can be used with sudo.
+-  Where are the target hosts on which the users are allowed to use
+   sudo.
+-  As whom is the system or other user identity which the users assume
+   to perform tasks.
+
+Appendix - II K3S Server and Agents
+-----------------------------------
+
+Server
+~~~~~~
+
+::
+
+   bolt command run 'sudo curl -sfL https://get.k3s.io | sh -' --targets k3sserver --user debian --no-host-key-check
+
+``K3S_TOKEN`` is stored at ``/var/lib/rancher/k3s/server/node-token`` on
+your server node.
+
+Agents
+~~~~~~
+
+::
+
+   bolt command run 'sudo curl -sfL https://get.k3s.io | K3S_URL=https://k3sserver:6443 K3S_TOKEN=K10905620f642071f1f6dbbd34b381f9e3e89494380fbee8b84fec80e6df5d82d56::server:0983a29cb2faaed59fa466afc5e04deb sh -' --targets k3sworker1,k3sworker2 --user debian --no-host-key-check
+
+Kubectl
+~~~~~~~
+
+Running as normal user
+
+::
+
+   sudo cp /etc/rancher/k3s/k3s.yaml config
+   mkdir .kube/
+   mv config .kube/
+   sudo chown debian.debian .kube/config
+   export KUBECONFIG=/home/debian/.kube/config
+   kubectl get nodes -o wide
+
+Appendix - III OpenFaaS Serverless
+----------------------------------
+
+Install `arkade - The Open Source Kubernetes
+Marketplace <https://github.com/alexellis/arkade>`__ : The tools can be
+downloaded and installed using the above.
+
+Install `Kubernetes
+Dashboard <https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/>`__
+using ``arkade``
+
+Deploy
+`OpenFaaS <https://github.com/openfaas/faas-netes/blob/master/chart/openfaas/README.md#deploy-openfaas>`__.
+If deploying on K3S, follow `Error: Kubernetes cluster
+unreachable <https://github.com/k3s-io/k3s/issues/1126>`__. We may
+follow `OpenFaaS - Deployment guide for
+Kubernetes <https://docs.openfaas.com/deployment/kubernetes/>`__
+
+Install ``faas-cli`` using ``arkade``.
+
+Appendix - IV Securing Kubernetes
+---------------------------------
+
+-  We can start with running
+   `Kubescape <https://github.com/armosec/kubescape>`__. Kubescape will
+   scan your Kubernetes cluster and check for any weak points.
+-  To ensure that our Kubernetes YAML files are secure, we can use
+   `datree <https://www.datree.io/>`__
+-  Follow `Kubernetes Hardening
+   Guideline <https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF>`__
+
+Kubernetes Additional Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Node Feature Discovery
+^^^^^^^^^^^^^^^^^^^^^^
+
+Install NFD either by using
+`OperatorHub <https://operatorhub.io/operator/nfd-operator>`__ (Failed,
+have raised a issue for it) or directly from `Node Feature
+Discovery <https://github.com/kubernetes-sigs/node-feature-discovery>`__
+
+Puppet server
+^^^^^^^^^^^^^
+
+Appendix - X PXE Boot
+---------------------
+
+Appendix - Extra
+----------------
+
+lvm2 package to be installed on Ceph Server
+
+tmux and jq to be installed on vault and cloudcore
+
+-  If you have enabled conditional forwarding in your pi-hole DNS and
+   the (forwarded DNS server is not online), PiHole will be delayed.
+
+Appendix - Installation of Cluster Applications
+-----------------------------------------------
+
+Metrics Server
+~~~~~~~~~~~~~~
+
+Metrics Server is a scalable, efficient source of container resource
+metrics for Kubernetes built-in autoscaling pipelines
+
+Refer `Metric
+Server <https://github.com/kubernetes-sigs/metrics-server>`__ for
+installation of Metric server. It is required for installation of
+GitLab.
+
+It can be installed either by `applying a YAML file or a Helm
+Chart <https://github.com/kubernetes-sigs/metrics-server#installation>`__
+and also require a bit of configuration. Refer
+`Requirements <https://github.com/kubernetes-sigs/metrics-server#requirements>`__
+
+Falco
+~~~~~
+
+Appendix - Removal of Cluster Applications
+------------------------------------------

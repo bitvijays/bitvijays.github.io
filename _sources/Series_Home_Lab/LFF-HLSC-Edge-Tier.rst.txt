@@ -1,0 +1,155 @@
+Urban Monitoring Architecture - Edge Side
+=========================================
+
+Raspberry Pi
+------------
+
+Remove systemd resolv.conf
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Currently, we are using Ubuntu 20.04 for Raspberry Pi
+
+.. code:: console
+
+   vi /etc/systemd/resolved.conf
+
+   Set 
+
+Add Cgroup
+~~~~~~~~~~
+
+Standard Raspbian Buster installations do not start with cgroups
+enabled. K3S needs cgroups to start the systemd service. cgroupscan be
+enabled by appending ``cgroup_memory=1 cgroup_enable=memory`` to
+``/boot/cmdline.txt`` or ``/boot/system/cmdline.txt``
+
+.. code:: console
+
+   console=serial0,115200 console=tty1 root=PARTUUID=58b06195-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait cgroup_memory=1 cgroup_enable=memory
+
+Add Wifi
+~~~~~~~~
+
+First step is to identify the name of your wireless network interface.
+To do so execute:
+
+.. code:: console
+
+   $ ls /sys/class/net
+   enp0s25  lo  wlp3s0
+
+Depending on your Ubuntu 20.04 system the wireless network interface
+name would be something like: ``wlan0`` or like in this case it is
+``wlp3s0``.
+
+Next, navigate to the ``/etc/netplan directory`` and locate the
+appropriate Netplan configuration files. The configuration file might
+have a name such as ``01-network-manager-all.yaml`` or
+``50-cloud-init.yaml``.
+
+.. code:: console
+
+   ls /etc/netplan/
+
+Edit the Netplan configuration file:
+
+.. code:: yaml
+
+   $ sudoedit /etc/netplan/50-cloud-init.yaml
+   and insert the following configuration stanza while replacing the SSID-NAME-HERE and PASSWORD-HERE with your SSID network name and password:
+       wifis:
+           wlan0:
+               optional: true
+               access-points:
+                   "SSID-NAME-HERE":
+                       password: "PASSWORD-HERE"
+               dhcp4: true
+
+Make sure that the wifis block is aligned with the above ethernets or
+version block if present. The entire configuration file may look similar
+to the one below:
+
+.. code:: yaml
+
+   # This file is generated from information provided by the datasource.  Changes
+   # to it will not persist across an instance reboot.  To disable cloud-init's
+   # network configuration capabilities, write a file
+   # /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
+   # network: {config: disabled}
+   network:
+       ethernets:
+           eth0:
+               dhcp4: true
+               optional: true
+       version: 2
+       wifis:
+           wlp3s0:
+               optional: true
+               access-points:
+                   "SSID-NAME-HERE":
+                       password: "PASSWORD-HERE"
+               dhcp4: true
+
+Alternatively, you may also wish to configure a static IP address to
+your wireless interface. Once ready, apply the changes and connect to
+your wireless interface by executing the bellow command:
+
+.. code:: console
+
+   sudo netplan apply
+
+Alternatively, if you run into some issues execute:
+
+.. code:: console
+
+   sudo netplan --debug apply
+
+If all went well you would be able to see your wireless adapter
+connected to the wireless network by executing the ip command:
+
+.. code:: console
+
+   ip a
+
+Change Hostname
+~~~~~~~~~~~~~~~
+
+We need to provide a hostname to the machine
+
+.. code:: console
+
+   hostnamectl set-hostname <hostname>
+
+   e.g hostnamectl set-hostname puppet.xxxxx.local
+
+Install Puppet Agent
+~~~~~~~~~~~~~~~~~~~~
+
+Add Puppet Repo by downloading `Puppet package for your
+OS <https://apt.puppetlabs.com/puppet6-release-focal.deb>`__
+
+Currently, we are using Ubuntu 20.04 Focal, so we use the
+``puppet6-release-focal.deb``.
+
+.. code:: console
+
+   dpkg -i puppet6-release-focal.deb
+   apt-get update
+   apt-get install puppet-agent
+
+Add puppet host entry to /etc/hosts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: console
+
+   X.X.X.X puppet    puppet.bitvijays.local
+
+Puppet agent
+~~~~~~~~~~~~
+
+.. code:: console
+
+   puppet agent -t
+
+The above would generate the certificate which can be Signed using
+``PuppetServer`` or ``Foreman``.

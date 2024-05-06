@@ -2812,9 +2812,10 @@ ifupdown
 ifupdown's configuration file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-There are two main directives: 
-- auto network-device, which tells ifupdown to automatically configure the network interface once it is available, and 
-- iface network-device inet/inet6 type to configure a given interface.
+There are two main directives:
+
+- ``auto network-device``, which tells ifupdown to automatically configure the network interface once it is available, and 
+- ``iface network-device inet/inet6 type`` to configure a given interface.
 
 For example, For example, a plain DHCP configuration looks like this:
 
@@ -2826,7 +2827,7 @@ For example, For example, a plain DHCP configuration looks like this:
   auto eth0
   iface eth0 inet dhcp
 
-Note that the special configuration for the loopback device should always be present in this file. For a fixed IP address configuration, you have to provide more details such as the IP address, the network, and the IP of the gateway:
+Note that the special configuration for the loopback device should always be present in this file. For a fixed IP address configuration, we have to provide more details such as the IP address, the network, and the IP of the gateway:
 
 .. code:: console
 
@@ -2838,12 +2839,12 @@ Note that the special configuration for the loopback device should always be pre
   network 192.168.0.0
   gateway 192.168.0.1
 
-For wireless interfaces, we must have the wpasupplicant package, which provides many wpa-* options that can be used in ``/etc/network/interfaces``. Have a look at /usr/share/doc/wpasupplicant/README.Debian.gz for examples and explanations. 
+For wireless interfaces, we must have the ``wpasupplicant`` package, which provides many wpa-* options that can be used in ``/etc/network/interfaces``. Have a look at ``/usr/share/doc/wpasupplicant/README.Debian.gz`` for examples and explanations. 
 
 The most common options are 
 
-- wpa-ssid (which defines the name of the wireless network to join) and 
-- wpa-psk (which defines the passphrase or the key protecting the network).
+- ``wpa-ssid`` (which defines the name of the wireless network to join) and 
+- ``wpa-psk`` (which defines the passphrase or the key protecting the network).
 
 .. code:: console
 
@@ -2859,8 +2860,8 @@ systemd-networkd
 - Alternatively, we can use ``/lib/systemd/network/`` for packaged files or ``/run/systemd/network/`` for files generated at run-time.
 - The format of those files is documented in systemd.network(5).
 
-  - The [Match] section indicates the network interfaces the configuration applies to. We can specify the interface in many ways, including by media access control (MAC) address or device type.
-  - The [Network] section defines the network configuration.
+  - The ``[Match]`` section indicates the network interfaces the configuration applies to. We can specify the interface in many ways, including by media access control (MAC) address or device type.
+  - The ``[Network]`` section defines the network configuration.
 
 Static Configuration in ``/etc/systemd/network/50-static.network``
 
@@ -2886,7 +2887,7 @@ DHCP-based Configuration in ``/etc/systemd/network/80-dhcp.network``
 
 .. Note :: 
    
-   ``System-networkd`` is disabled by default. We should should enable it. It also depends on systemd-resolved for proper integration of DNS resolution, which in turn requires to replace ``/etc/resolv.conf`` with a symlink to ``/run/systemd/resolve/resolv.conf``, which is managed by ``systemd-resolved``.
+   ``System-networkd`` is disabled by default. We should enable it. It also depends on systemd-resolved for proper integration of DNS resolution, which in turn requires to replace ``/etc/resolv.conf`` with a symlink to ``/run/systemd/resolve/resolv.conf``, which is managed by ``systemd-resolved``.
 
 .. code:: console
 
@@ -2901,6 +2902,32 @@ ip
 
 netplan
 -------
+
+ifconfig
+--------
+
+Ping IP Address
+===============
+
+Sometimes, we might be in strange situations where we need to ping some IP address
+
+Windows
+-------
+
+Powershell
+^^^^^^^^^^
+
+.. console:: powershell
+
+   for ($i = 1; $i -lt 255; $i++) { Test-Connection 192.168.2.$i -Count 1 -ErrorAction SilentlyContinue }
+
+
+CMD
+^^^
+
+.. console:: cmd
+
+  For /L %a in (1 1 254) do ping -n 1 192.268.1.%a
 
 Important concepts
 ******************

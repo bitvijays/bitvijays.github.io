@@ -1,0 +1,368 @@
+Appendix - Installation of Applications
+=======================================
+
+When intial UMA architecture is deployed there can be multiple
+applications that we might want to install on the Kubernetes such as
+
+-  GitLab
+-  JupyterHub
+-  InfluxDB
+-  Grafana
+-  ArgoCD
+-  Mattermost
+-  Others
+
+Keycloak
+~~~~~~~~
+
+We would use `Keycloak
+Operator <https://github.com/keycloak/keycloak-operator>`__ to install
+keycloak on to the Kubernetes.
+
+Refer `Install Keycloak Operator on
+Kubernetes <https://www.keycloak.org/getting-started/getting-started-operator-kubernetes>`__
+
+Once keycloak is installed,
+
+1. we need to install the Realm such as ``bitvijays.local`` or
+   ``projectname.local``. Refer `Configuring
+   realms <https://www.keycloak.org/docs/latest/server_admin/#configuring-realms>`__
+
+2. We need to install User Federation, as we are using FreeIPA for our
+   Users database.
+
+3. We need to install clients for the applications required such as
+
+-  Gitlab
+-  Grafana
+-  JupyterHub
+-  ArgoCD
+-  Mattermost
+
+GitLab
+~~~~~~
+
+Refer `GitLab
+Operator <https://docs.gitlab.com/charts/installation/operator.html>`__
+and install the pre-req such as `Metric
+Server <https://github.com/kubernetes-sigs/metrics-server>`__
+
+1. Check `latest version of
+   operator <https://gitlab.com/gitlab-org/cloud-native/gitlab-operator/-/releases>`__
+
+2. `Install Gitlab
+   Operator <https://docs.gitlab.com/charts/installation/operator.html>`__
+
+3. For GitLab, it requires ``cert-manager`` and ``ingress-controller``.
+   As we are already using ``CertManager`` and ``ingress-controller``.
+   We would configure GitLab to use those. Please refer `TLS options
+   (FREE
+   SELF) <https://gitlab.com/gitlab-org/charts/gitlab/blob/master/doc/installation/tls.md>`__.
+   Our case is External cert-manager and Issuer (External) and `Option
+   3: Use individual certificate per
+   service <https://gitlab.com/gitlab-org/charts/gitlab/blob/master/doc/installation/tls.md#option-3-use-individual-certificate-per-service>`__.
+   Also, please refer `External NGINX Ingress
+   Controller <https://docs.gitlab.com/charts/advanced/external-nginx/>`__
+
+We specify the above using the below settings:
+
+.. code:: yaml
+
+           nginx-ingress:
+           enabled: false
+           ingress:
+             tls:
+               enabled: true
+             configureCertmanager: false
+             class: nginx
+             provider: nginx
+             annotations:
+               kubernetes.io/tls-acme: true
+               cert-manager.io/cluster-issuer: vault-issuer-4
+
+Currently, a issue is going on that doesn’t allow
+`self-certs <https://gitlab.com/gitlab-org/cloud-native/gitlab-operator/-/issues/517>`__
+
+4. Further, we are integrating Gitlab with keycloak, we need to add the
+   CA cert of our domain to the gitlab. refer `Custom Certificate
+   Authorities <https://docs.gitlab.com/charts/charts/globals.html#custom-certificate-authorities>`__
+
+::
+
+   kubectl create secret generic custom-ca --from-file=bitvijays-local=CA_cert.pem -n gitlab-system
+
+5. We need to add Keycloak configuration. Refer
+   ``provider_openid_connect.yaml``
+
+::
+
+   kubectl create secret generic -n gitlab-system gitlab-sso-oidc --from-file=provider=provider_openid_connect.yaml
+
+Refer
+`Omniauth <https://docs.gitlab.com/ee/integration/omniauth.html>`__,
+`OpenID Connect OmniAuth
+provider <https://docs.gitlab.com/ee/administration/auth/oidc.html>`__
+and `GitLab SSO (OIDC) with
+Keycloak <https://gopherpro.medium.com/gitlab-sso-oidc-with-keycloak-9c027c632d28>`__
+
+.. code:: yaml
+
+           appConfig:
+             omniauth:
+               enabled: true
+               blockAutoCreatedUsers: true
+               allowSingleSignOn: ['openid_connect']
+               providers:
+                 - secret: gitlab-sso-oidc    
+
+We are using ``OpenID_Connect`` method to connect with Keycloak, there
+are blogs that use SAML also such as `GitLab Use Keycloak as SAML 2.0
+OmniAuth
+Provider <https://edenmal.moe/post/2018/GitLab-Keycloak-SAML-2-0-OmniAuth-Provider>`__,
+`Gitlab SAML to Keycloak
+Setup <https://www.puppeteers.net/blog/gitlab-saml-with-keycloak/>`__
+
+6. Install Gitlab Runner
+
+ToDo
+^^^^
+
+-  How to do backup?
+-  How to perform DevOps
+
+JupyterHub
+~~~~~~~~~~
+
+We will install JupyterHub using Helm and by following `Setup
+JupyterHub <https://zero-to-jupyterhub.readthedocs.io/en/latest/jupyterhub/index.html>`__
+
+1. Get the helm values using
+
+::
+
+   helm show values jupyterhub/jupyterhub > jupyter_values_default.yaml
+
+2. Go through the ``influxdb_values_default.yaml`` carefully to
+   understand what values needs to be changed
+
+3. Mainly we want to setup the security, ingress and authentication for
+   JupyterHub
+
+-  `Setup Authenciation -
+   Keycloak <https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/authentication.html>`__
+-  `Setup
+   Security <https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/security.html>`__
+-  `Limiting network access from Pods
+   (Egress) <https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/security.html#limiting-network-access-from-pods-egress>`__
+-  We could find the issue of TLS issue as TLS is not verified.
+-  A Good read `Deploying JupyterHub at your
+   Institution <https://discourse.jupyter.org/t/deploying-jupyterhub-at-your-institution/723/9>`__
+
+.. _todo-1:
+
+ToDo
+^^^^
+
+-  Figure out why Ingress Controller is not giving proper certificate
+   same as InfluxDB
+
+InfluxDB
+~~~~~~~~
+
+We will install InfluxDB from `Bitnami Helm
+chart <https://github.com/bitnami/charts/tree/master/bitnami/influxdb>`__
+
+-  Influxdb2 provides to install buckets that provide API token and
+   read/write permissions
+
+1. Get the helm values using
+
+::
+
+   helm show values bitnami/influxdb > influxdb_values_default.yaml
+
+2. Go through the ``influxdb_values_default.yaml`` carefully to
+   understand what values needs to be changed.
+
+3. Mainly, we want to enable ingress and setup the TLS certname. Refer
+   ``influxdb_values_default.yaml`` and ``influxdb_values_custom.yaml``,
+   perform the diff and you would know what to change.
+
+Install InfluxDB using
+
+::
+
+   helm install influxdb-bit -f influxdb_values_custom.yaml bitnami/influxdb -n influxdb --create-namespace
+
+ToDo
+
+-  Explore why influxdb is deployed using HTTP instead of HTTPS.
+
+Grafana
+~~~~~~~
+
+We will use Bitnami Grafana Operator to install and manage Grafana
+
+Refer `Manage Multiple Grafana Instances and Dashboards on Kubernetes
+with the Grafana
+Operator <https://docs.bitnami.com/tutorials/manage-multiple-grafana-operator>`__
+
+Install it from
+`ArtifactHUB <https://artifacthub.io/packages/helm/bitnami/grafana-operator>`__
+or directly from `Grafana Operator packaged by
+Bitnami <https://github.com/bitnami/charts/tree/master/bitnami/grafana-operator>`__
+
+We need to specify custom values for our Grafana such Ingress, OAuth and
+other settings.
+
+1. Get the helm values using
+
+::
+
+   helm show values bitnami/grafana-operator > grafana_values_default.yaml
+
+2. Go through the ``grafana_values_default.yaml`` carefully to
+   understand what values needs to be changed.
+
+3. Mainly, we want to change whether we want Ingress, OIDC
+   configuration, persistence, persistence volume size, annotations for
+   the Ingress TLS certificate and Website name. Refer
+   ``grafana_values_default.yaml`` and ``grafana_values_custom.yaml``,
+   perform the diff and you would know what to change.
+
+-  Refer `Grafana Generic OAuth
+   authentication <https://grafana.com/docs/grafana/latest/auth/generic-oauth/>`__
+   to configure OAuth
+
+Install Grafana using
+
+::
+
+   helm install <your_release_name> -f grafana_values_custom.yaml bitnami/grafana-operator -n <your_namespace> --create-namespace
+
+   Example:
+
+   helm install grafana-bit -f grafana_values_custom.yaml bitnami/grafana-operator -n grafana --create-namespace
+
+We can see our deployment using
+
+::
+
+   helm list -n grafana
+   NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+   grafana-bit     grafana         1               2022-04-01 18:34:08.52360103 +0000 UTC  deployed        grafana-operator-2.3.2  4.2.0
+
+ArgoCD
+~~~~~~
+
+We would use `ArgoCD
+Operator <https://argocd-operator.readthedocs.io/en/latest/>`__ to
+install ArgoCD by following instructions `Argo
+CD <https://operatorhub.io/operator/argocd-operator>`__ - We will use
+`Ingress <https://argocd-operator.readthedocs.io/en/latest/usage/ingress/>`__
+to expose the ArgoCD Ingress. - `Integrating Keycloak and
+ArgoCD <https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/keycloak/>`__
+and `OIDC
+Config <https://argocd-operator.readthedocs.io/en/latest/reference/argocd/#oidc-config>`__
+
+Mattermost
+~~~~~~~~~~
+
+Install Mattermost on Kubernetes by following `Install Mattermost on
+Kubernetes <https://docs.mattermost.com/install/install-kubernetes.html>`__
+
+MM doesn’t allow SSO for free-version so the only way to setup is using
+email/password and setting up a SMTP server.
+
+Appendix - Removal of Applications
+----------------------------------
+
+When UMA is fully deployed, it contain multiple applications such as
+
+-  GitLab
+-  JupyterHub
+-  InfluxDB
+-  Grafana
+-  ArgoCD
+-  Others
+
+There might be a time where we want to remove the applications
+installed. Mainly, it depends on how the applications are installed such
+as using Helm or using Operator.
+
+.. _grafana-1:
+
+Grafana
+~~~~~~~
+
+We have installed Grafana from `Bitnami Grafana
+Operator <https://github.com/bitnami/charts/tree/master/bitnami/grafana-operator>`__
+
+Referring `Uninstalling the
+Chart <https://github.com/bitnami/charts/tree/master/bitnami/grafana-operator#uninstalling-the-chart>`__
+
+``helm list`` will provide the name and version installed.
+
+::
+
+   debian@cloudcore:~$ helm list
+   NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+   my-grafana-operator     default         6               2022-04-01 17:38:24.511111318 +0000 UTC deployed        grafana-operator-2.3.2  4.2.0
+
+Grafana can be uninstalled using
+
+::
+
+   helm uninstall <my-release-name>
+
+InfluxDB2
+~~~~~~~~~
+
+As we install influxDB2 from helm, we can uninstall it using Helm
+
+::
+
+   helm uninstall <my-release-name>
+
+For instance,
+
+::
+
+   helm list
+   NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+   influxdb-bit            default         3               2022-01-27 17:22:25.37972376 +0000 UTC  deployed        influxdb-3.0.2          2.1.1
+
+To uninstall
+
+::
+
+   helm uninstall influxdb-bit
+   release "influxdb-bit" uninstalled
+
+.. _jupyterhub-1:
+
+JupyterHub
+~~~~~~~~~~
+
+As we have install jupyterhub from helm, we can uninstall it using Helm
+
+::
+
+   helm list -n jupyterhub
+   NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+   jupyter-test    jupyterhub      7               2022-01-26 17:42:13.245425793 +0000 UTC deployed        jupyterhub-1.2.0        1.5.0
+
+To uninstall
+
+::
+
+   helm uninstall -n jupyterhub jupyter-test
+   release "jupyter-test" uninstalled
+
+.. _gitlab-1:
+
+GitLab
+~~~~~~
+
+Refer `Unintall the GitLab
+Operator <https://docs.gitlab.com/charts/installation/operator.html#uninstall-the-gitlab-operator>`__

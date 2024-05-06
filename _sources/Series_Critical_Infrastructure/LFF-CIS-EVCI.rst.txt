@@ -1,0 +1,272 @@
+Electric Vehicle Charging Infrastructure
+########################################
+
+- Charging electric vehicles (EV) is a complex process that involves several key entities, including
+the EV itself, charging stations, charge point operators, aggregators, e-Mobility Service Providers
+(eMSPs), and distribution system operators (DSO)/transmission system operators (TSO).
+
+
+- EV may be fully electric or hybrid that use an electric propulsion system and an internal combustion
+engine. Some hybrid vehicles, called plug-in Hybrid EV (PHEV), may include a charging socket
+for the internal battery. EVs are charged through the charging Station (CS) that allows electricity to
+be pulled from the hardwired power grid and delivered to directly connected EVs to recharge their
+batteries.
+
+- Depending on the type of the charging station, they might provide different charging
+characteristics. An AC charging station uses AC voltage to charge EVs over several hours, while a
+DC charging station provides fast charging capability to charge EVs during a short time period.
+
+- EV communicates with the CS via the charging cable using power line communication (PLC).
+  
+  - Power-Line Communication (PLC) is used during charging of electric vehicles. PLC allows the charging station (aka electric vehicle supply equipment or EVSE) and the EV to negotiate charging sessions, allowing various charging profiles and potentially to negotiate payment.
+
+- Charging points are managed and operated by Charging Point Operators (CPO), responsible for setting up and maintaining physical chargers. This includes selecting suitable locations, installing the necessary equipment, and ensuring that charging stations work properly.
+
+  - Management of the charging stations is performed using the Open Charge Point Protocol (OCPP).
+
+- The e-MSP is a company an electric vehicle (EV) driver contacts for all services related to electric charging. The e-MSP issues charging passes or RFID cards that allow EV drivers to access and use charging stations within the e-MSP’s network. The e-MSP is responsible for billing and invoicing
+EV drivers for charging sessions. They may offer different pricing models, such as pay-as-you-go or subscription-based plans. Many e-MSPs have agreements with charging station operators to create a roaming network. The cooperation between eMSP and the CPO is achieved by the Open
+Charge Point Interface (OCPI) protocol.
+- This allows EV drivers to use a single provider’s services across multiple charging networks, making it more convenient to charge their vehicles. This simplifies the usage and payments by EV drivers for chargers from different operators, e.g. by using a single RFID card.
+- To establish and maintain seamless operation during roaming services, the identity of an e-MSP and CPOs are maintained by external registries, usually national ones, e.g. EV Roam (UK), AFIREV (France), EIPA (Poland). Some e-MSPs also provide services aggregating cross-network data (e.g., Zap-Map and Open Charge Map) to provide fairly comprehensive static and real-time
+data on charge points. They use OCPI protocol for real-time charge point information, including availability, blocked, charging status and maintenance information such as out-of-order and planned unavailability.
+
+- Transmission System Operator (TSO) and Distribution System Operator (DSO) are the power grid
+operators are responsible for the transmission and distribution of energy in grid systems. A TSO is
+an organisation responsible for the operation of transmission energy, in charge of transmitting
+the electricity from production facilities to various distribution operators locally or regionally
+effectively and reliably.
+
+- Finally, the energy aggregators are the entities cooperating in the distributed charging process
+through V2G, controlling the charging and discharging of each EV, taking part in the demandresponse
+of the power grid [13, 59]. They play a crucial role as intermediaries connecting the
+Distribution System Operator (DSO) with electric vehicles (EVs).
+
+EV to CS via PLC (medium) using ISO-15118 (Protocol)
+
+- ISO 15118 is an international standard that defines communication protocols for EV and it’s charging
+stations for the transfer of electric energy.
+
+The official name for ISO 15118 is “Road Vehicles – Vehicle to Grid Communication Interface”. It defines
+bidirectional digital communication between Electric Vehicles (EVs), involving Battery Electric
+Vehicles (BEV) and Plug-In Hybrid Electric Vehicles (PHEV), and Electric Vehicle Supply Equipment
+(EVSE).
+
+- The ISO 15118 protocol functions as a client-server system, with the EV serving as the client and the EVSE as the
+server. Each of these entities is equipped with its communication controller, the EV utilizing an
+Electric Vehicle Communication Controller (EVCC) and the EVSE employing a Supply Equipment
+Communication Controller (SECC).
+
+The characteristics of ISO 15118 include: (i) Automated authentication & authorization: offers
+two authentication methods: the External Identification Mechanism (EIM) and the more userfriendly
+Plug and Charge (PnC). With EIM, users are required to authenticate using RFID tags,
+QR code scanning, debit/credit cards, or charging applications. In contrast, PnC PnC simplifies
+authentication by employing digital certificates, supporting billing processes between the electric
+vehicle and the charging station, eliminating the need for external identification methods like RFID
+tags. (ii) Wireless Power Transfer (WPT): WPT enables automatic and contactless charging,
+eliminating the need for physical cables and connectors. (iii) Bidirectional Power Transfer (BPT):
+encompasses bidirectional power capabilities, also known as Vehicle-to-Grid (V2G) functionality,
+enabling electric vehicles to not only receive power from the grid but also feed power back into the
+grid or supply power to a home or building. (iv) Automated Connection Device (ACD): provides
+components supporting the automatic connection and disconnection process for conductive energy
+transfer between an EV and an EVSE, e.g. use of an ACD device to charge an electric bus through a
+pantograph.
+
+
+The ISO 15118 protocol defines a robust architecture for communication
+within Electric Vehicle (EV) charging systems, establishing a standardized framework to ensure
+seamless interoperability. There are two key components within this architecture, the Electric
+Vehicle Communication Controller (EVCC) and the SECC (Supply Equipment Communication
+Controller). The EVCC, embedded within the EV, acts as the communication hub, facilitating secure
+and standardized data exchange with the CS. On the other hand, the SECC, integrated into the CS,
+manages the power supply and communication with the EV. It’s worth noting that both EVCC and
+SECC adhere to a client-server protocol, with EVCC functioning as the client and SECC serving as
+the server. Together, these components enable sophisticated features where the EVCC and EVSE
+engage in secure, automated communication to initiate and authorize the charging process without
+requiring additional user input. They exchange mutual charging limits and a charging schedule
+via message request-response pairs.
+
+There are different message sequences involved between both entities– Communication setup sequence, Identification, authentication and authorization sequence,
+Target setting and charge scheduling, Charging loop/re-scheduling, and End of charging. Both EVCC
+and SECC transmit various charging technical parameters to SECC, including 𝑑𝑒𝑝𝑎𝑟𝑡𝑢𝑟𝑒_𝑡𝑖𝑚𝑒,
+𝑚𝑎𝑥𝑖𝑚𝑢𝑚_𝑐𝑢𝑟𝑟𝑒𝑛𝑡_𝑙𝑖𝑚𝑖𝑡 ,𝑚𝑎𝑥𝑖𝑚𝑢𝑚_𝑣𝑜𝑙𝑡𝑎𝑔𝑒_𝑙𝑖𝑚𝑖𝑡 , 𝑓 𝑢𝑙𝑙_𝑠𝑜𝑐, 𝑒𝑛𝑒𝑟𝑔𝑦_𝑟𝑒𝑞𝑢𝑒𝑠𝑡 , and more [17]. Using
+these exchanged parameters, a charging schedule is established, which can be renegotiated.
+
+ISO-15118-2/20 suggests mandatory use of Transport Layer Security (TLS)
+for all communication between the charging station and the vehicle, except in trusted environments.
+
+The standard defines a trusted environment as a ’closed user group’ possessing pre-issued
+tokens for accessing the SECC charging service. This could encompass scenarios like home garages
+with physical keys or Radio Frequency Identification (RFID) tokens for car sharing.
+
+The authorization mechanisms outlined in the ISO 15118 standard
+operate in a unimodal manner. For example, within the PnC mode, the authentication process
+exclusively validates the authenticity of the legitimate EV itself. The modes for EIM are– smartphone
+app, credit card, RFID card or a license plate scanning at a charging station. For PnC– the method
+works with an asymmetric key algorithm supported by a public key infrastructure (PKI) and
+certificates stored in the EV and EVSE. Conversely, the EIM focuses solely on authenticating the
+genuine EV user. Consequently, situations can arise where an illegitimate EV could misuse a valid
+EV user’s smart card to initiate charging, or an EV possessing a valid digital certificate might gain
+charging privileges even in cases where the driver isn’t authorized.
+
+
+CS to CPO via IP(4G/Wi-Fi/Ethernet) using Open Charge Point Protocol (OCPP) (protocol)
+
+OCPP is a globally used open-source communication protocol between charging stations and the
+back-end systems (servers) which manage the charging stations. 
+
+Here the term “manage” means:
+(a) To establish communication with the CS and the EVSE. (b) To set the specific characteristics of
+the charging service, considering the user’s preferences, the condition of the EV, and the status of
+the power grid. (c) To gather and save data related to the charging system. (d) To manage the user’s
+application and provide a platform for it. (e) To keep a record of scheduled charging appointments
+for the service
+
+OCPP is an IP-based protocol, that relies on Transmission Control
+Protocol (TCP) and Transport Layer Security (TLS) for authentication and encrypted communication.
+For the Physical and Data link layer, OCPP is entirely based on Ethernet communication. According
+to Open Charge Alliance (OCA), OCPP functions are specified as client-server communication,
+where the CS is the client and the CPO plays the server role
+
+characteristics of OCPP 2.0
+are as follows:
+• Device Management: It includes features to get and set configurations and monitor a Charging
+Station. This is particularly useful for Charging Station Operators managing complex
+multi-vendor charging stations.
+• Added Security: OCPP 2.0 introduces secure firmware updates, security logging and event
+notification, and security profiles for authentication and secure communication.
+• Smart Charging Functionalities: These are added for scenarios with an Energy Management
+System (EMS), a local controller, and for integrated smart charging of the EV, charging
+station, and Charging Station Management System.
+• Support for ISO 15118: This standard covers plug-and-charge and smart charging requirements
+from the EV.
+• Display and Messaging Support: This feature provides the EV driver with information on
+the display, for instance regarding rates and tariffs.
+
+The architecture of the Open Charge Point Protocol (OCPP) is designed
+to facilitate seamless communication between Electric Vehicle Service Equipment (EVSE) and CPO.
+At its core, OCPP defines three main components: the Charging Station (CS), which represents
+the physical infrastructure where electric vehicles (EVs) connect for charging, equipped with an
+embedded controller that communicates with the CPO. The CPO, the software application at the
+core of the EV charging ecosystem, acts as a backend infrastructure which manages and monitors
+the entire charging network, coordinating interactions between the CPs and EVSEs. It handles
+tasks like assigning charging slots, monitoring charge sessions, billing customers, and facilitating
+communication with external systems, such as payment gateways and energy management
+platforms. The interaction between the CS, EVSE, and CPO occurs through standardized OCPP
+messages. These messages, exchanged over a secure communication channel, convey essential
+information about the charging process, station status, and energy consumption. The CPO responds
+with corresponding messages, ensuring bidirectional communication.
+
+OCPP Security Profiles. According to OCA and the official documentation of OCPP [1], There
+are three major security profiles in OCPP 2.0.1 which we are going to discuss here. First, The UTBA
+(Unsecured Transport with Basic Authentication) profile lacks fundamental security measures and
+does not incorporate authentication for the Charging Station Management System (CPO) or secure
+communication channel setup. It relies solely on HTTP Basic Authentication, making it suitable
+only for trusted networks, like those employing VPNs between the CPO and Charging Station. In
+contrast, the TLS-BA (TLS with Basic Authentication) profile enhances security by employing TLS
+to encrypt communication between the charging station and CPO. While it improves authentication
+compared to UTBA, it still relies on username and password, which may not suffice for robust
+security. Finally, TLS-CSC (TLS with Client-Side Certification) stands as the highest security profile,
+using TLS for encryption and requiring both charging station and CPO to authenticate using
+certificates. This model offers a superior level of security but must be carefully managed to address
+potential vulnerabilities in TLS or certificate systems. Additionally, avoiding TLS compression
+methods is recommended to prevent compression side-channel attacks and ensure interoperability.
+
+
+eMSP to CPO via TCP/IP/Lorawan using Open Charge Point Interface (OCPI)
+
+
+Its primary function lies in
+fostering interoperability among diverse stakeholders within the EV charging landscape. These
+stakeholders encompass CPOs, CS Operators (CSOs) and eMSPs.
+OCPI empowers
+these entities to engage in seamless information exchange, enabling the provision of uninterrupted
+and user-friendly charging services to the community of EV users.
+
+The OCPI architecture involves orchestrating the interactions between two key entities namely CPOs and eMSPs with CSOs playing a more indirect role.
+
+CPOs
+are service providers that own, operate, and manage EV charging stations. They integrate OCPI
+into their CSMS to oversee the entire charging process. This includes managing charging sessions,
+setting and managing charging fees, and engaging in roaming agreements to expand their network’s
+coverage. eMSPs act as intermediaries between EV drivers and CPOs, providing a comprehensive
+platform for managing charging services. eMSPs communicate with CPOs using OCPI messages
+to initiate charging sessions, manage charging accounts, and access charging station information.
+CPOs, in turn, relay these commands and data to the relevant CSOs to manage the physical
+charging process. This indirect interaction ensures centralized control over charging networks
+while maintaining compatibility with the standardized OCPI messaging framework.
+
+
+Open Automated Demand Response (OpenADR)
+
+
+OpenADR is a standardised communication protocol that was originally created to manage electricity
+demand across many sectors.
+
+OpenADR is intended to support a wide range of applications, from simple home demand response
+programs to big industrial and commercial systems like EV charging stations. It can handle a wide
+range of devices, including thermostats, building management systems, and industrial equipment,
+making it suited for a wide range of applications.
+
+OpenADR improves grid reliability and energy efficiency with
+essential characteristics such as scalability for multiple applications, two-way communication
+enabling bidirectional information sharing, and support for various demand response signals
+such as event-based, price-based, and simple-level signals.
+
+VEN is a device or group of
+devices capable of responding to demand response signals. VENs are in charge of receiving and
+responding to events, generating reports, and managing demand-side resources. VENs can be found
+anywhere along the power grid, from individual homes and businesses to large industrial facilities.
+A VTN is a system that manages VENs and transmits demand response signals to them. VTNs play
+an important role in resource management, event creation and transmission, and report request.
+Whereas VTNs can be run by utilities, aggregators, or other entities.
+
+OpenADR uses web services to send and receive messages between VTNs and VENs. These
+messages can be used to send demand response events, set availability schedules, request and
+receive reports, and register VENs. OpenADR uses standard communication protocols and XML
+payloads, which makes it easy for different systems to communicate with each other.
+
+
+OSCP
+
+The OSCP serves as an open communication protocol that facilitates interaction between the CPO
+and the DSO. This protocol is responsible for transmitting a 24-hour forecast of the power grid’s
+available capacity to the CPO.
+
+This section delves into the primary characteristics of OSCP: (i) Remote Management:
+The protocol allows for remote management of charging sessions, enabling users and service
+providers to monitor, control, and manage the charging process; (ii) Dynamic Charging Control:
+OSCP supports dynamic charging control, allowing adjustments to charging parameters based on
+factors such as grid conditions, energy demand, or user preferences; (iii) Scalability: The protocol
+is designed to be scalable, accommodating a variety of charging infrastructure sizes and types,
+from small home chargers to public fast-charging stations. (iv) Interoperability: OSCP promotes
+interoperability between different manufacturers’ EVs and charging infrastructure, ensuring a
+seamless experience for users regardless of the equipment they are using.
+
+The OSCP specification employs various terms, including Capacity
+Provider, Capacity Optimizer, Flexibility Provider, and Flexibility Resource, as shown in Figure 4. A
+Flexibility Resource refers to a physical device with the ability to consume or generate energy in a
+controlled and flexible manner, such as electric vehicles. Flexibility Resources have the potential to
+exhibit flexibility in terms of both the timing and the quantity of energy they consume or generate.
+The management of all Flexibility Resources is the responsibility of the Flexibility Provider. The
+Flexibility Provider, such as a CPO, gives instructions to Flexibility Resources for either generating
+or consuming energy. The Flexibility Providers are provided with upper and lower bounds for
+energy consumption or generation by the Capacity Provider. It’s important to note that Capacity
+Providers do not directly interact with individual Flexibility Resources. In contrast, it is the duty
+of the Flexibility Provider to skillfully manage their Flexibility Resources, guaranteeing that they
+operate within the constraints defined by the Capacity Provider. For instance, a Capacity Provider,
+such as a DSO, ensures the proper functioning of a certain area, and a Flexibility Provider, such as a
+CPO, manages energy requests and demands while staying within the prescribed capacity limits of
+the grid connection.
+
+There is another entity, referred to as the Capacity Optimizer, which can assist
+
+the Flexibility Provider by offering an optimal approach to managing their Flexibility Resources. In
+practical terms, the Capacity Optimizer may leverage additional data sources, including weather
+forecasts and historical energy tariffs. These additional data sources can enhance the decisionmaking
+process for the Flexibility Provider. However, it’s worth mentioning that Capacity Provider
+has the capacity to establish an optimal solution on their own.
+In general, the aforementioned entities mentioned in the above section can transmit five types
+of messages. Among these five messages, three of them, namely UpdateGroupCapacityForecast, AdjustGroupCapacityForecast,
+and GroupCapacityComplianceError, pertain to Capacity. The remaining
+two messages, UpdateGroupMeasurements, and UpdateAssetMeasurements, relate to Metering

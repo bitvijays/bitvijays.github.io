@@ -25,7 +25,7 @@
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../_static/documentation_options.js?v=51b770b3"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/debug.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -318,6 +318,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#systemd-networkd">systemd-networkd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id6">ip</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#netplan">netplan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ifconfig">ifconfig</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ping-ip-address">Ping IP Address</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#windows">Windows</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#powershell">Powershell</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#cmd">CMD</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -692,7 +701,6 @@
 <li class="toctree-l1"><a class="reference internal" href="LFF-ESS-P0C-CloudEssentials.html">Cloud Infrastructure Technologies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="LFF-ESS-P0E-OpenSource.html">Open Source Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="LFF-ESS-P0D-SecureSoftware.html">Secure Software Development Fundamentals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LFF-ESS-P0F-IndustrialControlSystems.html">Industrial Control Systems</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Infrastructure Pentest</span></p>
 <ul>
@@ -721,6 +729,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Critical Infrastructure</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-IndustrialControlSystems.html">Industrial Control Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Series_Critical_Infrastructure/LFF-CIS-ElectricalGrid.html">Electrical Grid</a></li>
 </ul>
 
@@ -3273,9 +3282,11 @@ typing a password each time securely.</p>
 </ul>
 <section id="ifupdown-s-configuration-file">
 <h5>ifupdown’s configuration file<a class="headerlink" href="#ifupdown-s-configuration-file" title="Link to this heading"></a></h5>
-<p>There are two main directives:
-- auto network-device, which tells ifupdown to automatically configure the network interface once it is available, and
-- iface network-device inet/inet6 type to configure a given interface.</p>
+<p>There are two main directives:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">network-device</span></code>, which tells ifupdown to automatically configure the network interface once it is available, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iface</span> <span class="pre">network-device</span> <span class="pre">inet/inet6</span> <span class="pre">type</span></code> to configure a given interface.</p></li>
+</ul>
 <p>For example, For example, a plain DHCP configuration looks like this:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">auto lo</span>
 <span class="go">iface lo inet loopback</span>
@@ -3284,7 +3295,7 @@ typing a password each time securely.</p>
 <span class="go">iface eth0 inet dhcp</span>
 </pre></div>
 </div>
-<p>Note that the special configuration for the loopback device should always be present in this file. For a fixed IP address configuration, you have to provide more details such as the IP address, the network, and the IP of the gateway:</p>
+<p>Note that the special configuration for the loopback device should always be present in this file. For a fixed IP address configuration, we have to provide more details such as the IP address, the network, and the IP of the gateway:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">auto eth0</span>
 <span class="go">iface eth0 inet static</span>
 <span class="go">address 192.168.0.3</span>
@@ -3294,11 +3305,11 @@ typing a password each time securely.</p>
 <span class="go">gateway 192.168.0.1</span>
 </pre></div>
 </div>
-<p>For wireless interfaces, we must have the wpasupplicant package, which provides many wpa-* options that can be used in <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code>. Have a look at /usr/share/doc/wpasupplicant/README.Debian.gz for examples and explanations.</p>
+<p>For wireless interfaces, we must have the <code class="docutils literal notranslate"><span class="pre">wpasupplicant</span></code> package, which provides many wpa-* options that can be used in <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code>. Have a look at <code class="docutils literal notranslate"><span class="pre">/usr/share/doc/wpasupplicant/README.Debian.gz</span></code> for examples and explanations.</p>
 <p>The most common options are</p>
 <ul class="simple">
-<li><p>wpa-ssid (which defines the name of the wireless network to join) and</p></li>
-<li><p>wpa-psk (which defines the passphrase or the key protecting the network).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wpa-ssid</span></code> (which defines the name of the wireless network to join) and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wpa-psk</span></code> (which defines the passphrase or the key protecting the network).</p></li>
 </ul>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">iface wlan0 inet dhcp</span>
 <span class="go">wpa-ssid HomeNetworkSSID</span>
@@ -3314,8 +3325,8 @@ typing a password each time securely.</p>
 <li><p>Alternatively, we can use <code class="docutils literal notranslate"><span class="pre">/lib/systemd/network/</span></code> for packaged files or <code class="docutils literal notranslate"><span class="pre">/run/systemd/network/</span></code> for files generated at run-time.</p></li>
 <li><p>The format of those files is documented in systemd.network(5).</p>
 <ul>
-<li><p>The [Match] section indicates the network interfaces the configuration applies to. We can specify the interface in many ways, including by media access control (MAC) address or device type.</p></li>
-<li><p>The [Network] section defines the network configuration.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">[Match]</span></code> section indicates the network interfaces the configuration applies to. We can specify the interface in many ways, including by media access control (MAC) address or device type.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">[Network]</span></code> section defines the network configuration.</p></li>
 </ul>
 </li>
 </ul>
@@ -3339,7 +3350,7 @@ typing a password each time securely.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">System-networkd</span></code> is disabled by default. We should should enable it. It also depends on systemd-resolved for proper integration of DNS resolution, which in turn requires to replace <code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code> with a symlink to <code class="docutils literal notranslate"><span class="pre">/run/systemd/resolve/resolv.conf</span></code>, which is managed by <code class="docutils literal notranslate"><span class="pre">systemd-resolved</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">System-networkd</span></code> is disabled by default. We should enable it. It also depends on systemd-resolved for proper integration of DNS resolution, which in turn requires to replace <code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code> with a symlink to <code class="docutils literal notranslate"><span class="pre">/run/systemd/resolve/resolv.conf</span></code>, which is managed by <code class="docutils literal notranslate"><span class="pre">systemd-resolved</span></code>.</p>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl enable systemd-networkd</span>
 <span class="go">systemctl enable systemd-resolved</span>
@@ -3354,6 +3365,22 @@ typing a password each time securely.</p>
 </section>
 <section id="netplan">
 <h4>netplan<a class="headerlink" href="#netplan" title="Link to this heading"></a></h4>
+</section>
+<section id="ifconfig">
+<h4>ifconfig<a class="headerlink" href="#ifconfig" title="Link to this heading"></a></h4>
+</section>
+</section>
+<section id="ping-ip-address">
+<h3>Ping IP Address<a class="headerlink" href="#ping-ip-address" title="Link to this heading"></a></h3>
+<p>Sometimes, we might be in strange situations where we need to ping some IP address</p>
+<section id="windows">
+<h4>Windows<a class="headerlink" href="#windows" title="Link to this heading"></a></h4>
+<section id="powershell">
+<h5>Powershell<a class="headerlink" href="#powershell" title="Link to this heading"></a></h5>
+</section>
+<section id="cmd">
+<h5>CMD<a class="headerlink" href="#cmd" title="Link to this heading"></a></h5>
+</section>
 </section>
 </section>
 </section>
